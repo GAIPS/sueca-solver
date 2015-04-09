@@ -5,12 +5,13 @@ namespace SuecaSolver
 	public class GameState
 	{
 
-		private Trick[] tricks = new Trick[10];
+		private Trick[] tricks;
 		private int currentTrick;
 
-		public GameState(Suit trumpSuit)
+		public GameState(int numTricks, Suit trumpSuit)
 		{
-			for (int i = 0; i < 10; i++)
+			tricks = new Trick[numTricks];
+			for (int i = 0; i < numTricks; i++)
 			{
 				tricks[i] = new Trick(trumpSuit);
 			}
@@ -26,7 +27,7 @@ namespace SuecaSolver
 		{
 			tricks[currentTrick].ApplyMove(move);
 
-			if (tricks[currentTrick].IsEndTrick())
+			if (tricks[currentTrick].IsEndTrick() && (currentTrick + 1) < tricks.Length)
 			{
 				currentTrick++;
 			}
@@ -34,7 +35,7 @@ namespace SuecaSolver
 
 		public void UndoMove()
 		{
-			if (currentTrick == 10 || IsNewTrick())
+			if (IsNewTrick())
 			{
 				currentTrick--;
 			}
@@ -48,7 +49,7 @@ namespace SuecaSolver
 
 		public bool IsNewTrick()
 		{
-			if (tricks[currentTrick].IsNewTrick())
+			if (currentTrick == tricks.Length || tricks[currentTrick].IsNewTrick())
 			{
 				return true;
 			}
@@ -57,7 +58,16 @@ namespace SuecaSolver
 
 		public bool IsEndGame()
 		{
-			if (tricks[9].IsEndTrick())
+			if (tricks[tricks.Length - 1].IsEndTrick())
+			{
+				return true;
+			}
+			return false;
+		}
+
+		public bool IsEndTrick()
+		{
+			if (tricks[currentTrick].IsEndTrick())
 			{
 				return true;
 			}
@@ -67,7 +77,7 @@ namespace SuecaSolver
 		public int EvalGame()
 		{
 			int result = 0;
-			for (int i = 0; i < 10; i++)
+			for (int i = 0; i < tricks.Length; i++)
 			{
 				Console.WriteLine("--- Trick " + i + ": ---");
 				int trickResult = tricks[i].EvalTrick();
@@ -78,6 +88,11 @@ namespace SuecaSolver
 				Console.WriteLine("Trickresult: " + trickResult + " Sum: " + result);
 			}
 			return result;
+		}
+
+		public int EvalTrick()
+		{
+			return tricks[currentTrick].EvalTrick();
 		}
 
 	}

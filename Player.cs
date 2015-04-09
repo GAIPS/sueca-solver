@@ -11,8 +11,9 @@ namespace SuecaSolver
 		public Player NextPlayer;
 		private int handSize;
 
-		public Player(int id, int numCards, Card[] hand)
+		public Player(int id, Card[] hand)
 		{
+			int numCards = hand.Length;
 			Id = id;
 			Hand = new Card[numCards];
 			handSize = numCards;
@@ -23,6 +24,8 @@ namespace SuecaSolver
 		}
 
 		abstract public int PlayGame(GameState gameState);
+		abstract public int PlayTrick(GameState gameState);
+		abstract public int PlayTrick(GameState gameState, Card move);
 
 		public Card[] AllAvailableCards()
 		{
