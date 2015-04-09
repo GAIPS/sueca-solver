@@ -4,48 +4,36 @@ namespace SuecaSolver
 {
 	public class MaxPlayer : Player
 	{
-		private int lol = 0;
+		private int possibleGamesCounter = 0;
 
-		public MaxPlayer(int id, Card[] hand) : base(id, hand)
+		public MaxPlayer(int id, int numCards, Card[] hand) : base(id, numCards, hand)
 		{
 		}
 
-		override public int Play(GameState gameState)
+		override public int PlayGame(GameState gameState)
 		{
-			int bestMove = 0;
-
 			if (gameState.IsEndGame())
 			{
-				// Console.WriteLine("Max is evaluating the game and lol: " + lol);
-				// Console.WriteLine("Max eval: {0}", gameState.EvalGame());
-				int gameResult = gameState.EvalGame();
-
-				lol++;
-				// if (lol == 2)
-				// {
-				// 	System.Environment.Exit(1);
-				// }
-				return gameResult;
+				possibleGamesCounter++;
+				if (possibleGamesCounter < 2)
+				{
+					return gameState.EvalGame();
+				}
+				System.Environment.Exit(1);
 			}
 
+			int bestMove = 0;
 			Card[] moves = PossibleMoves(gameState);
-			// PrintCards(moves);
 			foreach (Card move in moves)
 			{
-				if (Id == 0 && gameState.GetCurrentTrick() == 0)
-				{
-					Console.WriteLine("next move from player 0 at trick 0 and lol: " + lol);
-				}
 				gameState.ApplyMove(move);
-				int moveValue = NextPlayer.Play(gameState);
-
+				int moveValue = NextPlayer.PlayGame(gameState);
 				if (moveValue > bestMove)
 				{
 					bestMove = moveValue;
 				}
 				gameState.UndoMove();
 			}
-
 			return bestMove;
 		}
 	}

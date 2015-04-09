@@ -5,36 +5,27 @@ namespace SuecaSolver
 	public class MinPlayer : Player
 	{
 
-		public MinPlayer(int id, Card[] hand) : base(id, hand)
+		public MinPlayer(int id, int numCards, Card[] hand) : base(id, numCards, hand)
 		{
 		}
 
-		override public int Play(GameState gameState)
+		override public int PlayGame(GameState gameState)
 		{
-			int bestMove = 10000;
-
-			if (gameState.IsEndGame())
-			{
-				Console.WriteLine("Min is evaluating the game");
-				Console.WriteLine("Min eval: {0}", gameState.EvalGame());
-				System.Environment.Exit(1);
-			}
-
+			int worstMove = Int32.MaxValue;
 			Card[] moves = PossibleMoves(gameState);
-			// PrintCards(moves);
 			foreach (Card move in moves)
 			{
 				gameState.ApplyMove(move);
-				int moveValue = NextPlayer.Play(gameState);
+				int moveValue = NextPlayer.PlayGame(gameState);
 
-				if (moveValue < bestMove)
+				if (moveValue < worstMove)
 				{
-					bestMove = moveValue;
+					worstMove = moveValue;
 				}
 				gameState.UndoMove();
 			}
 
-			return bestMove;
+			return worstMove;
 		}
 	}
 }

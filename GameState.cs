@@ -69,13 +69,13 @@ namespace SuecaSolver
 			int result = 0;
 			for (int i = 0; i < 10; i++)
 			{
-				// Console.WriteLine("--- Trick " + i + ": ---");
+				Console.WriteLine("--- Trick " + i + ": ---");
 				int trickResult = tricks[i].EvalTrick();
 				if (trickResult > 0)
 				{
 					result += trickResult;
 				}
-				// Console.WriteLine("Trickresult: " + trickResult + " Sum: " + result);
+				Console.WriteLine("Trickresult: " + trickResult + " Sum: " + result);
 			}
 			return result;
 		}

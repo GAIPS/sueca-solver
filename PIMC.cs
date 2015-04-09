@@ -8,8 +8,8 @@ namespace SuecaSolver
 		public static void Main ()
 		{
 			Deck d = new Deck();
-			Game game = new Game(d.getHand(), Suit.Clubs, 0);
-			game.Play();
+			SuecaGame game = new SuecaGame(d.getHand(), Suit.Clubs, 0);
+			game.SampleGame();
 			SuecaHelper sh = new SuecaHelper();
 			InformationSet i = new InformationSet();
 			sh.PIMC(i, 1);

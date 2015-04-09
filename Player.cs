@@ -7,25 +7,28 @@ namespace SuecaSolver
 	{
 
 		public int Id;
-		public Card[] Hand = new Card[10];
+		public Card[] Hand;
 		public Player NextPlayer;
+		private int handSize;
 
-		public Player(int id, Card[] hand)
+		public Player(int id, int numCards, Card[] hand)
 		{
 			Id = id;
-			for (int i = 0; i < 10; i++)
+			Hand = new Card[numCards];
+			handSize = numCards;
+			for (int i = 0; i < numCards; i++)
 			{
 				Hand[i] = hand[i];
 			}
 		}
 
-		abstract public int Play(GameState gameState);
+		abstract public int PlayGame(GameState gameState);
 
 		public Card[] AllAvailableCards()
 		{
 			List<Card> allAvailableCards = new List<Card>();
 
-			for (int i = 0; i < 10; i++)
+			for (int i = 0; i < handSize; i++)
 			{
 				if (!Hand[i].HasBeenPlayed)
 				{
@@ -39,7 +42,7 @@ namespace SuecaSolver
 		{
 			List<Card> allAvailableCards = new List<Card>();
 
-			for (int i = 0; i < 10; i++)
+			for (int i = 0; i < handSize; i++)
 			{
 				if (!Hand[i].HasBeenPlayed && Hand[i].Suit == leadSuit)
 				{
@@ -66,7 +69,7 @@ namespace SuecaSolver
 			return possibleMoves;
 		}
 
-		public void PrintCards(Card[] cards)
+		private void printCards(Card[] cards)
 		{
 			string str = "PlayerId: " + Id + " - ";
 			foreach (Card c in cards)
@@ -74,6 +77,11 @@ namespace SuecaSolver
 				str += c.ToString() + ", ";
 			}
 			Console.WriteLine(str);
+		}
+
+		public void PrintHand()
+		{
+			printCards(Hand);
 		}
 
 		public override string ToString()

@@ -60,11 +60,11 @@ namespace SuecaSolver
 			int winningPlayer = 0;
 			int result = highestValueFromWinningSuit;
 
-			// Console.WriteLine("Card: " + moves[0].ToString());
+			Console.WriteLine("Card: " + moves[0].ToString());
 
 			for (int i = 1; i < 4; i++)
 			{
-				// Console.WriteLine("Card: " + moves[i].ToString());
+				Console.WriteLine("Card: " + moves[i].ToString());
 				if (moves[i].Suit == trump && winningSuit != trump)
 				{
 					winningSuit = trump;
