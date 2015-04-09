@@ -6,10 +6,10 @@ namespace SuecaSolver
 		Four,
 		Five,
 		Six,
-		Seven,
 		Queen,
 		Jack,
 		King,
+		Seven,
 		Ace
 	};
 
@@ -17,7 +17,7 @@ namespace SuecaSolver
 		Clubs,
 		Diamonds,
 		Hearts,
-		Spaces
+		Spades
 	};
 
 }
