@@ -20,7 +20,10 @@ namespace SuecaSolver
 			Card[] p1 = d.getHand();
 			Card[] p2 = d.getHand();
 			Card[] p3 = d.getHand();
-			SuecaGame game = new SuecaGame(p0, p1, p2, p3, Suit.Clubs, 0);
+
+			Move[] alreadyPlayed = new Move[1];
+			alreadyPlayed[0] = new Move(3, p3[0]);
+			SuecaGame game = new SuecaGame(p0, p1, p2, p3, Suit.Clubs, alreadyPlayed);
 			game.PrintPlayersHands();
 			game.SampleTrick();
 		}

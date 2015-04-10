@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace SuecaSolver
 {
@@ -6,13 +7,11 @@ namespace SuecaSolver
 	{
 
 		private Player[] players = new Player[4];
-		private int firstPlayerId;
 		private Suit trump;
 		private GameState gameState;
 
-		public SuecaGame(Card[] hand, Suit trumpSuit, int firstPlayer)
+		public SuecaGame(Card[] hand, Suit trumpSuit)
 		{
-			firstPlayerId = firstPlayer;
 			trump = trumpSuit;
 			Deck deck = new Deck(hand);
 			players[0] = new MaxPlayer(0, hand);
@@ -27,7 +26,7 @@ namespace SuecaSolver
 			gameState = new GameState(10, trump);
 		}
 
-		public SuecaGame(Card[] p0, Card[] p1, Card[] p2, Card[] p3, Suit trumpSuit, int firstPlayer)
+		public SuecaGame(Card[] p0, Card[] p1, Card[] p2, Card[] p3, Suit trumpSuit, Move[] alreadyPlayed)
 		{
 			players[0] = new MaxPlayer(0, p0);
 			players[1] = new MinPlayer(1, p1);
@@ -38,20 +37,40 @@ namespace SuecaSolver
 			players[2].NextPlayer = players[3];
 			players[3].NextPlayer = players[0];
 
+			//THIS GAME SHOULD HAVE ONLY ONE TRICK AND IT MIGHT BE A PROBLEM
 			gameState = new GameState(1, trump);
+			Console.WriteLine(gameState.GetLeadSuit());
+
+			if (alreadyPlayed != null)
+			{
+				foreach (Move move in alreadyPlayed)
+				{
+					Console.WriteLine("Going to add the already played card: " + move);
+					gameState.ApplyMove(move);
+				}
+			}
 		}
 
 		public int SampleGame()
 		{
-			int bestmove = players[firstPlayerId].PlayGame(gameState);
+			Player myPlayer = players[0];
+			int bestmove = myPlayer.PlayGame(gameState);
 			Console.WriteLine("Game sampling result: " + bestmove);
 			return bestmove;
 		}
 
 		public int SampleTrick()
 		{
-			Player p = players[firstPlayerId];
-			int bestmove = p.PlayTrick(gameState, p.Hand[0]);
+			Player myPlayer = players[0];
+			int bestmove = myPlayer.PlayTrick(gameState);
+			Console.WriteLine("Trick sampling result: " + bestmove);
+			return bestmove;
+		}
+
+		public int SampleTrick(Card card)
+		{
+			Player myPlayer = players[0];
+			int bestmove = myPlayer.PlayTrick(gameState, card);
 			Console.WriteLine("Trick sampling result: " + bestmove);
 			return bestmove;
 		}
@@ -65,5 +84,46 @@ namespace SuecaSolver
 			players[3].PrintHand();
 			Console.WriteLine("-----------------------");
 		}
+
+		public static Card[] PossibleMoves(Card[] hand, Suit leadSuit)
+		{
+			if (leadSuit == Suit.None)
+			{
+				return hand;
+			}
+
+			List<Card> result = new List<Card>();
+
+			foreach (Card card in hand)
+			{
+				if (card.Suit == leadSuit)
+				{
+					result.Add(card);
+				}
+			}
+
+			if (result.Count > 0)
+			{
+				return result.ToArray();
+			}
+
+			return hand;
+		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

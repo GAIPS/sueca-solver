@@ -25,10 +25,10 @@ namespace SuecaSolver
 			}
 
 			int bestMove = 0;
-			Card[] moves = PossibleMoves(gameState);
+			Card[] moves = SuecaGame.PossibleMoves(Hand, gameState.GetLeadSuit());
 			foreach (Card move in moves)
 			{
-				gameState.ApplyMove(move);
+				gameState.ApplyMove(new Move(Id, move));
 				int moveValue = NextPlayer.PlayGame(gameState);
 				if (moveValue > bestMove)
 				{
@@ -43,14 +43,14 @@ namespace SuecaSolver
 		{
 			if (gameState.IsEndTrick())
 			{
-				return gameState.EvalGame();
+				return gameState.EvalTrick();
 			}
 
-			int bestMove = -10000;
-			Card[] moves = PossibleMoves(gameState);
+			int bestMove = Int32.MinValue;
+			Card[] moves = SuecaGame.PossibleMoves(Hand, gameState.GetLeadSuit());
 			foreach (Card move in moves)
 			{
-				gameState.ApplyMove(move);
+				gameState.ApplyMove(new Move(Id, move));
 				int moveValue = NextPlayer.PlayTrick(gameState);
 				if (moveValue > bestMove)
 				{
@@ -68,9 +68,9 @@ namespace SuecaSolver
 				return gameState.EvalTrick();
 			}
 
-			int bestMove = -10000;
+			int bestMove = Int32.MinValue;
 
-			gameState.ApplyMove(move);
+			gameState.ApplyMove(new Move(Id, move));
 			int moveValue = NextPlayer.PlayTrick(gameState);
 			if (moveValue > bestMove)
 			{

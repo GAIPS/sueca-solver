@@ -41,36 +41,36 @@ namespace SuecaSolver
 			return allAvailableCards.ToArray();
 		}
 
-		public Card[] AvailableCardsFromSuit(Suit leadSuit)
-		{
-			List<Card> allAvailableCards = new List<Card>();
+		// public Card[] AvailableCardsFromSuit(Suit leadSuit)
+		// {
+		// 	List<Card> allAvailableCards = new List<Card>();
 
-			for (int i = 0; i < handSize; i++)
-			{
-				if (!Hand[i].HasBeenPlayed && Hand[i].Suit == leadSuit)
-				{
-					allAvailableCards.Add(Hand[i]);
-				}
-			}
-			return allAvailableCards.ToArray();
-		}
+		// 	for (int i = 0; i < handSize; i++)
+		// 	{
+		// 		if (!Hand[i].HasBeenPlayed && Hand[i].Suit == leadSuit)
+		// 		{
+		// 			allAvailableCards.Add(Hand[i]);
+		// 		}
+		// 	}
+		// 	return allAvailableCards.ToArray();
+		// }
 
-		public Card[] PossibleMoves(GameState gameState)
-		{
-			if (gameState.IsNewTrick())
-			{
-				return AllAvailableCards();
-			}
+		// public Card[] PossibleMoves(GameState gameState)
+		// {
+		// 	if (gameState.IsNewTrick())
+		// 	{
+		// 		return AllAvailableCards();
+		// 	}
 
-			Card[] possibleMoves = AvailableCardsFromSuit(gameState.GetLeadSuit());
+		// 	Card[] possibleMoves = AvailableCardsFromSuit(gameState.GetLeadSuit());
 
-			if (possibleMoves.Length == 0)
-			{
-				return AllAvailableCards();
-			}
+		// 	if (possibleMoves.Length == 0)
+		// 	{
+		// 		return AllAvailableCards();
+		// 	}
 
-			return possibleMoves;
-		}
+		// 	return possibleMoves;
+		// }
 
 		private void printCards(Card[] cards)
 		{

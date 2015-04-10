@@ -12,10 +12,10 @@ namespace SuecaSolver
 		override public int PlayGame(GameState gameState)
 		{
 			int worstMove = Int32.MaxValue;
-			Card[] moves = PossibleMoves(gameState);
+			Card[] moves = SuecaGame.PossibleMoves(Hand, gameState.GetLeadSuit());
 			foreach (Card move in moves)
 			{
-				gameState.ApplyMove(move);
+				gameState.ApplyMove(new Move(Id, move));
 				int moveValue = NextPlayer.PlayGame(gameState);
 
 				if (moveValue < worstMove)
@@ -32,14 +32,15 @@ namespace SuecaSolver
 		{
 			if (gameState.IsEndTrick())
 			{
-				return gameState.EvalGame();
+				Console.WriteLine("FORBIDEN1!");
+				return gameState.EvalTrick();
 			}
 
-			int bestMove = 100000;
-			Card[] moves = PossibleMoves(gameState);
+			int bestMove = Int32.MaxValue;
+			Card[] moves = SuecaGame.PossibleMoves(Hand, gameState.GetLeadSuit());
 			foreach (Card move in moves)
 			{
-				gameState.ApplyMove(move);
+				gameState.ApplyMove(new Move(Id, move));
 				int moveValue = NextPlayer.PlayTrick(gameState);
 				if (moveValue < bestMove)
 				{
@@ -52,7 +53,7 @@ namespace SuecaSolver
 
 		override public int PlayTrick(GameState gameState, Card move)
 		{
-			Console.WriteLine("FORBIDEN!");
+			Console.WriteLine("FORBIDEN2!");
 			return 0;
 		}
 	}

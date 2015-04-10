@@ -23,7 +23,7 @@ namespace SuecaSolver
 			return currentTrick;
 		}
 
-		public void ApplyMove(Card move)
+		public void ApplyMove(Move move)
 		{
 			tricks[currentTrick].ApplyMove(move);
 
@@ -92,7 +92,10 @@ namespace SuecaSolver
 
 		public int EvalTrick()
 		{
-			return tricks[currentTrick].EvalTrick();
+			Console.WriteLine("--- Trick ---");
+			int trickResult = tricks[currentTrick].EvalTrick();
+			Console.WriteLine("Trickresult: " + trickResult + " Sum: " + trickResult);
+			return trickResult;
 		}
 
 	}

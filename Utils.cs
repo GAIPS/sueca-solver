@@ -17,7 +17,8 @@ namespace SuecaSolver
 		Clubs,
 		Diamonds,
 		Hearts,
-		Spades
+		Spades,
+		None
 	};
 
 }
