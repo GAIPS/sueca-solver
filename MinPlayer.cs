@@ -32,7 +32,6 @@ namespace SuecaSolver
 		{
 			if (gameState.IsEndTrick())
 			{
-				Console.WriteLine("FORBIDEN1!");
 				return gameState.EvalTrick();
 			}
 

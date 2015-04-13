@@ -1,31 +1,31 @@
 using System;
+using System.Collections.Generic;
 
 namespace SuecaSolver
 {
 	public class PIMC
 	{
-
-		public static void Main ()
+		private int perfectInfoGame(InformationSet i, int n)
 		{
-			// Deck d = new Deck();
-			// SuecaGame game = new SuecaGame(d.getHand(), Suit.Clubs, 0);
-			// game.SampleGame();
-			// SuecaHelper sh = new SuecaHelper();
-			// InformationSet i = new InformationSet();
-			// sh.PIMC(i, 1);
+			return 1;
+		}
 
+		public void ExecutePIMC(InformationSet i, int N)
+		{
+			Dictionary<int, int> movesValues = new Dictionary<int, int>();
+			foreach (int move in i.Hand)
+			{
+				movesValues.Add(move, 0);
+			}
 
-			Deck d = new Deck();
-			Card[] p0 = d.getHand();
-			Card[] p1 = d.getHand();
-			Card[] p2 = d.getHand();
-			Card[] p3 = d.getHand();
-
-			Move[] alreadyPlayed = new Move[1];
-			alreadyPlayed[0] = new Move(3, p3[0]);
-			SuecaGame game = new SuecaGame(p0, p1, p2, p3, Suit.Clubs, alreadyPlayed);
-			game.PrintPlayersHands();
-			game.SampleTrick();
+			for (int j = 0; j < N; j++)
+			{
+				i.sample();
+				foreach (int move in i.Hand)
+				{
+					movesValues[move] = movesValues[move] + perfectInfoGame(i, move);
+				}
+			}
 		}
 	}
 }
