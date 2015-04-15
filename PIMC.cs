@@ -10,22 +10,24 @@ namespace SuecaSolver
 			return 1;
 		}
 
-		public void ExecutePIMC(InformationSet i, int N)
+		public void Execute(InformationSet i, int N)
 		{
-			Dictionary<int, int> movesValues = new Dictionary<int, int>();
-			foreach (int move in i.Hand)
-			{
-				movesValues.Add(move, 0);
-			}
+			// Dictionary<int, int> movesValues = new Dictionary<int, int>();
+			// foreach (int move in i.Hand)
+			// {
+			// 	movesValues.Add(move, 0);
+			// }
 
-			for (int j = 0; j < N; j++)
-			{
-				i.sample();
-				foreach (int move in i.Hand)
-				{
-					movesValues[move] = movesValues[move] + perfectInfoGame(i, move);
-				}
-			}
+			// for (int j = 0; j < N; j++)
+			// {
+			// 	i.sample();
+			// 	foreach (int move in i.Hand)
+			// 	{
+			// 		movesValues[move] = movesValues[move] + perfectInfoGame(i, move);
+			// 	}
+			// }
+
+			Console.WriteLine("Executing PIMC");
 		}
 	}
 }

@@ -15,9 +15,9 @@ namespace SuecaSolver
 			trump = trumpSuit;
 			Deck deck = new Deck(hand);
 			players[0] = new MaxPlayer(0, hand);
-			players[1] = new MinPlayer(1, deck.getHand());
-			players[2] = new MaxPlayer(2, deck.getHand());
-			players[3] = new MinPlayer(3, deck.getHand());
+			players[1] = new MinPlayer(1, deck.GetHand(10).ToArray());
+			players[2] = new MaxPlayer(2, deck.GetHand(10).ToArray());
+			players[3] = new MinPlayer(3, deck.GetHand(10).ToArray());
 			players[0].NextPlayer = players[1];
 			players[1].NextPlayer = players[2];
 			players[2].NextPlayer = players[3];
@@ -108,6 +108,16 @@ namespace SuecaSolver
 			}
 
 			return hand;
+		}
+
+		public static void PrintCards(string name, List<Card> cards)
+		{
+			string str = name + " - ";
+			for (int i = 0; i < cards.Count; i++)
+			{
+				str += cards[i].ToString() + ", ";
+			}
+			Console.WriteLine(str);
 		}
 	}
 }

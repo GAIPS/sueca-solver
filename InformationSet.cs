@@ -5,60 +5,75 @@ namespace SuecaSolver
 {
 	public class InformationSet
 	{
+		public List<Card> Hand;
+		private List<Card> alreadyPlayed;
+		private Suit trump;
+		private int firstPlayerId;
+		public List<InformationSet> Children;
 
-		public int[] Hand = new int[10];
-		public List<int> Deck = new List<int>();
-		public int[] player1 = new int[10];
-		public int[] player2 = new int[10];
-		public int[] player3 = new int[10];
 
 		public InformationSet()
 		{
-			for (int i = 0; i < 40; i++)
-			{
-				Deck.Add(i);
-			}
-			distributeCardToPlayer(Deck, Hand);
+			trump = Suit.Clubs;
+			firstPlayerId = 0;
+			Children = new List<InformationSet>();
+			alreadyPlayed = new List<Card>();
+
+			Deck deck = new Deck();
+			Hand = deck.GetHand(10);
 		}
 
-		public List<int> distributeCardToPlayer(List<int> deck, int[] player)
+		public InformationSet(List<Card> hand, List<Card> played, Card card)
 		{
-			Random r = new Random();
-			for (int randomIndex = 0, i = 0; i < 10; i++)
-			{
-				randomIndex = r.Next(0, deck.Count);
-				player[i] = deck[randomIndex];
-				deck.RemoveAt(randomIndex);
-			}
-			return deck;
+			trump = Suit.Clubs;
+			firstPlayerId = 0;
+			Hand = new List<Card>();
+			Children = new List<InformationSet>();
+			alreadyPlayed = new List<Card>();
+
+			setHand(hand);
+			Hand.Remove(card);
+			setAlreadyPlayed(played);
+			alreadyPlayed.Add(card);
 		}
 
-		public void sample()
+		private void setHand(List<Card> cards)
 		{
-			List<int> deck = new List<int>(Deck);
-			deck = distributeCardToPlayer(deck, player1);
-			deck = distributeCardToPlayer(deck, player2);
-			deck = distributeCardToPlayer(deck, player3);
+			for (int i = 0; i < cards.Count; i++)
+			{
+				Hand.Add(cards[i]);
+			}
 		}
 
-		public void PrintPlayerHand(int[] player, string name)
+		// public List<Card> GetAvailableMoves()
+		// {
+
+		// }
+
+		private void setAlreadyPlayed(List<Card> cards)
 		{
-			string playerHand = name + ": ";
-			for (int i = 0; i < player.Length; i++)
+			for (int i = 0; i < cards.Count; i++)
 			{
-				playerHand += player[i].ToString() + " ";
+				alreadyPlayed.Add(cards[i]);
 			}
-			Console.WriteLine(playerHand);
 		}
 
-		public void PrintDeck()
+		public InformationSet createInformationSet(Card card)
 		{
-			string deck = "Deck: ";
-			for (int i = 0; i < Deck.Count; i++)
-			{
-				deck += Deck[i].ToString() + " ";
-			}
-			Console.WriteLine(deck);
+			InformationSet newChild = new InformationSet(Hand, alreadyPlayed, card);
+			Children.Add(newChild);
+
+			return newChild;
+		}
+
+		public void PrintInfoSet()
+		{
+			Console.WriteLine("------------INFOSET------------");
+			SuecaGame.PrintCards("Hand", Hand);
+			SuecaGame.PrintCards("Already Played", alreadyPlayed);
+			Console.WriteLine("Trump - " + trump);
+			Console.WriteLine("First player ID - " + firstPlayerId);
+			Console.WriteLine("# Children - " + Children.Count);
 		}
 	}
 }

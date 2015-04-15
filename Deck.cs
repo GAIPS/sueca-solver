@@ -28,17 +28,19 @@ namespace SuecaSolver
 			}
 		}
 
-		public Card[] getHand()
+		public List<Card> GetHand(int handSize)
 		{
-			Card[] hand = new Card[10];
+			List<Card> hand = new List<Card>(handSize);
 			Random r = new Random();
-			for (int randomIndex = 0, i = 0; i < 10; i++)
+			for (int randomIndex = 0, i = 0; i < handSize; i++)
 			{
 				randomIndex = r.Next(0, deck.Count);
-				hand[i] = deck[randomIndex];
+				hand.Add(deck[randomIndex]);
 				deck.RemoveAt(randomIndex);
 			}
 			return hand;
 		}
+
+		// public Card[][] sample
 	}
 }
