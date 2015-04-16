@@ -7,13 +7,15 @@ namespace SuecaSolver
 
 		private Trick[] tricks;
 		private int currentTrick;
+		private bool debugFlag;
 
-		public GameState(int numTricks, Suit trumpSuit)
+		public GameState(int numTricks, Suit trumpSuit, bool debug)
 		{
 			tricks = new Trick[numTricks];
+			debugFlag = debug;
 			for (int i = 0; i < numTricks; i++)
 			{
-				tricks[i] = new Trick(trumpSuit);
+				tricks[i] = new Trick(trumpSuit, debug);
 			}
 			currentTrick = 0;
 		}
@@ -79,22 +81,22 @@ namespace SuecaSolver
 			int result = 0;
 			for (int i = 0; i < tricks.Length; i++)
 			{
-				Console.WriteLine("--- Trick " + i + ": ---");
+				if(debugFlag) Console.WriteLine("--- Trick " + i + ": ---");
 				int trickResult = tricks[i].EvalTrick();
 				if (trickResult > 0)
 				{
 					result += trickResult;
 				}
-				Console.WriteLine("Trickresult: " + trickResult + " Sum: " + result);
+				if(debugFlag) Console.WriteLine("Trickresult: " + trickResult + " Sum: " + result);
 			}
 			return result;
 		}
 
 		public int EvalTrick()
 		{
-			Console.WriteLine("--- Trick ---");
+			if(debugFlag) Console.WriteLine("--- Trick ---");
 			int trickResult = tricks[currentTrick].EvalTrick();
-			Console.WriteLine("Trickresult: " + trickResult + " Sum: " + trickResult);
+			if(debugFlag) Console.WriteLine("Trickresult: " + trickResult + " Sum: " + trickResult);
 			return trickResult;
 		}
 

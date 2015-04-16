@@ -7,9 +7,11 @@ namespace SuecaSolver
 	{
 
 		private List<Card> deck = new List<Card>();
+		private Random random;
 
 		public Deck()
 		{
+			random = new Random();
 			for (int i = 0; i < 40; i++)
 			{
 				deck.Add(new Card((Rank) (i % 10), (Suit) ((int) (i / 10))));
@@ -18,6 +20,7 @@ namespace SuecaSolver
 
 		public Deck(Card[] cards)
 		{
+			random = new Random();
 			for (int i = 0; i < 40; i++)
 			{
 				Card c = new Card((Rank) (i % 10), (Suit) ((int) (i / 10)));
@@ -31,16 +34,33 @@ namespace SuecaSolver
 		public List<Card> GetHand(int handSize)
 		{
 			List<Card> hand = new List<Card>(handSize);
-			Random r = new Random();
 			for (int randomIndex = 0, i = 0; i < handSize; i++)
 			{
-				randomIndex = r.Next(0, deck.Count);
+				randomIndex = random.Next(0, deck.Count);
 				hand.Add(deck[randomIndex]);
 				deck.RemoveAt(randomIndex);
 			}
 			return hand;
 		}
 
-		// public Card[][] sample
+		public List<List<Card>> Sample(int handSize)
+		{
+
+			List<List<Card>> players = new List<List<Card>>();
+			List<Card> deckCopy = new List<Card>(deck);
+
+			for (int i = 0; i < 3; i++)
+			{
+				players.Add(new List<Card>());
+				for (int randomIndex = 0, j = 0; j < handSize; j++)
+				{
+					randomIndex = random.Next(0, deckCopy.Count);
+					players[i].Add(deckCopy[randomIndex]);
+					deckCopy.RemoveAt(randomIndex);
+				}
+			}
+
+			return players;
+		}
 	}
 }

@@ -8,28 +8,17 @@ namespace SuecaSolver
 
 		public static void Main (string[] args)
 		{
+			int N = Convert.ToInt32(args[0]);
 			PIMC pimc = new PIMC();
 
 			if (args.Length > 0)
 			{
-				// Deck d = new Deck();
-				// Card[] p0 = d.GetHand(10);
-				// Card[] p1 = d.GetHand(10);
-				// Card[] p2 = d.GetHand(10);
-				// Card[] p3 = d.GetHand(10);
-
-				// Move[] alreadyPlayed = new Move[1];
-				// alreadyPlayed[0] = new Move(3, p3[0]);
-				// SuecaGame game = new SuecaGame(p0, p1, p2, p3, Suit.Clubs, alreadyPlayed);
-				// game.PrintPlayersHands();
-				//game.SampleTrick(SuecaGame.PossibleMoves(p0, p3[0].Suit)[0]);
-
-				InformationSet[] infoSet = new InformationSet[2];
-				for (int i = 0; i < 2; i++)
+				InformationSet[] infoSet = new InformationSet[1];
+				for (int i = 0; i < 1; i++)
 				{
 					infoSet[i] = new InformationSet();
+					pimc.Execute(infoSet[i], N);
 					// infoSet[i].PrintInfoSet();
-					pimc.Execute(infoSet[i], Convert.ToInt32(args[0]));
 
 				}
 
@@ -40,6 +29,7 @@ namespace SuecaSolver
 					{
 						Card c = child.Hand[i];
 						InformationSet childOfChild = child.createInformationSet(c);
+						pimc.Execute(childOfChild, N);
 						// childOfChild.PrintInfoSet();
 					}
 				}

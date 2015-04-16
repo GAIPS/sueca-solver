@@ -10,7 +10,7 @@ namespace SuecaSolver
 		private Suit trump;
 		private GameState gameState;
 
-		public SuecaGame(Card[] hand, Suit trumpSuit)
+		public SuecaGame(Card[] hand, Suit trumpSuit, bool debug)
 		{
 			trump = trumpSuit;
 			Deck deck = new Deck(hand);
@@ -23,10 +23,10 @@ namespace SuecaSolver
 			players[2].NextPlayer = players[3];
 			players[3].NextPlayer = players[0];
 
-			gameState = new GameState(10, trump);
+			gameState = new GameState(10, trump, debug);
 		}
 
-		public SuecaGame(Card[] p0, Card[] p1, Card[] p2, Card[] p3, Suit trumpSuit, Move[] alreadyPlayed)
+		public SuecaGame(Card[] p0, Card[] p1, Card[] p2, Card[] p3, Suit trumpSuit, Move[] alreadyPlayed, bool debug)
 		{
 			players[0] = new MaxPlayer(0, p0);
 			players[1] = new MinPlayer(1, p1);
@@ -38,8 +38,7 @@ namespace SuecaSolver
 			players[3].NextPlayer = players[0];
 
 			//THIS GAME SHOULD HAVE ONLY ONE TRICK AND IT MIGHT BE A PROBLEM
-			gameState = new GameState(1, trump);
-			Console.WriteLine(gameState.GetLeadSuit());
+			gameState = new GameState(1, trump, debug);
 
 			if (alreadyPlayed != null)
 			{
@@ -55,7 +54,6 @@ namespace SuecaSolver
 		{
 			Player myPlayer = players[0];
 			int bestmove = myPlayer.PlayGame(gameState);
-			Console.WriteLine("Game sampling result: " + bestmove);
 			return bestmove;
 		}
 
@@ -63,7 +61,6 @@ namespace SuecaSolver
 		{
 			Player myPlayer = players[0];
 			int bestmove = myPlayer.PlayTrick(gameState);
-			Console.WriteLine("Trick sampling result: " + bestmove);
 			return bestmove;
 		}
 
@@ -71,7 +68,6 @@ namespace SuecaSolver
 		{
 			Player myPlayer = players[0];
 			int bestmove = myPlayer.PlayTrick(gameState, card);
-			Console.WriteLine("Trick sampling result: " + bestmove);
 			return bestmove;
 		}
 

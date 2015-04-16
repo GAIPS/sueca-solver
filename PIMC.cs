@@ -5,29 +5,27 @@ namespace SuecaSolver
 {
 	public class PIMC
 	{
-		private int perfectInfoGame(InformationSet i, int n)
+
+		public void Execute(InformationSet infoSet, int N)
 		{
-			return 1;
-		}
+			for (int i = 0; i < N; i++)
+			{
+				List<List<Card>> players = infoSet.Sample();
+				Card[] p0 = infoSet.Hand.ToArray();
+				Card[] p1 = players[0].ToArray();
+				Card[] p2 = players[1].ToArray();
+				Card[] p3 = players[2].ToArray();
 
-		public void Execute(InformationSet i, int N)
-		{
-			// Dictionary<int, int> movesValues = new Dictionary<int, int>();
-			// foreach (int move in i.Hand)
-			// {
-			// 	movesValues.Add(move, 0);
-			// }
+				SuecaGame game = new SuecaGame(p0, p1, p2, p3, Suit.Clubs, null, false);
 
-			// for (int j = 0; j < N; j++)
-			// {
-			// 	i.sample();
-			// 	foreach (int move in i.Hand)
-			// 	{
-			// 		movesValues[move] = movesValues[move] + perfectInfoGame(i, move);
-			// 	}
-			// }
-
-			Console.WriteLine("Executing PIMC");
+				foreach (Card card in p0)
+				{
+					int cardValueInTrick = game.SampleTrick(card);
+					infoSet.AddCardValue(card, cardValueInTrick);
+					// Console.WriteLine("cardValueInTrick - " + card.ID + " " + cardValueInTrick);
+				}
+			}
+			infoSet.calculateAverages(N);
 		}
 	}
 }

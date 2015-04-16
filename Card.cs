@@ -13,9 +13,11 @@ namespace SuecaSolver
 		public Suit Suit;
 		public int Value;
 		public bool HasBeenPlayed;
+		public int ID;
 
 		public Card(Rank rank, Suit suit)
 		{
+			ID = ((int) suit) * 10 + (int) rank;
 			Rank = rank;
 			Suit = suit;
 			Value = cardValues[(int)rank];

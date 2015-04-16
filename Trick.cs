@@ -9,11 +9,13 @@ namespace SuecaSolver
 		private Move[] moves = new Move[4];
 		private int currentMove;
 		private Suit trump;
+		private bool debugFlag;
 
-		public Trick(Suit trumpSuit)
+		public Trick(Suit trumpSuit, bool debug)
 		{
 			LeadSuit = Suit.None;
 			trump = trumpSuit;
+			debugFlag = debug;
 			currentMove = 0;
 		}
 
@@ -61,11 +63,11 @@ namespace SuecaSolver
 			int winningPlayerId = moves[0].PlayerId;
 			int result = highestValueFromWinningSuit;
 
-			Console.WriteLine("Card: " + moves[0].Card.ToString());
+			if(debugFlag) Console.WriteLine("Card: " + moves[0].Card.ToString());
 
 			for (int i = 1; i < 4; i++)
 			{
-				Console.WriteLine("Card: " + moves[i].Card.ToString());
+				if(debugFlag) Console.WriteLine("Card: " + moves[i].Card.ToString());
 				if (moves[i].Card.Suit == trump && winningSuit != trump)
 				{
 					winningSuit = trump;
