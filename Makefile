@@ -1,10 +1,15 @@
 CC=mcs
+RR=mono
 FILES = $(wildcard *.cs)
+EXEFILE=sueca-solver.exe
 
-all: lol
+all: clean compile run
 
-lol:
-	$(CC) -out:sueca-solver.exe $(FILES)
+compile:
+	$(CC) -out:$(EXEFILE) $(FILES)
+
+run:
+	$(RR) $(EXEFILE) 30
 
 clean:
 	rm -rf *.exe
