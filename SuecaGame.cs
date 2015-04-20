@@ -32,8 +32,7 @@ namespace SuecaSolver
 			players[3] = new MinPlayer(3, p3);
 			debugFlag = debug;
 
-			//THIS GAME SHOULD HAVE ONLY ONE TRICK AND IT MIGHT BE A PROBLEM
-			gameState = new GameState(10, trump, players, debug);
+			gameState = new GameState(p0.Length, trump, players, debug);
 
 			if (alreadyPlayed != null)
 			{
@@ -47,6 +46,8 @@ namespace SuecaSolver
 
 		public int SampleGame(Card card = null)
 		{
+			//delete next line
+			PrintPlayersHands();
 			Player myPlayer = players[0];
 			if (debugFlag) PrintPlayersHands();
 			int bestmove = myPlayer.PlayGame(gameState, card);

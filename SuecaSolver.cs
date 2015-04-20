@@ -15,7 +15,7 @@ namespace SuecaSolver
 				int N = Convert.ToInt32(args[0]);
 				InformationSet infoSet = new InformationSet();
 				pimc.Execute(infoSet, N);
-				infoSet.PrintInfoSet();
+				// infoSet.PrintInfoSet();
 			} else {
 				Console.WriteLine("Choose the number of sample for PIMC.");
 			}

@@ -97,6 +97,12 @@ namespace SuecaSolver
 		}
 
 
+		public List<List<Card>> SampleAll(int n)
+		{
+			return deck.SampleAll(n);
+		}
+
+
 		private void printDictionary(string name)
 		{
 			string str = name + " -";

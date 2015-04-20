@@ -62,5 +62,25 @@ namespace SuecaSolver
 
 			return players;
 		}
+
+
+		public List<List<Card>> SampleAll(int n)
+		{
+			List<List<Card>> players = new List<List<Card>>();
+			List<Card> deckCopy = new List<Card>(deck);
+
+			for (int i = 0; i < 4; i++)
+			{
+				players.Add(new List<Card>());
+				for (int randomIndex = 0, j = 0; j < n; j++)
+				{
+					randomIndex = random.Next(0, deckCopy.Count);
+					players[i].Add(deckCopy[randomIndex]);
+					deckCopy.RemoveAt(randomIndex);
+				}
+			}
+
+			return players;
+		}
 	}
 }

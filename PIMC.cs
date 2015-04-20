@@ -10,11 +10,20 @@ namespace SuecaSolver
 		{
 			for (int i = 0; i < 1; i++)
 			{
+				/*
 				List<List<Card>> players = infoSet.Sample();
 				Card[] p0 = infoSet.Hand.ToArray();
 				Card[] p1 = players[0].ToArray();
 				Card[] p2 = players[1].ToArray();
 				Card[] p3 = players[2].ToArray();
+				*/
+
+				List<List<Card>> players = infoSet.SampleAll(2);
+				Card[] p0 = players[0].ToArray();
+				Card[] p1 = players[1].ToArray();
+				Card[] p2 = players[2].ToArray();
+				Card[] p3 = players[3].ToArray();
+
 
 				SuecaGame game = new SuecaGame(p0, p1, p2, p3, Suit.Clubs, null, false);
 

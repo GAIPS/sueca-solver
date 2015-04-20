@@ -25,7 +25,7 @@ namespace SuecaSolver
 				return gameState.EvalGame();
 			}
 
-			int bestMove = 0;
+			int bestMove = Int32.MinValue;
 			Card[] moves;
 
 			if (card == null)
