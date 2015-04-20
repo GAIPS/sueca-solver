@@ -9,7 +9,7 @@ compile:
 	$(CC) -out:$(EXEFILE) $(FILES)
 
 run:
-	$(RR) $(EXEFILE) 30
+	time $(RR) $(EXEFILE) 30
 
 clean:
 	rm -rf *.exe

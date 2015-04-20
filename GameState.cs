@@ -8,14 +8,20 @@ namespace SuecaSolver
 		private Trick[] tricks;
 		private int currentTrick;
 		private bool debugFlag;
+		private Player[] players;
 
-		public GameState(int numTricks, Suit trumpSuit, bool debug)
+		public GameState(int numTricks, Suit trumpSuit, Player[] playersList, bool debug)
 		{
+			players = new Player[4];
 			tricks = new Trick[numTricks];
 			debugFlag = debug;
 			for (int i = 0; i < numTricks; i++)
 			{
 				tricks[i] = new Trick(trumpSuit, debug);
+			}
+			for (int i = 0; i < 4; i++)
+			{
+				players[i] = playersList[i];
 			}
 			currentTrick = 0;
 		}
@@ -23,6 +29,20 @@ namespace SuecaSolver
 		public int GetCurrentTrick()
 		{
 			return currentTrick;
+		}
+
+		// This function is always called after applying a move
+		public Player GetNextPlayer()
+		{
+			int nextPlayerId;
+			if (tricks[currentTrick].IsNewTrick())
+			{
+				nextPlayerId = tricks[currentTrick - 1].GetTrickWinnerId();
+			} else {
+				int lastPlayerId = tricks[currentTrick].GetLastPlayerId();
+				nextPlayerId = (lastPlayerId + 1) % 4;
+			}
+			return players[nextPlayerId];
 		}
 
 		public void ApplyMove(Move move)
@@ -82,23 +102,36 @@ namespace SuecaSolver
 			for (int i = 0; i < tricks.Length; i++)
 			{
 				if(debugFlag) Console.WriteLine("--- Trick " + i + ": ---");
-				int trickResult = tricks[i].EvalTrick();
-				if (trickResult > 0)
-				{
+				int trickResult = tricks[i].GetTrickPoints();
+				// if (trickResult > 0)
+				// {
 					result += trickResult;
-				}
+				// }
 				if(debugFlag) Console.WriteLine("Trickresult: " + trickResult + " Sum: " + result);
 			}
 			return result;
 		}
 
-		public int EvalTrick()
+		public int GetTrickWinnerId()
+		{
+			return tricks[currentTrick].GetTrickWinnerId();
+		}
+
+		public int GetTrickPoints()
 		{
 			if(debugFlag) Console.WriteLine("--- Trick ---");
-			int trickResult = tricks[currentTrick].EvalTrick();
+			int trickResult = tricks[currentTrick].GetTrickPoints();
 			if(debugFlag) Console.WriteLine("Trickresult: " + trickResult + " Sum: " + trickResult);
 			return trickResult;
 		}
+
+		// public int EvalTrick()
+		// {
+		// 	if(debugFlag) Console.WriteLine("--- Trick ---");
+		// 	int trickResult = tricks[currentTrick].GetTrickPoints();
+		// 	if(debugFlag) Console.WriteLine("Trickresult: " + trickResult + " Sum: " + trickResult);
+		// 	return trickResult;
+		// }
 
 	}
 }

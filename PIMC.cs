@@ -8,7 +8,7 @@ namespace SuecaSolver
 
 		public void Execute(InformationSet infoSet, int N)
 		{
-			for (int i = 0; i < N; i++)
+			for (int i = 0; i < 1; i++)
 			{
 				List<List<Card>> players = infoSet.Sample();
 				Card[] p0 = infoSet.Hand.ToArray();
@@ -18,14 +18,15 @@ namespace SuecaSolver
 
 				SuecaGame game = new SuecaGame(p0, p1, p2, p3, Suit.Clubs, null, false);
 
-				foreach (Card card in p0)
-				{
-					int cardValueInTrick = game.SampleTrick(card);
-					infoSet.AddCardValue(card, cardValueInTrick);
+				// foreach (Card card in p0)
+				// {
+					int cardValueInTrick = game.SampleGame(p0[0]);
+					// infoSet.AddCardValue(card, cardValueInTrick);
 					// Console.WriteLine("cardValueInTrick - " + card.ID + " " + cardValueInTrick);
-				}
+					Console.WriteLine("cardValueInTrick - " + p0[0] + " " + cardValueInTrick);
+				// }
 			}
-			infoSet.calculateAverages(N);
+			// infoSet.calculateAverages(N);
 		}
 	}
 }

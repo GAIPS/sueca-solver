@@ -8,7 +8,6 @@ namespace SuecaSolver
 
 		public int Id;
 		public Card[] Hand;
-		public Player NextPlayer;
 
 		public Player(int id, Card[] hand)
 		{
@@ -21,9 +20,9 @@ namespace SuecaSolver
 			}
 		}
 
-		abstract public int PlayGame(GameState gameState);
-		abstract public int PlayTrick(GameState gameState);
-		abstract public int PlayTrick(GameState gameState, Card move);
+		abstract public int PlayGame(GameState gameState, Card move = null);
+		// abstract public int PlayTrick(GameState gameState);
+		abstract public int PlayTrick(GameState gameState, Card move = null);
 
 		private void printCards(Card[] cards)
 		{
@@ -42,7 +41,7 @@ namespace SuecaSolver
 
 		public override string ToString()
 		{
-			return "PID: " + Id + " NextPlayer: " + NextPlayer.Id;
+			return "PID: " + Id;
 		}
 	}
 }

@@ -38,6 +38,15 @@ namespace SuecaSolver
 			moves[currentMove] = null;
 		}
 
+		public int GetLastPlayerId()
+		{
+			if (currentMove - 1 < 0)
+			{
+				Console.WriteLine("Trouble1!!!");
+			}
+			return moves[currentMove - 1].PlayerId;
+		}
+
 		public bool IsNewTrick()
 		{
 			if (moves[0] == null)
@@ -56,39 +65,58 @@ namespace SuecaSolver
 			return false;
 		}
 
-		public int EvalTrick()
+		public int GetTrickWinnerId()
+		{
+			bool oldDebugFlag = debugFlag;
+			debugFlag = false;
+			int winnerId = evalTrick()[0];
+			debugFlag = oldDebugFlag;
+			return winnerId;
+		}
+
+		public int GetTrickPoints()
+		{
+			return evalTrick()[1];
+		}
+
+		private int[] evalTrick()
 		{
 			Suit winningSuit = moves[0].Card.Suit;
 			int highestValueFromWinningSuit = moves[0].Card.Value;
+			int highestRankFromWinningSuit = (int) moves[0].Card.Rank;
 			int winningPlayerId = moves[0].PlayerId;
-			int result = highestValueFromWinningSuit;
+			int points = highestValueFromWinningSuit;
 
-			if(debugFlag) Console.WriteLine("Card: " + moves[0].Card.ToString());
+			if(debugFlag) Console.WriteLine("Card: " + moves[0].Card.ToString() + " pID: " + moves[0].PlayerId);
 
 			for (int i = 1; i < 4; i++)
 			{
-				if(debugFlag) Console.WriteLine("Card: " + moves[i].Card.ToString());
+				if(debugFlag) Console.WriteLine("Card: " + moves[i].Card.ToString() + " pID: " + moves[i].PlayerId);
 				if (moves[i].Card.Suit == trump && winningSuit != trump)
 				{
 					winningSuit = trump;
 					highestValueFromWinningSuit = moves[i].Card.Value;
+					highestRankFromWinningSuit = (int) moves[i].Card.Rank;
 					winningPlayerId = moves[i].PlayerId;
 				}
 
-				result += moves[i].Card.Value;
+				points += moves[i].Card.Value;
 
-				if (moves[i].Card.Suit == winningSuit && moves[i].Card.Value > highestValueFromWinningSuit)
+				if (moves[i].Card.Suit == winningSuit &&
+					moves[i].Card.Value >= highestValueFromWinningSuit &&
+					(int) moves[i].Card.Rank > highestRankFromWinningSuit)
 				{
 					highestValueFromWinningSuit = moves[i].Card.Value;
+					highestRankFromWinningSuit = (int) moves[i].Card.Rank;
 					winningPlayerId = moves[i].PlayerId;
 				}
 			}
 
 			if (winningPlayerId == 1 || winningPlayerId == 3)
 			{
-				return -1 * result;
+				points = -1 * points;
 			}
-			return result;
+			return new int[] {winningPlayerId, points};
 		}
 	}
 }

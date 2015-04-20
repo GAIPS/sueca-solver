@@ -9,6 +9,7 @@ namespace SuecaSolver
 		private Player[] players = new Player[4];
 		private Suit trump;
 		private GameState gameState;
+		private bool debugFlag;
 
 		public SuecaGame(Card[] hand, Suit trumpSuit, bool debug)
 		{
@@ -18,12 +19,9 @@ namespace SuecaSolver
 			players[1] = new MinPlayer(1, deck.GetHand(10).ToArray());
 			players[2] = new MaxPlayer(2, deck.GetHand(10).ToArray());
 			players[3] = new MinPlayer(3, deck.GetHand(10).ToArray());
-			players[0].NextPlayer = players[1];
-			players[1].NextPlayer = players[2];
-			players[2].NextPlayer = players[3];
-			players[3].NextPlayer = players[0];
+			debugFlag = debug;
 
-			gameState = new GameState(10, trump, debug);
+			gameState = new GameState(10, trump, players, debug);
 		}
 
 		public SuecaGame(Card[] p0, Card[] p1, Card[] p2, Card[] p3, Suit trumpSuit, Move[] alreadyPlayed, bool debug)
@@ -32,13 +30,10 @@ namespace SuecaSolver
 			players[1] = new MinPlayer(1, p1);
 			players[2] = new MaxPlayer(2, p2);
 			players[3] = new MinPlayer(3, p3);
-			players[0].NextPlayer = players[1];
-			players[1].NextPlayer = players[2];
-			players[2].NextPlayer = players[3];
-			players[3].NextPlayer = players[0];
+			debugFlag = debug;
 
 			//THIS GAME SHOULD HAVE ONLY ONE TRICK AND IT MIGHT BE A PROBLEM
-			gameState = new GameState(1, trump, debug);
+			gameState = new GameState(10, trump, players, debug);
 
 			if (alreadyPlayed != null)
 			{
@@ -50,23 +45,25 @@ namespace SuecaSolver
 			}
 		}
 
-		public int SampleGame()
+		public int SampleGame(Card card = null)
 		{
 			Player myPlayer = players[0];
-			int bestmove = myPlayer.PlayGame(gameState);
+			if (debugFlag) PrintPlayersHands();
+			int bestmove = myPlayer.PlayGame(gameState, card);
 			return bestmove;
 		}
 
-		public int SampleTrick()
-		{
-			Player myPlayer = players[0];
-			int bestmove = myPlayer.PlayTrick(gameState);
-			return bestmove;
-		}
+		// public int SampleTrick()
+		// {
+		// 	Player myPlayer = players[0];
+		// 	int bestmove = myPlayer.PlayTrick(gameState);
+		// 	return bestmove;
+		// }
 
-		public int SampleTrick(Card card)
+		public int SampleTrick(Card card = null)
 		{
 			Player myPlayer = players[0];
+			if (debugFlag) PrintPlayersHands();
 			int bestmove = myPlayer.PlayTrick(gameState, card);
 			return bestmove;
 		}
@@ -81,18 +78,32 @@ namespace SuecaSolver
 			Console.WriteLine("-----------------------");
 		}
 
+		public static Card[] AllPossibleMoves(Card[] hand)
+		{
+			List<Card> result = new List<Card>();
+			foreach (Card card in hand)
+			{
+				if (!card.HasBeenPlayed)
+				{
+					result.Add(card);
+				}
+			}
+			return result.ToArray();
+		}
+
+
 		public static Card[] PossibleMoves(Card[] hand, Suit leadSuit)
 		{
 			if (leadSuit == Suit.None)
 			{
-				return hand;
+				return AllPossibleMoves(hand);
 			}
 
 			List<Card> result = new List<Card>();
 
 			foreach (Card card in hand)
 			{
-				if (card.Suit == leadSuit)
+				if (card.Suit == leadSuit && !card.HasBeenPlayed)
 				{
 					result.Add(card);
 				}
@@ -103,7 +114,7 @@ namespace SuecaSolver
 				return result.ToArray();
 			}
 
-			return hand;
+			return AllPossibleMoves(hand);
 		}
 
 		public static void PrintCards(string name, List<Card> cards)
