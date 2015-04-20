@@ -99,10 +99,7 @@ namespace SuecaSolver
 					highestRankFromWinningSuit = (int) moves[i].Card.Rank;
 					winningPlayerId = moves[i].PlayerId;
 				}
-
-				points += moves[i].Card.Value;
-
-				if (moves[i].Card.Suit == winningSuit &&
+				else if (moves[i].Card.Suit == winningSuit &&
 					moves[i].Card.Value >= highestValueFromWinningSuit &&
 					(int) moves[i].Card.Rank > highestRankFromWinningSuit)
 				{
@@ -110,6 +107,8 @@ namespace SuecaSolver
 					highestRankFromWinningSuit = (int) moves[i].Card.Rank;
 					winningPlayerId = moves[i].PlayerId;
 				}
+
+				points += moves[i].Card.Value;
 			}
 
 			if (winningPlayerId == 1 || winningPlayerId == 3)
