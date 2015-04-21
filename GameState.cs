@@ -87,6 +87,16 @@ namespace SuecaSolver
 			return false;
 		}
 
+
+		public bool IsEndFirstTrick()
+		{
+			if (tricks[0].IsEndTrick())
+			{
+				return true;
+			}
+			return false;
+		}
+
 		public bool IsEndTrick()
 		{
 			if (tricks[currentTrick].IsEndTrick())
@@ -115,6 +125,14 @@ namespace SuecaSolver
 		public int GetTrickWinnerId()
 		{
 			return tricks[currentTrick].GetTrickWinnerId();
+		}
+
+		public int GetFirstTrickPoints()
+		{
+			if(debugFlag) Console.WriteLine("--- Trick ---");
+			int trickResult = tricks[0].GetTrickPoints();
+			if(debugFlag) Console.WriteLine("Trickresult: " + trickResult + " Sum: " + trickResult);
+			return trickResult;
 		}
 
 		public int GetTrickPoints()

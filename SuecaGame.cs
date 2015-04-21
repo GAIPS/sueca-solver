@@ -46,8 +46,7 @@ namespace SuecaSolver
 
 		public int SampleGame(Card card = null)
 		{
-			//delete next line
-			PrintPlayersHands();
+			// PrintPlayersHands();
 			Player myPlayer = players[0];
 			if (debugFlag) PrintPlayersHands();
 			int bestmove = myPlayer.PlayGame(gameState, Int32.MinValue, Int32.MaxValue, card);

@@ -37,14 +37,14 @@ namespace SuecaSolver
 					bestMove = moveValue;
 				}
 
-				if (moveValue > alfa) 
+				if (moveValue > alfa)
 				{
 					alfa = moveValue;
 				}
 
 				gameState.UndoMove();
 
-				if (bestMove >= beta) 
+				if (bestMove >= beta)
 				{
 					// Console.WriteLine("Beta prunning!");
 					break;
@@ -54,33 +54,12 @@ namespace SuecaSolver
 			return bestMove;
 		}
 
-		// override public int PlayTrick(GameState gameState)
-		// {
-		// 	if (gameState.IsEndTrick())
-		// 	{
-		// 		return gameState.EvalTrick();
-		// 	}
-
-		// 	int bestMove = Int32.MinValue;
-		// 	Card[] moves = SuecaGame.PossibleMoves(Hand, gameState.GetLeadSuit());
-		// 	foreach (Card move in moves)
-		// 	{
-		// 		gameState.ApplyMove(new Move(Id, move));
-		// 		int moveValue = NextPlayer.PlayTrick(gameState);
-		// 		if (moveValue > bestMove)
-		// 		{
-		// 			bestMove = moveValue;
-		// 		}
-		// 		gameState.UndoMove();
-		// 	}
-		// 	return bestMove;
-		// }
 
 		override public int PlayTrick(GameState gameState, Card card = null)
 		{
-			if (gameState.IsEndTrick())
+			if (gameState.IsEndFirstTrick())
 			{
-				return gameState.GetTrickPoints();
+				return gameState.GetFirstTrickPoints();
 			}
 
 			int bestMove = Int32.MinValue;

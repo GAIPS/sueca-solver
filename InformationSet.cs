@@ -10,7 +10,6 @@ namespace SuecaSolver
 		private List<Card> alreadyPlayed;
 		private Suit trump;
 		private int firstPlayerId;
-		public List<InformationSet> Children;
 		private Dictionary<int,int> dictionary;
 		private Deck deck;
 
@@ -20,7 +19,6 @@ namespace SuecaSolver
 			trump = Suit.Clubs;
 			firstPlayerId = 0;
 			Hand = new List<Card>();
-			Children = new List<InformationSet>();
 			alreadyPlayed = new List<Card>();
 			dictionary = new Dictionary<int,int>();
 
@@ -29,38 +27,26 @@ namespace SuecaSolver
 		}
 
 
-		public InformationSet(List<Card> hand, List<Card> played, Card card)
+		public InformationSet(List<Card> hand, List<Card> played)
 		{
 			trump = Suit.Clubs;
 			firstPlayerId = 0;
 			Hand = new List<Card>(hand);
-			Children = new List<InformationSet>();
 			alreadyPlayed = new List<Card>();
 			dictionary = new Dictionary<int,int>();
 
 			deck = new Deck(hand.ToArray());
-			Hand.Remove(card);
 			copyToAlreadyPlayed(played);
-			alreadyPlayed.Add(card);
 		}
 
-
-		public InformationSet createInformationSet(Card card)
-		{
-			InformationSet newChild = new InformationSet(Hand, alreadyPlayed, card);
-			Children.Add(newChild);
-
-			return newChild;
-		}
-
-		public void AddCardValue(Card card, int value)
+		public void AddCardValue(Card card, int val)
 		{
 			int cardID = card.ID;
 			if (dictionary.ContainsKey(cardID))
 			{
-				dictionary[cardID] += value;
+				dictionary[cardID] += val;
 			} else {
-				dictionary[cardID] = value;
+				dictionary[cardID] = val;
 			}
 		}
 
@@ -121,7 +107,6 @@ namespace SuecaSolver
 			SuecaGame.PrintCards("Already Played", alreadyPlayed);
 			Console.WriteLine("Trump - " + trump);
 			Console.WriteLine("First player ID - " + firstPlayerId);
-			Console.WriteLine("# Children - " + Children.Count);
 			printDictionary("Dictionary");
 			Console.WriteLine("-------------------------------------------");
 		}
