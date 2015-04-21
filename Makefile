@@ -6,7 +6,7 @@ EXEFILE=sueca-solver.exe
 all: clean compile run
 
 compile:
-	$(CC) -out:$(EXEFILE) $(FILES)
+	$(CC) -out:$(EXEFILE) -optimize+ $(FILES)
 
 run:
 	time $(RR) $(EXEFILE) 30

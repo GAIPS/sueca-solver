@@ -9,17 +9,15 @@ namespace SuecaSolver
 		{
 		}
 
-		override public int PlayGame(GameState gameState, Card card = null)
+		override public int PlayGame(GameState gameState, int alfa, int beta, Card card = null)
 		{
-			if (gameState.IsEndGame())
-			{
-				// Console.WriteLine("PLAYGAME END AT MIN PLAYER!");
-				return gameState.EvalGame();
-				// System.Environment.Exit(1);
-			}
-
 			int worstMove = Int32.MaxValue;
 			Card[] moves;
+
+			if (gameState.IsEndGame())
+			{
+				return gameState.EvalGame();
+			}
 
 			if (card == null)
 			{
@@ -32,13 +30,25 @@ namespace SuecaSolver
 			foreach (Card move in moves)
 			{
 				gameState.ApplyMove(new Move(Id, move));
-				int moveValue = gameState.GetNextPlayer().PlayGame(gameState);
+				int moveValue = gameState.GetNextPlayer().PlayGame(gameState, alfa, beta);
 
 				if (moveValue < worstMove)
 				{
 					worstMove = moveValue;
 				}
+
+				if (moveValue < beta) 
+				{
+					beta = moveValue;
+				}
+
 				gameState.UndoMove();
+
+				if (worstMove <= alfa) 
+				{
+					// Console.WriteLine("Alfa prunning!");
+					break;
+				}
 			}
 
 			return worstMove;

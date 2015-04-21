@@ -68,7 +68,7 @@ namespace SuecaSolver
 		{
 			List<List<Card>> players = new List<List<Card>>();
 			List<Card> deckCopy = new List<Card>(deck);
-
+			
 			for (int i = 0; i < 4; i++)
 			{
 				players.Add(new List<Card>());
