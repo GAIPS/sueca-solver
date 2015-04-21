@@ -18,7 +18,7 @@ namespace SuecaSolver
 				Card[] p3 = players[2].ToArray();
 				*/
 
-				List<List<Card>> players = infoSet.SampleAll(2);
+				List<List<Card>> players = infoSet.SampleAll(3);
 				Card[] p0 = players[0].ToArray();
 				Card[] p1 = players[1].ToArray();
 				Card[] p2 = players[2].ToArray();
