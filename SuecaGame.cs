@@ -26,6 +26,7 @@ namespace SuecaSolver
 
 		public SuecaGame(Card[] p0, Card[] p1, Card[] p2, Card[] p3, Suit trumpSuit, Move[] alreadyPlayed, bool debug)
 		{
+			trump = trumpSuit;
 			players[0] = new MaxPlayer(0, p0);
 			players[1] = new MinPlayer(1, p1);
 			players[2] = new MaxPlayer(2, p2);
@@ -44,6 +45,16 @@ namespace SuecaSolver
 			}
 		}
 
+		public int GetNextPlayerId()
+		{
+			return gameState.GetNextPlayer().Id;
+		}
+
+		public void PlayCard(int playerID, Card card)
+		{
+			gameState.ApplyMove(new Move(playerID, card));
+		}
+
 		public int SampleGame(Card card = null)
 		{
 			// PrintPlayersHands();
@@ -53,19 +64,24 @@ namespace SuecaSolver
 			return bestmove;
 		}
 
-		// public int SampleTrick()
-		// {
-		// 	Player myPlayer = players[0];
-		// 	int bestmove = myPlayer.PlayTrick(gameState);
-		// 	return bestmove;
-		// }
-
 		public int SampleTrick(Card card = null)
 		{
 			Player myPlayer = players[0];
 			if (debugFlag) PrintPlayersHands();
 			int bestmove = myPlayer.PlayTrick(gameState, card);
 			return bestmove;
+		}
+
+
+		public void PrintLastTrick()
+		{
+			gameState.PrintLastTrick();
+		}
+
+
+		public void PrintCurrentTrick()
+		{
+			gameState.PrintCurrentTrick();
 		}
 
 		public void PrintPlayersHands()
@@ -76,6 +92,32 @@ namespace SuecaSolver
 			players[2].PrintHand();
 			players[3].PrintHand();
 			Console.WriteLine("-----------------------");
+		}
+
+		public static void PrintHand(List<Card> hand)
+		{
+			Console.WriteLine("Your hand:");
+			for (int i = 0; i < hand.Count; i++)
+			{
+				Console.Write("-- ");
+			}
+			Console.WriteLine("");
+			for (int i = 0; i < hand.Count; i++)
+			{
+				Console.Write(hand[i] + " ");
+			}
+			Console.WriteLine("");
+			for (int i = 0; i < hand.Count; i++)
+			{
+				Console.Write("-- ");
+			}
+			Console.WriteLine("");
+			for (int i = 0; i < hand.Count; i++)
+			{
+				Console.Write(" " + i + " ");
+			}
+			Console.WriteLine("");
+			Console.WriteLine("");
 		}
 
 		public static Card[] AllPossibleMoves(Card[] hand)
@@ -125,6 +167,28 @@ namespace SuecaSolver
 				str += cards[i].ToString() + ", ";
 			}
 			Console.WriteLine(str);
+		}
+
+		public void PrintPoints(string[] playersNames)
+		{
+			int sumPoints = gameState.EvalGame();
+			int team0 = 60 + sumPoints;
+			int team1 = 60 - sumPoints;
+			string winner0 = "";
+			string winner1 = "";
+
+			if (team0 > 60)
+			{
+				winner0 = "WINNERS!";
+			} else if (team1 > 60) {
+				winner1 = "WINNERS!";
+			} else {
+				winner0 = "DRAW!";
+				winner1 = "DRAW!";
+			}
+
+			Console.WriteLine("Team " + playersNames[0] + " and " + playersNames[2] + " - " + team0 + " points " + winner0);
+			Console.WriteLine("Team " + playersNames[1] + " and " + playersNames[3] + " - " + team1 + " points " + winner1);
 		}
 	}
 }

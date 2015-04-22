@@ -113,10 +113,7 @@ namespace SuecaSolver
 			{
 				if(debugFlag) Console.WriteLine("--- Trick " + i + ": ---");
 				int trickResult = tricks[i].GetTrickPoints();
-				// if (trickResult > 0)
-				// {
-					result += trickResult;
-				// }
+				result += trickResult;
 				if(debugFlag) Console.WriteLine("Trickresult: " + trickResult + " Sum: " + result);
 			}
 			return result;
@@ -143,13 +140,23 @@ namespace SuecaSolver
 			return trickResult;
 		}
 
-		// public int EvalTrick()
-		// {
-		// 	if(debugFlag) Console.WriteLine("--- Trick ---");
-		// 	int trickResult = tricks[currentTrick].GetTrickPoints();
-		// 	if(debugFlag) Console.WriteLine("Trickresult: " + trickResult + " Sum: " + trickResult);
-		// 	return trickResult;
-		// }
+
+		public void PrintLastTrick()
+		{
+			if (currentTrick > 0)
+			{
+				Console.WriteLine("Last trick:");
+				tricks[currentTrick - 1].PrintTrick();
+				Console.WriteLine("");
+			}
+		}
+
+		public void PrintCurrentTrick()
+		{
+			Console.WriteLine("Current trick:");
+			tricks[currentTrick].PrintTrick();
+			Console.WriteLine("");
+		}
 
 	}
 }

@@ -65,6 +65,17 @@ namespace SuecaSolver
 			return false;
 		}
 
+		public void PrintTrick()
+		{
+			foreach (Move m in moves)
+			{
+				if (m != null)
+				{
+					Console.WriteLine(m);
+				}
+			}
+		}
+
 		public int GetTrickWinnerId()
 		{
 			bool oldDebugFlag = debugFlag;

@@ -16,7 +16,7 @@ namespace SuecaSolver
 
 		public override string ToString()
 		{
-			return "MOVE by player: " + PlayerId + " with card: " + Card;
+			return "Player " + PlayerId + " has played " + Card;
 		}
 	}
 }
