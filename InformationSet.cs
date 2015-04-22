@@ -6,80 +6,97 @@ namespace SuecaSolver
 {
 	public class InformationSet
 	{
-		public List<Card> Hand;
-		private List<Card> alreadyPlayed;
+		private List<Card> hand;
+		private List<Move> currentTrick;
 		private Suit trump;
-		private int firstPlayerId;
 		private Dictionary<int,int> dictionary;
 		private Deck deck;
 
 
-		public InformationSet()
+		public InformationSet(List<Card> currentHand, List<Card> alreadyPlayed, Suit trumpSuit)
 		{
-			trump = Suit.Clubs;
-			firstPlayerId = 0;
-			Hand = new List<Card>();
-			alreadyPlayed = new List<Card>();
+			trump = trumpSuit;
+			hand = new List<Card>(currentHand);
 			dictionary = new Dictionary<int,int>();
 
-			deck = new Deck();
-			copyToHand(deck.GetHand(10));
+			currentTrick = new List<Move>();
+			processAlreadyPlayed(alreadyPlayed);
+			List<Card> temp = new List<Card>(currentHand);
+			temp.AddRange(alreadyPlayed);
+			deck = new Deck(temp);
 		}
 
-
-		public InformationSet(List<Card> hand, List<Card> played)
+		public List<Move> GetJustPlayed()
 		{
-			trump = Suit.Clubs;
-			firstPlayerId = 0;
-			Hand = new List<Card>(hand);
-			alreadyPlayed = new List<Card>();
-			dictionary = new Dictionary<int,int>();
-
-			deck = new Deck(hand.ToArray());
-			copyToAlreadyPlayed(played);
+			return currentTrick;
 		}
 
-		public void AddCardValue(Card card, int val)
+		public Card GetHighestCard()
 		{
-			int cardID = card.ID;
-			if (dictionary.ContainsKey(cardID))
+			int bestIndex = 0;
+			int bestValue = Int32.MinValue;
+
+			for (int i = 0; i < hand.Count; i++)
 			{
-				dictionary[cardID] += val;
+				if (dictionary[i] > bestValue)
+				{
+					bestValue = dictionary[i];
+					bestIndex = i;
+				}
+			}
+			return hand[bestIndex];
+		}
+
+		private void processAlreadyPlayed(List<Card> alreadyPlayed)
+		{
+			int size = alreadyPlayed.Count;
+			int trickSize = size % 4;
+			for (int index, i = trickSize; i > 0; i--)
+			{
+				index = size - i;
+				Card card = alreadyPlayed[index];
+				int playerID = 3 - i + 1;
+				currentTrick.Add(new Move(playerID, card));
+			}
+		}
+
+		public void AddCardValue(int index, int val)
+		{
+			if (dictionary.ContainsKey(index))
+			{
+				dictionary[index] += val;
 			} else {
-				dictionary[cardID] = val;
+				dictionary[index] = val;
 			}
 		}
 
 		public void calculateAverages(int n)
 		{
-			foreach (Card card in Hand)
+			for (int i = 0; i < hand.Count; i++)
 			{
-				dictionary[card.ID] = dictionary[card.ID] / n;
-			}
-		}
-
-
-		private void copyToHand(List<Card> cards)
-		{
-			for (int i = 0; i < cards.Count; i++)
-			{
-				Hand.Add(cards[i]);
-			}
-		}
-
-
-		private void copyToAlreadyPlayed(List<Card> cards)
-		{
-			for (int i = 0; i < cards.Count; i++)
-			{
-				alreadyPlayed.Add(cards[i]);
+				dictionary[i] = dictionary[i] / n;
 			}
 		}
 
 
 		public List<List<Card>> Sample()
 		{
-			return deck.Sample(Hand.Count);
+			List<List<Card>> hands = new List<List<Card>>();
+			int myHandSize = hand.Count;
+			int[] handSizePerPlayer = new int[4] {myHandSize, myHandSize, myHandSize, myHandSize};
+			int currentTrickSize = currentTrick.Count;
+
+			for (int i = 0; i < currentTrickSize; i++)
+			{
+				handSizePerPlayer[3 - i]--;
+			}
+
+			for (int i = 0; i < 4; i++)
+			{
+				hands.Add(deck.SampleHand(handSizePerPlayer[i]));
+			}
+
+			return hands;
 		}
 
 
@@ -94,7 +111,7 @@ namespace SuecaSolver
 			string str = name + " -";
 			foreach (KeyValuePair<int, int> cardValue in dictionary)
 			{
-				str += " <" + cardValue.Key + "," + cardValue.Value + ">";
+				str += " <" + hand[cardValue.Key] + "," + cardValue.Value + ">";
 			}
 			Console.WriteLine(str);
 		}
@@ -103,10 +120,8 @@ namespace SuecaSolver
 		public void PrintInfoSet()
 		{
 			Console.WriteLine("------------------INFOSET------------------");
-			SuecaGame.PrintCards("Hand", Hand);
-			SuecaGame.PrintCards("Already Played", alreadyPlayed);
+			SuecaGame.PrintCards("Hand", hand);
 			Console.WriteLine("Trump - " + trump);
-			Console.WriteLine("First player ID - " + firstPlayerId);
 			printDictionary("Dictionary");
 			Console.WriteLine("-------------------------------------------");
 		}

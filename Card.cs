@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace SuecaSolver
 {
@@ -44,6 +45,18 @@ namespace SuecaSolver
 					break;
 			}
 			return rank + suit;
+		}
+
+		public bool Equals(List<Card> cards)
+		{
+			for (int i = 0; i < cards.Count; i++)
+			{
+				if (Rank == cards[i].Rank && Suit == cards[i].Suit)
+				{
+					return true;
+				}
+			}
+			return false;
 		}
 
 		public bool Equals(Card[] cards)

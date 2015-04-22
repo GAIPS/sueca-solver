@@ -18,6 +18,19 @@ namespace SuecaSolver
 			}
 		}
 
+		public Deck(List<Card> cards)
+		{
+			random = new Random();
+			for (int i = 0; i < 40; i++)
+			{
+				Card c = new Card((Rank) (i % 10), (Suit) ((int) (i / 10)));
+				if (!c.Equals(cards))
+				{
+					deck.Add(c);
+				}
+			}
+		}
+
 		public Deck(Card[] cards)
 		{
 			random = new Random();
@@ -42,6 +55,22 @@ namespace SuecaSolver
 			}
 			return hand;
 		}
+
+
+		public List<Card> SampleHand(int handSize)
+		{
+			List<Card> hand = new List<Card>(handSize);
+			List<Card> deckCopy = new List<Card>(deck);
+
+			for (int randomIndex = 0, i = 0; i < handSize; i++)
+			{
+				randomIndex = random.Next(0, deckCopy.Count);
+				hand.Add(deckCopy[randomIndex]);
+				deckCopy.RemoveAt(randomIndex);
+			}
+			return hand;
+		}
+
 
 		public List<List<Card>> Sample(int handSize)
 		{

@@ -3,13 +3,11 @@ using System.Collections.Generic;
 
 namespace SuecaSolver
 {
-	public class SuecaSolver
+	public class MainSuecaSolver
 	{
 
-		public static void Main (string[] args)
+		public static void Main ()
 		{
-			PIMC pimc = new PIMC();
-
 			string input;
 			string[] playersNames = new string[4];
 			playersNames[0] = "Bot";
@@ -41,6 +39,7 @@ namespace SuecaSolver
 			Suit trump = (Suit) randomNumber.Next(0, 4);
 			int cardIndex, currentPlayerID = firstPlayerID;
 
+			ArtificialPlayer artificialPlayer = new ArtificialPlayer(playersHand[0], trump, N);
 			SuecaGame game = new SuecaGame(playersHand[0].ToArray(), playersHand[1].ToArray(), playersHand[2].ToArray(), playersHand[3].ToArray(), trump, null, false);
 
 			for (int i = 0; i < 40; i++)
@@ -55,21 +54,30 @@ namespace SuecaSolver
 				game.PrintLastTrick();
 				game.PrintCurrentTrick();
 				SuecaGame.PrintHand(currentHand);
-				Console.Write("Pick the card you want to play by its index: ");
-				input = Console.ReadLine();
-				cardIndex = Convert.ToInt32(input);
+				Card chosenCard;
 
-				Card chosenCard = currentHand[cardIndex];
+				if (currentPlayerID != 0)
+				{
+					Console.Write("Pick the card you want to play by its index: ");
+					input = Console.ReadLine();
+					cardIndex = Convert.ToInt32(input);
+					chosenCard = currentHand[cardIndex];
+					artificialPlayer.AddPlay(chosenCard);
+				}
+				else
+				{
+					chosenCard = artificialPlayer.Play();
+				}
+
 				game.PlayCard(currentPlayerID, chosenCard);
 				currentHand.Remove(chosenCard);
 				currentPlayerID = game.GetNextPlayerId();
 			}
 
 			Console.WriteLine("|||||||||||||||||||||||| END |||||||||||||||||||||||");
+			Console.WriteLine("");
 			game.PrintPoints(playersNames);
-			// InformationSet infoSet = new InformationSet(hand, new List<Card>());
-			// pimc.Execute(infoSet, N);
-			// infoSet.PrintInfoSet();
+			Console.WriteLine("");
 
 		}
 	}

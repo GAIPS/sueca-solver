@@ -26,9 +26,14 @@ namespace SuecaSolver
 			currentTrick = 0;
 		}
 
-		public int GetCurrentTrick()
+		public int GetCurrentTrickIndex()
 		{
 			return currentTrick;
+		}
+
+		public Trick GetCurrentTrick()
+		{
+			return tricks[currentTrick];
 		}
 
 		// This function is always called after applying a move

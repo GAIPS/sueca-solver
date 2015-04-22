@@ -1,16 +1,24 @@
 CC=mcs
 RR=mono
 FILES = $(wildcard *.cs)
-EXEFILE=sueca-solver.exe
-N=10
+MAINGAMEFILES = $(filter-out MainTest.cs, $(FILES))
+MAINTESTFILES = $(filter-out MainSuecaSolver.cs, $(FILES))
+EXEMAINFILE=sueca-solver.exe
+EXETESTFILE=test.exe
 
-all: clean compile run
+all: clean compile-game run
 
-compile:
-	$(CC) -out:$(EXEFILE) -optimize+ $(FILES)
+compile-game:
+	$(CC) -out:$(EXEMAINFILE) -optimize+ $(MAINGAMEFILES)
+
+compile-test:
+	$(CC) -out:$(EXETESTFILE) -optimize+ $(MAINTESTFILES)
+
+test:
+	time $(RR) $(EXETESTFILE)
 
 run:
-	time $(RR) $(EXEFILE) $(N)
+	time $(RR) $(EXEMAINFILE)
 
 clean:
 	rm -rf *.exe

@@ -11,20 +11,7 @@ namespace SuecaSolver
 		private GameState gameState;
 		private bool debugFlag;
 
-		public SuecaGame(Card[] hand, Suit trumpSuit, bool debug)
-		{
-			trump = trumpSuit;
-			Deck deck = new Deck(hand);
-			players[0] = new MaxPlayer(0, hand);
-			players[1] = new MinPlayer(1, deck.GetHand(10).ToArray());
-			players[2] = new MaxPlayer(2, deck.GetHand(10).ToArray());
-			players[3] = new MinPlayer(3, deck.GetHand(10).ToArray());
-			debugFlag = debug;
-
-			gameState = new GameState(10, trump, players, debug);
-		}
-
-		public SuecaGame(Card[] p0, Card[] p1, Card[] p2, Card[] p3, Suit trumpSuit, Move[] alreadyPlayed, bool debug)
+		public SuecaGame(Card[] p0, Card[] p1, Card[] p2, Card[] p3, Suit trumpSuit, List<Move> alreadyPlayed, bool debug)
 		{
 			trump = trumpSuit;
 			players[0] = new MaxPlayer(0, p0);
@@ -43,6 +30,11 @@ namespace SuecaSolver
 					gameState.ApplyMove(move);
 				}
 			}
+		}
+
+		public Trick GetCurrentTrick()
+		{
+			return gameState.GetCurrentTrick();
 		}
 
 		public int GetNextPlayerId()
