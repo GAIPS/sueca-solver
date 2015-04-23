@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace SuecaSolver
 {
@@ -6,73 +7,93 @@ namespace SuecaSolver
 	{
 
 		public Suit LeadSuit;
-		private Move[] moves = new Move[4];
-		private int currentMove;
+		private List<Move> moves;
+		// private int currentMove;
 		private Suit trump;
 		private bool debugFlag;
 
 		public Trick(Suit trumpSuit, bool debug)
 		{
+			moves = new List<Move>(4);
 			LeadSuit = Suit.None;
 			trump = trumpSuit;
 			debugFlag = debug;
-			currentMove = 0;
+			// currentMove = 0;
 		}
 
 		public void ApplyMove(Move move)
 		{
-			if (currentMove == 0)
+			if (moves.Count == 0)
 			{
 				LeadSuit = move.Card.Suit;
 			}
 
-			moves[currentMove] = move;
+			moves.Add(move);
 			move.Card.HasBeenPlayed = true;
-			currentMove++;
+			// currentMove++;
 		}
 
 		public void UndoMove()
 		{
-			currentMove--;
+			int currentMove = moves.Count - 1;
 			moves[currentMove].Card.HasBeenPlayed = false;
-			moves[currentMove] = null;
+			moves.RemoveAt(currentMove);
 		}
 
 		public int GetLastPlayerId()
 		{
-			if (currentMove - 1 < 0)
+			if (moves.Count == 0)
 			{
-				Console.WriteLine("Trouble1!!!");
+				Console.WriteLine("Trick trouble at GetLastPlayerId!!!");
 			}
-			return moves[currentMove - 1].PlayerId;
+			return moves[moves.Count - 1].PlayerId;
 		}
 
-		public bool IsNewTrick()
+
+		public bool IsEmpty()
 		{
-			if (moves[0] == null)
+			if (moves.Count == 0)
 			{
 				return true;
 			}
 			return false;
 		}
 
-		public bool IsEndTrick()
+		public bool IsFull()
 		{
-			if (moves[3] != null)
+			if (moves.Count == moves.Capacity)
 			{
 				return true;
 			}
 			return false;
 		}
+
+		// public bool IsNewTrick()
+		// {
+		// 	if (moves[0] == null)
+		// 	{
+		// 		return true;
+		// 	}
+		// 	return false;
+		// }
+
+		// public bool IsEndTrick()
+		// {
+		// 	if (moves[3] != null)
+		// 	{
+		// 		return true;
+		// 	}
+		// 	return false;
+		// }
 
 		public void PrintTrick()
 		{
 			foreach (Move m in moves)
 			{
-				if (m != null)
-				{
-					Console.WriteLine(m);
-				}
+				// if (m != null)
+				// {
+				Console.WriteLine(m);
+				// }
 			}
 		}
 
@@ -92,6 +113,11 @@ namespace SuecaSolver
 
 		private int[] evalTrick()
 		{
+			if (moves.Count == 0)
+			{
+				Console.WriteLine("Trick trouble at evalTrick!!!");
+			}
+
 			Suit winningSuit = moves[0].Card.Suit;
 			int highestValueFromWinningSuit = moves[0].Card.Value;
 			int highestRankFromWinningSuit = (int) moves[0].Card.Rank;

@@ -40,7 +40,7 @@ namespace SuecaSolver
 			int cardIndex, currentPlayerID = firstPlayerID;
 
 			ArtificialPlayer artificialPlayer = new ArtificialPlayer(playersHand[0], trump, N);
-			SuecaGame game = new SuecaGame(playersHand[0].ToArray(), playersHand[1].ToArray(), playersHand[2].ToArray(), playersHand[3].ToArray(), trump, null, false);
+			SuecaGame game = new SuecaGame(playersHand[0], playersHand[1], playersHand[2], playersHand[3], trump, null, false);
 
 			for (int i = 0; i < 40; i++)
 			{

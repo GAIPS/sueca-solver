@@ -11,16 +11,17 @@ namespace SuecaSolver
 		private GameState gameState;
 		private bool debugFlag;
 
-		public SuecaGame(Card[] p0, Card[] p1, Card[] p2, Card[] p3, Suit trumpSuit, List<Move> alreadyPlayed, bool debug)
+		public SuecaGame(List<Card> p0, List<Card> p1, List<Card> p2, List<Card> p3, Suit trumpSuit, List<Move> alreadyPlayed, bool debug)
 		{
 			trump = trumpSuit;
 			players[0] = new MaxPlayer(0, p0);
 			players[1] = new MinPlayer(1, p1);
 			players[2] = new MaxPlayer(2, p2);
 			players[3] = new MinPlayer(3, p3);
+			PrintPlayersHands();
 			debugFlag = debug;
 
-			gameState = new GameState(p0.Length, trump, players, debug);
+			gameState = new GameState(p0.Count, trump, players, debug);
 
 			if (alreadyPlayed != null)
 			{
@@ -112,7 +113,7 @@ namespace SuecaSolver
 			Console.WriteLine("");
 		}
 
-		public static Card[] AllPossibleMoves(Card[] hand)
+		public static List<Card> AllPossibleMoves(List<Card> hand)
 		{
 			List<Card> result = new List<Card>();
 			foreach (Card card in hand)
@@ -122,11 +123,11 @@ namespace SuecaSolver
 					result.Add(card);
 				}
 			}
-			return result.ToArray();
+			return result;
 		}
 
 
-		public static Card[] PossibleMoves(Card[] hand, Suit leadSuit)
+		public static List<Card> PossibleMoves(List<Card> hand, Suit leadSuit)
 		{
 			if (leadSuit == Suit.None)
 			{
@@ -145,7 +146,7 @@ namespace SuecaSolver
 
 			if (result.Count > 0)
 			{
-				return result.ToArray();
+				return result;
 			}
 
 			return AllPossibleMoves(hand);

@@ -31,18 +31,18 @@ namespace SuecaSolver
 			}
 		}
 
-		public Deck(Card[] cards)
-		{
-			random = new Random();
-			for (int i = 0; i < 40; i++)
-			{
-				Card c = new Card((Rank) (i % 10), (Suit) ((int) (i / 10)));
-				if (!c.Equals(cards))
-				{
-					deck.Add(c);
-				}
-			}
-		}
+		// public Deck(Card[] cards)
+		// {
+		// 	random = new Random();
+		// 	for (int i = 0; i < 40; i++)
+		// 	{
+		// 		Card c = new Card((Rank) (i % 10), (Suit) ((int) (i / 10)));
+		// 		if (!c.Equals(cards))
+		// 		{
+		// 			deck.Add(c);
+		// 		}
+		// 	}
+		// }
 
 		public List<Card> GetHand(int handSize)
 		{
@@ -102,6 +102,30 @@ namespace SuecaSolver
 			{
 				players.Add(new List<Card>());
 				for (int randomIndex = 0, j = 0; j < n; j++)
+				{
+					randomIndex = random.Next(0, deckCopy.Count);
+					players[i].Add(deckCopy[randomIndex]);
+					deckCopy.RemoveAt(randomIndex);
+				}
+			}
+
+			return players;
+		}
+
+		public List<List<Card>> SampleHands(int[] handSizes)
+		{
+			List<List<Card>> players = new List<List<Card>>();
+			List<Card> deckCopy = new List<Card>(deck);
+
+			if (handSizes[0] + handSizes[1] + handSizes[2] != deckCopy.Count) 
+			{
+				Console.WriteLine("????????????????????????????????????????????");
+			}
+
+			for (int i = 0; i < handSizes.Length; i++)
+			{
+				players.Add(new List<Card>());
+				for (int randomIndex = 0, j = 0; j < handSizes[i]; j++)
 				{
 					randomIndex = random.Next(0, deckCopy.Count);
 					players[i].Add(deckCopy[randomIndex]);

@@ -8,14 +8,14 @@ namespace SuecaSolver
 	{
 		private List<Card> hand;
 		private List<Move> currentTrick;
-		private Suit trump;
+		public Suit Trump;
 		private Dictionary<int,int> dictionary;
 		private Deck deck;
 
 
 		public InformationSet(List<Card> currentHand, List<Card> alreadyPlayed, Suit trumpSuit)
 		{
-			trump = trumpSuit;
+			Trump = trumpSuit;
 			hand = new List<Card>(currentHand);
 			dictionary = new Dictionary<int,int>();
 
@@ -24,6 +24,16 @@ namespace SuecaSolver
 			List<Card> temp = new List<Card>(currentHand);
 			temp.AddRange(alreadyPlayed);
 			deck = new Deck(temp);
+		}
+
+		public Suit GetLeadSuit()
+		{
+			if (currentTrick.Count == 0) 
+			{
+				return Suit.None;
+			}
+
+			return currentTrick[0].Card.Suit;
 		}
 
 		public List<Move> GetJustPlayed()
@@ -45,6 +55,11 @@ namespace SuecaSolver
 				}
 			}
 			return hand[bestIndex];
+		}
+
+		public void CleanCardValues()
+		{
+			dictionary.Clear();
 		}
 
 		private void processAlreadyPlayed(List<Card> alreadyPlayed)
@@ -83,19 +98,32 @@ namespace SuecaSolver
 		{
 			List<List<Card>> hands = new List<List<Card>>();
 			int myHandSize = hand.Count;
-			int[] handSizePerPlayer = new int[4] {myHandSize, myHandSize, myHandSize, myHandSize};
+			int[] handSizes = new int[3] {myHandSize, myHandSize, myHandSize};
 			int currentTrickSize = currentTrick.Count;
 
 			for (int i = 0; i < currentTrickSize; i++)
 			{
-				handSizePerPlayer[3 - i]--;
+				handSizes[2 - i]--;
 			}
 
-			for (int i = 0; i < 4; i++)
+			hands.Add(new List<Card>(hand));
+			List<List<Card>> sampledHands = deck.SampleHands(handSizes);
+
+			for (int i = 0; i < 3; i++)
 			{
-				hands.Add(deck.SampleHand(handSizePerPlayer[i]));
+				hands.Add(sampledHands[i]);
 			}
 
+			return hands;
+		}
+
+
+		public List<List<Card>> SampleThree(int n)
+		{
+			List<List<Card>> hands = new List<List<Card>>();
+			hands.Add(deck.GetHand(n));
+			hands.Add(deck.GetHand(n));
+			hands.Add(deck.GetHand(n));
 			return hands;
 		}
 
@@ -121,7 +149,7 @@ namespace SuecaSolver
 		{
 			Console.WriteLine("------------------INFOSET------------------");
 			SuecaGame.PrintCards("Hand", hand);
-			Console.WriteLine("Trump - " + trump);
+			Console.WriteLine("Trump - " + Trump);
 			printDictionary("Dictionary");
 			Console.WriteLine("-------------------------------------------");
 		}

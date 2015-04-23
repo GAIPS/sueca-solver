@@ -1,21 +1,29 @@
 using System;
+using System.Collections.Generic;
 
 namespace SuecaSolver
 {
 	public class MaxPlayer : Player
 	{
 
-		public MaxPlayer(int id, Card[] hand) : base(id, hand)
+		int lol = 0;
+
+		public MaxPlayer(int id, List<Card> hand) : base(id, hand)
 		{
 		}
 
-		override public int PlayGame(GameState gameState, int alfa, int beta, Card card = null)
+		override public int PlayGame(GameState gameState, int alpha, int beta, Card card = null)
 		{
 			int bestMove = Int32.MinValue;
-			Card[] moves;
+			List<Card> moves;
 
 			if (gameState.IsEndGame())
 			{
+				// lol++;
+				// if (lol == 2) 
+				// {
+				// 	System.Environment.Exit(1);
+				// }
 				return gameState.EvalGame();
 			}
 
@@ -23,31 +31,32 @@ namespace SuecaSolver
 			{
 				moves = SuecaGame.PossibleMoves(Hand, gameState.GetLeadSuit());
 			} else {
-				moves = new Card[1];
-				moves[0] = card;
+				moves = new List<Card>();
+				moves.Add(card);
 			}
 
 			foreach (Card move in moves)
 			{
 				gameState.ApplyMove(new Move(Id, move));
-				int moveValue = gameState.GetNextPlayer().PlayGame(gameState, alfa, beta);
+				int moveValue = gameState.GetNextPlayer().PlayGame(gameState, alpha, beta);
 
 				if (moveValue > bestMove)
 				{
 					bestMove = moveValue;
 				}
 
-				if (moveValue > alfa)
+				if (moveValue > alpha)
 				{
-					alfa = moveValue;
+					alpha = moveValue;
 				}
 
 				gameState.UndoMove();
 
-				if (bestMove >= beta)
+				if (alpha >= beta)
 				{
 					// Console.WriteLine("Beta prunning!");
-					break;
+					// break;
+					return alpha;
 				}
 			}
 
@@ -63,14 +72,14 @@ namespace SuecaSolver
 			}
 
 			int bestMove = Int32.MinValue;
-			Card[] moves;
+			List<Card> moves;
 
 			if (card == null)
 			{
 				moves = SuecaGame.PossibleMoves(Hand, gameState.GetLeadSuit());
 			} else {
-				moves = new Card[1];
-				moves[0] = card;
+				moves = new List<Card>();
+				moves.Add(card);
 			}
 
 			foreach (Card move in moves)

@@ -1,50 +1,59 @@
 using System;
+using System.Collections.Generic;
 
 namespace SuecaSolver
 {
 	public class GameState
 	{
 
-		private Trick[] tricks;
-		private int currentTrick;
+		private List<Trick> tricks;
+		// private int currentTrick;
 		private bool debugFlag;
 		private Player[] players;
+		private Suit trump;
 
 		public GameState(int numTricks, Suit trumpSuit, Player[] playersList, bool debug)
 		{
 			players = new Player[4];
-			tricks = new Trick[numTricks];
+			tricks = new List<Trick>(numTricks);
+			trump = trumpSuit;
 			debugFlag = debug;
-			for (int i = 0; i < numTricks; i++)
-			{
-				tricks[i] = new Trick(trumpSuit, debug);
-			}
+
+			// for (int i = 0; i < numTricks; i++)
+			// {
+			// 	tricks[i] = new Trick(trumpSuit, debug);
+			// }
+
 			for (int i = 0; i < 4; i++)
 			{
 				players[i] = playersList[i];
 			}
-			currentTrick = 0;
+			// currentTrick = 0;
 		}
 
-		public int GetCurrentTrickIndex()
-		{
-			return currentTrick;
-		}
+		// public int GetCurrentTrickIndex()
+		// {
+		// 	return currentTrick;
+		// }
 
 		public Trick GetCurrentTrick()
 		{
-			return tricks[currentTrick];
+			if (tricks.Count == 0) 
+			{
+				Console.WriteLine("Trouble at GameState in GetCurrentTrick");
+			}
+			return tricks[tricks.Count - 1];
 		}
 
 		// This function is always called after applying a move
 		public Player GetNextPlayer()
 		{
 			int nextPlayerId;
-			if (tricks[currentTrick].IsNewTrick())
+			if (GetCurrentTrick().IsFull())
 			{
-				nextPlayerId = tricks[currentTrick - 1].GetTrickWinnerId();
+				nextPlayerId = GetCurrentTrick().GetTrickWinnerId();
 			} else {
-				int lastPlayerId = tricks[currentTrick].GetLastPlayerId();
+				int lastPlayerId = GetCurrentTrick().GetLastPlayerId();
 				nextPlayerId = (lastPlayerId + 1) % 4;
 			}
 			return players[nextPlayerId];
@@ -52,31 +61,44 @@ namespace SuecaSolver
 
 		public void ApplyMove(Move move)
 		{
-			tricks[currentTrick].ApplyMove(move);
+			// tricks[currentTrick].ApplyMove(move);
 
-			if (tricks[currentTrick].IsEndTrick() && (currentTrick + 1) < tricks.Length)
+			// if (tricks[currentTrick].IsEndTrick() && (currentTrick + 1) < tricks.Length)
+			// {
+			// 	currentTrick++;
+			// }
+
+			if (tricks.Count == 0 || GetCurrentTrick().IsFull()) 
 			{
-				currentTrick++;
+				tricks.Add(new Trick(trump, debugFlag));
 			}
+			GetCurrentTrick().ApplyMove(move);
 		}
 
 		public void UndoMove()
 		{
-			if (IsNewTrick())
+			// if (IsNewTrick())
+			// {
+			// 	currentTrick--;
+			// }
+			// tricks[currentTrick].UndoMove();
+
+			GetCurrentTrick().UndoMove();
+			if (GetCurrentTrick().IsEmpty())
 			{
-				currentTrick--;
+				tricks.RemoveAt(tricks.Count - 1);
 			}
-			tricks[currentTrick].UndoMove();
 		}
 
 		public Suit GetLeadSuit()
 		{
-			return tricks[currentTrick].LeadSuit;
+			return GetCurrentTrick().LeadSuit;
 		}
 
 		public bool IsNewTrick()
 		{
-			if (currentTrick == tricks.Length || tricks[currentTrick].IsNewTrick())
+			// if (currentTrick == tricks.Length || tricks[currentTrick].IsNewTrick())
+			if (tricks.Count == 0 || GetCurrentTrick().IsEmpty())
 			{
 				return true;
 			}
@@ -85,7 +107,8 @@ namespace SuecaSolver
 
 		public bool IsEndGame()
 		{
-			if (tricks[tricks.Length - 1].IsEndTrick())
+			// if (tricks[tricks.Length - 1].IsEndTrick())
+			if (tricks.Count == tricks.Capacity && GetCurrentTrick().IsFull())
 			{
 				return true;
 			}
@@ -95,7 +118,7 @@ namespace SuecaSolver
 
 		public bool IsEndFirstTrick()
 		{
-			if (tricks[0].IsEndTrick())
+			if (tricks[0].IsFull())
 			{
 				return true;
 			}
@@ -104,7 +127,7 @@ namespace SuecaSolver
 
 		public bool IsEndTrick()
 		{
-			if (tricks[currentTrick].IsEndTrick())
+			if (GetCurrentTrick().IsFull())
 			{
 				return true;
 			}
@@ -114,7 +137,7 @@ namespace SuecaSolver
 		public int EvalGame()
 		{
 			int result = 0;
-			for (int i = 0; i < tricks.Length; i++)
+			for (int i = 0; i < tricks.Count; i++)
 			{
 				if(debugFlag) Console.WriteLine("--- Trick " + i + ": ---");
 				int trickResult = tricks[i].GetTrickPoints();
@@ -126,7 +149,7 @@ namespace SuecaSolver
 
 		public int GetTrickWinnerId()
 		{
-			return tricks[currentTrick].GetTrickWinnerId();
+			return GetCurrentTrick().GetTrickWinnerId();
 		}
 
 		public int GetFirstTrickPoints()
@@ -140,7 +163,7 @@ namespace SuecaSolver
 		public int GetTrickPoints()
 		{
 			if(debugFlag) Console.WriteLine("--- Trick ---");
-			int trickResult = tricks[currentTrick].GetTrickPoints();
+			int trickResult = GetCurrentTrick().GetTrickPoints();
 			if(debugFlag) Console.WriteLine("Trickresult: " + trickResult + " Sum: " + trickResult);
 			return trickResult;
 		}
@@ -148,10 +171,10 @@ namespace SuecaSolver
 
 		public void PrintLastTrick()
 		{
-			if (currentTrick > 0)
+			if (tricks.Count > 0)
 			{
 				Console.WriteLine("Last trick:");
-				tricks[currentTrick - 1].PrintTrick();
+				tricks[tricks.Count - 1].PrintTrick();
 				Console.WriteLine("");
 			}
 		}
@@ -159,7 +182,10 @@ namespace SuecaSolver
 		public void PrintCurrentTrick()
 		{
 			Console.WriteLine("Current trick:");
-			tricks[currentTrick].PrintTrick();
+			if (tricks.Count > 0)
+			{
+				GetCurrentTrick().PrintTrick();
+			}
 			Console.WriteLine("");
 		}
 
