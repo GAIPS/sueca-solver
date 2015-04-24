@@ -77,7 +77,8 @@ namespace SuecaSolver
 			Console.WriteLine("|||||||||||||||||||||||| END |||||||||||||||||||||||");
 			Console.WriteLine("");
 			int[] points = game.GetGamePoints();
-			Console.WriteLine("points " + points[0] + "  " + points[1]);
+			Console.WriteLine("Team " + playersNames[0] + " and " + playersNames[1] + " - " + points[0] + " points");
+			Console.WriteLine("Team " + playersNames[2] + " and " + playersNames[3] + " - " + points[1] + " points");
 			// game.PrintPoints(playersNames);
 			Console.WriteLine("");
 
