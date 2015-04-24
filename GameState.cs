@@ -107,6 +107,24 @@ namespace SuecaSolver
 			return false;
 		}
 
+
+
+		public int[] GetGamePoints()
+		{
+			int[] result = new int[2] {0, 0};
+			for (int i = 0; i < tricks.Count; i++)
+			{
+				int trickResult = tricks[i].GetTrickPoints();
+				if (trickResult > 0) 
+				{
+					result[0] += trickResult;
+				} else {
+					result[1] += (-1 * trickResult);
+				}
+			}
+			return result;
+		}
+
 		public int EvalGame()
 		{
 			int result = 0;

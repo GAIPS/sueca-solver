@@ -165,27 +165,36 @@ namespace SuecaSolver
 			Console.WriteLine(str);
 		}
 
-		public void PrintPoints(string[] playersNames)
+		public int[] GetGamePoints()
 		{
-			int sumPoints = gameState.EvalGame();
-			int team0 = 60 + sumPoints;
-			int team1 = 60 - sumPoints;
-			string winner0 = "";
-			string winner1 = "";
-
-			if (team0 > 60)
-			{
-				winner0 = "WINNERS!";
-			} else if (team1 > 60) {
-				winner1 = "WINNERS!";
-			} else {
-				winner0 = "DRAW!";
-				winner1 = "DRAW!";
-			}
-
-			Console.WriteLine("Team " + playersNames[0] + " and " + playersNames[2] + " - " + team0 + " points " + winner0);
-			Console.WriteLine("Team " + playersNames[1] + " and " + playersNames[3] + " - " + team1 + " points " + winner1);
+			return gameState.GetGamePoints();
 		}
+
+		// public void PrintPoints(string[] playersNames)
+		// {
+		// 	int sumPoints = gameState.EvalGame();
+		// 	int team0 = 60 + sumPoints;
+		// 	int team1 = 60 - sumPoints;
+		// 	string winner0 = "";
+		// 	string winner1 = "";
+
+		// 	if (sumPoints > 0)
+		// 	{
+		// 		team0 = 120 - sumPoints;
+		// 		team1 = 120 - team1;
+		// 		winner0 = "WINNERS!";
+		// 	} else if (sumPoints > 0) {
+		// 		team0 = -120 + sumPoints;
+		// 		team1 = 120 - team1;
+		// 		winner1 = "WINNERS!";
+		// 	} else {
+		// 		winner0 = "DRAW!";
+		// 		winner1 = "DRAW!";
+		// 	}
+
+		// 	Console.WriteLine("Team " + playersNames[0] + " and " + playersNames[2] + " - " + team0 + " points " + winner0);
+		// 	Console.WriteLine("Team " + playersNames[1] + " and " + playersNames[3] + " - " + team1 + " points " + winner1);
+		// }
 	}
 }
 
