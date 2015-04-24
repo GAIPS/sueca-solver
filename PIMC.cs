@@ -38,14 +38,14 @@ namespace SuecaSolver
 				{
 					Card card = possibleMoves[j];
 
-					if (p0.Count > 6)
+					if (p0.Count > 5)
 					{
-						n = 100;
+						n = 1000;
 						cardValueInTrick = game.SampleTrick(card);
 					}
 					else
 					{
-						N = 10;
+						N = 100;
 						cardValueInTrick = game.SampleGame(card);
 					}
 
@@ -63,7 +63,7 @@ namespace SuecaSolver
 		{
 			List<Card> possibleMoves = SuecaGame.PossibleMoves(hand, infoSet.GetLeadSuit());
 
-			if (possibleMoves.Count == 1) 
+			if (possibleMoves.Count == 1)
 			{
 				Console.WriteLine("Only one move available: " + possibleMoves[0]);
 				return;
