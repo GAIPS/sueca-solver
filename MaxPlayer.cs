@@ -6,24 +6,16 @@ namespace SuecaSolver
 	public class MaxPlayer : Player
 	{
 
-		int lol = 0;
-
 		public MaxPlayer(int id, List<Card> hand) : base(id, hand)
 		{
 		}
 
 		override public int PlayGame(GameState gameState, int alpha, int beta, Card card = null)
 		{
-			// int bestMove = Int32.MinValue;
 			List<Card> moves;
 
 			if (gameState.IsEndGame())
 			{
-				// lol++;
-				// if (lol == 2)
-				// {
-				// 	System.Environment.Exit(1);
-				// }
 				return gameState.EvalGame();
 			}
 
@@ -40,11 +32,6 @@ namespace SuecaSolver
 				gameState.ApplyMove(new Move(Id, move));
 				int moveValue = gameState.GetNextPlayer().PlayGame(gameState, alpha, beta);
 
-				// if (moveValue > bestMove)
-				// {
-				// 	bestMove = moveValue;
-				// }
-
 				if (moveValue > alpha)
 				{
 					alpha = moveValue;
@@ -54,13 +41,11 @@ namespace SuecaSolver
 
 				if (alpha >= beta)
 				{
-					// Console.WriteLine("Beta prunning!");
-					// break;
+
 					return alpha;
 				}
 			}
 
-			// return bestMove;
 			return alpha;
 		}
 

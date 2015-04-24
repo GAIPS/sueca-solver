@@ -31,19 +31,6 @@ namespace SuecaSolver
 			}
 		}
 
-		// public Deck(Card[] cards)
-		// {
-		// 	random = new Random();
-		// 	for (int i = 0; i < 40; i++)
-		// 	{
-		// 		Card c = new Card((Rank) (i % 10), (Suit) ((int) (i / 10)));
-		// 		if (!c.Equals(cards))
-		// 		{
-		// 			deck.Add(c);
-		// 		}
-		// 	}
-		// }
-
 		public List<Card> GetHand(int handSize)
 		{
 			List<Card> hand = new List<Card>(handSize);

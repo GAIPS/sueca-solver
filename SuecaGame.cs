@@ -26,7 +26,6 @@ namespace SuecaSolver
 			{
 				foreach (Move move in alreadyPlayed)
 				{
-					// Console.WriteLine("Going to add the already played card: " + move);
 					gameState.ApplyMove(move);
 				}
 			}
@@ -49,7 +48,6 @@ namespace SuecaSolver
 
 		public int SampleGame(Card card = null)
 		{
-			// PrintPlayersHands();
 			Player myPlayer = players[0];
 			if (debugFlag) PrintPlayersHands();
 			int bestmove = myPlayer.PlayGame(gameState, Int32.MinValue, Int32.MaxValue, card);
@@ -128,8 +126,11 @@ namespace SuecaSolver
 
 		public static List<Card> PossibleMoves(List<Card> hand, Suit leadSuit)
 		{
+			// PrintCards("Generating possibleMoves for hand", hand);
+			// Console.WriteLine("With lead suit: " + leadSuit);
 			if (leadSuit == Suit.None)
 			{
+				// Console.WriteLine("Returning all possibles moves because leadSuit is NONE");
 				return AllPossibleMoves(hand);
 			}
 
@@ -137,8 +138,10 @@ namespace SuecaSolver
 
 			foreach (Card card in hand)
 			{
+				// Console.WriteLine("LeadSuit is " + leadSuit + ". Card suit is " + card.Suit  + ". Card HasBeenPlayed is " + card.HasBeenPlayed);
 				if (card.Suit == leadSuit && !card.HasBeenPlayed)
 				{
+					// Console.WriteLine("Adding " + card + " to possible moves.");
 					result.Add(card);
 				}
 			}
@@ -148,6 +151,7 @@ namespace SuecaSolver
 				return result;
 			}
 
+			// Console.WriteLine("Returning all possibles moves because hand has no leadSuit cards!");
 			return AllPossibleMoves(hand);
 		}
 

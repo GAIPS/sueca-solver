@@ -9,7 +9,7 @@ namespace SuecaSolver
 		private List<Card> hand;
 		private List<Move> currentTrick;
 		public Suit Trump;
-		private Dictionary<int,int> dictionary;
+		private Dictionary<Card,int> dictionary;
 		private Deck deck;
 
 
@@ -17,7 +17,7 @@ namespace SuecaSolver
 		{
 			Trump = trumpSuit;
 			hand = new List<Card>(currentHand);
-			dictionary = new Dictionary<int,int>();
+			dictionary = new Dictionary<Card,int>();
 
 			currentTrick = new List<Move>();
 			processAlreadyPlayed(alreadyPlayed);
@@ -46,21 +46,26 @@ namespace SuecaSolver
 			return currentTrick;
 		}
 
-		public int GetHighestCardIndex()
+		public Card GetHighestCardIndex()
 		{
-			int bestIndex = 0;
+			Card bestCard = null;
 			int bestValue = Int32.MinValue;
 
-			foreach (KeyValuePair<int, int> cardValue in dictionary)
+			foreach (KeyValuePair<Card, int> cardValue in dictionary)
 			{
 				if (cardValue.Value > bestValue)
 				{
 					bestValue = cardValue.Value;
-					bestIndex = cardValue.Key;
+					bestCard = cardValue.Key;
 				}
 			}
 
-			return bestIndex;
+			if (bestCard == null) 
+			{
+				Console.WriteLine("Trouble at InformationSet.GetHighestCardIndex()");
+			}
+
+			return bestCard;
 		}
 
 		public void CleanCardValues()
@@ -81,24 +86,15 @@ namespace SuecaSolver
 			}
 		}
 
-		public void AddCardValue(int index, int val)
+		public void AddCardValue(Card card, int val)
 		{
-			if (dictionary.ContainsKey(index))
+			if (dictionary.ContainsKey(card))
 			{
-				dictionary[index] += val;
+				dictionary[card] += val;
 			} else {
-				dictionary[index] = val;
+				dictionary[card] = val;
 			}
 		}
-
-		// public void calculateAverages(int n)
-		// {
-		// 	foreach (KeyValuePair<int, int> cardValue in dictionary)
-		// 	{
-		// 		dictionary[cardValue.Key] = cardValue.Value / n;
-		// 	}
-		// }
-
 
 		public List<List<Card>> Sample()
 		{
@@ -143,9 +139,9 @@ namespace SuecaSolver
 		private void printDictionary(string name)
 		{
 			string str = name + " -";
-			foreach (KeyValuePair<int, int> cardValue in dictionary)
+			foreach (KeyValuePair<Card, int> cardValue in dictionary)
 			{
-				str += " <" + hand[cardValue.Key] + "," + cardValue.Value + ">";
+				str += " <" + cardValue.Key + "," + cardValue.Value + ">";
 			}
 			Console.WriteLine(str);
 		}

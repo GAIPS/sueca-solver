@@ -38,7 +38,7 @@ namespace SuecaSolver
 				{
 					Card card = possibleMoves[j];
 
-					if (p0.Count > 7)
+					if (p0.Count > 6)
 					{
 						n = 100;
 						cardValueInTrick = game.SampleTrick(card);
@@ -49,29 +49,34 @@ namespace SuecaSolver
 						cardValueInTrick = game.SampleGame(card);
 					}
 
-					infoSet.AddCardValue(j, cardValueInTrick);
+					infoSet.AddCardValue(card, cardValueInTrick);
 				}
 			}
 
-			// Do I really have to do the average?
-			// infoSet.calculateAverages(N);
 			infoSet.PrintInfoSet();
-			int highestIndex = infoSet.GetHighestCardIndex();
-			return possibleMoves[highestIndex];
+			Card highestCard = infoSet.GetHighestCardIndex();
+			return highestCard;
 		}
 
 
 		public void ExecuteTestVersion(InformationSet infoSet, List<Card> hand)
 		{
-			List<List<Card>> players = infoSet.SampleThree(3);
+			List<Card> possibleMoves = SuecaGame.PossibleMoves(hand, infoSet.GetLeadSuit());
+
+			if (possibleMoves.Count == 1) 
+			{
+				Console.WriteLine("Only one move available: " + possibleMoves[0]);
+				return;
+			}
+
+			List<List<Card>> players = infoSet.SampleThree(8);
 			List<Card> p0 = hand;
 			List<Card> p1 = players[0];
 			List<Card> p2 = players[1];
 			List<Card> p3 = players[2];
 
 
-			SuecaGame game = new SuecaGame(p0, p1, p2, p3, infoSet.Trump, infoSet.GetJustPlayed(), true);
-			List<Card> possibleMoves = SuecaGame.PossibleMoves(p0, infoSet.GetLeadSuit());
+			SuecaGame game = new SuecaGame(p0, p1, p2, p3, infoSet.Trump, infoSet.GetJustPlayed(), false);
 
 			// for (int j = 0; j < possibleMoves.Count; j++)
 			// {
@@ -79,13 +84,10 @@ namespace SuecaSolver
 				int cardValueInTrick = game.SampleGame(card);
 				// int cardValueInTrick = game.SampleTrick(card);
 				Console.WriteLine("cardValueInTrick - " + card + " " + cardValueInTrick);
-				infoSet.AddCardValue(0, cardValueInTrick);
+				infoSet.AddCardValue(card, cardValueInTrick);
 			// }
 
-			// Do I really have to do the average?
-			// infoSet.calculateAverages(N);
 			infoSet.PrintInfoSet();
-			// return infoSet.GetHighestCardIndex();
 		}
 	}
 }

@@ -72,6 +72,10 @@ namespace SuecaSolver
 				game.PlayCard(currentPlayerID, chosenCard);
 				currentHand.Remove(chosenCard);
 				currentPlayerID = game.GetNextPlayerId();
+				if (i % 4 == 3) 
+				{
+					game.PrintPoints(playersNames);
+				}
 			}
 
 			Console.WriteLine("|||||||||||||||||||||||| END |||||||||||||||||||||||");

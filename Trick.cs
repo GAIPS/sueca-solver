@@ -8,7 +8,6 @@ namespace SuecaSolver
 
 		public Suit LeadSuit;
 		private List<Move> moves;
-		// private int currentMove;
 		private Suit trump;
 		private bool debugFlag;
 
@@ -18,7 +17,6 @@ namespace SuecaSolver
 			LeadSuit = Suit.None;
 			trump = trumpSuit;
 			debugFlag = debug;
-			// currentMove = 0;
 		}
 
 		public void ApplyMove(Move move)
@@ -30,7 +28,6 @@ namespace SuecaSolver
 
 			moves.Add(move);
 			move.Card.HasBeenPlayed = true;
-			// currentMove++;
 		}
 
 		public void UndoMove()
@@ -68,32 +65,11 @@ namespace SuecaSolver
 			return false;
 		}
 
-		// public bool IsNewTrick()
-		// {
-		// 	if (moves[0] == null)
-		// 	{
-		// 		return true;
-		// 	}
-		// 	return false;
-		// }
-
-		// public bool IsEndTrick()
-		// {
-		// 	if (moves[3] != null)
-		// 	{
-		// 		return true;
-		// 	}
-		// 	return false;
-		// }
-
 		public void PrintTrick()
 		{
 			foreach (Move m in moves)
 			{
-				// if (m != null)
-				// {
 				Console.WriteLine(m);
-				// }
 			}
 		}
 

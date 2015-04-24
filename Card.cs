@@ -58,17 +58,5 @@ namespace SuecaSolver
 			}
 			return false;
 		}
-
-		// public bool Equals(Card[] cards)
-		// {
-		// 	for (int i = 0; i < cards.Length; i++)
-		// 	{
-		// 		if (Rank == cards[i].Rank && Suit == cards[i].Suit)
-		// 		{
-		// 			return true;
-		// 		}
-		// 	}
-		// 	return false;
-		// }
 	}
 }

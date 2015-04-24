@@ -11,28 +11,12 @@ namespace SuecaSolver
 
 		public Player(int id, List<Card> hand)
 		{
-			// int numCards = hand.Length;
 			Id = id;
 			Hand = new List<Card>(hand);
-			// for (int i = 0; i < numCards; i++)
-			// {
-			// 	Hand[i] = hand[i];
-			// }
 		}
 
 		abstract public int PlayGame(GameState gameState, int alpha, int beta, Card move = null);
-		// abstract public int PlayTrick(GameState gameState);
 		abstract public int PlayTrick(GameState gameState, Card move = null);
-
-		// private void printCards(Card[] cards)
-		// {
-		// 	string str = "PlayerId: " + Id + " - ";
-		// 	foreach (Card c in cards)
-		// 	{
-		// 		str += c.ToString() + ", ";
-		// 	}
-		// 	Console.WriteLine(str);
-		// }
 
 		private void printCards(List<Card> cards)
 		{

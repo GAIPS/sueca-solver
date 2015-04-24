@@ -7,7 +7,6 @@ namespace SuecaSolver
 	{
 
 		private List<Trick> tricks;
-		// private int currentTrick;
 		private bool debugFlag;
 		private Player[] players;
 		private Suit trump;
@@ -19,22 +18,11 @@ namespace SuecaSolver
 			trump = trumpSuit;
 			debugFlag = debug;
 
-			// for (int i = 0; i < numTricks; i++)
-			// {
-			// 	tricks[i] = new Trick(trumpSuit, debug);
-			// }
-
 			for (int i = 0; i < 4; i++)
 			{
 				players[i] = playersList[i];
 			}
-			// currentTrick = 0;
 		}
-
-		// public int GetCurrentTrickIndex()
-		// {
-		// 	return currentTrick;
-		// }
 
 		public Trick GetCurrentTrick()
 		{
@@ -61,13 +49,6 @@ namespace SuecaSolver
 
 		public void ApplyMove(Move move)
 		{
-			// tricks[currentTrick].ApplyMove(move);
-
-			// if (tricks[currentTrick].IsEndTrick() && (currentTrick + 1) < tricks.Length)
-			// {
-			// 	currentTrick++;
-			// }
-
 			if (tricks.Count == 0 || GetCurrentTrick().IsFull())
 			{
 				tricks.Add(new Trick(trump, debugFlag));
@@ -77,12 +58,6 @@ namespace SuecaSolver
 
 		public void UndoMove()
 		{
-			// if (IsNewTrick())
-			// {
-			// 	currentTrick--;
-			// }
-			// tricks[currentTrick].UndoMove();
-
 			GetCurrentTrick().UndoMove();
 			if (GetCurrentTrick().IsEmpty())
 			{
@@ -97,7 +72,6 @@ namespace SuecaSolver
 
 		public bool IsNewTrick()
 		{
-			// if (currentTrick == tricks.Length || tricks[currentTrick].IsNewTrick())
 			if (tricks.Count == 0 || GetCurrentTrick().IsEmpty())
 			{
 				return true;
@@ -107,7 +81,6 @@ namespace SuecaSolver
 
 		public bool IsEndGame()
 		{
-			// if (tricks[tricks.Length - 1].IsEndTrick())
 			if (tricks.Count == tricks.Capacity && GetCurrentTrick().IsFull())
 			{
 				return true;
@@ -171,10 +144,17 @@ namespace SuecaSolver
 
 		public void PrintLastTrick()
 		{
-			if (tricks.Count > 0)
+			if (tricks.Count > 0 && tricks[0].IsFull())
 			{
 				Console.WriteLine("Last trick:");
-				tricks[tricks.Count - 1].PrintTrick();
+				if (GetCurrentTrick().IsFull()) 
+				{
+					GetCurrentTrick().PrintTrick();
+				}
+				else
+				{
+					tricks[tricks.Count - 2].PrintTrick();
+				}
 				Console.WriteLine("");
 			}
 		}
@@ -182,7 +162,7 @@ namespace SuecaSolver
 		public void PrintCurrentTrick()
 		{
 			Console.WriteLine("Current trick:");
-			if (tricks.Count > 0)
+			if (tricks.Count > 0 && !GetCurrentTrick().IsFull())
 			{
 				GetCurrentTrick().PrintTrick();
 			}
