@@ -18,7 +18,6 @@ namespace SuecaSolver
 			players[1] = new MinPlayer(1, p1);
 			players[2] = new MaxPlayer(2, p2);
 			players[3] = new MinPlayer(3, p3);
-			PrintPlayersHands();
 			debugFlag = debug;
 
 			gameState = new GameState(p0.Count, trump, players, debug);
@@ -27,7 +26,7 @@ namespace SuecaSolver
 			{
 				foreach (Move move in alreadyPlayed)
 				{
-					Console.WriteLine("Going to add the already played card: " + move);
+					// Console.WriteLine("Going to add the already played card: " + move);
 					gameState.ApplyMove(move);
 				}
 			}

@@ -9,7 +9,8 @@ namespace SuecaSolver
 		public static void Main ()
 		{
 			Deck deck = new Deck();
-			List<Card> hand = deck.GetHand(8);
+			List<Card> hand = deck.GetHand(3);
+			SuecaGame.PrintCards("Test hand", hand);
 			InformationSet infoSet = new InformationSet(hand, new List<Card>(), Suit.Clubs);
 			PIMC pimc = new PIMC(1);
 			pimc.ExecuteTestVersion(infoSet, hand);

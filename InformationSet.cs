@@ -26,9 +26,14 @@ namespace SuecaSolver
 			deck = new Deck(temp);
 		}
 
+		public List<Card> GetPossibleMoves()
+		{
+			return SuecaGame.PossibleMoves(hand, GetLeadSuit());
+		}
+
 		public Suit GetLeadSuit()
 		{
-			if (currentTrick.Count == 0) 
+			if (currentTrick.Count == 0)
 			{
 				return Suit.None;
 			}
@@ -41,20 +46,21 @@ namespace SuecaSolver
 			return currentTrick;
 		}
 
-		public Card GetHighestCard()
+		public int GetHighestCardIndex()
 		{
 			int bestIndex = 0;
 			int bestValue = Int32.MinValue;
 
-			for (int i = 0; i < hand.Count; i++)
+			foreach (KeyValuePair<int, int> cardValue in dictionary)
 			{
-				if (dictionary[i] > bestValue)
+				if (cardValue.Value > bestValue)
 				{
-					bestValue = dictionary[i];
-					bestIndex = i;
+					bestValue = cardValue.Value;
+					bestIndex = cardValue.Key;
 				}
 			}
-			return hand[bestIndex];
+
+			return bestIndex;
 		}
 
 		public void CleanCardValues()
@@ -85,13 +91,13 @@ namespace SuecaSolver
 			}
 		}
 
-		public void calculateAverages(int n)
-		{
-			for (int i = 0; i < hand.Count; i++)
-			{
-				dictionary[i] = dictionary[i] / n;
-			}
-		}
+		// public void calculateAverages(int n)
+		// {
+		// 	foreach (KeyValuePair<int, int> cardValue in dictionary)
+		// 	{
+		// 		dictionary[cardValue.Key] = cardValue.Value / n;
+		// 	}
+		// }
 
 
 		public List<List<Card>> Sample()

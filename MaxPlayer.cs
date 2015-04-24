@@ -14,13 +14,13 @@ namespace SuecaSolver
 
 		override public int PlayGame(GameState gameState, int alpha, int beta, Card card = null)
 		{
-			int bestMove = Int32.MinValue;
+			// int bestMove = Int32.MinValue;
 			List<Card> moves;
 
 			if (gameState.IsEndGame())
 			{
 				// lol++;
-				// if (lol == 2) 
+				// if (lol == 2)
 				// {
 				// 	System.Environment.Exit(1);
 				// }
@@ -40,10 +40,10 @@ namespace SuecaSolver
 				gameState.ApplyMove(new Move(Id, move));
 				int moveValue = gameState.GetNextPlayer().PlayGame(gameState, alpha, beta);
 
-				if (moveValue > bestMove)
-				{
-					bestMove = moveValue;
-				}
+				// if (moveValue > bestMove)
+				// {
+				// 	bestMove = moveValue;
+				// }
 
 				if (moveValue > alpha)
 				{
@@ -60,7 +60,8 @@ namespace SuecaSolver
 				}
 			}
 
-			return bestMove;
+			// return bestMove;
+			return alpha;
 		}
 
 

@@ -38,7 +38,7 @@ namespace SuecaSolver
 
 		public Trick GetCurrentTrick()
 		{
-			if (tricks.Count == 0) 
+			if (tricks.Count == 0)
 			{
 				Console.WriteLine("Trouble at GameState in GetCurrentTrick");
 			}
@@ -68,7 +68,7 @@ namespace SuecaSolver
 			// 	currentTrick++;
 			// }
 
-			if (tricks.Count == 0 || GetCurrentTrick().IsFull()) 
+			if (tricks.Count == 0 || GetCurrentTrick().IsFull())
 			{
 				tricks.Add(new Trick(trump, debugFlag));
 			}
@@ -118,7 +118,7 @@ namespace SuecaSolver
 
 		public bool IsEndFirstTrick()
 		{
-			if (tricks[0].IsFull())
+			if (tricks.Count > 0 && tricks[0].IsFull())
 			{
 				return true;
 			}
