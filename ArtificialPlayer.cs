@@ -5,34 +5,28 @@ namespace SuecaSolver
 {
 	public class ArtificialPlayer
 	{
-
-		private Suit trump;
-		private List<Card> hand;
-		private List<Card> alreadyPlayed;
+		
 		private PIMC pimc;
+		private InformationSet infoSet;
 
 
 		public ArtificialPlayer(List<Card> initialHand, Suit trumpSuit, int N)
 		{
-			trump = trumpSuit;
-			hand = new List<Card>(initialHand);
-			alreadyPlayed = new List<Card>();
 			pimc = new PIMC(N);
+			infoSet = new InformationSet(initialHand, trumpSuit);
 		}
 
 
-		public void AddPlay(Card card)
+		public void AddPlay(int playerID, Card card)
 		{
-			alreadyPlayed.Add(card);
+			infoSet.AddPlay(playerID, card);
 		}
 
 
 		public Card Play(){
 
-			InformationSet infoSet = new InformationSet(hand, alreadyPlayed, trump);
 			Card chosenCard = pimc.Execute(infoSet);
-			alreadyPlayed.Add(chosenCard);
-			hand.Remove(chosenCard);
+			infoSet.AddMyPlay(chosenCard);
 
 			return chosenCard;
 		}

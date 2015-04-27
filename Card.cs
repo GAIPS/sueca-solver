@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SuecaSolver
 {
-	public class Card : IComparable
+	public class Card : IComparable, IEquatable<Card>
 	{
 
 		//cardValue are assured by Rank enum order
@@ -24,6 +24,12 @@ namespace SuecaSolver
 			Value = cardValues[(int)rank];
 			HasBeenPlayed = false;
 		}
+
+		public override int GetHashCode()
+		{
+			return ((int) this.Suit) * 10 + (int) this.Rank;
+		}
+
 
 		public override string ToString()
 		{
@@ -47,17 +53,52 @@ namespace SuecaSolver
 			return rank + suit;
 		}
 
-		public bool Equals(List<Card> cards)
+		public bool Equals(Card other) 
 		{
-			for (int i = 0; i < cards.Count; i++)
+			if (other == null)
 			{
-				if (Rank == cards[i].Rank && Suit == cards[i].Suit)
-				{
-					return true;
-				}
+				return false;
 			}
-			return false;
+
+			if (this.Rank == other.Rank && this.Suit == other.Suit)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
+
+		public override bool Equals(Object obj)
+		{
+			if (obj == null)
+			{
+				return false;
+			}
+
+			Card card = obj as Card;
+			if (card == null)
+			{
+				return false;
+			}
+			else
+			{
+				return Equals(card);
+			}
+		}
+
+		// public bool Equals(List<Card> cards)
+		// {
+		// 	for (int i = 0; i < cards.Count; i++)
+		// 	{
+		// 		if (Rank == cards[i].Rank && Suit == cards[i].Suit)
+		// 		{
+		// 			return true;
+		// 		}
+		// 	}
+		// 	return false;
+		// }
 
 		public int CompareTo(object obj)
 		{

@@ -6,7 +6,7 @@ namespace SuecaSolver
 	public class Deck
 	{
 
-		private List<Card> deck = new List<Card>();
+		public List<Card> deck = new List<Card>();
 		private Random random;
 
 		public Deck()
@@ -24,11 +24,21 @@ namespace SuecaSolver
 			for (int i = 0; i < 40; i++)
 			{
 				Card c = new Card((Rank) (i % 10), (Suit) ((int) (i / 10)));
-				if (!c.Equals(cards))
+				if (!cards.Contains(c))
 				{
 					deck.Add(c);
 				}
 			}
+		}
+
+		public int GetSize()
+		{
+			return deck.Count;
+		}
+
+		public void RemoveCard(Card card)
+		{
+			Console.WriteLine(deck.Remove(card));
 		}
 
 		public List<Card> GetHand(int handSize)
@@ -103,7 +113,7 @@ namespace SuecaSolver
 			return players;
 		}
 
-		public List<List<Card>> SampleHands(int[] handSizes)
+		public List<List<Card>> SampleHands(Dictionary<int,bool> playerHasSuit, int[] handSizes)
 		{
 			List<List<Card>> players = new List<List<Card>>();
 			List<Card> deckCopy = new List<Card>(deck);
@@ -119,7 +129,19 @@ namespace SuecaSolver
 				for (int randomIndex = 0, j = 0; j < handSizes[i]; j++)
 				{
 					randomIndex = random.Next(0, deckCopy.Count);
-					players[i].Add(deckCopy[randomIndex]);
+					Card randomCard = deckCopy[randomIndex];
+					int playerID = i + 1;
+					int hashCode = (playerID * 10) + (int) randomCard.Suit;
+
+					while (!playerHasSuit[hashCode]) 
+					{
+						randomIndex = random.Next(0, deckCopy.Count);
+						randomCard = deckCopy[randomIndex];
+						playerID = i + 1;
+						hashCode = (playerID * 10) + (int) randomCard.Suit;
+					}
+
+					players[i].Add(randomCard);
 					deckCopy.RemoveAt(randomIndex);
 				}
 				players[i].Sort();

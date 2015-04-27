@@ -62,7 +62,7 @@ namespace SuecaSolver
 					input = Console.ReadLine();
 					cardIndex = Convert.ToInt32(input);
 					chosenCard = currentHand[cardIndex];
-					artificialPlayer.AddPlay(chosenCard);
+					artificialPlayer.AddPlay(currentPlayerID, chosenCard);
 				}
 				else
 				{

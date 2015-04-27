@@ -11,20 +11,31 @@ namespace SuecaSolver
 		public Suit Trump;
 		private Dictionary<Card,int> dictionary;
 		private Deck deck;
+		private Dictionary<int,bool> playerHasSuit;
 
 
-		public InformationSet(List<Card> currentHand, List<Card> alreadyPlayed, Suit trumpSuit)
+		public InformationSet(List<Card> currentHand, Suit trumpSuit)
 		{
 			Trump = trumpSuit;
 			hand = new List<Card>(currentHand);
 			dictionary = new Dictionary<Card,int>();
-
+			playerHasSuit = new Dictionary<int,bool> {
+				{10, true},
+				{11, true},
+				{12, true},
+				{13, true},
+				{20, true},
+				{21, true},
+				{22, true},
+				{23, true},
+				{30, true},
+				{31, true},
+				{32, true},
+				{33, true}};
 			currentTrick = new List<Move>();
-			processAlreadyPlayed(alreadyPlayed);
-			List<Card> temp = new List<Card>(currentHand);
-			temp.AddRange(alreadyPlayed);
-			deck = new Deck(temp);
+			deck = new Deck(currentHand);
 		}
+
 
 		public List<Card> GetPossibleMoves()
 		{
@@ -68,22 +79,36 @@ namespace SuecaSolver
 			return bestCard;
 		}
 
+		public void AddPlay(int playerID, Card card)
+		{
+
+			if (currentTrick.Count == 3) 
+			{
+				currentTrick.Clear();
+			}
+			else
+			{
+				currentTrick.Add(new Move(playerID, card));
+			}
+			deck.RemoveCard(card);
+		}
+
+		public void AddMyPlay(Card card)
+		{
+			if (currentTrick.Count == 3) 
+			{
+				currentTrick.Clear();
+			}
+			else
+			{
+				currentTrick.Add(new Move(0, card));
+			}
+			hand.Remove(card);
+		}
+
 		public void CleanCardValues()
 		{
 			dictionary.Clear();
-		}
-
-		private void processAlreadyPlayed(List<Card> alreadyPlayed)
-		{
-			int size = alreadyPlayed.Count;
-			int trickSize = size % 4;
-			for (int index, i = trickSize; i > 0; i--)
-			{
-				index = size - i;
-				Card card = alreadyPlayed[index];
-				int playerID = 3 - i + 1;
-				currentTrick.Add(new Move(playerID, card));
-			}
 		}
 
 		public void AddCardValue(Card card, int val)
@@ -109,7 +134,7 @@ namespace SuecaSolver
 			}
 
 			hands.Add(new List<Card>(hand));
-			List<List<Card>> sampledHands = deck.SampleHands(handSizes);
+			List<List<Card>> sampledHands = deck.SampleHands(playerHasSuit, handSizes);
 
 			for (int i = 0; i < 3; i++)
 			{
