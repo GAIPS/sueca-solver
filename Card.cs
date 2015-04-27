@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SuecaSolver
 {
-	public class Card
+	public class Card : IComparable
 	{
 
 		//cardValue are assured by Rank enum order
@@ -57,6 +57,29 @@ namespace SuecaSolver
 				}
 			}
 			return false;
+		}
+
+		public int CompareTo(object obj)
+		{
+			if (obj == null)
+			{
+				return 1;
+			}
+
+			Card card = obj as Card;
+			
+			if ((int) Suit < (int) card.Suit)
+			{
+				return -1;
+			}
+			else if ((int) Suit == (int) card.Suit && (int) Rank < (int) card.Rank) 
+			{
+				return -1;	
+			}
+			else
+			{
+				return 1;
+			}
 		}
 	}
 }

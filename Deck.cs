@@ -40,6 +40,7 @@ namespace SuecaSolver
 				hand.Add(deck[randomIndex]);
 				deck.RemoveAt(randomIndex);
 			}
+			hand.Sort();
 			return hand;
 		}
 
@@ -55,6 +56,7 @@ namespace SuecaSolver
 				hand.Add(deckCopy[randomIndex]);
 				deckCopy.RemoveAt(randomIndex);
 			}
+			hand.Sort();
 			return hand;
 		}
 
@@ -74,6 +76,7 @@ namespace SuecaSolver
 					players[i].Add(deckCopy[randomIndex]);
 					deckCopy.RemoveAt(randomIndex);
 				}
+				players[i].Sort();
 			}
 
 			return players;
@@ -94,6 +97,7 @@ namespace SuecaSolver
 					players[i].Add(deckCopy[randomIndex]);
 					deckCopy.RemoveAt(randomIndex);
 				}
+				players[i].Sort();
 			}
 
 			return players;
@@ -118,6 +122,7 @@ namespace SuecaSolver
 					players[i].Add(deckCopy[randomIndex]);
 					deckCopy.RemoveAt(randomIndex);
 				}
+				players[i].Sort();
 			}
 
 			return players;

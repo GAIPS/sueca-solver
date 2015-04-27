@@ -120,17 +120,14 @@ namespace SuecaSolver
 					result.Add(card);
 				}
 			}
-			return result;
+			return removeEquivalentMoves(result);
 		}
 
 
 		public static List<Card> PossibleMoves(List<Card> hand, Suit leadSuit)
 		{
-			// PrintCards("Generating possibleMoves for hand", hand);
-			// Console.WriteLine("With lead suit: " + leadSuit);
 			if (leadSuit == Suit.None)
 			{
-				// Console.WriteLine("Returning all possibles moves because leadSuit is NONE");
 				return AllPossibleMoves(hand);
 			}
 
@@ -138,22 +135,56 @@ namespace SuecaSolver
 
 			foreach (Card card in hand)
 			{
-				// Console.WriteLine("LeadSuit is " + leadSuit + ". Card suit is " + card.Suit  + ". Card HasBeenPlayed is " + card.HasBeenPlayed);
 				if (card.Suit == leadSuit && !card.HasBeenPlayed)
 				{
-					// Console.WriteLine("Adding " + card + " to possible moves.");
 					result.Add(card);
 				}
 			}
 
 			if (result.Count > 0)
 			{
+				removeEquivalentMoves(result);
 				return result;
 			}
 
-			// Console.WriteLine("Returning all possibles moves because hand has no leadSuit cards!");
 			return AllPossibleMoves(hand);
 		}
+
+		private static List<Card> removeEquivalentMoves(List<Card> cards)
+		{
+			Suit lastSuit = Suit.None;
+			int lastRank = (int) Rank.None;
+			int lastValue = -1;
+
+			cards.Sort();
+			for (int i = 0; i < cards.Count; ) 
+			{
+				Card card = cards[i];
+				if (lastSuit == card.Suit) 
+				{
+					if (lastValue == card.Value && lastRank  == ((int) card.Rank - 1)) 
+					{
+						lastRank = (int) card.Rank;
+						cards.RemoveAt(i);
+						continue;
+					}
+					else
+					{
+						lastValue = card.Value;
+						lastRank = (int) card.Rank;
+					}
+				}
+				else
+				{
+					lastSuit = card.Suit;	
+					lastValue = card.Value;
+					lastRank = (int) card.Rank;
+				}
+				i++;
+			}
+			return cards;
+		}
+
 
 		public static void PrintCards(string name, List<Card> cards)
 		{

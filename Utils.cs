@@ -10,7 +10,8 @@ namespace SuecaSolver
 		Jack,
 		King,
 		Seven,
-		Ace
+		Ace,
+		None
 	};
 
 	public enum Suit {
