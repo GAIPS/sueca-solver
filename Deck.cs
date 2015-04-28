@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.SolverFoundation.Services;
 
 namespace SuecaSolver
 {
@@ -113,6 +114,52 @@ namespace SuecaSolver
 			return players;
 		}
 
+
+		// public List<List<Card>> lol(Dictionary<int,List<int>> suitHasPlayer, int[] handSizes)
+		// {
+		// 	Dictionary<int,List<int>> copy = new Dictionary<int,List<int>>(suitHasPlayer);
+		// 	List<List<Card>> players = new List<List<Card>>();
+		// 	List<Card> deckCopy = new List<Card>(deck);
+
+		// 	Action InnedMethod = (int cardIndex) =>
+		//     {
+		//     	int suit = (int) deckCopy[cardIndex].Suit;
+		//     	foreach (Type in copy[suit]) 
+		// 		{
+		    		
+		//     	}
+		//     };
+
+		//     InnedMethod();
+
+		//     return players;
+		// }
+
+
+		public void LOL(Dictionary<int,List<int>> suitHasPlayer, int[] handSizes)
+		{
+			List<Card> deckCopy = new List<Card>(deck);
+			var solver = SolverContext.GetContext();
+			var model = solver.CreateModel();
+			Decision[] decisions = new Decision[deckCopy.Count];
+			
+			for (int i = 0; i < deckCopy.Count; i++) 
+			{
+				Domain domain = Domain.Set(new int[]{10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29});
+				decisions[i] = new Decision(domain, "c" + i);
+				model.AddDecision(decisions[i]);
+				// model.AddConstraint("lol" + i, suitHasPlayer[(int)deckCopy[i].Suit].Contains((int)decisions[i]));
+				model.AddConstraint("lol" + i, Model.Or(suitHasPlayer[(int)deckCopy[i].Suit][0] == decisions[i] / 10, suitHasPlayer[(int)deckCopy[i].Suit][1] == decisions[i] / 10; suitHasPlayer[(int)deckCopy[i].Suit][2] == decisions[i] / 10));
+			}
+			model.AddConstraint("lolzinho", Model.AllDifferent(decisions));
+			var solution = solver.Solve();
+			for (int i = 0; i < deckCopy.Count; i++) 
+			{
+				Console.WriteLine(decisions[i]);
+			}
+		}
+
+
 		public List<List<Card>> SampleHands(Dictionary<int,bool> playerHasSuit, int[] handSizes)
 		{
 			List<List<Card>> players = new List<List<Card>>();
@@ -130,16 +177,16 @@ namespace SuecaSolver
 				{
 					randomIndex = random.Next(0, deckCopy.Count);
 					Card randomCard = deckCopy[randomIndex];
-					int playerID = i + 1;
-					int hashCode = (playerID * 10) + (int) randomCard.Suit;
+					// int playerID = i + 1;
+					// int hashCode = (playerID * 10) + (int) randomCard.Suit;
 
-					while (!playerHasSuit[hashCode]) 
-					{
-						randomIndex = random.Next(0, deckCopy.Count);
-						randomCard = deckCopy[randomIndex];
-						playerID = i + 1;
-						hashCode = (playerID * 10) + (int) randomCard.Suit;
-					}
+					// while (!playerHasSuit[hashCode]) 
+					// {
+					// 	randomIndex = random.Next(0, deckCopy.Count);
+					// 	randomCard = deckCopy[randomIndex];
+					// 	playerID = i + 1;
+					// 	hashCode = (playerID * 10) + (int) randomCard.Suit;
+					// }
 
 					players[i].Add(randomCard);
 					deckCopy.RemoveAt(randomIndex);

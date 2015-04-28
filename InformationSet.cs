@@ -12,6 +12,7 @@ namespace SuecaSolver
 		private Dictionary<Card,int> dictionary;
 		private Deck deck;
 		private Dictionary<int,bool> playerHasSuit;
+		private Dictionary<int,List<int>> suitHasPlayer;
 
 
 		public InformationSet(List<Card> currentHand, Suit trumpSuit)
@@ -31,7 +32,14 @@ namespace SuecaSolver
 				{30, true},
 				{31, true},
 				{32, true},
-				{33, true}};
+				{33, true}
+			};
+			suitHasPlayer = new Dictionary<int,List<int>> {
+				{(int) Suit.Clubs, new List<int>(3){1,2,3}},
+				{(int) Suit.Diamonds, new List<int>(3){1,2,3}},
+				{(int) Suit.Hearts, new List<int>(3){1,2,3}},
+				{(int) Suit.Spades, new List<int>(3){1,2,3}}
+			};
 			currentTrick = new List<Move>();
 			deck = new Deck(currentHand);
 		}
@@ -81,6 +89,13 @@ namespace SuecaSolver
 
 		public void AddPlay(int playerID, Card card)
 		{
+			Suit leadSuit = GetLeadSuit();
+			if ((int) card.Suit != (int) leadSuit && leadSuit != Suit.None)
+			{
+				int hashCode = (playerID * 10) + (int) leadSuit;
+				playerHasSuit[hashCode] = false;
+				suitHasPlayer[(int) leadSuit].Remove(playerID);
+			}
 
 			if (currentTrick.Count == 3) 
 			{
@@ -91,6 +106,8 @@ namespace SuecaSolver
 				currentTrick.Add(new Move(playerID, card));
 			}
 			deck.RemoveCard(card);
+			// printPlayerHasSuit();
+			// printSuitHasPlayer();
 		}
 
 		public void AddMyPlay(Card card)
@@ -158,6 +175,38 @@ namespace SuecaSolver
 		public List<List<Card>> SampleAll(int n)
 		{
 			return deck.SampleAll(n);
+		}
+
+
+		private void printSuitHasPlayer()
+		{
+			Console.WriteLine("<SUIT HAS PLAYER DICTIONARY>");
+			foreach (KeyValuePair<int,List<int>> entry in suitHasPlayer)
+			{
+				Suit suit = (Suit) entry.Key;
+				string playersIDS = "[";
+
+				foreach (int pid in entry.Value) 
+				{
+					playersIDS += pid.ToString();
+				}
+				playersIDS += "]";
+
+				Console.WriteLine(suit + " - " + playersIDS);
+			}
+			Console.WriteLine("</SUIT HAS PLAYER DICTIONARY>");
+		}
+
+		private void printPlayerHasSuit()
+		{
+			Console.WriteLine("<PLAYER HAS SUIT DICTIONARY>");
+			foreach (KeyValuePair<int, bool> entry in playerHasSuit)
+			{
+				int playerID = entry.Key / 10;
+				Suit suit = (Suit) (entry.Key % 10);
+				Console.WriteLine(" <" + playerID + " - " + suit + ";" + entry.Value + ">");
+			}
+			Console.WriteLine("</PLAYER HAS SUIT DICTIONARY>");
 		}
 
 

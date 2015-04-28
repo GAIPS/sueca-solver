@@ -9,10 +9,10 @@ EXETESTFILE=test.exe
 all: clean compile-game run
 
 compile-game:
-	$(CC) -out:$(EXEMAINFILE) -optimize+ $(MAINGAMEFILES)
+	$(CC) -out:$(EXEMAINFILE) -reference:Microsoft.Solver.Foundation.dll -optimize+ $(MAINGAMEFILES)
 
 compile-test:
-	$(CC) -out:$(EXETESTFILE) -optimize+ $(MAINTESTFILES)
+	$(CC) -out:$(EXETESTFILE) -reference:Microsoft.Solver.Foundation.dll -optimize+ $(MAINTESTFILES)
 
 test:
 	time $(RR) $(EXETESTFILE)
