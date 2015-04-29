@@ -17,7 +17,12 @@ namespace SuecaSolver
 				{(int) Suit.Hearts, new List<int>(3){1,2,3}},
 				{(int) Suit.Spades, new List<int>(3){1,2,3}}
 			};
-			deck.LOL(suitHasPlayer, new int[3]{10,10,10});
+			List<List<Card>> cards = deck.SampleHands(suitHasPlayer, new int[3]{10,10,10});
+			SuecaGame.PrintCards("P0", hand);
+			SuecaGame.PrintCards("P1", cards[0]);
+			SuecaGame.PrintCards("P2", cards[1]);
+			SuecaGame.PrintCards("P3", cards[2]);
+
 
 			// SuecaGame.PrintCards("P0", hand);
 			// InformationSet infoSet = new InformationSet(hand, Suit.Clubs);
