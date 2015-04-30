@@ -94,6 +94,7 @@ namespace SuecaSolver
 			{
 				int hashCode = (playerID * 10) + (int) leadSuit;
 				playerHasSuit[hashCode] = false;
+
 				suitHasPlayer[(int) leadSuit].Remove(playerID);
 			}
 
@@ -150,8 +151,11 @@ namespace SuecaSolver
 				handSizes[2 - i]--;
 			}
 
+			// printSuitHasPlayer();
+			
 			hands.Add(new List<Card>(hand));
-			List<List<Card>> sampledHands = deck.SampleHands(playerHasSuit, handSizes);
+			// List<List<Card>> sampledHands = deck.SampleHands(playerHasSuit, handSizes);
+			List<List<Card>> sampledHands = deck.SampleHands(suitHasPlayer, handSizes);
 
 			for (int i = 0; i < 3; i++)
 			{

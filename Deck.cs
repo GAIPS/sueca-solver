@@ -10,10 +10,13 @@ namespace SuecaSolver
 
 		public List<Card> deck = new List<Card>();
 		private Random random;
+		private SolverContext solver;
 
 		public Deck()
 		{
+			solver = SolverContext.GetContext();
 			random = new Random();
+
 			for (int i = 0; i < 40; i++)
 			{
 				deck.Add(new Card((Rank) (i % 10), (Suit) ((int) (i / 10))));
@@ -22,7 +25,9 @@ namespace SuecaSolver
 
 		public Deck(List<Card> cards)
 		{
+			solver = SolverContext.GetContext();
 			random = new Random();
+
 			for (int i = 0; i < 40; i++)
 			{
 				Card c = new Card((Rank) (i % 10), (Suit) ((int) (i / 10)));
@@ -169,25 +174,27 @@ namespace SuecaSolver
 			return list;
 		}
 
-		private void printLOL(string name, List<int> lol)
-		{
-			string res = name + " ";
-			foreach (int num in lol)
-			{
-				res += num + ", ";
-			}
-			Console.WriteLine(res);
-		}
+		// private void printLOL(string name, List<int> lol)
+		// {
+		// 	string res = name + " ";
+		// 	foreach (int num in lol)
+		// 	{
+		// 		res += num + ", ";
+		// 	}
+		// 	Console.WriteLine(res);
+		// }
 
 
-		private List<Card> shuffle(List<Card> cards)
+		private List<T> shuffle<T>(List<T> cards)
 		{
-			List<Card> shuffled = new List<Card>(cards.Count);
-			for (int randomIndex = 0, j = 0; j < cards.Count; j++)
+			int deckSize = cards.Count;
+			List<T> shuffled = new List<T>(deckSize);
+			for (int randomIndex = 0, j = 0; j < deckSize; j++)
 			{
 				randomIndex = random.Next(0, cards.Count);
-				Card randomCard = cards[randomIndex];
+				T randomCard = cards[randomIndex];
 				shuffled.Add(randomCard);
+				cards.RemoveAt(randomIndex);
 			}
 			return shuffled;
 		}
@@ -195,33 +202,36 @@ namespace SuecaSolver
 
 		public List<List<Card>> SampleHands(Dictionary<int,List<int>> suitHasPlayer, int[] handSizes)
 		{
-			List<Card> shuffledDeck = shuffle(deck);
-			var solver = SolverContext.GetContext();
+			deck = shuffle(deck);
 			var model = solver.CreateModel();
-			Decision[] decisions = new Decision[shuffledDeck.Count];
+			Decision[] decisions = new Decision[deck.Count];
 			List<List<int>> players = getDomains(handSizes);
-			List<int> player1 = players[0];
+			List<int> player1 = shuffle(players[0]);
 			List<int> player1Copy = new List<int>(player1);
-			List<int> player2 = players[1];
-			List<int> player3 = players[2];
+			List<int> player2 = shuffle(players[1]);
+			List<int> player3 = shuffle(players[2]);
 			List<int> player3Copy = new List<int>(player3);
 
 			Domain domain1 = Domain.Set(player1.ToArray());
 			Domain domain2 = Domain.Set(player2.ToArray());
 			Domain domain3 = Domain.Set(player3.ToArray());
 			player1.AddRange(player2);
+			player1 = shuffle(player1);
 			Domain domain12 = Domain.Set(player1.ToArray());
 			player2.AddRange(player3);
+			player2 = shuffle(player2);
 			Domain domain23 = Domain.Set(player2.ToArray());
 			player3.AddRange(player1Copy);
+			player3 = shuffle(player3);
 			Domain domain13 = Domain.Set(player3.ToArray());
 			player1.AddRange(player3Copy);
+			player1 = shuffle(player1);
 			Domain domain123 = Domain.Set(player1.ToArray());
 
 
-			for (int i = 0; i < shuffledDeck.Count; i++)
+			for (int i = 0; i < deck.Count; i++)
 			{
-				List<int> playersThatHaveSuit = suitHasPlayer[(int)shuffledDeck[i].Suit];
+				List<int> playersThatHaveSuit = suitHasPlayer[(int)deck[i].Suit];
 
 				if (playersThatHaveSuit.Count == 3)
 				{
@@ -267,13 +277,13 @@ namespace SuecaSolver
 			cardsPerPlayer.Add(new List<Card>(handSizes[1]));
 			cardsPerPlayer.Add(new List<Card>(handSizes[2]));
 
-			for (int i = 0; i < shuffledDeck.Count; i++)
+			for (int i = 0; i < deck.Count; i++)
 			{
 				int lol = Convert.ToInt32(decisions[i].ToString());
 				lol = lol / 10;
-				cardsPerPlayer[lol - 1].Add(shuffledDeck[i]);
+				cardsPerPlayer[lol - 1].Add(deck[i]);
 			}
-
+			solver.ClearModel();
 			return cardsPerPlayer;
 		}
 
