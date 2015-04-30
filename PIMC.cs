@@ -45,12 +45,12 @@ namespace SuecaSolver
 
 					if (p0.Count > 5)
 					{
-						n = 3;
+						n = 1000;
 						cardValueInTrick = game.SampleTrick(card);
 					}
 					else
 					{
-						N = 3;
+						n = 100;
 						cardValueInTrick = game.SampleGame(card);
 					}
 
