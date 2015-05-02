@@ -121,26 +121,6 @@ namespace SuecaSolver
 		}
 
 
-		// public List<List<Card>> lol(Dictionary<int,List<int>> suitHasPlayer, int[] handSizes)
-		// {
-		// 	Dictionary<int,List<int>> copy = new Dictionary<int,List<int>>(suitHasPlayer);
-		// 	List<List<Card>> players = new List<List<Card>>();
-		// 	List<Card> deckCopy = new List<Card>(deck);
-
-		// 	Action InnedMethod = (int cardIndex) =>
-		//     {
-		//     	int suit = (int) deckCopy[cardIndex].Suit;
-		//     	foreach (Type in copy[suit])
-		// 		{
-
-		//     	}
-		//     };
-
-		//     InnedMethod();
-
-		//     return players;
-		// }
-
 		private int getNumPlayer(Decision[] decisions, Decision id)
 		{
 			int count = 0;
@@ -173,16 +153,6 @@ namespace SuecaSolver
 			}
 			return list;
 		}
-
-		// private void printLOL(string name, List<int> lol)
-		// {
-		// 	string res = name + " ";
-		// 	foreach (int num in lol)
-		// 	{
-		// 		res += num + ", ";
-		// 	}
-		// 	Console.WriteLine(res);
-		// }
 
 
 		private List<T> shuffle<T>(List<T> cards)
