@@ -126,12 +126,17 @@ namespace SuecaSolver
 
 		public static List<Card> PossibleMoves(List<Card> hand, Suit leadSuit)
 		{
+			List<Card> result = new List<Card>();
+			// Console.WriteLine("-------------------------------");
+			// Console.WriteLine("leadSuit " + leadSuit);
+			// SuecaGame.PrintCards("allcards", hand);
+
 			if (leadSuit == Suit.None)
 			{
-				return AllPossibleMoves(hand);
+				result = AllPossibleMoves(hand);
+				// SuecaGame.PrintCards("result", result);
+				return result;
 			}
-
-			List<Card> result = new List<Card>();
 
 			foreach (Card card in hand)
 			{
@@ -144,10 +149,13 @@ namespace SuecaSolver
 			if (result.Count > 0)
 			{
 				removeEquivalentMoves(result);
+				// SuecaGame.PrintCards("result", result);
 				return result;
 			}
 
-			return AllPossibleMoves(hand);
+			result = AllPossibleMoves(hand);
+			// SuecaGame.PrintCards("result", result);
+			return result;
 		}
 
 		private static List<Card> removeEquivalentMoves(List<Card> cards)
@@ -157,12 +165,12 @@ namespace SuecaSolver
 			int lastValue = -1;
 
 			cards.Sort();
-			for (int i = 0; i < cards.Count; ) 
+			for (int i = 0; i < cards.Count; )
 			{
 				Card card = cards[i];
-				if (lastSuit == card.Suit) 
+				if (lastSuit == card.Suit)
 				{
-					if (lastValue == card.Value && lastRank  == ((int) card.Rank - 1)) 
+					if (lastValue == card.Value && lastRank  == ((int) card.Rank - 1))
 					{
 						lastRank = (int) card.Rank;
 						cards.RemoveAt(i);
@@ -176,7 +184,7 @@ namespace SuecaSolver
 				}
 				else
 				{
-					lastSuit = card.Suit;	
+					lastSuit = card.Suit;
 					lastValue = card.Value;
 					lastRank = (int) card.Rank;
 				}
@@ -199,34 +207,7 @@ namespace SuecaSolver
 		public int[] GetGamePoints()
 		{
 			return gameState.GetGamePoints();
-		}
-
-		// public void PrintPoints(string[] playersNames)
-		// {
-		// 	int sumPoints = gameState.EvalGame();
-		// 	int team0 = 60 + sumPoints;
-		// 	int team1 = 60 - sumPoints;
-		// 	string winner0 = "";
-		// 	string winner1 = "";
-
-		// 	if (sumPoints > 0)
-		// 	{
-		// 		team0 = 120 - sumPoints;
-		// 		team1 = 120 - team1;
-		// 		winner0 = "WINNERS!";
-		// 	} else if (sumPoints > 0) {
-		// 		team0 = -120 + sumPoints;
-		// 		team1 = 120 - team1;
-		// 		winner1 = "WINNERS!";
-		// 	} else {
-		// 		winner0 = "DRAW!";
-		// 		winner1 = "DRAW!";
-		// 	}
-
-		// 	Console.WriteLine("Team " + playersNames[0] + " and " + playersNames[2] + " - " + team0 + " points " + winner0);
-		// 	Console.WriteLine("Team " + playersNames[1] + " and " + playersNames[3] + " - " + team1 + " points " + winner1);
-		// }
-	}
+		}	}
 }
 
 

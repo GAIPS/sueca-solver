@@ -81,6 +81,7 @@ namespace SuecaSolver
 
 		public bool IsEndGame()
 		{
+			// Console.WriteLine("tricks.Count " + tricks.Count + " tricks.Capacity " +  tricks.Capacity);
 			if (tricks.Count == tricks.Capacity && GetCurrentTrick().IsFull())
 			{
 				return true;
@@ -115,7 +116,7 @@ namespace SuecaSolver
 			for (int i = 0; i < tricks.Count; i++)
 			{
 				int trickResult = tricks[i].GetTrickPoints();
-				if (trickResult > 0) 
+				if (trickResult > 0)
 				{
 					result[0] += trickResult;
 				} else {
@@ -127,12 +128,14 @@ namespace SuecaSolver
 
 		public int EvalGame()
 		{
+			// Console.WriteLine("EvalGame - tricks.Count " + tricks.Count);
 			int result = 0;
 			for (int i = 0; i < tricks.Count; i++)
 			{
 				if(debugFlag) Console.WriteLine("--- Trick " + i + ": ---");
 				int trickResult = tricks[i].GetTrickPoints();
 				result += trickResult;
+				// Console.WriteLine("Trickresult: " + trickResult + " Sum: " + result);
 				if(debugFlag) Console.WriteLine("Trickresult: " + trickResult + " Sum: " + result);
 			}
 			return result;
@@ -165,7 +168,7 @@ namespace SuecaSolver
 			if (tricks.Count > 0 && tricks[0].IsFull())
 			{
 				Console.WriteLine("Last trick:");
-				if (GetCurrentTrick().IsFull()) 
+				if (GetCurrentTrick().IsFull())
 				{
 					GetCurrentTrick().PrintTrick();
 				}

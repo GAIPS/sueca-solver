@@ -64,9 +64,10 @@ namespace SuecaSolver
 		}
 
 
-		public void ExecuteTestVersion(InformationSet infoSet, List<Card> hand)
+		public void ExecuteTestVersion(InformationSet infoSet, List<Card> hand, int num)
 		{
-			List<Card> possibleMoves = SuecaGame.PossibleMoves(hand, infoSet.GetLeadSuit());
+			List<Card> possibleMoves = infoSet.GetPossibleMoves();
+			SuecaGame game;
 
 			if (possibleMoves.Count == 1)
 			{
@@ -74,21 +75,31 @@ namespace SuecaSolver
 				return;
 			}
 
-			List<List<Card>> players = infoSet.SampleThree(8);
-			List<Card> p0 = hand;
-			List<Card> p1 = players[0];
-			List<Card> p2 = players[1];
-			List<Card> p3 = players[2];
+			if (num == 10)
+			{
+				List<List<Card>> players = infoSet.Sample();
+				List<Card> p0 = players[0];
+				List<Card> p1 = players[1];
+				List<Card> p2 = players[2];
+				List<Card> p3 = players[3];
+				game = new SuecaGame(p0, p1, p2, p3, infoSet.Trump, infoSet.GetJustPlayed(), false);
+			}
+			else {
+				List<List<Card>> players = infoSet.SampleThree(8);
+				List<Card> p0 = hand;
+				List<Card> p1 = players[0];
+				List<Card> p2 = players[1];
+				List<Card> p3 = players[2];
+				game = new SuecaGame(p0, p1, p2, p3, infoSet.Trump, infoSet.GetJustPlayed(), false);
+			}
 
-
-			SuecaGame game = new SuecaGame(p0, p1, p2, p3, infoSet.Trump, infoSet.GetJustPlayed(), false);
 
 			// for (int j = 0; j < possibleMoves.Count; j++)
 			// {
 				Card card = possibleMoves[0];
 				int cardValueInTrick = game.SampleGame(card);
 				// int cardValueInTrick = game.SampleTrick(card);
-				Console.WriteLine("cardValueInTrick - " + card + " " + cardValueInTrick);
+				// Console.WriteLine("cardValueInTrick - " + card + " " + cardValueInTrick);
 				infoSet.AddCardValue(card, cardValueInTrick);
 			// }
 

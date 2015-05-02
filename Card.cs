@@ -53,7 +53,7 @@ namespace SuecaSolver
 			return rank + suit;
 		}
 
-		public bool Equals(Card other) 
+		public bool Equals(Card other)
 		{
 			if (other == null)
 			{
@@ -108,14 +108,14 @@ namespace SuecaSolver
 			}
 
 			Card card = obj as Card;
-			
+
 			if ((int) Suit < (int) card.Suit)
 			{
 				return -1;
 			}
-			else if ((int) Suit == (int) card.Suit && (int) Rank < (int) card.Rank) 
+			else if ((int) Suit == (int) card.Suit && (int) Rank < (int) card.Rank)
 			{
-				return -1;	
+				return -1;
 			}
 			else
 			{
