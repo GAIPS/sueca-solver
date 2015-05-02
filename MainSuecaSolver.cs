@@ -41,6 +41,7 @@ namespace SuecaSolver
 
 			ArtificialPlayer artificialPlayer = new ArtificialPlayer(playersHand[0], trump, N);
 			SuecaGame game = new SuecaGame(playersHand[0], playersHand[1], playersHand[2], playersHand[3], trump, null, false);
+			game.PrintPlayersHands();
 
 			for (int i = 0; i < 40; i++)
 			{

@@ -258,7 +258,7 @@ namespace SuecaSolver
 		}
 
 
-		public List<List<Card>> SampleHands(Dictionary<int,bool> playerHasSuit, int[] handSizes)
+		public List<List<Card>> SampleHands(int[] handSizes)
 		{
 			List<List<Card>> players = new List<List<Card>>();
 			List<Card> deckCopy = new List<Card>(deck);

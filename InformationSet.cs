@@ -11,7 +11,6 @@ namespace SuecaSolver
 		public Suit Trump;
 		private Dictionary<Card,int> dictionary;
 		private Deck deck;
-		private Dictionary<int,bool> playerHasSuit;
 		private Dictionary<int,List<int>> suitHasPlayer;
 
 
@@ -20,20 +19,6 @@ namespace SuecaSolver
 			Trump = trumpSuit;
 			hand = new List<Card>(currentHand);
 			dictionary = new Dictionary<Card,int>();
-			playerHasSuit = new Dictionary<int,bool> {
-				{10, true},
-				{11, true},
-				{12, true},
-				{13, true},
-				{20, true},
-				{21, true},
-				{22, true},
-				{23, true},
-				{30, true},
-				{31, true},
-				{32, true},
-				{33, true}
-			};
 			suitHasPlayer = new Dictionary<int,List<int>> {
 				{(int) Suit.Clubs, new List<int>(3){1,2,3}},
 				{(int) Suit.Diamonds, new List<int>(3){1,2,3}},
@@ -79,7 +64,7 @@ namespace SuecaSolver
 				}
 			}
 
-			if (bestCard == null) 
+			if (bestCard == null)
 			{
 				Console.WriteLine("Trouble at InformationSet.GetHighestCardIndex()");
 			}
@@ -92,13 +77,10 @@ namespace SuecaSolver
 			Suit leadSuit = GetLeadSuit();
 			if ((int) card.Suit != (int) leadSuit && leadSuit != Suit.None)
 			{
-				int hashCode = (playerID * 10) + (int) leadSuit;
-				playerHasSuit[hashCode] = false;
-
 				suitHasPlayer[(int) leadSuit].Remove(playerID);
 			}
 
-			if (currentTrick.Count == 3) 
+			if (currentTrick.Count == 3)
 			{
 				currentTrick.Clear();
 			}
@@ -107,13 +89,12 @@ namespace SuecaSolver
 				currentTrick.Add(new Move(playerID, card));
 			}
 			deck.RemoveCard(card);
-			// printPlayerHasSuit();
 			// printSuitHasPlayer();
 		}
 
 		public void AddMyPlay(Card card)
 		{
-			if (currentTrick.Count == 3) 
+			if (currentTrick.Count == 3)
 			{
 				currentTrick.Clear();
 			}
@@ -152,9 +133,8 @@ namespace SuecaSolver
 			}
 
 			// printSuitHasPlayer();
-			
+
 			hands.Add(new List<Card>(hand));
-			// List<List<Card>> sampledHands = deck.SampleHands(playerHasSuit, handSizes);
 			List<List<Card>> sampledHands = deck.SampleHands(suitHasPlayer, handSizes);
 
 			for (int i = 0; i < 3; i++)
@@ -190,7 +170,7 @@ namespace SuecaSolver
 				Suit suit = (Suit) entry.Key;
 				string playersIDS = "[";
 
-				foreach (int pid in entry.Value) 
+				foreach (int pid in entry.Value)
 				{
 					playersIDS += pid.ToString();
 				}
@@ -199,18 +179,6 @@ namespace SuecaSolver
 				Console.WriteLine(suit + " - " + playersIDS);
 			}
 			Console.WriteLine("</SUIT HAS PLAYER DICTIONARY>");
-		}
-
-		private void printPlayerHasSuit()
-		{
-			Console.WriteLine("<PLAYER HAS SUIT DICTIONARY>");
-			foreach (KeyValuePair<int, bool> entry in playerHasSuit)
-			{
-				int playerID = entry.Key / 10;
-				Suit suit = (Suit) (entry.Key % 10);
-				Console.WriteLine(" <" + playerID + " - " + suit + ";" + entry.Value + ">");
-			}
-			Console.WriteLine("</PLAYER HAS SUIT DICTIONARY>");
 		}
 
 
