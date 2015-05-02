@@ -120,6 +120,18 @@ namespace SuecaSolver
 			}
 		}
 
+		private bool checkSuitsHaveAllPlayers(Dictionary<int,List<int>> suitHasPlayer)
+		{
+			if (suitHasPlayer[0].Count == 3 &&
+				suitHasPlayer[1].Count == 3 &&
+				suitHasPlayer[2].Count == 3 &&
+				suitHasPlayer[3].Count == 3)
+			{
+				return true;
+			}
+			return false;
+		}
+
 		public List<List<Card>> Sample()
 		{
 			List<List<Card>> hands = new List<List<Card>>();
@@ -132,10 +144,15 @@ namespace SuecaSolver
 				handSizes[2 - i]--;
 			}
 
-			// printSuitHasPlayer();
-
 			hands.Add(new List<Card>(hand));
-			List<List<Card>> sampledHands = deck.SampleHands(suitHasPlayer, handSizes);
+			List<List<Card>> sampledHands;
+
+			if (checkSuitsHaveAllPlayers(suitHasPlayer))
+			{
+				sampledHands = deck.SampleHands(handSizes);
+			} else {
+				sampledHands = deck.SampleHands(suitHasPlayer, handSizes);
+			}
 
 			for (int i = 0; i < 3; i++)
 			{

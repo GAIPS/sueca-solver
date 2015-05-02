@@ -26,7 +26,7 @@ namespace SuecaSolver
 
 			Dictionary<int,List<int>> suitHasPlayer = new Dictionary<int,List<int>> {
 				{(int) Suit.Clubs, new List<int>(3){1,2,3}},
-				{(int) Suit.Diamonds, new List<int>(3){1,3}},
+				{(int) Suit.Diamonds, new List<int>(3){1,2,3}},
 				{(int) Suit.Hearts, new List<int>(3){1,2,3}},
 				{(int) Suit.Spades, new List<int>(3){1,2,3}}
 			};
