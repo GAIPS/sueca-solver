@@ -5,17 +5,16 @@ namespace SuecaSolver
 {
 	public class ArtificialPlayer
 	{
-		
+
 		private PIMC pimc;
 		private InformationSet infoSet;
 
 
-		public ArtificialPlayer(List<Card> initialHand, Suit trumpSuit, int N)
+		public ArtificialPlayer(List<Card> initialHand, Suit trumpSuit)
 		{
-			pimc = new PIMC(N);
+			pimc = new PIMC(1);
 			infoSet = new InformationSet(initialHand, trumpSuit);
 		}
-
 
 		public void AddPlay(int playerID, Card card)
 		{

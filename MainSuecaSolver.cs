@@ -11,7 +11,7 @@ namespace SuecaSolver
 			string input;
 			string[] playersNames = new string[4];
 			playersNames[0] = "Bot";
-			int firstPlayerID, N;
+			int firstPlayerID;
 			Console.WriteLine("");
 			Console.WriteLine("|||||||||||||||||||| SUECA GAME ||||||||||||||||||||");
 			Console.WriteLine("");
@@ -26,10 +26,6 @@ namespace SuecaSolver
 			Console.Write("First player ID: ");
 			input = Console.ReadLine();
 			firstPlayerID = Convert.ToInt32(input);
-			Console.Write("N param for PIMC: ");
-			input = Console.ReadLine();
-			N = Convert.ToInt32(input);
-
 			Console.WriteLine("");
 
 			Deck deck = new Deck();
@@ -39,7 +35,7 @@ namespace SuecaSolver
 			Suit trump = (Suit) randomNumber.Next(0, 4);
 			int cardIndex, currentPlayerID = firstPlayerID;
 
-			ArtificialPlayer artificialPlayer = new ArtificialPlayer(playersHand[0], trump, N);
+			ArtificialPlayer artificialPlayer = new ArtificialPlayer(0, playersHand[0], trump);
 			SuecaGame game = new SuecaGame(playersHand[0], playersHand[1], playersHand[2], playersHand[3], trump, null, false);
 			game.PrintPlayersHands();
 
@@ -78,8 +74,8 @@ namespace SuecaSolver
 			Console.WriteLine("|||||||||||||||||||||||| END |||||||||||||||||||||||");
 			Console.WriteLine("");
 			int[] points = game.GetGamePoints();
-			Console.WriteLine("Team " + playersNames[0] + " and " + playersNames[1] + " - " + points[0] + " points");
-			Console.WriteLine("Team " + playersNames[2] + " and " + playersNames[3] + " - " + points[1] + " points");
+			Console.WriteLine("Team " + playersNames[0] + " and " + playersNames[2] + " - " + points[0] + " points");
+			Console.WriteLine("Team " + playersNames[1] + " and " + playersNames[3] + " - " + points[1] + " points");
 			// game.PrintPoints(playersNames);
 			Console.WriteLine("");
 

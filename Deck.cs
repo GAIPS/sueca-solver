@@ -45,7 +45,7 @@ namespace SuecaSolver
 
 		public void RemoveCard(Card card)
 		{
-			Console.WriteLine(deck.Remove(card));
+			deck.Remove(card);
 		}
 
 		public List<Card> GetHand(int handSize)

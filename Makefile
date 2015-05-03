@@ -1,24 +1,38 @@
 CC=mcs
 RR=mono
-FILES = $(wildcard *.cs)
-MAINGAMEFILES = $(filter-out MainTest.cs, $(FILES))
-MAINTESTFILES = $(filter-out MainSuecaSolver.cs, $(FILES))
-EXEMAINFILE=sueca-solver.exe
-EXETESTFILE=test.exe
+FILES = $(filter-out MainSuecaSolver.cs MainTest.cs MainWar.cs, $(wildcard *.cs))
 
-all: clean compile-game run
+GAMEMAIN=MainSuecaSolver.cs
+TESTMAIN=MainTest.cs
+WARMAIN=MainWar.cs
+
+GAMEEXE=sueca-solver.exe
+TESTEXE=test.exe
+WAREXE=war.exe
+
+game: clean compile-game run-game
+
+test: clean compile-test run-test
+
+war: clean compile-war run-war
 
 compile-game:
-	$(CC) -out:$(EXEMAINFILE) -reference:Microsoft.Solver.Foundation.dll -optimize+ $(MAINGAMEFILES)
+	$(CC) -out:$(GAMEEXE) -reference:Microsoft.Solver.Foundation.dll -optimize+ $(GAMEMAIN) $(FILES)
 
 compile-test:
-	$(CC) -out:$(EXETESTFILE) -reference:Microsoft.Solver.Foundation.dll -optimize+ $(MAINTESTFILES)
+	$(CC) -out:$(TESTEXE) -reference:Microsoft.Solver.Foundation.dll -optimize+ $(TESTMAIN) $(FILES)
 
-test:
-	time $(RR) $(EXETESTFILE)
+compile-war:
+	$(CC) -out:$(WAREXE) -reference:Microsoft.Solver.Foundation.dll -optimize+ $(WARMAIN) $(FILES)
 
-run:
-	time $(RR) $(EXEMAINFILE)
+run-game:
+	time $(RR) $(GAMEEXE)
+
+run-test:
+	time $(RR) $(TESTEXE)
+
+run-war:
+	time $(RR) $(WAREXE)
 
 clean:
 	rm -rf *.exe

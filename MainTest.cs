@@ -21,7 +21,7 @@ namespace SuecaSolver
 		public static void Main ()
 		{
 			Deck deck = new Deck();
-			List<Card> hand = deck.GetHand(8);
+			List<Card> hand = deck.GetHand(9);
 
 			// List<List<Card>> cards;
 			// Dictionary<int,List<int>> suitHasPlayer = new Dictionary<int,List<int>> {
@@ -68,7 +68,7 @@ namespace SuecaSolver
 			// SuecaGame.PrintCards("P2", list[2]);
 			// SuecaGame.PrintCards("P3", list[3]);
 			PIMC pimc = new PIMC(1);
-			pimc.ExecuteTestVersion(infoSet, hand, 8);
+			pimc.ExecuteTestVersion(infoSet, hand, 9);
 		}
 	}
 }

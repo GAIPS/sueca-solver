@@ -32,11 +32,6 @@ namespace SuecaSolver
 				List<Card> p2 = players[2];
 				List<Card> p3 = players[3];
 
-				// SuecaGame.PrintCards("My hand", p0);
-				// SuecaGame.PrintCards("sample p1", p1);
-				// SuecaGame.PrintCards("sample p2", p2);
-				// SuecaGame.PrintCards("sample p3", p3);
-
 				SuecaGame game = new SuecaGame(p0, p1, p2, p3, infoSet.Trump, infoSet.GetJustPlayed(), false);
 
 				for (int cardValueInTrick, j = 0; j < possibleMoves.Count; j++)
@@ -58,7 +53,7 @@ namespace SuecaSolver
 				}
 			}
 
-			infoSet.PrintInfoSet();
+			// infoSet.PrintInfoSet();
 			Card highestCard = infoSet.GetHighestCardIndex();
 			return highestCard;
 		}
