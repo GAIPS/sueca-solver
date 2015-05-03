@@ -142,6 +142,7 @@ namespace SuecaSolver
 
 		private List<List<int>> getDomains(int[] handSizes)
 		{
+			// Console.WriteLine("handSizes.Length " + handSizes.Length + " [0] " + handSizes[0] + " [1] " + handSizes[1] + " [2] " + handSizes[2]);
 			List<List<int>> list = new List<List<int>>(3);
 			for (int i = 0; i < 3; i++)
 			{
@@ -151,6 +152,7 @@ namespace SuecaSolver
 					list[i].Add((i + 1) * 10 + j);
 				}
 			}
+			// Console.WriteLine("list.Count " + handSizes.Length + " [0] " + list[0].Count + " [1] " + list[1].Count + " [2] " + list[2].Count);
 			return list;
 		}
 
@@ -202,6 +204,7 @@ namespace SuecaSolver
 			for (int i = 0; i < deck.Count; i++)
 			{
 				List<int> playersThatHaveSuit = suitHasPlayer[(int)deck[i].Suit];
+				// Console.WriteLine("(int)deck[i].Suit " + (int)deck[i].Suit + " playersThatHaveSuit.Count " + playersThatHaveSuit.Count);
 
 				if (playersThatHaveSuit.Count == 3)
 				{
