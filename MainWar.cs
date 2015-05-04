@@ -34,6 +34,7 @@ namespace SuecaSolver
 				Random randomNumber = new Random(Guid.NewGuid().GetHashCode());
 				List<List<Card>> playersHands = deck.SampleAll(10);
 				Suit trump = (Suit) randomNumber.Next(0, 4);
+				Console.WriteLine("Trump " + trump);
 				SuecaGame game = new SuecaGame(playersHands[0], playersHands[1], playersHands[2], playersHands[3], trump, null, false);
 				game.PrintPlayersHands();
 				int currentPlayerID = 0;
@@ -86,7 +87,7 @@ namespace SuecaSolver
 				{
 					Card chosenCard = players[currentPlayerID].Play();
 					game.PlayCard(currentPlayerID, chosenCard);
-					Console.WriteLine("Play " + j + " of player " + currentPlayerID + " with " + chosenCard);
+					// Console.WriteLine("Play " + j + " of player " + currentPlayerID + " with " + chosenCard);
 
 					for (int k = 0; k < 4; k++)
 					{
