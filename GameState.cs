@@ -24,6 +24,11 @@ namespace SuecaSolver
 			}
 		}
 
+		private int getPlayInTrick()
+		{
+			return GetCurrentTrick().getPlayInTrick();
+		}
+
 		public Trick GetCurrentTrick()
 		{
 			if (tricks.Count == 0)
@@ -46,6 +51,41 @@ namespace SuecaSolver
 			}
 			return players[nextPlayerId];
 		}
+
+		// public List<Card> orderPossibleMoves(List<Card> moves, int playerID)
+		// {
+		// 	Suit leadSuit = GetLeadSuit();
+		// 	// int currentPlayInTrick = getPlayInTrick();
+
+		// 	//check if current player has cards from the leadsuit
+		// 	if (moves[0].Suit == leadSuit) 
+		// 	{
+		// 		int bestValueFromSuit = 0;
+		// 		int playerWinning;
+		// 		for (int i = 0; i < 4; i++) 
+		// 		{
+		// 			if (i != playerID) 
+		// 			{
+		// 				int cardValue = players[i].GetHigherFromSuit(leadSuit).Value;
+		// 				if (cardValue > bestValueFromSuit) 
+		// 				{
+		// 					bestValueFromSuit = cardValue;
+		// 					playerWinning = i;
+		// 				}
+
+		// 				if (cardValue < 0) 
+		// 				{
+							
+		// 				}
+		// 			}
+		// 		}
+				
+		// 	} else {
+				
+		// 	}
+
+
+		// }
 
 		public void ApplyMove(Move move)
 		{

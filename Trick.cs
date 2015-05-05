@@ -19,6 +19,11 @@ namespace SuecaSolver
 			debugFlag = debug;
 		}
 
+		public int getPlayInTrick()
+		{
+			return moves.Count;
+		}
+
 		public void ApplyMove(Move move)
 		{
 			if (moves.Count == 0)
