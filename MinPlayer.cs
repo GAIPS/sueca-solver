@@ -54,15 +54,15 @@ namespace SuecaSolver
 		}
 
 
-		override public int PlayTrick(GameState gameState, Card card = null)
+		override public int PlayTrick(GameState gameState, int alpha, int beta, Card card = null)
 		{
+			int worstMove = Int32.MaxValue;
+			List<Card> moves;
+
 			if (gameState.IsEndFirstTrick())
 			{
 				return gameState.GetFirstTrickPoints();
 			}
-
-			int worstMove = Int32.MaxValue;
-			List<Card> moves;
 
 			if (card == null)
 			{
@@ -75,12 +75,23 @@ namespace SuecaSolver
 			foreach (Card move in moves)
 			{
 				gameState.ApplyMove(new Move(Id, move));
-				int moveValue = gameState.GetNextPlayer().PlayTrick(gameState);
+				int moveValue = gameState.GetNextPlayer().PlayTrick(gameState, alpha, beta);
+
 				if (moveValue < worstMove)
 				{
 					worstMove = moveValue;
+					if (moveValue < beta)
+					{
+						beta = moveValue;
+					}
 				}
+
 				gameState.UndoMove();
+
+				if (beta <= alpha)
+				{
+					return beta;
+				}
 			}
 
 			return worstMove;

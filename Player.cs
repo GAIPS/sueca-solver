@@ -16,7 +16,7 @@ namespace SuecaSolver
 		}
 
 		abstract public int PlayGame(GameState gameState, int alpha, int beta, Card move = null);
-		abstract public int PlayTrick(GameState gameState, Card move = null);
+		abstract public int PlayTrick(GameState gameState, int alpha, int beta, Card move = null);
 
 		private void printCards(List<Card> cards)
 		{

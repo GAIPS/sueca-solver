@@ -29,14 +29,14 @@ namespace SuecaSolver
 
 			for (int i = 0; i < numGames; i++)
 			{
-				Console.WriteLine("Game " + i);
+				// Console.WriteLine("----------------- Game " + i + " -----------------");
 				Deck deck = new Deck();
 				Random randomNumber = new Random(Guid.NewGuid().GetHashCode());
 				List<List<Card>> playersHands = deck.SampleAll(10);
 				Suit trump = (Suit) randomNumber.Next(0, 4);
-				Console.WriteLine("Trump " + trump);
+				// Console.WriteLine("Trump " + trump);
 				SuecaGame game = new SuecaGame(playersHands[0], playersHands[1], playersHands[2], playersHands[3], trump, null, false);
-				game.PrintPlayersHands();
+				// game.PrintPlayersHands();
 				int currentPlayerID = 0;
 
 				switch (gameMode)
@@ -87,7 +87,7 @@ namespace SuecaSolver
 				{
 					Card chosenCard = players[currentPlayerID].Play();
 					game.PlayCard(currentPlayerID, chosenCard);
-					Console.WriteLine("Play " + j + " of player " + currentPlayerID + " with " + chosenCard);
+					// Console.WriteLine("Play " + j + " of player " + currentPlayerID + " with " + chosenCard);
 
 					for (int k = 0; k < 4; k++)
 					{
@@ -100,9 +100,12 @@ namespace SuecaSolver
 				}
 
 				int[] points = game.GetGamePoints();
-				Console.WriteLine("----------------- Game " + i + " -----------------");
-				Console.WriteLine("Team " + playersNames[0] + " and " + playersNames[2] + " - " + points[0] + " points");
-				Console.WriteLine("Team " + playersNames[1] + " and " + playersNames[3] + " - " + points[1] + " points");
+				// Console.WriteLine("------");
+				// Console.WriteLine("Team " + playersNames[0] + " and " + playersNames[2] + " - " + points[0] + " points");
+				// Console.WriteLine("Team " + playersNames[1] + " and " + playersNames[3] + " - " + points[1] + " points");
+				// Console.WriteLine("-----------------------------------------");
+				// Console.WriteLine("");
+				// Console.WriteLine("");
 				if (points[0] == 60)
 				{
 					draws++;
