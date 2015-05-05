@@ -87,7 +87,7 @@ namespace SuecaSolver
 				{
 					Card chosenCard = players[currentPlayerID].Play();
 					game.PlayCard(currentPlayerID, chosenCard);
-					// Console.WriteLine("Play " + j + " of player " + currentPlayerID + " with " + chosenCard);
+					Console.WriteLine("Play " + j + " of player " + currentPlayerID + " with " + chosenCard);
 
 					for (int k = 0; k < 4; k++)
 					{

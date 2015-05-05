@@ -35,10 +35,7 @@ namespace SuecaSolver
 				leadSuit = Suit.None;
 			}
 
-			// Console.WriteLine("leadSuit " + leadSuit);
-			// SuecaGame.PrintCards("current hand of random player", hand);
 			List<Card> possibleMoves = SuecaGame.PossibleMoves(hand, leadSuit);
-			// SuecaGame.PrintCards("possiblemoves for the hand before", possibleMoves);
 			int randomIndex = randomNumber.Next(0, possibleMoves.Count);
 			Card chosenCard = possibleMoves[randomIndex];
 			hand.Remove(chosenCard);
