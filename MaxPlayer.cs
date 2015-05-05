@@ -12,7 +12,7 @@ namespace SuecaSolver
 
 		override public int PlayGame(GameState gameState, int alpha, int beta, Card card = null)
 		{
-			int bestMove = Int32.MinValue;
+			int v = Int32.MinValue;
 			List<Card> moves;
 
 			if (gameState.IsEndGame())
@@ -33,30 +33,31 @@ namespace SuecaSolver
 				gameState.ApplyMove(new Move(Id, move));
 				int moveValue = gameState.GetNextPlayer().PlayGame(gameState, alpha, beta);
 
-				if (moveValue > bestMove)
+				if (moveValue > v)
 				{
-					bestMove = moveValue;
-					if (bestMove > alpha)
-					{
-						alpha = bestMove;
-					}
+					v = moveValue;
 				}
 
 				gameState.UndoMove();
 
-				if (alpha >= beta)
+				if (v >= beta)
 				{
-					return alpha;
+					return v;
+				}
+
+				if (v > alpha)
+				{
+					alpha = v;
 				}
 			}
 
-			return bestMove;
+			return v;
 		}
 
 
 		override public int PlayTrick(GameState gameState, int alpha, int beta, Card card = null)
 		{
-			int bestMove = Int32.MinValue;
+			int v = Int32.MinValue;
 			List<Card> moves;
 
 			if (gameState.IsEndFirstTrick())
@@ -76,25 +77,26 @@ namespace SuecaSolver
 			{
 				gameState.ApplyMove(new Move(Id, move));
 				int moveValue = gameState.GetNextPlayer().PlayTrick(gameState, alpha, beta);
-				
-				if (moveValue > bestMove)
+
+				if (moveValue > v)
 				{
-					bestMove = moveValue;
-					if (bestMove > alpha)
-					{
-						alpha = bestMove;
-					}
+					v = moveValue;
 				}
 
 				gameState.UndoMove();
 
-				if (alpha >= beta)
+				if (v >= beta)
 				{
-					return alpha;
+					return v;
+				}
+
+				if (v > alpha)
+				{
+					alpha = v;
 				}
 			}
 
-			return bestMove;
+			return v;
 		}
 	}
 }

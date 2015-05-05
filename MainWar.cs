@@ -45,21 +45,21 @@ namespace SuecaSolver
 						playersNames[0] = "Bot1";
 						players[0] = new SmartPlayer(playersHands[0], trump);
 						playersNames[1] = "Random1";
-						players[1] = new RandomPlayer(playersHands[1], trump);
+						players[1] = new RandomPlayer(playersHands[1]);
 						playersNames[2] = "Random2";
-						players[2] = new RandomPlayer(playersHands[2], trump);
+						players[2] = new RandomPlayer(playersHands[2]);
 						playersNames[3] = "Random3";
-						players[3] = new RandomPlayer(playersHands[3], trump);
+						players[3] = new RandomPlayer(playersHands[3]);
 						break;
 					case 2:
 						playersNames[0] = "Bot1";
 						players[0] = new SmartPlayer(playersHands[0], trump);
 						playersNames[1] = "Random1";
-						players[1] = new RandomPlayer(playersHands[1], trump);
+						players[1] = new RandomPlayer(playersHands[1]);
 						playersNames[2] = "Bot2";
 						players[2] = new SmartPlayer(playersHands[2], trump);
 						playersNames[3] = "Random2";
-						players[3] = new RandomPlayer(playersHands[3], trump);
+						players[3] = new RandomPlayer(playersHands[3]);
 						break;
 					case 3:
 						playersNames[0] = "Bot1";
@@ -69,7 +69,7 @@ namespace SuecaSolver
 						playersNames[2] = "Bot3";
 						players[2] = new SmartPlayer(playersHands[2], trump);
 						playersNames[3] = "Random1";
-						players[3] = new RandomPlayer(playersHands[3], trump);
+						players[3] = new RandomPlayer(playersHands[3]);
 						break;
 					case 4:
 						playersNames[0] = "Bot1";

@@ -6,15 +6,13 @@ namespace SuecaSolver
 	public class RandomPlayer : ArtificialPlayer
 	{
 		private List<Card> hand;
-		private Suit trump;
 		private Suit leadSuit;
 		private int currentPlay;
 		private Random randomNumber;
 
-		public RandomPlayer(List<Card> initialHand, Suit trumpSuit)
+		public RandomPlayer(List<Card> initialHand)
 		{
 			hand = new List<Card>(initialHand);
-			trump = trumpSuit;
 			currentPlay = 0;
 			randomNumber = new Random(Guid.NewGuid().GetHashCode());
 		}

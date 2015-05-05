@@ -50,6 +50,7 @@ namespace SuecaSolver
 					suit += "C";
 					break;
 			}
+
 			return rank + suit;
 		}
 

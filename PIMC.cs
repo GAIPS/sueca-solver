@@ -82,7 +82,7 @@ namespace SuecaSolver
 				game = new SuecaGame(p0, p1, p2, p3, infoSet.Trump, infoSet.GetJustPlayed(), false);
 			}
 			else {
-				List<List<Card>> players = infoSet.SampleThree(8);
+				List<List<Card>> players = infoSet.SampleThree(num);
 				List<Card> p0 = hand;
 				List<Card> p1 = players[0];
 				List<Card> p2 = players[1];

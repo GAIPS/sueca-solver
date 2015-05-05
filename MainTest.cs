@@ -20,8 +20,9 @@ namespace SuecaSolver
 
 		public static void Main ()
 		{
+			int NUM_TRICKS = 7;
 			Deck deck = new Deck();
-			List<Card> hand = deck.GetHand(9);
+			List<Card> hand = deck.GetHand(NUM_TRICKS);
 
 			// List<List<Card>> cards;
 			// Dictionary<int,List<int>> suitHasPlayer = new Dictionary<int,List<int>> {
@@ -68,7 +69,7 @@ namespace SuecaSolver
 			// SuecaGame.PrintCards("P2", list[2]);
 			// SuecaGame.PrintCards("P3", list[3]);
 			PIMC pimc = new PIMC(1);
-			pimc.ExecuteTestVersion(infoSet, hand, 9);
+			pimc.ExecuteTestVersion(infoSet, hand, NUM_TRICKS);
 		}
 	}
 }

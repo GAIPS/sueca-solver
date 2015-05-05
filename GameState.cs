@@ -49,11 +49,15 @@ namespace SuecaSolver
 
 		public void ApplyMove(Move move)
 		{
+			// printTricks();
 			if (tricks.Count == 0 || GetCurrentTrick().IsFull())
 			{
 				tricks.Add(new Trick(trump, debugFlag));
 			}
+			// Console.WriteLine("ApplyMove!!!");
 			GetCurrentTrick().ApplyMove(move);
+			// printTricks();
+			// Console.WriteLine("");
 		}
 
 		public void UndoMove()
@@ -81,9 +85,9 @@ namespace SuecaSolver
 
 		public bool IsEndGame()
 		{
-			// Console.WriteLine("tricks.Count " + tricks.Count + " tricks.Capacity " +  tricks.Capacity);
 			if (tricks.Count == tricks.Capacity && GetCurrentTrick().IsFull())
 			{
+				// Console.WriteLine("ENG GAME!!!!");
 				return true;
 			}
 			return false;
@@ -160,6 +164,17 @@ namespace SuecaSolver
 			int trickResult = GetCurrentTrick().GetTrickPoints();
 			if(debugFlag) Console.WriteLine("Trickresult: " + trickResult + " Sum: " + trickResult);
 			return trickResult;
+		}
+
+
+		private void printTricks()
+		{
+			Console.WriteLine("printTricks - tricks.Count " + tricks.Count);
+			for (int i = 0; i < tricks.Count; i++) 
+			{
+				Console.WriteLine("--- Trick " + i + "---");
+				tricks[i].PrintTrick();
+			}
 		}
 
 
