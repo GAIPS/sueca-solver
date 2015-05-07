@@ -123,5 +123,41 @@ namespace SuecaSolver
 				return 1;
 			}
 		}
+
+
+
+		private static int CompareCardsDescending(Card x, Card y)
+		{
+			if ((int) x.Suit < (int) y.Suit)
+			{
+				return -1;
+			}
+			else if ((int) x.Suit == (int) y.Suit && (int) x.Rank < (int) y.Rank)
+			{
+				return -1;
+			}
+			else
+			{
+				return 1;
+			}
+		}
+
+
+
+		private static int CompareCardsAscending(Card x, Card y)
+		{
+			if ((int) x.Suit > (int) y.Suit)
+			{
+				return -1;
+			}
+			else if ((int) x.Suit == (int) y.Suit && (int) x.Rank > (int) y.Rank)
+			{
+				return -1;
+			}
+			else
+			{
+				return 1;
+			}
+		}
 	}
 }

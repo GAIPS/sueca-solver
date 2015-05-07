@@ -57,58 +57,57 @@ namespace SuecaSolver
 			Suit leadSuit = GetLeadSuit();
 			List<Card> trumps = new List<Card>();
 			List<Card> nonTrumps = new List<Card>();
-			// int currentPlayInTrick = getPlayInTrick();
+			int currentPlayInTrick = getPlayInTrick();
 
-			//check if current player has cards from the leadsuit
-			// if (moves[0].Suit == leadSuit)
-			// {
-			// 	int bestValueFromSuit = 0;
-			// 	int playerWinning;
-			// 	for (int i = 0; i < 4; i++)
-			// 	{
-			// 		if (i != playerID)
-			// 		{
-			// 			// int cardValue = players[i].GetHigherFromSuit(leadSuit).Value;
-
-			// 			// int cardValue = players[i].HasSuit(leadSuit);
-			// 			if (cardValue > bestValueFromSuit)
-			// 			{
-			// 				bestValueFromSuit = cardValue;
-			// 				playerWinning = i;
-			// 			}
-
-			// 			if (cardValue < 0)
-			// 			{
-
-			// 			}
-			// 		}
-			// 	}
-
-			// } else {
-
-			// }
-
-
-
-			// if (cardsHaveSuit(moves, leadSuit))
+			check if current player has cards from the leadsuit
 			if (moves[0].Suit == leadSuit)
 			{
-				return moves;
-			}
-			else
-			{
-				for (int i = 0; i < moves.Count; i++)
+				int bestValueFromSuit = 0;
+				int playerWinning;
+				for (int i = 0; i < 4; i++)
 				{
-					if (moves[i].Suit == trump)
+					if (i != playerID)
 					{
-						trumps.Add(moves[i]);
-					} else {
-						nonTrumps.Add(moves[i]);
+						// int cardValue = players[i].GetHigherFromSuit(leadSuit).Value;
+
+						// int cardValue = players[i].HasSuit(leadSuit);
+						if (cardValue > bestValueFromSuit)
+						{
+							bestValueFromSuit = cardValue;
+							playerWinning = i;
+						}
+
+						if (cardValue < 0)
+						{
+
+						}
 					}
 				}
-				trumps.AddRange(nonTrumps);
-				return trumps;
+
+			} else {
+
 			}
+
+
+
+			// if (moves[0].Suit == leadSuit)
+			// {
+			// 	return moves;
+			// }
+			// else
+			// {
+			// 	for (int i = 0; i < moves.Count; i++)
+			// 	{
+			// 		if (moves[i].Suit == trump)
+			// 		{
+			// 			trumps.Add(moves[i]);
+			// 		} else {
+			// 			nonTrumps.Add(moves[i]);
+			// 		}
+			// 	}
+			// 	trumps.AddRange(nonTrumps);
+			// 	return trumps;
+			// }
 
 		}
 
