@@ -10,9 +10,13 @@ namespace SuecaSolver
 		private bool debugFlag;
 		private Player[] players;
 		private Suit trump;
+		private AscendingComparer ac;
+		private DescendingComparer dc;
 
 		public GameState(int numTricks, Suit trumpSuit, Player[] playersList, bool debug)
 		{
+			ac = new AscendingComparer();
+			dc = new DescendingComparer();
 			players = new Player[4];
 			tricks = new List<Trick>(numTricks);
 			trump = trumpSuit;
@@ -57,66 +61,78 @@ namespace SuecaSolver
 			return players[nextPlayerId];
 		}
 
-		private int trickBeginIndex(int currentPlayInTrick)
-		{
-			return (tricks.Count - 1) + currentPlayInTrick;
-		}
+		// private int trickBeginIndex(int currentPlayInTrick)
+		// {
+		// 	return (tricks.Count - 1) + currentPlayInTrick;
+		// }
 
-		// private card getCardFromTricks(int index)
+		// private Card getCardFromTricks(int index)
 		// {
 
 		// }
 
-		// public List<Card> orderPossibleMoves(List<Card> moves, int playerID)
-		// {
-		// 	Suit leadSuit = GetLeadSuit();
-		// 	List<Card> trumps = new List<Card>();
-		// 	List<Card> nonTrumps = new List<Card>();
-		// 	int currentPlayInTrick = getPlayInTrick();
+		public List<Card> orderPossibleMoves(List<Card> moves, int playerID)
+		{
+			Suit leadSuit = GetLeadSuit();
+			// List<Card> trumps = new List<Card>();
+			// List<Card> nonTrumps = new List<Card>();
+			int currentPlayInTrick = getPlayInTrick();
 
-		// 	if (currentPlayInTrick == 0)
-		// 	{
-		// 		return moves;
-		// 	}
+			if (currentPlayInTrick == 0)
+			{
+				return moves;
+			}
 
-		// 	int trickBegin = trickBeginIndex(currentPlayInTrick);
-		// 	int bestRank = 0;
-		// 	int trickWinner;
-		// 	bool cut = false;
+			List<Move> currentTrick = GetCurrentTrick().GetMoves();
+			int bestRank = 0;
+			int trickWinner  = 0;
+			bool cut = false;
 
-		// 	//TODO nao preciso do trickbegin porque tenho sempre acesso ao currenttrick
-		// 	for (int i = trickBegin; i < trickBegin + 4; i++)
-		// 	{
-		// 		int highestRankForPlayer;
+			for (int i = 0; i < 4; i++)
+			{
+				int highestRankForPlayer;
 
-		// 		if (i < currentPlayInTrick)
-		// 		{
-		// 			highestRankForPlayer = getCardFromTricks(i);
-		// 		}
+				if (i < currentPlayInTrick)
+				{
+					highestRankForPlayer = (int) currentTrick[i].Card.Rank;
+				}
+				else
+				{
+					//checkar os casos limites disto
+					highestRankForPlayer = players[i].HighestRankForSuit(leadSuit, trump);
+				}
 
-		// 		highestRankForPlayer = players[i].HighestRankForSuit(leadSuit);
-		// 		if (cut)
-		// 		{
-		// 			if (highestRankForPlayer > bestRank)
-		// 			{
-		// 				bestRank = highestRank;
-		// 				trickWinner = i;
-		// 			}
-		// 			if (highestRankForPlayer < 0)
-		// 			{
-		// 				bestRank = highestRank;
-		// 				trickWinner = i;
-		// 				cut = true;
-		// 			}
-		// 		}
-		// 		else if (highestRankForPlayer < bestRank)
-		// 		{
-		// 			bestRank = highestRank;
-		// 			trickWinner = i;
-		// 		}
-		// 	}
+				if (!cut)
+				{
+					if (highestRankForPlayer > bestRank)
+					{
+						bestRank = highestRankForPlayer;
+						trickWinner = i;
+					}
+					if (highestRankForPlayer < 0)
+					{
+						bestRank = highestRankForPlayer;
+						trickWinner = i;
+						cut = true;
+					}
+				}
+				else if (highestRankForPlayer < bestRank)
+				{
+					bestRank = highestRankForPlayer;
+					trickWinner = i;
+				}
+			}
 
+			if (trickWinner == playerID || trickWinner == (playerID + 2) % 4) 
+			{
+				moves.Sort(ac);
+			}
+			else
+			{
+				moves.Sort(dc);	
+			}
 
+			return moves;
 
 			// if (moves[0].Suit == leadSuit)
 			// {
@@ -137,7 +153,7 @@ namespace SuecaSolver
 			// 	return trumps;
 			// }
 
-		// }
+		}
 
 		private bool cardsHaveSuit(List<Card> cards, Suit leadSuit)
 		{

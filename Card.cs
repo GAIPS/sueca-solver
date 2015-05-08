@@ -160,4 +160,87 @@ namespace SuecaSolver
 			}
 		}
 	}
+
+
+
+	public class AscendingComparer: IComparer<Card>
+	{
+		public int Compare(Card x, Card y)
+		{
+			if (x == null)
+			{
+				if (y == null)
+				{
+					return 0;
+				}
+				else
+				{
+					return -1;
+				}
+			}
+			else
+			{
+				if (y == null)
+				{
+					return 1;
+				}
+				else
+				{
+					if ((int) x.Suit > (int) y.Suit)
+					{
+						return -1;
+					}
+					else if ((int) x.Suit == (int) y.Suit && (int) x.Rank > (int) y.Rank)
+					{
+						return -1;
+					}
+					else
+					{
+						return 1;
+					}
+				}
+			}
+		}
+	}
+
+
+	public class DescendingComparer: IComparer<Card>
+	{
+		public int Compare(Card x, Card y)
+		{
+			if (x == null)
+			{
+				if (y == null)
+				{
+					return 0;
+				}
+				else
+				{
+					return -1;
+				}
+			}
+			else
+			{
+				if (y == null)
+				{
+					return 1;
+				}
+				else
+				{
+					if ((int) x.Suit < (int) y.Suit)
+					{
+						return -1;
+					}
+					else if ((int) x.Suit == (int) y.Suit && (int) x.Rank < (int) y.Rank)
+					{
+						return -1;
+					}
+					else
+					{
+						return 1;
+					}
+				}
+			}
+		}
+	}
 }

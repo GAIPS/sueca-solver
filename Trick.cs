@@ -19,6 +19,11 @@ namespace SuecaSolver
 			debugFlag = debug;
 		}
 
+		public List<Move> GetMoves()
+		{
+			return moves;
+		}
+
 		public int getPlayInTrick()
 		{
 			return moves.Count;
