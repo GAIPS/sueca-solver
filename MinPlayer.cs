@@ -23,7 +23,7 @@ namespace SuecaSolver
 			if (card == null)
 			{
 				moves = SuecaGame.PossibleMoves(Hand, gameState.GetLeadSuit());
-				moves = gameState.orderPossibleMoves(moves);
+				// moves = gameState.orderPossibleMoves(moves);
 			} else {
 				moves = new List<Card>();
 				moves.Add(card);

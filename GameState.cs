@@ -26,7 +26,12 @@ namespace SuecaSolver
 
 		private int getPlayInTrick()
 		{
-			return GetCurrentTrick().getPlayInTrick();
+			int playInCurrentTrick = GetCurrentTrick().getPlayInTrick();
+			if (playInCurrentTrick == 4)
+			{
+				return 0;
+			}
+			return playInCurrentTrick;
 		}
 
 		public Trick GetCurrentTrick()
@@ -52,41 +57,64 @@ namespace SuecaSolver
 			return players[nextPlayerId];
 		}
 
-		public List<Card> orderPossibleMoves(List<Card> moves) //, int playerID)
+		private int trickBeginIndex(int currentPlayInTrick)
 		{
-			Suit leadSuit = GetLeadSuit();
-			List<Card> trumps = new List<Card>();
-			List<Card> nonTrumps = new List<Card>();
-			int currentPlayInTrick = getPlayInTrick();
+			return (tricks.Count - 1) + currentPlayInTrick;
+		}
 
-			check if current player has cards from the leadsuit
-			if (moves[0].Suit == leadSuit)
-			{
-				int bestValueFromSuit = 0;
-				int playerWinning;
-				for (int i = 0; i < 4; i++)
-				{
-					if (i != playerID)
-					{
-						// int cardValue = players[i].GetHigherFromSuit(leadSuit).Value;
+		// private card getCardFromTricks(int index)
+		// {
 
-						// int cardValue = players[i].HasSuit(leadSuit);
-						if (cardValue > bestValueFromSuit)
-						{
-							bestValueFromSuit = cardValue;
-							playerWinning = i;
-						}
+		// }
 
-						if (cardValue < 0)
-						{
+		// public List<Card> orderPossibleMoves(List<Card> moves, int playerID)
+		// {
+		// 	Suit leadSuit = GetLeadSuit();
+		// 	List<Card> trumps = new List<Card>();
+		// 	List<Card> nonTrumps = new List<Card>();
+		// 	int currentPlayInTrick = getPlayInTrick();
 
-						}
-					}
-				}
+		// 	if (currentPlayInTrick == 0)
+		// 	{
+		// 		return moves;
+		// 	}
 
-			} else {
+		// 	int trickBegin = trickBeginIndex(currentPlayInTrick);
+		// 	int bestRank = 0;
+		// 	int trickWinner;
+		// 	bool cut = false;
 
-			}
+		// 	//TODO nao preciso do trickbegin porque tenho sempre acesso ao currenttrick
+		// 	for (int i = trickBegin; i < trickBegin + 4; i++)
+		// 	{
+		// 		int highestRankForPlayer;
+
+		// 		if (i < currentPlayInTrick)
+		// 		{
+		// 			highestRankForPlayer = getCardFromTricks(i);
+		// 		}
+
+		// 		highestRankForPlayer = players[i].HighestRankForSuit(leadSuit);
+		// 		if (cut)
+		// 		{
+		// 			if (highestRankForPlayer > bestRank)
+		// 			{
+		// 				bestRank = highestRank;
+		// 				trickWinner = i;
+		// 			}
+		// 			if (highestRankForPlayer < 0)
+		// 			{
+		// 				bestRank = highestRank;
+		// 				trickWinner = i;
+		// 				cut = true;
+		// 			}
+		// 		}
+		// 		else if (highestRankForPlayer < bestRank)
+		// 		{
+		// 			bestRank = highestRank;
+		// 			trickWinner = i;
+		// 		}
+		// 	}
 
 
 
@@ -109,7 +137,7 @@ namespace SuecaSolver
 			// 	return trumps;
 			// }
 
-		}
+		// }
 
 		private bool cardsHaveSuit(List<Card> cards, Suit leadSuit)
 		{
