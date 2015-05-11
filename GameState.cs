@@ -61,35 +61,33 @@ namespace SuecaSolver
 			return players[nextPlayerId];
 		}
 
-		// private int trickBeginIndex(int currentPlayInTrick)
-		// {
-		// 	return (tricks.Count - 1) + currentPlayInTrick;
-		// }
-
-		// private Card getCardFromTricks(int index)
-		// {
-
-		// }
 
 		public List<Card> orderPossibleMoves(List<Card> moves, int playerID)
 		{
+			Console.WriteLine("orderPossibleMoves1");
 			Suit leadSuit = GetLeadSuit();
+			Console.WriteLine("orderPossibleMoves2");
 			// List<Card> trumps = new List<Card>();
 			// List<Card> nonTrumps = new List<Card>();
 			int currentPlayInTrick = getPlayInTrick();
+			Console.WriteLine("orderPossibleMoves3");
 
 			if (currentPlayInTrick == 0)
 			{
+				Console.WriteLine("orderPossibleMoves4");
 				return moves;
 			}
 
+			Console.WriteLine("orderPossibleMoves5");
 			List<Move> currentTrick = GetCurrentTrick().GetMoves();
+			Console.WriteLine("orderPossibleMoves6");
 			int bestRank = 0;
 			int trickWinner  = 0;
 			bool cut = false;
 
 			for (int i = 0; i < 4; i++)
 			{
+				Console.WriteLine("orderPossibleMoves7");
 				int highestRankForPlayer;
 
 				if (i < currentPlayInTrick)
@@ -123,13 +121,13 @@ namespace SuecaSolver
 				}
 			}
 
-			if (trickWinner == playerID || trickWinner == (playerID + 2) % 4) 
+			if (trickWinner == playerID || trickWinner == (playerID + 2) % 4)
 			{
 				moves.Sort(ac);
 			}
 			else
 			{
-				moves.Sort(dc);	
+				moves.Sort(dc);
 			}
 
 			return moves;

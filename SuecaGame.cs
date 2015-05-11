@@ -50,7 +50,7 @@ namespace SuecaSolver
 		{
 			Player myPlayer = players[0];
 			if (debugFlag) PrintPlayersHands();
-			int bestmove = myPlayer.PlayGame(gameState, Int32.MinValue, Int32.MaxValue, card);
+			int bestmove = myPlayer.PlayGame(gameState, Int32.MinValue, Int32.MaxValue, 0, card);
 			return bestmove;
 		}
 

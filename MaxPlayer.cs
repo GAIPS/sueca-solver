@@ -10,7 +10,7 @@ namespace SuecaSolver
 		{
 		}
 
-		override public int PlayGame(GameState gameState, int alpha, int beta, Card card = null)
+		override public int PlayGame(GameState gameState, int alpha, int beta, int lol, Card card = null)
 		{
 			int v = Int32.MinValue;
 			List<Card> moves;
@@ -23,16 +23,23 @@ namespace SuecaSolver
 			if (card == null)
 			{
 				moves = SuecaGame.PossibleMoves(Hand, gameState.GetLeadSuit());
-				// moves = gameState.orderPossibleMoves(moves);
+				moves = gameState.orderPossibleMoves(moves, Id);
 			} else {
 				moves = new List<Card>();
 				moves.Add(card);
 			}
 
+			lol++;
+			if (lol == 2)
+			{
+				 System.Environment.Exit(1);
+			}
+
+
 			foreach (Card move in moves)
 			{
 				gameState.ApplyMove(new Move(Id, move));
-				int moveValue = gameState.GetNextPlayer().PlayGame(gameState, alpha, beta);
+				int moveValue = gameState.GetNextPlayer().PlayGame(gameState, alpha, beta, lol);
 
 				if (moveValue > v)
 				{
