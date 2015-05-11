@@ -206,6 +206,15 @@ namespace SuecaSolver
 
 	public class DescendingComparer: IComparer<Card>
 	{
+
+		private Suit trump;
+
+		public DescendingComparer(Suit trumpSuit)
+		{
+			trump = trumpSuit;
+		}
+
+
 		public int Compare(Card x, Card y)
 		{
 			if (x == null)
@@ -227,6 +236,10 @@ namespace SuecaSolver
 				}
 				else
 				{
+					if (x.Suit == trump) 
+					{
+						return -1;
+					}
 					if ((int) x.Suit < (int) y.Suit)
 					{
 						return -1;
