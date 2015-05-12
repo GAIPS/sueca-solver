@@ -54,6 +54,7 @@ namespace SuecaSolver
 
 				if (v <= alpha)
 				{
+					NumCuts++;
 					return v;
 				}
 

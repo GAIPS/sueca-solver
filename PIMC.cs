@@ -89,10 +89,10 @@ namespace SuecaSolver
 				List<Card> p3 = players[2];
 				game = new SuecaGame(p0, p1, p2, p3, infoSet.Trump, infoSet.GetJustPlayed(), false);
 				
-				// SuecaGame.PrintCards("p0", p0);
-				// SuecaGame.PrintCards("p1", p1);
-				// SuecaGame.PrintCards("p2", p2);
-				// SuecaGame.PrintCards("p3", p3);
+				SuecaGame.PrintCards("p0", p0);
+				SuecaGame.PrintCards("p1", p1);
+				SuecaGame.PrintCards("p2", p2);
+				SuecaGame.PrintCards("p3", p3);
 			}
 
 
@@ -100,6 +100,7 @@ namespace SuecaSolver
 			// {
 				Card card = possibleMoves[0];
 				int cardValueInTrick = game.SampleGame(card);
+				game.PrintNumCuts();
 				// int cardValueInTrick = game.SampleTrick(card);
 				// Console.WriteLine("cardValueInTrick - " + card + " " + cardValueInTrick);
 				infoSet.AddCardValue(card, cardValueInTrick);

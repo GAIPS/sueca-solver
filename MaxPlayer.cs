@@ -54,6 +54,7 @@ namespace SuecaSolver
 
 				if (v >= beta)
 				{
+					NumCuts++;
 					return v;
 				}
 

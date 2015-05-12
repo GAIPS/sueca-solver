@@ -127,14 +127,10 @@ namespace SuecaSolver
 		public static List<Card> PossibleMoves(List<Card> hand, Suit leadSuit)
 		{
 			List<Card> result = new List<Card>();
-			// Console.WriteLine("-------------------------------");
-			// Console.WriteLine("leadSuit " + leadSuit);
-			// SuecaGame.PrintCards("allcards", hand);
 
 			if (leadSuit == Suit.None)
 			{
 				result = AllPossibleMoves(hand);
-				// SuecaGame.PrintCards("result", result);
 				return result;
 			}
 
@@ -149,12 +145,10 @@ namespace SuecaSolver
 			if (result.Count > 0)
 			{
 				removeEquivalentMoves(result);
-				// SuecaGame.PrintCards("result", result);
 				return result;
 			}
 
 			result = AllPossibleMoves(hand);
-			// SuecaGame.PrintCards("result", result);
 			return result;
 		}
 
@@ -202,6 +196,19 @@ namespace SuecaSolver
 				str += cards[i].ToString() + ", ";
 			}
 			Console.WriteLine(str);
+		}
+
+		public void PrintNumCuts()
+		{
+			Console.WriteLine("--- PrintNumCuts ---");
+			int average = 0;
+			foreach (Player p in players) 
+			{
+				average += p.NumCuts;
+				Console.WriteLine(p.NumCuts);
+			}
+			average /= 4;
+			Console.WriteLine("Average " + average);
 		}
 
 		public int[] GetGamePoints()
