@@ -126,39 +126,39 @@ namespace SuecaSolver
 
 
 
-		private static int CompareCardsDescending(Card x, Card y)
-		{
-			if ((int) x.Suit < (int) y.Suit)
-			{
-				return -1;
-			}
-			else if ((int) x.Suit == (int) y.Suit && (int) x.Rank < (int) y.Rank)
-			{
-				return -1;
-			}
-			else
-			{
-				return 1;
-			}
-		}
+		// private static int CompareCardsDescending(Card x, Card y)
+		// {
+		// 	if ((int) x.Suit < (int) y.Suit)
+		// 	{
+		// 		return -1;
+		// 	}
+		// 	else if ((int) x.Suit == (int) y.Suit && (int) x.Rank < (int) y.Rank)
+		// 	{
+		// 		return -1;
+		// 	}
+		// 	else
+		// 	{
+		// 		return 1;
+		// 	}
+		// }
 
 
 
-		private static int CompareCardsAscending(Card x, Card y)
-		{
-			if ((int) x.Suit > (int) y.Suit)
-			{
-				return -1;
-			}
-			else if ((int) x.Suit == (int) y.Suit && (int) x.Rank > (int) y.Rank)
-			{
-				return -1;
-			}
-			else
-			{
-				return 1;
-			}
-		}
+		// private static int CompareCardsAscending(Card x, Card y)
+		// {
+		// 	if ((int) x.Suit > (int) y.Suit)
+		// 	{
+		// 		return -1;
+		// 	}
+		// 	else if ((int) x.Suit == (int) y.Suit && (int) x.Rank > (int) y.Rank)
+		// 	{
+		// 		return -1;
+		// 	}
+		// 	else
+		// 	{
+		// 		return 1;
+		// 	}
+		// }
 	}
 
 
@@ -186,11 +186,7 @@ namespace SuecaSolver
 				}
 				else
 				{
-					if ((int) x.Suit > (int) y.Suit)
-					{
-						return -1;
-					}
-					else if ((int) x.Suit == (int) y.Suit && (int) x.Rank > (int) y.Rank)
+					if ((int) x.Rank > (int) y.Rank)
 					{
 						return -1;
 					}
@@ -207,9 +203,48 @@ namespace SuecaSolver
 	public class DescendingComparer: IComparer<Card>
 	{
 
+
+		public int Compare(Card x, Card y)
+		{
+			if (x == null)
+			{
+				if (y == null)
+				{
+					return 0;
+				}
+				else
+				{
+					return -1;
+				}
+			}
+			else
+			{
+				if (y == null)
+				{
+					return 1;
+				}
+				else
+				{
+					if ((int) x.Rank < (int) y.Rank)
+					{
+						return -1;
+					}
+					else
+					{
+						return 1;
+					}
+				}
+			}
+		}
+	}
+
+
+	public class AscendingCutComparer: IComparer<Card>
+	{
+
 		private Suit trump;
 
-		public DescendingComparer(Suit trumpSuit)
+		public AscendingCutComparer(Suit trumpSuit)
 		{
 			trump = trumpSuit;
 		}
@@ -236,15 +271,69 @@ namespace SuecaSolver
 				}
 				else
 				{
-					if (x.Suit == trump) 
+					if (x.Suit == trump && y.Suit == trump && (int) x.Rank > (int) y.Rank)
 					{
 						return -1;
 					}
-					if ((int) x.Suit < (int) y.Suit)
+					else if (x.Suit == trump && y.Suit != trump)
 					{
 						return -1;
 					}
-					else if ((int) x.Suit == (int) y.Suit && (int) x.Rank < (int) y.Rank)
+					else if (x.Suit != trump && y.Suit != trump && (int) x.Rank > (int) y.Rank)
+					{
+						return -1;
+					}
+					else
+					{
+						return 1;
+					}
+				}
+			}
+		}
+	}
+
+
+	public class DescendingCutComparer: IComparer<Card>
+	{
+
+		private Suit trump;
+
+		public DescendingCutComparer(Suit trumpSuit)
+		{
+			trump = trumpSuit;
+		}
+
+
+		public int Compare(Card x, Card y)
+		{
+			if (x == null)
+			{
+				if (y == null)
+				{
+					return 0;
+				}
+				else
+				{
+					return -1;
+				}
+			}
+			else
+			{
+				if (y == null)
+				{
+					return 1;
+				}
+				else
+				{
+					if (x.Suit == trump && y.Suit == trump && (int) x.Rank < (int) y.Rank)
+					{
+						return -1;
+					}
+					else if (x.Suit == trump && y.Suit != trump)
+					{
+						return -1;
+					}
+					else if (x.Suit != trump && y.Suit != trump && (int) x.Rank < (int) y.Rank)
 					{
 						return -1;
 					}

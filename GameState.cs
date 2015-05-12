@@ -12,11 +12,15 @@ namespace SuecaSolver
 		private Suit trump;
 		private AscendingComparer ac;
 		private DescendingComparer dc;
+		private AscendingCutComparer acc;
+		private DescendingCutComparer dcc;
 
 		public GameState(int numTricks, Suit trumpSuit, Player[] playersList, bool debug)
 		{
 			ac = new AscendingComparer();
-			dc = new DescendingComparer(trumpSuit);
+			dc = new DescendingComparer();
+			acc = new AscendingCutComparer(trumpSuit);
+			dcc = new DescendingCutComparer(trumpSuit);
 			players = new Player[4];
 			tricks = new List<Trick>(numTricks);
 			trump = trumpSuit;
@@ -68,8 +72,6 @@ namespace SuecaSolver
 			SuecaGame.PrintCards("Init moves", moves);
 
 			Suit leadSuit = GetLeadSuit();
-			// List<Card> trumps = new List<Card>();
-			// List<Card> nonTrumps = new List<Card>();
 			int currentPlayInTrick = getPlayInTrick();
 
 			if (currentPlayInTrick == 0 || moves.Count == 1)
@@ -99,7 +101,6 @@ namespace SuecaSolver
 				}
 				else
 				{
-					//checkar os casos limites disto
 					highestRankForPlayer = players[pID].HighestRankForSuit(leadSuit, trump);
 					Console.WriteLine("Adding from player " + pID + " card with rank " + highestRankForPlayer);
 				}
@@ -127,10 +128,15 @@ namespace SuecaSolver
 
 			Console.WriteLine("trickWinner " + trickWinner);
 
-			if (trickWinner == playerID || trickWinner == (playerID + 2) % 4)
+			if (!cut && (trickWinner == playerID || trickWinner == (playerID + 2) % 4))
 			{
 				moves.Sort(ac);
 				SuecaGame.PrintCards("ascending sort", moves);
+			}
+			else if (cut && (trickWinner == playerID || trickWinner == (playerID + 2) % 4))
+			{
+				moves.Sort(dcc);
+				SuecaGame.PrintCards("descending cut sort", moves);
 			}
 			else
 			{
@@ -139,26 +145,6 @@ namespace SuecaSolver
 			}
 
 			return moves;
-
-			// if (moves[0].Suit == leadSuit)
-			// {
-			// 	return moves;
-			// }
-			// else
-			// {
-			// 	for (int i = 0; i < moves.Count; i++)
-			// 	{
-			// 		if (moves[i].Suit == trump)
-			// 		{
-			// 			trumps.Add(moves[i]);
-			// 		} else {
-			// 			nonTrumps.Add(moves[i]);
-			// 		}
-			// 	}
-			// 	trumps.AddRange(nonTrumps);
-			// 	return trumps;
-			// }
-
 		}
 
 		private bool cardsHaveSuit(List<Card> cards, Suit leadSuit)
@@ -199,7 +185,7 @@ namespace SuecaSolver
 		public Suit GetLeadSuit()
 		{
 			Trick currentTrick = GetCurrentTrick();
-			if (currentTrick.IsFull()) 
+			if (currentTrick.IsFull())
 			{
 				return Suit.None;
 			}
