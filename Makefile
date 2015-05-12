@@ -29,7 +29,7 @@ run-game:
 	time $(RR) $(GAMEEXE)
 
 run-test:
-	time $(RR) $(TESTEXE)
+	time $(RR) --profile=log $(TESTEXE)
 
 run-war:
 	time $(RR) $(WAREXE)
