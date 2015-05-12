@@ -29,10 +29,14 @@ run-game:
 	time $(RR) $(GAMEEXE)
 
 run-test:
-	time $(RR) --profile=log $(TESTEXE)
+	time $(RR) $(TESTEXE)
+
+run-test-profiled:
+	time $(RR) --gc=sgen --profile=log:noalloc $(TESTEXE)
 
 run-war:
 	time $(RR) $(WAREXE)
 
 clean:
 	rm -rf *.exe
+	rm -rf *.mlpd

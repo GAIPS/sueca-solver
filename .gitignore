@@ -1,2 +1,4 @@
 *.exe
+*.mlpd
+*.mlpd.swp
 .DS_Store

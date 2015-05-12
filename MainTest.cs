@@ -20,12 +20,12 @@ namespace SuecaSolver
 
 		public static void Main ()
 		{
-			int NUM_TRICKS = 7;
+			int NUM_TRICKS = 6;
 			Deck deck = new Deck();
 			List<Card> hand = deck.GetHand(NUM_TRICKS);
 			InformationSet infoSet = new InformationSet(hand, Suit.Clubs);
-			// PIMC pimc = new PIMC(1);
-			// pimc.ExecuteTestVersion(infoSet, hand, NUM_TRICKS);
+			PIMC pimc = new PIMC(1);
+			pimc.ExecuteTestVersion(infoSet, hand, NUM_TRICKS);
 
 
 
@@ -89,34 +89,34 @@ namespace SuecaSolver
 			// 									new Card(Rank.King, Suit.Spades)};
 
 
-			List<Card> p0 = new List<Card>() {new Card(Rank.Three, Suit.Clubs),
-												new Card(Rank.Six, Suit.Clubs),
-												new Card(Rank.Seven, Suit.Clubs),
-												new Card(Rank.Two, Suit.Hearts),
-												new Card(Rank.Five, Suit.Hearts),
-												new Card(Rank.Seven, Suit.Hearts),
-												new Card(Rank.Two, Suit.Spades)};
-			List<Card> p1 = new List<Card>() {new Card(Rank.Queen, Suit.Clubs),
-												new Card(Rank.King, Suit.Clubs),
-												new Card(Rank.Three, Suit.Diamonds),
-												new Card(Rank.Three, Suit.Hearts),
-												new Card(Rank.Six, Suit.Hearts),
-												new Card(Rank.Five, Suit.Spades),
-												new Card(Rank.Seven, Suit.Spades)};
-			List<Card> p2 = new List<Card>() {new Card(Rank.Jack, Suit.Clubs),
-												new Card(Rank.Four, Suit.Diamonds),
-												new Card(Rank.Six, Suit.Diamonds),
-												new Card(Rank.Queen, Suit.Diamonds),
-												new Card(Rank.King, Suit.Diamonds),
-												new Card(Rank.Jack, Suit.Hearts),
-												new Card(Rank.Queen, Suit.Spades)};
-			List<Card> p3 = new List<Card>() {new Card(Rank.Five, Suit.Diamonds),
-												new Card(Rank.Ace, Suit.Hearts),
-												new Card(Rank.Three, Suit.Spades),
-												new Card(Rank.Four, Suit.Spades),
-												new Card(Rank.Jack, Suit.Spades),
-												new Card(Rank.King, Suit.Spades),
-												new Card(Rank.Ace, Suit.Spades)};
+			// List<Card> p0 = new List<Card>() {new Card(Rank.Three, Suit.Clubs),
+			// 									new Card(Rank.Six, Suit.Clubs),
+			// 									new Card(Rank.Seven, Suit.Clubs),
+			// 									new Card(Rank.Two, Suit.Hearts),
+			// 									new Card(Rank.Five, Suit.Hearts),
+			// 									new Card(Rank.Seven, Suit.Hearts),
+			// 									new Card(Rank.Two, Suit.Spades)};
+			// List<Card> p1 = new List<Card>() {new Card(Rank.Queen, Suit.Clubs),
+			// 									new Card(Rank.King, Suit.Clubs),
+			// 									new Card(Rank.Three, Suit.Diamonds),
+			// 									new Card(Rank.Three, Suit.Hearts),
+			// 									new Card(Rank.Six, Suit.Hearts),
+			// 									new Card(Rank.Five, Suit.Spades),
+			// 									new Card(Rank.Seven, Suit.Spades)};
+			// List<Card> p2 = new List<Card>() {new Card(Rank.Jack, Suit.Clubs),
+			// 									new Card(Rank.Four, Suit.Diamonds),
+			// 									new Card(Rank.Six, Suit.Diamonds),
+			// 									new Card(Rank.Queen, Suit.Diamonds),
+			// 									new Card(Rank.King, Suit.Diamonds),
+			// 									new Card(Rank.Jack, Suit.Hearts),
+			// 									new Card(Rank.Queen, Suit.Spades)};
+			// List<Card> p3 = new List<Card>() {new Card(Rank.Five, Suit.Diamonds),
+			// 									new Card(Rank.Ace, Suit.Hearts),
+			// 									new Card(Rank.Three, Suit.Spades),
+			// 									new Card(Rank.Four, Suit.Spades),
+			// 									new Card(Rank.Jack, Suit.Spades),
+			// 									new Card(Rank.King, Suit.Spades),
+			// 									new Card(Rank.Ace, Suit.Spades)};
 
 
 			// List<Card> p0 = new List<Card>() {new Card(Rank.Four, Suit.Clubs),
@@ -181,11 +181,11 @@ namespace SuecaSolver
 
 
 
-			SuecaGame game = new SuecaGame(p0, p1, p2, p3, infoSet.Trump, infoSet.GetJustPlayed(), false);
-			Card card = p0[0];
-			int cardValueInTrick = game.SampleGame(card);
-			infoSet.AddCardValue(card, cardValueInTrick);
-			infoSet.PrintInfoSet();
+			// SuecaGame game = new SuecaGame(p0, p1, p2, p3, infoSet.Trump, infoSet.GetJustPlayed(), false);
+			// Card card = p0[0];
+			// int cardValueInTrick = game.SampleGame(card);
+			// infoSet.AddCardValue(card, cardValueInTrick);
+			// infoSet.PrintInfoSet();
 		}
 	}
 }
