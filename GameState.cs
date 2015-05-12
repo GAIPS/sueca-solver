@@ -68,16 +68,16 @@ namespace SuecaSolver
 
 		public List<Card> orderPossibleMoves(List<Card> moves, int playerID)
 		{
-			Console.WriteLine("----------- orderPossibleMoves -----------");
-			SuecaGame.PrintCards("Init moves", moves);
+			// Console.WriteLine("----------- orderPossibleMoves -----------");
+			// SuecaGame.PrintCards("Init moves", moves);
 
 			Suit leadSuit = GetLeadSuit();
 			int currentPlayInTrick = getPlayInTrick();
 
 			if (currentPlayInTrick == 0 || moves.Count == 1)
 			{
-				Console.WriteLine("Returning moves again!");
-				Console.WriteLine("------------------------------------------");
+				// Console.WriteLine("Returning moves again!");
+				// Console.WriteLine("------------------------------------------");
 				return moves;
 			}
 
@@ -87,8 +87,8 @@ namespace SuecaSolver
 			bool cut = false;
 			int firstPlayerId = (4 + (playerID - currentPlayInTrick)) % 4;
 
-			Console.WriteLine("currentPlayInTrick " + currentPlayInTrick);
-			Console.WriteLine("firstPlayerId " + firstPlayerId);
+			// Console.WriteLine("currentPlayInTrick " + currentPlayInTrick);
+			// Console.WriteLine("firstPlayerId " + firstPlayerId);
 			for (int i = 0; i < 4; i++)
 			{
 				int highestRankForPlayer;
@@ -96,13 +96,13 @@ namespace SuecaSolver
 
 				if (i < currentPlayInTrick)
 				{
-					Console.WriteLine("Adding an already played card " + currentTrick[i].Card);
+					// Console.WriteLine("Adding an already played card " + currentTrick[i].Card);
 					highestRankForPlayer = (int) currentTrick[i].Card.Rank;
 				}
 				else
 				{
 					highestRankForPlayer = players[pID].HighestRankForSuit(leadSuit, trump);
-					Console.WriteLine("Adding from player " + pID + " card with rank " + highestRankForPlayer);
+					// Console.WriteLine("Adding from player " + pID + " card with rank " + highestRankForPlayer);
 				}
 
 				if (!cut)
@@ -126,22 +126,22 @@ namespace SuecaSolver
 				}
 			}
 
-			Console.WriteLine("trickWinner " + trickWinner);
+			// Console.WriteLine("trickWinner " + trickWinner);
 
 			if (!cut && (trickWinner == playerID || trickWinner == (playerID + 2) % 4))
 			{
 				moves.Sort(ac);
-				SuecaGame.PrintCards("ascending sort", moves);
+				// SuecaGame.PrintCards("ascending sort", moves);
 			}
 			else if (cut && (trickWinner == playerID || trickWinner == (playerID + 2) % 4))
 			{
-				moves.Sort(dcc);
-				SuecaGame.PrintCards("descending cut sort", moves);
+				moves.Sort(acc);
+				// SuecaGame.PrintCards("ascending cut sort", moves);
 			}
 			else
 			{
 				moves.Sort(dc);
-				SuecaGame.PrintCards("descending sort", moves);
+				// SuecaGame.PrintCards("descending sort", moves);
 			}
 
 			return moves;

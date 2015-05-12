@@ -30,18 +30,18 @@ namespace SuecaSolver
 			}
 
 
-			lol++;
-			if (lol == 10)
-			{
-				 System.Environment.Exit(1);
-			}
+			// lol++;
+			// if (lol == 10)
+			// {
+			// 	 System.Environment.Exit(1);
+			// }
 
 
 			foreach (Card move in moves)
 			{
 				gameState.ApplyMove(new Move(Id, move));
 				HasSuit[move.Suit]--;
-				Console.WriteLine("Max player played " + move);
+				// Console.WriteLine("Max player played " + move);
 				int moveValue = gameState.GetNextPlayer().PlayGame(gameState, alpha, beta, lol);
 
 				if (moveValue > v)
