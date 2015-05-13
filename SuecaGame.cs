@@ -110,18 +110,18 @@ namespace SuecaSolver
 			Console.WriteLine("");
 		}
 
-		public static List<Card> AllPossibleMoves(List<Card> hand)
-		{
-			List<Card> result = new List<Card>();
-			foreach (Card card in hand)
-			{
-				if (!card.HasBeenPlayed)
-				{
-					result.Add(card);
-				}
-			}
-			return removeEquivalentMoves(result);
-		}
+		// public static List<Card> AllPossibleMoves(List<Card> hand)
+		// {
+		// 	List<Card> result = new List<Card>();
+		// 	foreach (Card card in hand)
+		// 	{
+		// 		if (!card.HasBeenPlayed)
+		// 		{
+		// 			result.Add(card);
+		// 		}
+		// 	}
+		// 	return removeEquivalentMoves(result);
+		// }
 
 
 		public static List<Card> PossibleMoves(List<Card> hand, Suit leadSuit)
@@ -130,13 +130,14 @@ namespace SuecaSolver
 
 			if (leadSuit == Suit.None)
 			{
-				result = AllPossibleMoves(hand);
-				return result;
+				// result = AllPossibleMoves(hand);
+				// return result;
+				return removeEquivalentMoves(hand);
 			}
 
 			foreach (Card card in hand)
 			{
-				if (card.Suit == leadSuit && !card.HasBeenPlayed)
+				if (card.Suit == leadSuit)// && !card.HasBeenPlayed)
 				{
 					result.Add(card);
 				}
@@ -148,26 +149,28 @@ namespace SuecaSolver
 				return result;
 			}
 
-			result = AllPossibleMoves(hand);
-			return result;
+			// result = AllPossibleMoves(hand);
+			// return result;
+			return removeEquivalentMoves(hand);
 		}
 
 		private static List<Card> removeEquivalentMoves(List<Card> cards)
 		{
+			List<Card> result = new List<Card>(cards);
 			Suit lastSuit = Suit.None;
 			int lastRank = (int) Rank.None;
 			int lastValue = -1;
 
-			cards.Sort();
-			for (int i = 0; i < cards.Count; )
+			result.Sort();
+			for (int i = 0; i < result.Count; )
 			{
-				Card card = cards[i];
+				Card card = result[i];
 				if (lastSuit == card.Suit)
 				{
 					if (lastValue == card.Value && lastRank  == ((int) card.Rank - 1))
 					{
 						lastRank = (int) card.Rank;
-						cards.RemoveAt(i);
+						result.RemoveAt(i);
 						continue;
 					}
 					else
@@ -184,7 +187,7 @@ namespace SuecaSolver
 				}
 				i++;
 			}
-			return cards;
+			return result;
 		}
 
 
@@ -202,7 +205,7 @@ namespace SuecaSolver
 		{
 			Console.WriteLine("--- PrintNumCuts ---");
 			int average = 0;
-			foreach (Player p in players) 
+			foreach (Player p in players)
 			{
 				average += p.NumCuts;
 				Console.WriteLine(p.NumCuts);

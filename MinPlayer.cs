@@ -40,6 +40,7 @@ namespace SuecaSolver
 			foreach (Card move in moves)
 			{
 				gameState.ApplyMove(new Move(Id, move));
+				Hand.Remove(move);
 				HasSuit[move.Suit]--;
 				// Console.WriteLine("Min player played " + move);
 				int moveValue = gameState.GetNextPlayer().PlayGame(gameState, alpha, beta, lol);
@@ -50,6 +51,7 @@ namespace SuecaSolver
 				}
 
 				gameState.UndoMove();
+				Hand.Add(move);
 				HasSuit[move.Suit]++;
 
 				if (v <= alpha)
@@ -89,6 +91,7 @@ namespace SuecaSolver
 			foreach (Card move in moves)
 			{
 				gameState.ApplyMove(new Move(Id, move));
+				Hand.Remove(move);
 				int moveValue = gameState.GetNextPlayer().PlayTrick(gameState, alpha, beta);
 
 				if (moveValue < v)
@@ -97,6 +100,7 @@ namespace SuecaSolver
 				}
 
 				gameState.UndoMove();
+				Hand.Add(move);
 
 				if (v <= alpha)
 				{

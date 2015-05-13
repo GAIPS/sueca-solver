@@ -19,7 +19,7 @@ namespace SuecaSolver
 			Hand = new List<Card>(hand);
 			HasSuit = new Dictionary<Suit, int>() {{Suit.Clubs, 0}, {Suit.Diamonds, 0}, {Suit.Hearts, 0}, {Suit.Spades, 0}};
 
-			foreach (Card c in hand) 
+			foreach (Card c in hand)
 			{
 				HasSuit[c.Suit]++;
 			}
@@ -32,13 +32,13 @@ namespace SuecaSolver
 
 		public int HighestRankForSuit(Suit leadSuit, Suit trump)
 		{
-			if (HasSuit[leadSuit] > 0) 
+			if (HasSuit[leadSuit] > 0)
 			{
 				int highestFromLeadSuit = 0;
 
 				foreach (Card card in Hand)
 				{
-					if (!card.HasBeenPlayed && card.Suit == leadSuit && ((int) card.Rank) + 1 > highestFromLeadSuit)
+					if (/*!card.HasBeenPlayed &&*/ card.Suit == leadSuit && ((int) card.Rank) + 1 > highestFromLeadSuit)
 					{
 						highestFromLeadSuit = ((int) card.Rank) + 1;
 					}
@@ -52,7 +52,7 @@ namespace SuecaSolver
 
 				foreach (Card card in Hand)
 				{
-					if (!card.HasBeenPlayed && card.Suit == trump && ((int) card.Rank) + 1 > highestTrump)
+					if (/*!card.HasBeenPlayed &&*/ card.Suit == trump && ((int) card.Rank) + 1 > highestTrump)
 					{
 						highestTrump = ((int) card.Rank) + 1;
 					}

@@ -37,13 +37,13 @@ namespace SuecaSolver
 			}
 
 			moves.Add(move);
-			move.Card.HasBeenPlayed = true;
+			// move.Card.HasBeenPlayed = true;
 		}
 
 		public void UndoMove()
 		{
 			int currentMove = moves.Count - 1;
-			moves[currentMove].Card.HasBeenPlayed = false;
+			// moves[currentMove].Card.HasBeenPlayed = false;
 			moves.RemoveAt(currentMove);
 		}
 

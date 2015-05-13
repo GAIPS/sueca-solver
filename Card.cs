@@ -13,7 +13,7 @@ namespace SuecaSolver
 		public Rank Rank;
 		public Suit Suit;
 		public int Value;
-		public bool HasBeenPlayed;
+		// public bool HasBeenPlayed;
 		public int ID;
 
 		public Card(Rank rank, Suit suit)
@@ -22,7 +22,7 @@ namespace SuecaSolver
 			Rank = rank;
 			Suit = suit;
 			Value = cardValues[(int)rank];
-			HasBeenPlayed = false;
+			// HasBeenPlayed = false;
 		}
 
 		public override int GetHashCode()
