@@ -9,14 +9,12 @@ namespace SuecaSolver
 		public Suit LeadSuit;
 		private List<Move> moves;
 		private Suit trump;
-		private bool debugFlag;
 
-		public Trick (Suit trumpSuit, bool debug)
+		public Trick (Suit trumpSuit)
 		{
 			moves = new List<Move> (4);
 			LeadSuit = Suit.None;
 			trump = trumpSuit;
-			debugFlag = debug;
 		}
 
 		public List<Move> GetMoves ()
@@ -78,11 +76,7 @@ namespace SuecaSolver
 
 		public int GetTrickWinnerId ()
 		{
-			bool oldDebugFlag = debugFlag;
-			debugFlag = false;
-			int winnerId = evalTrick () [0];
-			debugFlag = oldDebugFlag;
-			return winnerId;
+			return evalTrick () [0];
 		}
 
 		public int GetTrickPoints ()
@@ -102,12 +96,9 @@ namespace SuecaSolver
 			int winningPlayerId = moves [0].PlayerId;
 			int points = highestValueFromWinningSuit;
 
-			if (debugFlag)
-				Console.WriteLine ("Card: " + moves [0].Card.ToString () + " pID: " + moves [0].PlayerId);
 
 			for (int i = 1; i < 4; i++) {
-				if (debugFlag)
-					Console.WriteLine ("Card: " + moves [i].Card.ToString () + " pID: " + moves [i].PlayerId);
+				
 				if (moves [i].Card.Suit == trump && winningSuit != trump) {
 					winningSuit = trump;
 					highestValueFromWinningSuit = moves [i].Card.Value;
