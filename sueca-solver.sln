@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "shared-game-items", "shared-game-items\shared-game-items.shproj", "{B4DA737D-145A-421B-BB6A-8F50DA6AD7D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", "{945EADDF-E3A2-4656-9887-6A5BFB3E2660}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "single-game", "single-game\single-game.csproj", "{5141D139-9886-4043-AC41-ACF7053D136D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "war", "war\war.csproj", "{1AC6221A-AFCF-4D7B-83D8-57310B0B7011}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1AC6221A-AFCF-4D7B-83D8-57310B0B7011}.Debug|x86.ActiveCfg = Debug|x86
+		{1AC6221A-AFCF-4D7B-83D8-57310B0B7011}.Debug|x86.Build.0 = Debug|x86
+		{1AC6221A-AFCF-4D7B-83D8-57310B0B7011}.Release|x86.ActiveCfg = Release|x86
+		{1AC6221A-AFCF-4D7B-83D8-57310B0B7011}.Release|x86.Build.0 = Release|x86
+		{5141D139-9886-4043-AC41-ACF7053D136D}.Debug|x86.ActiveCfg = Debug|x86
+		{5141D139-9886-4043-AC41-ACF7053D136D}.Debug|x86.Build.0 = Debug|x86
+		{5141D139-9886-4043-AC41-ACF7053D136D}.Release|x86.ActiveCfg = Release|x86
+		{5141D139-9886-4043-AC41-ACF7053D136D}.Release|x86.Build.0 = Release|x86
+		{945EADDF-E3A2-4656-9887-6A5BFB3E2660}.Debug|x86.ActiveCfg = Debug|x86
+		{945EADDF-E3A2-4656-9887-6A5BFB3E2660}.Debug|x86.Build.0 = Debug|x86
+		{945EADDF-E3A2-4656-9887-6A5BFB3E2660}.Release|x86.ActiveCfg = Release|x86
+		{945EADDF-E3A2-4656-9887-6A5BFB3E2660}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+EndGlobal

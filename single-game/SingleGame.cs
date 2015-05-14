@@ -35,7 +35,7 @@ namespace SuecaSolver
 			Suit trump = (Suit) randomNumber.Next(0, 4);
 			int cardIndex, currentPlayerID = firstPlayerID;
 
-			ArtificialPlayer artificialPlayer = new ArtificialPlayer(0, playersHand[0], trump);
+			SmartPlayer artificialPlayer = new SmartPlayer(playersHand[0], trump);
 			SuecaGame game = new SuecaGame(playersHand[0], playersHand[1], playersHand[2], playersHand[3], trump, null, false);
 			game.PrintPlayersHands();
 

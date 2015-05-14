@@ -13,14 +13,14 @@ namespace SuecaSolver
 		private AscendingComparer ac;
 		private DescendingComparer dc;
 		private AscendingCutComparer acc;
-		private DescendingCutComparer dcc;
+//		private DescendingCutComparer dcc;
 
 		public GameState(int numTricks, Suit trumpSuit, Player[] playersList, bool debug)
 		{
 			ac = new AscendingComparer();
 			dc = new DescendingComparer();
 			acc = new AscendingCutComparer(trumpSuit);
-			dcc = new DescendingCutComparer(trumpSuit);
+//			dcc = new DescendingCutComparer(trumpSuit);
 			players = new Player[4];
 			tricks = new List<Trick>(numTricks);
 			trump = trumpSuit;

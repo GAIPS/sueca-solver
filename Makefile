@@ -1,12 +1,12 @@
 CC=mcs
 RR=mono
-FILES = $(filter-out MainSuecaSolver.cs MainTest.cs MainWar.cs, $(wildcard *.cs))
+FILES = $(wildcard shared-game-items/*.cs)
 
-GAMEMAIN=MainSuecaSolver.cs
-TESTMAIN=MainTest.cs
-WARMAIN=MainWar.cs
+GAMEMAIN=single-game/SingleGame.cs
+TESTMAIN=test/Test.cs
+WARMAIN=war/War.cs
 
-GAMEEXE=sueca-solver.exe
+GAMEEXE=simgle-game.exe
 TESTEXE=test.exe
 WAREXE=war.exe
 
