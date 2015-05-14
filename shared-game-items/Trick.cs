@@ -11,134 +11,123 @@ namespace SuecaSolver
 		private Suit trump;
 		private bool debugFlag;
 
-		public Trick(Suit trumpSuit, bool debug)
+		public Trick (Suit trumpSuit, bool debug)
 		{
-			moves = new List<Move>(4);
+			moves = new List<Move> (4);
 			LeadSuit = Suit.None;
 			trump = trumpSuit;
 			debugFlag = debug;
 		}
 
-		public List<Move> GetMoves()
+		public List<Move> GetMoves ()
 		{
 			return moves;
 		}
 
-		public int getPlayInTrick()
+		public int getPlayInTrick ()
 		{
 			return moves.Count;
 		}
 
-		public void ApplyMove(Move move)
+		public void ApplyMove (Move move)
 		{
-			if (moves.Count == 0)
-			{
+			if (moves.Count == 0) {
 				LeadSuit = move.Card.Suit;
 			}
 
-			moves.Add(move);
-			// move.Card.HasBeenPlayed = true;
+			moves.Add (move);
 		}
 
-		public void UndoMove()
+		public void UndoMove ()
 		{
 			int currentMove = moves.Count - 1;
-			// moves[currentMove].Card.HasBeenPlayed = false;
-			moves.RemoveAt(currentMove);
+			moves.RemoveAt (currentMove);
 		}
 
-		public int GetLastPlayerId()
+		public int GetLastPlayerId ()
 		{
-			if (moves.Count == 0)
-			{
-				Console.WriteLine("Trick trouble at GetLastPlayerId!!!");
+			if (moves.Count == 0) {
+				Console.WriteLine ("Trick trouble at GetLastPlayerId!!!");
 			}
-			return moves[moves.Count - 1].PlayerId;
+			return moves [moves.Count - 1].PlayerId;
 		}
 
 
-		public bool IsEmpty()
+		public bool IsEmpty ()
 		{
-			if (moves.Count == 0)
-			{
+			if (moves.Count == 0) {
 				return true;
 			}
 			return false;
 		}
 
-		public bool IsFull()
+		public bool IsFull ()
 		{
-			if (moves.Count == moves.Capacity)
-			{
+			if (moves.Count == moves.Capacity) {
 				return true;
 			}
 			return false;
 		}
 
-		public void PrintTrick()
+		public void PrintTrick ()
 		{
-			foreach (Move m in moves)
-			{
-				Console.WriteLine(m);
+			foreach (Move m in moves) {
+				Console.WriteLine (m);
 			}
 		}
 
-		public int GetTrickWinnerId()
+		public int GetTrickWinnerId ()
 		{
 			bool oldDebugFlag = debugFlag;
 			debugFlag = false;
-			int winnerId = evalTrick()[0];
+			int winnerId = evalTrick () [0];
 			debugFlag = oldDebugFlag;
 			return winnerId;
 		}
 
-		public int GetTrickPoints()
+		public int GetTrickPoints ()
 		{
-			return evalTrick()[1];
+			return evalTrick () [1];
 		}
 
-		private int[] evalTrick()
+		private int[] evalTrick ()
 		{
-			if (moves.Count == 0)
-			{
-				Console.WriteLine("Trick trouble at evalTrick!!!");
+			if (moves.Count == 0) {
+				Console.WriteLine ("Trick trouble at evalTrick!!!");
 			}
 
-			Suit winningSuit = moves[0].Card.Suit;
-			int highestValueFromWinningSuit = moves[0].Card.Value;
-			int highestRankFromWinningSuit = (int) moves[0].Card.Rank;
-			int winningPlayerId = moves[0].PlayerId;
+			Suit winningSuit = moves [0].Card.Suit;
+			int highestValueFromWinningSuit = moves [0].Card.Value;
+			int highestRankFromWinningSuit = (int)moves [0].Card.Rank;
+			int winningPlayerId = moves [0].PlayerId;
 			int points = highestValueFromWinningSuit;
 
-			if(debugFlag) Console.WriteLine("Card: " + moves[0].Card.ToString() + " pID: " + moves[0].PlayerId);
+			if (debugFlag)
+				Console.WriteLine ("Card: " + moves [0].Card.ToString () + " pID: " + moves [0].PlayerId);
 
-			for (int i = 1; i < 4; i++)
-			{
-				if(debugFlag) Console.WriteLine("Card: " + moves[i].Card.ToString() + " pID: " + moves[i].PlayerId);
-				if (moves[i].Card.Suit == trump && winningSuit != trump)
-				{
+			for (int i = 1; i < 4; i++) {
+				if (debugFlag)
+					Console.WriteLine ("Card: " + moves [i].Card.ToString () + " pID: " + moves [i].PlayerId);
+				if (moves [i].Card.Suit == trump && winningSuit != trump) {
 					winningSuit = trump;
-					highestValueFromWinningSuit = moves[i].Card.Value;
-					highestRankFromWinningSuit = (int) moves[i].Card.Rank;
-					winningPlayerId = moves[i].PlayerId;
-				}
-				else if (moves[i].Card.Suit == winningSuit &&
-					moves[i].Card.Value >= highestValueFromWinningSuit &&
-					(int) moves[i].Card.Rank > highestRankFromWinningSuit)
-				{
-					highestValueFromWinningSuit = moves[i].Card.Value;
-					highestRankFromWinningSuit = (int) moves[i].Card.Rank;
-					winningPlayerId = moves[i].PlayerId;
+					highestValueFromWinningSuit = moves [i].Card.Value;
+					highestRankFromWinningSuit = (int)moves [i].Card.Rank;
+					winningPlayerId = moves [i].PlayerId;
+				} else if (moves [i].Card.Suit == winningSuit &&
+				           moves [i].Card.Value >= highestValueFromWinningSuit &&
+				           (int)moves [i].Card.Rank > highestRankFromWinningSuit) {
+					highestValueFromWinningSuit = moves [i].Card.Value;
+					highestRankFromWinningSuit = (int)moves [i].Card.Rank;
+					winningPlayerId = moves [i].PlayerId;
 				}
 
-				points += moves[i].Card.Value;
+				points += moves [i].Card.Value;
 			}
 
-			if (winningPlayerId == 1 || winningPlayerId == 3)
-			{
+			if (winningPlayerId == 1 || winningPlayerId == 3) {
 				points = -1 * points;
 			}
-			return new int[] {winningPlayerId, points};
+			return new int[] { winningPlayerId, points };
 		}
 	}
 }
