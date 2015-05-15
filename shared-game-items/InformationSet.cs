@@ -4,219 +4,225 @@ using System.Collections.Generic;
 
 namespace SuecaSolver
 {
-	public class InformationSet
-	{
-		private List<Card> hand;
-		private List<Move> currentTrick;
-		public Suit Trump;
-		private Dictionary<Card,int> dictionary;
-		private Deck deck;
-		private Dictionary<int,List<int>> suitHasPlayer;
+    public class InformationSet
+    {
+        private List<int> hand;
+        private List<Move> currentTrick;
+        public int Trump;
+        private Dictionary<int,int> dictionary;
+        private Deck deck;
+        private Dictionary<int,List<int>> suitHasPlayer;
 
 
-		public InformationSet(List<Card> currentHand, Suit trumpSuit)
-		{
-			Trump = trumpSuit;
-			hand = new List<Card>(currentHand);
-			dictionary = new Dictionary<Card,int>();
-			suitHasPlayer = new Dictionary<int,List<int>> {
-				{(int) Suit.Clubs, new List<int>(3){1,2,3}},
-				{(int) Suit.Diamonds, new List<int>(3){1,2,3}},
-				{(int) Suit.Hearts, new List<int>(3){1,2,3}},
-				{(int) Suit.Spades, new List<int>(3){1,2,3}}
-			};
-			currentTrick = new List<Move>();
-			deck = new Deck(currentHand);
-		}
+        public InformationSet(List<int> currentHand, int trumpSuit)
+        {
+            Trump = trumpSuit;
+            hand = new List<int>(currentHand);
+            dictionary = new Dictionary<int,int>();
+            suitHasPlayer = new Dictionary<int,List<int>>
+            {
+                { (int)Suit.Clubs, new List<int>(3){ 1, 2, 3 } },
+                { (int)Suit.Diamonds, new List<int>(3){ 1, 2, 3 } },
+                { (int)Suit.Hearts, new List<int>(3){ 1, 2, 3 } },
+                { (int)Suit.Spades, new List<int>(3){ 1, 2, 3 } }
+            };
+            currentTrick = new List<Move>();
+            deck = new Deck(currentHand);
+        }
 
 
-		public List<Card> GetPossibleMoves()
-		{
-			return SuecaGame.PossibleMoves(hand, GetLeadSuit());
-		}
+        public List<int> GetPossibleMoves()
+        {
+            return SuecaGame.PossibleMoves(hand, GetLeadSuit());
+        }
 
-		public Suit GetLeadSuit()
-		{
-			if (currentTrick.Count == 0)
-			{
-				return Suit.None;
-			}
+        public int GetLeadSuit()
+        {
+            if (currentTrick.Count == 0)
+            {
+                return (int)Suit.None;
+            }
 
-			return currentTrick[0].Card.Suit;
-		}
+            //            return currentTrick[0].Card.Suit;
+            return Fart.GetSuit(currentTrick[0].Card);
+        }
 
-		public List<Move> GetJustPlayed()
-		{
-			return currentTrick;
-		}
+        public List<Move> GetJustPlayed()
+        {
+            return currentTrick;
+        }
 
-		public Card GetHighestCardIndex()
-		{
-			Card bestCard = null;
-			int bestValue = Int32.MinValue;
+        public int GetHighestCardIndex()
+        {
+            int bestCard = -1;
+            int bestValue = Int32.MinValue;
 
-			foreach (KeyValuePair<Card, int> cardValue in dictionary)
-			{
-				if (cardValue.Value > bestValue)
-				{
-					bestValue = cardValue.Value;
-					bestCard = cardValue.Key;
-				}
-			}
+            foreach (KeyValuePair<int, int> cardValue in dictionary)
+            {
+                if (cardValue.Value > bestValue)
+                {
+                    bestValue = cardValue.Value;
+                    bestCard = cardValue.Key;
+                }
+            }
 
-			if (bestCard == null)
-			{
-				Console.WriteLine("Trouble at InformationSet.GetHighestCardIndex()");
-			}
+            if (bestCard == -1)
+            {
+                Console.WriteLine("Trouble at InformationSet.GetHighestCardIndex()");
+            }
 
-			return bestCard;
-		}
+            return bestCard;
+        }
 
-		public void AddPlay(int playerID, Card card)
-		{
-			Suit leadSuit = GetLeadSuit();
-			if ((int) card.Suit != (int) leadSuit && leadSuit != Suit.None)
-			{
-				suitHasPlayer[(int) leadSuit].Remove(playerID);
-			}
+        public void AddPlay(int playerID, int card)
+        {
+            int leadSuit = GetLeadSuit();
+            if (Fart.GetSuit(card) != leadSuit && leadSuit != (int)Suit.None)
+            {
+                suitHasPlayer[leadSuit].Remove(playerID);
+            }
 
-			if (currentTrick.Count == 3)
-			{
-				currentTrick.Clear();
-			}
-			else
-			{
-				currentTrick.Add(new Move(playerID, card));
-			}
-			deck.RemoveCard(card);
-			// printSuitHasPlayer();
-		}
+            if (currentTrick.Count == 3)
+            {
+                currentTrick.Clear();
+            }
+            else
+            {
+                currentTrick.Add(new Move(playerID, card));
+            }
+            deck.RemoveCard(card);
+            // printSuitHasPlayer();
+        }
 
-		public void AddMyPlay(Card card)
-		{
-			if (currentTrick.Count == 3)
-			{
-				currentTrick.Clear();
-			}
-			else
-			{
-				currentTrick.Add(new Move(0, card));
-			}
-			hand.Remove(card);
-		}
+        public void AddMyPlay(int card)
+        {
+            if (currentTrick.Count == 3)
+            {
+                currentTrick.Clear();
+            }
+            else
+            {
+                currentTrick.Add(new Move(0, card));
+            }
+            hand.Remove(card);
+        }
 
-		public void CleanCardValues()
-		{
-			dictionary.Clear();
-		}
+        public void CleanCardValues()
+        {
+            dictionary.Clear();
+        }
 
-		public void AddCardValue(Card card, int val)
-		{
-			if (dictionary.ContainsKey(card))
-			{
-				dictionary[card] += val;
-			} else {
-				dictionary[card] = val;
-			}
-		}
+        public void AddCardValue(int card, int val)
+        {
+            if (dictionary.ContainsKey(card))
+            {
+                dictionary[card] += val;
+            }
+            else
+            {
+                dictionary[card] = val;
+            }
+        }
 
-		private bool checkSuitsHaveAllPlayers(Dictionary<int,List<int>> suitHasPlayer)
-		{
-			if (suitHasPlayer[0].Count == 3 &&
-				suitHasPlayer[1].Count == 3 &&
-				suitHasPlayer[2].Count == 3 &&
-				suitHasPlayer[3].Count == 3)
-			{
-				return true;
-			}
-			return false;
-		}
+        private bool checkSuitsHaveAllPlayers(Dictionary<int,List<int>> suitHasPlayer)
+        {
+            if (suitHasPlayer[0].Count == 3 &&
+                suitHasPlayer[1].Count == 3 &&
+                suitHasPlayer[2].Count == 3 &&
+                suitHasPlayer[3].Count == 3)
+            {
+                return true;
+            }
+            return false;
+        }
 
-		public List<List<Card>> Sample()
-		{
-			List<List<Card>> hands = new List<List<Card>>();
-			int myHandSize = hand.Count;
-			int[] handSizes = new int[3] {myHandSize, myHandSize, myHandSize};
-			int currentTrickSize = currentTrick.Count;
+        public List<List<int>> Sample()
+        {
+            List<List<int>> hands = new List<List<int>>();
+            int myHandSize = hand.Count;
+            int[] handSizes = new int[3] { myHandSize, myHandSize, myHandSize };
+            int currentTrickSize = currentTrick.Count;
 
-			for (int i = 0; i < currentTrickSize; i++)
-			{
-				handSizes[2 - i]--;
-			}
+            for (int i = 0; i < currentTrickSize; i++)
+            {
+                handSizes[2 - i]--;
+            }
 
-			hands.Add(new List<Card>(hand));
-			List<List<Card>> sampledHands;
+            hands.Add(new List<int>(hand));
+            List<List<int>> sampledHands;
 
-			if (checkSuitsHaveAllPlayers(suitHasPlayer))
-			{
-				sampledHands = deck.SampleHands(handSizes);
-			} else {
-				sampledHands = deck.SampleHands(suitHasPlayer, handSizes);
-			}
+            if (checkSuitsHaveAllPlayers(suitHasPlayer))
+            {
+                sampledHands = deck.SampleHands(handSizes);
+            }
+            else
+            {
+                sampledHands = deck.SampleHands(suitHasPlayer, handSizes);
+            }
 
-			for (int i = 0; i < 3; i++)
-			{
-				hands.Add(sampledHands[i]);
-			}
+            for (int i = 0; i < 3; i++)
+            {
+                hands.Add(sampledHands[i]);
+            }
 
-			return hands;
-		}
-
-
-		public List<List<Card>> SampleThree(int n)
-		{
-			List<List<Card>> hands = new List<List<Card>>();
-			hands.Add(deck.GetHand(n));
-			hands.Add(deck.GetHand(n));
-			hands.Add(deck.GetHand(n));
-			return hands;
-		}
+            return hands;
+        }
 
 
-		public List<List<Card>> SampleAll(int n)
-		{
-			return deck.SampleAll(n);
-		}
+        public List<List<int>> SampleThree(int n)
+        {
+            List<List<int>> hands = new List<List<int>>();
+            hands.Add(deck.GetHand(n));
+            hands.Add(deck.GetHand(n));
+            hands.Add(deck.GetHand(n));
+            return hands;
+        }
 
 
-		private void printSuitHasPlayer()
-		{
-			Console.WriteLine("<SUIT HAS PLAYER DICTIONARY>");
-			foreach (KeyValuePair<int,List<int>> entry in suitHasPlayer)
-			{
-				Suit suit = (Suit) entry.Key;
-				string playersIDS = "[";
-
-				foreach (int pid in entry.Value)
-				{
-					playersIDS += pid.ToString();
-				}
-				playersIDS += "]";
-
-				Console.WriteLine(suit + " - " + playersIDS);
-			}
-			Console.WriteLine("</SUIT HAS PLAYER DICTIONARY>");
-		}
+        public List<List<int>> SampleAll(int n)
+        {
+            return deck.SampleAll(n);
+        }
 
 
-		private void printDictionary(string name)
-		{
-			string str = name + " -";
-			foreach (KeyValuePair<Card, int> cardValue in dictionary)
-			{
-				str += " <" + cardValue.Key + "," + cardValue.Value + ">";
-			}
-			Console.WriteLine(str);
-		}
+        //        private void printSuitHasPlayer()
+        //        {
+        //            Console.WriteLine("<SUIT HAS PLAYER DICTIONARY>");
+        //            foreach (KeyValuePair<int,List<int>> entry in suitHasPlayer)
+        //            {
+        //                Suit suit = (Suit)entry.Key;
+        //                string playersIDS = "[";
+        //
+        //                foreach (int pid in entry.Value)
+        //                {
+        //                    playersIDS += pid.ToString();
+        //                }
+        //                playersIDS += "]";
+        //
+        //                Console.WriteLine(suit + " - " + playersIDS);
+        //            }
+        //            Console.WriteLine("</SUIT HAS PLAYER DICTIONARY>");
+        //        }
 
 
-		public void PrintInfoSet()
-		{
-			Console.WriteLine("------------------INFOSET------------------");
-			SuecaGame.PrintCards("Hand", hand);
-			Console.WriteLine("Trump - " + Trump);
-			printDictionary("Dictionary");
-			Console.WriteLine("-------------------------------------------");
-		}
-	}
+        private void printDictionary(string name)
+        {
+            string str = name + " -";
+            foreach (KeyValuePair<int, int> cardValue in dictionary)
+            {
+                str += " <" + Fart.ToString(cardValue.Key) + "," + cardValue.Value + ">";
+            }
+            Console.WriteLine(str);
+        }
+
+
+        public void PrintInfoSet()
+        {
+            Console.WriteLine("------------------INFOSET------------------");
+            SuecaGame.PrintCards("Hand", hand);
+            Console.WriteLine("Trump - " + Trump);
+            printDictionary("Dictionary");
+            Console.WriteLine("-------------------------------------------");
+        }
+    }
 }
