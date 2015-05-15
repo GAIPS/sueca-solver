@@ -3,13 +3,15 @@ using System.Collections.Generic;
 
 namespace SuecaSolver
 {
-	public abstract class ArtificialPlayer
-	{
+    public abstract class ArtificialPlayer
+    {
 
-		public ArtificialPlayer(){}
+        public ArtificialPlayer()
+        {
+        }
 
-		public abstract void AddPlay(int playerID, Card card);
+        public abstract void AddPlay(int playerID, int card);
 
-		public abstract Card Play();
-	}
+        public abstract int Play();
+    }
 }

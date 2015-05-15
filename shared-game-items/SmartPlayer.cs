@@ -3,31 +3,32 @@ using System.Collections.Generic;
 
 namespace SuecaSolver
 {
-	public class SmartPlayer : ArtificialPlayer
-	{
+    public class SmartPlayer : ArtificialPlayer
+    {
 
-		private PIMC pimc;
-		private InformationSet infoSet;
-
-
-		public SmartPlayer(List<Card> initialHand, Suit trumpSuit)
-		{
-			pimc = new PIMC(1);
-			infoSet = new InformationSet(initialHand, trumpSuit);
-		}
-
-		override public void AddPlay(int playerID, Card card)
-		{
-			infoSet.AddPlay(playerID, card);
-		}
+        private PIMC pimc;
+        private InformationSet infoSet;
 
 
-		override public Card Play(){
+        public SmartPlayer(List<int> initialHand, int trumpSuit)
+        {
+            pimc = new PIMC(1);
+            infoSet = new InformationSet(initialHand, trumpSuit);
+        }
 
-			Card chosenCard = pimc.Execute(infoSet);
-			infoSet.AddMyPlay(chosenCard);
+        override public void AddPlay(int playerID, int card)
+        {
+            infoSet.AddPlay(playerID, card);
+        }
 
-			return chosenCard;
-		}
-	}
+
+        override public int Play()
+        {
+
+            int chosenCard = pimc.Execute(infoSet);
+            infoSet.AddMyPlay(chosenCard);
+
+            return chosenCard;
+        }
+    }
 }

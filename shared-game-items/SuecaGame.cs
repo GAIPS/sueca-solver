@@ -7,19 +7,18 @@ namespace SuecaSolver
     {
 
         private Player[] players = new Player[4];
-        private Suit trump;
+        private int trump;
         private GameState gameState;
 
-        public SuecaGame(List<Card> p0, List<Card> p1, List<Card> p2, List<Card> p3, Suit trumpSuit, List<Move> alreadyPlayed)
+        public SuecaGame(List<int> p0, List<int> p1, List<int> p2, List<int> p3, int trumpSuit, List<Move> alreadyPlayed, bool debug)
         {
             trump = trumpSuit;
             players[0] = new MaxPlayer(0, p0);
             players[1] = new MinPlayer(1, p1);
             players[2] = new MaxPlayer(2, p2);
             players[3] = new MinPlayer(3, p3);
-            PrintPlayersHands();
 
-            gameState = new GameState(p0.Count, trump, players);
+            gameState = new GameState(p0.Count, trump, players, debug);
 
             if (alreadyPlayed != null)
             {
@@ -40,22 +39,40 @@ namespace SuecaSolver
             return gameState.GetNextPlayer().Id;
         }
 
-        public void PlayCard(int playerID, Card card)
+        public void Playint(int playerID, int card)
         {
             gameState.ApplyMove(new Move(playerID, card));
         }
 
-        public int SampleGame(Card card = null)
+        public int SampleGame(int card = -1)
         {
             Player myPlayer = players[0];
-            int bestmove = myPlayer.PlayGame(gameState, Int32.MinValue, Int32.MaxValue, 0, card);
+            int bestmove;
+
+            if (card == -1)
+            {
+                bestmove = myPlayer.PlayGame(gameState, Int32.MinValue, Int32.MaxValue, 0);
+            }
+            else
+            {
+                bestmove = myPlayer.PlayGame(gameState, Int32.MinValue, Int32.MaxValue, 0, card);
+            }
             return bestmove;
         }
 
-        public int SampleTrick(Card card = null)
+        public int SampleTrick(int card = -1)
         {
             Player myPlayer = players[0];
-            int bestmove = myPlayer.PlayTrick(gameState, Int32.MinValue, Int32.MaxValue, card);
+            int bestmove;
+
+            if (card == -1)
+            {
+                bestmove = myPlayer.PlayTrick(gameState, Int32.MinValue, Int32.MaxValue);
+            }
+            else
+            {
+                bestmove = myPlayer.PlayTrick(gameState, Int32.MinValue, Int32.MaxValue, card);
+            }
             return bestmove;
         }
 
@@ -73,7 +90,7 @@ namespace SuecaSolver
 
         public void PrintPlayersHands()
         {
-            Console.WriteLine("---------Cards---------");
+            Console.WriteLine("---------ints---------");
             players[0].PrintHand();
             players[1].PrintHand();
             players[2].PrintHand();
@@ -81,7 +98,7 @@ namespace SuecaSolver
             Console.WriteLine("-----------------------");
         }
 
-        public static void PrintHand(List<Card> hand)
+        public static void PrintHand(List<int> hand)
         {
             Console.WriteLine("Your hand:");
             for (int i = 0; i < hand.Count; i++)
@@ -91,7 +108,7 @@ namespace SuecaSolver
             Console.WriteLine("");
             for (int i = 0; i < hand.Count; i++)
             {
-                Console.Write(hand[i] + " ");
+                Console.Write(Fart.ToString(hand[i]) + " ");
             }
             Console.WriteLine("");
             for (int i = 0; i < hand.Count; i++)
@@ -108,18 +125,17 @@ namespace SuecaSolver
         }
 
 
-        public static List<Card> PossibleMoves(List<Card> hand, Suit leadSuit)
+        public static List<int> PossibleMoves(List<int> hand, int leadSuit)
         {
-            List<Card> result = new List<Card>();
-
-            if (leadSuit == Suit.None)
+            List<int> result = new List<int>();
+            if (leadSuit == (int)Suit.None)
             {
-                return removeEquivalentMoves(hand);
+                return removeEquivalentMoves(new List<int>(hand));
             }
 
-            foreach (Card card in hand)
+            foreach (int card in hand)
             {
-                if (card.Suit == leadSuit)
+                if (Fart.GetSuit(card) == leadSuit)// && !card.HasBeenPlayed)
                 {
                     result.Add(card);
                 }
@@ -127,43 +143,42 @@ namespace SuecaSolver
 
             if (result.Count > 0)
             {
-                removeEquivalentMoves(result);
-                return result;
+                return removeEquivalentMoves(result);
             }
 
-            return removeEquivalentMoves(hand);
+            return removeEquivalentMoves(new List<int>(hand));
         }
 
-        private static List<Card> removeEquivalentMoves(List<Card> cards)
+        private static List<int> removeEquivalentMoves(List<int> cards)
         {
-            List<Card> result = new List<Card>(cards);
-            Suit lastSuit = Suit.None;
+            List<int> result = cards;
+            int lastSuit = (int)Suit.None;
             int lastRank = (int)Rank.None;
             int lastValue = -1;
 
             result.Sort();
             for (int i = 0; i < result.Count;)
             {
-                Card card = result[i];
-                if (lastSuit == card.Suit)
+                int card = result[i];
+                if (lastSuit == Fart.GetSuit(card))
                 {
-                    if (lastValue == card.Value && lastRank == ((int)card.Rank - 1))
+                    if (lastValue == Fart.GetValue(card) && lastRank == Fart.GetRank(card) - 1)
                     {
-                        lastRank = (int)card.Rank;
+                        lastRank = Fart.GetRank(card);
                         result.RemoveAt(i);
                         continue;
                     }
                     else
                     {
-                        lastValue = card.Value;
-                        lastRank = (int)card.Rank;
+                        lastValue = Fart.GetValue(card);
+                        lastRank = Fart.GetRank(card);
                     }
                 }
                 else
                 {
-                    lastSuit = card.Suit;
-                    lastValue = card.Value;
-                    lastRank = (int)card.Rank;
+                    lastSuit = Fart.GetSuit(card);
+                    lastValue = Fart.GetValue(card);
+                    lastRank = Fart.GetRank(card);
                 }
                 i++;
             }
@@ -171,12 +186,12 @@ namespace SuecaSolver
         }
 
 
-        public static void PrintCards(string name, List<Card> cards)
+        public static void PrintCards(string name, List<int> cards)
         {
             string str = name + " - ";
             for (int i = 0; i < cards.Count; i++)
             {
-                str += cards[i].ToString() + ", ";
+                str += Fart.ToString(cards[i]) + ", ";
             }
             Console.WriteLine(str);
         }
