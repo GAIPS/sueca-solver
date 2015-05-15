@@ -13,6 +13,8 @@ namespace SuecaSolver
         private DescendingComparer dc;
         private AscendingCutComparer acc;
         //		private DescendingCutComparer dcc;
+        private int predictableTrickWinner;
+        private bool predictableTrickCut;
 
         public GameState(int numTricks, Suit trumpSuit, Player[] playersList)
         {
@@ -23,6 +25,8 @@ namespace SuecaSolver
             players = new Player[4];
             tricks = new List<Trick>(numTricks);
             trump = trumpSuit;
+            predictableTrickWinner = -1;
+            predictableTrickCut = false;
 
             for (int i = 0; i < 4; i++)
             {
@@ -76,53 +80,54 @@ namespace SuecaSolver
                 return moves;
             }
         
-            List<Move> currentTrick = GetCurrentTrick().GetMoves();
-            int bestRank = 0;
-            int trickWinner = 0;
-            bool cut = false;
-            int firstPlayerId = (4 + (playerID - currentPlayInTrick)) % 4;
-        
-            for (int i = 0; i < 4; i++)
+            if (predictableTrickWinner == -1)
             {
-                int highestRankForPlayer;
-                int pID = (firstPlayerId + i) % 4;
+                List<Move> currentTrick = GetCurrentTrick().GetMoves();
+                int bestRank = 0;
+                int firstPlayerId = (4 + (playerID - currentPlayInTrick)) % 4;
         
-                if (i < currentPlayInTrick)
+                for (int i = 0; i < 4; i++)
                 {
-                    highestRankForPlayer = (int)currentTrick[i].Card.Rank;
-                }
-                else
-                {
-                    highestRankForPlayer = players[pID].HighestRankForSuit(leadSuit, trump);
-                }
+                    int highestRankForPlayer;
+                    int pID = (firstPlayerId + i) % 4;
         
-                if (!cut)
-                {
-                    if (highestRankForPlayer > bestRank)
+                    if (i < currentPlayInTrick)
+                    {
+                        highestRankForPlayer = (int)currentTrick[i].Card.Rank;
+                    }
+                    else
+                    {
+                        highestRankForPlayer = players[pID].HighestRankForSuit(leadSuit, trump);
+                    }
+        
+                    if (!predictableTrickCut)
+                    {
+                        if (highestRankForPlayer > bestRank)
+                        {
+                            bestRank = highestRankForPlayer;
+                            predictableTrickWinner = pID;
+                        }
+                        if (highestRankForPlayer < 0)
+                        {
+                            bestRank = highestRankForPlayer;
+                            predictableTrickWinner = pID;
+                            predictableTrickCut = true;
+                        }
+                    }
+                    else if (highestRankForPlayer < bestRank)
                     {
                         bestRank = highestRankForPlayer;
-                        trickWinner = pID;
+                        predictableTrickWinner = pID;
                     }
-                    if (highestRankForPlayer < 0)
-                    {
-                        bestRank = highestRankForPlayer;
-                        trickWinner = pID;
-                        cut = true;
-                    }
-                }
-                else if (highestRankForPlayer < bestRank)
-                {
-                    bestRank = highestRankForPlayer;
-                    trickWinner = pID;
                 }
             }
         
         
-            if (!cut && (trickWinner == playerID || trickWinner == (playerID + 2) % 4))
+            if (!predictableTrickCut && (predictableTrickWinner == playerID || predictableTrickWinner == (playerID + 2) % 4))
             {
                 moves.Sort(ac);
             }
-            else if (cut && (trickWinner == playerID || trickWinner == (playerID + 2) % 4))
+            else if (predictableTrickCut && (predictableTrickWinner == playerID || predictableTrickWinner == (playerID + 2) % 4))
             {
                 moves.Sort(acc);
             }
@@ -149,19 +154,23 @@ namespace SuecaSolver
 
         public void ApplyMove(Move move)
         {
-            // printTricks();
             if (tricks.Count == 0 || GetCurrentTrick().IsFull())
             {
                 tricks.Add(new Trick(trump));
             }
-            // Console.WriteLine("ApplyMove!!!");
             GetCurrentTrick().ApplyMove(move);
-            // printTricks();
-            // Console.WriteLine("");
+
+            if (GetCurrentTrick().IsFull())
+            {
+                predictableTrickWinner = -1;
+            }
+
         }
 
         public void UndoMove()
         {
+            predictableTrickWinner = -1;
+            predictableTrickCut = false;
             GetCurrentTrick().UndoMove();
             if (GetCurrentTrick().IsEmpty())
             {

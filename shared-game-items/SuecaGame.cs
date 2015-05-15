@@ -114,7 +114,7 @@ namespace SuecaSolver
 
             if (leadSuit == Suit.None)
             {
-                return removeEquivalentMoves(hand);
+                return removeEquivalentMoves(new List<Card>(hand));
             }
 
             foreach (Card card in hand)
@@ -127,16 +127,15 @@ namespace SuecaSolver
 
             if (result.Count > 0)
             {
-                removeEquivalentMoves(result);
-                return result;
+                return removeEquivalentMoves(result);
             }
 
-            return removeEquivalentMoves(hand);
+            return removeEquivalentMoves(new List<Card>(hand));
         }
 
         private static List<Card> removeEquivalentMoves(List<Card> cards)
         {
-            List<Card> result = new List<Card>(cards);
+            List<Card> result = cards;
             Suit lastSuit = Suit.None;
             int lastRank = (int)Rank.None;
             int lastValue = -1;
