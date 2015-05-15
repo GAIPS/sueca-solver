@@ -25,8 +25,6 @@ namespace SuecaSolver
             {
                 moves = SuecaGame.PossibleMoves(Hand, gameState.GetLeadSuit());
                 moves = gameState.orderPossibleMoves(moves, Id);
-
-//				moves = PossibleMoves(gameState.GetLeadSuit());
             }
             else
             {
@@ -35,11 +33,11 @@ namespace SuecaSolver
             }
 
 
-//			lol++;
-//			if (lol == 30)
-//			{
-//				System.Environment.Exit(1);
-//			}
+//            lol++;
+//            if (lol == 30)
+//            {
+//                System.Environment.Exit(1);
+//            }
 
 
             foreach (Card move in moves)

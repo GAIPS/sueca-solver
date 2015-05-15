@@ -25,8 +25,6 @@ namespace SuecaSolver
             {
                 moves = SuecaGame.PossibleMoves(Hand, gameState.GetLeadSuit());
                 moves = gameState.orderPossibleMoves(moves, Id);
-
-//                moves = PossibleMoves(gameState.GetLeadSuit());
             }
             else
             {

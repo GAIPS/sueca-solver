@@ -30,7 +30,7 @@ namespace SuecaSolver
             }
         }
 
-        private int getPlayInTrick()
+        public int GetPlayInTrick()
         {
             int playInCurrentTrick = GetCurrentTrick().getPlayInTrick();
             if (playInCurrentTrick == 4)
@@ -69,7 +69,7 @@ namespace SuecaSolver
         public List<Card> orderPossibleMoves(List<Card> moves, int playerID)
         {
             Suit leadSuit = GetLeadSuit();
-            int currentPlayInTrick = getPlayInTrick();
+            int currentPlayInTrick = GetPlayInTrick();
         
             if (currentPlayInTrick == 0 || moves.Count == 1)
             {

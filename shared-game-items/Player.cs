@@ -8,7 +8,6 @@ namespace SuecaSolver
 
         public int Id;
         public List<Card> Hand;
-        public List<List<Card>> HandsBySuit;
         public Dictionary<Suit, int> HasSuit;
         public int NumCuts;
 
@@ -18,8 +17,6 @@ namespace SuecaSolver
             Id = id;
             NumCuts = 0;
             Hand = new List<Card>(hand);
-            HandsBySuit = new List<List<Card>>(4);
-            populateHandsBySuit(hand);
             HasSuit = new Dictionary<Suit, int>()
             {
                 { Suit.Clubs, 0 },
@@ -42,45 +39,14 @@ namespace SuecaSolver
         {
             Hand.Remove(card);
             HasSuit[card.Suit]--;
-//            HandsBySuit[(int)card.Suit].Remove(card);
         }
 
         protected void undoMove(Card card)
         {
             Hand.Add(card);
             HasSuit[card.Suit]++;
-//            HandsBySuit[(int)card.Suit].Add(card);
         }
 
-        private void populateHandsBySuit(List<Card> hand)
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                HandsBySuit.Add(new List<Card>());
-            }
-            for (int i = 0; i < hand.Count; i++)
-            {
-                Card card = hand[i];
-                int suit = (int)card.Suit;
-                HandsBySuit[suit].Add(card);
-            }
-        }
-
-
-        public List<Card> PossibleMoves(Suit leadSuit)
-        {
-            if (leadSuit == Suit.None || HasSuit[leadSuit] == 0)
-            {
-                List<Card> result = new List<Card>(HandsBySuit[0]);
-                for (int i = 1; i < 4; i++)
-                {
-                    result.AddRange(HandsBySuit[i]);
-                }
-                return result;
-            }
-
-            return new List<Card>(HandsBySuit[(int)leadSuit]);
-        }
 
         public int HighestRankForSuit(Suit leadSuit, Suit trump)
         {
@@ -117,17 +83,6 @@ namespace SuecaSolver
                 return 0;
             }
         }
-
-        public void printHandsBySuit()
-        {
-            Console.WriteLine("----- HandsBySuit of player " + Id + " -----");
-            for (int i = 0; i < HandsBySuit.Count; i++)
-            {
-                SuecaGame.PrintCards((Suit)i + " suit", HandsBySuit[i]);
-            }
-            Console.WriteLine("-----------------------------------");
-        }
-
 
         private void printCards(List<Card> cards)
         {
