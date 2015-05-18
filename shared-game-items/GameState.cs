@@ -195,15 +195,6 @@ namespace SuecaSolver
             return currentTrick.LeadSuit;
         }
 
-        //        public bool IsNewTrick()
-        //        {
-        //            if (tricks.Count == 0 || GetCurrentTrick().IsEmpty())
-        //            {
-        //                return true;
-        //            }
-        //            return false;
-        //        }
-
         public bool IsEndGame()
         {
             if (tricks.Count == tricks.Capacity && GetCurrentTrick().IsFull())
@@ -212,16 +203,6 @@ namespace SuecaSolver
             }
             return false;
         }
-
-
-        //        public bool IsEndFirstTrick()
-        //        {
-        //            if (tricks.Count > 0 && tricks[0].IsFull())
-        //            {
-        //                return true;
-        //            }
-        //            return false;
-        //        }
 
 
         public int[] GetGamePoints()
