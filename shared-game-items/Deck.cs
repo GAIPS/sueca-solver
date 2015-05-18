@@ -8,7 +8,7 @@ namespace SuecaSolver
     public class Deck
     {
 
-        public List<int> deck;
+        private List<int> deck;
         private Random random;
         private SolverContext solver;
 
@@ -85,6 +85,10 @@ namespace SuecaSolver
             List<List<int>> players = new List<List<int>>();
             List<int> deckCopy = new List<int>(deck);
 
+            if (handSize * 3 == deck.Count)
+            {
+                Console.WriteLine("Deck.Sample - Last hand could not be choosen randomly");
+            }
             for (int i = 0; i < 3; i++)
             {
                 players.Add(new List<int>());
@@ -106,6 +110,10 @@ namespace SuecaSolver
             List<List<int>> players = new List<List<int>>();
             List<int> deckCopy = new List<int>(deck);
 
+            if (n * 4 == deck.Count)
+            {
+                Console.WriteLine("Deck.SampleAll - Last hand could not be choosen randomly");
+            }
             for (int i = 0; i < 4; i++)
             {
                 players.Add(new List<int>());
@@ -122,28 +130,35 @@ namespace SuecaSolver
         }
 
 
-        private int getNumPlayer(Decision[] decisions, Decision id)
+        public List<List<int>> SampleHands(int[] handSizes)
         {
-            int count = 0;
-            foreach (Decision d in decisions)
+            List<List<int>> players = new List<List<int>>();
+            List<int> deckCopy = new List<int>(deck);
+
+            if (handSizes[0] + handSizes[1] + handSizes[2] != deckCopy.Count)
             {
-                if (d.Equals(id))
+                Console.WriteLine("Deck.SampleHands - Last hand could not be choosen randomly");
+            }
+
+            for (int i = 0; i < handSizes.Length; i++)
+            {
+                players.Add(new List<int>());
+                for (int randomIndex = 0, j = 0; j < handSizes[i]; j++)
                 {
-                    count++;
+                    randomIndex = random.Next(0, deckCopy.Count);
+                    int randomCard = deckCopy[randomIndex];
+                    players[i].Add(randomCard);
+                    deckCopy.RemoveAt(randomIndex);
                 }
+                players[i].Sort();
             }
-            Console.WriteLine("count " + count);
-            if (count <= 10)
-            {
-                return 1;
-            }
-            return -1;
+
+            return players;
         }
 
 
         private List<List<int>> getDomains(int[] handSizes)
         {
-            // Console.WriteLine("handSizes.Length " + handSizes.Length + " [0] " + handSizes[0] + " [1] " + handSizes[1] + " [2] " + handSizes[2]);
             List<List<int>> list = new List<List<int>>(3);
             for (int i = 0; i < 3; i++)
             {
@@ -153,7 +168,6 @@ namespace SuecaSolver
                     list[i].Add((i + 1) * 10 + j);
                 }
             }
-            // Console.WriteLine("list.Count " + handSizes.Length + " [0] " + list[0].Count + " [1] " + list[1].Count + " [2] " + list[2].Count);
             return list;
         }
 
@@ -172,7 +186,8 @@ namespace SuecaSolver
             return shuffled;
         }
 
-
+        //Sampling a card distribution consedering which suits the players have
+        //It uses a CSP
         public List<List<int>> SampleHands(Dictionary<int,List<int>> suitHasPlayer, int[] handSizes)
         {
             deck = shuffle(deck);
@@ -204,8 +219,7 @@ namespace SuecaSolver
 
             for (int i = 0; i < deck.Count; i++)
             {
-                List<int> playersThatHaveSuit = suitHasPlayer[Fart.GetSuit(deck[i])];
-                // Console.WriteLine("(int)deck[i].Suit " + (int)deck[i].Suit + " playersThatHaveSuit.Count " + playersThatHaveSuit.Count);
+                List<int> playersThatHaveSuit = suitHasPlayer[Card.GetSuit(deck[i])];
 
                 if (playersThatHaveSuit.Count == 3)
                 {
@@ -253,39 +267,12 @@ namespace SuecaSolver
 
             for (int i = 0; i < deck.Count; i++)
             {
-                int lol = Convert.ToInt32(decisions[i].ToString());
-                lol = lol / 10;
-                cardsPerPlayer[lol - 1].Add(deck[i]);
+                int decision = Convert.ToInt32(decisions[i].ToString());
+                decision = decision / 10;
+                cardsPerPlayer[decision - 1].Add(deck[i]);
             }
             solver.ClearModel();
             return cardsPerPlayer;
-        }
-
-
-        public List<List<int>> SampleHands(int[] handSizes)
-        {
-            List<List<int>> players = new List<List<int>>();
-            List<int> deckCopy = new List<int>(deck);
-
-            if (handSizes[0] + handSizes[1] + handSizes[2] != deckCopy.Count)
-            {
-                Console.WriteLine("????????????????????????????????????????????");
-            }
-
-            for (int i = 0; i < handSizes.Length; i++)
-            {
-                players.Add(new List<int>());
-                for (int randomIndex = 0, j = 0; j < handSizes[i]; j++)
-                {
-                    randomIndex = random.Next(0, deckCopy.Count);
-                    int randomCard = deckCopy[randomIndex];
-                    players[i].Add(randomCard);
-                    deckCopy.RemoveAt(randomIndex);
-                }
-                players[i].Sort();
-            }
-
-            return players;
         }
     }
 }

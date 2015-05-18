@@ -7,7 +7,7 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace SuecaSolver
 {
-    public class MainTest
+    public class Test
     {
 
         private static bool checkSuitsHaveAllPlayers(Dictionary<int,List<int>> suitHasPlayer)
@@ -24,188 +24,179 @@ namespace SuecaSolver
 
         public static void Main()
         {
-            int NUM_TRICKS = 5;
+            int NUM_TRICKS = 1;
             Deck deck = new Deck();
             List<int> hand = deck.GetHand(NUM_TRICKS);
             InformationSet infoSet = new InformationSet(hand, (int)Suit.Clubs);
-            //            PIMC pimc = new PIMC(1);
-            //            pimc.ExecuteTestVersion(infoSet, hand, NUM_TRICKS);
+//            PIMC pimc = new PIMC(1);
+//            pimc.ExecuteTestVersion(infoSet, hand, NUM_TRICKS);
 
 
 
             List<int> p0 = new List<int>()
-            {Fart.Create(Rank.Jack, Suit.Clubs),
-                Fart.Create(Rank.Five, Suit.Diamonds),
-                Fart.Create(Rank.Jack, Suit.Hearts),
-                Fart.Create(Rank.King, Suit.Hearts),
-                Fart.Create(Rank.Two, Suit.Spades),
-                Fart.Create(Rank.Jack, Suit.Spades),
-                Fart.Create(Rank.Seven, Suit.Spades)
+            {Card.Create(Rank.Jack, Suit.Clubs),
+                Card.Create(Rank.Five, Suit.Diamonds),
+                Card.Create(Rank.Jack, Suit.Hearts),
+                Card.Create(Rank.King, Suit.Hearts),
+                Card.Create(Rank.Two, Suit.Spades),
+                Card.Create(Rank.Jack, Suit.Spades),
+                Card.Create(Rank.Seven, Suit.Spades)
             };
             List<int> p1 = new List<int>()
-            {Fart.Create(Rank.Six, Suit.Clubs),
-                Fart.Create(Rank.Two, Suit.Diamonds),
-                Fart.Create(Rank.Queen, Suit.Hearts),
-                Fart.Create(Rank.Four, Suit.Spades),
-                Fart.Create(Rank.Six, Suit.Spades),
-                Fart.Create(Rank.Queen, Suit.Spades),
-                Fart.Create(Rank.Ace, Suit.Spades)
+            {Card.Create(Rank.Six, Suit.Clubs),
+                Card.Create(Rank.Two, Suit.Diamonds),
+                Card.Create(Rank.Queen, Suit.Hearts),
+                Card.Create(Rank.Four, Suit.Spades),
+                Card.Create(Rank.Six, Suit.Spades),
+                Card.Create(Rank.Queen, Suit.Spades),
+                Card.Create(Rank.Ace, Suit.Spades)
             };
             List<int> p2 = new List<int>()
-            {Fart.Create(Rank.Two, Suit.Clubs),
-                Fart.Create(Rank.Three, Suit.Clubs),
-                Fart.Create(Rank.Queen, Suit.Clubs),
-                Fart.Create(Rank.King, Suit.Clubs),
-                Fart.Create(Rank.Ace, Suit.Clubs),
-                Fart.Create(Rank.Four, Suit.Diamonds),
-                Fart.Create(Rank.King, Suit.Spades)
+            {Card.Create(Rank.Two, Suit.Clubs),
+                Card.Create(Rank.Three, Suit.Clubs),
+                Card.Create(Rank.Queen, Suit.Clubs),
+                Card.Create(Rank.King, Suit.Clubs),
+                Card.Create(Rank.Ace, Suit.Clubs),
+                Card.Create(Rank.Four, Suit.Diamonds),
+                Card.Create(Rank.King, Suit.Spades)
             };
             List<int> p3 = new List<int>()
-            {Fart.Create(Rank.Five, Suit.Clubs),
-                Fart.Create(Rank.Seven, Suit.Clubs),
-                Fart.Create(Rank.Three, Suit.Diamonds),
-                Fart.Create(Rank.Six, Suit.Diamonds),
-                Fart.Create(Rank.King, Suit.Diamonds),
-                Fart.Create(Rank.Seven, Suit.Diamonds),
-                Fart.Create(Rank.Four, Suit.Hearts)
+            {Card.Create(Rank.Five, Suit.Clubs),
+                Card.Create(Rank.Seven, Suit.Clubs),
+                Card.Create(Rank.Three, Suit.Diamonds),
+                Card.Create(Rank.Six, Suit.Diamonds),
+                Card.Create(Rank.King, Suit.Diamonds),
+                Card.Create(Rank.Seven, Suit.Diamonds),
+                Card.Create(Rank.Four, Suit.Hearts)
             };
 
 
-            // List<int> p0 = new List<int>() {Fart.Create(Rank.Four, Suit.Diamonds),
-            //                                  Fart.Create(Rank.Six, Suit.Diamonds),
-            //                                  Fart.Create(Rank.Jack, Suit.Diamonds),
-            //                                  Fart.Create(Rank.Seven, Suit.Diamonds),
-            //                                  Fart.Create(Rank.Ace, Suit.Hearts),
-            //                                  Fart.Create(Rank.Five, Suit.Spades),
-            //                                  Fart.Create(Rank.Seven, Suit.Spades)};
-            // List<int> p1 = new List<int>() {Fart.Create(Rank.Six, Suit.Clubs),
-            //                                  Fart.Create(Rank.Five, Suit.Diamonds),
-            //                                  Fart.Create(Rank.King, Suit.Diamonds),
-            //                                  Fart.Create(Rank.Two, Suit.Hearts),
-            //                                  Fart.Create(Rank.Six, Suit.Hearts),
-            //                                  Fart.Create(Rank.Two, Suit.Spades),
-            //                                  Fart.Create(Rank.Jack, Suit.Spades)};
-            // List<int> p2 = new List<int>() {Fart.Create(Rank.Two, Suit.Clubs),
-            //                                  Fart.Create(Rank.Three, Suit.Clubs),
-            //                                  Fart.Create(Rank.King, Suit.Clubs),
-            //                                  Fart.Create(Rank.Two, Suit.Diamonds),
-            //                                  Fart.Create(Rank.Five, Suit.Hearts),
-            //                                  Fart.Create(Rank.King, Suit.Hearts),
-            //                                  Fart.Create(Rank.Queen, Suit.Spades)};
-            // List<int> p3 = new List<int>() {Fart.Create(Rank.Queen, Suit.Clubs),
-            //                                  Fart.Create(Rank.Ace, Suit.Diamonds),
-            //                                  Fart.Create(Rank.Three, Suit.Hearts),
-            //                                  Fart.Create(Rank.Four, Suit.Hearts),
-            //                                  Fart.Create(Rank.Four, Suit.Spades),
-            //                                  Fart.Create(Rank.Six, Suit.Spades),
-            //                                  Fart.Create(Rank.King, Suit.Spades)};
+            // List<int> p0 = new List<int>() {Card.Create(Rank.Four, Suit.Diamonds),
+            //                                  Card.Create(Rank.Six, Suit.Diamonds),
+            //                                  Card.Create(Rank.Jack, Suit.Diamonds),
+            //                                  Card.Create(Rank.Seven, Suit.Diamonds),
+            //                                  Card.Create(Rank.Ace, Suit.Hearts),
+            //                                  Card.Create(Rank.Five, Suit.Spades),
+            //                                  Card.Create(Rank.Seven, Suit.Spades)};
+            // List<int> p1 = new List<int>() {Card.Create(Rank.Six, Suit.Clubs),
+            //                                  Card.Create(Rank.Five, Suit.Diamonds),
+            //                                  Card.Create(Rank.King, Suit.Diamonds),
+            //                                  Card.Create(Rank.Two, Suit.Hearts),
+            //                                  Card.Create(Rank.Six, Suit.Hearts),
+            //                                  Card.Create(Rank.Two, Suit.Spades),
+            //                                  Card.Create(Rank.Jack, Suit.Spades)};
+            // List<int> p2 = new List<int>() {Card.Create(Rank.Two, Suit.Clubs),
+            //                                  Card.Create(Rank.Three, Suit.Clubs),
+            //                                  Card.Create(Rank.King, Suit.Clubs),
+            //                                  Card.Create(Rank.Two, Suit.Diamonds),
+            //                                  Card.Create(Rank.Five, Suit.Hearts),
+            //                                  Card.Create(Rank.King, Suit.Hearts),
+            //                                  Card.Create(Rank.Queen, Suit.Spades)};
+            // List<int> p3 = new List<int>() {Card.Create(Rank.Queen, Suit.Clubs),
+            //                                  Card.Create(Rank.Ace, Suit.Diamonds),
+            //                                  Card.Create(Rank.Three, Suit.Hearts),
+            //                                  Card.Create(Rank.Four, Suit.Hearts),
+            //                                  Card.Create(Rank.Four, Suit.Spades),
+            //                                  Card.Create(Rank.Six, Suit.Spades),
+            //                                  Card.Create(Rank.King, Suit.Spades)};
 
 
-            // List<int> p0 = new List<int>() {Fart.Create(Rank.Three, Suit.Clubs),
-            //                                  Fart.Create(Rank.Six, Suit.Clubs),
-            //                                  Fart.Create(Rank.Seven, Suit.Clubs),
-            //                                  Fart.Create(Rank.Two, Suit.Hearts),
-            //                                  Fart.Create(Rank.Five, Suit.Hearts),
-            //                                  Fart.Create(Rank.Seven, Suit.Hearts),
-            //                                  Fart.Create(Rank.Two, Suit.Spades)};
-            // List<int> p1 = new List<int>() {Fart.Create(Rank.Queen, Suit.Clubs),
-            //                                  Fart.Create(Rank.King, Suit.Clubs),
-            //                                  Fart.Create(Rank.Three, Suit.Diamonds),
-            //                                  Fart.Create(Rank.Three, Suit.Hearts),
-            //                                  Fart.Create(Rank.Six, Suit.Hearts),
-            //                                  Fart.Create(Rank.Five, Suit.Spades),
-            //                                  Fart.Create(Rank.Seven, Suit.Spades)};
-            // List<int> p2 = new List<int>() {Fart.Create(Rank.Jack, Suit.Clubs),
-            //                                  Fart.Create(Rank.Four, Suit.Diamonds),
-            //                                  Fart.Create(Rank.Six, Suit.Diamonds),
-            //                                  Fart.Create(Rank.Queen, Suit.Diamonds),
-            //                                  Fart.Create(Rank.King, Suit.Diamonds),
-            //                                  Fart.Create(Rank.Jack, Suit.Hearts),
-            //                                  Fart.Create(Rank.Queen, Suit.Spades)};
-            // List<int> p3 = new List<int>() {Fart.Create(Rank.Five, Suit.Diamonds),
-            //                                  Fart.Create(Rank.Ace, Suit.Hearts),
-            //                                  Fart.Create(Rank.Three, Suit.Spades),
-            //                                  Fart.Create(Rank.Four, Suit.Spades),
-            //                                  Fart.Create(Rank.Jack, Suit.Spades),
-            //                                  Fart.Create(Rank.King, Suit.Spades),
-            //                                  Fart.Create(Rank.Ace, Suit.Spades)};
+            // List<int> p0 = new List<int>() {Card.Create(Rank.Three, Suit.Clubs),
+            //                                  Card.Create(Rank.Six, Suit.Clubs),
+            //                                  Card.Create(Rank.Seven, Suit.Clubs),
+            //                                  Card.Create(Rank.Two, Suit.Hearts),
+            //                                  Card.Create(Rank.Five, Suit.Hearts),
+            //                                  Card.Create(Rank.Seven, Suit.Hearts),
+            //                                  Card.Create(Rank.Two, Suit.Spades)};
+            // List<int> p1 = new List<int>() {Card.Create(Rank.Queen, Suit.Clubs),
+            //                                  Card.Create(Rank.King, Suit.Clubs),
+            //                                  Card.Create(Rank.Three, Suit.Diamonds),
+            //                                  Card.Create(Rank.Three, Suit.Hearts),
+            //                                  Card.Create(Rank.Six, Suit.Hearts),
+            //                                  Card.Create(Rank.Five, Suit.Spades),
+            //                                  Card.Create(Rank.Seven, Suit.Spades)};
+            // List<int> p2 = new List<int>() {Card.Create(Rank.Jack, Suit.Clubs),
+            //                                  Card.Create(Rank.Four, Suit.Diamonds),
+            //                                  Card.Create(Rank.Six, Suit.Diamonds),
+            //                                  Card.Create(Rank.Queen, Suit.Diamonds),
+            //                                  Card.Create(Rank.King, Suit.Diamonds),
+            //                                  Card.Create(Rank.Jack, Suit.Hearts),
+            //                                  Card.Create(Rank.Queen, Suit.Spades)};
+            // List<int> p3 = new List<int>() {Card.Create(Rank.Five, Suit.Diamonds),
+            //                                  Card.Create(Rank.Ace, Suit.Hearts),
+            //                                  Card.Create(Rank.Three, Suit.Spades),
+            //                                  Card.Create(Rank.Four, Suit.Spades),
+            //                                  Card.Create(Rank.Jack, Suit.Spades),
+            //                                  Card.Create(Rank.King, Suit.Spades),
+            //                                  Card.Create(Rank.Ace, Suit.Spades)};
 
 
-            // List<int> p0 = new List<int>() {Fart.Create(Rank.Four, Suit.Clubs),
-            //                                  Fart.Create(Rank.Jack, Suit.Clubs),
-            //                                  Fart.Create(Rank.Two, Suit.Diamonds),
-            //                                  Fart.Create(Rank.Ace, Suit.Diamonds),
-            //                                  Fart.Create(Rank.Queen, Suit.Hearts),
-            //                                  Fart.Create(Rank.Ace, Suit.Hearts),
-            //                                  Fart.Create(Rank.King, Suit.Spades)};
-            // List<int> p1 = new List<int>() {Fart.Create(Rank.Ace, Suit.Clubs),
-            //                                  Fart.Create(Rank.Jack, Suit.Diamonds),
-            //                                  Fart.Create(Rank.King, Suit.Diamonds),
-            //                                  Fart.Create(Rank.Seven, Suit.Diamonds),
-            //                                  Fart.Create(Rank.Three, Suit.Hearts),
-            //                                  Fart.Create(Rank.Five, Suit.Hearts),
-            //                                  Fart.Create(Rank.Four, Suit.Spades)};
-            // List<int> p2 = new List<int>() {Fart.Create(Rank.Five, Suit.Clubs),
-            //                                  Fart.Create(Rank.King, Suit.Clubs),
-            //                                  Fart.Create(Rank.Five, Suit.Diamonds),
-            //                                  Fart.Create(Rank.Three, Suit.Hearts),
-            //                                  Fart.Create(Rank.Five, Suit.Hearts),
-            //                                  Fart.Create(Rank.Four, Suit.Spades),
-            //                                  Fart.Create(Rank.Jack, Suit.Spades)};
-            // List<int> p3 = new List<int>() {Fart.Create(Rank.Three, Suit.Clubs),
-            //                                  Fart.Create(Rank.Six, Suit.Clubs),
-            //                                  Fart.Create(Rank.Seven, Suit.Clubs),
-            //                                  Fart.Create(Rank.Jack, Suit.Hearts),
-            //                                  Fart.Create(Rank.Seven, Suit.Hearts),
-            //                                  Fart.Create(Rank.Two, Suit.Spades),
-            //                                  Fart.Create(Rank.Three, Suit.Spades)};
+            // List<int> p0 = new List<int>() {Card.Create(Rank.Four, Suit.Clubs),
+            //                                  Card.Create(Rank.Jack, Suit.Clubs),
+            //                                  Card.Create(Rank.Two, Suit.Diamonds),
+            //                                  Card.Create(Rank.Ace, Suit.Diamonds),
+            //                                  Card.Create(Rank.Queen, Suit.Hearts),
+            //                                  Card.Create(Rank.Ace, Suit.Hearts),
+            //                                  Card.Create(Rank.King, Suit.Spades)};
+            // List<int> p1 = new List<int>() {Card.Create(Rank.Ace, Suit.Clubs),
+            //                                  Card.Create(Rank.Jack, Suit.Diamonds),
+            //                                  Card.Create(Rank.King, Suit.Diamonds),
+            //                                  Card.Create(Rank.Seven, Suit.Diamonds),
+            //                                  Card.Create(Rank.Three, Suit.Hearts),
+            //                                  Card.Create(Rank.Five, Suit.Hearts),
+            //                                  Card.Create(Rank.Four, Suit.Spades)};
+            // List<int> p2 = new List<int>() {Card.Create(Rank.Five, Suit.Clubs),
+            //                                  Card.Create(Rank.King, Suit.Clubs),
+            //                                  Card.Create(Rank.Five, Suit.Diamonds),
+            //                                  Card.Create(Rank.Three, Suit.Hearts),
+            //                                  Card.Create(Rank.Five, Suit.Hearts),
+            //                                  Card.Create(Rank.Four, Suit.Spades),
+            //                                  Card.Create(Rank.Jack, Suit.Spades)};
+            // List<int> p3 = new List<int>() {Card.Create(Rank.Three, Suit.Clubs),
+            //                                  Card.Create(Rank.Six, Suit.Clubs),
+            //                                  Card.Create(Rank.Seven, Suit.Clubs),
+            //                                  Card.Create(Rank.Jack, Suit.Hearts),
+            //                                  Card.Create(Rank.Seven, Suit.Hearts),
+            //                                  Card.Create(Rank.Two, Suit.Spades),
+            //                                  Card.Create(Rank.Three, Suit.Spades)};
 
 
-            // List<int> p0 = new List<int>() {Fart.Create(Rank.Five, Suit.Clubs),
-            //                                  Fart.Create(Rank.Seven, Suit.Clubs),
-            //                                  Fart.Create(Rank.Four, Suit.Diamonds),
-            //                                  Fart.Create(Rank.Five, Suit.Diamonds),
-            //                                  Fart.Create(Rank.Queen, Suit.Diamonds),
-            //                                  Fart.Create(Rank.Two, Suit.Spades),
-            //                                  Fart.Create(Rank.Six, Suit.Spades)};
-            // List<int> p1 = new List<int>() {Fart.Create(Rank.Three, Suit.Clubs),
-            //                                  Fart.Create(Rank.Six, Suit.Clubs),
-            //                                  Fart.Create(Rank.Queen, Suit.Clubs),
-            //                                  Fart.Create(Rank.Two, Suit.Diamonds),
-            //                                  Fart.Create(Rank.Seven, Suit.Diamonds),
-            //                                  Fart.Create(Rank.Four, Suit.Hearts),
-            //                                  Fart.Create(Rank.Five, Suit.Spades)};
-            // List<int> p2 = new List<int>() {Fart.Create(Rank.Jack, Suit.Clubs),
-            //                                  Fart.Create(Rank.Ace, Suit.Clubs),
-            //                                  Fart.Create(Rank.Jack, Suit.Diamonds),
-            //                                  Fart.Create(Rank.Ace, Suit.Diamonds),
-            //                                  Fart.Create(Rank.Five, Suit.Hearts),
-            //                                  Fart.Create(Rank.King, Suit.Spades),
-            //                                  Fart.Create(Rank.Ace, Suit.Spades)};
-            // List<int> p3 = new List<int>() {Fart.Create(Rank.Two, Suit.Hearts),
-            //                                  Fart.Create(Rank.Three, Suit.Hearts),
-            //                                  Fart.Create(Rank.Six, Suit.Hearts),
-            //                                  Fart.Create(Rank.King, Suit.Hearts),
-            //                                  Fart.Create(Rank.Seven, Suit.Hearts),
-            //                                  Fart.Create(Rank.Three, Suit.Spades),
-            //                                  Fart.Create(Rank.Queen, Suit.Spades)};
+            // List<int> p0 = new List<int>() {Card.Create(Rank.Five, Suit.Clubs),
+            //                                  Card.Create(Rank.Seven, Suit.Clubs),
+            //                                  Card.Create(Rank.Four, Suit.Diamonds),
+            //                                  Card.Create(Rank.Five, Suit.Diamonds),
+            //                                  Card.Create(Rank.Queen, Suit.Diamonds),
+            //                                  Card.Create(Rank.Two, Suit.Spades),
+            //                                  Card.Create(Rank.Six, Suit.Spades)};
+            // List<int> p1 = new List<int>() {Card.Create(Rank.Three, Suit.Clubs),
+            //                                  Card.Create(Rank.Six, Suit.Clubs),
+            //                                  Card.Create(Rank.Queen, Suit.Clubs),
+            //                                  Card.Create(Rank.Two, Suit.Diamonds),
+            //                                  Card.Create(Rank.Seven, Suit.Diamonds),
+            //                                  Card.Create(Rank.Four, Suit.Hearts),
+            //                                  Card.Create(Rank.Five, Suit.Spades)};
+            // List<int> p2 = new List<int>() {Card.Create(Rank.Jack, Suit.Clubs),
+            //                                  Card.Create(Rank.Ace, Suit.Clubs),
+            //                                  Card.Create(Rank.Jack, Suit.Diamonds),
+            //                                  Card.Create(Rank.Ace, Suit.Diamonds),
+            //                                  Card.Create(Rank.Five, Suit.Hearts),
+            //                                  Card.Create(Rank.King, Suit.Spades),
+            //                                  Card.Create(Rank.Ace, Suit.Spades)};
+            // List<int> p3 = new List<int>() {Card.Create(Rank.Two, Suit.Hearts),
+            //                                  Card.Create(Rank.Three, Suit.Hearts),
+            //                                  Card.Create(Rank.Six, Suit.Hearts),
+            //                                  Card.Create(Rank.King, Suit.Hearts),
+            //                                  Card.Create(Rank.Seven, Suit.Hearts),
+            //                                  Card.Create(Rank.Three, Suit.Spades),
+            //                                  Card.Create(Rank.Queen, Suit.Spades)};
 
 
 
 
-            SuecaGame game = new SuecaGame(p0, p1, p2, p3, infoSet.Trump, infoSet.GetJustPlayed(), false);
-
-            //            int[] a = new int[6] { 1, 2, 3, 4, 5, 0 };
-            //            int z = a[2];
-            //            z++;
-            //
-            //            foreach (var i in a)
-            //            {
-            //                Console.WriteLine(i);
-            //            }
-
+            SuecaGame game = new SuecaGame(7, p0, p1, p2, p3, infoSet.Trump, infoSet.GetCardsOnTable());
             int card = p0[0];
             int cardValueInTrick = game.SampleGame(card);
+            game.PrintTricks();
             infoSet.AddCardValue(card, cardValueInTrick);
             infoSet.PrintInfoSet();
         }

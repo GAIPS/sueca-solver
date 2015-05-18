@@ -21,14 +21,12 @@ namespace SuecaSolver
 
             foreach (int c in hand)
             {
-                HasSuit[Fart.GetSuit(c)]++;
+                HasSuit[Card.GetSuit(c)]++;
             }
         }
 
 
         abstract public int PlayGame(GameState gameState, int alpha, int beta, int lol, int move = -1);
-
-        abstract public int PlayTrick(GameState gameState, int alpha, int beta, int move = -1);
 
 
         public int HighestRankForSuit(int leadSuit, int trump)
@@ -39,9 +37,9 @@ namespace SuecaSolver
 
                 foreach (int card in Hand)
                 {
-                    if (/*!card.HasBeenPlayed &&*/ Fart.GetSuit(card) == leadSuit && Fart.GetRank(card) + 1 > highestFromLeadSuit)
+                    if (Card.GetSuit(card) == leadSuit && Card.GetRank(card) + 1 > highestFromLeadSuit)
                     {
-                        highestFromLeadSuit = Fart.GetRank(card) + 1;
+                        highestFromLeadSuit = Card.GetRank(card) + 1;
                     }
                 }
 
@@ -53,9 +51,9 @@ namespace SuecaSolver
 
                 foreach (int card in Hand)
                 {
-                    if (/*!card.HasBeenPlayed &&*/ Fart.GetSuit(card) == trump && Fart.GetRank(card) + 1 > highestTrump)
+                    if (Card.GetSuit(card) == trump && Card.GetRank(card) + 1 > highestTrump)
                     {
-                        highestTrump = Fart.GetRank(card) + 1;
+                        highestTrump = Card.GetRank(card) + 1;
                     }
                 }
 

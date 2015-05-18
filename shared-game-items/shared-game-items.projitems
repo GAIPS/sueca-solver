@@ -23,6 +23,5 @@
     <Compile Include="$(MSBuildThisFileDirectory)SmartPlayer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SuecaGame.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Trick.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utils.cs" />
   </ItemGroup>
 </Project>

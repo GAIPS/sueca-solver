@@ -32,9 +32,10 @@ namespace SuecaSolver
                 List<int> p2 = players[2];
                 List<int> p3 = players[3];
 
-                SuecaGame game = new SuecaGame(p0, p1, p2, p3, infoSet.Trump, infoSet.GetJustPlayed(), false);
+                SuecaGame game;
+                int cardValueInTrick;
 
-                for (int cardValueInTrick, j = 0; j < possibleMoves.Count; j++)
+                for (int j = 0; j < possibleMoves.Count; j++)
                 {
                     int card = possibleMoves[j];
 
@@ -42,15 +43,16 @@ namespace SuecaSolver
                     {
                         n = 1000;
                         // n = 1;
-                        cardValueInTrick = game.SampleTrick(card);
+                        game = new SuecaGame(1, p0, p1, p2, p3, infoSet.Trump, infoSet.GetCardsOnTable());
                     }
                     else
                     {
                         n = 100;
                         // n = 1;
-                        cardValueInTrick = game.SampleGame(card);
+                        game = new SuecaGame(p0.Count, p0, p1, p2, p3, infoSet.Trump, infoSet.GetCardsOnTable());
                     }
 
+                    cardValueInTrick = game.SampleGame(card);
                     infoSet.AddCardValue(card, cardValueInTrick);
                 }
             }
@@ -79,7 +81,7 @@ namespace SuecaSolver
                 List<int> p1 = players[1];
                 List<int> p2 = players[2];
                 List<int> p3 = players[3];
-                game = new SuecaGame(p0, p1, p2, p3, infoSet.Trump, infoSet.GetJustPlayed(), false);
+                game = new SuecaGame(p0.Count, p0, p1, p2, p3, infoSet.Trump, infoSet.GetCardsOnTable());
             }
             else
             {
@@ -88,7 +90,7 @@ namespace SuecaSolver
                 List<int> p1 = players[0];
                 List<int> p2 = players[1];
                 List<int> p3 = players[2];
-                game = new SuecaGame(p0, p1, p2, p3, infoSet.Trump, infoSet.GetJustPlayed(), false);
+                game = new SuecaGame(p0.Count, p0, p1, p2, p3, infoSet.Trump, infoSet.GetCardsOnTable());
 
                 SuecaGame.PrintCards("p0", p0);
                 SuecaGame.PrintCards("p1", p1);

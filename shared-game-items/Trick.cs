@@ -9,14 +9,12 @@ namespace SuecaSolver
         public int LeadSuit;
         private List<Move> moves;
         private int trump;
-        private bool debugFlag;
 
-        public Trick(int trumpSuit, bool debug)
+        public Trick(int trumpSuit)
         {
             moves = new List<Move>(4);
             LeadSuit = (int)Suit.None;
             trump = trumpSuit;
-            debugFlag = debug;
         }
 
         public List<Move> GetMoves()
@@ -24,7 +22,7 @@ namespace SuecaSolver
             return moves;
         }
 
-        public int getPlayInTrick()
+        public int GetPlayInTrick()
         {
             return moves.Count;
         }
@@ -33,17 +31,15 @@ namespace SuecaSolver
         {
             if (moves.Count == 0)
             {
-                LeadSuit = Fart.GetSuit(move.Card);
+                LeadSuit = Card.GetSuit(move.Card);
             }
 
             moves.Add(move);
-            // move.Card.HasBeenPlayed = true;
         }
 
         public void UndoMove()
         {
             int currentMove = moves.Count - 1;
-            // moves[currentMove].Card.HasBeenPlayed = false;
             moves.RemoveAt(currentMove);
         }
 
@@ -52,6 +48,7 @@ namespace SuecaSolver
             if (moves.Count == 0)
             {
                 Console.WriteLine("Trick trouble at GetLastPlayerId!!!");
+                return -1;
             }
             return moves[moves.Count - 1].PlayerId;
         }
@@ -83,12 +80,9 @@ namespace SuecaSolver
             }
         }
 
-        public int GetTrickWinnerId()
+        public int GetTrickWinner()
         {
-            bool oldDebugFlag = debugFlag;
-            debugFlag = false;
             int winnerId = evalTrick()[0];
-            debugFlag = oldDebugFlag;
             return winnerId;
         }
 
@@ -99,18 +93,18 @@ namespace SuecaSolver
 
         private int[] evalTrick()
         {
-            int winningSuit = Fart.GetSuit(moves[0].Card);
-            int highestValueFromWinningSuit = Fart.GetValue(moves[0].Card);
-            int highestRankFromWinningSuit = Fart.GetRank(moves[0].Card);
+            int winningSuit = Card.GetSuit(moves[0].Card);
+            int highestValueFromWinningSuit = Card.GetValue(moves[0].Card);
+            int highestRankFromWinningSuit = Card.GetRank(moves[0].Card);
             int winningPlayerId = moves[0].PlayerId;
             int points = highestValueFromWinningSuit;
 
 
             for (int i = 1; i < 4; i++)
             {
-                int moveSuit = Fart.GetSuit(moves[i].Card);
-                int moveRank = Fart.GetRank(moves[i].Card);
-                int moveValue = Fart.GetValue(moves[i].Card);
+                int moveSuit = Card.GetSuit(moves[i].Card);
+                int moveRank = Card.GetRank(moves[i].Card);
+                int moveValue = Card.GetValue(moves[i].Card);
 
                 if (moveSuit == trump && winningSuit != trump)
                 {

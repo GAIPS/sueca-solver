@@ -3,7 +3,33 @@ using System.Collections.Generic;
 
 namespace SuecaSolver
 {
-    public static class Fart
+    public enum Rank
+    {
+        Two,
+        Three,
+        Four,
+        Five,
+        Six,
+        Queen,
+        Jack,
+        King,
+        Seven,
+        Ace,
+        None}
+
+    ;
+
+    public enum Suit
+    {
+        Clubs,
+        Diamonds,
+        Hearts,
+        Spades,
+        None}
+
+    ;
+
+    public static class Card
     {
 
         //cardValue are assured by Rank enum order
@@ -58,7 +84,7 @@ namespace SuecaSolver
             }
             else
             {
-                Console.WriteLine("int.ToSring: InvalidCastException Suit");
+                Console.WriteLine("int.ToSring: Invalid Suit");
             }
 
             return str;
@@ -75,7 +101,7 @@ namespace SuecaSolver
                 Console.WriteLine("AscendingComparer.Compare: InvalidCastException arguments");
                 return 1;
             }
-            else if (Fart.GetRank(x) > Fart.GetRank(y))
+            else if (Card.GetRank(x) > Card.GetRank(y))
             {
                 return -1;
             }
@@ -98,7 +124,7 @@ namespace SuecaSolver
                 Console.WriteLine("AscendingComparer.Compare: InvalidCastException arguments");
                 return 1;
             }
-            else if (Fart.GetRank(x) < Fart.GetRank(y))
+            else if (Card.GetRank(x) < Card.GetRank(y))
             {
                 return -1;
             }
@@ -128,15 +154,15 @@ namespace SuecaSolver
                 Console.WriteLine("AscendingComparer.Compare: InvalidCastException arguments");
                 return 1;
             }
-            else if (Fart.GetSuit(x) == trump && Fart.GetSuit(y) == trump && Fart.GetRank(x) > Fart.GetRank(y))
+            else if (Card.GetSuit(x) == trump && Card.GetSuit(y) == trump && Card.GetRank(x) > Card.GetRank(y))
             {
                 return -1;
             }
-            else if (Fart.GetSuit(x) == trump && Fart.GetSuit(y) != trump)
+            else if (Card.GetSuit(x) == trump && Card.GetSuit(y) != trump)
             {
                 return -1;
             }
-            else if (Fart.GetSuit(x) != trump && Fart.GetSuit(y) != trump && Fart.GetRank(x) > Fart.GetRank(y))
+            else if (Card.GetSuit(x) != trump && Card.GetSuit(y) != trump && Card.GetRank(x) > Card.GetRank(y))
             {
                 return -1;
             }
@@ -166,15 +192,15 @@ namespace SuecaSolver
                 Console.WriteLine("AscendingComparer.Compare: InvalidCastException arguments");
                 return 1;
             }
-            else if (Fart.GetSuit(x) == trump && Fart.GetSuit(y) == trump && Fart.GetRank(x) < Fart.GetRank(y))
+            else if (Card.GetSuit(x) == trump && Card.GetSuit(y) == trump && Card.GetRank(x) < Card.GetRank(y))
             {
                 return -1;
             }
-            else if (Fart.GetSuit(x) == trump && Fart.GetSuit(y) != trump)
+            else if (Card.GetSuit(x) == trump && Card.GetSuit(y) != trump)
             {
                 return -1;
             }
-            else if (Fart.GetSuit(x) != trump && Fart.GetSuit(y) != trump && Fart.GetRank(x) < Fart.GetRank(y))
+            else if (Card.GetSuit(x) != trump && Card.GetSuit(y) != trump && Card.GetRank(x) < Card.GetRank(y))
             {
                 return -1;
             }

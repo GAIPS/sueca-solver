@@ -44,7 +44,7 @@ namespace SuecaSolver
             {
                 gameState.ApplyMove(new Move(Id, move));
                 Hand.Remove(move);
-                HasSuit[Fart.GetSuit(move)]--;
+                HasSuit[Card.GetSuit(move)]--;
                 // Console.WriteLine("Max player played " + move);
                 int moveValue = gameState.GetNextPlayer().PlayGame(gameState, alpha, beta, lol);
 
@@ -55,62 +55,11 @@ namespace SuecaSolver
 
                 gameState.UndoMove();
                 Hand.Add(move);
-                HasSuit[Fart.GetSuit(move)]++;
+                HasSuit[Card.GetSuit(move)]++;
 
                 if (v >= beta)
                 {
                     NumCuts++;
-                    return v;
-                }
-
-                if (v > alpha)
-                {
-                    alpha = v;
-                }
-            }
-
-            return v;
-        }
-
-
-        override public int PlayTrick(GameState gameState, int alpha, int beta, int card = -1)
-        {
-            int v = Int32.MinValue;
-            List<int> moves;
-
-            if (gameState.IsEndFirstTrick())
-            {
-                return gameState.GetFirstTrickPoints();
-            }
-
-            if (card == -1)
-            {
-                moves = SuecaGame.PossibleMoves(Hand, gameState.GetLeadSuit());
-            }
-            else
-            {
-                moves = new List<int>();
-                moves.Add(card);
-            }
-
-            foreach (int move in moves)
-            {
-                gameState.ApplyMove(new Move(Id, move));
-                Hand.Remove(move);
-                HasSuit[Fart.GetSuit(move)]--;
-                int moveValue = gameState.GetNextPlayer().PlayTrick(gameState, alpha, beta);
-
-                if (moveValue > v)
-                {
-                    v = moveValue;
-                }
-
-                gameState.UndoMove();
-                Hand.Add(move);
-                HasSuit[Fart.GetSuit(move)]++;
-
-                if (v >= beta)
-                {
                     return v;
                 }
 

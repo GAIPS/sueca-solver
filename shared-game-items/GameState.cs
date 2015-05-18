@@ -7,7 +7,6 @@ namespace SuecaSolver
     {
 
         private List<Trick> tricks;
-        private bool debugFlag;
         private Player[] players;
         private int trump;
         private AscendingComparer ac;
@@ -18,7 +17,7 @@ namespace SuecaSolver
         private bool predictableTrickCut;
 
 
-        public GameState(int numTricks, int trumpSuit, Player[] playersList, bool debug)
+        public GameState(int numTricks, int trumpSuit, Player[] playersList)
         {
             ac = new AscendingComparer();
             dc = new DescendingComparer();
@@ -27,7 +26,6 @@ namespace SuecaSolver
             players = new Player[4];
             tricks = new List<Trick>(numTricks);
             trump = trumpSuit;
-            debugFlag = debug;
             predictableTrickWinner = -1;
             predictableTrickCut = false;
 
@@ -39,7 +37,7 @@ namespace SuecaSolver
 
         private int getPlayInTrick()
         {
-            int playInCurrentTrick = GetCurrentTrick().getPlayInTrick();
+            int playInCurrentTrick = GetCurrentTrick().GetPlayInTrick();
             if (playInCurrentTrick == 4)
             {
                 return 0;
@@ -51,7 +49,7 @@ namespace SuecaSolver
         {
             if (tricks.Count == 0)
             {
-                Console.WriteLine("Trouble at GameState in GetCurrentTrick");
+                Console.WriteLine("GameState.GetCurrentTrick - No tricks available");
             }
             return tricks[tricks.Count - 1];
         }
@@ -62,7 +60,7 @@ namespace SuecaSolver
             int nextPlayerId;
             if (GetCurrentTrick().IsFull())
             {
-                nextPlayerId = GetCurrentTrick().GetTrickWinnerId();
+                nextPlayerId = GetCurrentTrick().GetTrickWinner();
             }
             else
             {
@@ -72,7 +70,7 @@ namespace SuecaSolver
             return players[nextPlayerId];
         }
 
-        void NewMethod(int playerID, int leadSuit, int currentPlayInTrick)
+        private void predictTrickWinner(int playerID, int leadSuit, int currentPlayInTrick)
         {
             List<Move> currentTrick = GetCurrentTrick().GetMoves();
             int bestRank = 0;
@@ -83,7 +81,7 @@ namespace SuecaSolver
                 int pID = (firstPlayerId + i) % 4;
                 if (i < currentPlayInTrick)
                 {
-                    highestRankForPlayer = Fart.GetRank(currentTrick[i].Card);
+                    highestRankForPlayer = Card.GetRank(currentTrick[i].Card);
                 }
                 else
                 {
@@ -123,11 +121,8 @@ namespace SuecaSolver
 
             if (predictableTrickWinner == -1)
             {
-                NewMethod(playerID, leadSuit, currentPlayInTrick);
+                predictTrickWinner(playerID, leadSuit, currentPlayInTrick);
             }
-
-            //            NewMethod(playerID, leadSuit, currentPlayInTrick);
-
 
 
             if (!predictableTrickCut && (predictableTrickWinner == playerID || predictableTrickWinner == (playerID + 2) % 4))
@@ -146,24 +141,11 @@ namespace SuecaSolver
             return moves;
         }
 
-        private bool cardsHaveSuit(List<int> cards, int leadSuit)
-        {
-            foreach (int card in cards)
-            {
-                if (Fart.GetSuit(card) == leadSuit)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-
         public void ApplyMove(Move move)
         {
             if (tricks.Count == 0 || GetCurrentTrick().IsFull())
             {
-                tricks.Add(new Trick(trump, debugFlag));
+                tricks.Add(new Trick(trump));
             }
             GetCurrentTrick().ApplyMove(move);
             if (GetCurrentTrick().IsFull())
@@ -206,7 +188,6 @@ namespace SuecaSolver
         {
             if (tricks.Count == tricks.Capacity && GetCurrentTrick().IsFull())
             {
-                // Console.WriteLine("ENG GAME!!!!");
                 return true;
             }
             return false;
@@ -221,16 +202,6 @@ namespace SuecaSolver
             }
             return false;
         }
-
-        public bool IsEndTrick()
-        {
-            if (GetCurrentTrick().IsFull())
-            {
-                return true;
-            }
-            return false;
-        }
-
 
 
         public int[] GetGamePoints()
@@ -253,48 +224,32 @@ namespace SuecaSolver
 
         public int EvalGame()
         {
-            // Console.WriteLine("EvalGame - tricks.Count " + tricks.Count);
             int result = 0;
             for (int i = 0; i < tricks.Count; i++)
             {
-                if (debugFlag)
-                    Console.WriteLine("--- Trick " + i + ": ---");
                 int trickResult = tricks[i].GetTrickPoints();
                 result += trickResult;
-                // Console.WriteLine("Trickresult: " + trickResult + " Sum: " + result);
-                if (debugFlag)
-                    Console.WriteLine("Trickresult: " + trickResult + " Sum: " + result);
             }
             return result;
         }
 
         public int GetTrickWinnerId()
         {
-            return GetCurrentTrick().GetTrickWinnerId();
+            return GetCurrentTrick().GetTrickWinner();
         }
 
         public int GetFirstTrickPoints()
         {
-            if (debugFlag)
-                Console.WriteLine("--- Trick ---");
-            int trickResult = tricks[0].GetTrickPoints();
-            if (debugFlag)
-                Console.WriteLine("Trickresult: " + trickResult + " Sum: " + trickResult);
-            return trickResult;
+            return tricks[0].GetTrickPoints();
         }
 
         public int GetTrickPoints()
         {
-            if (debugFlag)
-                Console.WriteLine("--- Trick ---");
-            int trickResult = GetCurrentTrick().GetTrickPoints();
-            if (debugFlag)
-                Console.WriteLine("Trickresult: " + trickResult + " Sum: " + trickResult);
-            return trickResult;
+            return GetCurrentTrick().GetTrickPoints();
         }
 
 
-        private void printTricks()
+        public void PrintTricks()
         {
             Console.WriteLine("printTricks - tricks.Count " + tricks.Count);
             for (int i = 0; i < tricks.Count; i++)
@@ -303,34 +258,5 @@ namespace SuecaSolver
                 tricks[i].PrintTrick();
             }
         }
-
-
-        public void PrintLastTrick()
-        {
-            if (tricks.Count > 0 && tricks[0].IsFull())
-            {
-                Console.WriteLine("Last trick:");
-                if (GetCurrentTrick().IsFull())
-                {
-                    GetCurrentTrick().PrintTrick();
-                }
-                else
-                {
-                    tricks[tricks.Count - 2].PrintTrick();
-                }
-                Console.WriteLine("");
-            }
-        }
-
-        public void PrintCurrentTrick()
-        {
-            Console.WriteLine("Current trick:");
-            if (tricks.Count > 0 && !GetCurrentTrick().IsFull())
-            {
-                GetCurrentTrick().PrintTrick();
-            }
-            Console.WriteLine("");
-        }
-
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SuecaSolver
 {
-    public class MainWar
+    public class War
     {
 
         public static void Main()
@@ -21,11 +21,13 @@ namespace SuecaSolver
             Console.WriteLine("[3] - 3 Bot 1 Random");
             Console.WriteLine("[4] - 4 Bot 0 Random");
             Console.Write("Choose an option from 1 to 4: ");
-            input = Console.ReadLine();
-            gameMode = Convert.ToInt32(input);
+//            input = Console.ReadLine();
+//            gameMode = Convert.ToInt32(input);
+            gameMode = 2;
             Console.Write("How many games: ");
-            input = Console.ReadLine();
-            numGames = Convert.ToInt32(input);
+//            input = Console.ReadLine();
+//            numGames = Convert.ToInt32(input);
+            numGames = 10;
 
             for (int i = 0; i < numGames; i++)
             {
@@ -35,7 +37,7 @@ namespace SuecaSolver
                 List<List<int>> playersHands = deck.SampleAll(10);
                 int trump = randomNumber.Next(0, 4);
                 // Console.WriteLine("Trump " + trump);
-                SuecaGame game = new SuecaGame(playersHands[0], playersHands[1], playersHands[2], playersHands[3], trump, null, false);
+                SuecaGame game = new SuecaGame(10, playersHands[0], playersHands[1], playersHands[2], playersHands[3], trump, null);
                 // game.PrintPlayersHands();
                 int currentPlayerID = 0;
 

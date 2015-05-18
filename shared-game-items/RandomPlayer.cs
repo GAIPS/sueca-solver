@@ -21,7 +21,7 @@ namespace SuecaSolver
         {
             if (currentPlay == 0)
             {
-                leadSuit = Fart.GetSuit(card);
+                leadSuit = Card.GetSuit(card);
             }
             currentPlay = (currentPlay + 1) % 4;
         }

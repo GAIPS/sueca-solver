@@ -43,11 +43,10 @@ namespace SuecaSolver
                 return (int)Suit.None;
             }
 
-            //            return currentTrick[0].Card.Suit;
-            return Fart.GetSuit(currentTrick[0].Card);
+            return Card.GetSuit(currentTrick[0].Card);
         }
 
-        public List<Move> GetJustPlayed()
+        public List<Move> GetCardsOnTable()
         {
             return currentTrick;
         }
@@ -77,7 +76,7 @@ namespace SuecaSolver
         public void AddPlay(int playerID, int card)
         {
             int leadSuit = GetLeadSuit();
-            if (Fart.GetSuit(card) != leadSuit && leadSuit != (int)Suit.None)
+            if (Card.GetSuit(card) != leadSuit && leadSuit != (int)Suit.None)
             {
                 suitHasPlayer[leadSuit].Remove(playerID);
             }
@@ -91,7 +90,6 @@ namespace SuecaSolver
                 currentTrick.Add(new Move(playerID, card));
             }
             deck.RemoveCard(card);
-            // printSuitHasPlayer();
         }
 
         public void AddMyPlay(int card)
@@ -185,32 +183,12 @@ namespace SuecaSolver
         }
 
 
-        //        private void printSuitHasPlayer()
-        //        {
-        //            Console.WriteLine("<SUIT HAS PLAYER DICTIONARY>");
-        //            foreach (KeyValuePair<int,List<int>> entry in suitHasPlayer)
-        //            {
-        //                Suit suit = (Suit)entry.Key;
-        //                string playersIDS = "[";
-        //
-        //                foreach (int pid in entry.Value)
-        //                {
-        //                    playersIDS += pid.ToString();
-        //                }
-        //                playersIDS += "]";
-        //
-        //                Console.WriteLine(suit + " - " + playersIDS);
-        //            }
-        //            Console.WriteLine("</SUIT HAS PLAYER DICTIONARY>");
-        //        }
-
-
         private void printDictionary(string name)
         {
             string str = name + " -";
             foreach (KeyValuePair<int, int> cardValue in dictionary)
             {
-                str += " <" + Fart.ToString(cardValue.Key) + "," + cardValue.Value + ">";
+                str += " <" + Card.ToString(cardValue.Key) + "," + cardValue.Value + ">";
             }
             Console.WriteLine(str);
         }
