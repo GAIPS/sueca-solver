@@ -112,7 +112,7 @@ namespace SuecaSolver
 
             foreach (int card in hand)
             {
-                if (Card.GetSuit(card) == leadSuit)// && !card.HasBeenPlayed)
+                if (Card.GetSuit(card) == leadSuit)
                 {
                     result.Add(card);
                 }

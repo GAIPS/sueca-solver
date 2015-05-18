@@ -24,7 +24,7 @@ namespace SuecaSolver
 
         public static void Main()
         {
-            int NUM_TRICKS = 1;
+            int NUM_TRICKS = 7;
             Deck deck = new Deck();
             List<int> hand = deck.GetHand(NUM_TRICKS);
             InformationSet infoSet = new InformationSet(hand, (int)Suit.Clubs);

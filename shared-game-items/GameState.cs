@@ -9,12 +9,17 @@ namespace SuecaSolver
         private List<Trick> tricks;
         private Player[] players;
         private int trump;
+
         private AscendingComparer ac;
         private DescendingComparer dc;
         private AscendingCutComparer acc;
         //        private DescendingCutComparer dcc;
+
         private int predictableTrickWinner;
         private bool predictableTrickCut;
+
+        private int points;
+        private List<int> pointsPerTrick;
 
 
         public GameState(int numTricks, int trumpSuit, Player[] playersList)
@@ -28,6 +33,8 @@ namespace SuecaSolver
             trump = trumpSuit;
             predictableTrickWinner = -1;
             predictableTrickCut = false;
+            points = 0;
+            pointsPerTrick = new List<int>(numTricks);
 
             for (int i = 0; i < 4; i++)
             {
@@ -60,7 +67,11 @@ namespace SuecaSolver
             int nextPlayerId;
             if (GetCurrentTrick().IsFull())
             {
-                nextPlayerId = GetCurrentTrick().GetTrickWinner();
+                int[] winnerAndPoints = GetCurrentTrick().GetTrickWinnerAndPoints();
+                int trickPoints = winnerAndPoints[1];
+                points += trickPoints;
+                pointsPerTrick.Add(trickPoints);
+                nextPlayerId = winnerAndPoints[0];
             }
             else
             {
@@ -156,10 +167,19 @@ namespace SuecaSolver
 
         public void UndoMove()
         {
+            Trick currentTrick = GetCurrentTrick();
             predictableTrickWinner = -1;
             predictableTrickCut = false;
-            GetCurrentTrick().UndoMove();
-            if (GetCurrentTrick().IsEmpty())
+
+            if (currentTrick.IsFull())
+            {
+                int currentTrickIndex = pointsPerTrick.Count - 1;
+                points -= pointsPerTrick[currentTrickIndex];
+                pointsPerTrick.RemoveAt(currentTrickIndex);
+            }
+
+            currentTrick.UndoMove();
+            if (currentTrick.IsEmpty())
             {
                 tricks.RemoveAt(tricks.Count - 1);
             }
@@ -175,14 +195,14 @@ namespace SuecaSolver
             return currentTrick.LeadSuit;
         }
 
-        public bool IsNewTrick()
-        {
-            if (tricks.Count == 0 || GetCurrentTrick().IsEmpty())
-            {
-                return true;
-            }
-            return false;
-        }
+        //        public bool IsNewTrick()
+        //        {
+        //            if (tricks.Count == 0 || GetCurrentTrick().IsEmpty())
+        //            {
+        //                return true;
+        //            }
+        //            return false;
+        //        }
 
         public bool IsEndGame()
         {
@@ -194,14 +214,14 @@ namespace SuecaSolver
         }
 
 
-        public bool IsEndFirstTrick()
-        {
-            if (tricks.Count > 0 && tricks[0].IsFull())
-            {
-                return true;
-            }
-            return false;
-        }
+        //        public bool IsEndFirstTrick()
+        //        {
+        //            if (tricks.Count > 0 && tricks[0].IsFull())
+        //            {
+        //                return true;
+        //            }
+        //            return false;
+        //        }
 
 
         public int[] GetGamePoints()
@@ -224,29 +244,23 @@ namespace SuecaSolver
 
         public int EvalGame()
         {
-            int result = 0;
-            for (int i = 0; i < tricks.Count; i++)
-            {
-                int trickResult = tricks[i].GetTrickPoints();
-                result += trickResult;
-            }
-            return result;
+            return points;
         }
 
-        public int GetTrickWinnerId()
-        {
-            return GetCurrentTrick().GetTrickWinner();
-        }
+        //        public int GetTrickWinnerId()
+        //        {
+        //            return GetCurrentTrick().GetTrickWinner();
+        //        }
 
-        public int GetFirstTrickPoints()
-        {
-            return tricks[0].GetTrickPoints();
-        }
+        //        public int GetFirstTrickPoints()
+        //        {
+        //            return tricks[0].GetTrickPoints();
+        //        }
 
-        public int GetTrickPoints()
-        {
-            return GetCurrentTrick().GetTrickPoints();
-        }
+        //        public int GetTrickPoints()
+        //        {
+        //            return GetCurrentTrick().GetTrickPoints();
+        //        }
 
 
         public void PrintTricks()

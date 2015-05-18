@@ -82,16 +82,16 @@ namespace SuecaSolver
 
         public int GetTrickWinner()
         {
-            int winnerId = evalTrick()[0];
+            int winnerId = GetTrickWinnerAndPoints()[0];
             return winnerId;
         }
 
         public int GetTrickPoints()
         {
-            return evalTrick()[1];
+            return GetTrickWinnerAndPoints()[1];
         }
 
-        private int[] evalTrick()
+        public int[] GetTrickWinnerAndPoints()
         {
             int winningSuit = Card.GetSuit(moves[0].Card);
             int highestValueFromWinningSuit = Card.GetValue(moves[0].Card);
