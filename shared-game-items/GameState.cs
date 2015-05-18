@@ -262,6 +262,33 @@ namespace SuecaSolver
         //            return GetCurrentTrick().GetTrickPoints();
         //        }
 
+        public void PrintLastTrick()
+        {
+            if (tricks.Count > 0 && tricks[0].IsFull())
+            {
+                Console.WriteLine("Last trick:");
+                if (GetCurrentTrick().IsFull())
+                {
+                    GetCurrentTrick().PrintTrick();
+                }
+                else
+                {
+                    tricks[tricks.Count - 2].PrintTrick();
+                }
+                Console.WriteLine("");
+            }
+        }
+
+        public void PrintCurrentTrick()
+        {
+            Console.WriteLine("Current trick:");
+            if (tricks.Count > 0 && !GetCurrentTrick().IsFull())
+            {
+                GetCurrentTrick().PrintTrick();
+            }
+            Console.WriteLine("");
+        }
+
 
         public void PrintTricks()
         {

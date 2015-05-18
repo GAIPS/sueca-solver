@@ -191,6 +191,18 @@ namespace SuecaSolver
             return gameState.GetGamePoints();
         }
 
+
+        public void PrintLastTrick()
+        {
+            gameState.PrintLastTrick();
+        }
+
+
+        public void PrintCurrentTrick()
+        {
+            gameState.PrintCurrentTrick();
+        }
+
     }
 }
 

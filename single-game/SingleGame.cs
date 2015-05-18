@@ -36,7 +36,7 @@ namespace SuecaSolver
             int cardIndex, currentPlayerID = firstPlayerID;
 
             SmartPlayer artificialPlayer = new SmartPlayer(playersHand[0], trump);
-            SuecaGame game = new SuecaGame(playersHand[0], playersHand[1], playersHand[2], playersHand[3], trump, null, false);
+            SuecaGame game = new SuecaGame(10, playersHand[0], playersHand[1], playersHand[2], playersHand[3], trump, null);
             game.PrintPlayersHands();
 
             for (int i = 0; i < 40; i++)
@@ -78,6 +78,7 @@ namespace SuecaSolver
             Console.WriteLine("Team " + playersNames[1] + " and " + playersNames[3] + " - " + points[1] + " points");
             // game.PrintPoints(playersNames);
             Console.WriteLine("");
+            Console.ReadLine();
 
         }
     }
