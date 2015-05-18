@@ -247,20 +247,6 @@ namespace SuecaSolver
             return points;
         }
 
-        //        public int GetTrickWinnerId()
-        //        {
-        //            return GetCurrentTrick().GetTrickWinner();
-        //        }
-
-        //        public int GetFirstTrickPoints()
-        //        {
-        //            return tricks[0].GetTrickPoints();
-        //        }
-
-        //        public int GetTrickPoints()
-        //        {
-        //            return GetCurrentTrick().GetTrickPoints();
-        //        }
 
         public void PrintLastTrick()
         {
