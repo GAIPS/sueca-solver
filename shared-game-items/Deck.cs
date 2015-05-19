@@ -65,6 +65,12 @@ namespace SuecaSolver
 
             for (int i = 0; i < handSizes.Length; i++)
             {
+                if (deckCopy.Count == handSizes[i])
+                {
+                    players.Add(deckCopy);
+                    break;
+                }
+
                 players.Add(new List<int>());
                 for (int randomIndex = 0, j = 0; j < handSizes[i]; j++)
                 {

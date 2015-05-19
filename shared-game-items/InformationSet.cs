@@ -122,7 +122,7 @@ namespace SuecaSolver
             }
         }
 
-        private bool checkSuitsHaveAllPlayers(Dictionary<int,List<int>> suitHasPlayer)
+        private bool checkPlayersHaveAllSuits(Dictionary<int,List<int>> suitHasPlayer)
         {
             if (suitHasPlayer[0].Count == 3 &&
                 suitHasPlayer[1].Count == 3 &&
@@ -149,7 +149,7 @@ namespace SuecaSolver
             hands.Add(new List<int>(hand));
             List<List<int>> sampledHands;
 
-            if (checkSuitsHaveAllPlayers(suitHasPlayer))
+            if (checkPlayersHaveAllSuits(suitHasPlayer))
             {
                 sampledHands = deck.SampleHands(handSizes);
             }
