@@ -52,7 +52,7 @@ namespace SuecaSolver
                         game = new SuecaGame(p0.Count, p0, p1, p2, p3, infoSet.Trump, infoSet.GetCardsOnTable());
                     }
 
-                    cardValueInTrick = game.SampleGame(card);
+                    cardValueInTrick = game.SampleGame(Int32.MaxValue, card);
                     infoSet.AddCardValue(card, cardValueInTrick);
                 }
             }
@@ -102,7 +102,7 @@ namespace SuecaSolver
             // for (int j = 0; j < possibleMoves.Count; j++)
             // {
             int card = possibleMoves[0];
-            int cardValueInTrick = game.SampleGame(card);
+            int cardValueInTrick = game.SampleGame(Int32.MaxValue, card);
             game.PrintNumCuts();
             // int cardValueInTrick = game.SampleTrick(card);
             // Console.WriteLine("cardValueInTrick - " + card + " " + cardValueInTrick);

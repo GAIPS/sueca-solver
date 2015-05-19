@@ -11,10 +11,15 @@ namespace SuecaSolver
         {
         }
 
-        override public int PlayGame(GameState gameState, int alpha, int beta, int lol, int card = -1)
+        override public int PlayGame(GameState gameState, int alpha, int beta, int depthLimit, int card = -1)
         {
             int v = Int32.MinValue;
             List<int> moves;
+
+            if (gameState.reachedDepthLimit(depthLimit))
+            {
+                return gameState.EvalGame() + gameState.Heuristic(depthLimit);
+            }
 
             if (gameState.IsOtherTeamWinning() || gameState.IsEndGame())
             {
@@ -33,20 +38,12 @@ namespace SuecaSolver
             }
 
 
-            // lol++;
-            // if (lol == 10)
-            // {
-            //   System.Environment.Exit(1);
-            // }
-
-
             foreach (int move in moves)
             {
                 gameState.ApplyMove(new Move(Id, move));
                 Hand.Remove(move);
                 HasSuit[Card.GetSuit(move)]--;
-                // Console.WriteLine("Max player played " + move);
-                int moveValue = gameState.GetNextPlayer().PlayGame(gameState, alpha, beta, lol);
+                int moveValue = gameState.GetNextPlayer().PlayGame(gameState, alpha, beta, depthLimit);
 
                 if (moveValue > v)
                 {

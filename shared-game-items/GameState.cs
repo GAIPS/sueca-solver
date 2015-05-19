@@ -20,10 +20,11 @@ namespace SuecaSolver
 
         private int botTeamPoints;
         private int otherTeamPoints;
+        private int maxPointsInGame;
         private List<int> pointsPerTrick;
 
 
-        public GameState(int numTricks, int trumpSuit, Player[] playersList)
+        public GameState(int numTricks, int trumpSuit, Player[] playersList, int possiblePoints)
         {
             ac = new AscendingComparer();
             dc = new DescendingComparer();
@@ -36,6 +37,7 @@ namespace SuecaSolver
             predictableTrickCut = false;
             botTeamPoints = 0;
             otherTeamPoints = 0;
+            maxPointsInGame = possiblePoints;
             pointsPerTrick = new List<int>(numTricks);
 
             for (int i = 0; i < 4; i++)
@@ -263,7 +265,15 @@ namespace SuecaSolver
         {
             if (otherTeamPoints > 60)
             {
-//                Console.WriteLine("LOL");
+                return true;
+            }
+            return false;
+        }
+
+        public bool reachedDepthLimit(int limit)
+        {
+            if (tricks.Count > 0 && tricks.Count == limit && tricks[tricks.Count - 1].IsFull())
+            {
                 return true;
             }
             return false;
@@ -273,6 +283,12 @@ namespace SuecaSolver
         public int EvalGame()
         {
             return botTeamPoints;
+        }
+
+        public int Heuristic(int depth)
+        {
+            int remainPoints = maxPointsInGame - botTeamPoints - otherTeamPoints;
+            return remainPoints / 3;
         }
 
 

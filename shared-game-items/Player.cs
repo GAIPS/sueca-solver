@@ -26,7 +26,7 @@ namespace SuecaSolver
         }
 
 
-        abstract public int PlayGame(GameState gameState, int alpha, int beta, int lol, int move = -1);
+        abstract public int PlayGame(GameState gameState, int alpha, int beta, int depthLimit, int move = -1);
 
 
         public int HighestRankForSuit(int leadSuit, int trump)

@@ -29,7 +29,7 @@ namespace SuecaSolver
             {
                 possiblePoints = countPoints(p0, p1, p2, p3);
             }
-            gameState = new GameState(numTricks, trump, players);
+            gameState = new GameState(numTricks, trump, players, possiblePoints);
 
             if (alreadyPlayed != null)
             {
@@ -77,18 +77,11 @@ namespace SuecaSolver
             gameState.ApplyMove(new Move(playerID, card));
         }
 
-        public int SampleGame(int card = -1)
+        public int SampleGame(int depthLimit, int card = -1)
         {
             Player myPlayer = players[0];
 
-            if (card == -1)
-            {
-                points = myPlayer.PlayGame(gameState, Int32.MinValue, Int32.MaxValue, 0);
-            }
-            else
-            {
-                points = myPlayer.PlayGame(gameState, Int32.MinValue, Int32.MaxValue, 0, card);
-            }
+            points = myPlayer.PlayGame(gameState, Int32.MinValue, Int32.MaxValue, depthLimit, card);
 
             return points;
         }
