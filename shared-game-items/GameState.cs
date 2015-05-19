@@ -121,44 +121,19 @@ namespace SuecaSolver
         }
 
 
-        private int[] predictTrickWinnerOfSuit(int leadSuit)
-        {
-            int highestRankForPlayer = 0;
-            int highestRank = 0;
-            int winnerId = 0;
-            bool cut = false;
-
-            for (int j = 0; j < 4; j++)
-            {
-                highestRankForPlayer = players[j].HighestRankForSuit(leadSuit, trump);
-                if (!cut && highestRankForPlayer < 0)
-                {
-                    cut = true;
-                    highestRank = highestRankForPlayer;
-                    winnerId = j;
-                }
-                else if (!cut && highestRankForPlayer > highestRank)
-                {
-                    highestRank = highestRankForPlayer;
-                    winnerId = j;
-                }
-                else if (cut && highestRankForPlayer < highestRank)
-                {
-                    highestRank = highestRankForPlayer;
-                    winnerId = j;
-                }
-            }
-            return new int[] { winnerId, highestRank };
-        }
-
-
         public List<int> orderPossibleMoves(List<int> moves, int playerID)
         {
             int leadSuit = GetLeadSuit();
             int currentPlayInTrick = getPlayInTrick();
 
-            if (currentPlayInTrick == 0 || moves.Count == 1)
+            if (moves.Count == 1)
             {
+                return moves;
+            }
+
+            if (currentPlayInTrick == 0)
+            {
+                moves.Sort(ac);
                 return moves;
             }
 
