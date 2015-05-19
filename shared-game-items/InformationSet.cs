@@ -177,10 +177,10 @@ namespace SuecaSolver
         }
 
 
-        public List<List<int>> SampleAll(int n)
-        {
-            return deck.SampleAll(n);
-        }
+        //        public List<List<int>> SampleAll(int n)
+        //        {
+        //            return deck.SampleAll(n);
+        //        }
 
 
         private void printDictionary(string name)

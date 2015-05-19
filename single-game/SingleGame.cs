@@ -30,7 +30,7 @@ namespace SuecaSolver
 
             Deck deck = new Deck();
             Random randomNumber = new Random(Guid.NewGuid().GetHashCode());
-            List<List<int>> playersHand = deck.SampleAll(10);
+            List<List<int>> playersHand = deck.SampleHands(new int[]{ 10, 10, 10, 10 });
             List<int> currentHand;
             int trump = randomNumber.Next(0, 4);
             int cardIndex, currentPlayerID = firstPlayerID;

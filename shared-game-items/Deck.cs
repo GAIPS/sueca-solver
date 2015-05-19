@@ -8,14 +8,14 @@ namespace SuecaSolver
     public class Deck
     {
 
-        private List<int> deck;
         private Random random;
+        private List<int> deck;
         private SolverContext solver;
 
         public Deck()
         {
-            deck = new List<int>(40);
             random = new Random();
+            deck = new List<int>(40);
             solver = SolverContext.GetContext();
 
             for (int i = 0; i < 40; i++)
@@ -26,9 +26,9 @@ namespace SuecaSolver
 
         public Deck(List<int> cards)
         {
+            random = new Random();
             deck = new List<int>(40 - cards.Count);
             solver = SolverContext.GetContext();
-            random = new Random();
 
             for (int i = 0; i < 40; i++)
             {
@@ -37,11 +37,6 @@ namespace SuecaSolver
                     deck.Add(i);
                 }
             }
-        }
-
-        public int GetSize()
-        {
-            return deck.Count;
         }
 
         public void RemoveCard(int card)
@@ -63,82 +58,10 @@ namespace SuecaSolver
         }
 
 
-        public List<int> SampleHand(int handSize)
-        {
-            List<int> hand = new List<int>(handSize);
-            List<int> deckCopy = new List<int>(deck);
-
-            for (int randomIndex = 0, i = 0; i < handSize; i++)
-            {
-                randomIndex = random.Next(0, deckCopy.Count);
-                hand.Add(deckCopy[randomIndex]);
-                deckCopy.RemoveAt(randomIndex);
-            }
-            hand.Sort();
-            return hand;
-        }
-
-
-        public List<List<int>> Sample(int handSize)
-        {
-
-            List<List<int>> players = new List<List<int>>();
-            List<int> deckCopy = new List<int>(deck);
-
-            if (handSize * 3 == deck.Count)
-            {
-                Console.WriteLine("Deck.Sample - Last hand could not be choosen randomly");
-            }
-            for (int i = 0; i < 3; i++)
-            {
-                players.Add(new List<int>());
-                for (int randomIndex = 0, j = 0; j < handSize; j++)
-                {
-                    randomIndex = random.Next(0, deckCopy.Count);
-                    players[i].Add(deckCopy[randomIndex]);
-                    deckCopy.RemoveAt(randomIndex);
-                }
-                players[i].Sort();
-            }
-
-            return players;
-        }
-
-
-        public List<List<int>> SampleAll(int n)
-        {
-            List<List<int>> players = new List<List<int>>();
-            List<int> deckCopy = new List<int>(deck);
-
-            if (n * 4 == deck.Count)
-            {
-                Console.WriteLine("Deck.SampleAll - Last hand could not be choosen randomly");
-            }
-            for (int i = 0; i < 4; i++)
-            {
-                players.Add(new List<int>());
-                for (int randomIndex = 0, j = 0; j < n; j++)
-                {
-                    randomIndex = random.Next(0, deckCopy.Count);
-                    players[i].Add(deckCopy[randomIndex]);
-                    deckCopy.RemoveAt(randomIndex);
-                }
-                players[i].Sort();
-            }
-
-            return players;
-        }
-
-
         public List<List<int>> SampleHands(int[] handSizes)
         {
             List<List<int>> players = new List<List<int>>();
             List<int> deckCopy = new List<int>(deck);
-
-            if (handSizes[0] + handSizes[1] + handSizes[2] != deckCopy.Count)
-            {
-                Console.WriteLine("Deck.SampleHands - Last hand could not be choosen randomly");
-            }
 
             for (int i = 0; i < handSizes.Length; i++)
             {
