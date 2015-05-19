@@ -173,8 +173,8 @@ namespace SuecaSolver
 //                Card.Create(Rank.Two, Suit.Spades),
 //                Card.Create(Rank.Three, Suit.Spades)
 //            };
-
-
+//
+//
 //            List<int> p0 = new List<int>()
 //            {Card.Create(Rank.Five, Suit.Clubs),
 //                Card.Create(Rank.Seven, Suit.Clubs),

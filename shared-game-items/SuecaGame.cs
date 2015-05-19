@@ -19,7 +19,6 @@ namespace SuecaSolver
             players[1] = new MinPlayer(1, p1);
             players[2] = new MaxPlayer(2, p2);
             players[3] = new MinPlayer(3, p3);
-            gameState = new GameState(numTricks, trump, players);
             points = 0;
 
             if (p0.Count == 10 && p1.Count == 10 && p2.Count == 10 && p3.Count == 10)
@@ -30,6 +29,7 @@ namespace SuecaSolver
             {
                 possiblePoints = countPoints(p0, p1, p2, p3);
             }
+            gameState = new GameState(numTricks, trump, players);
 
             if (alreadyPlayed != null)
             {

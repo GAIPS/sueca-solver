@@ -19,6 +19,7 @@ namespace SuecaSolver
         private bool predictableTrickCut;
 
         private int botTeamPoints;
+        private int otherTeamPoints;
         private List<int> pointsPerTrick;
 
 
@@ -34,6 +35,7 @@ namespace SuecaSolver
             predictableTrickWinner = -1;
             predictableTrickCut = false;
             botTeamPoints = 0;
+            otherTeamPoints = 0;
             pointsPerTrick = new List<int>(numTricks);
 
             for (int i = 0; i < 4; i++)
@@ -72,6 +74,10 @@ namespace SuecaSolver
                 if (trickPoints > 0)
                 {
                     botTeamPoints += trickPoints;
+                }
+                if (trickPoints < 0)
+                {
+                    otherTeamPoints += (-1 * trickPoints);
                 }
                 pointsPerTrick.Add(trickPoints);
                 nextPlayerId = winnerAndPoints[0];
@@ -220,6 +226,10 @@ namespace SuecaSolver
                 {
                     botTeamPoints -= trickPoints;
                 }
+                if (trickPoints < 0)
+                {
+                    otherTeamPoints += trickPoints;
+                }
                 pointsPerTrick.RemoveAt(currentTrickIndex);
             }
 
@@ -244,6 +254,16 @@ namespace SuecaSolver
         {
             if (tricks.Count == tricks.Capacity && GetCurrentTrick().IsFull())
             {
+                return true;
+            }
+            return false;
+        }
+
+        public bool IsOtherTeamWinning()
+        {
+            if (otherTeamPoints > 60)
+            {
+//                Console.WriteLine("LOL");
                 return true;
             }
             return false;

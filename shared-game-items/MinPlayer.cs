@@ -16,7 +16,7 @@ namespace SuecaSolver
             int v = Int32.MaxValue;
             List<int> moves;
 
-            if (gameState.IsEndGame())
+            if (gameState.IsOtherTeamWinning() || gameState.IsEndGame())
             {
                 return gameState.EvalGame();
             }
