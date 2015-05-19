@@ -80,17 +80,6 @@ namespace SuecaSolver
             }
         }
 
-        public int GetTrickWinner()
-        {
-            int winnerId = GetTrickWinnerAndPoints()[0];
-            return winnerId;
-        }
-
-        public int GetTrickPoints()
-        {
-            return GetTrickWinnerAndPoints()[1];
-        }
-
         public int[] GetTrickWinnerAndPoints()
         {
             int winningSuit = Card.GetSuit(moves[0].Card);

@@ -23,12 +23,12 @@ namespace SuecaSolver
             Console.Write("Choose an option from 1 to 4: ");
 //            input = Console.ReadLine();
 //            gameMode = Convert.ToInt32(input);
-            gameMode = 1;
+            gameMode = 2;
             Console.WriteLine(gameMode);
             Console.Write("How many games: ");
 //            input = Console.ReadLine();
 //            numGames = Convert.ToInt32(input);
-            numGames = 10;
+            numGames = 100;
             Console.WriteLine(numGames);
 
             for (int i = 0; i < numGames; i++)
