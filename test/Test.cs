@@ -218,7 +218,6 @@ namespace SuecaSolver
             SuecaGame game = new SuecaGame(7, p0, p1, p2, p3, infoSet.Trump, infoSet.GetCardsOnTable());
             int card = p0[0];
             int cardValueInTrick = game.SampleGame(card);
-            game.PrintTricks();
             infoSet.AddCardValue(card, cardValueInTrick);
             infoSet.PrintInfoSet();
         }

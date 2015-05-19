@@ -18,7 +18,7 @@ namespace SuecaSolver
         private int predictableTrickWinner;
         private bool predictableTrickCut;
 
-        private int points;
+        private int botTeamPoints;
         private List<int> pointsPerTrick;
 
 
@@ -33,7 +33,7 @@ namespace SuecaSolver
             trump = trumpSuit;
             predictableTrickWinner = -1;
             predictableTrickCut = false;
-            points = 0;
+            botTeamPoints = 0;
             pointsPerTrick = new List<int>(numTricks);
 
             for (int i = 0; i < 4; i++)
@@ -69,7 +69,10 @@ namespace SuecaSolver
             {
                 int[] winnerAndPoints = GetCurrentTrick().GetTrickWinnerAndPoints();
                 int trickPoints = winnerAndPoints[1];
-                points += trickPoints;
+                if (trickPoints > 0)
+                {
+                    botTeamPoints += trickPoints;
+                }
                 pointsPerTrick.Add(trickPoints);
                 nextPlayerId = winnerAndPoints[0];
             }
@@ -212,7 +215,11 @@ namespace SuecaSolver
             if (currentTrick.IsFull())
             {
                 int currentTrickIndex = pointsPerTrick.Count - 1;
-                points -= pointsPerTrick[currentTrickIndex];
+                int trickPoints = pointsPerTrick[currentTrickIndex];
+                if (trickPoints > 0)
+                {
+                    botTeamPoints -= trickPoints;
+                }
                 pointsPerTrick.RemoveAt(currentTrickIndex);
             }
 
@@ -243,27 +250,9 @@ namespace SuecaSolver
         }
 
 
-        public int[] GetGamePoints()
-        {
-            int[] result = new int[2] { 0, 0 };
-            for (int i = 0; i < tricks.Count; i++)
-            {
-                int trickResult = tricks[i].GetTrickWinnerAndPoints()[1];
-                if (trickResult > 0)
-                {
-                    result[0] += trickResult;
-                }
-                else
-                {
-                    result[1] += (-1 * trickResult);
-                }
-            }
-            return result;
-        }
-
         public int EvalGame()
         {
-            return points;
+            return botTeamPoints;
         }
 
 

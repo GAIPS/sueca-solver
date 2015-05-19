@@ -9,6 +9,8 @@ namespace SuecaSolver
         private Player[] players = new Player[4];
         private int trump;
         private GameState gameState;
+        private int possiblePoints;
+        private int points;
 
         public SuecaGame(int numTricks, List<int> p0, List<int> p1, List<int> p2, List<int> p3, int trumpSuit, List<Move> alreadyPlayed)
         {
@@ -17,8 +19,17 @@ namespace SuecaSolver
             players[1] = new MinPlayer(1, p1);
             players[2] = new MaxPlayer(2, p2);
             players[3] = new MinPlayer(3, p3);
-
             gameState = new GameState(numTricks, trump, players);
+            points = 0;
+
+            if (p0.Count == 10 && p1.Count == 10 && p2.Count == 10 && p3.Count == 10)
+            {
+                possiblePoints = 120;
+            }
+            else
+            {
+                possiblePoints = countPoints(p0, p1, p2, p3);
+            }
 
             if (alreadyPlayed != null)
             {
@@ -27,6 +38,28 @@ namespace SuecaSolver
                     gameState.ApplyMove(move);
                 }
             }
+        }
+
+        private int countPoints(List<int> p0, List<int> p1, List<int> p2, List<int> p3)
+        {
+            int result = 0;
+            for (int i = 0; i < p0.Count; i++)
+            {
+                result += Card.GetValue(p0[i]);
+            }
+            for (int i = 0; i < p1.Count; i++)
+            {
+                result += Card.GetValue(p1[i]);
+            }
+            for (int i = 0; i < p2.Count; i++)
+            {
+                result += Card.GetValue(p2[i]);
+            }
+            for (int i = 0; i < p3.Count; i++)
+            {
+                result += Card.GetValue(p3[i]);
+            }
+            return result;
         }
 
         public Trick GetCurrentTrick()
@@ -47,17 +80,17 @@ namespace SuecaSolver
         public int SampleGame(int card = -1)
         {
             Player myPlayer = players[0];
-            int bestmove;
 
             if (card == -1)
             {
-                bestmove = myPlayer.PlayGame(gameState, Int32.MinValue, Int32.MaxValue, 0);
+                points = myPlayer.PlayGame(gameState, Int32.MinValue, Int32.MaxValue, 0);
             }
             else
             {
-                bestmove = myPlayer.PlayGame(gameState, Int32.MinValue, Int32.MaxValue, 0, card);
+                points = myPlayer.PlayGame(gameState, Int32.MinValue, Int32.MaxValue, 0, card);
             }
-            return bestmove;
+
+            return points;
         }
 
         public void PrintPlayersHands()
@@ -188,7 +221,8 @@ namespace SuecaSolver
 
         public int[] GetGamePoints()
         {
-            return gameState.GetGamePoints();
+            int otherteamPoints = possiblePoints - points;
+            return new int[] { points, otherteamPoints };
         }
 
 
