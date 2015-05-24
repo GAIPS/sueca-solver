@@ -196,7 +196,7 @@ namespace SuecaSolver
 
             for (int i = 0; i < deck.Count; i++)
             {
-                int decision = Convert.ToInt32(decisions[i].ToString());
+                int decision = Convert.ToInt16(decisions[i].ToString());
                 decision = decision / 10;
                 cardsPerPlayer[decision - 1].Add(deck[i]);
             }

@@ -285,6 +285,24 @@ namespace SuecaSolver
             return botTeamPoints;
         }
 
+        public int[] CalculePointsOfFinishedGame()
+        {
+            int[] points = new int[2] { 0, 0 };
+            for (int i = 0; i < tricks.Count; i++)
+            {
+                int trickPoints = tricks[i].GetTrickWinnerAndPoints()[1];
+                if (trickPoints > 0)
+                {
+                    points[0] += trickPoints;
+                }
+                else
+                {
+                    points[1] += (-1 * trickPoints);
+                }
+            }
+            return points;
+        }
+
         public int Heuristic(int depth)
         {
             int remainPoints = maxPointsInGame - botTeamPoints - otherTeamPoints;

@@ -18,7 +18,7 @@ namespace SuecaSolver
 
             if (gameState.reachedDepthLimit(depthLimit))
             {
-                return gameState.EvalGame() + gameState.Heuristic(depthLimit);
+                return gameState.EvalGame();// + gameState.Heuristic(depthLimit);
             }
 
             if (gameState.IsOtherTeamWinning() || gameState.IsEndGame())

@@ -23,7 +23,7 @@ namespace SuecaSolver
             Console.Write("Choose an option from 1 to 4: ");
 //            input = Console.ReadLine();
 //            gameMode = Convert.ToInt32(input);
-            gameMode = 2;
+            gameMode = 1;
             Console.WriteLine(gameMode);
             Console.Write("How many games: ");
 //            input = Console.ReadLine();
@@ -33,13 +33,13 @@ namespace SuecaSolver
 
             for (int i = 0; i < numGames; i++)
             {
-                // Console.WriteLine("----------------- Game " + i + " -----------------");
+                Console.WriteLine("----------------- Game " + i + " -----------------");
                 Deck deck = new Deck();
                 Random randomNumber = new Random(Guid.NewGuid().GetHashCode());
                 List<List<int>> playersHands = deck.SampleHands(new int[]{ 10, 10, 10, 10 });
                 int trump = randomNumber.Next(0, 4);
                 // Console.WriteLine("Trump " + trump);
-                SuecaGame game = new SuecaGame(10, playersHands[0], playersHands[1], playersHands[2], playersHands[3], trump, null);
+                SuecaGame game = new SuecaGame(10, playersHands, trump, null);
                 // game.PrintPlayersHands();
                 int currentPlayerID = 0;
 

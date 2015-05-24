@@ -12,22 +12,25 @@ namespace SuecaSolver
         private int possiblePoints;
         private int points;
 
-        public SuecaGame(int numTricks, List<int> p0, List<int> p1, List<int> p2, List<int> p3, int trumpSuit, List<Move> alreadyPlayed)
+        public SuecaGame(int numTricks, List<List<int>> playersHands, int trumpSuit, List<Move> alreadyPlayed)
         {
             trump = trumpSuit;
-            players[0] = new MaxPlayer(0, p0);
-            players[1] = new MinPlayer(1, p1);
-            players[2] = new MaxPlayer(2, p2);
-            players[3] = new MinPlayer(3, p3);
+            players[0] = new MaxPlayer(0, playersHands[0]);
+            players[1] = new MinPlayer(1, playersHands[1]);
+            players[2] = new MaxPlayer(2, playersHands[2]);
+            players[3] = new MinPlayer(3, playersHands[3]);
             points = 0;
 
-            if (p0.Count == 10 && p1.Count == 10 && p2.Count == 10 && p3.Count == 10)
+            if (playersHands[0].Count == 10
+                && playersHands[1].Count == 10
+                && playersHands[2].Count == 10
+                && playersHands[3].Count == 10)
             {
                 possiblePoints = 120;
             }
             else
             {
-                possiblePoints = countPoints(p0, p1, p2, p3);
+                possiblePoints = countPoints(playersHands);
             }
             gameState = new GameState(numTricks, trump, players, possiblePoints);
 
@@ -40,24 +43,16 @@ namespace SuecaSolver
             }
         }
 
-        private int countPoints(List<int> p0, List<int> p1, List<int> p2, List<int> p3)
+        private int countPoints(List<List<int>> playersHands)
         {
             int result = 0;
-            for (int i = 0; i < p0.Count; i++)
+            for (int i = 0; i < playersHands.Count; i++)
             {
-                result += Card.GetValue(p0[i]);
-            }
-            for (int i = 0; i < p1.Count; i++)
-            {
-                result += Card.GetValue(p1[i]);
-            }
-            for (int i = 0; i < p2.Count; i++)
-            {
-                result += Card.GetValue(p2[i]);
-            }
-            for (int i = 0; i < p3.Count; i++)
-            {
-                result += Card.GetValue(p3[i]);
+                List<int> pHand = playersHands[i];
+                for (int j = 0; j < pHand.Count; j++)
+                {
+                    result += Card.GetValue(pHand[j]);
+                }
             }
             return result;
         }
@@ -81,7 +76,7 @@ namespace SuecaSolver
         {
             Player myPlayer = players[0];
 
-            points = myPlayer.PlayGame(gameState, Int32.MinValue, Int32.MaxValue, depthLimit, card);
+            points = myPlayer.PlayGame(gameState, Int16.MinValue, Int16.MaxValue, depthLimit, card);
 
             return points;
         }
@@ -214,8 +209,9 @@ namespace SuecaSolver
 
         public int[] GetGamePoints()
         {
-            int otherteamPoints = possiblePoints - points;
-            return new int[] { points, otherteamPoints };
+//            int otherteamPoints = possiblePoints - points;
+//            return new int[] { points, otherteamPoints };
+            return gameState.CalculePointsOfFinishedGame();
         }
 
 

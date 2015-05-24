@@ -12,7 +12,7 @@ namespace SuecaSolver
 
         public SmartPlayer(List<int> initialHand, int trumpSuit)
         {
-            pimc = new PIMC(1);
+            pimc = new PIMC();
             infoSet = new InformationSet(initialHand, trumpSuit);
         }
 

@@ -30,6 +30,11 @@ namespace SuecaSolver
             deck = new Deck(currentHand);
         }
 
+        public int GetHandSize()
+        {
+            return hand.Count;
+        }
+
 
         public List<int> GetPossibleMoves()
         {
@@ -54,7 +59,7 @@ namespace SuecaSolver
         public int GetHighestCardIndex()
         {
             int bestCard = -1;
-            int bestValue = Int32.MinValue;
+            int bestValue = Int16.MinValue;
 
             foreach (KeyValuePair<int, int> cardValue in dictionary)
             {
@@ -167,14 +172,14 @@ namespace SuecaSolver
         }
 
 
-        public List<List<int>> SampleThree(int n)
-        {
-            List<List<int>> hands = new List<List<int>>();
-            hands.Add(deck.GetHand(n));
-            hands.Add(deck.GetHand(n));
-            hands.Add(deck.GetHand(n));
-            return hands;
-        }
+        //        public List<List<int>> SampleThree(int n)
+        //        {
+        //            List<List<int>> hands = new List<List<int>>();
+        //            hands.Add(deck.GetHand(n));
+        //            hands.Add(deck.GetHand(n));
+        //            hands.Add(deck.GetHand(n));
+        //            return hands;
+        //        }
 
 
         //        public List<List<int>> SampleAll(int n)
