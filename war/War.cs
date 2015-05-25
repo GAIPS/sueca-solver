@@ -23,12 +23,12 @@ namespace SuecaSolver
             Console.Write("Choose an option from 1 to 4: ");
 //            input = Console.ReadLine();
 //            gameMode = Convert.ToInt32(input);
-            gameMode = 1;
+            gameMode = 2;
             Console.WriteLine(gameMode);
             Console.Write("How many games: ");
 //            input = Console.ReadLine();
 //            numGames = Convert.ToInt32(input);
-            numGames = 100;
+            numGames = 10;
             Console.WriteLine(numGames);
 
             for (int i = 0; i < numGames; i++)
@@ -105,8 +105,8 @@ namespace SuecaSolver
 
                 int[] points = game.GetGamePoints();
                 // Console.WriteLine("------");
-                // Console.WriteLine("Team " + playersNames[0] + " and " + playersNames[2] + " - " + points[0] + " points");
-                // Console.WriteLine("Team " + playersNames[1] + " and " + playersNames[3] + " - " + points[1] + " points");
+                Console.WriteLine("Team " + playersNames[0] + " and " + playersNames[2] + " - " + points[0] + " points");
+                Console.WriteLine("Team " + playersNames[1] + " and " + playersNames[3] + " - " + points[1] + " points");
                 // Console.WriteLine("-----------------------------------------");
                 // Console.WriteLine("");
                 // Console.WriteLine("");

@@ -283,6 +283,18 @@ namespace SuecaSolver
 
         public int EvalGame()
         {
+            if (botTeamPoints < 30)
+            {
+                return -100;
+            }
+            else if (botTeamPoints < 60)
+            {
+                return -50;
+            }
+            else if (botTeamPoints == 60)
+            {
+                return 0;
+            }
             return botTeamPoints;
         }
 

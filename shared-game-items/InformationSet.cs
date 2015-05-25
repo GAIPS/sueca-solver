@@ -59,7 +59,7 @@ namespace SuecaSolver
         public int GetHighestCardIndex()
         {
             int bestCard = -1;
-            int bestValue = Int16.MinValue;
+            int bestValue = Int32.MinValue;
 
             foreach (KeyValuePair<int, int> cardValue in dictionary)
             {

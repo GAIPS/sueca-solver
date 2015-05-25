@@ -74,7 +74,7 @@ namespace SuecaSolver
             switch (handSize)
             {
                 case 10:
-                    N = 10;
+                    N = 30;
                     depthLimit = 3;
                     break;
                 case 9:
