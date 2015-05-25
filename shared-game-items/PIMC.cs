@@ -74,35 +74,35 @@ namespace SuecaSolver
             switch (handSize)
             {
                 case 10:
-                    N = 5;
-                    depthLimit = 4;
+                    N = 10;
+                    depthLimit = 3;
                     break;
                 case 9:
-                    N = 8;
-                    depthLimit = 4;
+                    N = 30;
+                    depthLimit = 3;
                     break;
                 case 8:
-                    N = 10;
-                    depthLimit = 4;
+                    N = 40;
+                    depthLimit = 3;
                     break;
                 case 7:
-                    N = 5;
-                    depthLimit = 5;
+                    N = 10;
+                    depthLimit = 4;
                     break;
                 case 6:
                     N = 5;
                     depthLimit = 10;
                     break;
                 case 5:
-                    N = 75;
+                    N = 30;
                     depthLimit = 10;
                     break;
                 case 4:
-                    N = 500;
+                    N = 200;
                     depthLimit = 10;
                     break;
                 case 3:
-                    N = 5000;
+                    N = 2000;
                     depthLimit = 10;
                     break;
                 case 2:
