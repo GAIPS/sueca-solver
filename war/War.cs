@@ -28,7 +28,7 @@ namespace SuecaSolver
             Console.Write("How many games: ");
 //            input = Console.ReadLine();
 //            numGames = Convert.ToInt32(input);
-            numGames = 100;
+            numGames = 10;
             Console.WriteLine(numGames);
 
             for (int i = 0; i < numGames; i++)
@@ -44,7 +44,7 @@ namespace SuecaSolver
                 // game.PrintPlayersHands();
 
 //                int currentPlayerID = 0;
-                int currentPlayerID = randomNumber.Next(0, 4);
+                int currentPlayerID = i % 4;
 
                 switch (gameMode)
                 {
