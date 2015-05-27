@@ -122,6 +122,30 @@ namespace SuecaSolver
             Console.WriteLine("");
         }
 
+        public static void PrintHandsReport(List<List<int>> playersHands, int trumpSuit)
+        {
+            for (int i = 0; i < playersHands.Count; i++)
+            {
+                int numOfTrumps = 0;
+                int points = 0;
+                int trumpPoints = 0;
+                List<int> playerHand = playersHands[i];
+
+                for (int j = 0; j < playerHand.Count; j++)
+                {
+                    int cardValue = Card.GetValue(playerHand[j]);
+                    points += cardValue;
+                    if (Card.GetSuit(playerHand[j]) == trumpSuit)
+                    {
+                        numOfTrumps++;
+                        trumpPoints += cardValue;
+                    }
+                }
+
+                Console.WriteLine("Player " + i + " - " + points + "P, " + trumpPoints + "TP, " + numOfTrumps + "#T");
+            }
+        }
+
 
         public static List<int> PossibleMoves(List<int> hand, int leadSuit)
         {
