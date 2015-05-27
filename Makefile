@@ -1,4 +1,4 @@
-CC=mcs
+CC=dmcs
 RR=mono
 FILES = $(wildcard shared-game-items/*.cs)
 
