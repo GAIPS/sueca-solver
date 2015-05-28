@@ -2,6 +2,11 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using Microsoft.SolverFoundation.Services;
+using System.Collections.Concurrent;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SuecaSolver
 {
@@ -10,7 +15,7 @@ namespace SuecaSolver
 
         private Random random;
         private List<int> deck;
-        private SolverContext solver;
+        private static SolverContext solver;
 
         public Deck()
         {
@@ -119,8 +124,10 @@ namespace SuecaSolver
         //It uses a CSP
         public List<List<int>> SampleHands(Dictionary<int,List<int>> suitHasPlayer, int[] handSizes)
         {
+            Console.WriteLine("1");
             deck = shuffle(deck);
             var model = solver.CreateModel();
+            Console.WriteLine("2 " + deck.Count + " p0 " + handSizes[0] + " p1 " + handSizes[1] + " p2 " + handSizes[2]);
             Decision[] decisions = new Decision[deck.Count];
             List<List<int>> players = getDomains(handSizes);
             List<int> player1 = shuffle(players[0]);
@@ -128,7 +135,6 @@ namespace SuecaSolver
             List<int> player2 = shuffle(players[1]);
             List<int> player3 = shuffle(players[2]);
             List<int> player3Copy = new List<int>(player3);
-
             Domain domain1 = Domain.Set(player1.ToArray());
             Domain domain2 = Domain.Set(player2.ToArray());
             Domain domain3 = Domain.Set(player3.ToArray());

@@ -10,10 +10,10 @@ namespace SuecaSolver
         private InformationSet infoSet;
 
 
-        public SmartPlayer(List<int> initialHand, int trumpSuit)
+        public SmartPlayer(List<int> initialHand, int trumpSuit, object deckLock)
         {
             pimc = new PIMC();
-            infoSet = new InformationSet(initialHand, trumpSuit);
+            infoSet = new InformationSet(initialHand, trumpSuit, deckLock);
         }
 
         override public void AddPlay(int playerID, int card)
