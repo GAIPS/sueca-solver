@@ -14,7 +14,7 @@ namespace SuecaSolver
 
         private Random random;
         private List<int> deck;
-        private static SolverContext solver;
+        //private static SolverContext solver;
 
         public Deck()
         {
@@ -34,7 +34,7 @@ namespace SuecaSolver
         {
             random = new Random();
             deck = new List<int>(40 - cards.Count);
-            solver = SolverContext.GetContext();
+            //solver = SolverContext.GetContext();
 
             for (int i = 0; i < 40; i++)
             {
