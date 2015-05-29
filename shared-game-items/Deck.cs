@@ -127,10 +127,11 @@ namespace SuecaSolver
             return shuffled;
         }
 
-        //Sampling a card distribution consedering which suits the players have
+        //Sampling a card distribution considering which suits the players have
         //It uses a CSP
         public List<List<int>> SampleHands(Dictionary<int,List<int>> suitHasPlayer, int[] handSizes)
         {
+            //Console.WriteLine("[" + System.Threading.Thread.CurrentThread.ManagedThreadId + "] - SampleHands BEGIN");
             if (deck.Count != handSizes[0] + handSizes[1] + handSizes[2])
             {
                 Console.WriteLine("[" + System.Threading.Thread.CurrentThread.ManagedThreadId + "] - SHIT! - deck.Count: " + deck.Count + " P0: " + handSizes[0] + " P1: " + handSizes[1] + " P2: " + handSizes[2] + " deck: " + deckToString());
@@ -221,6 +222,7 @@ namespace SuecaSolver
             }
             solver.ClearModel();
 //            Console.WriteLine("[" + System.Threading.Thread.CurrentThread.ManagedThreadId + "]" + "SampleHands OK");
+            //Console.WriteLine("[" + System.Threading.Thread.CurrentThread.ManagedThreadId + "] - SampleHands END");
             return cardsPerPlayer;
         }
 

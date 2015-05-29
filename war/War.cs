@@ -10,7 +10,7 @@ namespace SuecaSolver
 {
     public class War
     {
-        static string[] NewMethod(int i, int[] localCount, /*object deckLock,*/ int gameMode)
+        static int[] NewMethod(int i, int[] localCount, /*object deckLock,*/ int gameMode)
         {
 //            Console.WriteLine("----------------- Game " + i + " ----------------- TID: " + System.Threading.Thread.CurrentThread.ManagedThreadId);
             Random randomNumber = new Random(Guid.NewGuid().GetHashCode());
@@ -92,7 +92,7 @@ namespace SuecaSolver
                 currentPlayerID = game.GetNextPlayerId();
             }
             int[] points = game.GetGamePoints();
-            Console.WriteLine("----------------- Game " + i + " -----------------");
+            Console.WriteLine("[" + System.Threading.Thread.CurrentThread.ManagedThreadId + "] ----------------- Game " + i + " -----------------");
             Console.WriteLine("Team " + playersNames[0] + " and " + playersNames[2] + " - " + points[0] + " points");
             Console.WriteLine("Team " + playersNames[1] + " and " + playersNames[3] + " - " + points[1] + " points");
             Console.Out.Flush();
@@ -111,7 +111,7 @@ namespace SuecaSolver
             {
                 localCount[2]++;
             }
-            return playersNames;
+            return localCount;
         }
 
         public static void Main()
@@ -133,7 +133,7 @@ namespace SuecaSolver
             Console.Write("How many games: ");
 //            input = Console.ReadLine();
 //            numGames = Convert.ToInt32(input);
-            numGames = 50;
+            numGames = 20;
             Console.WriteLine(numGames);
 
             //object resultLock = new object();
@@ -145,14 +145,15 @@ namespace SuecaSolver
 
                 (int i, ParallelLoopState state, int[] localCount) =>
                 {
-                    NewMethod(i, localCount/*, deckLock*/, gameMode);
-                    return localCount;
+                    return NewMethod(i, localCount/*, deckLock*/, gameMode);
+                    //return localCount;
                 },
 
                 (int[] localCount) =>
                 {
                     //lock (resultLock)
                     //{
+                    Console.WriteLine("[" + System.Threading.Thread.CurrentThread.ManagedThreadId + "] - FINISHED ITS CHUNK!!!");
                         draws += localCount[0];
                         firstTeamWins += localCount[1];
                         secondTeamWins += localCount[2];
