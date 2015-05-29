@@ -10,7 +10,7 @@ namespace SuecaSolver
 {
     public class War
     {
-        static int[] NewMethod(int i, int[] localCount, /*object deckLock,*/ int gameMode)
+        static int[] NewMethod(int i, int[] localCount, /*object deckLock,*/int gameMode)
         {
 //            Console.WriteLine("----------------- Game " + i + " ----------------- TID: " + System.Threading.Thread.CurrentThread.ManagedThreadId);
             Random randomNumber = new Random(Guid.NewGuid().GetHashCode());
@@ -133,20 +133,20 @@ namespace SuecaSolver
             Console.Write("How many games: ");
 //            input = Console.ReadLine();
 //            numGames = Convert.ToInt32(input);
-            numGames = 20;
+            numGames = 100;
             Console.WriteLine(numGames);
 
             //object resultLock = new object();
             //object deckLock = new object();
             //for (int i = 0; i < numGames; i++)
             Parallel.For(0, numGames,
-                new ParallelOptions { MaxDegreeOfParallelism = 4 },
+                new ParallelOptions { MaxDegreeOfParallelism = 2 },
                 () => new int[3],
 
                 (int i, ParallelLoopState state, int[] localCount) =>
                 {
-                    return NewMethod(i, localCount/*, deckLock*/, gameMode);
-                    //return localCount;
+                    int[] lc = NewMethod(i, localCount/*, deckLock*/, gameMode);
+                    return lc;
                 },
 
                 (int[] localCount) =>
@@ -154,9 +154,9 @@ namespace SuecaSolver
                     //lock (resultLock)
                     //{
                     Console.WriteLine("[" + System.Threading.Thread.CurrentThread.ManagedThreadId + "] - FINISHED ITS CHUNK!!!");
-                        draws += localCount[0];
-                        firstTeamWins += localCount[1];
-                        secondTeamWins += localCount[2];
+                    draws += localCount[0];
+                    firstTeamWins += localCount[1];
+                    secondTeamWins += localCount[2];
                     //}
                 });
 
