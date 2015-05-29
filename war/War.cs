@@ -116,6 +116,9 @@ namespace SuecaSolver
 
         public static void Main()
         {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+
             int numGames, gameMode, firstTeamWins = 0, secondTeamWins = 0, draws = 0;
 
             Console.WriteLine("");
@@ -133,7 +136,7 @@ namespace SuecaSolver
             Console.Write("How many games: ");
 //            input = Console.ReadLine();
 //            numGames = Convert.ToInt32(input);
-            numGames = 100;
+            numGames = 10;
             Console.WriteLine(numGames);
 
             //object resultLock = new object();
@@ -165,7 +168,10 @@ namespace SuecaSolver
             Console.WriteLine("Team 0 won " + firstTeamWins + "/" + numGames);
             Console.WriteLine("Team 1 won " + secondTeamWins + "/" + numGames);
             Console.WriteLine("Draws " + draws + "/" + numGames);
-
+            
+            sw.Stop();
+            Console.WriteLine("Total Time taken by functions is {0} seconds", sw.ElapsedMilliseconds / 1000); //minutes
+            Console.WriteLine("Total Time taken by functions is {0} minutes", sw.ElapsedMilliseconds / 60000); //minutes
         }
     }
 }

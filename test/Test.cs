@@ -12,7 +12,7 @@ namespace SuecaSolver
 
         public static void Main()
         {
-            int NUM_TRICKS = 9;
+            int NUM_TRICKS = 10;
             Deck deck = new Deck();
 
 
