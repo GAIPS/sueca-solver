@@ -13,10 +13,8 @@ namespace SuecaSolver
         private Deck deck;
         private Dictionary<int,List<int>> suitHasPlayer;
 
-        //        private object deckLock;
 
-
-        public InformationSet(List<int> currentHand, int trumpSuit)//, object lockMyDeck)
+        public InformationSet(List<int> currentHand, int trumpSuit)
         {
             Trump = trumpSuit;
             hand = new List<int>(currentHand);
@@ -30,7 +28,6 @@ namespace SuecaSolver
             };
             currentTrick = new List<Move>();
             deck = new Deck(currentHand);
-//            deckLock = lockMyDeck;
         }
 
         public int GetHandSize()
@@ -146,8 +143,6 @@ namespace SuecaSolver
         {
             List<List<int>> hands = new List<List<int>>();
             int myHandSize = hand.Count;
-//            Console.WriteLine("[" + System.Threading.Thread.CurrentThread.ManagedThreadId + "] - hand.Count " + hand.Count + " currentTrick.Count " + currentTrick.Count);
-//            Console.Out.Flush();
             int[] handSizes = new int[3] { myHandSize, myHandSize, myHandSize };
             int currentTrickSize = currentTrick.Count;
 
@@ -165,10 +160,7 @@ namespace SuecaSolver
             }
             else
             {
-//                lock (deckLock)
-//                {
                 sampledHands = deck.SampleHands(suitHasPlayer, handSizes);
-//                }
             }
 
             for (int i = 0; i < 3; i++)
@@ -178,22 +170,6 @@ namespace SuecaSolver
 
             return hands;
         }
-
-
-        //        public List<List<int>> SampleThree(int n)
-        //        {
-        //            List<List<int>> hands = new List<List<int>>();
-        //            hands.Add(deck.GetHand(n));
-        //            hands.Add(deck.GetHand(n));
-        //            hands.Add(deck.GetHand(n));
-        //            return hands;
-        //        }
-
-
-        //        public List<List<int>> SampleAll(int n)
-        //        {
-        //            return deck.SampleAll(n);
-        //        }
 
 
         private void printDictionary(string name)

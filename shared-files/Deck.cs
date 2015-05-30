@@ -14,27 +14,22 @@ namespace SuecaSolver
 
         private Random random;
         private List<int> deck;
-        //private static SolverContext solver;
 
         public Deck()
         {
             random = new Random();
             deck = new List<int>(40);
-//            solver = SolverContext.GetContext();
 
             for (int i = 0; i < 40; i++)
             {
                 deck.Add(i);
             }
-//            Console.WriteLine("[" + System.Threading.Thread.CurrentThread.ManagedThreadId + "] - Deck creation with " + deckToString());
-//            Console.Out.Flush();
         }
 
         public Deck(List<int> cards)
         {
             random = new Random();
             deck = new List<int>(40 - cards.Count);
-            //solver = SolverContext.GetContext();
 
             for (int i = 0; i < 40; i++)
             {
@@ -43,17 +38,12 @@ namespace SuecaSolver
                     deck.Add(i);
                 }
             }
-//            Console.WriteLine("[" + System.Threading.Thread.CurrentThread.ManagedThreadId + "] - Deck creation with " + deckToString());
             Console.Out.Flush();
         }
 
         public void RemoveCard(int card)
         {
-//            Console.WriteLine("[" + System.Threading.Thread.CurrentThread.ManagedThreadId + "] - Card to remove " + Card.ToString(card));
-            if (!deck.Remove(card))
-                Console.WriteLine("[" + System.Threading.Thread.CurrentThread.ManagedThreadId + "] - Invalid remove!");
-//            Console.WriteLine("[" + System.Threading.Thread.CurrentThread.ManagedThreadId + "] - Deck deletion to " + deckToString());
-//            Console.Out.Flush();
+            deck.Remove(card);
         }
 
         public List<int> GetHand(int handSize)
@@ -131,7 +121,6 @@ namespace SuecaSolver
         //It uses a CSP
         public List<List<int>> SampleHands(Dictionary<int,List<int>> suitHasPlayer, int[] handSizes)
         {
-            //Console.WriteLine("[" + System.Threading.Thread.CurrentThread.ManagedThreadId + "] - SampleHands BEGIN");
             if (deck.Count != handSizes[0] + handSizes[1] + handSizes[2])
             {
                 Console.WriteLine("[" + System.Threading.Thread.CurrentThread.ManagedThreadId + "] - SHIT! - deck.Count: " + deck.Count + " P0: " + handSizes[0] + " P1: " + handSizes[1] + " P2: " + handSizes[2] + " deck: " + deckToString());
@@ -221,8 +210,6 @@ namespace SuecaSolver
                 cardsPerPlayer[decision - 1].Add(deck[i]);
             }
             solver.ClearModel();
-//            Console.WriteLine("[" + System.Threading.Thread.CurrentThread.ManagedThreadId + "]" + "SampleHands OK");
-            //Console.WriteLine("[" + System.Threading.Thread.CurrentThread.ManagedThreadId + "] - SampleHands END");
             return cardsPerPlayer;
         }
 
