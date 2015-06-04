@@ -5,29 +5,54 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using MPAPI;
 
 namespace SuecaSolver
 {
     public class War
     {
-        static int[] NewMethod(int i, int[] localCount, int gameMode)
+        static bool checkHands(List<List<int>> hands, int trump)
+        {
+            for (int i = 0; i < hands.Count; i++)
+            {
+                int points = 0;
+                int trumps = 0;
+                for (int j = 0; j < hands[i].Count; j++)
+                {
+                    int card = hands[i][j];
+                    points += Card.GetValue(card);
+                    if (Card.GetSuit(card) == trump)
+                    {
+                        trumps++;
+                    }
+                }
+
+                if (trumps == 0 && points < 10)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        static int[] processGames(int i, int[] localCount, int gameMode)
         {
             Random randomNumber = new Random(Guid.NewGuid().GetHashCode());
             string[] playersNames = new string[4];
             ArtificialPlayer[] players = new ArtificialPlayer[4];
             List<List<int>> playersHands;
+
             Deck deck = new Deck();
-            playersHands = deck.SampleHands(new int[]
-                {
-                    10,
-                    10,
-                    10,
-                    10
-                });
             int trump = randomNumber.Next(0, 4);
-            SuecaGame game = new SuecaGame(10, playersHands, trump, null);
+            playersHands = deck.SampleHands(new int[] {10, 10, 10, 10});
+            while (!checkHands(playersHands, trump))
+            {
+                playersHands = deck.SampleHands(new int[] { 10, 10, 10, 10 });
+                localCount[3]++;
+            }
+            
+            SuecaGame game = new SuecaGame(10, playersHands, trump, null, 0, 0);
             int currentPlayerID = i % 4;
+
             switch (gameMode)
             {
                 case 1:
@@ -88,10 +113,10 @@ namespace SuecaSolver
                 currentPlayerID = game.GetNextPlayerId();
             }
             int[] points = game.GetGamePoints();
-            Console.WriteLine("[" + System.Threading.Thread.CurrentThread.ManagedThreadId + "] ----------------- Game " + i + " -----------------");
-            Console.WriteLine("Team " + playersNames[0] + " and " + playersNames[2] + " - " + points[0] + " points");
-            Console.WriteLine("Team " + playersNames[1] + " and " + playersNames[3] + " - " + points[1] + " points");
-            Console.Out.Flush();
+            //Console.WriteLine("[" + System.Threading.Thread.CurrentThread.ManagedThreadId + "] ----------------- Game " + i + " -----------------");
+            //Console.WriteLine("Team " + playersNames[0] + " and " + playersNames[2] + " - " + points[0] + " points");
+            //Console.WriteLine("Team " + playersNames[1] + " and " + playersNames[3] + " - " + points[1] + " points");
+            //Console.Out.Flush();
 
             if (points[0] == 60)
             {
@@ -113,7 +138,7 @@ namespace SuecaSolver
             Stopwatch sw = new Stopwatch();
             sw.Start();
 
-            int numGames, gameMode, firstTeamWins = 0, secondTeamWins = 0, draws = 0;
+            int numGames, gameMode, firstTeamWins = 0, secondTeamWins = 0, draws = 0, badGames = 0;
             Console.WriteLine("");
             Console.WriteLine("|||||||||||||||||||| SUECA TEST WAR ||||||||||||||||||||");
             Console.WriteLine("");
@@ -125,18 +150,17 @@ namespace SuecaSolver
             gameMode = 1;
             Console.WriteLine(gameMode);
             Console.Write("How many games: ");
-            numGames = 10;
+            numGames = 100;
             Console.WriteLine(numGames);
 
 
             Parallel.For(0, numGames,
                 new ParallelOptions { MaxDegreeOfParallelism = 4 },
-                () => new int[3],
+                () => new int[4],
 
                 (int i, ParallelLoopState state, int[] localCount) =>
                 {
-                    int[] lc = NewMethod(i, localCount, gameMode);
-                    return lc;
+                    return processGames(i, localCount, gameMode);
                 },
 
                 (int[] localCount) =>
@@ -144,6 +168,7 @@ namespace SuecaSolver
                     draws += localCount[0];
                     firstTeamWins += localCount[1];
                     secondTeamWins += localCount[2];
+                    badGames += localCount[3];
                 });
 
             Console.WriteLine("");
@@ -151,9 +176,10 @@ namespace SuecaSolver
             Console.WriteLine("Team 0 won " + firstTeamWins + "/" + numGames);
             Console.WriteLine("Team 1 won " + secondTeamWins + "/" + numGames);
             Console.WriteLine("Draws " + draws + "/" + numGames);
+            Console.WriteLine("BadGames " + badGames);
             
             sw.Stop();
-            Console.WriteLine("Total Time taken by functions is {0} seconds", sw.ElapsedMilliseconds / 1000); //minutes
+            Console.WriteLine("Total Time taken by functions is {0} seconds", sw.ElapsedMilliseconds / 1000); //seconds
             Console.WriteLine("Total Time taken by functions is {0} minutes", sw.ElapsedMilliseconds / 60000); //minutes
         }
     }

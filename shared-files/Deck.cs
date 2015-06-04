@@ -41,6 +41,12 @@ namespace SuecaSolver
             Console.Out.Flush();
         }
 
+        public int GetRandomCard()
+        {
+            int randomIndex = random.Next(0, deck.Count);
+            return deck[randomIndex];
+        }
+
         public void RemoveCard(int card)
         {
             deck.Remove(card);

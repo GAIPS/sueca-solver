@@ -12,7 +12,7 @@ namespace SuecaSolver
         private int possiblePoints;
         private int points;
 
-        public SuecaGame(int numTricks, List<List<int>> playersHands, int trumpSuit, List<Move> alreadyPlayed)
+        public SuecaGame(int numTricks, List<List<int>> playersHands, int trumpSuit, List<Move> alreadyPlayed, int botTeamInitialPoints, int otherTeamInitialPoints)
         {
             trump = trumpSuit;
             players[0] = new MaxPlayer(0, playersHands[0]);
@@ -32,7 +32,7 @@ namespace SuecaSolver
             {
                 possiblePoints = countPoints(playersHands);
             }
-            gameState = new GameState(numTricks, trump, players, possiblePoints);
+            gameState = new GameState(numTricks, trump, players, possiblePoints, botTeamInitialPoints, otherTeamInitialPoints);
 
             if (alreadyPlayed != null)
             {

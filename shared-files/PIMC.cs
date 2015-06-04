@@ -29,7 +29,7 @@ namespace SuecaSolver
                 for (int j = 0; j < possibleMoves.Count; j++)
                 {
                     int card = possibleMoves[j];
-                    game = new SuecaGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable());
+                    game = new SuecaGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints);
                     cardValueInTrick = game.SampleGame(depthLimit, card);
                     infoSet.AddCardValue(card, cardValueInTrick);
                 }
@@ -52,7 +52,7 @@ namespace SuecaSolver
             }
             int handSize = infoSet.GetHandSize();
             List<List<int>> playersHands = infoSet.Sample();
-            game = new SuecaGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable());
+            game = new SuecaGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints);
            
 
 
@@ -74,20 +74,20 @@ namespace SuecaSolver
             switch (handSize)
             {
                 case 10:
-                    N = 30;
+                    N = 50;
                     depthLimit = 3;
                     break;
                 case 9:
-                    N = 30;
+                    N = 50;
                     depthLimit = 3;
                     break;
                 case 8:
-                    N = 40;
+                    N = 50;
                     depthLimit = 3;
                     break;
                 case 7:
-                    N = 10;
-                    depthLimit = 4;
+                    N = 100;
+                    depthLimit = 3;
                     break;
                 case 6:
                     N = 5;
@@ -140,7 +140,7 @@ namespace SuecaSolver
                 for (int j = 0; j < possibleMoves.Count; j++)
                 {
                     int card = possibleMoves[j];
-                    game = new SuecaGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable());
+                    game = new SuecaGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints);
                     cardValueInTrick = game.SampleGame(depthLimit, card);
                     infoSet.AddCardValue(card, cardValueInTrick);
                 }

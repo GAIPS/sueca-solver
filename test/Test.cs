@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using SuecaSolver;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Security.Policy;
 using System.Security.Cryptography.X509Certificates;
@@ -12,12 +13,18 @@ namespace SuecaSolver
 
         public static void Main()
         {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+
             int NUM_TRICKS = 10;
             Deck deck = new Deck();
 
 
             List<int> hand = deck.GetHand(NUM_TRICKS);
             InformationSet infoSet = new InformationSet(hand, (int)Suit.Clubs);
+            int card = deck.GetRandomCard();
+            infoSet.AddPlay(3, card);
+            Console.WriteLine(Card.ToString(card));
             PIMC pimc = new PIMC();
 //            pimc.ExecuteTestVersion2(infoSet);
             pimc.Execute(infoSet);
@@ -274,7 +281,10 @@ namespace SuecaSolver
 //            int card = p0[0];
 //            int cardValueInTrick = game.SampleGame(1000, card);
 //            infoSet.AddCardValue(card, cardValueInTrick);
-//            infoSet.PrintInfoSet();
+            //            infoSet.PrintInfoSet();
+
+            sw.Stop();
+            Console.WriteLine("Total Time taken by functions is {0} seconds", sw.ElapsedMilliseconds / 1000); //seconds
         }
     }
 }

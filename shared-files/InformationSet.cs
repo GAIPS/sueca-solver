@@ -12,6 +12,9 @@ namespace SuecaSolver
         private Dictionary<int,int> dictionary;
         private Deck deck;
         private Dictionary<int,List<int>> suitHasPlayer;
+        public int BotTeamPoints;
+        public int OtherTeamPoints;
+        private int trickPoints;
 
 
         public InformationSet(List<int> currentHand, int trumpSuit)
@@ -28,6 +31,9 @@ namespace SuecaSolver
             };
             currentTrick = new List<Move>();
             deck = new Deck(currentHand);
+            BotTeamPoints = 0;
+            OtherTeamPoints = 0;
+            trickPoints = 0;
         }
 
         public int GetHandSize()
@@ -89,11 +95,26 @@ namespace SuecaSolver
             if (currentTrick.Count == 3)
             {
                 currentTrick.Clear();
+                trickPoints += Card.GetValue(card);
             }
             else
             {
+                if (currentTrick.Count == 0)
+                {
+                    if (playerID == 0 || playerID == 2)
+                    {
+                        BotTeamPoints += trickPoints;
+                    }
+                    else
+                    {
+                        OtherTeamPoints += trickPoints;
+                    }
+                    trickPoints = 0;
+                }
+                trickPoints += Card.GetValue(card);
                 currentTrick.Add(new Move(playerID, card));
             }
+
             deck.RemoveCard(card);
         }
 

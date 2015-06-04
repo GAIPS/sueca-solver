@@ -25,7 +25,7 @@ namespace SuecaSolver
         private List<int> pointsPerTrick;
 
 
-        public GameState(int numTricks, int trumpSuit, Player[] playersList, int possiblePoints)
+        public GameState(int numTricks, int trumpSuit, Player[] playersList, int possiblePoints, int botTeamInitialPoints, int otherTeamInitialPoints)
         {
             ac = new AscendingComparer();
             dc = new DescendingComparer();
@@ -36,8 +36,8 @@ namespace SuecaSolver
             trump = trumpSuit;
             predictableTrickWinner = -1;
             predictableTrickCut = false;
-            botTeamPoints = 0;
-            otherTeamPoints = 0;
+            botTeamPoints = botTeamInitialPoints;
+            otherTeamPoints = otherTeamInitialPoints;
             maxPointsInGame = possiblePoints;
             pointsPerTrick = new List<int>(numTricks);
 
@@ -283,31 +283,53 @@ namespace SuecaSolver
 
         public int EvalGame()
         {
-            if (botTeamPoints >= 90)
+            if (botTeamPoints > 90)
             {
-                return 30;
+                return 4;
             }
-            else if (botTeamPoints >= 60)
+            if (botTeamPoints > 60)
             {
-                return 15;
+                return 2;
             }
-            else if (otherTeamPoints <= 90)
+            if (otherTeamPoints > 90)
             {
-                return -60;
+                return -4;
             }
-            else if (otherTeamPoints <= 60)
+            if (otherTeamPoints > 60)
             {
-                return -30;
+                return -2;
             }
-//            else if (botTeamPoints >= 30 && otherTeamPoints < 30)
-//            {
-//                return 1;
-//            }
-//            else if (otherTeamPoints <= 30 && otherTeamPoints < 30)
-//            {
-//                return 1;
-            return 0;
+            if (botTeamWinningPrediction())
+            {
+                return 1;
+            }
+            return -1;
         }
+
+        private bool botTeamWinningPrediction()
+        {
+            int teamHandPoints = 0, teamHandTrumps = 0;
+            for (int i = 0; i < players.Length; i = i + 2)
+            {
+                List<int> pHand = players[i].Hand;
+                teamHandTrumps += players[i].HasSuit[trump];
+
+                for (int j = 0; j < pHand.Count; j++)
+                {
+                    teamHandPoints += Card.GetValue(pHand[j]);
+                }
+            }
+
+            int remainingTrumps = teamHandTrumps + players[1].HasSuit[trump] + players[3].HasSuit[trump];
+            int remainingPoints = 120 - botTeamPoints - otherTeamPoints;
+
+            if (teamHandPoints > (remainingPoints * 0.5) && teamHandTrumps > (remainingTrumps * 0.5) && botTeamPoints + (remainingPoints * 0.4) > 60)
+            {
+                return true;
+            }
+            return false;
+        }
+
 
         public int[] CalculePointsOfFinishedGame()
         {
