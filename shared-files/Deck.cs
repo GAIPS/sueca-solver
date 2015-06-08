@@ -13,11 +13,13 @@ namespace SuecaSolver
     {
 
         private Random random;
+        private int seedLOL;
         private List<int> deck;
 
-        public Deck()
+        public Deck(Random randomLOL, int seed)
         {
-            random = new Random();
+            random = randomLOL;
+            seedLOL = seed;
             deck = new List<int>(40);
 
             for (int i = 0; i < 40; i++)
@@ -26,9 +28,11 @@ namespace SuecaSolver
             }
         }
 
-        public Deck(List<int> cards)
+        public Deck(List<int> cards, Random randomLOL, int seed)
         {
-            random = new Random();
+            //random = new Random(Guid.NewGuid().GetHashCode());
+            random = randomLOL;
+            seedLOL = seed;
             deck = new List<int>(40 - cards.Count);
 
             for (int i = 0; i < 40; i++)
@@ -38,7 +42,6 @@ namespace SuecaSolver
                     deck.Add(i);
                 }
             }
-            Console.Out.Flush();
         }
 
         public int GetRandomCard()
@@ -137,7 +140,7 @@ namespace SuecaSolver
             deck = shuffle(deck);
             var solver = SolverContext.GetContext();
             var model = solver.CreateModel();
-            Decision[] decisions = new Decision[deck.Count];
+            List<Decision> decisions = new List<Decision>(deck.Count);
             List<List<int>> players = getDomains(handSizes);
             List<int> player1 = shuffle(players[0]);
             List<int> player1Copy = new List<int>(player1);
@@ -161,47 +164,55 @@ namespace SuecaSolver
             Domain domain123 = Domain.Set(player1.ToArray());
 
 
+            //System.Environment.Exit(1);
+
             for (int i = 0; i < deck.Count; i++)
             {
-                List<int> playersThatHaveSuit = suitHasPlayer[Card.GetSuit(deck[i])];
+                int card = deck[i];
+                List<int> playersThatHaveSuit = suitHasPlayer[Card.GetSuit(card)];
+                Decision d;
 
                 if (playersThatHaveSuit.Count == 3)
                 {
-                    decisions[i] = new Decision(domain123, "c" + i);
+                    d = new Decision(domain123, "c" + card);
                 }
                 else if (playersThatHaveSuit.Count == 2 && playersThatHaveSuit[0] == 1 && playersThatHaveSuit[1] == 2)
                 {
-                    decisions[i] = new Decision(domain12, "c" + i);
+                    d = new Decision(domain12, "c" + card);
                 }
                 else if (playersThatHaveSuit.Count == 2 && playersThatHaveSuit[0] == 1 && playersThatHaveSuit[1] == 3)
                 {
-                    decisions[i] = new Decision(domain13, "c" + i);
+                    d = new Decision(domain13, "c" + card);
                 }
                 else if (playersThatHaveSuit.Count == 2 && playersThatHaveSuit[0] == 2 && playersThatHaveSuit[1] == 3)
                 {
-                    decisions[i] = new Decision(domain23, "c" + i);
+                    d = new Decision(domain23, "c" + card);
                 }
                 else if (playersThatHaveSuit[0] == 1)
                 {
-                    decisions[i] = new Decision(domain1, "c" + i);
+                    d = new Decision(domain1, "c" + card);
                 }
                 else if (playersThatHaveSuit[0] == 2)
                 {
-                    decisions[i] = new Decision(domain2, "c" + i);
+                    d = new Decision(domain2, "c" + card);
                 }
                 else
                 {
-                    decisions[i] = new Decision(domain3, "c" + i);
+                    d = new Decision(domain3, "c" + card);
                 }
 
-                model.AddDecision(decisions[i]);
+                decisions.Add(d);
+                model.AddDecision(d);
             }
-            model.AddConstraint("allDiff", Model.AllDifferent(decisions));
-            var solution = solver.Solve();
+            model.AddConstraint("allDiff", Model.AllDifferent(decisions.ToArray()));
+            var solution = solver.Solve(new ConstraintProgrammingDirective());
+
 
             if (solution.Quality != SolverQuality.Feasible)
             {
+                Console.WriteLine("SEED LIXADA: " + seedLOL);
                 Console.Write("CSP Problem - solution {0}", solution.Quality);
+                //System.Environment.Exit(1);
             }
 
             List<List<int>> cardsPerPlayer = new List<List<int>>(3);

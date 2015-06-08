@@ -10,11 +10,12 @@ namespace SuecaSolver
         private int currentPlay;
         private Random randomNumber;
 
-        public RandomPlayer(List<int> initialHand)
+        public RandomPlayer(List<int> initialHand, Random random)
         {
             hand = new List<int>(initialHand);
             currentPlay = 0;
-            randomNumber = new Random(Guid.NewGuid().GetHashCode());
+            //randomNumber = new Random(Guid.NewGuid().GetHashCode());
+            randomNumber = random;
         }
 
         override public void AddPlay(int playerID, int card)

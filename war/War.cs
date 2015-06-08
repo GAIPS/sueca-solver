@@ -10,6 +10,7 @@ namespace SuecaSolver
 {
     public class War
     {
+
         static bool checkHands(List<List<int>> hands, int trump)
         {
             for (int i = 0; i < hands.Count; i++)
@@ -36,20 +37,34 @@ namespace SuecaSolver
 
         static int[] processGames(int i, int[] localCount, int gameMode)
         {
-            Random randomNumber = new Random(Guid.NewGuid().GetHashCode());
+            //int seed = Guid.NewGuid().GetHashCode();
+            int seed = -1150905530;
+            Random randomNumber = new Random(seed);
+            //Random randomNumber = Card.RandomLOL;
             string[] playersNames = new string[4];
             ArtificialPlayer[] players = new ArtificialPlayer[4];
             List<List<int>> playersHands;
 
-            Deck deck = new Deck();
+            Deck deck = new Deck(randomNumber, seed);
             int trump = randomNumber.Next(0, 4);
-            playersHands = deck.SampleHands(new int[] {10, 10, 10, 10});
+            //playersHands = new List<List<int>>();
+            //playersHands.Add(new List<int> { 00, 01, 03, 04, 05, 02, 07, 19, 18, 06});
+            //playersHands.Add(new List<int> { 17, 16, 15, 28, 27, 26, 24, 32, 33, 29 });
+            //playersHands.Add(new List<int> { 08, 14, 13, 23, 34, 35, 36, 37, 38, 39 });
+            //playersHands.Add(new List<int> { 09, 12, 11, 10, 22, 21, 20, 30, 31, 25 });
+            playersHands = deck.SampleHands(new int[] { 10, 10, 10, 10 });
             while (!checkHands(playersHands, trump))
             {
                 playersHands = deck.SampleHands(new int[] { 10, 10, 10, 10 });
                 localCount[3]++;
             }
-            
+            //Console.WriteLine("LOL: " + Guid.NewGuid().GetHashCode());
+
+            //SuecaGame.PrintCards("p0", playersHands[0]);
+            //SuecaGame.PrintCards("p1", playersHands[1]);
+            //SuecaGame.PrintCards("p2", playersHands[2]);
+            //SuecaGame.PrintCards("p3", playersHands[3]);
+            //Console.WriteLine("----------------------------------------------");
             SuecaGame game = new SuecaGame(10, playersHands, trump, null, 0, 0);
             int currentPlayerID = i % 4;
 
@@ -57,43 +72,43 @@ namespace SuecaSolver
             {
                 case 1:
                     playersNames[0] = "Bot1";
-                    players[0] = new SmartPlayer(playersHands[0], trump);
+                    players[0] = new SmartPlayer(playersHands[0], trump, randomNumber, seed);
                     playersNames[1] = "Random1";
-                    players[1] = new RandomPlayer(playersHands[1]);
+                    players[1] = new RandomPlayer(playersHands[1], randomNumber);
                     playersNames[2] = "Random2";
-                    players[2] = new RandomPlayer(playersHands[2]);
+                    players[2] = new RandomPlayer(playersHands[2], randomNumber);
                     playersNames[3] = "Random3";
-                    players[3] = new RandomPlayer(playersHands[3]);
+                    players[3] = new RandomPlayer(playersHands[3], randomNumber);
                     break;
                 case 2:
                     playersNames[0] = "Bot1";
-                    players[0] = new SmartPlayer(playersHands[0], trump);
+                    players[0] = new SmartPlayer(playersHands[0], trump, randomNumber, seed);
                     playersNames[1] = "Random1";
-                    players[1] = new RandomPlayer(playersHands[1]);
+                    players[1] = new RandomPlayer(playersHands[1], randomNumber);
                     playersNames[2] = "Bot2";
-                    players[2] = new SmartPlayer(playersHands[2], trump);
+                    players[2] = new SmartPlayer(playersHands[2], trump, randomNumber, seed);
                     playersNames[3] = "Random2";
-                    players[3] = new RandomPlayer(playersHands[3]);
+                    players[3] = new RandomPlayer(playersHands[3], randomNumber);
                     break;
                 case 3:
                     playersNames[0] = "Bot1";
-                    players[0] = new SmartPlayer(playersHands[0], trump);
+                    players[0] = new SmartPlayer(playersHands[0], trump, randomNumber, seed);
                     playersNames[1] = "Bot2";
-                    players[1] = new SmartPlayer(playersHands[1], trump);
+                    players[1] = new SmartPlayer(playersHands[1], trump, randomNumber, seed);
                     playersNames[2] = "Bot3";
-                    players[2] = new SmartPlayer(playersHands[2], trump);
+                    players[2] = new SmartPlayer(playersHands[2], trump, randomNumber, seed);
                     playersNames[3] = "Random1";
-                    players[3] = new RandomPlayer(playersHands[3]);
+                    players[3] = new RandomPlayer(playersHands[3], randomNumber);
                     break;
                 case 4:
                     playersNames[0] = "Bot1";
-                    players[0] = new SmartPlayer(playersHands[0], trump);
+                    players[0] = new SmartPlayer(playersHands[0], trump, randomNumber, seed);
                     playersNames[1] = "Bot2";
-                    players[1] = new SmartPlayer(playersHands[1], trump);
+                    players[1] = new SmartPlayer(playersHands[1], trump, randomNumber, seed);
                     playersNames[2] = "Bot3";
-                    players[2] = new SmartPlayer(playersHands[2], trump);
+                    players[2] = new SmartPlayer(playersHands[2], trump, randomNumber, seed);
                     playersNames[3] = "Bot4";
-                    players[3] = new SmartPlayer(playersHands[3], trump);
+                    players[3] = new SmartPlayer(playersHands[3], trump, randomNumber, seed);
                     break;
                 default:
                     break;
@@ -147,29 +162,39 @@ namespace SuecaSolver
             Console.WriteLine("[3] - 3 Bot 1 Random");
             Console.WriteLine("[4] - 4 Bot 0 Random");
             Console.Write("Choose an option from 1 to 4: ");
-            gameMode = 1;
+            gameMode = 2;
             Console.WriteLine(gameMode);
             Console.Write("How many games: ");
             numGames = 100;
             Console.WriteLine(numGames);
 
 
-            Parallel.For(0, numGames,
-                new ParallelOptions { MaxDegreeOfParallelism = 4 },
-                () => new int[4],
+            //Parallel.For(0, numGames,
+            //    new ParallelOptions { MaxDegreeOfParallelism = 4 },
+            //    () => new int[4],
 
-                (int i, ParallelLoopState state, int[] localCount) =>
-                {
-                    return processGames(i, localCount, gameMode);
-                },
+            //    (int i, ParallelLoopState state, int[] localCount) =>
+            //    {
+            //        return processGames(i, localCount, gameMode);
+            //    },
 
-                (int[] localCount) =>
-                {
-                    draws += localCount[0];
-                    firstTeamWins += localCount[1];
-                    secondTeamWins += localCount[2];
-                    badGames += localCount[3];
-                });
+            //    (int[] localCount) =>
+            //    {
+            //        draws += localCount[0];
+            //        firstTeamWins += localCount[1];
+            //        secondTeamWins += localCount[2];
+            //        badGames += localCount[3];
+            //    });
+
+            for (int i = 0; i < numGames; i++)
+            {
+                int[] localCount = new int[4];
+                processGames(i, localCount, gameMode);
+                draws += localCount[0];
+                firstTeamWins += localCount[1];
+                secondTeamWins += localCount[2];
+                badGames += localCount[3];
+            }
 
             Console.WriteLine("");
             Console.WriteLine("----------------- Summary -----------------");

@@ -17,7 +17,7 @@ namespace SuecaSolver
         private int trickPoints;
 
 
-        public InformationSet(List<int> currentHand, int trumpSuit)
+        public InformationSet(List<int> currentHand, int trumpSuit, Random randomLOL, int seed)
         {
             Trump = trumpSuit;
             hand = new List<int>(currentHand);
@@ -30,7 +30,7 @@ namespace SuecaSolver
                 { (int)Suit.Spades, new List<int>(3){ 1, 2, 3 } }
             };
             currentTrick = new List<Move>();
-            deck = new Deck(currentHand);
+            deck = new Deck(currentHand, randomLOL, seed);
             BotTeamPoints = 0;
             OtherTeamPoints = 0;
             trickPoints = 0;

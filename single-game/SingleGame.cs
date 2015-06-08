@@ -29,14 +29,15 @@ namespace SuecaSolver
             Console.WriteLine("");
 
             Deck deck = new Deck();
-            Random randomNumber = new Random(Guid.NewGuid().GetHashCode());
+            //Random randomNumber = new Random(Guid.NewGuid().GetHashCode());
+            Random randomNumber = new Random(666);
             List<List<int>> playersHand = deck.SampleHands(new int[]{ 10, 10, 10, 10 });
             List<int> currentHand;
             int trump = randomNumber.Next(0, 4);
             int cardIndex, currentPlayerID = firstPlayerID;
 
             SmartPlayer artificialPlayer = new SmartPlayer(playersHand[0], trump);
-            SuecaGame game = new SuecaGame(10, playersHand, trump, null);
+            SuecaGame game = new SuecaGame(10, playersHand, trump, null, 0, 0);
             game.PrintPlayersHands();
 
             for (int i = 0; i < 40; i++)
@@ -45,7 +46,7 @@ namespace SuecaSolver
                 Console.WriteLine("||||||||||||||||||||||||||||||||||||||||||||||||||||");
                 Console.WriteLine("                 Trick " + (i / 4));
                 Console.WriteLine("                 Player " + currentPlayerID + " - " + playersNames[currentPlayerID]);
-                Console.WriteLine("                 Trump is " + trump);
+                Console.WriteLine("                 Trump is " + (Suit) trump);
                 Console.WriteLine("");
 
                 game.PrintLastTrick();
