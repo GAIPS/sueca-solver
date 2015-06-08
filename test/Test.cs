@@ -16,12 +16,14 @@ namespace SuecaSolver
             Stopwatch sw = new Stopwatch();
             sw.Start();
 
+            int seed = Guid.NewGuid().GetHashCode();
+            Random randomNumber = new Random(seed);
             int NUM_TRICKS = 10;
-            Deck deck = new Deck();
+            Deck deck = new Deck(randomNumber, seed);
 
 
             List<int> hand = deck.GetHand(NUM_TRICKS);
-            InformationSet infoSet = new InformationSet(hand, (int)Suit.Clubs);
+            InformationSet infoSet = new InformationSet(hand, (int)Suit.Clubs, randomNumber, seed);
             int card = deck.GetRandomCard();
             infoSet.AddPlay(3, card);
             Console.WriteLine(Card.ToString(card));

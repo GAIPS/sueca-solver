@@ -28,15 +28,15 @@ namespace SuecaSolver
             firstPlayerID = Convert.ToInt32(input);
             Console.WriteLine("");
 
-            Deck deck = new Deck();
-            //Random randomNumber = new Random(Guid.NewGuid().GetHashCode());
-            Random randomNumber = new Random(666);
+            int seed = Guid.NewGuid().GetHashCode();
+            Random randomNumber = new Random(seed);
+            Deck deck = new Deck(randomNumber, seed);
             List<List<int>> playersHand = deck.SampleHands(new int[]{ 10, 10, 10, 10 });
             List<int> currentHand;
             int trump = randomNumber.Next(0, 4);
             int cardIndex, currentPlayerID = firstPlayerID;
 
-            SmartPlayer artificialPlayer = new SmartPlayer(playersHand[0], trump);
+            SmartPlayer artificialPlayer = new SmartPlayer(0, playersHand[0], trump, randomNumber, seed);
             SuecaGame game = new SuecaGame(10, playersHand, trump, null, 0, 0);
             game.PrintPlayersHands();
 

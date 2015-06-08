@@ -37,21 +37,16 @@ namespace SuecaSolver
 
         static int[] processGames(int i, int[] localCount, int gameMode)
         {
-            //int seed = Guid.NewGuid().GetHashCode();
-            int seed = -1150905530;
+            //int seed = -1150905530;
+            //int seed = -373600003;
+            int seed = Guid.NewGuid().GetHashCode();
             Random randomNumber = new Random(seed);
-            //Random randomNumber = Card.RandomLOL;
             string[] playersNames = new string[4];
             ArtificialPlayer[] players = new ArtificialPlayer[4];
             List<List<int>> playersHands;
 
             Deck deck = new Deck(randomNumber, seed);
             int trump = randomNumber.Next(0, 4);
-            //playersHands = new List<List<int>>();
-            //playersHands.Add(new List<int> { 00, 01, 03, 04, 05, 02, 07, 19, 18, 06});
-            //playersHands.Add(new List<int> { 17, 16, 15, 28, 27, 26, 24, 32, 33, 29 });
-            //playersHands.Add(new List<int> { 08, 14, 13, 23, 34, 35, 36, 37, 38, 39 });
-            //playersHands.Add(new List<int> { 09, 12, 11, 10, 22, 21, 20, 30, 31, 25 });
             playersHands = deck.SampleHands(new int[] { 10, 10, 10, 10 });
             while (!checkHands(playersHands, trump))
             {
@@ -67,48 +62,48 @@ namespace SuecaSolver
             //Console.WriteLine("----------------------------------------------");
             SuecaGame game = new SuecaGame(10, playersHands, trump, null, 0, 0);
             int currentPlayerID = i % 4;
-
+            
             switch (gameMode)
             {
                 case 1:
                     playersNames[0] = "Bot1";
-                    players[0] = new SmartPlayer(playersHands[0], trump, randomNumber, seed);
+                    players[0] = new SmartPlayer(0, playersHands[0], trump, randomNumber, seed);
                     playersNames[1] = "Random1";
-                    players[1] = new RandomPlayer(playersHands[1], randomNumber);
+                    players[1] = new RandomPlayer(1, playersHands[1], randomNumber);
                     playersNames[2] = "Random2";
-                    players[2] = new RandomPlayer(playersHands[2], randomNumber);
+                    players[2] = new RandomPlayer(2, playersHands[2], randomNumber);
                     playersNames[3] = "Random3";
-                    players[3] = new RandomPlayer(playersHands[3], randomNumber);
+                    players[3] = new RandomPlayer(3, playersHands[3], randomNumber);
                     break;
                 case 2:
                     playersNames[0] = "Bot1";
-                    players[0] = new SmartPlayer(playersHands[0], trump, randomNumber, seed);
+                    players[0] = new SmartPlayer(0, playersHands[0], trump, randomNumber, seed);
                     playersNames[1] = "Random1";
-                    players[1] = new RandomPlayer(playersHands[1], randomNumber);
+                    players[1] = new RandomPlayer(1, playersHands[1], randomNumber);
                     playersNames[2] = "Bot2";
-                    players[2] = new SmartPlayer(playersHands[2], trump, randomNumber, seed);
+                    players[2] = new SmartPlayer(2, playersHands[2], trump, randomNumber, seed);
                     playersNames[3] = "Random2";
-                    players[3] = new RandomPlayer(playersHands[3], randomNumber);
+                    players[3] = new RandomPlayer(3, playersHands[3], randomNumber);
                     break;
                 case 3:
                     playersNames[0] = "Bot1";
-                    players[0] = new SmartPlayer(playersHands[0], trump, randomNumber, seed);
+                    players[0] = new SmartPlayer(0, playersHands[0], trump, randomNumber, seed);
                     playersNames[1] = "Bot2";
-                    players[1] = new SmartPlayer(playersHands[1], trump, randomNumber, seed);
+                    players[1] = new SmartPlayer(1, playersHands[1], trump, randomNumber, seed);
                     playersNames[2] = "Bot3";
-                    players[2] = new SmartPlayer(playersHands[2], trump, randomNumber, seed);
+                    players[2] = new SmartPlayer(2, playersHands[2], trump, randomNumber, seed);
                     playersNames[3] = "Random1";
-                    players[3] = new RandomPlayer(playersHands[3], randomNumber);
+                    players[3] = new RandomPlayer(3, playersHands[3], randomNumber);
                     break;
                 case 4:
                     playersNames[0] = "Bot1";
-                    players[0] = new SmartPlayer(playersHands[0], trump, randomNumber, seed);
+                    players[0] = new SmartPlayer(0, playersHands[0], trump, randomNumber, seed);
                     playersNames[1] = "Bot2";
-                    players[1] = new SmartPlayer(playersHands[1], trump, randomNumber, seed);
+                    players[1] = new SmartPlayer(1, playersHands[1], trump, randomNumber, seed);
                     playersNames[2] = "Bot3";
-                    players[2] = new SmartPlayer(playersHands[2], trump, randomNumber, seed);
+                    players[2] = new SmartPlayer(2, playersHands[2], trump, randomNumber, seed);
                     playersNames[3] = "Bot4";
-                    players[3] = new SmartPlayer(playersHands[3], trump, randomNumber, seed);
+                    players[3] = new SmartPlayer(3, playersHands[3], trump, randomNumber, seed);
                     break;
                 default:
                     break;
@@ -165,36 +160,36 @@ namespace SuecaSolver
             gameMode = 2;
             Console.WriteLine(gameMode);
             Console.Write("How many games: ");
-            numGames = 100;
+            numGames = 500;
             Console.WriteLine(numGames);
 
 
-            //Parallel.For(0, numGames,
-            //    new ParallelOptions { MaxDegreeOfParallelism = 4 },
-            //    () => new int[4],
+            Parallel.For(0, numGames,
+                new ParallelOptions { MaxDegreeOfParallelism = 4 },
+                () => new int[4],
 
-            //    (int i, ParallelLoopState state, int[] localCount) =>
-            //    {
-            //        return processGames(i, localCount, gameMode);
-            //    },
+                (int i, ParallelLoopState state, int[] localCount) =>
+                {
+                    return processGames(i, localCount, gameMode);
+                },
 
-            //    (int[] localCount) =>
-            //    {
-            //        draws += localCount[0];
-            //        firstTeamWins += localCount[1];
-            //        secondTeamWins += localCount[2];
-            //        badGames += localCount[3];
-            //    });
+                (int[] localCount) =>
+                {
+                    draws += localCount[0];
+                    firstTeamWins += localCount[1];
+                    secondTeamWins += localCount[2];
+                    badGames += localCount[3];
+                });
 
-            for (int i = 0; i < numGames; i++)
-            {
-                int[] localCount = new int[4];
-                processGames(i, localCount, gameMode);
-                draws += localCount[0];
-                firstTeamWins += localCount[1];
-                secondTeamWins += localCount[2];
-                badGames += localCount[3];
-            }
+            //for (int i = 0; i < numGames; i++)
+            //{
+            //    int[] localCount = new int[4];
+            //    processGames(i, localCount, gameMode);
+            //    draws += localCount[0];
+            //    firstTeamWins += localCount[1];
+            //    secondTeamWins += localCount[2];
+            //    badGames += localCount[3];
+            //}
 
             Console.WriteLine("");
             Console.WriteLine("----------------- Summary -----------------");

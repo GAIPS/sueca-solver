@@ -30,7 +30,6 @@ namespace SuecaSolver
 
         public Deck(List<int> cards, Random randomLOL, int seed)
         {
-            //random = new Random(Guid.NewGuid().GetHashCode());
             random = randomLOL;
             seedLOL = seed;
             deck = new List<int>(40 - cards.Count);
@@ -105,7 +104,7 @@ namespace SuecaSolver
                 list.Add(new List<int>(handSizes[i]));
                 for (int j = 0; j < handSizes[i]; j++)
                 {
-                    list[i].Add((i + 1) * 10 + j);
+                    list[i].Add(i * 10 + j);
                 }
             }
             return list;
@@ -132,6 +131,7 @@ namespace SuecaSolver
         {
             if (deck.Count != handSizes[0] + handSizes[1] + handSizes[2])
             {
+                //Remover este bocado de codigo se o erro nunca mais ocorrer
                 Console.WriteLine("[" + System.Threading.Thread.CurrentThread.ManagedThreadId + "] - SHIT! - deck.Count: " + deck.Count + " P0: " + handSizes[0] + " P1: " + handSizes[1] + " P2: " + handSizes[2] + " deck: " + deckToString());
                 Console.Out.Flush();
                 System.Environment.Exit(1);
@@ -142,29 +142,23 @@ namespace SuecaSolver
             var model = solver.CreateModel();
             List<Decision> decisions = new List<Decision>(deck.Count);
             List<List<int>> players = getDomains(handSizes);
-            List<int> player1 = shuffle(players[0]);
+            List<int> player1 = players[0];
             List<int> player1Copy = new List<int>(player1);
-            List<int> player2 = shuffle(players[1]);
-            List<int> player3 = shuffle(players[2]);
+            List<int> player2 = players[1];
+            List<int> player3 = players[2];
             List<int> player3Copy = new List<int>(player3);
             Domain domain1 = Domain.Set(player1.ToArray());
             Domain domain2 = Domain.Set(player2.ToArray());
             Domain domain3 = Domain.Set(player3.ToArray());
             player1.AddRange(player2);
-            player1 = shuffle(player1);
             Domain domain12 = Domain.Set(player1.ToArray());
             player2.AddRange(player3);
-            player2 = shuffle(player2);
             Domain domain23 = Domain.Set(player2.ToArray());
             player3.AddRange(player1Copy);
-            player3 = shuffle(player3);
             Domain domain13 = Domain.Set(player3.ToArray());
             player1.AddRange(player3Copy);
-            player1 = shuffle(player1);
             Domain domain123 = Domain.Set(player1.ToArray());
 
-
-            //System.Environment.Exit(1);
 
             for (int i = 0; i < deck.Count; i++)
             {
@@ -204,15 +198,16 @@ namespace SuecaSolver
                 decisions.Add(d);
                 model.AddDecision(d);
             }
+
             model.AddConstraint("allDiff", Model.AllDifferent(decisions.ToArray()));
-            var solution = solver.Solve(new ConstraintProgrammingDirective());
+            var solution = solver.Solve();
 
 
-            if (solution.Quality != SolverQuality.Feasible)
+            while (solution.Quality != SolverQuality.Feasible)
             {
                 Console.WriteLine("SEED LIXADA: " + seedLOL);
                 Console.Write("CSP Problem - solution {0}", solution.Quality);
-                //System.Environment.Exit(1);
+                System.Environment.Exit(1);
             }
 
             List<List<int>> cardsPerPlayer = new List<List<int>>(3);
@@ -224,7 +219,7 @@ namespace SuecaSolver
             {
                 int decision = Convert.ToInt16(decisions[i].ToString());
                 decision = decision / 10;
-                cardsPerPlayer[decision - 1].Add(deck[i]);
+                cardsPerPlayer[decision].Add(deck[i]);
             }
             solver.ClearModel();
             return cardsPerPlayer;
