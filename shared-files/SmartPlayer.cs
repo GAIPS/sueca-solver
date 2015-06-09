@@ -6,6 +6,7 @@ namespace SuecaSolver
     public class SmartPlayer : ArtificialPlayer
     {
         private int _idDiff;
+        private int _handSize;
         private PIMC pimc;
         private InformationSet infoSet;
 
@@ -14,6 +15,7 @@ namespace SuecaSolver
             : base(id)
         {
             _idDiff = 0 - id;
+            _handSize = initialHand.Count;
             pimc = new PIMC();
             infoSet = new InformationSet(initialHand, trumpSuit, randomLOL, seed);
         }
@@ -31,10 +33,20 @@ namespace SuecaSolver
 
         override public int Play()
         {
+            int chosenCard;
 
-            int chosenCard = pimc.Execute(infoSet);
+            if (_handSize > 9)
+            {
+                //chosenCard = infoSet.RuleBasedDecision();
+                chosenCard = pimc.Execute(infoSet);
+            }
+            else
+            {
+                chosenCard = pimc.Execute(infoSet);
+            }
+                
             infoSet.AddMyPlay(chosenCard);
-
+            _handSize--;
             return chosenCard;
         }
     }

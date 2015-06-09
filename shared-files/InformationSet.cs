@@ -7,11 +7,12 @@ namespace SuecaSolver
     public class InformationSet
     {
         private List<int> hand;
-        private List<Move> currentTrick;
+        private Trick currentTrick;
         public int Trump;
-        private Dictionary<int,int> dictionary;
+        private Dictionary<int,int> pointsPerCard;
         private Deck deck;
-        private Dictionary<int,List<int>> suitHasPlayer;
+        private Dictionary<int, List<int>> suitHasPlayer;
+        private Dictionary<int, List<int>> othersPointCards;
         public int BotTeamPoints;
         public int OtherTeamPoints;
         private int trickPoints;
@@ -21,7 +22,7 @@ namespace SuecaSolver
         {
             Trump = trumpSuit;
             hand = new List<int>(currentHand);
-            dictionary = new Dictionary<int,int>();
+            pointsPerCard = new Dictionary<int,int>();
             suitHasPlayer = new Dictionary<int,List<int>>
             {
                 { (int)Suit.Clubs, new List<int>(3){ 1, 2, 3 } },
@@ -29,12 +30,30 @@ namespace SuecaSolver
                 { (int)Suit.Hearts, new List<int>(3){ 1, 2, 3 } },
                 { (int)Suit.Spades, new List<int>(3){ 1, 2, 3 } }
             };
-            currentTrick = new List<Move>();
+            othersPointCards = new Dictionary<int, List<int>>
+            {
+                { (int)Suit.Clubs, new List<int>(3){ (int) Rank.Ace, (int) Rank.Seven, (int) Rank.King, (int) Rank.Jack, (int) Rank.Queen } },
+                { (int)Suit.Diamonds, new List<int>(3){ (int) Rank.Ace, (int) Rank.Seven, (int) Rank.King, (int) Rank.Jack, (int) Rank.Queen } },
+                { (int)Suit.Hearts, new List<int>(3){ (int) Rank.Ace, (int) Rank.Seven, (int) Rank.King, (int) Rank.Jack, (int) Rank.Queen } },
+                { (int)Suit.Spades, new List<int>(3){ (int) Rank.Ace, (int) Rank.Seven, (int) Rank.King, (int) Rank.Jack, (int) Rank.Queen } }
+            };
+
+            //remove my point cards from the dictionary othersPointCards
+            for (int i = 0; i < hand.Count; i++)
+            {
+                int card = hand[i];
+                int suit = Card.GetSuit(card);
+                int rank = Card.GetRank(card);
+                othersPointCards[suit].Remove(rank);
+            }
+
+            currentTrick = new Trick(Trump);
             deck = new Deck(currentHand, randomLOL, seed);
             BotTeamPoints = 0;
             OtherTeamPoints = 0;
             trickPoints = 0;
         }
+
 
         public int GetHandSize()
         {
@@ -44,22 +63,12 @@ namespace SuecaSolver
 
         public List<int> GetPossibleMoves()
         {
-            return SuecaGame.PossibleMoves(hand, GetLeadSuit());
-        }
-
-        public int GetLeadSuit()
-        {
-            if (currentTrick.Count == 0)
-            {
-                return (int)Suit.None;
-            }
-
-            return Card.GetSuit(currentTrick[0].Card);
+            return SuecaGame.PossibleMoves(hand, currentTrick.LeadSuit);
         }
 
         public List<Move> GetCardsOnTable()
         {
-            return currentTrick;
+            return currentTrick.GetMoves();
         }
 
         public int GetHighestCardIndex()
@@ -67,7 +76,7 @@ namespace SuecaSolver
             int bestCard = -1;
             int bestValue = Int32.MinValue;
 
-            foreach (KeyValuePair<int, int> cardValue in dictionary)
+            foreach (KeyValuePair<int, int> cardValue in pointsPerCard)
             {
                 if (cardValue.Value > bestValue)
                 {
@@ -86,33 +95,30 @@ namespace SuecaSolver
 
         public void AddPlay(int playerID, int card)
         {
-            int leadSuit = GetLeadSuit();
-            if (Card.GetSuit(card) != leadSuit && leadSuit != (int)Suit.None)
+            int cardSuit = Card.GetSuit(card);
+            int cardValue = Card.GetValue(card);
+            
+            //count points
+            if (currentTrick.IsFull())
+            {
+                OtherTeamPoints += trickPoints;
+                trickPoints = 0;
+                currentTrick = new Trick(Trump);
+            }
+            trickPoints += cardValue;
+            currentTrick.ApplyMove(new Move(playerID, card));
+
+            //check if player has the leadSuit
+            int leadSuit = currentTrick.LeadSuit;
+            if (cardSuit != leadSuit && leadSuit != (int)Suit.None)
             {
                 suitHasPlayer[leadSuit].Remove(playerID);
             }
 
-            if (currentTrick.Count == 3)
+            //Remove pointcards from dicitonary othersPointCards
+            if (cardValue > 0)
             {
-                currentTrick.Clear();
-                trickPoints += Card.GetValue(card);
-            }
-            else
-            {
-                if (currentTrick.Count == 0)
-                {
-                    if (playerID == 0 || playerID == 2)
-                    {
-                        BotTeamPoints += trickPoints;
-                    }
-                    else
-                    {
-                        OtherTeamPoints += trickPoints;
-                    }
-                    trickPoints = 0;
-                }
-                trickPoints += Card.GetValue(card);
-                currentTrick.Add(new Move(playerID, card));
+                othersPointCards[cardSuit].Remove(Card.GetRank(card));
             }
 
             deck.RemoveCard(card);
@@ -120,31 +126,31 @@ namespace SuecaSolver
 
         public void AddMyPlay(int card)
         {
-            if (currentTrick.Count == 3)
+            if (currentTrick.IsFull())
             {
-                currentTrick.Clear();
+                BotTeamPoints += trickPoints;
+                trickPoints = 0;
+                currentTrick = new Trick(Trump);
             }
-            else
-            {
-                currentTrick.Add(new Move(0, card));
-            }
+            trickPoints += Card.GetValue(card);
+            currentTrick.ApplyMove(new Move(0, card));
             hand.Remove(card);
         }
 
         public void CleanCardValues()
         {
-            dictionary.Clear();
+            pointsPerCard.Clear();
         }
 
         public void AddCardValue(int card, int val)
         {
-            if (dictionary.ContainsKey(card))
+            if (pointsPerCard.ContainsKey(card))
             {
-                dictionary[card] += val;
+                pointsPerCard[card] += val;
             }
             else
             {
-                dictionary[card] = val;
+                pointsPerCard[card] = val;
             }
         }
 
@@ -165,8 +171,11 @@ namespace SuecaSolver
             List<List<int>> hands = new List<List<int>>();
             int myHandSize = hand.Count;
             int[] handSizes = new int[3] { myHandSize, myHandSize, myHandSize };
-            int currentTrickSize = currentTrick.Count;
-
+            int currentTrickSize = currentTrick.GetPlayInTrick();
+            if (currentTrickSize > 3)
+            {
+                currentTrickSize = 0;
+            }
             for (int i = 0; i < currentTrickSize; i++)
             {
                 handSizes[2 - i]--;
@@ -192,11 +201,71 @@ namespace SuecaSolver
             return hands;
         }
 
+        private List<int> getSuits(List<int> cards)
+        {
+            cards.Sort();
+            int lastSuit = (int) Suit.None;
+            List<int> list = new List<int>();
+            foreach (var card in cards)
+            {
+                int cardSuit = Card.GetSuit(card);
+                if (cardSuit != lastSuit)
+                {
+                    lastSuit = cardSuit;
+                    list.Add(cardSuit);
+                }
+            }
+            return list;
+        }
+
+        public int RuleBasedDecision()
+        {
+            List<int> possibleMoves = GetPossibleMoves();
+            if (possibleMoves.Count == 1)
+            {
+                return possibleMoves[0];
+            }
+
+            List<int> suitsFromMoves = getSuits(possibleMoves);
+
+            if (suitsFromMoves.Count == 1)
+            {
+                possibleMoves.Sort();
+                int highestCard = possibleMoves[possibleMoves.Count - 1];
+                int highestCardSuit = Card.GetSuit(highestCard);
+
+                int othersHighestRankFromSuit;
+                if (othersPointCards[highestCardSuit].Count > 0)
+                {
+                    othersHighestRankFromSuit = othersPointCards[highestCardSuit][0];
+                }
+                else
+                {
+                    othersHighestRankFromSuit = -1;
+                }
+
+                int highestOnTable = currentTrick.HighestCardOnCurrentTrick();
+
+                if (Card.GetRank(highestCard) > othersHighestRankFromSuit)
+                {
+                    return highestCard;
+                }
+                else
+                {
+                    return possibleMoves[0];
+                }
+            }
+            else
+            {
+                return possibleMoves[0];
+            }
+        }
+
 
         private void printDictionary(string name)
         {
             string str = name + " -";
-            foreach (KeyValuePair<int, int> cardValue in dictionary)
+            foreach (KeyValuePair<int, int> cardValue in pointsPerCard)
             {
                 str += " <" + Card.ToString(cardValue.Key) + "," + cardValue.Value + ">";
             }
