@@ -160,36 +160,36 @@ namespace SuecaSolver
             gameMode = 2;
             Console.WriteLine(gameMode);
             Console.Write("How many games: ");
-            numGames = 500;
+            numGames = 100;
             Console.WriteLine(numGames);
 
 
-            Parallel.For(0, numGames,
-                new ParallelOptions { MaxDegreeOfParallelism = 4 },
-                () => new int[4],
+            //Parallel.For(0, numGames,
+            //    new ParallelOptions { MaxDegreeOfParallelism = 4 },
+            //    () => new int[4],
 
-                (int i, ParallelLoopState state, int[] localCount) =>
-                {
-                    return processGames(i, localCount, gameMode);
-                },
+            //    (int i, ParallelLoopState state, int[] localCount) =>
+            //    {
+            //        return processGames(i, localCount, gameMode);
+            //    },
 
-                (int[] localCount) =>
-                {
-                    draws += localCount[0];
-                    firstTeamWins += localCount[1];
-                    secondTeamWins += localCount[2];
-                    badGames += localCount[3];
-                });
+            //    (int[] localCount) =>
+            //    {
+            //        draws += localCount[0];
+            //        firstTeamWins += localCount[1];
+            //        secondTeamWins += localCount[2];
+            //        badGames += localCount[3];
+            //    });
 
-            //for (int i = 0; i < numGames; i++)
-            //{
-            //    int[] localCount = new int[4];
-            //    processGames(i, localCount, gameMode);
-            //    draws += localCount[0];
-            //    firstTeamWins += localCount[1];
-            //    secondTeamWins += localCount[2];
-            //    badGames += localCount[3];
-            //}
+            for (int i = 0; i < numGames; i++)
+            {
+                int[] localCount = new int[4];
+                processGames(i, localCount, gameMode);
+                draws += localCount[0];
+                firstTeamWins += localCount[1];
+                secondTeamWins += localCount[2];
+                badGames += localCount[3];
+            }
 
             Console.WriteLine("");
             Console.WriteLine("----------------- Summary -----------------");

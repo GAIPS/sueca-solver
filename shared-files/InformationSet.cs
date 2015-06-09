@@ -211,18 +211,53 @@ namespace SuecaSolver
             return hands;
         }
 
-        private List<int> getSuits(List<int> cards)
+        private List<int> getHighestPerSuit(List<int> cards)
         {
             cards.Sort();
-            int lastSuit = (int) Suit.None;
             List<int> list = new List<int>();
-            foreach (var card in cards)
+
+            int firstCard = cards[0];
+            int lastCard = cards[cards.Count - 1];
+            if (Card.GetSuit(firstCard) == Card.GetSuit(lastCard))
             {
+                list.Add(lastCard);
+                return list;
+            }
+
+            int lastSuit = Card.GetSuit(firstCard);
+            for (int i = 0; i < cards.Count; i++)
+			{
+                int card = cards[i];
                 int cardSuit = Card.GetSuit(card);
+
                 if (cardSuit != lastSuit)
                 {
                     lastSuit = cardSuit;
-                    list.Add(cardSuit);
+                    list.Add(cards[i - 1]);
+                }
+                if (i == cards.Count - 1)
+                {
+                    list.Add(card);
+                }
+            }
+            return list;
+        }
+
+        private List<int> counterPerSuit(List<int> cards)
+        {
+            List<int> list = new List<int>();
+            int lastSuit = (int) Suit.None;
+            for (int i = 0; i < cards.Count; i++)
+            {
+                int cardSuit = Card.GetSuit(cards[i]);
+                if (cardSuit != lastSuit)
+                {
+                    lastSuit = cardSuit;
+                    list.Add(1);
+                }
+                else
+                {
+                    list[list.Count - 1]++;
                 }
             }
             return list;
@@ -236,28 +271,13 @@ namespace SuecaSolver
                 return possibleMoves[0];
             }
 
-            List<int> suitsFromMoves = getSuits(possibleMoves);
+            List<int> highestPerSuit = getHighestPerSuit(possibleMoves);
 
-            if (suitsFromMoves.Count == 1)
+            if (highestPerSuit.Count == 1)
             {
                 possibleMoves.Sort();
                 int highestCard = possibleMoves[possibleMoves.Count - 1];
-                int highestCardSuit = Card.GetSuit(highestCard);
-                int highestCardRank = Card.GetValue(highestCard);
-
-                int othersHighestRankFromSuit;
-                if (othersPointCards[highestCardSuit].Count > 0)
-                {
-                    othersHighestRankFromSuit = othersPointCards[highestCardSuit][0];
-                }
-                else
-                {
-                    othersHighestRankFromSuit = 0;
-                }
-
-                int highestRankOnTable = currentTrick.HighestCardOnCurrentTrick();
-
-                if (highestRankOnTable > 0 && highestCardRank > highestRankOnTable && highestCardRank > othersHighestRankFromSuit)
+                if (shouldPlay(highestCard))
                 {
                     return highestCard;
                 }
@@ -269,8 +289,35 @@ namespace SuecaSolver
             else
             {
                 int trickSize = currentTrick.GetTrickSize();
-                if (trickSize == 4)
+                if (trickSize == 4 || trickSize == 0)
                 {
+                    List<int> counterList = counterPerSuit(possibleMoves);
+
+                    //debug
+                    if(counterList.Count != highestPerSuit.Count)  
+                    {
+                        Console.WriteLine("PROBLEM!!! RuleBasedDecision");
+                    }
+
+                    for (int i = 0; i < highestPerSuit.Count; i++)
+                    {
+                        int highestCard = highestPerSuit[i];
+                        if (shouldPlay(highestCard))
+                        {
+                            if (counterList[i] > 5 && Card.GetSuit(highestCard) == Trump)
+                            {
+                                return highestCard;
+                            }
+                            else if (counterList[i] > 5 && Card.GetSuit(highestCard) != Trump)
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                return highestCard;
+                            }
+                        }
+                    }
                     return possibleMoves[0];
                 }
                 else
@@ -279,6 +326,33 @@ namespace SuecaSolver
                     possibleMoves.Sort(new DescendingComparer());
                     return possibleMoves[0];
                 }
+            }
+        }
+
+        private bool shouldPlay(int highestCard)
+        {
+            int highestCardSuit = Card.GetSuit(highestCard);
+            int highestCardRank = Card.GetRank(highestCard);
+
+            int othersHighestRankFromSuit;
+            if (othersPointCards[highestCardSuit].Count > 0)
+            {
+                othersHighestRankFromSuit = othersPointCards[highestCardSuit][0];
+            }
+            else
+            {
+                othersHighestRankFromSuit = 0;
+            }
+
+            int highestRankOnTable = currentTrick.HighestCardOnCurrentTrick();
+
+            if (highestRankOnTable >= 0 && highestCardRank > highestRankOnTable && highestCardRank > othersHighestRankFromSuit)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 

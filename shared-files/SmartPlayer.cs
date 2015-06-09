@@ -37,8 +37,7 @@ namespace SuecaSolver
 
             if (_handSize > 9)
             {
-                //chosenCard = infoSet.RuleBasedDecision();
-                chosenCard = pimc.Execute(infoSet);
+                chosenCard = infoSet.RuleBasedDecision();
             }
             else
             {
