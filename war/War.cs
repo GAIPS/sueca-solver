@@ -160,7 +160,7 @@ namespace SuecaSolver
             gameMode = 2;
             Console.WriteLine(gameMode);
             Console.Write("How many games: ");
-            numGames = 10;
+            numGames = 500;
             Console.WriteLine(numGames);
 
 

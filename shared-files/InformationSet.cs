@@ -99,9 +99,17 @@ namespace SuecaSolver
             int cardValue = Card.GetValue(card);
             
             //count points
+            //to avoid trick winner computation, we assume the first player of the next trick is the winner of the last one
             if (currentTrick.IsFull())
             {
-                OtherTeamPoints += trickPoints;
+                if (playerID == 2)
+                {
+                    BotTeamPoints += trickPoints;
+                }
+                else
+                {
+                    OtherTeamPoints += trickPoints;
+                }
                 trickPoints = 0;
                 currentTrick = new Trick(Trump);
             }
@@ -126,6 +134,8 @@ namespace SuecaSolver
 
         public void AddMyPlay(int card)
         {
+            //count points
+            //to avoid trick winner computation, we assume the first player of the next trick is the winner of the last one
             if (currentTrick.IsFull())
             {
                 BotTeamPoints += trickPoints;
@@ -171,7 +181,7 @@ namespace SuecaSolver
             List<List<int>> hands = new List<List<int>>();
             int myHandSize = hand.Count;
             int[] handSizes = new int[3] { myHandSize, myHandSize, myHandSize };
-            int currentTrickSize = currentTrick.GetPlayInTrick();
+            int currentTrickSize = currentTrick.GetTrickSize();
             if (currentTrickSize > 3)
             {
                 currentTrickSize = 0;
@@ -233,6 +243,7 @@ namespace SuecaSolver
                 possibleMoves.Sort();
                 int highestCard = possibleMoves[possibleMoves.Count - 1];
                 int highestCardSuit = Card.GetSuit(highestCard);
+                int highestCardRank = Card.GetValue(highestCard);
 
                 int othersHighestRankFromSuit;
                 if (othersPointCards[highestCardSuit].Count > 0)
@@ -241,12 +252,12 @@ namespace SuecaSolver
                 }
                 else
                 {
-                    othersHighestRankFromSuit = -1;
+                    othersHighestRankFromSuit = 0;
                 }
 
-                int highestOnTable = currentTrick.HighestCardOnCurrentTrick();
+                int highestRankOnTable = currentTrick.HighestCardOnCurrentTrick();
 
-                if (Card.GetRank(highestCard) > othersHighestRankFromSuit)
+                if (highestRankOnTable > 0 && highestCardRank > highestRankOnTable && highestCardRank > othersHighestRankFromSuit)
                 {
                     return highestCard;
                 }
@@ -257,7 +268,17 @@ namespace SuecaSolver
             }
             else
             {
-                return possibleMoves[0];
+                int trickSize = currentTrick.GetTrickSize();
+                if (trickSize == 4)
+                {
+                    return possibleMoves[0];
+                }
+                else
+                {
+                    //we may check if our mate has cut the trick and chose an highest card
+                    possibleMoves.Sort(new DescendingComparer());
+                    return possibleMoves[0];
+                }
             }
         }
 

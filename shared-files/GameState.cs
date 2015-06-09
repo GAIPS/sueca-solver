@@ -47,9 +47,9 @@ namespace SuecaSolver
             }
         }
 
-        private int getPlayInTrick()
+        private int getCurrentTrickSize()
         {
-            int playInCurrentTrick = GetCurrentTrick().GetPlayInTrick();
+            int playInCurrentTrick = GetCurrentTrick().GetTrickSize();
             if (playInCurrentTrick == 4)
             {
                 return 0;
@@ -167,7 +167,7 @@ namespace SuecaSolver
         public List<int> orderPossibleMoves(List<int> moves, int playerID)
         {
             int leadSuit = GetLeadSuit();
-            int currentPlayInTrick = getPlayInTrick();
+            int currentPlayInTrick = getCurrentTrickSize();
 
             if (moves.Count == 1)
             {

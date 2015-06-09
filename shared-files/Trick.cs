@@ -23,7 +23,7 @@ namespace SuecaSolver
         }
 
         //nome infeliz para o metodo!
-        public int GetPlayInTrick()
+        public int GetTrickSize()
         {
             return moves.Count;
         }
@@ -77,18 +77,30 @@ namespace SuecaSolver
         public int HighestCardOnCurrentTrick()
         {
             int result = 0;
-            //bool cut = false;
-            //foreach (var move in currentTrick)
-            //{
-            //    int card = move.Card;
-            //    int cardSuit = Card.GetSuit(card);
-            //    int cardValue = Card.GetValue(card);
+            bool cut = false;
+            foreach (var move in moves)
+            {
+                int card = move.Card;
+                int cardSuit = Card.GetSuit(card);
+                int cardRank = Card.GetRank(card);
 
-            //    if (cardValue > result)
-            //    {
-
-            //    }
-            //}
+                if (!cut)
+                {
+                    if (cardRank > result)
+                    {
+                        result = cardRank;
+                    }
+                    else if (cardRank < 0)
+                    {
+                        result = cardRank;
+                        cut = true;
+                    }
+                }
+                else if (cut && cardRank < result)
+                {
+                    result = cardRank;
+                }
+            }
             return result;
         }
 
