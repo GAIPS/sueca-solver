@@ -6,10 +6,88 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
+
 namespace SuecaSolver
 {
     public class War
     {
+
+        public const int GAMEMODE = 4;
+        public const int NUMGAMES = 100;
+
+        public static void Main()
+        {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+
+            int numGames, gameMode, firstTeamWins = 0, secondTeamWins = 0, draws = 0, badGames = 0;
+            gameMode = GAMEMODE;
+            numGames = NUMGAMES;
+
+            Console.WriteLine("");
+            Console.WriteLine("|||||||||||||||||||| SUECA TEST WAR ||||||||||||||||||||");
+            Console.WriteLine("");
+            switch (gameMode)
+            {
+                case 1:
+                    Console.WriteLine("Mode 1 (1 Bot 3 Random)");
+                    break;
+                case 2:
+                    Console.WriteLine("Mode 2 (2 Bot 2 Random)");
+                    break;
+                case 3:
+                    Console.WriteLine("Mode 3 (3 Bot 1 Random)");
+                    break;
+                case 4:
+                    Console.WriteLine("Mode 4 (4 Bot)");
+                    break;
+                case 5:
+                    Console.WriteLine("Mode 5 (2 Bot 2 RuleBased)");
+                    break;
+                default:
+                    break;
+            }
+            Console.WriteLine("#Games: " + numGames);
+
+
+            Parallel.For(0, numGames,
+                new ParallelOptions { MaxDegreeOfParallelism = 4 },
+                () => new int[4],
+
+                (int i, ParallelLoopState state, int[] localCount) =>
+                {
+                    return processGames(i, localCount, gameMode);
+                },
+
+                (int[] localCount) =>
+                {
+                    draws += localCount[0];
+                    firstTeamWins += localCount[1];
+                    secondTeamWins += localCount[2];
+                    badGames += localCount[3];
+                });
+
+            //for (int i = 0; i < numGames; i++)
+            //{
+            //    int[] localCount = new int[4];
+            //    processGames(i, localCount, gameMode);
+            //    draws += localCount[0];
+            //    firstTeamWins += localCount[1];
+            //    secondTeamWins += localCount[2];
+            //    badGames += localCount[3];
+            //}
+
+            Console.WriteLine("");
+            Console.WriteLine("----------------- Summary -----------------");
+            Console.WriteLine("Team 0 won " + firstTeamWins + "/" + numGames);
+            Console.WriteLine("Team 1 won " + secondTeamWins + "/" + numGames);
+            Console.WriteLine("Draws " + draws + "/" + numGames);
+            Console.WriteLine("BadGames " + badGames);
+            
+            sw.Stop();
+            Console.WriteLine("Total Time taken by functions is {0} seconds", sw.ElapsedMilliseconds / 1000); //seconds
+            Console.WriteLine("Total Time taken by functions is {0} minutes", sw.ElapsedMilliseconds / 60000); //minutes
+        }
 
         static bool checkHands(List<List<int>> hands, int trump)
         {
@@ -62,7 +140,7 @@ namespace SuecaSolver
             //Console.WriteLine("----------------------------------------------");
             SuecaGame game = new SuecaGame(10, playersHands, trump, null, 0, 0);
             int currentPlayerID = i % 4;
-            
+
             switch (gameMode)
             {
                 case 1:
@@ -105,6 +183,16 @@ namespace SuecaSolver
                     playersNames[3] = "Bot4";
                     players[3] = new SmartPlayer(3, playersHands[3], trump, randomNumber, seed);
                     break;
+                case 5:
+                    playersNames[0] = "Bot1";
+                    players[0] = new SmartPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    playersNames[1] = "RuleBased1";
+                    players[1] = new RuleBasedPlayer(1, playersHands[1], trump, randomNumber, seed);
+                    playersNames[2] = "Bot2";
+                    players[2] = new SmartPlayer(2, playersHands[2], trump, randomNumber, seed);
+                    playersNames[3] = "RuleBased2";
+                    players[3] = new RuleBasedPlayer(3, playersHands[3], trump, randomNumber, seed);
+                    break;
                 default:
                     break;
             }
@@ -141,66 +229,6 @@ namespace SuecaSolver
                 localCount[2]++;
             }
             return localCount;
-        }
-
-        public static void Main()
-        {
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-
-            int numGames, gameMode, firstTeamWins = 0, secondTeamWins = 0, draws = 0, badGames = 0;
-            Console.WriteLine("");
-            Console.WriteLine("|||||||||||||||||||| SUECA TEST WAR ||||||||||||||||||||");
-            Console.WriteLine("");
-            Console.WriteLine("[1] - 1 Bot 3 Random");
-            Console.WriteLine("[2] - 2 Bot 2 Random");
-            Console.WriteLine("[3] - 3 Bot 1 Random");
-            Console.WriteLine("[4] - 4 Bot 0 Random");
-            Console.Write("Choose an option from 1 to 4: ");
-            gameMode = 2;
-            Console.WriteLine(gameMode);
-            Console.Write("How many games: ");
-            numGames = 100;
-            Console.WriteLine(numGames);
-
-
-            //Parallel.For(0, numGames,
-            //    new ParallelOptions { MaxDegreeOfParallelism = 4 },
-            //    () => new int[4],
-
-            //    (int i, ParallelLoopState state, int[] localCount) =>
-            //    {
-            //        return processGames(i, localCount, gameMode);
-            //    },
-
-            //    (int[] localCount) =>
-            //    {
-            //        draws += localCount[0];
-            //        firstTeamWins += localCount[1];
-            //        secondTeamWins += localCount[2];
-            //        badGames += localCount[3];
-            //    });
-
-            for (int i = 0; i < numGames; i++)
-            {
-                int[] localCount = new int[4];
-                processGames(i, localCount, gameMode);
-                draws += localCount[0];
-                firstTeamWins += localCount[1];
-                secondTeamWins += localCount[2];
-                badGames += localCount[3];
-            }
-
-            Console.WriteLine("");
-            Console.WriteLine("----------------- Summary -----------------");
-            Console.WriteLine("Team 0 won " + firstTeamWins + "/" + numGames);
-            Console.WriteLine("Team 1 won " + secondTeamWins + "/" + numGames);
-            Console.WriteLine("Draws " + draws + "/" + numGames);
-            Console.WriteLine("BadGames " + badGames);
-            
-            sw.Stop();
-            Console.WriteLine("Total Time taken by functions is {0} seconds", sw.ElapsedMilliseconds / 1000); //seconds
-            Console.WriteLine("Total Time taken by functions is {0} minutes", sw.ElapsedMilliseconds / 60000); //minutes
         }
     }
 }

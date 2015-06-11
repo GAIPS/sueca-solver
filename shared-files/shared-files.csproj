@@ -54,6 +54,7 @@
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomPlayer.cs" />
+    <Compile Include="RuleBasedPlayer.cs" />
     <Compile Include="SmartPlayer.cs" />
     <Compile Include="SuecaGame.cs" />
     <Compile Include="Trick.cs" />
