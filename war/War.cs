@@ -12,8 +12,8 @@ namespace SuecaSolver
     public class War
     {
 
-        public const int GAMEMODE = 4;
-        public const int NUMGAMES = 100;
+        public const int GAMEMODE = 6;
+        public const int NUMGAMES = 50;
 
         public static void Main()
         {
@@ -30,19 +30,22 @@ namespace SuecaSolver
             switch (gameMode)
             {
                 case 1:
-                    Console.WriteLine("Mode 1 (1 Bot 3 Random)");
+                    Console.WriteLine("Mode 1 (1 Smart 3 Random)");
                     break;
                 case 2:
-                    Console.WriteLine("Mode 2 (2 Bot 2 Random)");
+                    Console.WriteLine("Mode 2 (2 Smart 2 Random)");
                     break;
                 case 3:
-                    Console.WriteLine("Mode 3 (3 Bot 1 Random)");
+                    Console.WriteLine("Mode 3 (3 Smart 1 Random)");
                     break;
                 case 4:
-                    Console.WriteLine("Mode 4 (4 Bot)");
+                    Console.WriteLine("Mode 4 (4 Smart)");
                     break;
                 case 5:
-                    Console.WriteLine("Mode 5 (2 Bot 2 RuleBased)");
+                    Console.WriteLine("Mode 5 (2 Smart 2 RuleBased)");
+                    break;
+                case 6:
+                    Console.WriteLine("Mode 6 (2 Smartest 2 Random)");
                     break;
                 default:
                     break;
@@ -144,7 +147,7 @@ namespace SuecaSolver
             switch (gameMode)
             {
                 case 1:
-                    playersNames[0] = "Bot1";
+                    playersNames[0] = "Smart1";
                     players[0] = new SmartPlayer(0, playersHands[0], trump, randomNumber, seed);
                     playersNames[1] = "Random1";
                     players[1] = new RandomPlayer(1, playersHands[1], randomNumber);
@@ -154,44 +157,54 @@ namespace SuecaSolver
                     players[3] = new RandomPlayer(3, playersHands[3], randomNumber);
                     break;
                 case 2:
-                    playersNames[0] = "Bot1";
+                    playersNames[0] = "Smart1";
                     players[0] = new SmartPlayer(0, playersHands[0], trump, randomNumber, seed);
                     playersNames[1] = "Random1";
                     players[1] = new RandomPlayer(1, playersHands[1], randomNumber);
-                    playersNames[2] = "Bot2";
+                    playersNames[2] = "Smart2";
                     players[2] = new SmartPlayer(2, playersHands[2], trump, randomNumber, seed);
                     playersNames[3] = "Random2";
                     players[3] = new RandomPlayer(3, playersHands[3], randomNumber);
                     break;
                 case 3:
-                    playersNames[0] = "Bot1";
+                    playersNames[0] = "Smart1";
                     players[0] = new SmartPlayer(0, playersHands[0], trump, randomNumber, seed);
-                    playersNames[1] = "Bot2";
+                    playersNames[1] = "Smart2";
                     players[1] = new SmartPlayer(1, playersHands[1], trump, randomNumber, seed);
-                    playersNames[2] = "Bot3";
+                    playersNames[2] = "Smart3";
                     players[2] = new SmartPlayer(2, playersHands[2], trump, randomNumber, seed);
                     playersNames[3] = "Random1";
                     players[3] = new RandomPlayer(3, playersHands[3], randomNumber);
                     break;
                 case 4:
-                    playersNames[0] = "Bot1";
+                    playersNames[0] = "Smart1";
                     players[0] = new SmartPlayer(0, playersHands[0], trump, randomNumber, seed);
-                    playersNames[1] = "Bot2";
+                    playersNames[1] = "Smart2";
                     players[1] = new SmartPlayer(1, playersHands[1], trump, randomNumber, seed);
-                    playersNames[2] = "Bot3";
+                    playersNames[2] = "Smart3";
                     players[2] = new SmartPlayer(2, playersHands[2], trump, randomNumber, seed);
-                    playersNames[3] = "Bot4";
+                    playersNames[3] = "Smart4";
                     players[3] = new SmartPlayer(3, playersHands[3], trump, randomNumber, seed);
                     break;
                 case 5:
-                    playersNames[0] = "Bot1";
+                    playersNames[0] = "Smart1";
                     players[0] = new SmartPlayer(0, playersHands[0], trump, randomNumber, seed);
                     playersNames[1] = "RuleBased1";
                     players[1] = new RuleBasedPlayer(1, playersHands[1], trump, randomNumber, seed);
-                    playersNames[2] = "Bot2";
+                    playersNames[2] = "Smart2";
                     players[2] = new SmartPlayer(2, playersHands[2], trump, randomNumber, seed);
                     playersNames[3] = "RuleBased2";
                     players[3] = new RuleBasedPlayer(3, playersHands[3], trump, randomNumber, seed);
+                    break;
+                case 6:
+                    playersNames[0] = "Smartest1";
+                    players[0] = new SmartestPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    playersNames[1] = "Random1";
+                    players[1] = new RandomPlayer(1, playersHands[1], randomNumber);
+                    playersNames[2] = "Smartest2";
+                    players[2] = new SmartestPlayer(2, playersHands[2], trump, randomNumber, seed);
+                    playersNames[3] = "Random2";
+                    players[3] = new RandomPlayer(3, playersHands[3], randomNumber);
                     break;
                 default:
                     break;

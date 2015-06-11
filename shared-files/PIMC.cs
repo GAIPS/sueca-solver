@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 
 namespace SuecaSolver
@@ -35,38 +36,44 @@ namespace SuecaSolver
                 }
             }
 
-//            infoSet.PrintInfoSet();
             return infoSet.GetHighestCardIndex();
         }
 
 
-        public void ExecuteTestVersion(InformationSet infoSet)
+        public int ExecuteWithTimeLimit(InformationSet infoSet)
         {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+
+            infoSet.CleanCardValues();
             List<int> possibleMoves = infoSet.GetPossibleMoves();
-            SuecaGame game;
 
             if (possibleMoves.Count == 1)
             {
-                Console.WriteLine("Only one move available: " + possibleMoves[0]);
-                return;
+                return possibleMoves[0];
             }
-            int handSize = infoSet.GetHandSize();
-            List<List<int>> playersHands = infoSet.Sample();
-            game = new SuecaGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints);
-           
 
+            int N, depthLimit, handSize = infoSet.GetHandSize();
+            setNandDepthLimit(out N, out depthLimit, handSize);
 
-            // for (int j = 0; j < possibleMoves.Count; j++)
-            // {
-            int card = possibleMoves[0];
-            int cardValueInTrick = game.SampleGame(Int32.MaxValue, card);
-            game.PrintNumCuts();
-            // int cardValueInTrick = game.SampleTrick(card);
-            // Console.WriteLine("cardValueInTrick - " + card + " " + cardValueInTrick);
-            infoSet.AddCardValue(card, cardValueInTrick);
-            // }
+            for (int i = 0; sw.ElapsedMilliseconds < 2000; i++)
+            {
+                List<List<int>> playersHands = infoSet.Sample();
 
-            infoSet.PrintInfoSet();
+                SuecaGame game;
+                int cardValueInTrick;
+
+                for (int j = 0; j < possibleMoves.Count; j++)
+                {
+                    int card = possibleMoves[j];
+                    game = new SuecaGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints);
+                    cardValueInTrick = game.SampleGame(depthLimit, card);
+                    infoSet.AddCardValue(card, cardValueInTrick);
+                }
+            }
+
+            sw.Stop();
+            return infoSet.GetHighestCardIndex();
         }
 
         static void setNandDepthLimit(out int N, out int depthLimit, int handSize)
@@ -115,39 +122,6 @@ namespace SuecaSolver
                     depthLimit = 0;
                     break;
             }
-        }
-
-        public int ExecuteTestVersion2(InformationSet infoSet)
-        {
-            infoSet.CleanCardValues();
-            List<int> possibleMoves = infoSet.GetPossibleMoves();
-
-            if (possibleMoves.Count == 1)
-            {
-                return possibleMoves[0];
-            }
-
-            int N, depthLimit, handSize = infoSet.GetHandSize();
-            setNandDepthLimit(out N, out depthLimit, handSize);
-
-            for (int i = 0; i < N; i++)
-            {
-                List<List<int>> playersHands = infoSet.Sample();
-
-                SuecaGame game;
-                int cardValueInTrick;
-
-                for (int j = 0; j < possibleMoves.Count; j++)
-                {
-                    int card = possibleMoves[j];
-                    game = new SuecaGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints);
-                    cardValueInTrick = game.SampleGame(depthLimit, card);
-                    infoSet.AddCardValue(card, cardValueInTrick);
-                }
-            }
-
-            infoSet.PrintInfoSet();
-            return infoSet.GetHighestCardIndex();
         }
     }
 }
