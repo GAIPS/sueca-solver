@@ -13,7 +13,7 @@ namespace SuecaSolver
     {
 
         public const int GAMEMODE = 6;
-        public const int NUMGAMES = 50;
+        public const int NUMGAMES = 100;
 
         public static void Main()
         {

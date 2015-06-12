@@ -28,8 +28,7 @@ namespace SuecaSolver
             infoSet.AddPlay(3, card);
             Console.WriteLine(Card.ToString(card));
             PIMC pimc = new PIMC();
-//            pimc.ExecuteTestVersion2(infoSet);
-            pimc.Execute(infoSet);
+            pimc.ExecuteWithTimeLimit(infoSet);
             infoSet.PrintInfoSet();
 
 

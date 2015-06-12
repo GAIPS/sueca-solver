@@ -304,6 +304,7 @@ namespace SuecaSolver
                 return 1;
             }
             return -1;
+            //return 0;
         }
 
         private bool botTeamWinningPrediction()
