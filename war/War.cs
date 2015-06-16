@@ -20,7 +20,12 @@ namespace SuecaSolver
             Stopwatch sw = new Stopwatch();
             sw.Start();
 
-            int numGames, gameMode, firstTeamWins = 0, secondTeamWins = 0, draws = 0, badGames = 0;
+            int numGames, gameMode;
+            int firstTeamWins = 0, secondTeamWins = 0, draws = 0, nullGames = 0;
+            List<int> initialBotTeamPointsWonGames = new List<int>();
+            List<int> initialBotTeamPointsLostGames = new List<int>();
+            Object wonGamesLock = new Object();
+            Object lostGamesLock = new Object();
             gameMode = GAMEMODE;
             numGames = NUMGAMES;
 
@@ -54,12 +59,12 @@ namespace SuecaSolver
 
 
             Parallel.For(0, numGames,
-                new ParallelOptions { MaxDegreeOfParallelism = 4 },
-                () => new int[4],
+                new ParallelOptions { MaxDegreeOfParallelism = 5 },
+                () => new int[6],
 
                 (int i, ParallelLoopState state, int[] localCount) =>
                 {
-                    return processGames(i, localCount, gameMode);
+                    return processGames(i, localCount, gameMode, initialBotTeamPointsWonGames, initialBotTeamPointsLostGames, wonGamesLock, lostGamesLock);
                 },
 
                 (int[] localCount) =>
@@ -67,7 +72,7 @@ namespace SuecaSolver
                     draws += localCount[0];
                     firstTeamWins += localCount[1];
                     secondTeamWins += localCount[2];
-                    badGames += localCount[3];
+                    nullGames += localCount[3];
                 });
 
             //for (int i = 0; i < numGames; i++)
@@ -80,12 +85,22 @@ namespace SuecaSolver
             //    badGames += localCount[3];
             //}
 
+
+            double initialBotTeamPointsWonGamesAVG = initialBotTeamPointsWonGames.Average();
+            double sumOfSquaresOfDifferencesW = initialBotTeamPointsWonGames.Select(val => (val - initialBotTeamPointsWonGamesAVG) * (val - initialBotTeamPointsWonGamesAVG)).Sum();
+            double sdW = Math.Sqrt(sumOfSquaresOfDifferencesW / initialBotTeamPointsWonGames.Count);
+            double initialBotTeamPointsLostGamesAVG = initialBotTeamPointsLostGames.Average();
+            double sumOfSquaresOfDifferencesL = initialBotTeamPointsWonGames.Select(val => (val - initialBotTeamPointsLostGamesAVG) * (val - initialBotTeamPointsLostGamesAVG)).Sum();
+            double sdL = Math.Sqrt(sumOfSquaresOfDifferencesL / initialBotTeamPointsWonGames.Count);
+
             Console.WriteLine("");
             Console.WriteLine("----------------- Summary -----------------");
-            Console.WriteLine("Team 0 won " + firstTeamWins + "/" + numGames);
-            Console.WriteLine("Team 1 won " + secondTeamWins + "/" + numGames);
+            Console.WriteLine("BotTeam won " + firstTeamWins + "/" + numGames);
+            Console.WriteLine("OtherTeam 1 won " + secondTeamWins + "/" + numGames);
             Console.WriteLine("Draws " + draws + "/" + numGames);
-            Console.WriteLine("BadGames " + badGames);
+            Console.WriteLine("Null Games " + nullGames);
+            Console.WriteLine("Initial BotTeam Points in won games: AVG-" + initialBotTeamPointsWonGamesAVG + " SD-" + sdW);
+            Console.WriteLine("Initial BotTeam Points in lost games: AVG-" + initialBotTeamPointsLostGamesAVG + " SD-" + sdL);
             
             sw.Stop();
             Console.WriteLine("Total Time taken by functions is {0} seconds", sw.ElapsedMilliseconds / 1000); //seconds
@@ -116,7 +131,7 @@ namespace SuecaSolver
             return true;
         }
 
-        static int[] processGames(int i, int[] localCount, int gameMode)
+        static int[] processGames(int i, int[] localCount, int gameMode, List<int> initialBotTeamPointsWonGames, List<int> initialBotTeamPointsLostGames, Object wonGamesLock, Object lostGamesLock)
         {
             //int seed = -1150905530;
             //int seed = -373600003;
@@ -141,6 +156,7 @@ namespace SuecaSolver
             //SuecaGame.PrintCards("p2", playersHands[2]);
             //SuecaGame.PrintCards("p3", playersHands[3]);
             //Console.WriteLine("----------------------------------------------");
+            int botTeamInitialPoints = SuecaGame.CountPoints(playersHands[0]) + SuecaGame.CountPoints(playersHands[2]);
             SuecaGame game = new SuecaGame(10, playersHands, trump, null, 0, 0);
             int currentPlayerID = i % 4;
 
@@ -236,10 +252,20 @@ namespace SuecaSolver
             else if (points[0] > 60)
             {
                 localCount[1]++;
+                localCount[4] += botTeamInitialPoints;
+                lock (wonGamesLock)
+                {
+                    initialBotTeamPointsWonGames.Add(botTeamInitialPoints);
+                }
             }
             else
             {
                 localCount[2]++;
+                localCount[5] += botTeamInitialPoints;
+                lock (lostGamesLock)
+                {
+                    initialBotTeamPointsLostGames.Add(botTeamInitialPoints);
+                }
             }
             return localCount;
         }

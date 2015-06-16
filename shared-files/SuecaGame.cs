@@ -30,7 +30,10 @@ namespace SuecaSolver
             }
             else
             {
-                possiblePoints = countPoints(playersHands);
+                possiblePoints = CountPoints(playersHands[0])
+                    + CountPoints(playersHands[1])
+                    + CountPoints(playersHands[2])
+                    + CountPoints(playersHands[3]);
             }
             gameState = new GameState(numTricks, trump, players, possiblePoints, botTeamInitialPoints, otherTeamInitialPoints);
 
@@ -43,16 +46,12 @@ namespace SuecaSolver
             }
         }
 
-        private int countPoints(List<List<int>> playersHands)
+        public static int CountPoints(List<int> playerHand)
         {
             int result = 0;
-            for (int i = 0; i < playersHands.Count; i++)
+            for (int j = 0; j < playerHand.Count; j++)
             {
-                List<int> pHand = playersHands[i];
-                for (int j = 0; j < pHand.Count; j++)
-                {
-                    result += Card.GetValue(pHand[j]);
-                }
+                result += Card.GetValue(playerHand[j]);
             }
             return result;
         }

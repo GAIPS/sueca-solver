@@ -283,28 +283,49 @@ namespace SuecaSolver
 
         public int EvalGame()
         {
-            if (botTeamPoints > 90)
+            return pointsPrediction();
+
+        }
+
+        private int pointsPrediction()
+        {
+            int teamHandPoints = 0, teamHandTrumps = 0;
+            int botPredicitonPoints = botTeamPoints;
+            int otherPredicitonPoints = otherTeamPoints;
+            for (int i = 0; i < players.Length; i = i + 2)
             {
-                return 4;
+                List<int> pHand = players[i].Hand;
+                teamHandTrumps += players[i].HasSuit[trump];
+
+                for (int j = 0; j < pHand.Count; j++)
+                {
+                    teamHandPoints += Card.GetValue(pHand[j]);
+                }
             }
-            if (botTeamPoints > 60)
+
+            int remainingTrumps = teamHandTrumps + players[1].HasSuit[trump] + players[3].HasSuit[trump];
+            int remainingPoints = 120 - botTeamPoints - otherTeamPoints;
+
+            if (teamHandPoints > (remainingPoints * 0.5) && teamHandTrumps > (remainingTrumps * 0.5))
             {
-                return 2;
+                botPredicitonPoints += (int)(remainingPoints * 0.75);
+                otherPredicitonPoints += (int)(remainingPoints * 0.25);
             }
-            if (otherTeamPoints > 90)
+            else
             {
-                return -4;
+
+                botPredicitonPoints += (int)(remainingPoints * 0.25);
+                otherPredicitonPoints += (int)(remainingPoints * 0.75);
             }
-            if (otherTeamPoints > 60)
+
+            if (botPredicitonPoints > otherTeamPoints)
             {
-                return -2;
+                return botPredicitonPoints;
             }
-            if (botTeamWinningPrediction())
+            else
             {
-                return 1;
+                return -1 * otherTeamPoints;
             }
-            return -1;
-            //return 0;
         }
 
         private bool botTeamWinningPrediction()
@@ -324,7 +345,7 @@ namespace SuecaSolver
             int remainingTrumps = teamHandTrumps + players[1].HasSuit[trump] + players[3].HasSuit[trump];
             int remainingPoints = 120 - botTeamPoints - otherTeamPoints;
 
-            if (teamHandPoints > (remainingPoints * 0.5) && teamHandTrumps > (remainingTrumps * 0.5) && botTeamPoints + (remainingPoints * 0.4) > 60)
+            if (teamHandPoints > (remainingPoints * 0.5) && teamHandTrumps > (remainingTrumps * 0.5) && botTeamPoints + (int) (remainingPoints * 0.4) > 60)
             {
                 return true;
             }

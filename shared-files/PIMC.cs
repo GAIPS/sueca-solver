@@ -42,8 +42,6 @@ namespace SuecaSolver
 
         public int ExecuteWithTimeLimit(InformationSet infoSet)
         {
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
 
             infoSet.CleanCardValues();
             List<int> possibleMoves = infoSet.GetPossibleMoves();
@@ -54,9 +52,11 @@ namespace SuecaSolver
             }
 
             int N, depthLimit, handSize = infoSet.GetHandSize();
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            long time = sw.ElapsedMilliseconds;
             setNandDepthLimit(out N, out depthLimit, handSize);
-
-            for (int i = 0; sw.ElapsedMilliseconds < 2000; i++)
+            for (; time < 2000; )
             {
                 List<List<int>> playersHands = infoSet.Sample();
 
@@ -70,6 +70,7 @@ namespace SuecaSolver
                     cardValueInTrick = game.SampleGame(depthLimit, card);
                     infoSet.AddCardValue(card, cardValueInTrick);
                 }
+                time = sw.ElapsedMilliseconds;
             }
 
             sw.Stop();
