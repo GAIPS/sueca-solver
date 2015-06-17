@@ -20,14 +20,17 @@ namespace SuecaSolver
             Stopwatch sw = new Stopwatch();
             sw.Start();
 
-            int numGames, gameMode;
+            int numGames = NUMGAMES, gameMode = GAMEMODE;
             int firstTeamWins = 0, secondTeamWins = 0, draws = 0, nullGames = 0;
+            
+            //Shared data between threads!
+            List<int> initialBotTeamPoints = new List<int>(numGames);
+            List<int> finalBotTeamPoints = new List<int>(numGames);
             List<int> initialBotTeamPointsWonGames = new List<int>();
             List<int> initialBotTeamPointsLostGames = new List<int>();
+            Object allGamesLock = new Object();
             Object wonGamesLock = new Object();
             Object lostGamesLock = new Object();
-            gameMode = GAMEMODE;
-            numGames = NUMGAMES;
 
             Console.WriteLine("");
             Console.WriteLine("|||||||||||||||||||| SUECA TEST WAR ||||||||||||||||||||");
@@ -64,7 +67,7 @@ namespace SuecaSolver
 
                 (int i, ParallelLoopState state, int[] localCount) =>
                 {
-                    return processGames(i, localCount, gameMode, initialBotTeamPointsWonGames, initialBotTeamPointsLostGames, wonGamesLock, lostGamesLock);
+                    return processGames(i, localCount, gameMode, initialBotTeamPointsWonGames, initialBotTeamPointsLostGames, initialBotTeamPoints, finalBotTeamPoints, allGamesLock, wonGamesLock, lostGamesLock);
                 },
 
                 (int[] localCount) =>
@@ -84,6 +87,18 @@ namespace SuecaSolver
             //    secondTeamWins += localCount[2];
             //    badGames += localCount[3];
             //}
+
+
+            //append information on a file!
+            System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(@"C:\temp");
+            int count = dir.GetFiles().Length;
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\temp\PiTiPf-" + count + ".txt"))
+            {
+                for (int i = 0; i < numGames; i++)
+                {
+                    file.WriteLine(initialBotTeamPoints[i] + "\t" + finalBotTeamPoints[i]);
+                }
+            }
 
 
             double initialBotTeamPointsWonGamesAVG = initialBotTeamPointsWonGames.Average();
@@ -131,7 +146,7 @@ namespace SuecaSolver
             return true;
         }
 
-        static int[] processGames(int i, int[] localCount, int gameMode, List<int> initialBotTeamPointsWonGames, List<int> initialBotTeamPointsLostGames, Object wonGamesLock, Object lostGamesLock)
+        static int[] processGames(int i, int[] localCount, int gameMode, List<int> initialBotTeamPointsWonGames, List<int> initialBotTeamPointsLostGames, List<int> initialBotTeamPoints, List<int> finalBotTeamPoints, Object allGamesLock, Object wonGamesLock, Object lostGamesLock)
         {
             //int seed = -1150905530;
             //int seed = -373600003;
@@ -157,6 +172,8 @@ namespace SuecaSolver
             //SuecaGame.PrintCards("p3", playersHands[3]);
             //Console.WriteLine("----------------------------------------------");
             int botTeamInitialPoints = SuecaGame.CountPoints(playersHands[0]) + SuecaGame.CountPoints(playersHands[2]);
+            int botTeamInitialPointsWithTrumps = SuecaGame.CountPointsWithTrumps(playersHands[0], trump) + SuecaGame.CountPointsWithTrumps(playersHands[2], trump);
+            int botTeamFinalPointsWithTrumps = 0;
             SuecaGame game = new SuecaGame(10, playersHands, trump, null, 0, 0);
             int currentPlayerID = i % 4;
 
@@ -226,7 +243,8 @@ namespace SuecaSolver
                     break;
             }
 
-            for (int j = 0; j < 40; j++)
+            
+            for (int trickPoints = 0, j = 0; j < 40;)
             {
                 int chosenCard = players[currentPlayerID].Play();
                 game.PlayCard(currentPlayerID, chosenCard);
@@ -238,6 +256,22 @@ namespace SuecaSolver
                     }
                 }
                 currentPlayerID = game.GetNextPlayerId();
+                
+                trickPoints += Card.GetValue(chosenCard);
+                if (Card.GetSuit(chosenCard) == trump)
+                {
+                    trickPoints += 10;
+                }
+                
+                j++;
+                if (j % 4 == 0)
+                {
+                    if (currentPlayerID == 0 || currentPlayerID == 2)
+                    {
+                        botTeamFinalPointsWithTrumps += trickPoints;
+                    }
+                    trickPoints = 0;
+                }
             }
             int[] points = game.GetGamePoints();
             //Console.WriteLine("[" + System.Threading.Thread.CurrentThread.ManagedThreadId + "] ----------------- Game " + i + " -----------------");
@@ -267,7 +301,15 @@ namespace SuecaSolver
                     initialBotTeamPointsLostGames.Add(botTeamInitialPoints);
                 }
             }
-            return localCount;
+
+            lock (allGamesLock)
+            {
+                initialBotTeamPoints.Add(botTeamInitialPointsWithTrumps);
+                //finalBotTeamPoints.Add(botTeamFinalPointsWithTrumps);
+                finalBotTeamPoints.Add(points[0]);
+            }
+            
+                return localCount;
         }
     }
 }
