@@ -308,14 +308,14 @@ namespace SuecaSolver
 
             if (teamHandPoints > (remainingPoints * 0.5) && teamHandTrumps > (remainingTrumps * 0.5))
             {
-                botPredicitonPoints += (int)(remainingPoints * 0.75);
-                otherPredicitonPoints += (int)(remainingPoints * 0.25);
+                botPredicitonPoints += (int)(remainingPoints * 0.8);
+                otherPredicitonPoints += (int)(remainingPoints * 0.2);
             }
             else
             {
 
-                botPredicitonPoints += (int)(remainingPoints * 0.25);
-                otherPredicitonPoints += (int)(remainingPoints * 0.75);
+                botPredicitonPoints += (int)(remainingPoints * 0.2);
+                otherPredicitonPoints += (int)(remainingPoints * 0.8);
             }
 
             if (botPredicitonPoints > otherTeamPoints)
@@ -324,7 +324,7 @@ namespace SuecaSolver
             }
             else
             {
-                return -1 * otherTeamPoints;
+                return -1 * otherPredicitonPoints;
             }
         }
 

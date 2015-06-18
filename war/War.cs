@@ -12,8 +12,8 @@ namespace SuecaSolver
     public class War
     {
 
-        public const int GAMEMODE = 6;
-        public const int NUMGAMES = 100;
+        public const int GAMEMODE = 2;
+        public const int NUMGAMES = 10;
         public const bool PARALLEL = true;
         public const bool SAVE_RESULTS = false;
 
@@ -52,6 +52,12 @@ namespace SuecaSolver
                     break;
                 case 6:
                     Console.WriteLine("Mode 6 (2 Smartest 2 Random)");
+                    break;
+                case 7:
+                    Console.WriteLine("Mode 7 (2 Smartest 2 RuleBased)");
+                    break;
+                case 8:
+                    Console.WriteLine("Mode 8 (2 RuleBased 2 Random)");
                     break;
                 default:
                     break;
@@ -237,6 +243,16 @@ namespace SuecaSolver
                     playersNames[3] = "RuleBased2";
                     players[3] = new RuleBasedPlayer(3, playersHands[3], trump, randomNumber, seed);
                     break;
+                case 8:
+                    playersNames[0] = "RuleBased1";
+                    players[0] = new RuleBasedPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    playersNames[1] = "Random1";
+                    players[1] = new RandomPlayer(1, playersHands[1], randomNumber);
+                    playersNames[2] = "RuleBased2";
+                    players[2] = new RuleBasedPlayer(2, playersHands[2], trump, randomNumber, seed);
+                    playersNames[3] = "Random2";
+                    players[3] = new RandomPlayer(3, playersHands[3], randomNumber);
+                    break;
                 default:
                     break;
             }
@@ -288,11 +304,14 @@ namespace SuecaSolver
                 localCount[5] += botTeamInitialPoints;
             }
 
-            lock (allGamesLock)
+            if (SAVE_RESULTS)
             {
-                initialBotTeamPoints.Add(botTeamInitialPointsWithTrumps);
-                finalBotTeamPoints.Add(botTeamFinalPointsWithTrumps);
-                //finalBotTeamPoints.Add(points[0]);
+                lock (allGamesLock)
+                {
+                    initialBotTeamPoints.Add(botTeamInitialPointsWithTrumps);
+                    finalBotTeamPoints.Add(botTeamFinalPointsWithTrumps);
+                    //finalBotTeamPoints.Add(points[0]);
+                } 
             }
             
                 return localCount;

@@ -56,7 +56,7 @@ namespace SuecaSolver
             sw.Start();
             long time = sw.ElapsedMilliseconds;
             setNandDepthLimit(out N, out depthLimit, handSize);
-            for (; time < 4000; )
+            for (; time < 2000; )
             {
                 List<List<int>> playersHands = infoSet.Sample();
 
