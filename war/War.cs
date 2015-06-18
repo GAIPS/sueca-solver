@@ -14,6 +14,8 @@ namespace SuecaSolver
 
         public const int GAMEMODE = 6;
         public const int NUMGAMES = 100;
+        public const bool PARALLEL = true;
+        public const bool SAVE_RESULTS = false;
 
         public static void Main()
         {
@@ -26,11 +28,7 @@ namespace SuecaSolver
             //Shared data between threads!
             List<int> initialBotTeamPoints = new List<int>(numGames);
             List<int> finalBotTeamPoints = new List<int>(numGames);
-            List<int> initialBotTeamPointsWonGames = new List<int>();
-            List<int> initialBotTeamPointsLostGames = new List<int>();
             Object allGamesLock = new Object();
-            Object wonGamesLock = new Object();
-            Object lostGamesLock = new Object();
 
             Console.WriteLine("");
             Console.WriteLine("|||||||||||||||||||| SUECA TEST WAR ||||||||||||||||||||");
@@ -61,52 +59,52 @@ namespace SuecaSolver
             Console.WriteLine("#Games: " + numGames);
 
 
-            Parallel.For(0, numGames,
-                new ParallelOptions { MaxDegreeOfParallelism = 5 },
-                () => new int[6],
+            if (PARALLEL)
+            {
+                Parallel.For(0, numGames,
+                    new ParallelOptions { MaxDegreeOfParallelism = 5 },
+                    () => new int[6],
 
-                (int i, ParallelLoopState state, int[] localCount) =>
-                {
-                    return processGames(i, localCount, gameMode, initialBotTeamPointsWonGames, initialBotTeamPointsLostGames, initialBotTeamPoints, finalBotTeamPoints, allGamesLock, wonGamesLock, lostGamesLock);
-                },
+                    (int i, ParallelLoopState state, int[] localCount) =>
+                    {
+                        return processGames(i, localCount, gameMode, initialBotTeamPoints, finalBotTeamPoints, allGamesLock);
+                    },
 
-                (int[] localCount) =>
+                    (int[] localCount) =>
+                    {
+                        draws += localCount[0];
+                        firstTeamWins += localCount[1];
+                        secondTeamWins += localCount[2];
+                        nullGames += localCount[3];
+                    });
+            }
+            else
+            {
+                for (int i = 0; i < numGames; i++)
                 {
+                    int[] localCount = new int[4];
+                    processGames(i, localCount, gameMode, initialBotTeamPoints, finalBotTeamPoints, allGamesLock);
                     draws += localCount[0];
                     firstTeamWins += localCount[1];
                     secondTeamWins += localCount[2];
                     nullGames += localCount[3];
-                });
-
-            //for (int i = 0; i < numGames; i++)
-            //{
-            //    int[] localCount = new int[4];
-            //    processGames(i, localCount, gameMode);
-            //    draws += localCount[0];
-            //    firstTeamWins += localCount[1];
-            //    secondTeamWins += localCount[2];
-            //    badGames += localCount[3];
-            //}
-
-
-            //append information on a file!
-            System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(@"C:\temp");
-            int count = dir.GetFiles().Length;
-            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\temp\PiTiPf-" + count + ".txt"))
-            {
-                for (int i = 0; i < numGames; i++)
-                {
-                    file.WriteLine(initialBotTeamPoints[i] + "\t" + finalBotTeamPoints[i]);
                 }
             }
 
 
-            double initialBotTeamPointsWonGamesAVG = initialBotTeamPointsWonGames.Average();
-            double sumOfSquaresOfDifferencesW = initialBotTeamPointsWonGames.Select(val => (val - initialBotTeamPointsWonGamesAVG) * (val - initialBotTeamPointsWonGamesAVG)).Sum();
-            double sdW = Math.Sqrt(sumOfSquaresOfDifferencesW / initialBotTeamPointsWonGames.Count);
-            double initialBotTeamPointsLostGamesAVG = initialBotTeamPointsLostGames.Average();
-            double sumOfSquaresOfDifferencesL = initialBotTeamPointsWonGames.Select(val => (val - initialBotTeamPointsLostGamesAVG) * (val - initialBotTeamPointsLostGamesAVG)).Sum();
-            double sdL = Math.Sqrt(sumOfSquaresOfDifferencesL / initialBotTeamPointsWonGames.Count);
+            if (SAVE_RESULTS)
+            {
+                System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(@"C:\temp");
+                int count = dir.GetFiles().Length;
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\temp\PiTiPf-" + count + ".txt"))
+                {
+                    for (int i = 0; i < numGames; i++)
+                    {
+                        file.WriteLine(initialBotTeamPoints[i] + "\t" + finalBotTeamPoints[i]);
+                    }
+                }
+            }
+
 
             Console.WriteLine("");
             Console.WriteLine("----------------- Summary -----------------");
@@ -114,8 +112,6 @@ namespace SuecaSolver
             Console.WriteLine("OtherTeam 1 won " + secondTeamWins + "/" + numGames);
             Console.WriteLine("Draws " + draws + "/" + numGames);
             Console.WriteLine("Null Games " + nullGames);
-            Console.WriteLine("Initial BotTeam Points in won games: AVG-" + initialBotTeamPointsWonGamesAVG + " SD-" + sdW);
-            Console.WriteLine("Initial BotTeam Points in lost games: AVG-" + initialBotTeamPointsLostGamesAVG + " SD-" + sdL);
             
             sw.Stop();
             Console.WriteLine("Total Time taken by functions is {0} seconds", sw.ElapsedMilliseconds / 1000); //seconds
@@ -146,10 +142,8 @@ namespace SuecaSolver
             return true;
         }
 
-        static int[] processGames(int i, int[] localCount, int gameMode, List<int> initialBotTeamPointsWonGames, List<int> initialBotTeamPointsLostGames, List<int> initialBotTeamPoints, List<int> finalBotTeamPoints, Object allGamesLock, Object wonGamesLock, Object lostGamesLock)
+        static int[] processGames(int i, int[] localCount, int gameMode, List<int> initialBotTeamPoints, List<int> finalBotTeamPoints, Object allGamesLock)
         {
-            //int seed = -1150905530;
-            //int seed = -373600003;
             int seed = Guid.NewGuid().GetHashCode();
             Random randomNumber = new Random(seed);
             string[] playersNames = new string[4];
@@ -164,13 +158,7 @@ namespace SuecaSolver
                 playersHands = deck.SampleHands(new int[] { 10, 10, 10, 10 });
                 localCount[3]++;
             }
-            //Console.WriteLine("LOL: " + Guid.NewGuid().GetHashCode());
 
-            //SuecaGame.PrintCards("p0", playersHands[0]);
-            //SuecaGame.PrintCards("p1", playersHands[1]);
-            //SuecaGame.PrintCards("p2", playersHands[2]);
-            //SuecaGame.PrintCards("p3", playersHands[3]);
-            //Console.WriteLine("----------------------------------------------");
             int botTeamInitialPoints = SuecaGame.CountPoints(playersHands[0]) + SuecaGame.CountPoints(playersHands[2]);
             int botTeamInitialPointsWithTrumps = SuecaGame.CountPointsWithTrumps(playersHands[0], trump) + SuecaGame.CountPointsWithTrumps(playersHands[2], trump);
             int botTeamFinalPointsWithTrumps = 0;
@@ -233,11 +221,21 @@ namespace SuecaSolver
                     playersNames[0] = "Smartest1";
                     players[0] = new SmartestPlayer(0, playersHands[0], trump, randomNumber, seed);
                     playersNames[1] = "Random1";
-                    players[1] = new RandomPlayer(1, playersHands[1], randomNumber);
+                    players[1] = new RuleBasedPlayer(1, playersHands[1], trump, randomNumber, seed);
                     playersNames[2] = "Smartest2";
                     players[2] = new SmartestPlayer(2, playersHands[2], trump, randomNumber, seed);
                     playersNames[3] = "Random2";
-                    players[3] = new RandomPlayer(3, playersHands[3], randomNumber);
+                    players[3] = new RuleBasedPlayer(3, playersHands[3], trump, randomNumber, seed);
+                    break;
+                case 7:
+                    playersNames[0] = "Smartest1";
+                    players[0] = new SmartestPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    playersNames[1] = "RuleBased1";
+                    players[1] = new RuleBasedPlayer(1, playersHands[1], trump, randomNumber, seed);
+                    playersNames[2] = "Smartest2";
+                    players[2] = new SmartestPlayer(2, playersHands[2], trump, randomNumber, seed);
+                    playersNames[3] = "RuleBased2";
+                    players[3] = new RuleBasedPlayer(3, playersHands[3], trump, randomNumber, seed);
                     break;
                 default:
                     break;
@@ -273,12 +271,8 @@ namespace SuecaSolver
                     trickPoints = 0;
                 }
             }
-            int[] points = game.GetGamePoints();
-            //Console.WriteLine("[" + System.Threading.Thread.CurrentThread.ManagedThreadId + "] ----------------- Game " + i + " -----------------");
-            //Console.WriteLine("Team " + playersNames[0] + " and " + playersNames[2] + " - " + points[0] + " points");
-            //Console.WriteLine("Team " + playersNames[1] + " and " + playersNames[3] + " - " + points[1] + " points");
-            //Console.Out.Flush();
 
+            int[] points = game.GetGamePoints();
             if (points[0] == 60)
             {
                 localCount[0]++;
@@ -287,26 +281,18 @@ namespace SuecaSolver
             {
                 localCount[1]++;
                 localCount[4] += botTeamInitialPoints;
-                lock (wonGamesLock)
-                {
-                    initialBotTeamPointsWonGames.Add(botTeamInitialPoints);
-                }
             }
             else
             {
                 localCount[2]++;
                 localCount[5] += botTeamInitialPoints;
-                lock (lostGamesLock)
-                {
-                    initialBotTeamPointsLostGames.Add(botTeamInitialPoints);
-                }
             }
 
             lock (allGamesLock)
             {
                 initialBotTeamPoints.Add(botTeamInitialPointsWithTrumps);
-                //finalBotTeamPoints.Add(botTeamFinalPointsWithTrumps);
-                finalBotTeamPoints.Add(points[0]);
+                finalBotTeamPoints.Add(botTeamFinalPointsWithTrumps);
+                //finalBotTeamPoints.Add(points[0]);
             }
             
                 return localCount;
