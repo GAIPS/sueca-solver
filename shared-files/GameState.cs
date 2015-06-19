@@ -283,8 +283,25 @@ namespace SuecaSolver
 
         public int EvalGame()
         {
-            return pointsPrediction();
+            int pp = pointsPrediction();
 
+            if (pp > 90)
+            {
+                return 4;
+            }
+            if (pp > 60)
+            {
+                return 2;
+            }
+            if (pp < -90)
+            {
+                return -4;
+            }
+            if (pp < -60)
+            {
+                return -2;
+            }
+            return 0;
         }
 
         private int pointsPrediction()
@@ -306,16 +323,16 @@ namespace SuecaSolver
             int remainingTrumps = teamHandTrumps + players[1].HasSuit[trump] + players[3].HasSuit[trump];
             int remainingPoints = 120 - botTeamPoints - otherTeamPoints;
 
-            if (teamHandPoints > (remainingPoints * 0.5) && teamHandTrumps > (remainingTrumps * 0.5))
+            if (teamHandPoints > (remainingPoints * 0.5) && teamHandTrumps >= (remainingTrumps * 0.5))
             {
-                botPredicitonPoints += (int)(remainingPoints * 0.8);
-                otherPredicitonPoints += (int)(remainingPoints * 0.2);
+                botPredicitonPoints += (int)(remainingPoints * 0.9);
+                otherPredicitonPoints += (int)(remainingPoints * 0.1);
             }
             else
             {
 
-                botPredicitonPoints += (int)(remainingPoints * 0.2);
-                otherPredicitonPoints += (int)(remainingPoints * 0.8);
+                botPredicitonPoints += (int)(remainingPoints * 0.1);
+                otherPredicitonPoints += (int)(remainingPoints * 0.9);
             }
 
             if (botPredicitonPoints > otherPredicitonPoints)

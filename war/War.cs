@@ -88,7 +88,7 @@ namespace SuecaSolver
             {
                 for (int i = 0; i < numGames; i++)
                 {
-                    int[] localCount = new int[4];
+                    int[] localCount = new int[6];
                     processGames(i, localCount, gameMode, initialBotTeamPoints, finalBotTeamPoints, allGamesLock);
                     draws += localCount[0];
                     firstTeamWins += localCount[1];
