@@ -318,7 +318,7 @@ namespace SuecaSolver
                 otherPredicitonPoints += (int)(remainingPoints * 0.8);
             }
 
-            if (botPredicitonPoints > otherTeamPoints)
+            if (botPredicitonPoints > otherPredicitonPoints)
             {
                 return botPredicitonPoints;
             }

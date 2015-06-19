@@ -13,7 +13,7 @@ namespace SuecaSolver
     {
 
         public const int GAMEMODE = 2;
-        public const int NUMGAMES = 10;
+        public const int NUMGAMES = 100;
         public const bool PARALLEL = true;
         public const bool SAVE_RESULTS = false;
 

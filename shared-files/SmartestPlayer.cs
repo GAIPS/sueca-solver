@@ -35,7 +35,7 @@ namespace SuecaSolver
         {
             int chosenCard;
 
-            if (_handSize > 8)
+            if (_handSize > 10)
             {
                 chosenCard = infoSet.RuleBasedDecision();
             }
