@@ -13,7 +13,7 @@ namespace SuecaSolver
     {
 
         public const int GAMEMODE = 4;
-        public const int NUMGAMES = 10;
+        public const int NUMGAMES = 1;
         public const bool PARALLEL = true;
         public const int NUM_THREADS = 2;
         public const bool SAVE_RESULTS = true;
@@ -24,7 +24,7 @@ namespace SuecaSolver
         {
             Stopwatch sw = new Stopwatch();
             sw.Start();
-
+            Console.WriteLine("OSVersion: {0}", Environment.OSVersion.ToString());
             int numGames = NUMGAMES, gameMode = GAMEMODE;
             int firstTeamWins = 0, secondTeamWins = 0, draws = 0, nullGames = 0;
             
