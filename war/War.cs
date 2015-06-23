@@ -15,7 +15,10 @@ namespace SuecaSolver
         public const int GAMEMODE = 4;
         public const int NUMGAMES = 10;
         public const bool PARALLEL = true;
-        public const bool SAVE_RESULTS = false;
+        public const int NUM_THREADS = 2;
+        public const bool SAVE_RESULTS = true;
+//         public const string SAVE_DIR = "C:\temp\";
+        public const string SAVE_DIR = "results/";
 
         public static void Main()
         {
@@ -68,7 +71,7 @@ namespace SuecaSolver
             if (PARALLEL)
             {
                 Parallel.For(0, numGames,
-                    new ParallelOptions { MaxDegreeOfParallelism = 5 },
+                    new ParallelOptions { MaxDegreeOfParallelism = NUM_THREADS },
                     () => new int[6],
 
                     (int i, ParallelLoopState state, int[] localCount) =>
@@ -100,9 +103,9 @@ namespace SuecaSolver
 
             if (SAVE_RESULTS)
             {
-                System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(@"C:\temp");
+                System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(SAVE_DIR);
                 int count = dir.GetFiles().Length;
-                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\temp\PiTiPf-" + count + ".txt"))
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(SAVE_DIR + "result-" + count + ".txt"))
                 {
                     for (int i = 0; i < numGames; i++)
                     {
