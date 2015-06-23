@@ -13,7 +13,7 @@ namespace SuecaSolver
     {
 
         public const int GAMEMODE = 4;
-        public const int NUMGAMES = 1000;
+        public const int NUMGAMES = 100;
         public const bool PARALLEL = true;
         public const int NUM_THREADS = 5;
         public const bool SAVE_RESULTS = true;
@@ -108,7 +108,7 @@ namespace SuecaSolver
             {
                 System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(SAVE_DIR);
                 int count = dir.GetFiles().Length;
-                using (System.IO.StreamWriter file = new System.IO.StreamWriter(SAVE_DIR + "result" + count + ".txt"))
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(SAVE_DIR + "log" + count + ".txt"))
                 {
 //                     file.WriteLine("Mode " + GAMEMODE + " with " + NUMGAMES + " games - pi_0, pi_1, pi_2, pi_3, ti_0, ti_1, ti_2, ti_3, Ai_0, Ai_1, Ai_2, Ai_3, 7i_0, 7i_1, 7i_2, 7i_3, fi_02");
                     for (int i = 0; i < NUMGAMES; i++)
