@@ -57,28 +57,28 @@ namespace SuecaSolver
         }
 
 
-        public static int CountPointsWithTrumps(List<int> playerHand, int trump)
+        public static int CountCardsFromSuit(List<int> playerHand, int suit)
         {
             int result = 0;
             for (int j = 0; j < playerHand.Count; j++)
             {
-                if (Card.GetSuit(playerHand[j]) == trump)
+                if (Card.GetSuit(playerHand[j]) == suit)
                 {
-                    result += 10;
+                    result ++;
                 }
-                result += Card.GetValue(playerHand[j]);
             }
             return result;
         }
 
-        public static int CountTrumps(List<int> playerHand, int trump)
+
+        public static int CountCardsFromRank(List<int> playerHand, int rank)
         {
             int result = 0;
             for (int j = 0; j < playerHand.Count; j++)
             {
-                if (Card.GetSuit(playerHand[j]) == trump)
+                if (Card.GetRank(playerHand[j]) == rank)
                 {
-                    result ++;
+                    result++;
                 }
             }
             return result;
