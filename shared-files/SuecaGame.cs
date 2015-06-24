@@ -56,6 +56,18 @@ namespace SuecaSolver
             return result;
         }
 
+        public static int CountPointsFromSuit(List<int> playerHand, int suit)
+        {
+            int result = 0;
+            for (int j = 0; j < playerHand.Count; j++)
+            {
+                if (Card.GetSuit(playerHand[j]) == suit)
+                {
+                    result += Card.GetValue(playerHand[j]);
+                }
+            }
+            return result;
+        }
 
         public static int CountCardsFromSuit(List<int> playerHand, int suit)
         {
@@ -78,6 +90,35 @@ namespace SuecaSolver
             {
                 if (Card.GetRank(playerHand[j]) == rank)
                 {
+                    result++;
+                }
+            }
+            return result;
+        }
+
+        public static bool HasTrumpAce(List<int> playerHand, int trump)
+        {
+            for (int j = 0; j < playerHand.Count; j++)
+            {
+                if (Card.GetRank(playerHand[j]) == (int) Rank.Ace && Card.GetSuit(playerHand[j]) == trump)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static int CountSuits(List<int> playerHand)
+        {
+            playerHand.Sort();
+            int result = 0;
+            int lastSuit = (int) Suit.None;
+            for (int j = 0; j < playerHand.Count; j++)
+            {
+                int cardSuit = Card.GetSuit(playerHand[j]);
+                if (cardSuit != lastSuit)
+                {
+                    lastSuit = cardSuit;
                     result++;
                 }
             }

@@ -13,7 +13,7 @@ namespace SuecaSolver
     {
 
         public const int GAMEMODE = 4;
-        public const int NUMGAMES = 100;
+        public const int NUMGAMES = 10;
         public const bool PARALLEL = true;
         public const int NUM_THREADS = 5;
         public const bool SAVE_RESULTS = true;
@@ -29,10 +29,14 @@ namespace SuecaSolver
             int firstTeamWins = 0, secondTeamWins = 0, draws = 0, nullGames = 0;
             
             //Shared data between threads!
-            List<int[]> initialPointsPerPlayer = new List<int[]>(NUMGAMES);
-            List<int[]> initialTrumpsPerPlayer = new List<int[]>(NUMGAMES);
-            List<int[]> initialAcesPerPlayer = new List<int[]>(NUMGAMES);
-            List<int[]> initialSevensPerPlayer = new List<int[]>(NUMGAMES);
+            List<int[]> pointsPerPlayer = new List<int[]>(NUMGAMES);
+            List<int[]> pointsFromTrumpPerPlayer = new List<int[]>(NUMGAMES);
+            List<int[]> trumpsPerPlayer = new List<int[]>(NUMGAMES);
+            List<int[]> acesPerPlayer = new List<int[]>(NUMGAMES);
+            List<int[]> sevensPerPlayer = new List<int[]>(NUMGAMES);
+            List<int> teamHasTrumpAce = new List<int>(NUMGAMES);
+            List<int[]> suitsPerPlayer = new List<int[]>(NUMGAMES);
+            List<int[]> firstToPlay = new List<int[]>(NUMGAMES);
             List<int> finalBotTeamPoints = new List<int>(NUMGAMES);
             Object allGamesLock = new Object();
 
@@ -79,7 +83,19 @@ namespace SuecaSolver
 
                     (int i, ParallelLoopState state, int[] localCount) =>
                     {
-                        return processGames(i, localCount, gameMode, initialPointsPerPlayer, initialTrumpsPerPlayer, initialAcesPerPlayer, initialSevensPerPlayer, finalBotTeamPoints, allGamesLock);
+                        return processGames(i,
+                            localCount,
+                            gameMode,
+                            pointsPerPlayer,
+                            pointsFromTrumpPerPlayer,
+                            trumpsPerPlayer,
+                            acesPerPlayer,
+                            sevensPerPlayer,
+                            teamHasTrumpAce,
+                            suitsPerPlayer,
+                            firstToPlay,
+                            finalBotTeamPoints,
+                            allGamesLock);
                     },
 
                     (int[] localCount) =>
@@ -95,7 +111,19 @@ namespace SuecaSolver
                 for (int i = 0; i < NUMGAMES; i++)
                 {
                     int[] localCount = new int[6];
-                    processGames(i, localCount, gameMode, initialPointsPerPlayer, initialTrumpsPerPlayer, initialAcesPerPlayer, initialSevensPerPlayer, finalBotTeamPoints, allGamesLock);
+                    processGames(i,
+                             localCount,
+                             gameMode,
+                             pointsPerPlayer,
+                             pointsFromTrumpPerPlayer,
+                             trumpsPerPlayer,
+                             acesPerPlayer,
+                             sevensPerPlayer,
+                             teamHasTrumpAce,
+                             suitsPerPlayer,
+                             firstToPlay,
+                             finalBotTeamPoints,
+                             allGamesLock);
                     draws += localCount[0];
                     firstTeamWins += localCount[1];
                     secondTeamWins += localCount[2];
@@ -110,25 +138,38 @@ namespace SuecaSolver
                 int count = dir.GetFiles().Length;
                 using (System.IO.StreamWriter file = new System.IO.StreamWriter(SAVE_DIR + "log" + count + ".txt"))
                 {
-//                     file.WriteLine("Mode " + GAMEMODE + " with " + NUMGAMES + " games - pi_0, pi_1, pi_2, pi_3, ti_0, ti_1, ti_2, ti_3, Ai_0, Ai_1, Ai_2, Ai_3, 7i_0, 7i_1, 7i_2, 7i_3, fi_02");
+                    file.WriteLine("Mode " + GAMEMODE + " with " + NUMGAMES + " games - pi_0, pi_1, pi_2, pi_3, pti_0, pti_1, pti_2, pti_3, ti_0, ti_1, ti_2, ti_3, Ai_0, Ai_1, Ai_2, Ai_3, 7i_0, 7i_1, 7i_2, 7i_3, teamHasTrumpAce, suits_0, suits_1, suits_2, suit_3, firstToPlay_0, firstToPlay_1, firstToPlay_2, firstToPlay_3, fi_02");
                     for (int i = 0; i < NUMGAMES; i++)
                     {
-                        file.WriteLine(initialPointsPerPlayer[i][0] + "\t"
-                            + initialPointsPerPlayer[i][1] + "\t"
-                            + initialPointsPerPlayer[i][2] + "\t"
-                            + initialPointsPerPlayer[i][3] + "\t"
-                            + initialTrumpsPerPlayer[i][0] + "\t"
-                            + initialTrumpsPerPlayer[i][1] + "\t"
-                            + initialTrumpsPerPlayer[i][2] + "\t"
-                            + initialTrumpsPerPlayer[i][3] + "\t"
-                            + initialAcesPerPlayer[i][0] + "\t"
-                            + initialAcesPerPlayer[i][1] + "\t"
-                            + initialAcesPerPlayer[i][2] + "\t"
-                            + initialAcesPerPlayer[i][3] + "\t"
-                            + initialSevensPerPlayer[i][0] + "\t"
-                            + initialSevensPerPlayer[i][1] + "\t"
-                            + initialSevensPerPlayer[i][2] + "\t"
-                            + initialSevensPerPlayer[i][3] + "\t"
+                        file.WriteLine(pointsPerPlayer[i][0] + "\t"
+                            + pointsPerPlayer[i][1] + "\t"
+                            + pointsPerPlayer[i][2] + "\t"
+                            + pointsPerPlayer[i][3] + "\t"
+                            + pointsFromTrumpPerPlayer[i][0] + "\t"
+                            + pointsFromTrumpPerPlayer[i][1] + "\t"
+                            + pointsFromTrumpPerPlayer[i][2] + "\t"
+                            + pointsFromTrumpPerPlayer[i][3] + "\t"
+                            + trumpsPerPlayer[i][0] + "\t"
+                            + trumpsPerPlayer[i][1] + "\t"
+                            + trumpsPerPlayer[i][2] + "\t"
+                            + trumpsPerPlayer[i][3] + "\t"
+                            + acesPerPlayer[i][0] + "\t"
+                            + acesPerPlayer[i][1] + "\t"
+                            + acesPerPlayer[i][2] + "\t"
+                            + acesPerPlayer[i][3] + "\t"
+                            + sevensPerPlayer[i][0] + "\t"
+                            + sevensPerPlayer[i][1] + "\t"
+                            + sevensPerPlayer[i][2] + "\t"
+                            + sevensPerPlayer[i][3] + "\t"
+                            + teamHasTrumpAce[i] + "\t"
+                            + suitsPerPlayer[i][0] + "\t"
+                            + suitsPerPlayer[i][1] + "\t"
+                            + suitsPerPlayer[i][2] + "\t"
+                            + suitsPerPlayer[i][3] + "\t"
+                            + firstToPlay[i][0] + "\t"
+                            + firstToPlay[i][1] + "\t"
+                            + firstToPlay[i][2] + "\t"
+                            + firstToPlay[i][3] + "\t"
                             + finalBotTeamPoints[i]);
                     }
                 }
@@ -171,7 +212,19 @@ namespace SuecaSolver
             return true;
         }
 
-        static int[] processGames(int i, int[] localCount, int gameMode, List<int[]> initialPointsPerPlayer, List<int[]> initialTrumpsPerPlayer, List<int[]> initialAcesPerPlayer, List<int[]> initialSevensPerPlayer, List<int> finalBotTeamPoints, Object allGamesLock)
+        static int[] processGames(int i,
+            int[] localCount,
+            int gameMode,
+            List<int[]> pointsPerPlayer,
+            List<int[]> pointsFromTrumpPerPlayer,
+            List<int[]> trumpsPerPlayer, 
+            List<int[]> acesPerPlayer, 
+            List<int[]> sevensPerPlayer, 
+            List<int> teamHasTrumpAce, 
+            List<int[]> suitsPerPlayer, 
+            List<int[]> firstToPlay, 
+            List<int> finalBotTeamPoints, 
+            Object allGamesLock)
         {
             int seed = Guid.NewGuid().GetHashCode();
             Random randomNumber = new Random(seed);
@@ -193,6 +246,11 @@ namespace SuecaSolver
             initialPoints[1] = SuecaGame.CountPoints(playersHands[1]);
             initialPoints[2] = SuecaGame.CountPoints(playersHands[2]);
             initialPoints[3] = SuecaGame.CountPoints(playersHands[3]);
+            int[] initialPointsFromTrumps = new int[4];
+            initialPointsFromTrumps[0] = SuecaGame.CountPointsFromSuit(playersHands[0], trump);
+            initialPointsFromTrumps[1] = SuecaGame.CountPointsFromSuit(playersHands[1], trump);
+            initialPointsFromTrumps[2] = SuecaGame.CountPointsFromSuit(playersHands[2], trump);
+            initialPointsFromTrumps[3] = SuecaGame.CountPointsFromSuit(playersHands[3], trump);
             int[] initialTrumps = new int[4];
             initialTrumps[0] = SuecaGame.CountCardsFromSuit(playersHands[0], trump);
             initialTrumps[1] = SuecaGame.CountCardsFromSuit(playersHands[1], trump);
@@ -208,9 +266,21 @@ namespace SuecaSolver
             initialSevens[1] = SuecaGame.CountCardsFromRank(playersHands[1], (int)Rank.Seven);
             initialSevens[2] = SuecaGame.CountCardsFromRank(playersHands[2], (int)Rank.Seven);
             initialSevens[3] = SuecaGame.CountCardsFromRank(playersHands[3], (int)Rank.Seven);
+            int[] countSuits = new int[4];
+            countSuits[0] = SuecaGame.CountSuits(playersHands[0]);
+            countSuits[1] = SuecaGame.CountSuits(playersHands[1]);
+            countSuits[2] = SuecaGame.CountSuits(playersHands[2]);
+            countSuits[3] = SuecaGame.CountSuits(playersHands[3]);
+            int botTeamHasTrumpAce = 0;
+            if (SuecaGame.HasTrumpAce(playersHands[0], trump) || SuecaGame.HasTrumpAce(playersHands[2], trump))
+            {
+                botTeamHasTrumpAce++;
+            }
 
             SuecaGame game = new SuecaGame(10, playersHands, trump, null, 0, 0);
             int currentPlayerID = i % 4;
+            int[] firstPlayer = new int[4] {0, 0, 0, 0};
+            firstPlayer[currentPlayerID] = 1;
 
             switch (gameMode)
             {
@@ -331,10 +401,14 @@ namespace SuecaSolver
             {
                 lock (allGamesLock)
                 {
-                    initialPointsPerPlayer.Add(initialPoints);
-                    initialTrumpsPerPlayer.Add(initialTrumps);
-                    initialAcesPerPlayer.Add(initialAces);
-                    initialSevensPerPlayer.Add(initialSevens);
+                    pointsPerPlayer.Add(initialPoints);
+                    pointsFromTrumpPerPlayer.Add(initialPointsFromTrumps);
+                    trumpsPerPlayer.Add(initialTrumps);
+                    acesPerPlayer.Add(initialAces);
+                    sevensPerPlayer.Add(initialSevens);
+                    teamHasTrumpAce.Add(botTeamHasTrumpAce);
+                    suitsPerPlayer.Add(countSuits);
+                    firstToPlay.Add(firstPlayer);
                     finalBotTeamPoints.Add(points[0]);
                 } 
             }
