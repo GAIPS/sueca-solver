@@ -11,4 +11,4 @@ pf_02 = log(:,17);
 tbl = table(pi_0, pi_2, ti_0, ti_2, Ai_0, Ai_2, Si_0, Si_2, pf_02,'VariableNames',{'pi_0','pi_2','ti_0','ti_2','Ai_0','Ai_2','Si_0','Si_2','pf_02'});
 mdl = fitlm(tbl,'pf_02 ~ pi_0 + pi_2 + ti_0 + ti_2 + Ai_0 + Ai_2 + Si_0 + Si_2')
 result = table2array(mdl.Coefficients);
-save('LinRegResultTeam02.txt', 'result', '-ascii');
+save('LinRegResult1.txt', 'result', '-ascii');
