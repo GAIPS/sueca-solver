@@ -138,7 +138,8 @@ namespace SuecaSolver
                 int count = dir.GetFiles().Length;
                 using (System.IO.StreamWriter file = new System.IO.StreamWriter(SAVE_DIR + "log-mode" + GAMEMODE+ "-" + count + ".txt"))
                 {
-                    file.WriteLine("p_0\tp_1\tp_2\tp_3\tpt_0\tpt_1\tpt_2\tpt_3\tt_0\tt_1\tt_2\tt_3\tA_0\tA_1\tA_2\tA_3\t7_0\t7_1\t7_2\t7_3\tAt_02\tsuits_0\tsuits_1\tsuits_2 suit_3\tfirst_0\tfirst_1\tfirst_2\tfirst_3\tfp_02");
+                    file.WriteLine("Mode: " + GAMEMODE + " #Games: " + NUMGAMES);
+                    file.WriteLine("p_0\tp_1\tp_2\tp_3\tpt_0\tpt_1\tpt_2\tpt_3\tt_0\tt_1\tt_2\tt_3\tA_0\tA_1\tA_2\tA_3\t7_0\t7_1\t7_2\t7_3\tAt_02\tsuits_0\tsuits_1\tsuits_2\tsuit_3\tfirst_0\tfirst_1\tfirst_2\tfirst_3\tfp_02");
                     for (int i = 0; i < NUMGAMES; i++)
                     {
                         file.WriteLine(pointsPerPlayer[i][0] + "\t"
