@@ -1,5 +1,5 @@
 Mode: 4 #Games: 10
-p_0	p_1	p_2	p_3	pt_0	pt_1	pt_2	pt_3	t_0	t_1	t_2	t_3	A_0	A_1	A_2	A_3	S_0	S_1	S_2	S_3	At_02	suits_0	suits_1	suits_2	suit_3	first_0	first_1	first_2	first_3	fp_02
+p_0	p_1	p_2	p_3	pt_0	pt_1	pt_2	pt_3	t_0	t_1	t_2	t_3	A_0	A_1	A_2	A_3	7_0	7_1	7_2	7_3	At_02	suits_0	suits_1	suits_2	suit_3	first_0	first_1	first_2	first_3	fp_02
 29	48	23	20	14	4	2	10	3	1	2	4	1	2	1	0	1	1	0	2	1	4	4	3	4	1	0	0	0	29
 36	9	24	51	4	5	10	11	2	4	2	2	1	0	1	2	1	0	1	2	0	4	4	4	4	1	0	0	0	46
 20	32	33	35	10	4	5	11	2	4	2	2	0	1	1	2	1	1	1	1	0	4	4	4	4	1	0	0	0	26
