@@ -1,4 +1,4 @@
-function [ value ] = getSuit( card )
-    value = round(card / 10);
+function [ suit ] = getSuit( card )
+    suit = round(card / 10);
 end
 
