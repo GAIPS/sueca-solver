@@ -12,11 +12,11 @@ namespace SuecaSolver
     public class War
     {
 
-        public const int GAMEMODE = 5;
-        public const int NUMGAMES = 1000;
+        public const int GAMEMODE = 2;
+        public const int NUMGAMES = 100;
         public const bool PARALLEL = true;
         public const int NUM_THREADS = 5;
-        public const bool SAVE_RESULTS = true;
+        public const bool SAVE_RESULTS = false;
         public const bool SAVE_CARDS = true; //if true log file will contain intial cards of players otherwise will contain specific features
         public const string SAVE_DIR = @"Z:\Devel\sueca-solver\results\";
         //public const string SAVE_DIR = "results/";
@@ -78,6 +78,7 @@ namespace SuecaSolver
             }
             Console.WriteLine("#Games: " + NUMGAMES);
 
+            Object loque = new Object();
 
             if (PARALLEL)
             {
@@ -87,7 +88,7 @@ namespace SuecaSolver
 
                     (int i, ParallelLoopState state, int[] localCount) =>
                     {
-                        return processGames(i,
+                        return processGames(loque, i,
                             localCount,
                             gameMode,
                             cardsPerPlayer,
@@ -118,7 +119,7 @@ namespace SuecaSolver
                 for (int i = 0; i < NUMGAMES; i++)
                 {
                     int[] localCount = new int[6];
-                    processGames(i,
+                    processGames(loque, i,
                         localCount,
                         gameMode,
                         cardsPerPlayer,
@@ -218,6 +219,10 @@ namespace SuecaSolver
             sw.Stop();
             Console.WriteLine("Total Time taken by functions is {0} seconds", sw.ElapsedMilliseconds / 1000); //seconds
             Console.WriteLine("Total Time taken by functions is {0} minutes", sw.ElapsedMilliseconds / 60000); //minutes
+
+            Console.WriteLine("ACCESSES: " + GameState.ACCESSES);
+            Console.WriteLine("SAVED_ACCESSES: " + GameState.SAVED_ACCESSES);
+            Console.WriteLine("ComputedSubtrees.Count: " + GameState.ComputedSubtrees.Count);
         }
 
         static bool checkHands(List<List<int>> hands, int trump)
@@ -244,7 +249,7 @@ namespace SuecaSolver
             return true;
         }
 
-        static int[] processGames(int i,
+        static int[] processGames(Object loque, int i,
             int[] localCount,
             int gameMode,
             List<List<int>[]> cardsPerPlayer,
@@ -261,7 +266,13 @@ namespace SuecaSolver
             List<int> finalBotTeamPoints, 
             Object allGamesLock)
         {
-            int seed = Guid.NewGuid().GetHashCode();
+            //int seed = Guid.NewGuid().GetHashCode();
+            int seed = 1369254932 + i;
+            //lock (loque)
+            //{
+            //    GameState.TEST_SEED++;
+            //    seed = GameState.TEST_SEED;
+            //}
             Random randomNumber = new Random(seed);
             string[] playersNames = new string[4];
             ArtificialPlayer[] players = new ArtificialPlayer[4];

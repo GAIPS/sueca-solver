@@ -24,6 +24,12 @@ namespace SuecaSolver
         private int maxPointsInGame;
         private List<int> pointsPerTrick;
 
+        public static int TEST_SEED = 1369254932;
+        public static int ACCESSES = 0;
+        public static int SAVED_ACCESSES = 0;
+        public static Object DictionaryLock = new Object();
+        public static Dictionary<string, int> ComputedSubtrees = new Dictionary<string, int>();
+
 
         public GameState(int numTricks, int trumpSuit, Player[] playersList, int possiblePoints, int botTeamInitialPoints, int otherTeamInitialPoints)
         {
@@ -45,6 +51,29 @@ namespace SuecaSolver
             {
                 players[i] = playersList[i];
             }
+        }
+
+        public string GetState()
+        {
+            string state = trump.ToString() + ",";
+
+            foreach (var player in players)
+            {
+                List<int> hand = player.Hand;
+                hand.Sort();
+
+                foreach (int card in hand)
+                {
+                    if (card < 10)
+                    {
+                        state += "0";
+                    }
+                    state += card.ToString();
+                }
+                state += ",";
+            }
+
+            return state;
         }
 
         private int getCurrentTrickSize()

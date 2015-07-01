@@ -37,6 +37,20 @@ namespace SuecaSolver
                 moves.Add(card);
             }
 
+            if (Hand.Count <= 7 && gameState.GetCurrentTrick().IsFull())
+            {
+                string state = gameState.GetState();
+                lock (GameState.DictionaryLock)
+                {
+                    GameState.ACCESSES++;
+                    if (GameState.ComputedSubtrees.ContainsKey(state))
+                    {
+                        GameState.SAVED_ACCESSES++;
+                        return GameState.ComputedSubtrees[state];
+                    }
+                }
+            }
+
 
             foreach (int move in moves)
             {
@@ -57,12 +71,35 @@ namespace SuecaSolver
                 if (v >= beta)
                 {
                     NumCuts++;
+                    if (Hand.Count <= 7 && gameState.GetCurrentTrick().IsFull())
+                    {
+                        string state = gameState.GetState();
+                        lock (GameState.DictionaryLock)
+                        {
+                            if (!GameState.ComputedSubtrees.ContainsKey(state))
+                            {
+                                GameState.ComputedSubtrees.Add(state, v);
+                            }
+                        }
+                    }
                     return v;
                 }
 
                 if (v > alpha)
                 {
                     alpha = v;
+                }
+            }
+
+            if (Hand.Count <= 7 && gameState.GetCurrentTrick().IsFull())
+            {
+                string state = gameState.GetState();
+                lock (GameState.DictionaryLock)
+                {
+                    if (!GameState.ComputedSubtrees.ContainsKey(state))
+                    {
+                        GameState.ComputedSubtrees.Add(state, v);
+                    }
                 }
             }
 
