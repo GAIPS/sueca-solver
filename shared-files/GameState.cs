@@ -6,7 +6,7 @@ namespace SuecaSolver
 {
     public class GameState
     {
-
+        public int NUM_TRICKS;
         private List<Trick> tricks;
         private Player[] players;
         private int trump;
@@ -37,6 +37,7 @@ namespace SuecaSolver
 
         public GameState(int numTricks, int trumpSuit, Player[] playersList, int possiblePoints, int botTeamInitialPoints, int otherTeamInitialPoints)
         {
+            NUM_TRICKS = numTricks;
             ac = new AscendingComparer();
             dc = new DescendingComparer();
             acc = new AscendingCutComparer(trumpSuit);
@@ -317,18 +318,15 @@ namespace SuecaSolver
 
         public int EvalGame()
         {
-            int[] points = CalculePointsOfFinishedGame();
-            int botTeam = points[0];
-            int otherTeam = points[1];
-            if (botTeam > otherTeam)
-            {
-                return botTeam;
-            }
-            else
-            {
-                return -1 * otherTeam;
-                
-            }
+            return botTeamPoints;
+            //if (BotTeamPoints > OtherTeamPoints)
+            //{
+            //    return BotTeamPoints;
+            //}
+            //else
+            //{
+            //    return -1 * OtherTeamPoints;
+            //}
         }
 
         private int pointsPrediction()

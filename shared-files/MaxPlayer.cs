@@ -37,7 +37,7 @@ namespace SuecaSolver
                 moves.Add(card);
             }
 
-            if (Hand.Count <= 8 && (gameState.GetCurrentTrick() == null || gameState.GetCurrentTrick().IsFull()))
+            if (Hand.Count <= gameState.NUM_TRICKS - 2 && (gameState.GetCurrentTrick() == null || gameState.GetCurrentTrick().IsFull()))
             {
                 string state = gameState.GetState();
                 lock (GameState.MaxPlayerLock)
@@ -71,7 +71,7 @@ namespace SuecaSolver
                 if (v >= beta)
                 {
                     NumCuts++;
-                    if (Hand.Count <= 8 && (gameState.GetCurrentTrick() == null || gameState.GetCurrentTrick().IsFull()))
+                    if (Hand.Count <= gameState.NUM_TRICKS - 2 && (gameState.GetCurrentTrick() == null || gameState.GetCurrentTrick().IsFull()))
                     {
                         string state = gameState.GetState();
                         int pointsUntilCurrentState = gameState.EvalGame();
@@ -92,7 +92,7 @@ namespace SuecaSolver
                 }
             }
 
-            if (Hand.Count <= 8 && (gameState.GetCurrentTrick() == null || gameState.GetCurrentTrick().IsFull()))
+            if (Hand.Count <= gameState.NUM_TRICKS - 2 && (gameState.GetCurrentTrick() == null || gameState.GetCurrentTrick().IsFull()))
             {
                 string state = gameState.GetState();
                 int pointsUntilCurrentState = gameState.EvalGame();
