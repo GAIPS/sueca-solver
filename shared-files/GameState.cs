@@ -25,10 +25,14 @@ namespace SuecaSolver
         private List<int> pointsPerTrick;
 
         public static int TEST_SEED = 1369254932;
-        public static int ACCESSES = 0;
-        public static int SAVED_ACCESSES = 0;
-        public static Object DictionaryLock = new Object();
-        public static Dictionary<string, int> ComputedSubtrees = new Dictionary<string, int>();
+        public static int ACCESSES_MAX = 0;
+        public static int SAVED_ACCESSES_MAX = 0;
+        public static Object MaxPlayerLock = new Object();
+        public static Dictionary<string, int> ComputedSubtreesMaxPlayer = new Dictionary<string, int>();
+        public static int ACCESSES_MIN = 0;
+        public static int SAVED_ACCESSES_MIN = 0;
+        public static Object MinPlayerLock = new Object();
+        public static Dictionary<string, int> ComputedSubtreesMinPlayer = new Dictionary<string, int>();
 
 
         public GameState(int numTricks, int trumpSuit, Player[] playersList, int possiblePoints, int botTeamInitialPoints, int otherTeamInitialPoints)
@@ -90,7 +94,8 @@ namespace SuecaSolver
         {
             if (tricks.Count == 0)
             {
-                Console.WriteLine("GameState.GetCurrentTrick - No tricks available");
+                //Console.WriteLine("GameState.GetCurrentTrick - No tricks available");
+                return null;
             }
             return tricks[tricks.Count - 1];
         }
@@ -312,25 +317,18 @@ namespace SuecaSolver
 
         public int EvalGame()
         {
-            int pp = pointsPrediction();
-
-            if (pp > 90)
+            int[] points = CalculePointsOfFinishedGame();
+            int botTeam = points[0];
+            int otherTeam = points[1];
+            if (botTeam > otherTeam)
             {
-                return 4;
+                return botTeam;
             }
-            if (pp > 60)
+            else
             {
-                return 2;
+                return -1 * otherTeam;
+                
             }
-            if (pp < -90)
-            {
-                return -4;
-            }
-            if (pp < -60)
-            {
-                return -2;
-            }
-            return 0;
         }
 
         private int pointsPrediction()

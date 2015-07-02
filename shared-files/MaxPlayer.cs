@@ -37,16 +37,16 @@ namespace SuecaSolver
                 moves.Add(card);
             }
 
-            if (Hand.Count <= 7 && gameState.GetCurrentTrick().IsFull())
+            if (Hand.Count <= 8 && (gameState.GetCurrentTrick() == null || gameState.GetCurrentTrick().IsFull()))
             {
                 string state = gameState.GetState();
-                lock (GameState.DictionaryLock)
+                lock (GameState.MaxPlayerLock)
                 {
-                    GameState.ACCESSES++;
-                    if (GameState.ComputedSubtrees.ContainsKey(state))
+                    GameState.ACCESSES_MAX++;
+                    if (GameState.ComputedSubtreesMaxPlayer.ContainsKey(state))
                     {
-                        GameState.SAVED_ACCESSES++;
-                        return GameState.ComputedSubtrees[state];
+                        GameState.SAVED_ACCESSES_MAX++;
+                        return gameState.EvalGame() + GameState.ComputedSubtreesMaxPlayer[state];
                     }
                 }
             }
@@ -71,14 +71,15 @@ namespace SuecaSolver
                 if (v >= beta)
                 {
                     NumCuts++;
-                    if (Hand.Count <= 7 && gameState.GetCurrentTrick().IsFull())
+                    if (Hand.Count <= 8 && (gameState.GetCurrentTrick() == null || gameState.GetCurrentTrick().IsFull()))
                     {
                         string state = gameState.GetState();
-                        lock (GameState.DictionaryLock)
+                        int pointsUntilCurrentState = gameState.EvalGame();
+                        lock (GameState.MaxPlayerLock)
                         {
-                            if (!GameState.ComputedSubtrees.ContainsKey(state))
+                            if (!GameState.ComputedSubtreesMaxPlayer.ContainsKey(state))
                             {
-                                GameState.ComputedSubtrees.Add(state, v);
+                                GameState.ComputedSubtreesMaxPlayer.Add(state, v - pointsUntilCurrentState);
                             }
                         }
                     }
@@ -91,14 +92,15 @@ namespace SuecaSolver
                 }
             }
 
-            if (Hand.Count <= 7 && gameState.GetCurrentTrick().IsFull())
+            if (Hand.Count <= 8 && (gameState.GetCurrentTrick() == null || gameState.GetCurrentTrick().IsFull()))
             {
                 string state = gameState.GetState();
-                lock (GameState.DictionaryLock)
+                int pointsUntilCurrentState = gameState.EvalGame();
+                lock (GameState.MaxPlayerLock)
                 {
-                    if (!GameState.ComputedSubtrees.ContainsKey(state))
+                    if (!GameState.ComputedSubtreesMaxPlayer.ContainsKey(state))
                     {
-                        GameState.ComputedSubtrees.Add(state, v);
+                        GameState.ComputedSubtreesMaxPlayer.Add(state, v - pointsUntilCurrentState);
                     }
                 }
             }

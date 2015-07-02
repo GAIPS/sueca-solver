@@ -37,6 +37,20 @@ namespace SuecaSolver
                 moves.Add(card);
             }
 
+            if (Hand.Count <= 8 && (gameState.GetCurrentTrick() == null || gameState.GetCurrentTrick().IsFull()))
+            {
+                string state = gameState.GetState();
+                lock (GameState.MinPlayerLock)
+                {
+                    GameState.ACCESSES_MIN++;
+                    if (GameState.ComputedSubtreesMinPlayer.ContainsKey(state))
+                    {
+                        GameState.SAVED_ACCESSES_MIN++;
+                        return gameState.EvalGame() + GameState.ComputedSubtreesMinPlayer[state];
+                    }
+                }
+            }
+
 
             foreach (int move in moves)
             {
@@ -57,6 +71,18 @@ namespace SuecaSolver
                 if (v <= alpha)
                 {
                     NumCuts++;
+                    if (Hand.Count <= 8 && (gameState.GetCurrentTrick() == null || gameState.GetCurrentTrick().IsFull()))
+                    {
+                        string state = gameState.GetState();
+                        int pointsUntilCurrentState = gameState.EvalGame();
+                        lock (GameState.MinPlayerLock)
+                        {
+                            if (!GameState.ComputedSubtreesMinPlayer.ContainsKey(state))
+                            {
+                                GameState.ComputedSubtreesMinPlayer.Add(state, v - pointsUntilCurrentState);
+                            }
+                        }
+                    }
                     return v;
                 }
 
@@ -66,6 +92,18 @@ namespace SuecaSolver
                 }
             }
 
+            if (Hand.Count <= 8 && (gameState.GetCurrentTrick() == null || gameState.GetCurrentTrick().IsFull()))
+            {
+                string state = gameState.GetState();
+                int pointsUntilCurrentState = gameState.EvalGame();
+                lock (GameState.MinPlayerLock)
+                {
+                    if (!GameState.ComputedSubtreesMinPlayer.ContainsKey(state))
+                    {
+                        GameState.ComputedSubtreesMinPlayer.Add(state, v - pointsUntilCurrentState);
+                    }
+                }
+            }
             return v;
         }
     }
