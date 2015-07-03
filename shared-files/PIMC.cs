@@ -40,6 +40,42 @@ namespace SuecaSolver
         }
 
 
+        public int ExecuteTestVersion(InformationSet infoSet, bool USE_CACHE = false)
+        {
+            infoSet.CleanCardValues();
+            List<int> possibleMoves = infoSet.GetPossibleMoves();
+
+            if (possibleMoves.Count == 1)
+            {
+                return possibleMoves[0];
+            }
+
+            int handSize = infoSet.GetHandSize();
+            //int N, depthLimit, handSize = infoSet.GetHandSize();
+            //setNandDepthLimit(out N, out depthLimit, handSize);
+
+            for (int i = 0; i < 10; i++)
+            {
+                List<List<int>> playersHands = infoSet.Sample();
+
+                SuecaGame game;
+                int cardValueInTrick;
+
+                for (int j = 0; j < possibleMoves.Count; j++)
+                {
+                    int card = possibleMoves[j];
+                    game = new SuecaGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints, USE_CACHE);
+                    cardValueInTrick = game.SampleGame(10000, card);
+                    infoSet.AddCardValue(card, cardValueInTrick);
+
+                    Console.WriteLine("Card " + Card.ToString(card) + " gave " + cardValueInTrick + " hs " + handSize);
+                }
+            }
+
+            return infoSet.GetHighestCardIndex();
+        }
+
+
         public int ExecuteWithTimeLimit(InformationSet infoSet, bool USE_CACHE = false)
         {
 

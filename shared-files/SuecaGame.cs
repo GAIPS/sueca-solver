@@ -145,7 +145,6 @@ namespace SuecaSolver
             Player myPlayer = players[0];
 
             points = myPlayer.PlayGame(gameState, Int16.MinValue, Int16.MaxValue, depthLimit, card);
-
             return points;
         }
 
