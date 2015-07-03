@@ -220,9 +220,9 @@ namespace SuecaSolver
             Console.WriteLine("Total Time taken by functions is {0} seconds", sw.ElapsedMilliseconds / 1000); //seconds
             Console.WriteLine("Total Time taken by functions is {0} minutes", sw.ElapsedMilliseconds / 60000); //minutes
 
-            Console.WriteLine("ACCESSES: " + GameState.ACCESSES);
-            Console.WriteLine("SAVED_ACCESSES: " + GameState.SAVED_ACCESSES);
-            Console.WriteLine("ComputedSubtrees.Count: " + GameState.ComputedSubtrees.Count);
+            Console.WriteLine("ACCESSES_MAX: " + GameState.ACCESSES_MAX);
+            Console.WriteLine("SAVED_ACCESSES_MAX: " + GameState.SAVED_ACCESSES_MAX);
+            Console.WriteLine("MaxDictionary.Count: " + GameState.ComputedSubtreesMaxPlayer.Count);
         }
 
         static bool checkHands(List<List<int>> hands, int trump)

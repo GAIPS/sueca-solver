@@ -10,13 +10,15 @@ namespace SuecaSolver
         public List<int> Hand;
         public Dictionary<int, int> HasSuit;
         public int NumCuts;
+        protected bool USE_CACHE;
 
 
-        public Player(int id, List<int> hand)
+        public Player(int id, List<int> hand, bool cacheFlag)
         {
             Id = id;
             NumCuts = 0;
             Hand = hand;
+            USE_CACHE = cacheFlag;
             HasSuit = new Dictionary<int, int>() { { (int)Suit.Clubs, 0 }, { (int)Suit.Diamonds, 0 }, { (int)Suit.Hearts, 0 }, { (int)Suit.Spades, 0 } };
 
             foreach (int c in hand)

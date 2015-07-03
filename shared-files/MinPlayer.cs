@@ -6,8 +6,8 @@ namespace SuecaSolver
     public class MinPlayer : Player
     {
 
-        public MinPlayer(int id, List<int> hand)
-            : base(id, hand)
+        public MinPlayer(int id, List<int> hand, bool USE_CACHE)
+            : base(id, hand, USE_CACHE)
         {
         }
 
@@ -37,7 +37,7 @@ namespace SuecaSolver
                 moves.Add(card);
             }
 
-            if (Hand.Count <= gameState.NUM_TRICKS - 2 && (gameState.GetCurrentTrick() == null || gameState.GetCurrentTrick().IsFull()))
+            if (USE_CACHE && Hand.Count <= gameState.NUM_TRICKS - 2 && (gameState.GetCurrentTrick() == null || gameState.GetCurrentTrick().IsFull()))
             {
                 string state = gameState.GetState();
                 lock (GameState.MinPlayerLock)
@@ -71,7 +71,7 @@ namespace SuecaSolver
                 if (v <= alpha)
                 {
                     NumCuts++;
-                    if (Hand.Count <= gameState.NUM_TRICKS - 2 && (gameState.GetCurrentTrick() == null || gameState.GetCurrentTrick().IsFull()))
+                    if (USE_CACHE && Hand.Count <= gameState.NUM_TRICKS - 2 && (gameState.GetCurrentTrick() == null || gameState.GetCurrentTrick().IsFull()))
                     {
                         string state = gameState.GetState();
                         int pointsUntilCurrentState = gameState.EvalGame();
@@ -92,7 +92,7 @@ namespace SuecaSolver
                 }
             }
 
-            if (Hand.Count <= gameState.NUM_TRICKS - 2 && (gameState.GetCurrentTrick() == null || gameState.GetCurrentTrick().IsFull()))
+            if (USE_CACHE && Hand.Count <= gameState.NUM_TRICKS - 2 && (gameState.GetCurrentTrick() == null || gameState.GetCurrentTrick().IsFull()))
             {
                 string state = gameState.GetState();
                 int pointsUntilCurrentState = gameState.EvalGame();

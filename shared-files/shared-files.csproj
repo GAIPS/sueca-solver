@@ -46,6 +46,7 @@
     <Compile Include="ArtificialPlayer.cs" />
     <Compile Include="Card.cs" />
     <Compile Include="Deck.cs" />
+    <Compile Include="ElephantPlayer.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="InformationSet.cs" />
     <Compile Include="MaxPlayer.cs" />

@@ -7,7 +7,7 @@ namespace SuecaSolver
     public class PIMC
     {
 
-        public int Execute(InformationSet infoSet)
+        public int Execute(InformationSet infoSet, bool USE_CACHE = false)
         {
             infoSet.CleanCardValues();
             List<int> possibleMoves = infoSet.GetPossibleMoves();
@@ -30,7 +30,7 @@ namespace SuecaSolver
                 for (int j = 0; j < possibleMoves.Count; j++)
                 {
                     int card = possibleMoves[j];
-                    game = new SuecaGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints);
+                    game = new SuecaGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints, USE_CACHE);
                     cardValueInTrick = game.SampleGame(depthLimit, card);
                     infoSet.AddCardValue(card, cardValueInTrick);
                 }
@@ -40,7 +40,7 @@ namespace SuecaSolver
         }
 
 
-        public int ExecuteWithTimeLimit(InformationSet infoSet)
+        public int ExecuteWithTimeLimit(InformationSet infoSet, bool USE_CACHE = false)
         {
 
             infoSet.CleanCardValues();
@@ -66,7 +66,7 @@ namespace SuecaSolver
                 for (int j = 0; j < possibleMoves.Count; j++)
                 {
                     int card = possibleMoves[j];
-                    game = new SuecaGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints);
+                    game = new SuecaGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints, USE_CACHE);
                     cardValueInTrick = game.SampleGame(depthLimit, card);
                     infoSet.AddCardValue(card, cardValueInTrick);
                 }

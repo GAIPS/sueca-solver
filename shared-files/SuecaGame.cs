@@ -12,13 +12,13 @@ namespace SuecaSolver
         private int possiblePoints;
         private int points;
 
-        public SuecaGame(int numTricks, List<List<int>> playersHands, int trumpSuit, List<Move> alreadyPlayed, int botTeamInitialPoints, int otherTeamInitialPoints)
+        public SuecaGame(int numTricks, List<List<int>> playersHands, int trumpSuit, List<Move> alreadyPlayed, int botTeamInitialPoints, int otherTeamInitialPoints, bool USE_CACHE = false)
         {
             trump = trumpSuit;
-            players[0] = new MaxPlayer(0, playersHands[0]);
-            players[1] = new MinPlayer(1, playersHands[1]);
-            players[2] = new MaxPlayer(2, playersHands[2]);
-            players[3] = new MinPlayer(3, playersHands[3]);
+            players[0] = new MaxPlayer(0, playersHands[0], USE_CACHE);
+            players[1] = new MinPlayer(1, playersHands[1], USE_CACHE);
+            players[2] = new MaxPlayer(2, playersHands[2], USE_CACHE);
+            players[3] = new MinPlayer(3, playersHands[3], USE_CACHE);
             points = 0;
 
             if (playersHands[0].Count == 10
