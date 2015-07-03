@@ -208,10 +208,10 @@ namespace SuecaSolver
                 hands.Add(sampledHands[i]);
             }
 
-            SuecaGame.PrintCards("p0", hands[0]);
-            SuecaGame.PrintCards("p1", hands[1]);
-            SuecaGame.PrintCards("p2", hands[2]);
-            SuecaGame.PrintCards("p3", hands[3]);
+            //SuecaGame.PrintCards("p0", hands[0]);
+            //SuecaGame.PrintCards("p1", hands[1]);
+            //SuecaGame.PrintCards("p2", hands[2]);
+            //SuecaGame.PrintCards("p3", hands[3]);
             return hands;
         }
 

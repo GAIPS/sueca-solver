@@ -291,7 +291,7 @@ namespace SuecaSolver
 
             int seed = Guid.NewGuid().GetHashCode();
             Random randomNumber = new Random(seed);
-            int NUM_TRICKS = 10;
+            int NUM_TRICKS = 7;
             Deck deck = new Deck(randomNumber, seed);
             List<int> hand = deck.GetHand(NUM_TRICKS);
             ElephantPlayer ep = new ElephantPlayer(0, hand, (int)Suit.Clubs, randomNumber, seed);
@@ -300,9 +300,6 @@ namespace SuecaSolver
 
             sw.Stop();
             Console.WriteLine("Total Time taken by functions is {0} seconds", sw.ElapsedMilliseconds / 1000); //seconds
-            Console.WriteLine("ACCESSES_MAX: " + GameState.ACCESSES_MAX + " ACCESSES_MIN: " + GameState.ACCESSES_MIN);
-            Console.WriteLine("SAVED_ACCESSES_MAX: " + GameState.SAVED_ACCESSES_MAX + " SAVED_ACCESSES_MIN: " + GameState.SAVED_ACCESSES_MIN);
-            Console.WriteLine("MAX_Count: " + GameState.ComputedSubtreesMaxPlayer.Count + " MIN_Count: " + GameState.ComputedSubtreesMinPlayer.Count);
         }
     }
 }

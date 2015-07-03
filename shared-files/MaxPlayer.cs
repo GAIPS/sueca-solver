@@ -40,13 +40,13 @@ namespace SuecaSolver
             if (USE_CACHE && Hand.Count <= gameState.NUM_TRICKS - 2 && (gameState.GetCurrentTrick() == null || gameState.GetCurrentTrick().IsFull()))
             {
                 string state = gameState.GetState();
-                lock (GameState.MaxPlayerLock)
+                lock (gameState.MaxPlayerLock)
                 {
-                    GameState.ACCESSES_MAX++;
-                    if (GameState.ComputedSubtreesMaxPlayer.ContainsKey(state))
+                    gameState.ACCESSES_MAX++;
+                    if (gameState.ComputedSubtreesMaxPlayer.ContainsKey(state))
                     {
-                        GameState.SAVED_ACCESSES_MAX++;
-                        return gameState.EvalGame() + GameState.ComputedSubtreesMaxPlayer[state];
+                        gameState.SAVED_ACCESSES_MAX++;
+                        return gameState.EvalGame() + gameState.ComputedSubtreesMaxPlayer[state];
                     }
                 }
             }
@@ -75,11 +75,11 @@ namespace SuecaSolver
                     {
                         string state = gameState.GetState();
                         int pointsUntilCurrentState = gameState.EvalGame();
-                        lock (GameState.MaxPlayerLock)
+                        lock (gameState.MaxPlayerLock)
                         {
-                            if (!GameState.ComputedSubtreesMaxPlayer.ContainsKey(state))
+                            if (!gameState.ComputedSubtreesMaxPlayer.ContainsKey(state))
                             {
-                                GameState.ComputedSubtreesMaxPlayer.Add(state, v - pointsUntilCurrentState);
+                                gameState.ComputedSubtreesMaxPlayer.Add(state, v - pointsUntilCurrentState);
                             }
                         }
                     }
@@ -96,11 +96,11 @@ namespace SuecaSolver
             {
                 string state = gameState.GetState();
                 int pointsUntilCurrentState = gameState.EvalGame();
-                lock (GameState.MaxPlayerLock)
+                lock (gameState.MaxPlayerLock)
                 {
-                    if (!GameState.ComputedSubtreesMaxPlayer.ContainsKey(state))
+                    if (!gameState.ComputedSubtreesMaxPlayer.ContainsKey(state))
                     {
-                        GameState.ComputedSubtreesMaxPlayer.Add(state, v - pointsUntilCurrentState);
+                        gameState.ComputedSubtreesMaxPlayer.Add(state, v - pointsUntilCurrentState);
                     }
                 }
             }

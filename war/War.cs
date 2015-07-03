@@ -12,7 +12,7 @@ namespace SuecaSolver
     public class War
     {
 
-        public const int GAMEMODE = 2;
+        public const int GAMEMODE = 9;
         public const int NUMGAMES = 100;
         public const bool PARALLEL = true;
         public const int NUM_THREADS = 5;
@@ -73,12 +73,14 @@ namespace SuecaSolver
                 case 8:
                     Console.WriteLine("Mode 8 (2 RuleBased 2 Random)");
                     break;
+                case 9:
+                    Console.WriteLine("Mode 9 (2 Elephant 2 Random)");
+                    break;
                 default:
                     break;
             }
             Console.WriteLine("#Games: " + NUMGAMES);
 
-            Object loque = new Object();
 
             if (PARALLEL)
             {
@@ -88,7 +90,7 @@ namespace SuecaSolver
 
                     (int i, ParallelLoopState state, int[] localCount) =>
                     {
-                        return processGames(loque, i,
+                        return processGames(i,
                             localCount,
                             gameMode,
                             cardsPerPlayer,
@@ -119,7 +121,7 @@ namespace SuecaSolver
                 for (int i = 0; i < NUMGAMES; i++)
                 {
                     int[] localCount = new int[6];
-                    processGames(loque, i,
+                    processGames(i,
                         localCount,
                         gameMode,
                         cardsPerPlayer,
@@ -220,9 +222,6 @@ namespace SuecaSolver
             Console.WriteLine("Total Time taken by functions is {0} seconds", sw.ElapsedMilliseconds / 1000); //seconds
             Console.WriteLine("Total Time taken by functions is {0} minutes", sw.ElapsedMilliseconds / 60000); //minutes
 
-            Console.WriteLine("ACCESSES_MAX: " + GameState.ACCESSES_MAX);
-            Console.WriteLine("SAVED_ACCESSES_MAX: " + GameState.SAVED_ACCESSES_MAX);
-            Console.WriteLine("MaxDictionary.Count: " + GameState.ComputedSubtreesMaxPlayer.Count);
         }
 
         static bool checkHands(List<List<int>> hands, int trump)
@@ -249,7 +248,7 @@ namespace SuecaSolver
             return true;
         }
 
-        static int[] processGames(Object loque, int i,
+        static int[] processGames(int i,
             int[] localCount,
             int gameMode,
             List<List<int>[]> cardsPerPlayer,
@@ -266,13 +265,7 @@ namespace SuecaSolver
             List<int> finalBotTeamPoints, 
             Object allGamesLock)
         {
-            //int seed = Guid.NewGuid().GetHashCode();
-            int seed = 1369254932 + i;
-            //lock (loque)
-            //{
-            //    GameState.TEST_SEED++;
-            //    seed = GameState.TEST_SEED;
-            //}
+            int seed = Guid.NewGuid().GetHashCode();
             Random randomNumber = new Random(seed);
             string[] playersNames = new string[4];
             ArtificialPlayer[] players = new ArtificialPlayer[4];
@@ -417,6 +410,16 @@ namespace SuecaSolver
                     players[1] = new RandomPlayer(1, playersHands[1], randomNumber);
                     playersNames[2] = "RuleBased2";
                     players[2] = new RuleBasedPlayer(2, playersHands[2], trump, randomNumber, seed);
+                    playersNames[3] = "Random2";
+                    players[3] = new RandomPlayer(3, playersHands[3], randomNumber);
+                    break;
+                case 9:
+                    playersNames[0] = "ElephantPlayer1";
+                    players[0] = new ElephantPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    playersNames[1] = "Random1";
+                    players[1] = new RandomPlayer(1, playersHands[1], randomNumber);
+                    playersNames[2] = "ElephantPlayer2";
+                    players[2] = new ElephantPlayer(2, playersHands[2], trump, randomNumber, seed);
                     playersNames[3] = "Random2";
                     players[3] = new RandomPlayer(3, playersHands[3], randomNumber);
                     break;

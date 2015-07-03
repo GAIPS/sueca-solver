@@ -24,15 +24,15 @@ namespace SuecaSolver
         private int maxPointsInGame;
         private List<int> pointsPerTrick;
 
-        public static int TEST_SEED = 1369254932;
-        public static int ACCESSES_MAX = 0;
-        public static int SAVED_ACCESSES_MAX = 0;
-        public static Object MaxPlayerLock = new Object();
-        public static Dictionary<string, int> ComputedSubtreesMaxPlayer = new Dictionary<string, int>();
-        public static int ACCESSES_MIN = 0;
-        public static int SAVED_ACCESSES_MIN = 0;
-        public static Object MinPlayerLock = new Object();
-        public static Dictionary<string, int> ComputedSubtreesMinPlayer = new Dictionary<string, int>();
+        //public static int TEST_SEED = 1369254932;
+        public int ACCESSES_MAX = 0;
+        public int SAVED_ACCESSES_MAX = 0;
+        public Object MaxPlayerLock = new Object();
+        public Dictionary<string, int> ComputedSubtreesMaxPlayer = new Dictionary<string, int>();
+        public int ACCESSES_MIN = 0;
+        public int SAVED_ACCESSES_MIN = 0;
+        public Object MinPlayerLock = new Object();
+        public Dictionary<string, int> ComputedSubtreesMinPlayer = new Dictionary<string, int>();
 
 
         public GameState(int numTricks, int trumpSuit, Player[] playersList, int possiblePoints, int botTeamInitialPoints, int otherTeamInitialPoints)

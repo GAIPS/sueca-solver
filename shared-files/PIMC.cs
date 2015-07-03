@@ -40,7 +40,7 @@ namespace SuecaSolver
         }
 
 
-        public int ExecuteTestVersion(InformationSet infoSet, bool USE_CACHE = false)
+        public int ExecuteTestVersion(InformationSet infoSet, List<int> numIterations, bool USE_CACHE = false)
         {
             infoSet.CleanCardValues();
             List<int> possibleMoves = infoSet.GetPossibleMoves();
@@ -51,10 +51,9 @@ namespace SuecaSolver
             }
 
             int handSize = infoSet.GetHandSize();
-            //int N, depthLimit, handSize = infoSet.GetHandSize();
-            //setNandDepthLimit(out N, out depthLimit, handSize);
+            int N = numIterations[handSize - 1];
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < N; i++)
             {
                 List<List<int>> playersHands = infoSet.Sample();
 
@@ -67,8 +66,6 @@ namespace SuecaSolver
                     game = new SuecaGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints, USE_CACHE);
                     cardValueInTrick = game.SampleGame(10000, card);
                     infoSet.AddCardValue(card, cardValueInTrick);
-
-                    Console.WriteLine("Card " + Card.ToString(card) + " gave " + cardValueInTrick + " hs " + handSize);
                 }
             }
 
