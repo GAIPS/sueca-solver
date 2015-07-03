@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
 
@@ -25,14 +26,19 @@ namespace SuecaSolver
         private List<int> pointsPerTrick;
 
         //public static int TEST_SEED = 1369254932;
-        public int ACCESSES_MAX = 0;
-        public int SAVED_ACCESSES_MAX = 0;
-        public Object MaxPlayerLock = new Object();
-        public Dictionary<string, int> ComputedSubtreesMaxPlayer = new Dictionary<string, int>();
-        public int ACCESSES_MIN = 0;
-        public int SAVED_ACCESSES_MIN = 0;
-        public Object MinPlayerLock = new Object();
-        public Dictionary<string, int> ComputedSubtreesMinPlayer = new Dictionary<string, int>();
+        public static int ACCESSES = 0;
+        public static int SAVED_ACCESSES = 0;
+        public static Object MaxLock = new Object();
+        public static Object MinLock = new Object();
+        //public static ConcurrentDictionary<string, int> ComputedSubtreesMaxPlayer = new ConcurrentDictionary<string, int>();
+        //public static ConcurrentDictionary<string, int> ComputedSubtreesMinPlayer = new ConcurrentDictionary<string, int>();
+        public static LFUCache<string, int> ComputedSubtreesMaxPlayer = new LFUCache<string, int>(4000000);
+        public static LFUCache<string, int> ComputedSubtreesMinPlayer = new LFUCache<string, int>(4000000);
+
+        //public Object MaxPlayerLock = new Object();
+        //public Dictionary<string, int> ComputedSubtreesMaxPlayer = new Dictionary<string, int>();
+        //public Object MinPlayerLock = new Object();
+        //public Dictionary<string, int> ComputedSubtreesMinPlayer = new Dictionary<string, int>();
 
 
         public GameState(int numTricks, int trumpSuit, Player[] playersList, int possiblePoints, int botTeamInitialPoints, int otherTeamInitialPoints)
@@ -79,6 +85,52 @@ namespace SuecaSolver
             }
 
             return state;
+        }
+
+        public string GetState2(int playerId)
+        {
+            string[] cardsOfPlayersPerSuit = new string[4];
+
+            for (int i = 0; i < players.Length; i++)
+            {
+                Player player = players[i];
+                List<int> hand = player.Hand;
+                hand.Sort();
+
+                foreach (int card in hand)
+                {
+                    int suitOrderedByTrump = Card.GetSuit(card) - trump;
+                    if (suitOrderedByTrump < 0)
+                    {
+                        suitOrderedByTrump += 4;
+                    }
+
+                    cardsOfPlayersPerSuit[suitOrderedByTrump] += i.ToString() + Card.GetRank(card).ToString();
+                }
+            }
+
+            return /*playerId + "," +*/ cardsOfPlayersPerSuit[0] + ","
+                + cardsOfPlayersPerSuit[1] + ","
+                + cardsOfPlayersPerSuit[2] + ","
+                + cardsOfPlayersPerSuit[3];
+        }
+
+        public string[] GetEquivalentStates(string state)
+        {
+            string[] result = new string[6];
+            result[0] = state;
+            string[] cardsPerSuits = state.Split(',');
+            //result[1] = cardsPerSuits[0] + "," + cardsPerSuits[1] + "," + cardsPerSuits[2] + "," + cardsPerSuits[4] + "," + cardsPerSuits[3];
+            //result[2] = cardsPerSuits[0] + "," + cardsPerSuits[1] + "," + cardsPerSuits[3] + "," + cardsPerSuits[2] + "," + cardsPerSuits[4];
+            //result[3] = cardsPerSuits[0] + "," + cardsPerSuits[1] + "," + cardsPerSuits[3] + "," + cardsPerSuits[4] + "," + cardsPerSuits[2];
+            //result[4] = cardsPerSuits[0] + "," + cardsPerSuits[1] + "," + cardsPerSuits[4] + "," + cardsPerSuits[2] + "," + cardsPerSuits[3];
+            //result[5] = cardsPerSuits[0] + "," + cardsPerSuits[1] + "," + cardsPerSuits[4] + "," + cardsPerSuits[3] + "," + cardsPerSuits[2];
+            result[1] = cardsPerSuits[0] + "," + cardsPerSuits[1] + "," + cardsPerSuits[3] + "," + cardsPerSuits[2];
+            result[2] = cardsPerSuits[0] + "," + cardsPerSuits[2] + "," + cardsPerSuits[1] + "," + cardsPerSuits[3];
+            result[3] = cardsPerSuits[0] + "," + cardsPerSuits[2] + "," + cardsPerSuits[3] + "," + cardsPerSuits[1];
+            result[4] = cardsPerSuits[0] + "," + cardsPerSuits[3] + "," + cardsPerSuits[1] + "," + cardsPerSuits[2];
+            result[5] = cardsPerSuits[0] + "," + cardsPerSuits[3] + "," + cardsPerSuits[2] + "," + cardsPerSuits[1];
+            return result;
         }
 
         private int getCurrentTrickSize()

@@ -61,6 +61,7 @@
     <Compile Include="SmartPlayer.cs" />
     <Compile Include="SuecaGame.cs" />
     <Compile Include="Trick.cs" />
+    <Compile Include="Utils.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

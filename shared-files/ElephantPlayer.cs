@@ -41,7 +41,7 @@ namespace SuecaSolver
             }
             else
             {
-                chosenCard = pimc.ExecuteTestVersion(infoSet, new List<int> { 500, 500, 250, 100, 50, 10, 4, 2, 1, 1}, true);
+                chosenCard = pimc.ExecuteTestVersion(infoSet, new List<int> { 500, 500, 250, 100, 50, 15, 5, 3, 1, 1}, true);
             }
                 
             infoSet.AddMyPlay(chosenCard);
