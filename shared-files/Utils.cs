@@ -24,7 +24,7 @@ namespace SuecaSolver
         int agePolicy;
 
         public LFUCache(int size)
-            : this(size, 1000)
+            : this(size, 100000)
         {
         }
 
@@ -36,7 +36,7 @@ namespace SuecaSolver
         /// <param name="agePolicy">after this number of gets the cache will take 1 off all UseCounts, forcing old stuff to expire.</param>
         public LFUCache(int size, int agePolicy)
         {
-            this.agePolicy = 1000;
+            this.agePolicy = 100000;
             this.size = size;
         }
 

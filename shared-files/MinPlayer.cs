@@ -37,20 +37,17 @@ namespace SuecaSolver
                 moves.Add(card);
             }
 
-            if (USE_CACHE && Hand.Count <= gameState.NUM_TRICKS - 2 && (gameState.GetCurrentTrick() == null || gameState.GetCurrentTrick().IsFull()))
+            //if (USE_CACHE && Hand.Count <= gameState.NUM_TRICKS - 2 && (gameState.GetCurrentTrick() == null || gameState.GetCurrentTrick().IsFull()))
+            if (USE_CACHE && Hand.Count == 5 && (gameState.GetCurrentTrick() == null || gameState.GetCurrentTrick().IsFull()))
             {
                 string[] equivalentStates = gameState.GetEquivalentStates(gameState.GetState2(Id));
-                lock (GameState.MinLock)
+                lock (GameState.MinLock) { GameState.ACCESSES++; }
+                foreach (var state in equivalentStates)
                 {
-                    GameState.ACCESSES++;
-                    foreach (var state in equivalentStates)
+                    if (GameState.ComputedSubtreesMinPlayer.ContainsKey(state))
                     {
-                        int stateValue;
-                        if (GameState.ComputedSubtreesMinPlayer.TryGet(state, out stateValue))
-                        {
-                            GameState.SAVED_ACCESSES++;
-                            return gameState.EvalGame() + stateValue;
-                        }
+                        lock (GameState.MinLock) { GameState.SAVED_ACCESSES++; }
+                        return gameState.EvalGame() + GameState.ComputedSubtreesMinPlayer[state];
                     }
                 }
             }
@@ -75,14 +72,15 @@ namespace SuecaSolver
                 if (v <= alpha)
                 {
                     NumCuts++;
-                    if (USE_CACHE && Hand.Count <= gameState.NUM_TRICKS - 2 && (gameState.GetCurrentTrick() == null || gameState.GetCurrentTrick().IsFull()))
+                    //if (USE_CACHE && Hand.Count <= gameState.NUM_TRICKS - 2 && (gameState.GetCurrentTrick() == null || gameState.GetCurrentTrick().IsFull()))
+                    if (USE_CACHE && Hand.Count == 5 && (gameState.GetCurrentTrick() == null || gameState.GetCurrentTrick().IsFull()))
                     {
                         string state = gameState.GetState2(Id);
                         int pointsUntilCurrentState = gameState.EvalGame();
                         int pointsOfSubtree = v - pointsUntilCurrentState;
                         lock (GameState.MinLock)
                         {
-                            GameState.ComputedSubtreesMinPlayer.Add(state, pointsOfSubtree);
+                            GameState.ComputedSubtreesMinPlayer.TryAdd(state, pointsOfSubtree);
                         }
                     }
                     return v;
@@ -94,14 +92,15 @@ namespace SuecaSolver
                 }
             }
 
-            if (USE_CACHE && Hand.Count <= gameState.NUM_TRICKS - 2 && (gameState.GetCurrentTrick() == null || gameState.GetCurrentTrick().IsFull()))
+            //if (USE_CACHE && Hand.Count <= gameState.NUM_TRICKS - 2 && (gameState.GetCurrentTrick() == null || gameState.GetCurrentTrick().IsFull()))
+            if (USE_CACHE && Hand.Count == 5 && (gameState.GetCurrentTrick() == null || gameState.GetCurrentTrick().IsFull()))
             {
                 string state = gameState.GetState2(Id);
                 int pointsUntilCurrentState = gameState.EvalGame();
                 int pointsOfSubtree = v - pointsUntilCurrentState;
                 lock (GameState.MinLock)
                 {
-                    GameState.ComputedSubtreesMinPlayer.Add(state, pointsOfSubtree);
+                    GameState.ComputedSubtreesMinPlayer.TryAdd(state, pointsOfSubtree);
                 }
             }
             return v;

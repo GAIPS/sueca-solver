@@ -15,7 +15,7 @@ namespace SuecaSolver
         public const int GAMEMODE = 9;
         public const int NUMGAMES = 10;
         public const bool PARALLEL = true;
-        public const int NUM_THREADS = 5;
+        public const int NUM_THREADS = 4;
         public const bool SAVE_RESULTS = false;
         public const bool SAVE_CARDS = true; //if true log file will contain intial cards of players otherwise will contain specific features
         public const string SAVE_DIR = @"Z:\Devel\sueca-solver\results\";
@@ -222,7 +222,7 @@ namespace SuecaSolver
             Console.WriteLine("Total Time taken by functions is {0} seconds", sw.ElapsedMilliseconds / 1000); //seconds
             Console.WriteLine("Total Time taken by functions is {0} minutes", sw.ElapsedMilliseconds / 60000); //minutes
 
-            Console.WriteLine("Mc " + GameState.ComputedSubtreesMaxPlayer.GetSize().ToString() + " mc " + GameState.ComputedSubtreesMinPlayer.GetSize().ToString());
+            Console.WriteLine("Mc " + GameState.ComputedSubtreesMaxPlayer.Count + " mc " + GameState.ComputedSubtreesMinPlayer.Count);
             Console.WriteLine("HR " + (GameState.SAVED_ACCESSES * 1.0) / GameState.ACCESSES);
         }
 
