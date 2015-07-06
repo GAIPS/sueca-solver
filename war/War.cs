@@ -13,7 +13,7 @@ namespace SuecaSolver
     {
 
         public const int GAMEMODE = 9;
-        public const int NUMGAMES = 30;
+        public const int NUMGAMES = 10;
         public const bool PARALLEL = true;
         public const int NUM_THREADS = 5;
         public const bool SAVE_RESULTS = false;
@@ -222,7 +222,7 @@ namespace SuecaSolver
             Console.WriteLine("Total Time taken by functions is {0} seconds", sw.ElapsedMilliseconds / 1000); //seconds
             Console.WriteLine("Total Time taken by functions is {0} minutes", sw.ElapsedMilliseconds / 60000); //minutes
 
-            Console.WriteLine("Mc " + GameState.ComputedSubtreesMaxPlayer.Count + " mc " + GameState.ComputedSubtreesMinPlayer.Count);
+            Console.WriteLine("Mc " + GameState.ComputedSubtreesMaxPlayer.GetSize().ToString() + " mc " + GameState.ComputedSubtreesMinPlayer.GetSize().ToString());
             Console.WriteLine("HR " + (GameState.SAVED_ACCESSES * 1.0) / GameState.ACCESSES);
         }
 

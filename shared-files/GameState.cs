@@ -32,8 +32,8 @@ namespace SuecaSolver
         public static Object MinLock = new Object();
         //public static ConcurrentDictionary<string, int> ComputedSubtreesMaxPlayer = new ConcurrentDictionary<string, int>();
         //public static ConcurrentDictionary<string, int> ComputedSubtreesMinPlayer = new ConcurrentDictionary<string, int>();
-        public static LFUCache<string, int> ComputedSubtreesMaxPlayer = new LFUCache<string, int>(4000000);
-        public static LFUCache<string, int> ComputedSubtreesMinPlayer = new LFUCache<string, int>(4000000);
+        public static LFUCache<string, int> ComputedSubtreesMaxPlayer = new LFUCache<string, int>(400000);
+        public static LFUCache<string, int> ComputedSubtreesMinPlayer = new LFUCache<string, int>(400000);
 
         //public Object MaxPlayerLock = new Object();
         //public Dictionary<string, int> ComputedSubtreesMaxPlayer = new Dictionary<string, int>();

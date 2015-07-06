@@ -40,13 +40,17 @@ namespace SuecaSolver
             if (USE_CACHE && Hand.Count <= gameState.NUM_TRICKS - 2 && (gameState.GetCurrentTrick() == null || gameState.GetCurrentTrick().IsFull()))
             {
                 string[] equivalentStates = gameState.GetEquivalentStates(gameState.GetState2(Id));
-                lock (GameState.MaxLock) { GameState.ACCESSES++; }
-                foreach (var state in equivalentStates)
+                lock (GameState.MaxLock)
                 {
-                    if (GameState.ComputedSubtreesMaxPlayer.Contains(state))
+                    GameState.ACCESSES++;
+                    foreach (var state in equivalentStates)
                     {
-                        lock (GameState.SavedAccessesLock) { GameState.SAVED_ACCESSES++; }
-                        return gameState.EvalGame() + GameState.ComputedSubtreesMaxPlayer[state];
+                        int stateValue;
+                        if (GameState.ComputedSubtreesMaxPlayer.TryGet(state, out stateValue))
+                        {
+                            GameState.SAVED_ACCESSES++;
+                            return gameState.EvalGame() + stateValue;
+                        }
                     }
                 }
             }
@@ -76,7 +80,10 @@ namespace SuecaSolver
                         string state = gameState.GetState2(Id);
                         int pointsUntilCurrentState = gameState.EvalGame();
                         int pointsOfSubtree = v - pointsUntilCurrentState;
-                        GameState.ComputedSubtreesMaxPlayer.TryAdd(state, pointsOfSubtree);
+                        lock (GameState.MaxLock)
+                        {
+                            GameState.ComputedSubtreesMaxPlayer.Add(state, pointsOfSubtree);
+                        }
                     }
                     return v;
                 }
@@ -92,7 +99,10 @@ namespace SuecaSolver
                 string state = gameState.GetState2(Id);
                 int pointsUntilCurrentState = gameState.EvalGame();
                 int pointsOfSubtree = v - pointsUntilCurrentState;
-                GameState.ComputedSubtreesMaxPlayer.TryAdd(state, pointsOfSubtree);
+                lock (GameState.MaxLock)
+                {
+                    GameState.ComputedSubtreesMaxPlayer.Add(state, pointsOfSubtree);
+                }
             }
 
             return v;

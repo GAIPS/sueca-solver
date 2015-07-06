@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SuecaSolver
 {
-    class LFUCache<TKey, TValue>
+    public class LFUCache<TKey, TValue>
     {
 
         Dictionary<TKey, LinkedListNode<CacheNode>> cache = new Dictionary<TKey, LinkedListNode<CacheNode>>();
@@ -38,6 +38,11 @@ namespace SuecaSolver
         {
             this.agePolicy = 1000;
             this.size = size;
+        }
+
+        public int GetSize()
+        {
+            return lfuList.Count;
         }
 
         public void Add(TKey key, TValue val)
@@ -90,11 +95,11 @@ namespace SuecaSolver
             }
         }
 
-        public bool Contains(TKey key)
-        {
-            TValue val;
-            return TryGet(key, out val);
-        }
+        //public bool Contains(TKey key)
+        //{
+        //    TValue val;
+        //    return TryGet(key, out val);
+        //}
 
         public TValue GetOrDefault(TKey key)
         {
