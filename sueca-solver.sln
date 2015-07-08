@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "war", "war\war.csproj", "{91AD0253-0A38-4F5F-8824-F80A72D0A145}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "single-game", "single-game\single-game.csproj", "{31D39B02-B821-4335-B6C1-4197DEA0461A}"
@@ -8,6 +10,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", "{1776F904-CBA8-4225-B3EB-F9CFF000BF9E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "shared-files", "shared-files\shared-files.csproj", "{240850D4-363B-4F58-8FCE-E51554B698C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sueca-player", "sueca-player\sueca-player.csproj", "{B4E4EFEB-0C34-41ED-A517-CF306F75C2BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sueca-interface", "sueca-interface\sueca-interface.csproj", "{73FD4267-A5C2-4E08-B66A-BAD41184FF78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "unity-emulator", "unity-emulator\unity-emulator.csproj", "{7783EA79-160B-48E1-AB03-4609BFC7A761}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +39,18 @@ Global
 		{240850D4-363B-4F58-8FCE-E51554B698C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{240850D4-363B-4F58-8FCE-E51554B698C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{240850D4-363B-4F58-8FCE-E51554B698C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4E4EFEB-0C34-41ED-A517-CF306F75C2BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4E4EFEB-0C34-41ED-A517-CF306F75C2BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4E4EFEB-0C34-41ED-A517-CF306F75C2BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4E4EFEB-0C34-41ED-A517-CF306F75C2BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73FD4267-A5C2-4E08-B66A-BAD41184FF78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73FD4267-A5C2-4E08-B66A-BAD41184FF78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73FD4267-A5C2-4E08-B66A-BAD41184FF78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73FD4267-A5C2-4E08-B66A-BAD41184FF78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7783EA79-160B-48E1-AB03-4609BFC7A761}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7783EA79-160B-48E1-AB03-4609BFC7A761}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7783EA79-160B-48E1-AB03-4609BFC7A761}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7783EA79-160B-48E1-AB03-4609BFC7A761}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
