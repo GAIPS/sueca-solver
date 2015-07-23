@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace SuecaPlayer
 {
 
-    class SuecaPlayer : ThalamusClient, SuecaMessages.IStartEvents, SuecaMessages.ICardsEvents
+    class SuecaPlayer : ThalamusClient, SuecaMessages.ISuecaPerceptions
     {
 
         private SmartPlayer ai;
@@ -19,27 +19,29 @@ namespace SuecaPlayer
             ai = null;
         }
 
-        void SuecaMessages.IStartEvents.Init(int id, int trump, int firstPlayer, int[] initialCards)
+        void SuecaMessages.ISuecaPerceptions.GameStart(int id, int teamId, int trump, string[] cards)
         {
-            ai = new SmartPlayer(0, new List<int>(initialCards), trump, new Random(), 03129840);
+            //ai = new SmartPlayer(0, new List<int>(initialCards), trump, new Random(), 03129840);
             Debug(">>>>>SuecaPlayer has inited the game");
         }
 
-        void SuecaMessages.ICardsEvents.PlayedCard(int playerId, int card)
+        void SuecaMessages.ISuecaPerceptions.GameEnd(int team0Score, int team1Score)
+        {
+
+        }
+
+        void SuecaMessages.ISuecaPerceptions.NextPlayer(int id)
+        {
+
+        }
+
+        void SuecaMessages.ISuecaPerceptions.Play(int id, string card)
         {
             if (ai != null)
             {
-                ai.AddPlay(playerId, card);
+                //ai.AddPlay(id, card);
             }
         }
 
-        void SuecaMessages.ICardsEvents.Play()
-        {
-            if (ai != null)
-            {
-                int chosenCard = ai.Play();
-                //publish somewhere the chosenCard
-            }
-        }
     }
 }

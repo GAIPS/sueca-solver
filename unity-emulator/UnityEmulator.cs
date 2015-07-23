@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace unity_emulator
 {
     public interface IStartPublisher : IThalamusPublisher,
-        SuecaMessages.IStartEvents
+        SuecaMessages.ISuecaPerceptions
 	{}
 
 
@@ -22,10 +22,26 @@ namespace unity_emulator
                 this.publisher = publisher;
             }
 
-            public void Init(int id, int trump, int firstPlayer, int[] initialCards)
+            public void GameStart(int id, int teamId, int trump, string[] cards)
             {
-                publisher.Init(trump, firstPlayer, initialCards);
+                publisher.GameStart(id, teamId, trump, cards);
             }
+
+            public void GameEnd(int team0Score, int team1Score)
+            {
+                publisher.GameEnd(team0Score, team1Score);
+            }
+
+            public void NextPlayer(int id)
+            {
+                publisher.NextPlayer(id);
+            }
+
+            public void Play(int id, string card)
+            {
+                publisher.Play(id, card);
+            }
+
         }
             
         StartPublisher startPublisher;
@@ -65,7 +81,7 @@ namespace unity_emulator
         public void EmulateUser()
         {
             Debug("<<<<<Emulator will init the game");
-            startPublisher.Init(0, 0, new int[] {0, 7, 8, 9, 11, 23, 28, 30, 38, 39});
+            //startPublisher.Init(0, 0, new int[] {0, 7, 8, 9, 11, 23, 28, 30, 38, 39});
             Thread.Sleep(5000);
         }
 
