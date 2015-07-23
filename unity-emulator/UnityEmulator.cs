@@ -48,7 +48,7 @@ namespace unity_emulator
         Random r;
 
 
-        public UnityEmulator() : base("UnityEmulator", "tiago")
+        public UnityEmulator() : base("UnityEmulator", "")
 		{
             r = new Random();
 			//never forget to first set the publisher, even if we are going to use a publisher wrapper

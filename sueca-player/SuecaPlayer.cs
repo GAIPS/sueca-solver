@@ -30,7 +30,7 @@ namespace SuecaPlayer
         private int myIdOnUnityGame;
 
 
-        public SuecaPlayer() : base("SuecaIA", "tiago")
+        public SuecaPlayer() : base("IA", "")
         {
             ai = null;
             SetPublisher<IIAPublisher>();
