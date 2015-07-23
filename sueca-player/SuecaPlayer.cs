@@ -6,9 +6,9 @@ using System.Collections.Generic;
 
 namespace SuecaPlayer
 {
-    public interface IIAPublisher : IThalamusPublisher, SuecaMessages.ISuecaActions {}
+    public interface IIAPublisher : IThalamusPublisher, IIAActions {}
 
-    class SuecaPlayer : ThalamusClient, SuecaMessages.ISuecaPerceptions
+    class SuecaPlayer : ThalamusClient, ISuecaPerceptions
     {
         private class IAPublisher : IIAPublisher
         {
@@ -18,9 +18,9 @@ namespace SuecaPlayer
                 this.publisher = publisher;
             }
 
-            public void Play(int id, string card)
+            public void Decision(string card)
             {
-                publisher.Play(id, card);
+                publisher.Decision(card);
             }
         }
 
@@ -37,13 +37,14 @@ namespace SuecaPlayer
             iaPublisher = new IAPublisher(Publisher);
         }
 
-        void SuecaMessages.ISuecaPerceptions.GameStart(int id, int teamId, string trump, string[] cards)
+        void ISuecaPerceptions.GameStart(int id, int teamId, string trump, string[] cards)
         {
             myIdOnUnityGame = id;
             List<int> initialCards = new List<int>();
             foreach (string cardSerialized in cards)
             {
                 SuecaMessages.Card card = JsonSerializable.DeserializeFromJson<SuecaMessages.Card>(cardSerialized);
+                Console.WriteLine("(" + card.Rank.ToString() + "," + card.Suit.ToString() + ") ");
                 SuecaSolver.Rank myRank = (SuecaSolver.Rank) Enum.Parse(typeof(SuecaSolver.Rank), card.Rank.ToString());
                 SuecaSolver.Suit mySuit = (SuecaSolver.Suit) Enum.Parse(typeof(SuecaSolver.Suit), card.Suit.ToString());
                 int myCard = SuecaSolver.Card.Create(myRank, mySuit);
@@ -55,12 +56,12 @@ namespace SuecaPlayer
             Debug(">>>>>SuecaPlayer has inited the game");
         }
 
-        void SuecaMessages.ISuecaPerceptions.GameEnd(int team0Score, int team1Score)
+        void ISuecaPerceptions.GameEnd(int team0Score, int team1Score)
         {
 
         }
 
-        void SuecaMessages.ISuecaPerceptions.NextPlayer(int id)
+        void ISuecaPerceptions.NextPlayer(int id)
         {
             if (myIdOnUnityGame == id && ai != null)
             {
@@ -71,12 +72,12 @@ namespace SuecaPlayer
                 SuecaMessages.Suit msgSuit = (SuecaMessages.Suit)Enum.Parse(typeof(SuecaMessages.Suit), chosenCardSuit.ToString());
                 string cardSerialized = new SuecaMessages.Card(msgRank, msgSuit).SerializeToJson();
 
-                iaPublisher.Play(myIdOnUnityGame, cardSerialized);
+                iaPublisher.Decision(cardSerialized);
             }
 
         }
 
-        void SuecaMessages.ISuecaPerceptions.Play(int id, string card)
+        void ISuecaPerceptions.Play(int id, string card)
         {
             if (myIdOnUnityGame != id && ai != null)
             {
