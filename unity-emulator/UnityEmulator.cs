@@ -80,19 +80,25 @@ namespace unity_emulator
         public void EmulateUser()
         {
             Debug("<<<<<Emulator will init the game");
-            string c0 = new Card(Suit.Diamonds, Rank.Four).SerializeToJson();
-            string c1 = new Card(Suit.Diamonds, Rank.Ace).SerializeToJson();
-            string c2 = new Card(Suit.Diamonds, Rank.King).SerializeToJson();
-            string c3 = new Card(Suit.Clubs, Rank.Two).SerializeToJson();
-            string c4 = new Card(Suit.Clubs, Rank.Five).SerializeToJson();
-            string c5 = new Card(Suit.Hearts, Rank.Seven).SerializeToJson();
-            string c6 = new Card(Suit.Spades, Rank.Two).SerializeToJson();
-            string c7 = new Card(Suit.Spades, Rank.Four).SerializeToJson();
-            string c8 = new Card(Suit.Spades, Rank.Queen).SerializeToJson();
-            string c9 = new Card(Suit.Spades, Rank.King).SerializeToJson();
+            string c0 = new Card(Rank.Four, Suit.Diamonds).SerializeToJson();
+            string c1 = new Card(Rank.Ace, Suit.Diamonds).SerializeToJson();
+            string c2 = new Card(Rank.King, Suit.Diamonds).SerializeToJson();
+            string c3 = new Card(Rank.Two, Suit.Clubs).SerializeToJson();
+            string c4 = new Card(Rank.Five, Suit.Clubs).SerializeToJson();
+            string c5 = new Card(Rank.Seven, Suit.Hearts).SerializeToJson();
+            string c6 = new Card(Rank.Two, Suit.Spades).SerializeToJson();
+            string c7 = new Card(Rank.Four, Suit.Spades).SerializeToJson();
+            string c8 = new Card(Rank.Queen, Suit.Spades).SerializeToJson();
+            string c9 = new Card(Rank.King, Suit.Spades).SerializeToJson();
 
             startPublisher.GameStart(1, 1, Suit.Diamonds.ToString(), new string[] { c0, c1, c2, c3, c4, c5, c6, c7, c8, c9 });
-            Thread.Sleep(5000);
+            Thread.Sleep(2000);
+            startPublisher.NextPlayer(0);
+            Thread.Sleep(2000);
+            string c10 = new Card(Rank.Ace, Suit.Spades).SerializeToJson();
+            startPublisher.Play(0, c10);
+            Thread.Sleep(2000);
+            startPublisher.NextPlayer(1);
         }
 
     }
