@@ -15,9 +15,8 @@ namespace SuecaSolver
         King,
         Seven,
         Ace,
-        None}
-
-    ;
+        None
+    };
 
     public enum Suit
     {
@@ -25,9 +24,8 @@ namespace SuecaSolver
         Diamonds,
         Hearts,
         Spades,
-        None}
-
-    ;
+        None
+    };
 
     public static class Card
     {

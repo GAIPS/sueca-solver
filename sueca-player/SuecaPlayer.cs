@@ -14,14 +14,25 @@ namespace SuecaPlayer
 
 
         public SuecaPlayer()
-            : base("SuecaPlayer", "Tiago")
+            : base("SuecaPlayer", "tiago")
         {
             ai = null;
         }
 
-        void SuecaMessages.ISuecaPerceptions.GameStart(int id, int teamId, int trump, string[] cards)
+        void SuecaMessages.ISuecaPerceptions.GameStart(int id, int teamId, string trump, string[] cards)
         {
-            //ai = new SmartPlayer(0, new List<int>(initialCards), trump, new Random(), 03129840);
+            List<int> initialCards = new List<int>();
+            foreach (string cardSerialized in cards)
+            {
+                SuecaMessages.Card card = JsonSerializable.DeserializeFromJson<SuecaMessages.Card>(cardSerialized);
+                SuecaSolver.Rank myRank = (SuecaSolver.Rank)Enum.Parse(typeof(SuecaSolver.Rank), card.Rank.ToString());
+                SuecaSolver.Suit mySuit = (SuecaSolver.Suit)Enum.Parse(typeof(SuecaSolver.Suit), card.Suit.ToString());
+                int myCard = SuecaSolver.Card.Create(myRank, mySuit);
+                initialCards.Add(myCard);
+            }
+            SuecaSolver.Suit myTrump = (SuecaSolver.Suit)Enum.Parse(typeof(SuecaSolver.Suit), trump);
+
+            ai = new SmartPlayer(0, initialCards, (int) myTrump, new Random(), 03129840);
             Debug(">>>>>SuecaPlayer has inited the game");
         }
 
@@ -39,7 +50,11 @@ namespace SuecaPlayer
         {
             if (ai != null)
             {
-                //ai.AddPlay(id, card);
+                SuecaMessages.Card c = JsonSerializable.DeserializeFromJson<SuecaMessages.Card>(card);
+                SuecaSolver.Rank myRank = (SuecaSolver.Rank)Enum.Parse(typeof(SuecaSolver.Rank), c.Rank.ToString());
+                SuecaSolver.Suit mySuit = (SuecaSolver.Suit)Enum.Parse(typeof(SuecaSolver.Suit), c.Suit.ToString());
+                int myCard = SuecaSolver.Card.Create(myRank, mySuit);
+                ai.AddPlay(id, myCard);
             }
         }
 
