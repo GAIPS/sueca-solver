@@ -2,12 +2,13 @@
 using Thalamus;
 using SuecaSolver;
 using System.Threading;
+using SuecaMessages;
 using System.Collections.Generic;
 
 namespace unity_emulator
 {
     public interface IStartPublisher : IThalamusPublisher,
-        SuecaInterface.IStartEvents
+        SuecaMessages.IStartEvents
 	{}
 
 
@@ -21,7 +22,7 @@ namespace unity_emulator
                 this.publisher = publisher;
             }
 
-            public void Init(int trump, int firstPlayer, int[] initialCards)
+            public void Init(int id, int trump, int firstPlayer, int[] initialCards)
             {
                 publisher.Init(trump, firstPlayer, initialCards);
             }

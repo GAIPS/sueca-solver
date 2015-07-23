@@ -35,6 +35,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="SuecaMessages">
+      <HintPath>..\..\SuecaMessages\SuecaMessages\bin\Debug\SuecaMessages.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -59,10 +62,6 @@
     <ProjectReference Include="..\shared-files\shared-files.csproj">
       <Project>{240850d4-363b-4f58-8fce-e51554b698c5}</Project>
       <Name>shared-files</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\sueca-interface\sueca-interface.csproj">
-      <Project>{73fd4267-a5c2-4e08-b66a-bad41184ff78}</Project>
-      <Name>sueca-interface</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

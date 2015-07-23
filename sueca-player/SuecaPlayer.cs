@@ -1,12 +1,13 @@
 ﻿using System;
 using Thalamus;
 using SuecaSolver;
+using SuecaMessages;
 using System.Collections.Generic;
 
 namespace SuecaPlayer
 {
 
-    class SuecaPlayer : ThalamusClient, SuecaInterface.IStartEvents, SuecaInterface.ICardsEvents
+    class SuecaPlayer : ThalamusClient, SuecaMessages.IStartEvents, SuecaMessages.ICardsEvents
     {
 
         private SmartPlayer ai;
@@ -18,13 +19,13 @@ namespace SuecaPlayer
             ai = null;
         }
 
-        void SuecaInterface.IStartEvents.Init(int trump, int firstPlayer, int[] initialCards)
+        void SuecaMessages.IStartEvents.Init(int id, int trump, int firstPlayer, int[] initialCards)
         {
             ai = new SmartPlayer(0, new List<int>(initialCards), trump, new Random(), 03129840);
             Debug(">>>>>SuecaPlayer has inited the game");
         }
 
-        void SuecaInterface.ICardsEvents.PlayedCard(int playerId, int card)
+        void SuecaMessages.ICardsEvents.PlayedCard(int playerId, int card)
         {
             if (ai != null)
             {
@@ -32,7 +33,7 @@ namespace SuecaPlayer
             }
         }
 
-        void SuecaInterface.ICardsEvents.Play()
+        void SuecaMessages.ICardsEvents.Play()
         {
             if (ai != null)
             {

@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "shared-files", "shared-file
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sueca-player", "sueca-player\sueca-player.csproj", "{B4E4EFEB-0C34-41ED-A517-CF306F75C2BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sueca-interface", "sueca-interface\sueca-interface.csproj", "{73FD4267-A5C2-4E08-B66A-BAD41184FF78}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "unity-emulator", "unity-emulator\unity-emulator.csproj", "{7783EA79-160B-48E1-AB03-4609BFC7A761}"
 EndProject
 Global
@@ -43,10 +41,6 @@ Global
 		{B4E4EFEB-0C34-41ED-A517-CF306F75C2BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4E4EFEB-0C34-41ED-A517-CF306F75C2BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4E4EFEB-0C34-41ED-A517-CF306F75C2BA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{73FD4267-A5C2-4E08-B66A-BAD41184FF78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{73FD4267-A5C2-4E08-B66A-BAD41184FF78}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{73FD4267-A5C2-4E08-B66A-BAD41184FF78}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{73FD4267-A5C2-4E08-B66A-BAD41184FF78}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7783EA79-160B-48E1-AB03-4609BFC7A761}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7783EA79-160B-48E1-AB03-4609BFC7A761}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7783EA79-160B-48E1-AB03-4609BFC7A761}.Release|Any CPU.ActiveCfg = Release|Any CPU
