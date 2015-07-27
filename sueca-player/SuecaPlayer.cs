@@ -44,7 +44,6 @@ namespace SuecaPlayer
             foreach (string cardSerialized in cards)
             {
                 SuecaMessages.Card card = JsonSerializable.DeserializeFromJson<SuecaMessages.Card>(cardSerialized);
-                Console.WriteLine("(" + card.Rank.ToString() + "," + card.Suit.ToString() + ") ");
                 SuecaSolver.Rank myRank = (SuecaSolver.Rank) Enum.Parse(typeof(SuecaSolver.Rank), card.Rank.ToString());
                 SuecaSolver.Suit mySuit = (SuecaSolver.Suit) Enum.Parse(typeof(SuecaSolver.Suit), card.Suit.ToString());
                 int myCard = SuecaSolver.Card.Create(myRank, mySuit);
