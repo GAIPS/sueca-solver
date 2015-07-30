@@ -7,15 +7,10 @@ namespace SuecaSolver
     public class PIMC
     {
 
-        public int Execute(InformationSet infoSet, bool USE_CACHE = false)
+        public int[] Execute(InformationSet infoSet, bool USE_CACHE = false)
         {
             infoSet.CleanCardValues();
             List<int> possibleMoves = infoSet.GetPossibleMoves();
-
-            if (possibleMoves.Count == 1)
-            {
-                return possibleMoves[0];
-            }
 
             int N, depthLimit, handSize = infoSet.GetHandSize();
             setNandDepthLimit(out N, out depthLimit, handSize);
@@ -36,19 +31,15 @@ namespace SuecaSolver
                 }
             }
 
-            return infoSet.GetHighestCardIndex();
+            infoSet.calculateAverageCardValues(N);
+            return infoSet.GetBestCardAndValue();
         }
 
 
-        public int ExecuteTestVersion(InformationSet infoSet, List<int> numIterations, bool USE_CACHE = false)
+        public int[] ExecuteTestVersion(InformationSet infoSet, List<int> numIterations, bool USE_CACHE = false)
         {
             infoSet.CleanCardValues();
             List<int> possibleMoves = infoSet.GetPossibleMoves();
-
-            if (possibleMoves.Count == 1)
-            {
-                return possibleMoves[0];
-            }
 
             int handSize = infoSet.GetHandSize();
             int N = numIterations[handSize - 1];
@@ -69,28 +60,26 @@ namespace SuecaSolver
                 }
             }
 
-            return infoSet.GetHighestCardIndex();
+            infoSet.calculateAverageCardValues(N);
+            return infoSet.GetBestCardAndValue();
         }
 
 
-        public int ExecuteWithTimeLimit(InformationSet infoSet, bool USE_CACHE = false)
+        public int[] ExecuteWithTimeLimit(InformationSet infoSet, bool USE_CACHE = false)
         {
 
             infoSet.CleanCardValues();
             List<int> possibleMoves = infoSet.GetPossibleMoves();
 
-            if (possibleMoves.Count == 1)
-            {
-                return possibleMoves[0];
-            }
-
             int N, depthLimit, handSize = infoSet.GetHandSize();
+            int n = 0;
             Stopwatch sw = new Stopwatch();
             sw.Start();
             long time = sw.ElapsedMilliseconds;
             setNandDepthLimit(out N, out depthLimit, handSize);
             for (; time < 2000; )
             {
+                n++;
                 List<List<int>> playersHands = infoSet.Sample();
 
                 SuecaGame game;
@@ -107,7 +96,8 @@ namespace SuecaSolver
             }
 
             sw.Stop();
-            return infoSet.GetHighestCardIndex();
+            infoSet.calculateAverageCardValues(n);
+            return infoSet.GetBestCardAndValue();
         }
 
         static void setNandDepthLimit(out int N, out int depthLimit, int handSize)

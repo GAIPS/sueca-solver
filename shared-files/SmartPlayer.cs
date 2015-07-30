@@ -33,20 +33,30 @@ namespace SuecaSolver
 
         override public int Play()
         {
+            int[] bestCardAndValue;
             int chosenCard;
 
             if (_handSize > 10)
             {
-                chosenCard = infoSet.RuleBasedDecision();
+                bestCardAndValue = new int[2];
+                bestCardAndValue[0] = infoSet.RuleBasedDecision();
+                bestCardAndValue[1] = 0; //TODO ver isto!
             }
             else
             {
-                chosenCard = pimc.Execute(infoSet);
+                bestCardAndValue = pimc.Execute(infoSet);
             }
-                
+
+            chosenCard = bestCardAndValue[0];
             infoSet.AddMyPlay(chosenCard);
+            infoSet.ExpectedGameValue = bestCardAndValue[1];
             _handSize--;
             return chosenCard;
+        }
+
+        public int GetExpectedScore()
+        {
+            return infoSet.ExpectedGameValue;
         }
     }
 }

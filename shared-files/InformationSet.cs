@@ -9,12 +9,13 @@ namespace SuecaSolver
         private List<int> hand;
         private Trick currentTrick;
         public int Trump;
-        private Dictionary<int,int> pointsPerCard;
+        private Dictionary<int, float> pointsPerCard;
         private Deck deck;
         private Dictionary<int, List<int>> suitHasPlayer;
         private Dictionary<int, List<int>> othersPointCards;
         public int BotTeamPoints;
         public int OtherTeamPoints;
+        public int ExpectedGameValue;
         private int trickPoints;
 
 
@@ -22,7 +23,7 @@ namespace SuecaSolver
         {
             Trump = trumpSuit;
             hand = new List<int>(currentHand);
-            pointsPerCard = new Dictionary<int,int>();
+            pointsPerCard = new Dictionary<int,float>();
             suitHasPlayer = new Dictionary<int,List<int>>
             {
                 { (int)Suit.Clubs, new List<int>(3){ 1, 2, 3 } },
@@ -51,6 +52,7 @@ namespace SuecaSolver
             deck = new Deck(currentHand, randomLOL, seed);
             BotTeamPoints = 0;
             OtherTeamPoints = 0;
+            ExpectedGameValue = 0;
             trickPoints = 0;
         }
 
@@ -71,26 +73,26 @@ namespace SuecaSolver
             return currentTrick.GetMoves();
         }
 
-        public int GetHighestCardIndex()
+        public int[] GetBestCardAndValue()
         {
             int bestCard = -1;
             int bestValue = Int32.MinValue;
 
-            foreach (KeyValuePair<int, int> cardValue in pointsPerCard)
+            foreach (KeyValuePair<int, float> cardValue in pointsPerCard)
             {
                 if (cardValue.Value > bestValue)
                 {
-                    bestValue = cardValue.Value;
+                    bestValue = (int) cardValue.Value;
                     bestCard = cardValue.Key;
                 }
             }
 
             if (bestCard == -1)
             {
-                Console.WriteLine("Trouble at InformationSet.GetHighestCardIndex()");
+                Console.WriteLine("Trouble at InformationSet.GetBestCardAndValue()");
             }
 
-            return bestCard;
+            return new int[] {bestCard, bestValue};
         }
 
         public void AddPlay(int playerID, int card)
@@ -129,6 +131,8 @@ namespace SuecaSolver
                 othersPointCards[cardSuit].Remove(Card.GetRank(card));
             }
 
+            Console.WriteLine("~~~~~~~~~~~~~~~~~~CURRENT WINNER OF TRICK IS " + currentTrick.GetTrickWinnerAndPoints()[0]);
+
             deck.RemoveCard(card);
         }
 
@@ -161,6 +165,15 @@ namespace SuecaSolver
             else
             {
                 pointsPerCard[card] = val;
+            }
+        }
+
+        public void calculateAverageCardValues(int n)
+        {
+            List<int> keysCopy = new List<int>(pointsPerCard.Keys);
+            foreach (int card in keysCopy)
+            {
+                pointsPerCard[card] /= n;
             }
         }
 
@@ -364,7 +377,7 @@ namespace SuecaSolver
         private void printDictionary(string name)
         {
             string str = name + " -";
-            foreach (KeyValuePair<int, int> cardValue in pointsPerCard)
+            foreach (KeyValuePair<int, float> cardValue in pointsPerCard)
             {
                 str += " <" + Card.ToString(cardValue.Key) + "," + cardValue.Value + ">";
             }

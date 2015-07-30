@@ -22,6 +22,11 @@ namespace SuecaPlayer
             {
                 publisher.Decision(card);
             }
+
+            public void ExpectedScores(int team0Score, int team1Score)
+            {
+                publisher.ExpectedScores(team0Score, team1Score);
+            }
         }
 
 
@@ -84,9 +89,11 @@ namespace SuecaPlayer
                 SuecaSolver.Rank myRank = (SuecaSolver.Rank)Enum.Parse(typeof(SuecaSolver.Rank), c.Rank.ToString());
                 SuecaSolver.Suit mySuit = (SuecaSolver.Suit)Enum.Parse(typeof(SuecaSolver.Suit), c.Suit.ToString());
                 int myCard = SuecaSolver.Card.Create(myRank, mySuit);
-                int myIdOfOtherPlayer = (id + 4 - myIdOnUnityGame) % 4;
-                ai.AddPlay(myIdOfOtherPlayer, myCard);
+                int localPlayerId = (id + 4 - myIdOnUnityGame) % 4;
+                ai.AddPlay(localPlayerId, myCard);
             }
+
+            iaPublisher.ExpectedScores(ai.GetExpectedScore(), -ai.GetExpectedScore());
         }
 
     }

@@ -121,7 +121,7 @@ namespace SuecaSolver
             int points = highestValueFromWinningSuit;
 
 
-            for (int i = 1; i < 4; i++)
+            for (int i = 1; i < moves.Count; i++)
             {
                 int moveSuit = Card.GetSuit(moves[i].Card);
                 int moveRank = Card.GetRank(moves[i].Card);
