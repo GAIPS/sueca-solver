@@ -2,6 +2,7 @@
 using Thalamus;
 using SuecaSolver;
 using SuecaMessages;
+using SuecaTypes;
 using System.Collections.Generic;
 
 namespace SuecaPlayer
@@ -48,7 +49,7 @@ namespace SuecaPlayer
             List<int> initialCards = new List<int>();
             foreach (string cardSerialized in cards)
             {
-                SuecaMessages.Card card = JsonSerializable.DeserializeFromJson<SuecaMessages.Card>(cardSerialized);
+                SuecaTypes.Card card = JsonSerializable.DeserializeFromJson<SuecaTypes.Card>(cardSerialized);
                 SuecaSolver.Rank myRank = (SuecaSolver.Rank) Enum.Parse(typeof(SuecaSolver.Rank), card.Rank.ToString());
                 SuecaSolver.Suit mySuit = (SuecaSolver.Suit) Enum.Parse(typeof(SuecaSolver.Suit), card.Suit.ToString());
                 int myCard = SuecaSolver.Card.Create(myRank, mySuit);
@@ -72,9 +73,9 @@ namespace SuecaPlayer
                 int chosenCard = ai.Play();
                 SuecaSolver.Rank chosenCardRank = (SuecaSolver.Rank)SuecaSolver.Card.GetRank(chosenCard);
                 SuecaSolver.Suit chosenCardSuit = (SuecaSolver.Suit)SuecaSolver.Card.GetSuit(chosenCard);
-                SuecaMessages.Rank msgRank = (SuecaMessages.Rank)Enum.Parse(typeof(SuecaMessages.Rank), chosenCardRank.ToString());
-                SuecaMessages.Suit msgSuit = (SuecaMessages.Suit)Enum.Parse(typeof(SuecaMessages.Suit), chosenCardSuit.ToString());
-                string cardSerialized = new SuecaMessages.Card(msgRank, msgSuit).SerializeToJson();
+                SuecaTypes.Rank msgRank = (SuecaTypes.Rank)Enum.Parse(typeof(SuecaTypes.Rank), chosenCardRank.ToString());
+                SuecaTypes.Suit msgSuit = (SuecaTypes.Suit)Enum.Parse(typeof(SuecaTypes.Suit), chosenCardSuit.ToString());
+                string cardSerialized = new SuecaTypes.Card(msgRank, msgSuit).SerializeToJson();
 
                 iaPublisher.Decision(cardSerialized);
             }
@@ -85,7 +86,7 @@ namespace SuecaPlayer
         {
             if (myIdOnUnityGame != id && ai != null)
             {
-                SuecaMessages.Card c = JsonSerializable.DeserializeFromJson<SuecaMessages.Card>(card);
+                SuecaTypes.Card c = JsonSerializable.DeserializeFromJson<SuecaTypes.Card>(card);
                 SuecaSolver.Rank myRank = (SuecaSolver.Rank)Enum.Parse(typeof(SuecaSolver.Rank), c.Rank.ToString());
                 SuecaSolver.Suit mySuit = (SuecaSolver.Suit)Enum.Parse(typeof(SuecaSolver.Suit), c.Suit.ToString());
                 int myCard = SuecaSolver.Card.Create(myRank, mySuit);
