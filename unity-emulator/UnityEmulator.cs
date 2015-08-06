@@ -101,11 +101,11 @@ namespace unity_emulator
             startPublisher.Play(0, c10);
             Thread.Sleep(2000);
             startPublisher.NextPlayer(1);
-            Thread.Sleep(2000);
-            startPublisher.Play(1, c9);
-            Thread.Sleep(2000);
-            string c11 = new Card(Rank.Three, Suit.Diamonds).SerializeToJson();
-            startPublisher.Play(2, c11);
+            //Thread.Sleep(2000);
+            //startPublisher.Play(1, c9);
+            //Thread.Sleep(2000);
+            //string c11 = new Card(Rank.Three, Suit.Diamonds).SerializeToJson();
+            //startPublisher.Play(2, c11);
         }
 
     }
