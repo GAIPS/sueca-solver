@@ -35,12 +35,11 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="SuecaMessages, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\SuecaMessages\SuecaMessages\bin\Debug\SuecaMessages.dll</HintPath>
+    <Reference Include="SuecaMessages">
+      <HintPath>..\..\sueca-messages\SuecaMessages\bin\Debug\SuecaMessages.dll</HintPath>
     </Reference>
     <Reference Include="SuecaTypes">
-      <HintPath>..\..\SuecaMessages\SuecaTypes\bin\Debug\SuecaTypes.dll</HintPath>
+      <HintPath>..\..\sueca-messages\SuecaTypes\bin\Debug\SuecaTypes.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

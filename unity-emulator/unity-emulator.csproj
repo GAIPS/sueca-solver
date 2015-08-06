@@ -38,6 +38,9 @@
     <Reference Include="SuecaMessages">
       <HintPath>..\..\sueca-messages\SuecaMessages\bin\Debug\SuecaMessages.dll</HintPath>
     </Reference>
+    <Reference Include="SuecaTypes">
+      <HintPath>..\..\sueca-messages\SuecaTypes\bin\Debug\SuecaTypes.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
