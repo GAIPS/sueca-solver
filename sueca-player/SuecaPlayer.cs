@@ -43,9 +43,15 @@ namespace SuecaPlayer
             iaPublisher = new IAPublisher(Publisher);
         }
 
-        void ISuecaPerceptions.GameStart(int id, int teamId, string trump, string[] cards)
+
+        public void SessionStart(int numGames)
         {
-            myIdOnUnityGame = id;
+            
+        }
+
+        public void GameStart(int gameId, int playerId, int teamId, string trump, string[] cards)
+        {
+            myIdOnUnityGame = playerId;
             List<int> initialCards = new List<int>();
             foreach (string cardSerialized in cards)
             {
@@ -61,12 +67,32 @@ namespace SuecaPlayer
             Debug(">>>>>SuecaPlayer has inited the game");
         }
 
-        void ISuecaPerceptions.GameEnd(int team0Score, int team1Score)
+        public void GameEnd(int team0Score, int team1Score)
         {
 
         }
 
-        void ISuecaPerceptions.NextPlayer(int id)
+        public void SessionEnd(int team0Score, int team1Score)
+        {
+            
+        }
+
+        public void Shuffle(int playerId)
+        {
+            
+        }
+
+        public void Cut(int playerId)
+        {
+            
+        }
+
+        public void Deal(int playerId)
+        {
+            
+        }
+
+        public void NextPlayer(int id)
         {
             if (myIdOnUnityGame == id && ai != null)
             {
@@ -82,7 +108,7 @@ namespace SuecaPlayer
 
         }
 
-        void ISuecaPerceptions.Play(int id, string card)
+        public void Play(int id, string card)
         {
             if (myIdOnUnityGame != id && ai != null)
             {
@@ -96,6 +122,5 @@ namespace SuecaPlayer
 
             iaPublisher.ExpectedScores(ai.GetExpectedScore(), -ai.GetExpectedScore());
         }
-
     }
 }

@@ -22,14 +22,39 @@ namespace unity_emulator
                 this.publisher = publisher;
             }
 
-            public void GameStart(int id, int teamId, string trump, string[] cards)
+            public void SessionStart(int numGames)
             {
-                publisher.GameStart(id, teamId, trump, cards);
+                publisher.SessionStart(numGames);
+            }
+            
+            public void GameStart(int gameId, int playerId, int teamId, string trump, string[] cards)
+            {
+                publisher.GameStart(gameId, playerId, teamId, trump, cards);
             }
 
             public void GameEnd(int team0Score, int team1Score)
             {
                 publisher.GameEnd(team0Score, team1Score);
+            }
+
+            public void SessionEnd(int team0Score, int team1Score)
+            {
+                publisher.SessionEnd(team0Score, team1Score);
+            }
+
+            public void Shuffle(int playerId)
+            {
+                publisher.Shuffle(playerId);
+            }
+
+            public void Cut(int playerId)
+            {
+                publisher.Cut(playerId);
+            }
+
+            public void Deal(int playerId)
+            {
+                publisher.Deal(playerId);
             }
 
             public void NextPlayer(int id)
@@ -93,7 +118,7 @@ namespace unity_emulator
             string c9 = new Card(Rank.King, Suit.Spades).SerializeToJson();
 
             Thread.Sleep(5000);
-            startPublisher.GameStart(1, 1, Suit.Diamonds.ToString(), new string[] { c0, c1, c2, c3, c4, c5, c6, c7, c8, c9 });
+            startPublisher.GameStart(0, 1, 1, Suit.Diamonds.ToString(), new string[] { c0, c1, c2, c3, c4, c5, c6, c7, c8, c9 });
             Thread.Sleep(2000);
             startPublisher.NextPlayer(0);
             Thread.Sleep(2000);
