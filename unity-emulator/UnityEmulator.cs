@@ -108,7 +108,7 @@ namespace unity_emulator
             Debug("<<<<<Emulator will simulate a session");
 
             Thread.Sleep(5000);
-            startPublisher.SessionStart(1);
+            //startPublisher.SessionStart(1);
             Thread.Sleep(2000);
             startPublisher.Shuffle(0);
             Thread.Sleep(2000);
