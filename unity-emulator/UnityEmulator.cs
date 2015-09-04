@@ -105,7 +105,17 @@ namespace unity_emulator
 
         public void EmulateUser()
         {
-            Debug("<<<<<Emulator will init the game");
+            Debug("<<<<<Emulator will simulate a session");
+
+            Thread.Sleep(5000);
+            startPublisher.SessionStart(1);
+            Thread.Sleep(2000);
+            startPublisher.Shuffle(0);
+            Thread.Sleep(2000);
+            startPublisher.Cut(2);
+            Thread.Sleep(2000);
+            startPublisher.Deal(3);
+
             string c0 = new Card(Rank.Four, Suit.Diamonds).SerializeToJson();
             string c1 = new Card(Rank.Ace, Suit.Diamonds).SerializeToJson();
             string c2 = new Card(Rank.King, Suit.Diamonds).SerializeToJson();
@@ -117,13 +127,18 @@ namespace unity_emulator
             string c8 = new Card(Rank.Queen, Suit.Spades).SerializeToJson();
             string c9 = new Card(Rank.King, Suit.Spades).SerializeToJson();
 
-            Thread.Sleep(5000);
+            Thread.Sleep(2000);
             startPublisher.GameStart(0, 1, 1, Suit.Diamonds.ToString(), new string[] { c0, c1, c2, c3, c4, c5, c6, c7, c8, c9 });
+            Thread.Sleep(2000);
+            startPublisher.NextPlayer(3);
+            Thread.Sleep(2000);
+            string c10 = new Card(Rank.Ace, Suit.Spades).SerializeToJson();
+            startPublisher.Play(3, c10);
             Thread.Sleep(2000);
             startPublisher.NextPlayer(0);
             Thread.Sleep(2000);
-            string c10 = new Card(Rank.Ace, Suit.Spades).SerializeToJson();
-            startPublisher.Play(0, c10);
+            string c11 = new Card(Rank.Seven, Suit.Spades).SerializeToJson();
+            startPublisher.Play(0, c11);
             Thread.Sleep(2000);
             startPublisher.NextPlayer(1);
             //Thread.Sleep(2000);
