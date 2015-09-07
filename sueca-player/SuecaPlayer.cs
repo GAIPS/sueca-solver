@@ -19,9 +19,9 @@ namespace SuecaPlayer
                 this.publisher = publisher;
             }
 
-            public void Decision(string card)
+            public void Decision(string card, string followingInfo)
             {
-                publisher.Decision(card);
+                publisher.Decision(card, followingInfo);
             }
 
             public void ExpectedScores(int team0Score, int team1Score)
@@ -30,6 +30,10 @@ namespace SuecaPlayer
             }
         }
 
+
+        private int moveCounter;
+        private string trumpSuit;
+        private string leadSuit;
 
         private IAPublisher iaPublisher;
         private SmartPlayer ai;
@@ -51,6 +55,8 @@ namespace SuecaPlayer
 
         public void GameStart(int gameId, int playerId, int teamId, string trump, string[] cards)
         {
+            moveCounter = 0;
+            trumpSuit = trump;
             myIdOnUnityGame = playerId;
             List<int> initialCards = new List<int>();
             foreach (string cardSerialized in cards)
@@ -103,7 +109,27 @@ namespace SuecaPlayer
                 SuecaTypes.Suit msgSuit = (SuecaTypes.Suit)Enum.Parse(typeof(SuecaTypes.Suit), chosenCardSuit.ToString());
                 string cardSerialized = new SuecaTypes.Card(msgRank, msgSuit).SerializeToJson();
 
-                iaPublisher.Decision(cardSerialized);
+                string additionalInfo;
+                if (moveCounter % 4 == 0)
+                {
+                    additionalInfo = "NEW_TRICK";
+                    leadSuit = chosenCardSuit.ToString();
+                }
+                else if (leadSuit == chosenCardSuit.ToString())
+                {
+                    additionalInfo = "FOLLOWING";
+                }
+                else if (leadSuit != trumpSuit && chosenCardSuit.ToString() == trumpSuit)
+                {
+                    additionalInfo = "CUT";
+                }
+                else
+                {
+                    additionalInfo = "NOT_FOLLOWING";
+                }
+                moveCounter++;
+
+                iaPublisher.Decision(cardSerialized, additionalInfo);
             }
 
         }
@@ -118,6 +144,12 @@ namespace SuecaPlayer
                 int myCard = SuecaSolver.Card.Create(myRank, mySuit);
                 int localPlayerId = (id + 4 - myIdOnUnityGame) % 4;
                 ai.AddPlay(localPlayerId, myCard);
+
+                if (moveCounter % 4 == 0)
+                {
+                    leadSuit = c.Suit.ToString();
+                }
+                moveCounter++;
             }
 
             iaPublisher.ExpectedScores(ai.GetExpectedScore(), -ai.GetExpectedScore());
