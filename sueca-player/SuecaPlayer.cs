@@ -45,6 +45,7 @@ namespace SuecaPlayer
         private int theirWins;
         private int myIdOnUnityGame;
         private int myTeamIdOnUnityGame;
+        private bool allSet;
 
         private IAPublisher iaPublisher;
         private SmartPlayer ai;
@@ -60,6 +61,7 @@ namespace SuecaPlayer
             theirWins = 0;
             myIdOnUnityGame = 1; //default
             myTeamIdOnUnityGame = 1; //default
+            allSet = false;
 
             ai = null;
             SetPublisher<IIAPublisher>();
@@ -77,6 +79,7 @@ namespace SuecaPlayer
             theirWins = 0;
             myIdOnUnityGame = 1; //default
             myTeamIdOnUnityGame = 1; //default
+            allSet = false;
         }
 
         public void GameStart(int gameId, int playerId, int teamId, string trump, string[] cards)
@@ -97,6 +100,7 @@ namespace SuecaPlayer
             SuecaSolver.Suit myTrump = (SuecaSolver.Suit) Enum.Parse(typeof(SuecaSolver.Suit), trump);
 
             ai = new SmartPlayer(0, initialCards, (int) myTrump, new Random(), 03129840);
+            allSet = true;
             Debug(">>>>>SuecaPlayer has inited the game");
         }
 
@@ -180,9 +184,13 @@ namespace SuecaPlayer
 
         public void NextPlayer(int id)
         {
+            while (!allSet) {}
+
             if (myIdOnUnityGame == id && ai != null)
             {
+                Console.WriteLine("I am thinking about what to play...");
                 int chosenCard = ai.Play();
+                Console.WriteLine("UnityPlayerID " + id + " played " + SuecaSolver.Card.ToString(chosenCard));
                 SuecaSolver.Rank chosenCardRank = (SuecaSolver.Rank)SuecaSolver.Card.GetRank(chosenCard);
                 SuecaSolver.Suit chosenCardSuit = (SuecaSolver.Suit)SuecaSolver.Card.GetSuit(chosenCard);
                 SuecaTypes.Rank msgRank = (SuecaTypes.Rank)Enum.Parse(typeof(SuecaTypes.Rank), chosenCardRank.ToString());
@@ -224,6 +232,7 @@ namespace SuecaPlayer
                 int myCard = SuecaSolver.Card.Create(myRank, mySuit);
                 int localPlayerId = (id + 4 - myIdOnUnityGame) % 4;
                 ai.AddPlay(localPlayerId, myCard);
+                Console.WriteLine("UnityPlayerID " + id + " played " + SuecaSolver.Card.ToString(myCard));
 
                 if (moveCounter % 4 == 0)
                 {

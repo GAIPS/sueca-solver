@@ -75,7 +75,7 @@ namespace SuecaSolver
             return currentTrick.GetMoves();
         }
 
-        public int[] GetBestCardAndValue()
+        public int GetBestCard()
         {
             int bestCard = -1;
             int bestValue = Int32.MinValue;
@@ -94,7 +94,7 @@ namespace SuecaSolver
                 Console.WriteLine("Trouble at InformationSet.GetBestCardAndValue()");
             }
 
-            return new int[] {bestCard, bestValue};
+            return bestCard;
         }
 
         public void AddPlay(int playerID, int card)

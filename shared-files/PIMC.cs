@@ -7,10 +7,15 @@ namespace SuecaSolver
     public class PIMC
     {
 
-        public int[] Execute(InformationSet infoSet, bool USE_CACHE = false)
+        public int Execute(InformationSet infoSet, bool USE_CACHE = false)
         {
             infoSet.CleanCardValues();
             List<int> possibleMoves = infoSet.GetPossibleMoves();
+
+            if (possibleMoves.Count == 1)
+            {
+                return possibleMoves[0];
+            }
 
             int N, depthLimit, handSize = infoSet.GetHandSize();
             setNandDepthLimit(out N, out depthLimit, handSize);
@@ -32,11 +37,11 @@ namespace SuecaSolver
             }
 
             infoSet.calculateAverageCardValues(N);
-            return infoSet.GetBestCardAndValue();
+            return infoSet.GetBestCard();
         }
 
 
-        public int[] ExecuteTestVersion(InformationSet infoSet, List<int> numIterations, bool USE_CACHE = false)
+        public int ExecuteTestVersion(InformationSet infoSet, List<int> numIterations, bool USE_CACHE = false)
         {
             infoSet.CleanCardValues();
             List<int> possibleMoves = infoSet.GetPossibleMoves();
@@ -61,11 +66,11 @@ namespace SuecaSolver
             }
 
             infoSet.calculateAverageCardValues(N);
-            return infoSet.GetBestCardAndValue();
+            return infoSet.GetBestCard();
         }
 
 
-        public int[] ExecuteWithTimeLimit(InformationSet infoSet, bool USE_CACHE = false)
+        public int ExecuteWithTimeLimit(InformationSet infoSet, bool USE_CACHE = false)
         {
 
             infoSet.CleanCardValues();
@@ -97,7 +102,7 @@ namespace SuecaSolver
 
             sw.Stop();
             infoSet.calculateAverageCardValues(n);
-            return infoSet.GetBestCardAndValue();
+            return infoSet.GetBestCard();
         }
 
         static void setNandDepthLimit(out int N, out int depthLimit, int handSize)

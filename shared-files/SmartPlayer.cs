@@ -36,32 +36,22 @@ namespace SuecaSolver
 
         override public int Play()
         {
-            int[] bestCardAndValue;
             int chosenCard;
 
             if (_handSize > 10)
             {
-                bestCardAndValue = new int[2];
-                bestCardAndValue[0] = infoSet.RuleBasedDecision();
-                bestCardAndValue[1] = 0; //TODO ver isto!
+                chosenCard = infoSet.RuleBasedDecision();
             }
             else
             {
-                bestCardAndValue = pimc.Execute(infoSet);
+                chosenCard = pimc.Execute(infoSet);
             }
 
-            chosenCard = bestCardAndValue[0];
             infoSet.AddMyPlay(chosenCard);
-            //infoSet.ExpectedGameValue = bestCardAndValue[1];
             _handSize--;
             TrickExpectedReward = infoSet.predictTrickPoints();
             return chosenCard;
         }
-
-        //public int GetExpectedScore()
-        //{
-        //    return infoSet.ExpectedGameValue;
-        //}
 
         public float PointsPercentage()
         {
