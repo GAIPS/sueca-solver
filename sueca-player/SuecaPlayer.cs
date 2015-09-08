@@ -24,9 +24,15 @@ namespace SuecaPlayer
                 publisher.Decision(card, followingInfo);
             }
 
-            public void ExpectedScores(int team0Score, int team1Score)
+            public void Expectation(string successProbability, string failureProbability)
             {
-                publisher.ExpectedScores(team0Score, team1Score);
+                publisher.Expectation(successProbability, failureProbability);
+            }
+
+
+            public void MoveDesirabilities(string desirability, string desirabilityForOther)
+            {
+                publisher.MoveDesirabilities(desirability, desirabilityForOther);
             }
         }
 
@@ -34,14 +40,27 @@ namespace SuecaPlayer
         private int moveCounter;
         private string trumpSuit;
         private string leadSuit;
+        private int sessionGames;
+        private int ourWins;
+        private int theirWins;
+        private int myIdOnUnityGame;
+        private int myTeamIdOnUnityGame;
 
         private IAPublisher iaPublisher;
         private SmartPlayer ai;
-        private int myIdOnUnityGame;
 
 
         public SuecaPlayer() : base("IA", "")
         {
+            moveCounter = 0;
+            trumpSuit = "None";
+            leadSuit = "None";
+            sessionGames = 0;
+            ourWins = 0;
+            theirWins = 0;
+            myIdOnUnityGame = 1; //default
+            myTeamIdOnUnityGame = 1; //default
+
             ai = null;
             SetPublisher<IIAPublisher>();
             iaPublisher = new IAPublisher(Publisher);
@@ -50,7 +69,14 @@ namespace SuecaPlayer
 
         public void SessionStart(int numGames)
         {
-            
+            moveCounter = 0;
+            trumpSuit = "None";
+            leadSuit = "None";
+            sessionGames = numGames;
+            ourWins = 0;
+            theirWins = 0;
+            myIdOnUnityGame = 1; //default
+            myTeamIdOnUnityGame = 1; //default
         }
 
         public void GameStart(int gameId, int playerId, int teamId, string trump, string[] cards)
@@ -58,6 +84,7 @@ namespace SuecaPlayer
             moveCounter = 0;
             trumpSuit = trump;
             myIdOnUnityGame = playerId;
+            myTeamIdOnUnityGame = teamId;
             List<int> initialCards = new List<int>();
             foreach (string cardSerialized in cards)
             {
@@ -75,7 +102,60 @@ namespace SuecaPlayer
 
         public void GameEnd(int team0Score, int team1Score)
         {
-
+            if (myTeamIdOnUnityGame == 0)
+            {
+                if (team0Score == 120)
+                {
+                    ourWins += 4;
+                }
+                else if (team0Score > 90)
+                {
+                    ourWins += 2;
+                }
+                else if (team0Score > 60)
+                {
+                    ourWins += 1;
+                }
+                else if (team1Score == 120)
+                {
+                    theirWins += 4;
+                }
+                else if (team1Score > 90)
+                {
+                    theirWins += 2;
+                }
+                else if (team1Score > 60)
+                {
+                    theirWins += 1;
+                }
+            }
+            else
+            {
+                if (team0Score == 120)
+                {
+                    theirWins += 4;
+                }
+                else if (team0Score > 90)
+                {
+                    theirWins += 2;
+                }
+                else if (team0Score > 60)
+                {
+                    theirWins += 1;
+                }
+                else if (team1Score == 120)
+                {
+                    ourWins += 4;
+                }
+                else if (team1Score > 90)
+                {
+                    ourWins += 2;
+                }
+                else if (team1Score > 60)
+                {
+                    ourWins += 1;
+                }
+            }
         }
 
         public void SessionEnd(int team0Score, int team1Score)
@@ -152,7 +232,38 @@ namespace SuecaPlayer
                 moveCounter++;
             }
 
-            iaPublisher.ExpectedScores(ai.GetExpectedScore(), -ai.GetExpectedScore());
+            float desirabilityForOther, desirability = ai.TrickExpectedReward / 30.0f;
+            if (desirability > 1.0f)
+            {
+                desirability = 1.0f;
+            }
+            else if (desirability < -1.0f)
+            {
+                desirability = -1.0f;
+            }
+
+            if (id == myIdOnUnityGame || id == (myIdOnUnityGame + 2) % 4)
+            {
+                desirabilityForOther = desirability;
+            }
+            else
+            {
+                desirabilityForOther = -desirability;
+            }
+
+            iaPublisher.MoveDesirabilities(desirability.ToString(), desirabilityForOther.ToString());
+
+            float ourWinsOfSessionRacio = ourWins / sessionGames;
+            float theirWinsOfSessionRacio = theirWins / sessionGames;
+            float ourPointsOfGameRacio = ai.PointsPercentage();
+            float theirPointsOfGameRacio = 1.0f - ourPointsOfGameRacio;
+            float ourHandHope = ai.GetHandHope();
+            float theirHandHope = 1.0f - ourHandHope;
+
+            float successProbability = (0.5f * ourWinsOfSessionRacio) + (0.25f * ourPointsOfGameRacio) + (0.25f * ourHandHope);
+            float failureProbability = (0.5f * theirWinsOfSessionRacio) + (0.25f * theirPointsOfGameRacio) + (0.25f * theirHandHope);
+
+            iaPublisher.Expectation(successProbability.ToString(), failureProbability.ToString());
         }
     }
 }

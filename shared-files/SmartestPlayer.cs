@@ -49,7 +49,7 @@ namespace SuecaSolver
 
             chosenCard = bestCardAndValue[0];
             infoSet.AddMyPlay(chosenCard);
-            infoSet.ExpectedGameValue = bestCardAndValue[1];
+            //infoSet.ExpectedGameValue = bestCardAndValue[1];
             _handSize--;
             return chosenCard;
         }
