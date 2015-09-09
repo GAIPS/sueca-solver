@@ -59,7 +59,7 @@ namespace SuecaPlayer
             sessionGames = 0;
             ourWins = 0;
             theirWins = 0;
-            myIdOnUnityGame = 1; //default
+            myIdOnUnityGame = 3; //default
             myTeamIdOnUnityGame = 1; //default
             allSet = false;
 
@@ -77,7 +77,7 @@ namespace SuecaPlayer
             sessionGames = numGames;
             ourWins = 0;
             theirWins = 0;
-            myIdOnUnityGame = 1; //default
+            myIdOnUnityGame = 3; //default
             myTeamIdOnUnityGame = 1; //default
             allSet = false;
         }
@@ -178,6 +178,11 @@ namespace SuecaPlayer
         }
 
         public void Deal(int playerId)
+        {
+            
+        }
+
+        public void ReceiveRobotCards()
         {
             
         }

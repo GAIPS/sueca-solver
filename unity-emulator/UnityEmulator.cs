@@ -57,6 +57,11 @@ namespace unity_emulator
                 publisher.Deal(playerId);
             }
 
+            public void ReceiveRobotCards()
+            {
+                publisher.ReceiveRobotCards();
+            }
+
             public void NextPlayer(int id)
             {
                 publisher.NextPlayer(id);
@@ -66,7 +71,6 @@ namespace unity_emulator
             {
                 publisher.Play(id, card);
             }
-
         }
             
         StartPublisher startPublisher;
@@ -129,18 +133,19 @@ namespace unity_emulator
 
             Thread.Sleep(5000);
             startPublisher.GameStart(0, 1, 1, Suit.Diamonds.ToString(), new string[] { c0, c1, c2, c3, c4, c5, c6, c7, c8, c9 });
-            Thread.Sleep(5000);
-            startPublisher.NextPlayer(3);
-            Thread.Sleep(5000);
-            string c10 = new Card(Rank.Ace, Suit.Spades).SerializeToJson();
-            startPublisher.Play(3, c10);
-            Thread.Sleep(5000);
-            startPublisher.NextPlayer(0);
-            Thread.Sleep(5000);
-            string c11 = new Card(Rank.Seven, Suit.Spades).SerializeToJson();
-            startPublisher.Play(0, c11);
-            Thread.Sleep(5000);
-            startPublisher.NextPlayer(1);
+            //Thread.Sleep(5000);
+            //startPublisher.NextPlayer(3);
+            //Thread.Sleep(5000);
+            //string c10 = new Card(Rank.Ace, Suit.Spades).SerializeToJson();
+            //startPublisher.Play(3, c10);
+            //Thread.Sleep(5000);
+            //startPublisher.NextPlayer(0);
+            //Thread.Sleep(5000);
+            //string c11 = new Card(Rank.Seven, Suit.Spades).SerializeToJson();
+            //startPublisher.Play(0, c11);
+            //Thread.Sleep(5000);
+            //startPublisher.NextPlayer(1);
+
             //Thread.Sleep(2000);
             //startPublisher.Play(1, c9);
             //Thread.Sleep(2000);
