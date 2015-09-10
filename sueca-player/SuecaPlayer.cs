@@ -19,21 +19,16 @@ namespace SuecaPlayer
                 this.publisher = publisher;
             }
 
-            public void Decision(string card, string followingInfo)
+            public void Decision(string card, string rank, string suit, string followingInfo)
             {
-                publisher.Decision(card, followingInfo);
+                publisher.Decision(card, rank, suit, followingInfo);
             }
 
-            public void Expectation(string successProbability, string failureProbability)
+            public void MoveExpectations(int playerId, string desirability, string desirabilityForOther, string successProbability, string failureProbability)
             {
-                publisher.Expectation(successProbability, failureProbability);
+                publisher.MoveExpectations(playerId, desirability, desirabilityForOther, successProbability, failureProbability);
             }
 
-
-            public void MoveDesirabilities(string desirability, string desirabilityForOther)
-            {
-                publisher.MoveDesirabilities(desirability, desirabilityForOther);
-            }
         }
 
 
@@ -51,7 +46,8 @@ namespace SuecaPlayer
         private SmartPlayer ai;
 
 
-        public SuecaPlayer() : base("IA", "")
+        public SuecaPlayer()
+            : base("IA", "SuecaDemo")
         {
             moveCounter = 0;
             trumpSuit = "None";
@@ -222,7 +218,7 @@ namespace SuecaPlayer
                 }
                 moveCounter++;
 
-                iaPublisher.Decision(cardSerialized, additionalInfo);
+                iaPublisher.Decision(cardSerialized, chosenCardRank.ToString(), chosenCardSuit.ToString(), additionalInfo);
             }
 
         }
@@ -246,7 +242,7 @@ namespace SuecaPlayer
                 moveCounter++;
             }
 
-            float desirabilityForOther, desirability = ai.TrickExpectedReward / 30.0f;
+            float desirabilityForOther, desirability = ai.TrickExpectedReward / 15.0f;
             if (desirability > 1.0f)
             {
                 desirability = 1.0f;
@@ -265,8 +261,6 @@ namespace SuecaPlayer
                 desirabilityForOther = -desirability;
             }
 
-            iaPublisher.MoveDesirabilities(desirability.ToString(), desirabilityForOther.ToString());
-
             float ourWinsOfSessionRacio = ourWins / sessionGames;
             float theirWinsOfSessionRacio = theirWins / sessionGames;
             float ourPointsOfGameRacio = ai.PointsPercentage();
@@ -277,7 +271,7 @@ namespace SuecaPlayer
             float successProbability = (0.5f * ourWinsOfSessionRacio) + (0.25f * ourPointsOfGameRacio) + (0.25f * ourHandHope);
             float failureProbability = (0.5f * theirWinsOfSessionRacio) + (0.25f * theirPointsOfGameRacio) + (0.25f * theirHandHope);
 
-            iaPublisher.Expectation(successProbability.ToString(), failureProbability.ToString());
+            iaPublisher.MoveExpectations(id, desirability.ToString(), desirabilityForOther.ToString(), successProbability.ToString(), failureProbability.ToString());
         }
     }
 }
