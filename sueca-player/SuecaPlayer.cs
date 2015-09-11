@@ -95,7 +95,8 @@ namespace SuecaPlayer
             }
             SuecaSolver.Suit myTrump = (SuecaSolver.Suit) Enum.Parse(typeof(SuecaSolver.Suit), trump);
 
-            ai = new SmartPlayer(0, initialCards, (int) myTrump, new Random(), 03129840);
+            ai = new SmartPlayer(0, initialCards, (int)myTrump, new Random(), 03129840);
+            //ai = new RandomPlayer(0, initialCards, new Random());//, 03129840);
             allSet = true;
             Debug(">>>>>SuecaPlayer has inited the game");
         }
@@ -241,16 +242,17 @@ namespace SuecaPlayer
                 }
                 moveCounter++;
             }
-
-            float desirabilityForOther, desirability = ai.TrickExpectedReward / 15.0f;
-            if (desirability > 1.0f)
-            {
-                desirability = 1.0f;
-            }
-            else if (desirability < -1.0f)
-            {
-                desirability = -1.0f;
-            }
+            
+            // explain 15.0
+            float desirabilityForOther, desirability = (ai.TrickExpectedReward / 15.0f) * 10.0f;
+            //if (desirability > 1.0f)
+            //{
+            //    desirability = 1.0f;
+            //}
+            //else if (desirability < -1.0f)
+            //{
+            //    desirability = -1.0f;
+            //}
 
             if (id == myIdOnUnityGame || id == (myIdOnUnityGame + 2) % 4)
             {
