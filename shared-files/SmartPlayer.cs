@@ -58,7 +58,7 @@ namespace SuecaSolver
             float alreadyMadePoints = infoSet.BotTeamPoints + infoSet.OtherTeamPoints;
             if (alreadyMadePoints == 0.0f)
             {
-                return 1.0f;
+                return 0.5f;
             }
             return infoSet.BotTeamPoints / alreadyMadePoints;
         }

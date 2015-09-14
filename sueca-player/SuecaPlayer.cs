@@ -85,14 +85,17 @@ namespace SuecaPlayer
             myIdOnUnityGame = playerId;
             myTeamIdOnUnityGame = teamId;
             List<int> initialCards = new List<int>();
+            Console.Write("GameStart cards: ");
             foreach (string cardSerialized in cards)
             {
                 SuecaTypes.Card card = JsonSerializable.DeserializeFromJson<SuecaTypes.Card>(cardSerialized);
                 SuecaSolver.Rank myRank = (SuecaSolver.Rank) Enum.Parse(typeof(SuecaSolver.Rank), card.Rank.ToString());
                 SuecaSolver.Suit mySuit = (SuecaSolver.Suit) Enum.Parse(typeof(SuecaSolver.Suit), card.Suit.ToString());
                 int myCard = SuecaSolver.Card.Create(myRank, mySuit);
+                Console.Write(SuecaSolver.Card.ToString(myCard) + " ");
                 initialCards.Add(myCard);
             }
+            Console.WriteLine("");
             SuecaSolver.Suit myTrump = (SuecaSolver.Suit) Enum.Parse(typeof(SuecaSolver.Suit), trump);
 
             ai = new SmartPlayer(0, initialCards, (int)myTrump, new Random(), 03129840);
@@ -245,14 +248,14 @@ namespace SuecaPlayer
             
             // explain 15.0
             float desirabilityForOther, desirability = (ai.TrickExpectedReward / 15.0f) * 10.0f;
-            //if (desirability > 1.0f)
-            //{
-            //    desirability = 1.0f;
-            //}
-            //else if (desirability < -1.0f)
-            //{
-            //    desirability = -1.0f;
-            //}
+            if (desirability > 10.0f)
+            {
+                desirability = 10.0f;
+            }
+            else if (desirability < -10.0f)
+            {
+                desirability = -10.0f;
+            }
 
             if (id == myIdOnUnityGame || id == (myIdOnUnityGame + 2) % 4)
             {
@@ -263,15 +266,23 @@ namespace SuecaPlayer
                 desirabilityForOther = -desirability;
             }
 
-            float ourWinsOfSessionRacio = ourWins / sessionGames;
-            float theirWinsOfSessionRacio = theirWins / sessionGames;
+            float totalWins = ourWins + theirWins;
+            float ourWinsOfSessionRacio = ourWins / totalWins;
+            float theirWinsOfSessionRacio = theirWins / totalWins;
             float ourPointsOfGameRacio = ai.PointsPercentage();
             float theirPointsOfGameRacio = 1.0f - ourPointsOfGameRacio;
-            float ourHandHope = ai.GetHandHope();
-            float theirHandHope = 1.0f - ourHandHope;
+            float successProbability, failureProbability;
 
-            float successProbability = (0.5f * ourWinsOfSessionRacio) + (0.25f * ourPointsOfGameRacio) + (0.25f * ourHandHope);
-            float failureProbability = (0.5f * theirWinsOfSessionRacio) + (0.25f * theirPointsOfGameRacio) + (0.25f * theirHandHope);
+            if (totalWins != 0)
+            {
+                successProbability = 0.5f * ourWinsOfSessionRacio + 0.5f * ourPointsOfGameRacio;
+                failureProbability = 0.5f * theirWinsOfSessionRacio + 0.5f * theirPointsOfGameRacio;
+            }
+            else
+            {
+                successProbability = ourPointsOfGameRacio;
+                failureProbability = theirPointsOfGameRacio;
+            }
 
             iaPublisher.MoveExpectations(id, desirability.ToString(), desirabilityForOther.ToString(), successProbability.ToString(), failureProbability.ToString());
         }
