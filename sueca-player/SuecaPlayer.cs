@@ -29,6 +29,50 @@ namespace SuecaPlayer
                 publisher.MoveExpectations(playerId, desirability, desirabilityForOther, successProbability, failureProbability);
             }
 
+            public void ForwardShuffle(int playerId)
+            {
+                publisher.ForwardShuffle(playerId);
+            }
+
+            public void ForwardCut(int playerId)
+            {
+                publisher.ForwardCut(playerId);
+            }
+
+            public void ForwardDeal(int playerId)
+            {
+                publisher.ForwardDeal(playerId);
+            }
+
+            public void ForwardGameEnd(int team0Score, int team1Score)
+            {
+                publisher.ForwardGameEnd(team0Score, team1Score);
+            }
+
+            public void ForwardGameStart(int gameId, int playerId, int teamId, string trump, string[] cards)
+            {
+                publisher.ForwardGameStart(gameId, playerId, teamId, trump, cards);
+            }
+
+            public void ForwardNextPlayer(int id)
+            {
+                publisher.ForwardNextPlayer(id);
+            }
+
+            public void ForwardReceiveRobotCards()
+            {
+                publisher.ForwardReceiveRobotCards();
+            }
+
+            public void ForwardSessionEnd(int team0Score, int team1Score)
+            {
+                publisher.ForwardSessionEnd(team0Score, team1Score);
+            }
+
+            public void ForwardSessionStart(int numGames)
+            {
+                publisher.ForwardSessionStart(numGames);
+            }
         }
 
 
@@ -41,6 +85,7 @@ namespace SuecaPlayer
         private int myIdOnUnityGame;
         private int myTeamIdOnUnityGame;
         private bool allSet;
+        private bool processPlay;
 
         private IAPublisher iaPublisher;
         private SmartPlayer ai;
@@ -58,6 +103,7 @@ namespace SuecaPlayer
             myIdOnUnityGame = 3; //default
             myTeamIdOnUnityGame = 1; //default
             allSet = false;
+            processPlay = true;
 
             ai = null;
             SetPublisher<IIAPublisher>();
@@ -76,6 +122,8 @@ namespace SuecaPlayer
             myIdOnUnityGame = 3; //default
             myTeamIdOnUnityGame = 1; //default
             allSet = false;
+
+            iaPublisher.ForwardSessionStart(numGames);
         }
 
         public void GameStart(int gameId, int playerId, int teamId, string trump, string[] cards)
@@ -101,7 +149,8 @@ namespace SuecaPlayer
             ai = new SmartPlayer(0, initialCards, (int)myTrump, new Random(), 03129840);
             //ai = new RandomPlayer(0, initialCards, new Random());//, 03129840);
             allSet = true;
-            Debug(">>>>>SuecaPlayer has inited the game");
+
+            iaPublisher.ForwardGameStart(gameId, playerId, teamId, trump, cards);
         }
 
         public void GameEnd(int team0Score, int team1Score)
@@ -160,31 +209,33 @@ namespace SuecaPlayer
                     ourWins += 1;
                 }
             }
+
+            iaPublisher.ForwardGameEnd(team0Score, team1Score);
         }
 
         public void SessionEnd(int team0Score, int team1Score)
         {
-            
+            iaPublisher.ForwardSessionEnd(team0Score, team1Score);
         }
 
         public void Shuffle(int playerId)
         {
-            
+            iaPublisher.ForwardShuffle(playerId);
         }
 
         public void Cut(int playerId)
         {
-            
+            iaPublisher.ForwardCut(playerId);
         }
 
         public void Deal(int playerId)
         {
-            
+            iaPublisher.ForwardDeal(playerId);
         }
 
         public void ReceiveRobotCards()
         {
-            
+            iaPublisher.ForwardReceiveRobotCards();
         }
 
         public void NextPlayer(int id)
@@ -225,10 +276,14 @@ namespace SuecaPlayer
                 iaPublisher.Decision(cardSerialized, chosenCardRank.ToString(), chosenCardSuit.ToString(), additionalInfo);
             }
 
+            while (!processPlay) { }
+            iaPublisher.ForwardNextPlayer(id);
         }
 
         public void Play(int id, string card)
         {
+            processPlay = false;
+
             if (myIdOnUnityGame != id && ai != null)
             {
                 SuecaTypes.Card c = JsonSerializable.DeserializeFromJson<SuecaTypes.Card>(card);
@@ -285,6 +340,7 @@ namespace SuecaPlayer
             }
 
             iaPublisher.MoveExpectations(id, desirability.ToString(), desirabilityForOther.ToString(), successProbability.ToString(), failureProbability.ToString());
+            processPlay = true;
         }
     }
 }
