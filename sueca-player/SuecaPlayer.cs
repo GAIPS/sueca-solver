@@ -59,6 +59,11 @@ namespace SuecaPlayer
                 publisher.ForwardNextPlayer(id);
             }
 
+            public void ForwardTrickEnd(int winnerId, int trickPoints)
+            {
+                publisher.ForwardTrickEnd(winnerId, trickPoints);
+            }
+
             public void ForwardReceiveRobotCards()
             {
                 publisher.ForwardReceiveRobotCards();
@@ -278,6 +283,11 @@ namespace SuecaPlayer
 
             while (!processPlay) { }
             iaPublisher.ForwardNextPlayer(id);
+        }
+
+        public void TrickEnd(int winnerId, int trickPoints)
+        {
+            iaPublisher.ForwardTrickEnd(winnerId, trickPoints);
         }
 
         public void Play(int id, string card)

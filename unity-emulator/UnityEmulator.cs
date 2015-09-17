@@ -67,6 +67,11 @@ namespace unity_emulator
                 publisher.NextPlayer(id);
             }
 
+            public void TrickEnd(int winnerId, int trickPoints)
+            {
+                publisher.TrickEnd(winnerId, trickPoints);
+            }
+
             public void Play(int id, string card)
             {
                 publisher.Play(id, card);
