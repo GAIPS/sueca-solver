@@ -4,10 +4,11 @@ using SuecaSolver;
 using SuecaMessages;
 using SuecaTypes;
 using System.Collections.Generic;
+using EmoteCommonMessages;
 
 namespace SuecaPlayer
 {
-    public interface IIAPublisher : IThalamusPublisher, IIAActions {}
+    public interface IIAPublisher : IThalamusPublisher, IIAActions, IGazeStateActions { }
 
     class SuecaPlayer : ThalamusClient, ISuecaPerceptions
     {
@@ -77,6 +78,31 @@ namespace SuecaPlayer
             public void ForwardSessionStart(int numGames)
             {
                 publisher.ForwardSessionStart(numGames);
+            }
+
+            public void GazeAtScreen(double x, double y)
+            {
+                publisher.GazeAtScreen(x, y);
+            }
+
+            public void GazeAtTarget(string targetName)
+            {
+                publisher.GazeAtTarget(targetName);
+            }
+
+            public void GlanceAtScreen(double x, double y)
+            {
+                publisher.GlanceAtScreen(x, y);
+            }
+
+            public void GlanceAtTarget(string targetName)
+            {
+                publisher.GlanceAtTarget(targetName);
+            }
+
+            public void ForwardRenounce(int playerId)
+            {
+                publisher.ForwardRenounce(playerId);
             }
         }
 
@@ -287,7 +313,10 @@ namespace SuecaPlayer
 
         public void TrickEnd(int winnerId, int trickPoints)
         {
-            iaPublisher.ForwardTrickEnd(winnerId, trickPoints);
+            if (ai.HandSize > 1)
+            {
+                iaPublisher.ForwardTrickEnd(winnerId, trickPoints);
+            }
         }
 
         public void Play(int id, string card)
@@ -296,6 +325,8 @@ namespace SuecaPlayer
 
             if (myIdOnUnityGame != id && ai != null)
             {
+                iaPublisher.GazeAtTarget("cardsZone");
+
                 SuecaTypes.Card c = JsonSerializable.DeserializeFromJson<SuecaTypes.Card>(card);
                 SuecaSolver.Rank myRank = (SuecaSolver.Rank)Enum.Parse(typeof(SuecaSolver.Rank), c.Rank.ToString());
                 SuecaSolver.Suit mySuit = (SuecaSolver.Suit)Enum.Parse(typeof(SuecaSolver.Suit), c.Suit.ToString());
@@ -351,6 +382,12 @@ namespace SuecaPlayer
 
             iaPublisher.MoveExpectations(id, desirability.ToString(), desirabilityForOther.ToString(), successProbability.ToString(), failureProbability.ToString());
             processPlay = true;
+        }
+
+
+        public void Renounce(int playerId)
+        {
+            iaPublisher.ForwardRenounce(playerId);
         }
     }
 }

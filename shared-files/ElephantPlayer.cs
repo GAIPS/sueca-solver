@@ -35,13 +35,13 @@ namespace SuecaSolver
         {
             int chosenCard;
 
-            if (_handSize > 8)
+            if (_handSize > 7)
             {
                 chosenCard = infoSet.RuleBasedDecision();
             }
             else
             {
-                chosenCard = pimc.ExecuteTestVersion(infoSet, new List<int> { 500, 500, 250, 100, 50, 15, 5, 3, 1, 1 }, true);
+                chosenCard = pimc.ExecuteTestVersion(infoSet, new List<int> { 500, 500, 250, 100, 50, 10, 5, 3, 1, 1 }, true);
             }
 
             infoSet.AddMyPlay(chosenCard);

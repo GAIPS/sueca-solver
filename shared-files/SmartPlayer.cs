@@ -6,7 +6,7 @@ namespace SuecaSolver
     public class SmartPlayer : ArtificialPlayer
     {
         private int _idDiff;
-        private int _handSize;
+        public int HandSize;
         private PIMC pimc;
         private InformationSet infoSet;
         public float TrickExpectedReward;
@@ -16,7 +16,7 @@ namespace SuecaSolver
             : base(id)
         {
             _idDiff = 0 - id;
-            _handSize = initialHand.Count;
+            HandSize = initialHand.Count;
             pimc = new PIMC();
             infoSet = new InformationSet(initialHand, trumpSuit, randomLOL, seed);
             TrickExpectedReward = 0.0f;
@@ -33,12 +33,11 @@ namespace SuecaSolver
             TrickExpectedReward = infoSet.predictTrickPoints();
         }
 
-
         override public int Play()
         {
             int chosenCard;
 
-            if (_handSize > 10)
+            if (HandSize > 10)
             {
                 chosenCard = infoSet.RuleBasedDecision();
             }
@@ -48,7 +47,7 @@ namespace SuecaSolver
             }
 
             infoSet.AddMyPlay(chosenCard);
-            _handSize--;
+            HandSize--;
             TrickExpectedReward = infoSet.predictTrickPoints();
             return chosenCard;
         }

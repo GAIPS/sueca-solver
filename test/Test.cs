@@ -300,6 +300,7 @@ namespace SuecaSolver
 
             sw.Stop();
             Console.WriteLine("Total Time taken by functions is {0} seconds", sw.ElapsedMilliseconds / 1000); //seconds
+            Console.ReadLine();
         }
     }
 }
