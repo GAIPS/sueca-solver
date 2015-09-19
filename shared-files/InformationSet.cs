@@ -124,7 +124,20 @@ namespace SuecaSolver
             int leadSuit = currentTrick.LeadSuit;
             if (cardSuit != leadSuit && leadSuit != (int)Suit.None)
             {
-                suitHasPlayer[leadSuit].Remove(playerID);
+                if (suitHasPlayer[leadSuit].Contains(playerID))
+                {
+                    suitHasPlayer[leadSuit].Remove(playerID);
+                }
+                else
+                {
+                    suitHasPlayer = new Dictionary<int, List<int>>
+                    {
+                        { (int)Suit.Clubs, new List<int>(3){ 1, 2, 3 } },
+                        { (int)Suit.Diamonds, new List<int>(3){ 1, 2, 3 } },
+                        { (int)Suit.Hearts, new List<int>(3){ 1, 2, 3 } },
+                        { (int)Suit.Spades, new List<int>(3){ 1, 2, 3 } }
+                    };
+                }
             }
 
             //Remove pointcards from dicitonary othersPointCards
@@ -440,6 +453,44 @@ namespace SuecaSolver
                 hope = (handPoints * 1.0f) / (remainingPoints * 1.0f);
             }
             return hope;
+        }
+
+        internal bool ResetTrick()
+        {
+            bool botHasplayedInCurrentTrick = false;
+            int leadSuit = currentTrick.LeadSuit;
+            foreach (Move move in currentTrick.GetMoves())
+            {
+                int cardSuit = Card.GetSuit(move.Card);
+                int cardValue = Card.GetValue(move.Card);
+                int playerId = move.PlayerId;
+
+                if (cardSuit != leadSuit && !suitHasPlayer[leadSuit].Contains(playerId))
+                {
+                    suitHasPlayer[leadSuit].Add(playerId);
+                }
+
+                if (playerId == 0)
+                {
+                    botHasplayedInCurrentTrick = true;
+                    hand.Add(move.Card);
+                }
+
+                if (cardValue > 0)
+                {
+                    othersPointCards[cardSuit].Add(Card.GetRank(move.Card));
+                }
+
+                if (cardSuit == Trump)
+                {
+                    remainingTrumps++;
+                }
+
+                deck.Add(move.Card);
+            }
+            trickPoints = 0;
+            currentTrick = new Trick(Trump);
+            return botHasplayedInCurrentTrick;
         }
     }
 }

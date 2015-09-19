@@ -76,6 +76,17 @@ namespace unity_emulator
             {
                 publisher.Play(id, card);
             }
+
+
+            public void Renounce(int playerId)
+            {
+                publisher.Renounce(playerId);
+            }
+
+            public void ResetTrick()
+            {
+                publisher.ResetTrick();
+            }
         }
             
         StartPublisher startPublisher;

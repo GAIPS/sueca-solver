@@ -104,6 +104,12 @@ namespace SuecaPlayer
             {
                 publisher.ForwardRenounce(playerId);
             }
+
+
+            public void ForwardResetTrick()
+            {
+                publisher.ForwardResetTrick();
+            }
         }
 
 
@@ -388,6 +394,13 @@ namespace SuecaPlayer
         public void Renounce(int playerId)
         {
             iaPublisher.ForwardRenounce(playerId);
+        }
+
+
+        public void ResetTrick()
+        {
+            ai.ResetTrick();
+            iaPublisher.ForwardResetTrick();
         }
     }
 }
