@@ -14,10 +14,10 @@ namespace SuecaSolver
 
         public const int GAMEMODE = 2;
         public const int NUMGAMES = 10;
-        public const bool PARALLEL = true;
+        public const bool PARALLEL = false;
         public const int NUM_THREADS = 4;
         public const bool SAVE_RESULTS = false;
-        public const bool SAVE_CARDS = true; //if true log file will contain intial cards of players otherwise will contain specific features
+        public const bool SAVE_CARDS = false; //if true log file will contain intial cards of players otherwise will contain specific features
         public const string SAVE_DIR = @"Z:\Devel\sueca-solver\results\";
         //public const string SAVE_DIR = "results/";
 
@@ -75,6 +75,9 @@ namespace SuecaSolver
                     break;
                 case 9:
                     Console.WriteLine("Mode 9 (2 Elephant 2 Random)");
+                    break;
+                case 10:
+                    Console.WriteLine("Mode 10 (2 TrickPlayer 2 Smart)");
                     break;
                 default:
                     break;
@@ -424,6 +427,16 @@ namespace SuecaSolver
                     players[2] = new ElephantPlayer(2, playersHands[2], trump, randomNumber, seed);
                     playersNames[3] = "Random2";
                     players[3] = new RandomPlayer(3, playersHands[3], randomNumber);
+                    break;
+                case 10:
+                    playersNames[0] = "TrickPlayer1";
+                    players[0] = new TrickPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    playersNames[1] = "Smart1";
+                    players[1] = new SmartPlayer(1, playersHands[1], trump, randomNumber, seed);
+                    playersNames[2] = "TrickPlayer2";
+                    players[2] = new TrickPlayer(2, playersHands[2], trump, randomNumber, seed);
+                    playersNames[3] = "Smart2";
+                    players[3] = new SmartPlayer(3, playersHands[3], trump, randomNumber, seed);
                     break;
                 default:
                     break;
