@@ -123,6 +123,7 @@ namespace SuecaPlayer
         private int myTeamIdOnUnityGame;
         private bool allSet;
         private bool processPlay;
+        private bool processingRepeat;
 
         private IAPublisher iaPublisher;
         private SmartPlayer ai;
@@ -141,6 +142,7 @@ namespace SuecaPlayer
             myTeamIdOnUnityGame = 1; //default
             allSet = false;
             processPlay = true;
+            processingRepeat = false;
 
             ai = null;
             SetPublisher<IIAPublisher>();
@@ -158,7 +160,9 @@ namespace SuecaPlayer
             theirWins = 0;
             myIdOnUnityGame = 3; //default
             myTeamIdOnUnityGame = 1; //default
+            processPlay = true;
             allSet = false;
+            processingRepeat = false;
 
             iaPublisher.ForwardSessionStart(numGames);
         }
@@ -186,6 +190,7 @@ namespace SuecaPlayer
             ai = new SmartPlayer(0, initialCards, (int)myTrump, new Random(), 03129840);
             //ai = new RandomPlayer(0, initialCards, new Random());//, 03129840);
             allSet = true;
+            processingRepeat = false;
 
             iaPublisher.ForwardGameStart(gameId, playerId, teamId, trump, cards);
         }
@@ -277,7 +282,8 @@ namespace SuecaPlayer
 
         public void NextPlayer(int id)
         {
-            while (!allSet) {}
+            while (!allSet) { }
+            while (processingRepeat) { }
 
             if (myIdOnUnityGame == id && ai != null)
             {
@@ -328,6 +334,7 @@ namespace SuecaPlayer
         public void Play(int id, string card)
         {
             processPlay = false;
+            while (processingRepeat) { }
 
             if (myIdOnUnityGame != id && ai != null)
             {
@@ -399,8 +406,10 @@ namespace SuecaPlayer
 
         public void ResetTrick()
         {
+            processingRepeat = true;
             ai.ResetTrick();
             iaPublisher.ForwardResetTrick();
+            processingRepeat = false;
         }
     }
 }
