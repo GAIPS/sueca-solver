@@ -187,17 +187,21 @@ namespace SuecaSolver
                 {
                     d = new Decision(domain23, "c" + card);
                 }
-                else if (playersThatHaveSuit[0] == 1)
+                else if (playersThatHaveSuit.Count == 1 && playersThatHaveSuit[0] == 1)
                 {
                     d = new Decision(domain1, "c" + card);
                 }
-                else if (playersThatHaveSuit[0] == 2)
+                else if (playersThatHaveSuit.Count == 1 && playersThatHaveSuit[0] == 2)
                 {
                     d = new Decision(domain2, "c" + card);
                 }
-                else
+                else if (playersThatHaveSuit.Count == 1 && playersThatHaveSuit[0] == 3)
                 {
                     d = new Decision(domain3, "c" + card);
+                }
+                else
+                {
+                    return null;
                 }
 
                 decisions.Add(d);

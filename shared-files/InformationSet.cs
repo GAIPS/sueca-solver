@@ -242,6 +242,17 @@ namespace SuecaSolver
             else
             {
                 sampledHands = deck.SampleHands(suitHasPlayer, handSizes);
+                if (sampledHands == null)
+                {
+                    suitHasPlayer = new Dictionary<int, List<int>>
+                    {
+                        { (int)Suit.Clubs, new List<int>(3){ 1, 2, 3 } },
+                        { (int)Suit.Diamonds, new List<int>(3){ 1, 2, 3 } },
+                        { (int)Suit.Hearts, new List<int>(3){ 1, 2, 3 } },
+                        { (int)Suit.Spades, new List<int>(3){ 1, 2, 3 } }
+                    };
+                    sampledHands = deck.SampleHands(handSizes);
+                }
             }
 
             for (int i = 0; i < 3; i++)
