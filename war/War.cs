@@ -13,10 +13,10 @@ namespace SuecaSolver
     {
 
         public const int GAMEMODE = 11;
-        public const int NUMGAMES = 1000;
+        public const int NUMGAMES = 10000;
         public const bool PARALLEL = true;
         public const int NUM_THREADS = 4;
-        public const bool SAVE_RESULTS = true;
+        public const bool SAVE_RESULTS = false;
         public const bool SAVE_CARDS = true; //if true log file will contain intial cards of players otherwise will contain specific features
         public const string SAVE_DIR = @"Z:\Devel\sueca-solver\results\";
         //public const string SAVE_DIR = "results/";
@@ -81,6 +81,9 @@ namespace SuecaSolver
                     break;
                 case 11:
                     Console.WriteLine("Mode 11 (2 RuleBased 2 RuleBased)");
+                    break;
+                case 12:
+                    Console.WriteLine("Mode 11 (1 RuleBased 3 Random)");
                     break;
                 default:
                     break;
@@ -450,6 +453,16 @@ namespace SuecaSolver
                     players[2] = new RuleBasedPlayer(2, playersHands[2], trump, randomNumber, seed);
                     playersNames[3] = "RuleBased14";
                     players[3] = new RuleBasedPlayer(3, playersHands[3], trump, randomNumber, seed);
+                    break;
+                case 12:
+                    playersNames[0] = "RuleBased1";
+                    players[0] = new RuleBasedPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    playersNames[1] = "RandomPlayer3";
+                    players[1] = new RandomPlayer(1, playersHands[1], randomNumber);
+                    playersNames[2] = "RandomPlayer2";
+                    players[2] = new RandomPlayer(2, playersHands[2], randomNumber);
+                    playersNames[3] = "RandomPlayer4";
+                    players[3] = new RandomPlayer(3, playersHands[3], randomNumber);
                     break;
                 default:
                     break;
