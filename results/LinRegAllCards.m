@@ -15,6 +15,8 @@ A_2 = zeros(numGames,1);
 x7_0 = zeros(numGames,1);
 x7_2 = zeros(numGames,1);
 At_02 = zeros(numGames,1);
+hAt_0 = zeros(numGames,1);
+hAt_2 = zeros(numGames,1);
 suits_0 = zeros(numGames,1);
 suits_2 = zeros(numGames,1);
 first_0 = zeros(numGames,1);
@@ -41,6 +43,8 @@ for i = 1:numGames
    if hasCard(hand_0, trump, AceRank) == 1 || hasCard(hand_2, trump, AceRank) == 1
       At_02(i,1) = 1; 
    end
+   hAt_0 = hasCard(hand_0, trump, AceRank);
+   hAt_2 = hasCard(hand_2, trump, AceRank);
    suits_0(i,1) = countSuits(hand_0);
    suits_2(i,1) = countSuits(hand_2);
    first_0(i,1) = 0;
@@ -55,6 +59,9 @@ end
 
 
 tbl = table(p_0, p_2, pt_0, pt_2, t_0, t_2, A_0, A_2, x7_0, x7_2, At_02, suits_0, suits_2, first_0, first_2, fp, 'VariableNames', {'p_0', 'p_2', 'pt_0', 'pt_2', 't_0', 't_2', 'A_0', 'A_2', 'x7_0', 'x7_2', 'At_02', 'suits_0', 'suits_2', 'first_0', 'first_2', 'fp'});
-mdl = fitlm(tbl,'fp ~ t_0 + t_2 + A_0 + A_2 + x7_0 + x7_2 + suits_0 + suits_2 + first_0 + first_2')
+mdl = fitlm(tbl,'fp ~ p_0 + p_2 + pt_0 + pt_2 + t_0 + t_2 + A_0 + A_2 + x7_0 + x7_2 + At_02 + suits_0 + suits_2 + first_0 + first_2')
+%mdl = fitlm(tbl,'fp ~ t_0 + t_2 + A_0 + A_2 + x7_0 + x7_2')
+%mdl = stepwiselm(tbl,'fp ~ t_0 + t_2 + A_0 + A_2 + x7_0 + x7_2')
 result = table2array(mdl.Coefficients);
 save('LinRegResult4.txt', 'result', '-ascii');
+writetable(mdl.Coefficients, '');
