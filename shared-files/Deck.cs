@@ -54,6 +54,11 @@ namespace SuecaSolver
             deck.Remove(card);
         }
 
+        public void Add(int card)
+        {
+            deck.Add(card);
+        }
+
         public List<int> GetHand(int handSize)
         {
             List<int> hand = new List<int>(handSize);

@@ -12,11 +12,11 @@ namespace SuecaSolver
     public class War
     {
 
-        public const int GAMEMODE = 2;
-        public const int NUMGAMES = 10;
+        public const int GAMEMODE = 11;
+        public const int NUMGAMES = 1000;
         public const bool PARALLEL = true;
         public const int NUM_THREADS = 4;
-        public const bool SAVE_RESULTS = false;
+        public const bool SAVE_RESULTS = true;
         public const bool SAVE_CARDS = true; //if true log file will contain intial cards of players otherwise will contain specific features
         public const string SAVE_DIR = @"Z:\Devel\sueca-solver\results\";
         //public const string SAVE_DIR = "results/";
@@ -75,6 +75,12 @@ namespace SuecaSolver
                     break;
                 case 9:
                     Console.WriteLine("Mode 9 (2 Elephant 2 Random)");
+                    break;
+                case 10:
+                    Console.WriteLine("Mode 10 (2 TrickPlayer 2 Smart)");
+                    break;
+                case 11:
+                    Console.WriteLine("Mode 11 (2 RuleBased 2 RuleBased)");
                     break;
                 default:
                     break;
@@ -276,11 +282,11 @@ namespace SuecaSolver
             Deck deck = new Deck(randomNumber, seed);
             int trump = randomNumber.Next(0, 4);
             playersHands = deck.SampleHands(new int[] { 10, 10, 10, 10 });
-            while (!checkHands(playersHands, trump))
-            {
-                playersHands = deck.SampleHands(new int[] { 10, 10, 10, 10 });
-                localCount[3]++;
-            }
+            //while (!checkHands(playersHands, trump))
+            //{
+            //    playersHands = deck.SampleHands(new int[] { 10, 10, 10, 10 });
+            //    localCount[3]++;
+            //}
 
             List<int>[] handsPerPlayer = new List<int>[4];
             for (int k = 0; k < 4; k++)
@@ -424,6 +430,26 @@ namespace SuecaSolver
                     players[2] = new ElephantPlayer(2, playersHands[2], trump, randomNumber, seed);
                     playersNames[3] = "Random2";
                     players[3] = new RandomPlayer(3, playersHands[3], randomNumber);
+                    break;
+                case 10:
+                    playersNames[0] = "TrickPlayer1";
+                    players[0] = new TrickPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    playersNames[1] = "Smart1";
+                    players[1] = new SmartPlayer(1, playersHands[1], trump, randomNumber, seed);
+                    playersNames[2] = "TrickPlayer2";
+                    players[2] = new TrickPlayer(2, playersHands[2], trump, randomNumber, seed);
+                    playersNames[3] = "Smart2";
+                    players[3] = new SmartPlayer(3, playersHands[3], trump, randomNumber, seed);
+                    break;
+                case 11:
+                    playersNames[0] = "RuleBased1";
+                    players[0] = new RuleBasedPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    playersNames[1] = "RuleBased3";
+                    players[1] = new RuleBasedPlayer(1, playersHands[1], trump, randomNumber, seed);
+                    playersNames[2] = "RuleBased2";
+                    players[2] = new RuleBasedPlayer(2, playersHands[2], trump, randomNumber, seed);
+                    playersNames[3] = "RuleBased14";
+                    players[3] = new RuleBasedPlayer(3, playersHands[3], trump, randomNumber, seed);
                     break;
                 default:
                     break;
