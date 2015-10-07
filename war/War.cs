@@ -12,11 +12,11 @@ namespace SuecaSolver
     public class War
     {
 
-        public const int GAMEMODE = 11;
-        public const int NUMGAMES = 10000;
+        public const int GAMEMODE = 8;
+        public const int NUMGAMES = 1000;
         public const bool PARALLEL = true;
         public const int NUM_THREADS = 4;
-        public const bool SAVE_RESULTS = false;
+        public const bool SAVE_RESULTS = true;
         public const bool SAVE_CARDS = true; //if true log file will contain intial cards of players otherwise will contain specific features
         public const string SAVE_DIR = @"Z:\Devel\sueca-solver\results\";
         //public const string SAVE_DIR = "results/";
@@ -83,7 +83,7 @@ namespace SuecaSolver
                     Console.WriteLine("Mode 11 (2 RuleBased 2 RuleBased)");
                     break;
                 case 12:
-                    Console.WriteLine("Mode 11 (1 RuleBased 3 Random)");
+                    Console.WriteLine("Mode 12 (1 RuleBased 3 Random)");
                     break;
                 default:
                     break;
