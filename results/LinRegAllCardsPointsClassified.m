@@ -70,9 +70,16 @@ mdl = fitlm(tbl,'TeamFinalPoints ~ teamNumTrumps + teamNumAces + teamNumSevens')
 %mdl = stepwiselm(tbl,'fp ~ t_0 + t_2 + A_0 + A_2 + x7_0 + x7_2')
 result = table2array(mdl.Coefficients);
 save('LinRegResult5.txt', 'result', '-ascii');
-%h = plotAdded(mdl, 'teamNumTrumps')
+figure(1);
+h = plotAdded(mdl, 'teamNumTrumps')
+%axis([-0.5,10.5,0,120])
+line([0 10],[60 60], 'Color', 'black')
+figure(2);
 j = plotAdded(mdl, 'teamNumAces')
-%k = plotAdded(mdl, 'teamNumSevens')
+axis([-0.5,4.5,0,120])
+line([-0.5 4.5],[60 60], 'Color', 'black')
+figure(3);
+k = plotAdded(mdl, 'teamNumSevens')
 axis([-0.5,4.5,0,120])
 line([-0.5 4.5],[60 60], 'Color', 'black')
 %h = plotSlice(mdl)
