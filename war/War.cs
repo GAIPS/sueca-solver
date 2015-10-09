@@ -13,8 +13,8 @@ namespace SuecaSolver
     {
 
         public const int GAMEMODE = 13;
-        public const int NUMGAMES = 1000;
-        public const bool PARALLEL = false;
+        public const int NUMGAMES = 100;
+        public const bool PARALLEL = true;
         public const int NUM_THREADS = 4;
         public const bool SAVE_RESULTS = true;
         public const bool SAVE_CARDS = true; //if true log file will contain intial cards of players otherwise will contain specific features
@@ -482,7 +482,7 @@ namespace SuecaSolver
                     playersNames[1] = "Random1";
                     players[1] = new RandomPlayer(1, playersHands[1], randomNumber);
                     playersNames[2] = "Random2";
-                    players[2] = new RandomPlayer(2, playersHands[3], randomNumber);
+                    players[2] = new RandomPlayer(2, playersHands[2], randomNumber);
                     playersNames[3] = "Random3";
                     players[3] = new RandomPlayer(3, playersHands[3], randomNumber);
                     break;
@@ -502,7 +502,7 @@ namespace SuecaSolver
                     playersNames[1] = "RuleBased1";
                     players[1] = new RuleBasedPlayer(1, playersHands[1], trump, randomNumber, seed);
                     playersNames[2] = "RuleBased2";
-                    players[2] = new RuleBasedPlayer(2, playersHands[3], trump, randomNumber, seed);
+                    players[2] = new RuleBasedPlayer(2, playersHands[2], trump, randomNumber, seed);
                     playersNames[3] = "RuleBased3";
                     players[3] = new RuleBasedPlayer(3, playersHands[3], trump, randomNumber, seed);
                     break;
