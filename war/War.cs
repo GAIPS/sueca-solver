@@ -12,13 +12,14 @@ namespace SuecaSolver
     public class War
     {
 
-        public const int GAMEMODE = 17;
-        public const int NUMGAMES = 1000;
+        public const int GAMEMODE = 15;
+        public const int NUMGAMES = 10;
         public const bool PARALLEL = true;
         public const int NUM_THREADS = 4;
         public const bool SAVE_RESULTS = true;
         public const bool SAVE_CARDS = true; //if true log file will contain intial cards of players otherwise will contain specific features
-        public const string SAVE_DIR = @"Z:\Devel\sueca-solver\results\";
+        //public const string SAVE_DIR = @"Z:\Devel\sueca-solver\results\";
+        public const string SAVE_DIR = @"C:\temp\";
         //public const string SAVE_DIR = "results/";
 
         public static void Main()
@@ -99,6 +100,9 @@ namespace SuecaSolver
                     break;
                 case 17:
                     Console.WriteLine("Mode 17 (2 TrickPlayer 2 TrickPlayer)");
+                    break;
+                case 18:
+                    Console.WriteLine("Mode 18 (1 Smart 3 RuleBased)");
                     break;
                 default:
                     break;
@@ -528,6 +532,16 @@ namespace SuecaSolver
                     players[2] = new TrickPlayer(2, playersHands[2], trump, randomNumber, seed);
                     playersNames[3] = "TrickPlayer4";
                     players[3] = new TrickPlayer(3, playersHands[3], trump, randomNumber, seed);
+                    break;
+                case 18:
+                    playersNames[0] = "Smart1";
+                    players[0] = new SmartPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    playersNames[1] = "RuleBased1";
+                    players[1] = new RuleBasedPlayer(1, playersHands[1], trump, randomNumber, seed);
+                    playersNames[2] = "RuleBased2";
+                    players[2] = new RuleBasedPlayer(2, playersHands[2], trump, randomNumber, seed);
+                    playersNames[3] = "RuleBased3";
+                    players[3] = new RuleBasedPlayer(3, playersHands[3], trump, randomNumber, seed);
                     break;
                 default:
                     break;

@@ -295,7 +295,8 @@ namespace SuecaSolver
             Deck deck = new Deck(randomNumber, seed);
             List<int> hand = deck.GetHand(NUM_TRICKS);
             //ElephantPlayer ep = new ElephantPlayer(0, hand, (int)Suit.Clubs, randomNumber, seed);
-            SmartPlayer ep = new SmartPlayer(0, hand, (int)Suit.Clubs, randomNumber, seed);
+            //SmartPlayer ep = new SmartPlayer(0, hand, (int)Suit.Clubs, randomNumber, seed);
+            TrickPlayer ep = new TrickPlayer(0, hand, (int)Suit.Clubs, randomNumber, seed);
             int chosenCard = ep.Play();
 
             SuecaGame.PrintCards("Initial hand", hand);
@@ -303,7 +304,6 @@ namespace SuecaSolver
 
             sw.Stop();
             Console.WriteLine("Total Time taken by functions is {0} seconds", sw.ElapsedMilliseconds / 1000); //seconds
-            Console.ReadLine();
         }
     }
 }
