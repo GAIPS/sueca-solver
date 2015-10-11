@@ -12,13 +12,13 @@ namespace SuecaSolver
     public class War
     {
 
-        public const int GAMEMODE = 5;
-        public const int NUMGAMES = 10;
+        public const int GAMEMODE = 20;
+        public const int NUMGAMES = 500;
         public const bool PARALLEL = true;
         public const int NUM_THREADS = 4;
         public const bool SAVE_RESULTS = true;
         public const bool SAVE_CARDS = true; //if true log file will contain intial cards of players otherwise will contain specific features
-        //public const string SAVE_DIR = @"Z:\Devel\sueca-solver\results\";
+        ////public const string SAVE_DIR = @"Z:\Devel\sueca-solver\results\";
         public const string SAVE_DIR = @"C:\temp\";
         //public const string SAVE_DIR = "results/";
 
@@ -106,6 +106,9 @@ namespace SuecaSolver
                     break;
                 case 19:
                     Console.WriteLine("Mode 19 (1 Elephant 3 RuleBased)");
+                    break;
+                case 20:
+                    Console.WriteLine("Mode 20 (2 Smart 2 Smart)");
                     break;
                 default:
                     break;
@@ -555,6 +558,16 @@ namespace SuecaSolver
                     players[2] = new RuleBasedPlayer(2, playersHands[2], trump, randomNumber, seed);
                     playersNames[3] = "RuleBased3";
                     players[3] = new RuleBasedPlayer(3, playersHands[3], trump, randomNumber, seed);
+                    break;
+                case 20:
+                    playersNames[0] = "Smart1";
+                    players[0] = new SmartPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    playersNames[1] = "Smart2";
+                    players[1] = new SmartPlayer(1, playersHands[1], trump, randomNumber, seed);
+                    playersNames[2] = "Smart3";
+                    players[2] = new SmartPlayer(2, playersHands[2], trump, randomNumber, seed);
+                    playersNames[3] = "Smart4";
+                    players[3] = new SmartPlayer(3, playersHands[3], trump, randomNumber, seed);
                     break;
                 default:
                     break;
