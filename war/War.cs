@@ -12,7 +12,7 @@ namespace SuecaSolver
     public class War
     {
 
-        public const int GAMEMODE = 16;
+        public const int GAMEMODE = 17;
         public const int NUMGAMES = 1000;
         public const bool PARALLEL = true;
         public const int NUM_THREADS = 4;
@@ -96,6 +96,9 @@ namespace SuecaSolver
                     break;
                 case 16:
                     Console.WriteLine("Mode 16 (2 TrickPlayer 2 RuleBased)");
+                    break;
+                case 17:
+                    Console.WriteLine("Mode 17 (2 TrickPlayer 2 TrickPlayer)");
                     break;
                 default:
                     break;
@@ -515,6 +518,16 @@ namespace SuecaSolver
                     players[2] = new TrickPlayer(2, playersHands[2], trump, randomNumber, seed);
                     playersNames[3] = "RuleBased2";
                     players[3] = new RuleBasedPlayer(3, playersHands[3], trump, randomNumber, seed);
+                    break;
+                case 17:
+                    playersNames[0] = "TrickPlayer1";
+                    players[0] = new TrickPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    playersNames[1] = "TrickPlayer2";
+                    players[1] = new TrickPlayer(1, playersHands[1], trump, randomNumber, seed);
+                    playersNames[2] = "TrickPlayer3";
+                    players[2] = new TrickPlayer(2, playersHands[2], trump, randomNumber, seed);
+                    playersNames[3] = "TrickPlayer4";
+                    players[3] = new TrickPlayer(3, playersHands[3], trump, randomNumber, seed);
                     break;
                 default:
                     break;
