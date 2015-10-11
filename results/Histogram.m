@@ -16,65 +16,52 @@ winRate = (countWins / numGamesA) * 100
 drawRate = (countDraws / numGamesA) * 100
 
 
-B = dlmread('log8.txt','\t',2,0);
-numGamesB = size(B,1);
+F = dlmread('log12.txt','\t',2,0);
+numGamesF = size(F,1);
 countWins = 0;
 countDraws = 0;
-TeamFinalPointsB = zeros(numGamesB,1);
-for i = 1:numGamesB
-  TeamFinalPointsB(i,1) = B(i,23);
-  if B(i,23) > 60
+TeamFinalPointsF = zeros(numGamesF,1);
+for i = 1:numGamesF
+  TeamFinalPointsF(i,1) = F(i,23);
+  if F(i,23) > 60
       countWins = countWins + 1;
-  elseif B(i,23) == 60
+  elseif F(i,23) == 60
       countDraws = countDraws + 1;
   end
 end
-winRate = (countWins / numGamesB) * 100
-drawRate = (countDraws / numGamesB) * 100
+winRate = (countWins / numGamesF) * 100
+drawRate = (countDraws / numGamesF) * 100
 
-C = dlmread('log9.txt','\t',2,0);
-numGamesC = size(C,1);
+G = dlmread('log13.txt','\t',2,0);
+numGamesG = size(G,1);
 countWins = 0;
 countDraws = 0;
-TeamFinalPointsC = zeros(numGamesC,1);
-for i = 1:numGamesC
-  TeamFinalPointsC(i,1) = C(i,23);
-  if C(i,23) > 60
+TeamFinalPointsG = zeros(numGamesG,1);
+for i = 1:numGamesG
+  TeamFinalPointsG(i,1) = G(i,23);
+  if G(i,23) > 60
       countWins = countWins + 1;
-  elseif C(i,23) == 60
+  elseif G(i,23) == 60
       countDraws = countDraws + 1;
   end
 end
-winRate = (countWins / numGamesC) * 100
-drawRate = (countDraws / numGamesC) * 100
+winRate = (countWins / numGamesG) * 100
+drawRate = (countDraws / numGamesG) * 100
 
 figure(1);
-a = histfit(TeamFinalPointsA,60);
-a(1).FaceColor = [0.2 0.4 0.2]
-delete(a(2));
-axis([0 120 0 45]);
-
-figure(2);
-b = histfit(TeamFinalPointsB,60);
-b(1).FaceColor = [0.2 0.5 1]
-delete(b(2));
-axis([0 120 0 45]);
-
-figure(3);
-c = histfit(TeamFinalPointsC,60);
-c(1).FaceColor = [1 0 0]
-delete(c(2));
-axis([0 120 0 45]);
-
-figure(4);
+% a = histfit(TeamFinalPointsA,60);
+% a(1).FaceColor = [0.2 0.4 0.2]
+% delete(a(2));
+% axis([0 120 0 45]);
 h = histfit(TeamFinalPointsA,60)
 h(2).Color = [0.2 0.4 0.2];
 delete(h(1));
 hold on;
-g = histfit(TeamFinalPointsB,60);
-g(2).Color = [0.2 0.5 1];
-delete(g(1));
-i = histfit(TeamFinalPointsC,60);
-i(2).Color = [1 0 0];
-delete(i(1));
+j = histfit(TeamFinalPointsF,60);
+j(2).Color = [1 0.84 0];
+delete(j(1));
+k = histfit(TeamFinalPointsG,60);
+k(2).Color = [1 0.42 0];
+delete(k(1));
 axis([0 120 0 45]);
+set(gca,'FontSize',12)
