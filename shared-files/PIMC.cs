@@ -50,7 +50,7 @@ namespace SuecaSolver
                 return possibleMoves[0];
             }
 
-            int N = 10000, depthLimit = 1, handSize = infoSet.GetHandSize();
+            int N = 1000, depthLimit = 1, handSize = infoSet.GetHandSize();
 
             for (int i = 0; i < N; i++)
             {
