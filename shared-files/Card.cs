@@ -29,11 +29,6 @@ namespace SuecaSolver
 
     public static class Card
     {
-        //public static int RandomSeed = Guid.NewGuid().GetHashCode();
-        //public static int seedLOL = Guid.NewGuid().GetHashCode();
-        //public static Random RandomLOL = new Random(seedLOL);
-
-        //cardValue are assured by Rank enum order
         private static int[] cardValues = new int[10] { 0, 0, 0, 0, 0, 2, 3, 4, 10, 11 };
         private static string[] cardRanks = new string[10] { "2", "3", "4", "5", "6", "Q", "J", "K", "7", "A" };
 

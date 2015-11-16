@@ -131,7 +131,7 @@ namespace SuecaSolver
         }
 
         //Sampling a card distribution considering which suits the players have
-        //It uses a CSP
+        //It uses a CSP from Microsoft SolverFoundation
         public List<List<int>> SampleHands(Dictionary<int,List<int>> suitHasPlayer, int[] handSizes)
         {
             if (deck.Count != handSizes[0] + handSizes[1] + handSizes[2])
