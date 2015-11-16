@@ -1,0 +1,2 @@
+# sueca-solver
+
