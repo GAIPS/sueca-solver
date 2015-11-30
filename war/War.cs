@@ -12,13 +12,14 @@ namespace SuecaSolver
     public class War
     {
 
-        public const int GAMEMODE = 2;
-        public const int NUMGAMES = 10;
-        public const bool PARALLEL = false;
+        public const int GAMEMODE = 20;
+        public const int NUMGAMES = 500;
+        public const bool PARALLEL = true;
         public const int NUM_THREADS = 4;
-        public const bool SAVE_RESULTS = false;
-        public const bool SAVE_CARDS = false; //if true log file will contain intial cards of players otherwise will contain specific features
-        public const string SAVE_DIR = @"Z:\Devel\sueca-solver\results\";
+        public const bool SAVE_RESULTS = true;
+        public const bool SAVE_CARDS = true; //if true log file will contain intial cards of players otherwise will contain specific features
+        ////public const string SAVE_DIR = @"Z:\Devel\sueca-solver\results\";
+        public const string SAVE_DIR = @"C:\temp\";
         //public const string SAVE_DIR = "results/";
 
         public static void Main()
@@ -78,6 +79,36 @@ namespace SuecaSolver
                     break;
                 case 10:
                     Console.WriteLine("Mode 10 (2 TrickPlayer 2 Smart)");
+                    break;
+                case 11:
+                    Console.WriteLine("Mode 11 (2 RuleBased 2 RuleBased)");
+                    break;
+                case 12:
+                    Console.WriteLine("Mode 12 (1 RuleBased 3 Random)");
+                    break;
+                case 13:
+                    Console.WriteLine("Mode 13 (1 TrickPlayer 3 Random)");
+                    break;
+                case 14:
+                    Console.WriteLine("Mode 14 (2 TrickPlayer 2 Random)");
+                    break;
+                case 15:
+                    Console.WriteLine("Mode 15 (1 TrickPlayer 3 RuleBased)");
+                    break;
+                case 16:
+                    Console.WriteLine("Mode 16 (2 TrickPlayer 2 RuleBased)");
+                    break;
+                case 17:
+                    Console.WriteLine("Mode 17 (2 TrickPlayer 2 TrickPlayer)");
+                    break;
+                case 18:
+                    Console.WriteLine("Mode 18 (1 Smart 3 RuleBased)");
+                    break;
+                case 19:
+                    Console.WriteLine("Mode 19 (1 Elephant 3 RuleBased)");
+                    break;
+                case 20:
+                    Console.WriteLine("Mode 20 (2 Smart 2 Smart)");
                     break;
                 default:
                     break;
@@ -279,11 +310,11 @@ namespace SuecaSolver
             Deck deck = new Deck(randomNumber, seed);
             int trump = randomNumber.Next(0, 4);
             playersHands = deck.SampleHands(new int[] { 10, 10, 10, 10 });
-            while (!checkHands(playersHands, trump))
-            {
-                playersHands = deck.SampleHands(new int[] { 10, 10, 10, 10 });
-                localCount[3]++;
-            }
+            //while (!checkHands(playersHands, trump))
+            //{
+            //    playersHands = deck.SampleHands(new int[] { 10, 10, 10, 10 });
+            //    localCount[3]++;
+            //}
 
             List<int>[] handsPerPlayer = new List<int>[4];
             for (int k = 0; k < 4; k++)
@@ -436,6 +467,106 @@ namespace SuecaSolver
                     playersNames[2] = "TrickPlayer2";
                     players[2] = new TrickPlayer(2, playersHands[2], trump, randomNumber, seed);
                     playersNames[3] = "Smart2";
+                    players[3] = new SmartPlayer(3, playersHands[3], trump, randomNumber, seed);
+                    break;
+                case 11:
+                    playersNames[0] = "RuleBased1";
+                    players[0] = new RuleBasedPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    playersNames[1] = "RuleBased3";
+                    players[1] = new RuleBasedPlayer(1, playersHands[1], trump, randomNumber, seed);
+                    playersNames[2] = "RuleBased2";
+                    players[2] = new RuleBasedPlayer(2, playersHands[2], trump, randomNumber, seed);
+                    playersNames[3] = "RuleBased14";
+                    players[3] = new RuleBasedPlayer(3, playersHands[3], trump, randomNumber, seed);
+                    break;
+                case 12:
+                    playersNames[0] = "RuleBased1";
+                    players[0] = new RuleBasedPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    playersNames[1] = "RandomPlayer3";
+                    players[1] = new RandomPlayer(1, playersHands[1], randomNumber);
+                    playersNames[2] = "RandomPlayer2";
+                    players[2] = new RandomPlayer(2, playersHands[2], randomNumber);
+                    playersNames[3] = "RandomPlayer4";
+                    players[3] = new RandomPlayer(3, playersHands[3], randomNumber);
+                    break;
+                case 13:
+                    playersNames[0] = "TrickPlayer1";
+                    players[0] = new TrickPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    playersNames[1] = "Random1";
+                    players[1] = new RandomPlayer(1, playersHands[1], randomNumber);
+                    playersNames[2] = "Random2";
+                    players[2] = new RandomPlayer(2, playersHands[2], randomNumber);
+                    playersNames[3] = "Random3";
+                    players[3] = new RandomPlayer(3, playersHands[3], randomNumber);
+                    break;
+                case 14:
+                    playersNames[0] = "TrickPlayer1";
+                    players[0] = new TrickPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    playersNames[1] = "Random1";
+                    players[1] = new RandomPlayer(1, playersHands[1], randomNumber);
+                    playersNames[2] = "TrickPlayer2";
+                    players[2] = new TrickPlayer(2, playersHands[2], trump, randomNumber, seed);
+                    playersNames[3] = "Random2";
+                    players[3] = new RandomPlayer(3, playersHands[3], randomNumber);
+                    break;
+                case 15:
+                    playersNames[0] = "TrickPlayer1";
+                    players[0] = new TrickPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    playersNames[1] = "RuleBased1";
+                    players[1] = new RuleBasedPlayer(1, playersHands[1], trump, randomNumber, seed);
+                    playersNames[2] = "RuleBased2";
+                    players[2] = new RuleBasedPlayer(2, playersHands[2], trump, randomNumber, seed);
+                    playersNames[3] = "RuleBased3";
+                    players[3] = new RuleBasedPlayer(3, playersHands[3], trump, randomNumber, seed);
+                    break;
+                case 16:
+                    playersNames[0] = "TrickPlayer1";
+                    players[0] = new TrickPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    playersNames[1] = "RuleBased1";
+                    players[1] = new RuleBasedPlayer(1, playersHands[1], trump, randomNumber, seed);
+                    playersNames[2] = "TrickPlayer2";
+                    players[2] = new TrickPlayer(2, playersHands[2], trump, randomNumber, seed);
+                    playersNames[3] = "RuleBased2";
+                    players[3] = new RuleBasedPlayer(3, playersHands[3], trump, randomNumber, seed);
+                    break;
+                case 17:
+                    playersNames[0] = "TrickPlayer1";
+                    players[0] = new TrickPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    playersNames[1] = "TrickPlayer2";
+                    players[1] = new TrickPlayer(1, playersHands[1], trump, randomNumber, seed);
+                    playersNames[2] = "TrickPlayer3";
+                    players[2] = new TrickPlayer(2, playersHands[2], trump, randomNumber, seed);
+                    playersNames[3] = "TrickPlayer4";
+                    players[3] = new TrickPlayer(3, playersHands[3], trump, randomNumber, seed);
+                    break;
+                case 18:
+                    playersNames[0] = "Smart1";
+                    players[0] = new SmartPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    playersNames[1] = "RuleBased1";
+                    players[1] = new RuleBasedPlayer(1, playersHands[1], trump, randomNumber, seed);
+                    playersNames[2] = "RuleBased2";
+                    players[2] = new RuleBasedPlayer(2, playersHands[2], trump, randomNumber, seed);
+                    playersNames[3] = "RuleBased3";
+                    players[3] = new RuleBasedPlayer(3, playersHands[3], trump, randomNumber, seed);
+                    break;
+                case 19:
+                    playersNames[0] = "Elephant1";
+                    players[0] = new ElephantPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    playersNames[1] = "RuleBased1";
+                    players[1] = new RuleBasedPlayer(1, playersHands[1], trump, randomNumber, seed);
+                    playersNames[2] = "RuleBased2";
+                    players[2] = new RuleBasedPlayer(2, playersHands[2], trump, randomNumber, seed);
+                    playersNames[3] = "RuleBased3";
+                    players[3] = new RuleBasedPlayer(3, playersHands[3], trump, randomNumber, seed);
+                    break;
+                case 20:
+                    playersNames[0] = "Smart1";
+                    players[0] = new SmartPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    playersNames[1] = "Smart2";
+                    players[1] = new SmartPlayer(1, playersHands[1], trump, randomNumber, seed);
+                    playersNames[2] = "Smart3";
+                    players[2] = new SmartPlayer(2, playersHands[2], trump, randomNumber, seed);
+                    playersNames[3] = "Smart4";
                     players[3] = new SmartPlayer(3, playersHands[3], trump, randomNumber, seed);
                     break;
                 default:

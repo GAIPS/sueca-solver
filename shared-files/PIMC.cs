@@ -158,8 +158,8 @@ namespace SuecaSolver
                     depthLimit = 3;
                     break;
                 case 6:
-                    N = 5;
-                    depthLimit = 10;
+                    N = 50;
+                    depthLimit = 4;
                     break;
                 case 5:
                     N = 30;
@@ -174,7 +174,7 @@ namespace SuecaSolver
                     depthLimit = 10;
                     break;
                 case 2:
-                    N = 10000;
+                    N = 1000;
                     depthLimit = 10;
                     break;
                 default:

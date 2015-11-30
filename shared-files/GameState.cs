@@ -370,7 +370,7 @@ namespace SuecaSolver
 
         public int EvalGame()
         {
-            //return botTeamPoints;
+            return botTeamPoints;
             if (botTeamPoints > otherTeamPoints)
             {
                 return botTeamPoints;
@@ -379,6 +379,39 @@ namespace SuecaSolver
             {
                 return -1 * otherTeamPoints;
             }
+
+            //if (botTeamPoints > otherTeamPoints)
+            //{
+            //    if (botTeamPoints > 90)
+            //    {
+            //        return 10;
+            //    }
+            //    if (botTeamPoints > 60)
+            //    {
+            //        return 5;
+            //    }
+            //    if (botTeamPoints > 30)
+            //    {
+            //        return 1;
+            //    }
+            //    return 0;
+            //}
+            //else
+            //{
+            //    if (otherTeamPoints > 90)
+            //    {
+            //        return -10;
+            //    }
+            //    if (otherTeamPoints > 60)
+            //    {
+            //        return -5;
+            //    }
+            //    if (otherTeamPoints > 30)
+            //    {
+            //        return -1;
+            //    }
+            //    return 0;
+            //}
         }
 
         private int pointsPrediction()
