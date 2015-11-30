@@ -192,8 +192,7 @@ namespace SuecaPlayer
             Console.WriteLine("");
             SuecaSolver.Suit myTrump = (SuecaSolver.Suit) Enum.Parse(typeof(SuecaSolver.Suit), trump);
 
-            ai = new SmartPlayer(0, initialCards, (int)myTrump, new Random(), 03129840);
-            //ai = new RandomPlayer(0, initialCards, new Random());//, 03129840);
+            ai = new SmartPlayer(0, initialCards, (int)myTrump);
             allSet = true;
             processingRepeat = false;
 
@@ -268,8 +267,7 @@ namespace SuecaPlayer
 
         public void Shuffle(int playerId)
         {
-            while (!sessionStart)
-            { }
+            while (!sessionStart) { }
             iaPublisher.ForwardShuffle(playerId);
         }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SuecaSolver
 {
-    public class TrickPlayer : ArtificialPlayer
+    public class ExpressPlayer : ArtificialPlayer
     {
         private int _idDiff;
         public int HandSize;
@@ -12,7 +12,7 @@ namespace SuecaSolver
         public float TrickExpectedReward;
 
 
-        public TrickPlayer(int id, List<int> initialHand, int trumpSuit)
+        public ExpressPlayer(int id, List<int> initialHand, int trumpSuit)
             : base(id)
         {
             _idDiff = 0 - id;
@@ -35,7 +35,9 @@ namespace SuecaSolver
 
         override public int Play()
         {
-            int chosenCard = pimc.TrickExecute(infoSet);
+            int chosenCard;
+
+            chosenCard = pimc.ExpressExecute(infoSet);
 
             infoSet.AddMyPlay(chosenCard);
             HandSize--;

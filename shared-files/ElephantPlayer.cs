@@ -11,13 +11,13 @@ namespace SuecaSolver
         private InformationSet infoSet;
 
 
-        public ElephantPlayer(int id, List<int> initialHand, int trumpSuit, Random randomLOL, int seed)
+        public ElephantPlayer(int id, List<int> initialHand, int trumpSuit)
             : base(id)
         {
             _idDiff = 0 - id;
             _handSize = initialHand.Count;
             pimc = new PIMC();
-            infoSet = new InformationSet(initialHand, trumpSuit, randomLOL, seed);
+            infoSet = new InformationSet(initialHand, trumpSuit);
         }
 
         override public void AddPlay(int playerID, int card)

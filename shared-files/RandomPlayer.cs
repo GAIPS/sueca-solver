@@ -10,12 +10,12 @@ namespace SuecaSolver
         private int currentPlay;
         private Random randomNumber;
 
-        public RandomPlayer(int id, List<int> initialHand, Random random)
+        public RandomPlayer(int id, List<int> initialHand)
             : base(id)
         {
             hand = new List<int>(initialHand);
             currentPlay = 0;
-            randomNumber = random;
+            randomNumber = new Random();
         }
 
         override public void AddPlay(int playerID, int card)
@@ -35,7 +35,7 @@ namespace SuecaSolver
                 leadSuit = (int)Suit.None;
             }
 
-            List<int> possibleMoves = SuecaGame.PossibleMoves(hand, leadSuit);
+            List<int> possibleMoves = Sueca.PossibleMoves(hand, leadSuit);
             int randomIndex = randomNumber.Next(0, possibleMoves.Count);
             int chosenCard = possibleMoves[randomIndex];
             hand.Remove(chosenCard);

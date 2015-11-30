@@ -9,7 +9,7 @@ namespace SuecaSolver
     {
         public int NUM_TRICKS;
         private List<Trick> tricks;
-        private Player[] players;
+        private PlayerNode[] players;
         private int trump;
 
         private AscendingComparer ac;
@@ -41,14 +41,14 @@ namespace SuecaSolver
         //public Dictionary<string, int> ComputedSubtreesMinPlayer = new Dictionary<string, int>();
 
 
-        public GameState(int numTricks, int trumpSuit, Player[] playersList, int possiblePoints, int botTeamInitialPoints, int otherTeamInitialPoints)
+        public GameState(int numTricks, int trumpSuit, PlayerNode[] playersList, int possiblePoints, int botTeamInitialPoints, int otherTeamInitialPoints)
         {
             NUM_TRICKS = numTricks;
             ac = new AscendingComparer();
             dc = new DescendingComparer();
             acc = new AscendingCutComparer(trumpSuit);
             //            dcc = new DescendingCutComparer(trumpSuit);
-            players = new Player[4];
+            players = new PlayerNode[4];
             tricks = new List<Trick>(numTricks);
             trump = trumpSuit;
             predictableTrickWinner = -1;
@@ -93,7 +93,7 @@ namespace SuecaSolver
 
             for (int i = 0; i < players.Length; i++)
             {
-                Player player = players[i];
+                PlayerNode player = players[i];
                 List<int> hand = player.Hand;
                 hand.Sort();
 
@@ -154,7 +154,7 @@ namespace SuecaSolver
         }
 
         // This function is always called after applying a move
-        public Player GetNextPlayer()
+        public PlayerNode GetNextPlayer()
         {
             int nextPlayerId;
             if (GetCurrentTrick().IsFull())

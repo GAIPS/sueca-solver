@@ -30,7 +30,40 @@ namespace SuecaSolver
                 for (int j = 0; j < possibleMoves.Count; j++)
                 {
                     int card = possibleMoves[j];
-                    game = new SuecaGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints, USE_CACHE);
+                    game = new MinMaxGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints, USE_CACHE);
+                    cardValueInTrick = game.SampleGame(depthLimit, card);
+                    infoSet.AddCardValue(card, cardValueInTrick);
+                }
+            }
+
+            infoSet.calculateAverageCardValues(N);
+            return infoSet.GetBestCard();
+        }
+
+        public int ExpressExecute(InformationSet infoSet, bool USE_CACHE = false)
+        {
+            infoSet.CleanCardValues();
+            List<int> possibleMoves = infoSet.GetPossibleMoves();
+
+            if (possibleMoves.Count == 1)
+            {
+                return possibleMoves[0];
+            }
+
+            int N = 100, depthLimit = 100, handSize = infoSet.GetHandSize();
+            //setNandDepthLimit(out N, out depthLimit, handSize);
+
+            for (int i = 0; i < N; i++)
+            {
+                List<List<int>> playersHands = infoSet.Sample();
+
+                SuecaGame game;
+                int cardValueInTrick;
+
+                for (int j = 0; j < possibleMoves.Count; j++)
+                {
+                    int card = possibleMoves[j];
+                    game = new MaxRuleBasedGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints, USE_CACHE);
                     cardValueInTrick = game.SampleGame(depthLimit, card);
                     infoSet.AddCardValue(card, cardValueInTrick);
                 }
@@ -62,7 +95,7 @@ namespace SuecaSolver
                 for (int j = 0; j < possibleMoves.Count; j++)
                 {
                     int card = possibleMoves[j];
-                    game = new SuecaGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints, USE_CACHE);
+                    game = new MinMaxGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints, USE_CACHE);
                     cardValueInTrick = game.SampleGame(depthLimit, card);
                     infoSet.AddCardValue(card, cardValueInTrick);
                 }
@@ -91,7 +124,7 @@ namespace SuecaSolver
                 for (int j = 0; j < possibleMoves.Count; j++)
                 {
                     int card = possibleMoves[j];
-                    game = new SuecaGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints, USE_CACHE);
+                    game = new MinMaxGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints, USE_CACHE);
                     cardValueInTrick = game.SampleGame(10000, card);
                     infoSet.AddCardValue(card, cardValueInTrick);
                 }
@@ -125,7 +158,7 @@ namespace SuecaSolver
                 for (int j = 0; j < possibleMoves.Count; j++)
                 {
                     int card = possibleMoves[j];
-                    game = new SuecaGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints, USE_CACHE);
+                    game = new MinMaxGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints, USE_CACHE);
                     cardValueInTrick = game.SampleGame(depthLimit, card);
                     infoSet.AddCardValue(card, cardValueInTrick);
                 }

@@ -13,13 +13,11 @@ namespace SuecaSolver
     {
 
         private Random random;
-        private int seedLOL;
         private List<int> deck;
 
-        public Deck(Random randomLOL, int seed)
+        public Deck()
         {
-            random = randomLOL;
-            seedLOL = seed;
+            random = new Random();
             deck = new List<int>(40);
 
             for (int i = 0; i < 40; i++)
@@ -28,10 +26,9 @@ namespace SuecaSolver
             }
         }
 
-        public Deck(List<int> cards, Random randomLOL, int seed)
+        public Deck(List<int> cards)
         {
-            random = randomLOL;
-            seedLOL = seed;
+            random = new Random();
             deck = new List<int>(40 - cards.Count);
 
             for (int i = 0; i < 40; i++)
@@ -214,7 +211,6 @@ namespace SuecaSolver
 
             while (solution.Quality != SolverQuality.Feasible)
             {
-                Console.WriteLine("SEED LIXADA: " + seedLOL);
                 Console.Write("CSP Problem - solution {0}", solution.Quality);
                 System.Environment.Exit(1);
             }

@@ -8,11 +8,11 @@ namespace SuecaSolver
         private int _idDiff;
         private InformationSet infoSet;
 
-        public RuleBasedPlayer(int id, List<int> initialHand, int trumpSuit, Random random, int seed)
+        public RuleBasedPlayer(int id, List<int> initialHand, int trumpSuit)
             : base(id)
         {
             _idDiff = 0 - id;                                                                                                                                                                                                                                                                                                
-            infoSet = new InformationSet(initialHand, trumpSuit, random, seed);
+            infoSet = new InformationSet(initialHand, trumpSuit);
         }
 
         override public void AddPlay(int playerID, int card)
