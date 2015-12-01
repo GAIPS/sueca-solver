@@ -10,12 +10,10 @@ namespace SuecaSolver
         protected int trump;
         protected GameState gameState;
         protected int possiblePoints;
-        protected int points;
 
-        public SuecaGame(int numTricks, List<List<int>> playersHands, int trumpSuit, List<Move> alreadyPlayed, int botTeamInitialPoints, int otherTeamInitialPoints, bool USE_CACHE = false)
+        public SuecaGame(int numTricks, List<List<int>> playersHands, int trumpSuit)
         {
             trump = trumpSuit;
-            points = 0;
 
             if (playersHands[0].Count == 10
                 && playersHands[1].Count == 10
@@ -30,14 +28,6 @@ namespace SuecaSolver
                     + Sueca.CountPoints(playersHands[1])
                     + Sueca.CountPoints(playersHands[2])
                     + Sueca.CountPoints(playersHands[3]);
-            }
-
-            if (alreadyPlayed != null)
-            {
-                foreach (Move move in alreadyPlayed)
-                {
-                    gameState.ApplyMove(move);
-                }
             }
         }
 
@@ -58,12 +48,12 @@ namespace SuecaSolver
             gameState.ApplyMove(new Move(playerID, card));
         }
 
-        public int SampleGame(int depthLimit, int card = -1)
+        public int SampleGame(int depthLimit, int card)
         {
             PlayerNode myPlayer = players[0];
 
-            points = myPlayer.PlayGame(gameState, Int16.MinValue, Int16.MaxValue, depthLimit, card);
-            return points;
+            int gameUtility = myPlayer.PlayGame(gameState, Int16.MinValue, Int16.MaxValue, depthLimit, card);
+            return gameUtility;
         }
 
         public void PrintPlayersHands()

@@ -50,13 +50,13 @@ namespace SuecaSolver
                 return possibleMoves[0];
             }
 
-            int N = 100, depthLimit = 100, handSize = infoSet.GetHandSize();
+            int N = 100, depthLimit = 8, handSize = infoSet.GetHandSize();
             //setNandDepthLimit(out N, out depthLimit, handSize);
 
             for (int i = 0; i < N; i++)
             {
+                Console.WriteLine("ExpressExecute i = " + i);
                 List<List<int>> playersHands = infoSet.Sample();
-
                 SuecaGame game;
                 int cardValueInTrick;
 
@@ -65,6 +65,7 @@ namespace SuecaSolver
                     int card = possibleMoves[j];
                     game = new MaxRuleBasedGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints, USE_CACHE);
                     cardValueInTrick = game.SampleGame(depthLimit, card);
+                    Console.WriteLine("LOL card value = " + cardValueInTrick);
                     infoSet.AddCardValue(card, cardValueInTrick);
                 }
             }

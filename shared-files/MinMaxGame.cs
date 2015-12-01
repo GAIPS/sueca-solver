@@ -7,7 +7,7 @@ namespace SuecaSolver
     {
 
         public MinMaxGame(int numTricks, List<List<int>> playersHands, int trumpSuit, List<Move> alreadyPlayed, int botTeamInitialPoints, int otherTeamInitialPoints, bool USE_CACHE = false)
-            : base(numTricks, playersHands, trumpSuit, alreadyPlayed, botTeamInitialPoints, otherTeamInitialPoints, USE_CACHE)
+            : base(numTricks, playersHands, trumpSuit)
         {
             players = new PlayerNode[4];
             players[0] = new MaxNode(0, playersHands[0], USE_CACHE);
@@ -16,6 +16,14 @@ namespace SuecaSolver
             players[3] = new MinNode(3, playersHands[3], USE_CACHE);
 
             gameState = new GameState(numTricks, trump, players, possiblePoints, botTeamInitialPoints, otherTeamInitialPoints);
+
+            if (alreadyPlayed != null)
+            {
+                foreach (Move move in alreadyPlayed)
+                {
+                    gameState.ApplyMove(move);
+                }
+            }
         }
     }
 }

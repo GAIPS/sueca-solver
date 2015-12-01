@@ -220,6 +220,7 @@ namespace SuecaSolver
         }
 
 
+
         public static void PrintCards(string name, List<int> cards)
         {
             string str = name + " - ";

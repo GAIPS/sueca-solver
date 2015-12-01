@@ -291,7 +291,7 @@ namespace SuecaSolver
 
             int seed = Guid.NewGuid().GetHashCode();
             Random randomNumber = new Random(seed);
-            int NUM_TRICKS = 9;
+            int NUM_TRICKS = 10;
             Deck deck = new Deck();
             List<int> hand = deck.GetHand(NUM_TRICKS);
             //ElephantPlayer ep = new ElephantPlayer(0, hand, (int)Suit.Clubs);

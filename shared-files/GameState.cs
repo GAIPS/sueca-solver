@@ -15,7 +15,6 @@ namespace SuecaSolver
         private AscendingComparer ac;
         private DescendingComparer dc;
         private AscendingCutComparer acc;
-        //        private DescendingCutComparer dcc;
 
         private int predictableTrickWinner;
         private bool predictableTrickCut;
@@ -25,21 +24,6 @@ namespace SuecaSolver
         private int maxPointsInGame;
         private List<int> pointsPerTrick;
 
-        //public static int TEST_SEED = 1369254932;
-        public static int ACCESSES = 0;
-        public static int SAVED_ACCESSES = 0;
-        public static Object MaxLock = new Object();
-        public static Object MinLock = new Object();
-        public static ConcurrentDictionary<string, int> ComputedSubtreesMaxPlayer = new ConcurrentDictionary<string, int>();
-        public static ConcurrentDictionary<string, int> ComputedSubtreesMinPlayer = new ConcurrentDictionary<string, int>();
-        //public static LFUCache<string, int> ComputedSubtreesMaxPlayer = new LFUCache<string, int>(400000);
-        //public static LFUCache<string, int> ComputedSubtreesMinPlayer = new LFUCache<string, int>(400000);
-
-        //public Object MaxPlayerLock = new Object();
-        //public Dictionary<string, int> ComputedSubtreesMaxPlayer = new Dictionary<string, int>();
-        //public Object MinPlayerLock = new Object();
-        //public Dictionary<string, int> ComputedSubtreesMinPlayer = new Dictionary<string, int>();
-
 
         public GameState(int numTricks, int trumpSuit, PlayerNode[] playersList, int possiblePoints, int botTeamInitialPoints, int otherTeamInitialPoints)
         {
@@ -47,7 +31,6 @@ namespace SuecaSolver
             ac = new AscendingComparer();
             dc = new DescendingComparer();
             acc = new AscendingCutComparer(trumpSuit);
-            //            dcc = new DescendingCutComparer(trumpSuit);
             players = new PlayerNode[4];
             tricks = new List<Trick>(numTricks);
             trump = trumpSuit;
@@ -120,11 +103,6 @@ namespace SuecaSolver
             string[] result = new string[6];
             result[0] = state;
             string[] cardsPerSuits = state.Split(',');
-            //result[1] = cardsPerSuits[0] + "," + cardsPerSuits[1] + "," + cardsPerSuits[2] + "," + cardsPerSuits[4] + "," + cardsPerSuits[3];
-            //result[2] = cardsPerSuits[0] + "," + cardsPerSuits[1] + "," + cardsPerSuits[3] + "," + cardsPerSuits[2] + "," + cardsPerSuits[4];
-            //result[3] = cardsPerSuits[0] + "," + cardsPerSuits[1] + "," + cardsPerSuits[3] + "," + cardsPerSuits[4] + "," + cardsPerSuits[2];
-            //result[4] = cardsPerSuits[0] + "," + cardsPerSuits[1] + "," + cardsPerSuits[4] + "," + cardsPerSuits[2] + "," + cardsPerSuits[3];
-            //result[5] = cardsPerSuits[0] + "," + cardsPerSuits[1] + "," + cardsPerSuits[4] + "," + cardsPerSuits[3] + "," + cardsPerSuits[2];
             result[1] = cardsPerSuits[0] + "," + cardsPerSuits[1] + "," + cardsPerSuits[3] + "," + cardsPerSuits[2];
             result[2] = cardsPerSuits[0] + "," + cardsPerSuits[2] + "," + cardsPerSuits[1] + "," + cardsPerSuits[3];
             result[3] = cardsPerSuits[0] + "," + cardsPerSuits[2] + "," + cardsPerSuits[3] + "," + cardsPerSuits[1];
@@ -147,7 +125,6 @@ namespace SuecaSolver
         {
             if (tricks.Count == 0)
             {
-                //Console.WriteLine("GameState.GetCurrentTrick - No tricks available");
                 return null;
             }
             return tricks[tricks.Count - 1];
@@ -370,7 +347,6 @@ namespace SuecaSolver
 
         public int EvalGame()
         {
-            return botTeamPoints;
             if (botTeamPoints > otherTeamPoints)
             {
                 return botTeamPoints;
