@@ -24,7 +24,7 @@ namespace SuecaSolver
             {
                 List<List<int>> playersHands = infoSet.Sample();
 
-                SuecaGame game;
+                MinMaxGame game;
                 int cardValueInTrick;
 
                 for (int j = 0; j < possibleMoves.Count; j++)
@@ -57,7 +57,7 @@ namespace SuecaSolver
             {
                 Console.WriteLine("ExpressExecute i = " + i);
                 List<List<int>> playersHands = infoSet.Sample();
-                SuecaGame game;
+                MaxRuleBasedGame game;
                 int cardValueInTrick;
 
                 for (int j = 0; j < possibleMoves.Count; j++)
@@ -90,7 +90,7 @@ namespace SuecaSolver
             {
                 List<List<int>> playersHands = infoSet.Sample();
 
-                SuecaGame game;
+                MinMaxGame game;
                 int cardValueInTrick;
 
                 for (int j = 0; j < possibleMoves.Count; j++)
@@ -119,7 +119,7 @@ namespace SuecaSolver
             {
                 List<List<int>> playersHands = infoSet.Sample();
 
-                SuecaGame game;
+                MinMaxGame game;
                 int cardValueInTrick;
 
                 for (int j = 0; j < possibleMoves.Count; j++)
@@ -153,7 +153,7 @@ namespace SuecaSolver
                 n++;
                 List<List<int>> playersHands = infoSet.Sample();
 
-                SuecaGame game;
+                MinMaxGame game;
                 int cardValueInTrick;
 
                 for (int j = 0; j < possibleMoves.Count; j++)

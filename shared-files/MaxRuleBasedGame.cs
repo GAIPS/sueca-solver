@@ -6,6 +6,8 @@ namespace SuecaSolver
     public class MaxRuleBasedGame : SuecaGame
     {
 
+        private PlayerNode[] players;
+
         public MaxRuleBasedGame(int numTricks, List<List<int>> playersHands, int trumpSuit, List<Move> alreadyPlayed, int botTeamInitialPoints, int otherTeamInitialPoints, bool USE_CACHE = false)
             : base(numTricks, playersHands, trumpSuit)
         {
@@ -15,7 +17,7 @@ namespace SuecaSolver
             players[2] = new RuleBasedNode(2, playersHands[2], trumpSuit);
             players[3] = new RuleBasedNode(3, playersHands[3], trumpSuit);
 
-            gameState = new GameState(numTricks, trump, players, possiblePoints, botTeamInitialPoints, otherTeamInitialPoints);
+            gameState = new GameState(numTricks, trumpSuit, players, botTeamInitialPoints, otherTeamInitialPoints);
 
             if (alreadyPlayed != null)
             {
@@ -24,6 +26,14 @@ namespace SuecaSolver
                     gameState.ApplyMove(move);
                 }
             }
+        }
+
+        public int SampleGame(int depthLimit, int card)
+        {
+            PlayerNode myPlayer = players[0];
+
+            int gameUtility = myPlayer.PlayGame(gameState, Int16.MinValue, Int16.MaxValue, depthLimit, card);
+            return gameUtility;
         }
     }
 }

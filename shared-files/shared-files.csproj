@@ -65,6 +65,7 @@
     <Compile Include="SmartPlayer.cs" />
     <Compile Include="Sueca.cs" />
     <Compile Include="SuecaGame.cs" />
+    <Compile Include="SuecaGameState.cs" />
     <Compile Include="Trick.cs" />
     <Compile Include="TrickPlayer.cs" />
   </ItemGroup>
