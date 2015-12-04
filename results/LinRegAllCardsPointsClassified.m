@@ -70,16 +70,39 @@ mdl = fitlm(tbl,'TeamFinalPoints ~ teamNumTrumps + teamNumAces + teamNumSevens')
 %mdl = stepwiselm(tbl,'fp ~ t_0 + t_2 + A_0 + A_2 + x7_0 + x7_2')
 result = table2array(mdl.Coefficients);
 save('LinRegResult5.txt', 'result', '-ascii');
+
+
 figure(1);
 h = plotAdded(mdl, 'teamNumTrumps')
 %axis([-0.5,10.5,0,120])
 line([0 10],[60 60], 'Color', 'black')
+ylabel('Game final points');
+xlabel('Number of trumps');
+set(gca,'FontSize',12);
+set(gca,'XTick', [0 1 2 3 4 5 6 7 8 9 10]);
+title('');
+
+
 figure(2);
 j = plotAdded(mdl, 'teamNumAces')
 axis([-0.5,4.5,0,120])
 line([-0.5 4.5],[60 60], 'Color', 'black')
+ylabel('Game final points');
+xlabel('Number of aces');
+set(gca,'FontSize',12);
+set(gca,'XTick', [0 1 2 3 4]);
+set(gcf,'NumberTitle','off');
+title('');
+
+
 figure(3);
 k = plotAdded(mdl, 'teamNumSevens')
 axis([-0.5,4.5,0,120])
 line([-0.5 4.5],[60 60], 'Color', 'black')
+ylabel('Game final points');
+xlabel('Number of sevens');
+set(gca,'FontSize',12);
+set(gca,'XTick', [0 1 2 3 4]);
+set(gcf,'NumberTitle','off');
+title('');
 %h = plotSlice(mdl)

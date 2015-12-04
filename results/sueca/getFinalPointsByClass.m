@@ -46,7 +46,7 @@ function [ hard, medium, easy, frh, frm, fre ] = getFinalPointsByClass( filename
     frh = (numHardWonDrew / numHardGames) * 100;
     frm = (numMediumWonDrew / numMediumGames) * 100;
     fre = (numEasyWonDrew / numEasyGames) * 100;
-    
+   
     hard = zeros(numHardGames,1);
     medium = zeros(numMediumGames,1);
     easy = zeros(numEasyGames,1);
