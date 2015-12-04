@@ -13,13 +13,11 @@ namespace SuecaSolver
     {
 
         private Random random;
-        private int seedLOL;
         private List<int> deck;
 
-        public Deck(Random randomLOL, int seed)
+        public Deck()
         {
-            random = randomLOL;
-            seedLOL = seed;
+            random = new Random();
             deck = new List<int>(40);
 
             for (int i = 0; i < 40; i++)
@@ -28,10 +26,9 @@ namespace SuecaSolver
             }
         }
 
-        public Deck(List<int> cards, Random randomLOL, int seed)
+        public Deck(List<int> cards)
         {
-            random = randomLOL;
-            seedLOL = seed;
+            random = new Random();
             deck = new List<int>(40 - cards.Count);
 
             for (int i = 0; i < 40; i++)
@@ -131,7 +128,7 @@ namespace SuecaSolver
         }
 
         //Sampling a card distribution considering which suits the players have
-        //It uses a CSP
+        //It uses a CSP from Microsoft SolverFoundation
         public List<List<int>> SampleHands(Dictionary<int,List<int>> suitHasPlayer, int[] handSizes)
         {
             if (deck.Count != handSizes[0] + handSizes[1] + handSizes[2])
@@ -187,17 +184,21 @@ namespace SuecaSolver
                 {
                     d = new Decision(domain23, "c" + card);
                 }
-                else if (playersThatHaveSuit[0] == 1)
+                else if (playersThatHaveSuit.Count == 1 && playersThatHaveSuit[0] == 1)
                 {
                     d = new Decision(domain1, "c" + card);
                 }
-                else if (playersThatHaveSuit[0] == 2)
+                else if (playersThatHaveSuit.Count == 1 && playersThatHaveSuit[0] == 2)
                 {
                     d = new Decision(domain2, "c" + card);
                 }
-                else
+                else if (playersThatHaveSuit.Count == 1 && playersThatHaveSuit[0] == 3)
                 {
                     d = new Decision(domain3, "c" + card);
+                }
+                else
+                {
+                    return null;
                 }
 
                 decisions.Add(d);
@@ -210,7 +211,6 @@ namespace SuecaSolver
 
             while (solution.Quality != SolverQuality.Feasible)
             {
-                Console.WriteLine("SEED LIXADA: " + seedLOL);
                 Console.Write("CSP Problem - solution {0}", solution.Quality);
                 System.Environment.Exit(1);
             }

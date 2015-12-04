@@ -12,13 +12,13 @@ namespace SuecaSolver
         public float TrickExpectedReward;
 
 
-        public SmartPlayer(int id, List<int> initialHand, int trumpSuit, Random randomLOL, int seed)
+        public SmartPlayer(int id, List<int> initialHand, int trumpSuit)
             : base(id)
         {
             _idDiff = 0 - id;
             HandSize = initialHand.Count;
             pimc = new PIMC();
-            infoSet = new InformationSet(initialHand, trumpSuit, randomLOL, seed);
+            infoSet = new InformationSet(initialHand, trumpSuit);
             TrickExpectedReward = 0.0f;
         }
 

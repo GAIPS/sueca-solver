@@ -47,22 +47,27 @@
     <Compile Include="Card.cs" />
     <Compile Include="Deck.cs" />
     <Compile Include="ElephantPlayer.cs" />
+    <Compile Include="ExpressPlayer.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="InformationSet.cs" />
-    <Compile Include="MaxPlayer.cs" />
-    <Compile Include="MinPlayer.cs" />
+    <Compile Include="MaxRuleBasedGame.cs" />
+    <Compile Include="MaxNode.cs" />
+    <Compile Include="MinMaxGame.cs" />
+    <Compile Include="MinNode.cs" />
     <Compile Include="Move.cs" />
     <Compile Include="PIMC.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="PlayerNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomPlayer.cs" />
+    <Compile Include="RuleBasedNode.cs" />
     <Compile Include="RuleBasedPlayer.cs" />
     <Compile Include="SmartestPlayer.cs" />
     <Compile Include="SmartPlayer.cs" />
+    <Compile Include="Sueca.cs" />
     <Compile Include="SuecaGame.cs" />
+    <Compile Include="SuecaGameState.cs" />
     <Compile Include="Trick.cs" />
     <Compile Include="TrickPlayer.cs" />
-    <Compile Include="Utils.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

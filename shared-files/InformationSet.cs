@@ -20,7 +20,7 @@ namespace SuecaSolver
         private int trickPoints;
 
 
-        public InformationSet(List<int> currentHand, int trumpSuit, Random randomLOL, int seed)
+        public InformationSet(List<int> currentHand, int trumpSuit)
         {
             Trump = trumpSuit;
             hand = new List<int>(currentHand);
@@ -50,7 +50,7 @@ namespace SuecaSolver
             }
 
             currentTrick = new Trick(Trump);
-            deck = new Deck(currentHand, randomLOL, seed);
+            deck = new Deck(currentHand);
             BotTeamPoints = 0;
             OtherTeamPoints = 0;
             remainingTrumps = 10;
@@ -67,7 +67,7 @@ namespace SuecaSolver
 
         public List<int> GetPossibleMoves()
         {
-            return SuecaGame.PossibleMoves(hand, currentTrick.LeadSuit);
+            return Sueca.PossibleMoves(hand, currentTrick.LeadSuit);
         }
 
         public List<Move> GetCardsOnTable()
@@ -242,6 +242,17 @@ namespace SuecaSolver
             else
             {
                 sampledHands = deck.SampleHands(suitHasPlayer, handSizes);
+                if (sampledHands == null)
+                {
+                    suitHasPlayer = new Dictionary<int, List<int>>
+                    {
+                        { (int)Suit.Clubs, new List<int>(3){ 1, 2, 3 } },
+                        { (int)Suit.Diamonds, new List<int>(3){ 1, 2, 3 } },
+                        { (int)Suit.Hearts, new List<int>(3){ 1, 2, 3 } },
+                        { (int)Suit.Spades, new List<int>(3){ 1, 2, 3 } }
+                    };
+                    sampledHands = deck.SampleHands(handSizes);
+                }
             }
 
             for (int i = 0; i < 3; i++)
@@ -416,7 +427,7 @@ namespace SuecaSolver
         public void PrintInfoSet()
         {
             Console.WriteLine("------------------INFOSET------------------");
-            SuecaGame.PrintCards("Hand", hand);
+            Sueca.PrintCards("Hand", hand);
             Console.WriteLine("Trump - " + Trump);
             printDictionary("Dictionary");
             Console.WriteLine("-------------------------------------------");

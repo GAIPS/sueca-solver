@@ -256,8 +256,6 @@ namespace SuecaSolver
             Console.WriteLine("Total Time taken by functions is {0} seconds", sw.ElapsedMilliseconds / 1000); //seconds
             Console.WriteLine("Total Time taken by functions is {0} minutes", sw.ElapsedMilliseconds / 60000); //minutes
 
-            Console.WriteLine("Mc " + GameState.ComputedSubtreesMaxPlayer.Count + " mc " + GameState.ComputedSubtreesMinPlayer.Count);
-            Console.WriteLine("HR " + (GameState.SAVED_ACCESSES * 1.0) / GameState.ACCESSES);
         }
 
         static bool checkHands(List<List<int>> hands, int trump)
@@ -307,7 +305,7 @@ namespace SuecaSolver
             ArtificialPlayer[] players = new ArtificialPlayer[4];
             List<List<int>> playersHands;
 
-            Deck deck = new Deck(randomNumber, seed);
+            Deck deck = new Deck();
             int trump = randomNumber.Next(0, 4);
             playersHands = deck.SampleHands(new int[] { 10, 10, 10, 10 });
             //while (!checkHands(playersHands, trump))
@@ -326,42 +324,42 @@ namespace SuecaSolver
                 }
             }
             int[] initialPoints = new int[4];
-            initialPoints[0] = SuecaGame.CountPoints(playersHands[0]);
-            initialPoints[1] = SuecaGame.CountPoints(playersHands[1]);
-            initialPoints[2] = SuecaGame.CountPoints(playersHands[2]);
-            initialPoints[3] = SuecaGame.CountPoints(playersHands[3]);
+            initialPoints[0] = Sueca.CountPoints(playersHands[0]);
+            initialPoints[1] = Sueca.CountPoints(playersHands[1]);
+            initialPoints[2] = Sueca.CountPoints(playersHands[2]);
+            initialPoints[3] = Sueca.CountPoints(playersHands[3]);
             int[] initialPointsFromTrumps = new int[4];
-            initialPointsFromTrumps[0] = SuecaGame.CountPointsFromSuit(playersHands[0], trump);
-            initialPointsFromTrumps[1] = SuecaGame.CountPointsFromSuit(playersHands[1], trump);
-            initialPointsFromTrumps[2] = SuecaGame.CountPointsFromSuit(playersHands[2], trump);
-            initialPointsFromTrumps[3] = SuecaGame.CountPointsFromSuit(playersHands[3], trump);
+            initialPointsFromTrumps[0] = Sueca.CountPointsFromSuit(playersHands[0], trump);
+            initialPointsFromTrumps[1] = Sueca.CountPointsFromSuit(playersHands[1], trump);
+            initialPointsFromTrumps[2] = Sueca.CountPointsFromSuit(playersHands[2], trump);
+            initialPointsFromTrumps[3] = Sueca.CountPointsFromSuit(playersHands[3], trump);
             int[] initialTrumps = new int[4];
-            initialTrumps[0] = SuecaGame.CountCardsFromSuit(playersHands[0], trump);
-            initialTrumps[1] = SuecaGame.CountCardsFromSuit(playersHands[1], trump);
-            initialTrumps[2] = SuecaGame.CountCardsFromSuit(playersHands[2], trump);
-            initialTrumps[3] = SuecaGame.CountCardsFromSuit(playersHands[3], trump);
+            initialTrumps[0] = Sueca.CountCardsFromSuit(playersHands[0], trump);
+            initialTrumps[1] = Sueca.CountCardsFromSuit(playersHands[1], trump);
+            initialTrumps[2] = Sueca.CountCardsFromSuit(playersHands[2], trump);
+            initialTrumps[3] = Sueca.CountCardsFromSuit(playersHands[3], trump);
             int[] initialAces = new int[4];
-            initialAces[0] = SuecaGame.CountCardsFromRank(playersHands[0], (int)Rank.Ace);
-            initialAces[1] = SuecaGame.CountCardsFromRank(playersHands[1], (int)Rank.Ace);
-            initialAces[2] = SuecaGame.CountCardsFromRank(playersHands[2], (int)Rank.Ace);
-            initialAces[3] = SuecaGame.CountCardsFromRank(playersHands[3], (int)Rank.Ace);
+            initialAces[0] = Sueca.CountCardsFromRank(playersHands[0], (int)Rank.Ace);
+            initialAces[1] = Sueca.CountCardsFromRank(playersHands[1], (int)Rank.Ace);
+            initialAces[2] = Sueca.CountCardsFromRank(playersHands[2], (int)Rank.Ace);
+            initialAces[3] = Sueca.CountCardsFromRank(playersHands[3], (int)Rank.Ace);
             int[] initialSevens = new int[4];
-            initialSevens[0] = SuecaGame.CountCardsFromRank(playersHands[0], (int)Rank.Seven);
-            initialSevens[1] = SuecaGame.CountCardsFromRank(playersHands[1], (int)Rank.Seven);
-            initialSevens[2] = SuecaGame.CountCardsFromRank(playersHands[2], (int)Rank.Seven);
-            initialSevens[3] = SuecaGame.CountCardsFromRank(playersHands[3], (int)Rank.Seven);
+            initialSevens[0] = Sueca.CountCardsFromRank(playersHands[0], (int)Rank.Seven);
+            initialSevens[1] = Sueca.CountCardsFromRank(playersHands[1], (int)Rank.Seven);
+            initialSevens[2] = Sueca.CountCardsFromRank(playersHands[2], (int)Rank.Seven);
+            initialSevens[3] = Sueca.CountCardsFromRank(playersHands[3], (int)Rank.Seven);
             int[] countSuits = new int[4];
-            countSuits[0] = SuecaGame.CountSuits(playersHands[0]);
-            countSuits[1] = SuecaGame.CountSuits(playersHands[1]);
-            countSuits[2] = SuecaGame.CountSuits(playersHands[2]);
-            countSuits[3] = SuecaGame.CountSuits(playersHands[3]);
+            countSuits[0] = Sueca.CountSuits(playersHands[0]);
+            countSuits[1] = Sueca.CountSuits(playersHands[1]);
+            countSuits[2] = Sueca.CountSuits(playersHands[2]);
+            countSuits[3] = Sueca.CountSuits(playersHands[3]);
             int botTeamHasTrumpAce = 0;
-            if (SuecaGame.HasTrumpAce(playersHands[0], trump) || SuecaGame.HasTrumpAce(playersHands[2], trump))
+            if (Sueca.HasTrumpAce(playersHands[0], trump) || Sueca.HasTrumpAce(playersHands[2], trump))
             {
                 botTeamHasTrumpAce++;
             }
 
-            SuecaGame game = new SuecaGame(10, playersHands, trump, null, 0, 0);
+            MinMaxGame game = new MinMaxGame(10, playersHands, trump, null, 0, 0);
             int currentPlayerID = i % 4;
             int first = currentPlayerID;
             int[] firstPlayer = new int[4] {0, 0, 0, 0};
@@ -371,203 +369,203 @@ namespace SuecaSolver
             {
                 case 1:
                     playersNames[0] = "Smart1";
-                    players[0] = new SmartPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    players[0] = new SmartPlayer(0, playersHands[0], trump);
                     playersNames[1] = "Random1";
-                    players[1] = new RandomPlayer(1, playersHands[1], randomNumber);
+                    players[1] = new RandomPlayer(1, playersHands[1]);
                     playersNames[2] = "Random2";
-                    players[2] = new RandomPlayer(2, playersHands[2], randomNumber);
+                    players[2] = new RandomPlayer(2, playersHands[2]);
                     playersNames[3] = "Random3";
-                    players[3] = new RandomPlayer(3, playersHands[3], randomNumber);
+                    players[3] = new RandomPlayer(3, playersHands[3]);
                     break;
                 case 2:
                     playersNames[0] = "Smart1";
-                    players[0] = new SmartPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    players[0] = new SmartPlayer(0, playersHands[0], trump);
                     playersNames[1] = "Random1";
-                    players[1] = new RandomPlayer(1, playersHands[1], randomNumber);
+                    players[1] = new RandomPlayer(1, playersHands[1]);
                     playersNames[2] = "Smart2";
-                    players[2] = new SmartPlayer(2, playersHands[2], trump, randomNumber, seed);
+                    players[2] = new SmartPlayer(2, playersHands[2], trump);
                     playersNames[3] = "Random2";
-                    players[3] = new RandomPlayer(3, playersHands[3], randomNumber);
+                    players[3] = new RandomPlayer(3, playersHands[3]);
                     break;
                 case 3:
                     playersNames[0] = "Smart1";
-                    players[0] = new SmartPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    players[0] = new SmartPlayer(0, playersHands[0], trump);
                     playersNames[1] = "Smart2";
-                    players[1] = new SmartPlayer(1, playersHands[1], trump, randomNumber, seed);
+                    players[1] = new SmartPlayer(1, playersHands[1], trump);
                     playersNames[2] = "Smart3";
-                    players[2] = new SmartPlayer(2, playersHands[2], trump, randomNumber, seed);
+                    players[2] = new SmartPlayer(2, playersHands[2], trump);
                     playersNames[3] = "Random1";
-                    players[3] = new RandomPlayer(3, playersHands[3], randomNumber);
+                    players[3] = new RandomPlayer(3, playersHands[3]);
                     break;
                 case 4:
                     playersNames[0] = "Smart1";
-                    players[0] = new SmartPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    players[0] = new SmartPlayer(0, playersHands[0], trump);
                     playersNames[1] = "Smart2";
-                    players[1] = new SmartPlayer(1, playersHands[1], trump, randomNumber, seed);
+                    players[1] = new SmartPlayer(1, playersHands[1], trump);
                     playersNames[2] = "Smart3";
-                    players[2] = new SmartPlayer(2, playersHands[2], trump, randomNumber, seed);
+                    players[2] = new SmartPlayer(2, playersHands[2], trump);
                     playersNames[3] = "Smart4";
-                    players[3] = new SmartPlayer(3, playersHands[3], trump, randomNumber, seed);
+                    players[3] = new SmartPlayer(3, playersHands[3], trump);
                     break;
                 case 5:
                     playersNames[0] = "Smart1";
-                    players[0] = new SmartPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    players[0] = new SmartPlayer(0, playersHands[0], trump);
                     playersNames[1] = "RuleBased1";
-                    players[1] = new RuleBasedPlayer(1, playersHands[1], trump, randomNumber, seed);
+                    players[1] = new RuleBasedPlayer(1, playersHands[1], trump);
                     playersNames[2] = "Smart2";
-                    players[2] = new SmartPlayer(2, playersHands[2], trump, randomNumber, seed);
+                    players[2] = new SmartPlayer(2, playersHands[2], trump);
                     playersNames[3] = "RuleBased2";
-                    players[3] = new RuleBasedPlayer(3, playersHands[3], trump, randomNumber, seed);
+                    players[3] = new RuleBasedPlayer(3, playersHands[3], trump);
                     break;
                 case 6:
                     playersNames[0] = "Smartest1";
-                    players[0] = new SmartestPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    players[0] = new SmartestPlayer(0, playersHands[0], trump);
                     playersNames[1] = "Random1";
-                    players[1] = new RuleBasedPlayer(1, playersHands[1], trump, randomNumber, seed);
+                    players[1] = new RuleBasedPlayer(1, playersHands[1], trump);
                     playersNames[2] = "Smartest2";
-                    players[2] = new SmartestPlayer(2, playersHands[2], trump, randomNumber, seed);
+                    players[2] = new SmartestPlayer(2, playersHands[2], trump);
                     playersNames[3] = "Random2";
-                    players[3] = new RuleBasedPlayer(3, playersHands[3], trump, randomNumber, seed);
+                    players[3] = new RuleBasedPlayer(3, playersHands[3], trump);
                     break;
                 case 7:
                     playersNames[0] = "Smartest1";
-                    players[0] = new SmartestPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    players[0] = new SmartestPlayer(0, playersHands[0], trump);
                     playersNames[1] = "RuleBased1";
-                    players[1] = new RuleBasedPlayer(1, playersHands[1], trump, randomNumber, seed);
+                    players[1] = new RuleBasedPlayer(1, playersHands[1], trump);
                     playersNames[2] = "Smartest2";
-                    players[2] = new SmartestPlayer(2, playersHands[2], trump, randomNumber, seed);
+                    players[2] = new SmartestPlayer(2, playersHands[2], trump);
                     playersNames[3] = "RuleBased2";
-                    players[3] = new RuleBasedPlayer(3, playersHands[3], trump, randomNumber, seed);
+                    players[3] = new RuleBasedPlayer(3, playersHands[3], trump);
                     break;
                 case 8:
                     playersNames[0] = "RuleBased1";
-                    players[0] = new RuleBasedPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    players[0] = new RuleBasedPlayer(0, playersHands[0], trump);
                     playersNames[1] = "Random1";
-                    players[1] = new RandomPlayer(1, playersHands[1], randomNumber);
+                    players[1] = new RandomPlayer(1, playersHands[1]);
                     playersNames[2] = "RuleBased2";
-                    players[2] = new RuleBasedPlayer(2, playersHands[2], trump, randomNumber, seed);
+                    players[2] = new RuleBasedPlayer(2, playersHands[2], trump);
                     playersNames[3] = "Random2";
-                    players[3] = new RandomPlayer(3, playersHands[3], randomNumber);
+                    players[3] = new RandomPlayer(3, playersHands[3]);
                     break;
                 case 9:
                     playersNames[0] = "ElephantPlayer1";
-                    players[0] = new ElephantPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    players[0] = new ElephantPlayer(0, playersHands[0], trump);
                     playersNames[1] = "Random1";
-                    players[1] = new RandomPlayer(1, playersHands[1], randomNumber);
+                    players[1] = new RandomPlayer(1, playersHands[1]);
                     playersNames[2] = "ElephantPlayer2";
-                    players[2] = new ElephantPlayer(2, playersHands[2], trump, randomNumber, seed);
+                    players[2] = new ElephantPlayer(2, playersHands[2], trump);
                     playersNames[3] = "Random2";
-                    players[3] = new RandomPlayer(3, playersHands[3], randomNumber);
+                    players[3] = new RandomPlayer(3, playersHands[3]);
                     break;
                 case 10:
                     playersNames[0] = "TrickPlayer1";
-                    players[0] = new TrickPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    players[0] = new TrickPlayer(0, playersHands[0], trump);
                     playersNames[1] = "Smart1";
-                    players[1] = new SmartPlayer(1, playersHands[1], trump, randomNumber, seed);
+                    players[1] = new SmartPlayer(1, playersHands[1], trump);
                     playersNames[2] = "TrickPlayer2";
-                    players[2] = new TrickPlayer(2, playersHands[2], trump, randomNumber, seed);
+                    players[2] = new TrickPlayer(2, playersHands[2], trump);
                     playersNames[3] = "Smart2";
-                    players[3] = new SmartPlayer(3, playersHands[3], trump, randomNumber, seed);
+                    players[3] = new SmartPlayer(3, playersHands[3], trump);
                     break;
                 case 11:
                     playersNames[0] = "RuleBased1";
-                    players[0] = new RuleBasedPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    players[0] = new RuleBasedPlayer(0, playersHands[0], trump);
                     playersNames[1] = "RuleBased3";
-                    players[1] = new RuleBasedPlayer(1, playersHands[1], trump, randomNumber, seed);
+                    players[1] = new RuleBasedPlayer(1, playersHands[1], trump);
                     playersNames[2] = "RuleBased2";
-                    players[2] = new RuleBasedPlayer(2, playersHands[2], trump, randomNumber, seed);
+                    players[2] = new RuleBasedPlayer(2, playersHands[2], trump);
                     playersNames[3] = "RuleBased14";
-                    players[3] = new RuleBasedPlayer(3, playersHands[3], trump, randomNumber, seed);
+                    players[3] = new RuleBasedPlayer(3, playersHands[3], trump);
                     break;
                 case 12:
                     playersNames[0] = "RuleBased1";
-                    players[0] = new RuleBasedPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    players[0] = new RuleBasedPlayer(0, playersHands[0], trump);
                     playersNames[1] = "RandomPlayer3";
-                    players[1] = new RandomPlayer(1, playersHands[1], randomNumber);
+                    players[1] = new RandomPlayer(1, playersHands[1]);
                     playersNames[2] = "RandomPlayer2";
-                    players[2] = new RandomPlayer(2, playersHands[2], randomNumber);
+                    players[2] = new RandomPlayer(2, playersHands[2]);
                     playersNames[3] = "RandomPlayer4";
-                    players[3] = new RandomPlayer(3, playersHands[3], randomNumber);
+                    players[3] = new RandomPlayer(3, playersHands[3]);
                     break;
                 case 13:
                     playersNames[0] = "TrickPlayer1";
-                    players[0] = new TrickPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    players[0] = new TrickPlayer(0, playersHands[0], trump);
                     playersNames[1] = "Random1";
-                    players[1] = new RandomPlayer(1, playersHands[1], randomNumber);
+                    players[1] = new RandomPlayer(1, playersHands[1]);
                     playersNames[2] = "Random2";
-                    players[2] = new RandomPlayer(2, playersHands[2], randomNumber);
+                    players[2] = new RandomPlayer(2, playersHands[2]);
                     playersNames[3] = "Random3";
-                    players[3] = new RandomPlayer(3, playersHands[3], randomNumber);
+                    players[3] = new RandomPlayer(3, playersHands[3]);
                     break;
                 case 14:
                     playersNames[0] = "TrickPlayer1";
-                    players[0] = new TrickPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    players[0] = new TrickPlayer(0, playersHands[0], trump);
                     playersNames[1] = "Random1";
-                    players[1] = new RandomPlayer(1, playersHands[1], randomNumber);
+                    players[1] = new RandomPlayer(1, playersHands[1]);
                     playersNames[2] = "TrickPlayer2";
-                    players[2] = new TrickPlayer(2, playersHands[2], trump, randomNumber, seed);
+                    players[2] = new TrickPlayer(2, playersHands[2], trump);
                     playersNames[3] = "Random2";
-                    players[3] = new RandomPlayer(3, playersHands[3], randomNumber);
+                    players[3] = new RandomPlayer(3, playersHands[3]);
                     break;
                 case 15:
                     playersNames[0] = "TrickPlayer1";
-                    players[0] = new TrickPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    players[0] = new TrickPlayer(0, playersHands[0], trump);
                     playersNames[1] = "RuleBased1";
-                    players[1] = new RuleBasedPlayer(1, playersHands[1], trump, randomNumber, seed);
+                    players[1] = new RuleBasedPlayer(1, playersHands[1], trump);
                     playersNames[2] = "RuleBased2";
-                    players[2] = new RuleBasedPlayer(2, playersHands[2], trump, randomNumber, seed);
+                    players[2] = new RuleBasedPlayer(2, playersHands[2], trump);
                     playersNames[3] = "RuleBased3";
-                    players[3] = new RuleBasedPlayer(3, playersHands[3], trump, randomNumber, seed);
+                    players[3] = new RuleBasedPlayer(3, playersHands[3], trump);
                     break;
                 case 16:
                     playersNames[0] = "TrickPlayer1";
-                    players[0] = new TrickPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    players[0] = new TrickPlayer(0, playersHands[0], trump);
                     playersNames[1] = "RuleBased1";
-                    players[1] = new RuleBasedPlayer(1, playersHands[1], trump, randomNumber, seed);
+                    players[1] = new RuleBasedPlayer(1, playersHands[1], trump);
                     playersNames[2] = "TrickPlayer2";
-                    players[2] = new TrickPlayer(2, playersHands[2], trump, randomNumber, seed);
+                    players[2] = new TrickPlayer(2, playersHands[2], trump);
                     playersNames[3] = "RuleBased2";
-                    players[3] = new RuleBasedPlayer(3, playersHands[3], trump, randomNumber, seed);
+                    players[3] = new RuleBasedPlayer(3, playersHands[3], trump);
                     break;
                 case 17:
                     playersNames[0] = "TrickPlayer1";
-                    players[0] = new TrickPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    players[0] = new TrickPlayer(0, playersHands[0], trump);
                     playersNames[1] = "TrickPlayer2";
-                    players[1] = new TrickPlayer(1, playersHands[1], trump, randomNumber, seed);
+                    players[1] = new TrickPlayer(1, playersHands[1], trump);
                     playersNames[2] = "TrickPlayer3";
-                    players[2] = new TrickPlayer(2, playersHands[2], trump, randomNumber, seed);
+                    players[2] = new TrickPlayer(2, playersHands[2], trump);
                     playersNames[3] = "TrickPlayer4";
-                    players[3] = new TrickPlayer(3, playersHands[3], trump, randomNumber, seed);
+                    players[3] = new TrickPlayer(3, playersHands[3], trump);
                     break;
                 case 18:
                     playersNames[0] = "Smart1";
-                    players[0] = new SmartPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    players[0] = new SmartPlayer(0, playersHands[0], trump);
                     playersNames[1] = "RuleBased1";
-                    players[1] = new RuleBasedPlayer(1, playersHands[1], trump, randomNumber, seed);
+                    players[1] = new RuleBasedPlayer(1, playersHands[1], trump);
                     playersNames[2] = "RuleBased2";
-                    players[2] = new RuleBasedPlayer(2, playersHands[2], trump, randomNumber, seed);
+                    players[2] = new RuleBasedPlayer(2, playersHands[2], trump);
                     playersNames[3] = "RuleBased3";
-                    players[3] = new RuleBasedPlayer(3, playersHands[3], trump, randomNumber, seed);
+                    players[3] = new RuleBasedPlayer(3, playersHands[3], trump);
                     break;
                 case 19:
                     playersNames[0] = "Elephant1";
-                    players[0] = new ElephantPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    players[0] = new ElephantPlayer(0, playersHands[0], trump);
                     playersNames[1] = "RuleBased1";
-                    players[1] = new RuleBasedPlayer(1, playersHands[1], trump, randomNumber, seed);
+                    players[1] = new RuleBasedPlayer(1, playersHands[1], trump);
                     playersNames[2] = "RuleBased2";
-                    players[2] = new RuleBasedPlayer(2, playersHands[2], trump, randomNumber, seed);
+                    players[2] = new RuleBasedPlayer(2, playersHands[2], trump);
                     playersNames[3] = "RuleBased3";
-                    players[3] = new RuleBasedPlayer(3, playersHands[3], trump, randomNumber, seed);
+                    players[3] = new RuleBasedPlayer(3, playersHands[3], trump);
                     break;
                 case 20:
                     playersNames[0] = "Smart1";
-                    players[0] = new SmartPlayer(0, playersHands[0], trump, randomNumber, seed);
+                    players[0] = new SmartPlayer(0, playersHands[0], trump);
                     playersNames[1] = "Smart2";
-                    players[1] = new SmartPlayer(1, playersHands[1], trump, randomNumber, seed);
+                    players[1] = new SmartPlayer(1, playersHands[1], trump);
                     playersNames[2] = "Smart3";
-                    players[2] = new SmartPlayer(2, playersHands[2], trump, randomNumber, seed);
+                    players[2] = new SmartPlayer(2, playersHands[2], trump);
                     playersNames[3] = "Smart4";
-                    players[3] = new SmartPlayer(3, playersHands[3], trump, randomNumber, seed);
+                    players[3] = new SmartPlayer(3, playersHands[3], trump);
                     break;
                 default:
                     break;

@@ -30,14 +30,14 @@ namespace SuecaSolver
 
             int seed = Guid.NewGuid().GetHashCode();
             Random randomNumber = new Random(seed);
-            Deck deck = new Deck(randomNumber, seed);
+            Deck deck = new Deck();
             List<List<int>> playersHand = deck.SampleHands(new int[]{ 10, 10, 10, 10 });
             List<int> currentHand;
             int trump = randomNumber.Next(0, 4);
             int cardIndex, currentPlayerID = firstPlayerID;
 
-            SmartPlayer artificialPlayer = new SmartPlayer(0, playersHand[0], trump, randomNumber, seed);
-            SuecaGame game = new SuecaGame(10, playersHand, trump, null, 0, 0);
+            SmartPlayer artificialPlayer = new SmartPlayer(0, playersHand[0], trump);
+            SuecaGame game = new MinMaxGame(10, playersHand, trump, null, 0, 0);
             game.PrintPlayersHands();
 
             for (int i = 0; i < 40; i++)
@@ -51,7 +51,7 @@ namespace SuecaSolver
 
                 game.PrintLastTrick();
                 game.PrintCurrentTrick();
-                SuecaGame.PrintHand(currentHand);
+                Sueca.PrintHand(currentHand);
                 int chosenCard;
 
                 if (currentPlayerID != 0)

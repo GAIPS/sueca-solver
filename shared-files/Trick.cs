@@ -8,13 +8,13 @@ namespace SuecaSolver
 
         public int LeadSuit;
         private List<Move> moves;
-        private int trump;
+        public int Trump;
 
         public Trick(int trumpSuit)
         {
             moves = new List<Move>(4);
             LeadSuit = (int)Suit.None;
-            trump = trumpSuit;
+            Trump = trumpSuit;
         }
 
         public List<Move> GetMoves()
@@ -127,9 +127,9 @@ namespace SuecaSolver
                 int moveRank = Card.GetRank(moves[i].Card);
                 int moveValue = Card.GetValue(moves[i].Card);
 
-                if (moveSuit == trump && winningSuit != trump)
+                if (moveSuit == Trump && winningSuit != Trump)
                 {
-                    winningSuit = trump;
+                    winningSuit = Trump;
                     highestValueFromWinningSuit = moveValue;
                     highestRankFromWinningSuit = moveRank;
                     winningPlayerId = moves[i].PlayerId;

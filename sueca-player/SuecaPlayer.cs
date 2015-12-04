@@ -122,6 +122,7 @@ namespace SuecaPlayer
         private int myIdOnUnityGame;
         private int myTeamIdOnUnityGame;
         private bool allSet;
+        private bool sessionStart;
         private bool processPlay;
         private bool processingRepeat;
 
@@ -141,6 +142,7 @@ namespace SuecaPlayer
             myIdOnUnityGame = 3; //default
             myTeamIdOnUnityGame = 1; //default
             allSet = false;
+            sessionStart = false;
             processPlay = true;
             processingRepeat = false;
 
@@ -152,6 +154,7 @@ namespace SuecaPlayer
 
         public void SessionStart(int numGames)
         {
+            sessionStart = false;
             moveCounter = 0;
             trumpSuit = "None";
             leadSuit = "None";
@@ -165,6 +168,8 @@ namespace SuecaPlayer
             processingRepeat = false;
 
             iaPublisher.ForwardSessionStart(numGames);
+            sessionStart = true;
+
         }
 
         public void GameStart(int gameId, int playerId, int teamId, string trump, string[] cards)
@@ -187,8 +192,7 @@ namespace SuecaPlayer
             Console.WriteLine("");
             SuecaSolver.Suit myTrump = (SuecaSolver.Suit) Enum.Parse(typeof(SuecaSolver.Suit), trump);
 
-            ai = new SmartPlayer(0, initialCards, (int)myTrump, new Random(), 03129840);
-            //ai = new RandomPlayer(0, initialCards, new Random());//, 03129840);
+            ai = new SmartPlayer(0, initialCards, (int)myTrump);
             allSet = true;
             processingRepeat = false;
 
@@ -197,6 +201,7 @@ namespace SuecaPlayer
 
         public void GameEnd(int team0Score, int team1Score)
         {
+            allSet = false;
             if (myTeamIdOnUnityGame == 0)
             {
                 if (team0Score == 120)
@@ -262,6 +267,7 @@ namespace SuecaPlayer
 
         public void Shuffle(int playerId)
         {
+            while (!sessionStart) { }
             iaPublisher.ForwardShuffle(playerId);
         }
 
