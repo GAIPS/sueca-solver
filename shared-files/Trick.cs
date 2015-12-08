@@ -81,7 +81,7 @@ namespace SuecaSolver
             foreach (var move in moves)
             {
                 int card = move.Card;
-                int cardSuit = Card.GetSuit(card);
+                // int cardSuit = Card.GetSuit(card);
                 int cardRank = Card.GetRank(card);
 
                 if (!cut)

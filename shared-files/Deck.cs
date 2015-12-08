@@ -1,11 +1,6 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using Microsoft.SolverFoundation.Services;
-using System.Collections.Concurrent;
-using System.Diagnostics;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace SuecaSolver
 {

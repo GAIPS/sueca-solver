@@ -1,4 +1,4 @@
-using System;
+// using System;
 using System.Collections.Generic;
 
 namespace SuecaSolver
@@ -12,10 +12,10 @@ namespace SuecaSolver
 
         }
 
-        public Trick GetCurrentTrick()
-        {
-            return gameState.GetCurrentTrick();
-        }
+        // public Trick GetCurrentTrick()
+        // {
+        //     return gameState.GetCurrentTrick();
+        // }
 
         public int GetNextPlayerId()
         {

@@ -37,7 +37,7 @@ namespace SuecaSolver
             int cardIndex, currentPlayerID = firstPlayerID;
 
             SmartPlayer artificialPlayer = new SmartPlayer(0, playersHand[0], trump);
-            SuecaGame game = new MinMaxGame(10, playersHand, trump, null, 0, 0);
+            MinMaxGame game = new MinMaxGame(10, playersHand, trump, null, 0, 0);
             game.PrintPlayersHands();
 
             for (int i = 0; i < 40; i++)

@@ -17,6 +17,7 @@ test: clean compile-test run-test
 war: clean compile-war run-war
 
 compile-game:
+	@echo '************  TEST VERSION ************'
 	$(CC) -out:$(GAMEEXE) -reference:Microsoft.Solver.Foundation.dll -optimize+ $(GAMEMAIN) $(FILES)
 
 compile-test:
