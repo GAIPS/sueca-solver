@@ -6,6 +6,7 @@ namespace SuecaSolver
     public class GameState
     {
         private List<Trick> tricks;
+        private Trick currentTrick;
         private PlayerNode[] players;
         private int trump;
 
@@ -28,6 +29,7 @@ namespace SuecaSolver
             acc = new AscendingCutComparer(trumpSuit);
             players = new PlayerNode[4];
             tricks = new List<Trick>(numTricks);
+            currentTrick = null;
             trump = trumpSuit;
             predictableTrickWinner = -1;
             predictableTrickCut = false;
@@ -200,12 +202,15 @@ namespace SuecaSolver
 
         public void ApplyMove(Move move)
         {
-            if (tricks.Count == 0 || GetCurrentTrick().IsFull())
+            // if (tricks.Count == 0 || GetCurrentTrick().IsFull())
+            if (currentTrick == null || currentTrick.IsFull())
             {
-                tricks.Add(new Trick(trump));
+                Trick newTrick = new Trick(trump); 
+                tricks.Add(newTrick);
+                currentTrick = newTrick;
             }
-            GetCurrentTrick().ApplyMove(move);
-            if (GetCurrentTrick().IsFull())
+            currentTrick.ApplyMove(move);
+            if (currentTrick.IsFull())
             {
                 predictableTrickWinner = -1;
             }

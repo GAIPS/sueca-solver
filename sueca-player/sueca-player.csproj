@@ -33,7 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EmoteEvents">
-      <HintPath>..\..\ENTS\Skene\EmoteEvents.dll</HintPath>
+      <HintPath>..\..\SERA_1-12-2015\Binaries\Skene\EmoteEvents.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -52,7 +52,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Thalamus">
-      <HintPath>..\..\thalamus-code\Binaries\Release\Thalamus.dll</HintPath>
+      <HintPath>..\..\SERA_1-12-2015\Binaries\Thalamus\Thalamus.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

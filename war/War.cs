@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.Concurrent;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 
@@ -22,27 +19,49 @@ namespace SuecaSolver
         public const string SAVE_DIR = @"C:\temp\";
         //public const string SAVE_DIR = "results/";
 
-        public static void Main()
+        public static void Main(string[] args)
         {
             Stopwatch sw = new Stopwatch();
             sw.Start();
+            int gameMode, numGames, numThreads;
+            bool parallel, saveResults, saveCards;
 
-            int gameMode = GAMEMODE;
+            if (args.Length == 6)
+            {
+                //Assuming the input is correct
+                gameMode = Int32.Parse(args[0]);
+                numGames = Int32.Parse(args[1]);
+                parallel = Boolean.Parse(args[2]);
+                numThreads = Int32.Parse(args[3]);
+                saveResults = Boolean.Parse(args[4]);
+                saveCards = Boolean.Parse(args[5]);
+            }
+            else
+            {
+                Console.WriteLine("Unspecified parameters. The program will use default parameters.");
+                gameMode = GAMEMODE;
+                numGames = NUMGAMES;
+                parallel = PARALLEL;
+                numThreads = NUM_THREADS;
+                saveResults = SAVE_RESULTS;
+                saveCards = SAVE_CARDS;
+            }
+
             int firstTeamWins = 0, secondTeamWins = 0, draws = 0, nullGames = 0;
-            
+
             //Shared data between threads!
-            List<List<int>[]> cardsPerPlayer = new List<List<int>[]>(NUMGAMES);
-            List<int> trumps = new List<int>(NUMGAMES);
-            List<int> firstPlayers = new List<int>(NUMGAMES);
-            List<int[]> pointsPerPlayer = new List<int[]>(NUMGAMES);
-            List<int[]> pointsFromTrumpPerPlayer = new List<int[]>(NUMGAMES);
-            List<int[]> trumpsPerPlayer = new List<int[]>(NUMGAMES);
-            List<int[]> acesPerPlayer = new List<int[]>(NUMGAMES);
-            List<int[]> sevensPerPlayer = new List<int[]>(NUMGAMES);
-            List<int> teamHasTrumpAce = new List<int>(NUMGAMES);
-            List<int[]> suitsPerPlayer = new List<int[]>(NUMGAMES);
-            List<int[]> firstToPlay = new List<int[]>(NUMGAMES);
-            List<int> finalBotTeamPoints = new List<int>(NUMGAMES);
+            List<List<int>[]> cardsPerPlayer = new List<List<int>[]>(numGames);
+            List<int> trumps = new List<int>(numGames);
+            List<int> firstPlayers = new List<int>(numGames);
+            List<int[]> pointsPerPlayer = new List<int[]>(numGames);
+            List<int[]> pointsFromTrumpPerPlayer = new List<int[]>(numGames);
+            List<int[]> trumpsPerPlayer = new List<int[]>(numGames);
+            List<int[]> acesPerPlayer = new List<int[]>(numGames);
+            List<int[]> sevensPerPlayer = new List<int[]>(numGames);
+            List<int> teamHasTrumpAce = new List<int>(numGames);
+            List<int[]> suitsPerPlayer = new List<int[]>(numGames);
+            List<int[]> firstToPlay = new List<int[]>(numGames);
+            List<int> finalBotTeamPoints = new List<int>(numGames);
             Object allGamesLock = new Object();
 
             Console.WriteLine("");
@@ -113,13 +132,13 @@ namespace SuecaSolver
                 default:
                     break;
             }
-            Console.WriteLine("#Games: " + NUMGAMES);
+            Console.WriteLine("#Games: " + numGames);
 
 
-            if (PARALLEL)
+            if (parallel)
             {
-                Parallel.For(0, NUMGAMES,
-                    new ParallelOptions { MaxDegreeOfParallelism = NUM_THREADS },
+                Parallel.For(0, numGames,
+                    new ParallelOptions { MaxDegreeOfParallelism = numThreads },
                     () => new int[4],
 
                     (int i, ParallelLoopState state, int[] localCount) =>
@@ -152,7 +171,7 @@ namespace SuecaSolver
             }
             else
             {
-                for (int i = 0; i < NUMGAMES; i++)
+                for (int i = 0; i < numGames; i++)
                 {
                     int[] localCount = new int[6];
                     processGames(i,
@@ -179,18 +198,18 @@ namespace SuecaSolver
             }
 
 
-            if (SAVE_RESULTS)
+            if (saveResults)
             {
                 System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(SAVE_DIR);
                 int count = dir.GetFiles("log*.txt").Length;
                 using (System.IO.StreamWriter file = new System.IO.StreamWriter(SAVE_DIR + "log" + count + ".txt"))
                 {
-                    file.WriteLine("Mode: " + GAMEMODE + " #Games: " + NUMGAMES);
+                    file.WriteLine("Mode: " + GAMEMODE + " #Games: " + numGames);
 
-                    if (SAVE_CARDS)
+                    if (saveCards)
                     {
                         file.WriteLine("p0_0\tp0_1\tp0_2\tp0_3\tp0_4\tp0_5\tp0_6\tp0_7\tp0_8\tp0_9\tp2_0\tp2_1\tp2_2\tp2_3\tp2_4\tp2_5\tp2_6\tp2_7\tp2_8\tp2_9\ttrump\tfirst\tfp");
-                        for (int i = 0; i < NUMGAMES; i++)
+                        for (int i = 0; i < numGames; i++)
                         {
                             for (int k = 0; k < 4; k = k + 2)
                             {
@@ -207,7 +226,7 @@ namespace SuecaSolver
                     else
                     {
                         file.WriteLine("p_0\tp_1\tp_2\tp_3\tpt_0\tpt_1\tpt_2\tpt_3\tt_0\tt_1\tt_2\tt_3\tA_0\tA_1\tA_2\tA_3\tS_0\tS_1\t7_2\t7_3\tAt_02\tsuits_0\tsuits_1\tsuits_2\tsuit_3\tfirst_0\tfirst_1\tfirst_2\tfirst_3\tfp_02");
-                        for (int i = 0; i < NUMGAMES; i++)
+                        for (int i = 0; i < numGames; i++)
                         {
                             file.WriteLine(pointsPerPlayer[i][0] + "\t"
                                 + pointsPerPlayer[i][1] + "\t"
@@ -247,11 +266,11 @@ namespace SuecaSolver
 
             Console.WriteLine("");
             Console.WriteLine("----------------- Summary -----------------");
-            Console.WriteLine("BotTeam won " + firstTeamWins + "/" + NUMGAMES);
-            Console.WriteLine("OtherTeam 1 won " + secondTeamWins + "/" + NUMGAMES);
-            Console.WriteLine("Draws " + draws + "/" + NUMGAMES);
+            Console.WriteLine("BotTeam won " + firstTeamWins + "/" + numGames);
+            Console.WriteLine("OtherTeam 1 won " + secondTeamWins + "/" + numGames);
+            Console.WriteLine("Draws " + draws + "/" + numGames);
             Console.WriteLine("Null Games " + nullGames);
-            
+
             sw.Stop();
             Console.WriteLine("Total Time taken by functions is {0} seconds", sw.ElapsedMilliseconds / 1000); //seconds
             Console.WriteLine("Total Time taken by functions is {0} minutes", sw.ElapsedMilliseconds / 60000); //minutes
@@ -290,13 +309,13 @@ namespace SuecaSolver
             List<int> firstPlayers,
             List<int[]> pointsPerPlayer,
             List<int[]> pointsFromTrumpPerPlayer,
-            List<int[]> trumpsPerPlayer, 
-            List<int[]> acesPerPlayer, 
-            List<int[]> sevensPerPlayer, 
-            List<int> teamHasTrumpAce, 
-            List<int[]> suitsPerPlayer, 
-            List<int[]> firstToPlay, 
-            List<int> finalBotTeamPoints, 
+            List<int[]> trumpsPerPlayer,
+            List<int[]> acesPerPlayer,
+            List<int[]> sevensPerPlayer,
+            List<int> teamHasTrumpAce,
+            List<int[]> suitsPerPlayer,
+            List<int[]> firstToPlay,
+            List<int> finalBotTeamPoints,
             Object allGamesLock)
         {
             int seed = Guid.NewGuid().GetHashCode();
@@ -362,7 +381,7 @@ namespace SuecaSolver
             MinMaxGame game = new MinMaxGame(10, playersHands, trump, null, 0, 0);
             int currentPlayerID = i % 4;
             int first = currentPlayerID;
-            int[] firstPlayer = new int[4] {0, 0, 0, 0};
+            int[] firstPlayer = new int[4] { 0, 0, 0, 0 };
             firstPlayer[first] = 1;
 
             switch (gameMode)
@@ -571,7 +590,7 @@ namespace SuecaSolver
                     break;
             }
 
-            
+
             for (int j = 0; j < 40; j++)
             {
                 int chosenCard = players[currentPlayerID].Play();
@@ -616,10 +635,10 @@ namespace SuecaSolver
                     suitsPerPlayer.Add(countSuits);
                     firstToPlay.Add(firstPlayer);
                     finalBotTeamPoints.Add(points[0]);
-                } 
+                }
             }
-            
-                return localCount;
+
+            return localCount;
         }
     }
 }
