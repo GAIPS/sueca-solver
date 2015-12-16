@@ -31,12 +31,6 @@ namespace SuecaSolver
             }
         }
 
-        
-
-        public Trick GetCurrentTrick()
-        {
-            return gameState.GetCurrentTrick();
-        }
 
         public int GetNextPlayerId()
         {

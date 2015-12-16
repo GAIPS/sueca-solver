@@ -22,13 +22,13 @@ namespace SuecaSolver
 
             int chosenCard = infoSet.RuleBasedDecision();
             gameState.ApplyMove(new Move(Id, chosenCard));
-            Hand.Remove(chosenCard);
-            HasSuit[Card.GetSuit(chosenCard)]--;
+            // Hand.Remove(chosenCard);
+            // HasSuit[Card.GetSuit(chosenCard)]--;
 
             int value = gameState.GetNextPlayer().PlayGame(gameState, alpha, beta, depthLimit);
             gameState.UndoMove();
-            Hand.Add(chosenCard);
-            HasSuit[Card.GetSuit(chosenCard)]++;
+            // Hand.Add(chosenCard);
+            // HasSuit[Card.GetSuit(chosenCard)]++;
 
             return value;
         }

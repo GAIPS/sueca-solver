@@ -30,7 +30,31 @@ namespace SuecaSolver
 
         abstract public int PlayGame(GameState gameState, int alpha, int beta, int depthLimit, int move = -1);
 
-
+        public void ApplyMove(Move move)
+        {
+            if (move.PlayerId == Id)
+            {
+                Hand.Remove(move.Card);
+                HasSuit[Card.GetSuit(move.Card)]--;   
+            }
+            else
+            {
+                //keep track of other players state
+            }
+        }
+        
+        public void UndoMove(Move move)
+        {
+            if (move.PlayerId == Id)
+            {
+                Hand.Add(move.Card);
+                HasSuit[Card.GetSuit(move.Card)]++;  
+            }
+            else
+            {
+                //keep track of other players state
+            }
+        }
 
         public int HighestRankForSuit(int leadSuit, int trump)
         {

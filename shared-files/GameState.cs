@@ -47,7 +47,7 @@ namespace SuecaSolver
 
         private int getCurrentTrickSize()
         {
-            int playInCurrentTrick = GetCurrentTrick().GetTrickSize();
+            int playInCurrentTrick = currentTrick.GetTrickSize();
             if (playInCurrentTrick == 4)
             {
                 return 0;
@@ -55,22 +55,13 @@ namespace SuecaSolver
             return playInCurrentTrick;
         }
 
-        public Trick GetCurrentTrick()
-        {
-            if (tricks.Count == 0)
-            {
-                return null;
-            }
-            return tricks[tricks.Count - 1];
-        }
-
         // This function is always called after applying a move
         public PlayerNode GetNextPlayer()
         {
             int nextPlayerId;
-            if (GetCurrentTrick().IsFull())
+            if (currentTrick.IsFull())
             {
-                int[] winnerAndPoints = GetCurrentTrick().GetTrickWinnerAndPoints();
+                int[] winnerAndPoints = currentTrick.GetTrickWinnerAndPoints();
                 int trickPoints = winnerAndPoints[1];
                 if (trickPoints > 0)
                 {
@@ -85,7 +76,7 @@ namespace SuecaSolver
             }
             else
             {
-                int lastPlayerId = GetCurrentTrick().GetLastPlayerId();
+                int lastPlayerId = currentTrick.GetLastPlayerId();
                 nextPlayerId = (lastPlayerId + 1) % 4;
             }
             return players[nextPlayerId];
@@ -93,7 +84,7 @@ namespace SuecaSolver
 
         private void predictTrickWinnerOfTrick(int playerID, int leadSuit, int currentPlayInTrick)
         {
-            List<Move> currentTrick = GetCurrentTrick().GetMoves();
+            List<Move> moves = currentTrick.GetMoves();
             int bestRank = 0;
             int firstPlayerId = (4 + (playerID - currentPlayInTrick)) % 4;
             for (int i = 0; i < 4; i++)
@@ -102,7 +93,7 @@ namespace SuecaSolver
                 int pID = (firstPlayerId + i) % 4;
                 if (i < currentPlayInTrick)
                 {
-                    highestRankForPlayer = Card.GetRank(currentTrick[i].Card);
+                    highestRankForPlayer = Card.GetRank(moves[i].Card);
                 }
                 else
                 {
@@ -128,37 +119,6 @@ namespace SuecaSolver
                     predictableTrickWinner = pID;
                 }
             }
-        }
-
-
-        private int predictTrickWinnerOfSuit(int leadSuit)
-        {
-            int highestRankForPlayer = 0;
-            int highestRank = 0;
-            int winnerId = 0;
-            bool cut = false;
-
-            for (int j = 0; j < 4; j++)
-            {
-                highestRankForPlayer = players[j].HighestRankForSuit(leadSuit, trump);
-                if (!cut && highestRankForPlayer < 0)
-                {
-                    cut = true;
-                    highestRank = highestRankForPlayer;
-                    winnerId = j;
-                }
-                else if (!cut && highestRankForPlayer > highestRank)
-                {
-                    highestRank = highestRankForPlayer;
-                    winnerId = j;
-                }
-                else if (cut && highestRankForPlayer < highestRank)
-                {
-                    highestRank = highestRankForPlayer;
-                    winnerId = j;
-                }
-            }
-            return winnerId;
         }
 
 
@@ -202,14 +162,20 @@ namespace SuecaSolver
 
         public void ApplyMove(Move move)
         {
-            // if (tricks.Count == 0 || GetCurrentTrick().IsFull())
+            // if (tricks.Count == 0 || currentTrick.IsFull())
             if (currentTrick == null || currentTrick.IsFull())
             {
                 Trick newTrick = new Trick(trump); 
                 tricks.Add(newTrick);
                 currentTrick = newTrick;
             }
+            
             currentTrick.ApplyMove(move);
+            foreach (PlayerNode player in players)
+            {
+                player.ApplyMove(move);
+            }
+            
             if (currentTrick.IsFull())
             {
                 predictableTrickWinner = -1;
@@ -218,7 +184,6 @@ namespace SuecaSolver
 
         public void UndoMove()
         {
-            Trick currentTrick = GetCurrentTrick();
             predictableTrickWinner = -1;
             predictableTrickCut = false;
 
@@ -237,7 +202,13 @@ namespace SuecaSolver
                 pointsPerTrick.RemoveAt(currentTrickIndex);
             }
 
+            Move move = currentTrick.GetLastMove();
             currentTrick.UndoMove();
+            foreach (PlayerNode player in players)
+            {
+                player.UndoMove(move);
+            }
+            
             if (currentTrick.IsEmpty())
             {
                 tricks.RemoveAt(tricks.Count - 1);
@@ -246,7 +217,6 @@ namespace SuecaSolver
 
         public int GetLeadSuit()
         {
-            Trick currentTrick = GetCurrentTrick();
             if (currentTrick.IsFull())
             {
                 return (int)Suit.None;
@@ -256,7 +226,7 @@ namespace SuecaSolver
 
         public bool IsEndGame()
         {
-            if (tricks.Count == tricks.Capacity && GetCurrentTrick().IsFull())
+            if (tricks.Count == tricks.Capacity && currentTrick.IsFull())
             {
                 return true;
             }
@@ -327,8 +297,6 @@ namespace SuecaSolver
             //}
         }
 
-
-
         public int[] CalculePointsOfFinishedGame()
         {
             int[] points = new int[2] { 0, 0 };
@@ -353,9 +321,9 @@ namespace SuecaSolver
             if (tricks.Count > 0 && tricks[0].IsFull())
             {
                 Console.WriteLine("Last trick:");
-                if (GetCurrentTrick().IsFull())
+                if (currentTrick.IsFull())
                 {
-                    GetCurrentTrick().PrintTrick();
+                    currentTrick.PrintTrick();
                 }
                 else
                 {
@@ -368,9 +336,9 @@ namespace SuecaSolver
         public void PrintCurrentTrick()
         {
             Console.WriteLine("Current trick:");
-            if (tricks.Count > 0 && !GetCurrentTrick().IsFull())
+            if (tricks.Count > 0 && !currentTrick.IsFull())
             {
-                GetCurrentTrick().PrintTrick();
+                currentTrick.PrintTrick();
             }
             Console.WriteLine("");
         }

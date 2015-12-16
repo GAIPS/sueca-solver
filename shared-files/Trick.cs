@@ -21,7 +21,12 @@ namespace SuecaSolver
         {
             return moves;
         }
-
+        
+        public Move GetLastMove()
+        {
+            return moves[moves.Count - 1];
+        }
+        
         //nome infeliz para o metodo!
         public int GetTrickSize()
         {

@@ -35,8 +35,8 @@ namespace SuecaSolver
             foreach (int move in moves)
             {
                 gameState.ApplyMove(new Move(Id, move));
-                Hand.Remove(move);
-                HasSuit[Card.GetSuit(move)]--;
+                // Hand.Remove(move);
+                // HasSuit[Card.GetSuit(move)]--;
                 int moveValue = gameState.GetNextPlayer().PlayGame(gameState, alpha, beta, depthLimit);
 
                 if (moveValue < v)
@@ -45,8 +45,8 @@ namespace SuecaSolver
                 }
 
                 gameState.UndoMove();
-                Hand.Add(move);
-                HasSuit[Card.GetSuit(move)]++;
+                // Hand.Add(move);
+                // HasSuit[Card.GetSuit(move)]++;
 
                 if (v <= alpha)
                 {
