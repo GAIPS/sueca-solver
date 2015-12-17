@@ -9,12 +9,18 @@ namespace SuecaSolver
         public int LeadSuit;
         private List<Move> moves;
         public int Trump;
+        private int points;
+        private int currentWinner;
+        private int currentHighestCard;
 
         public Trick(int trumpSuit)
         {
             moves = new List<Move>(4);
             LeadSuit = (int)Suit.None;
             Trump = trumpSuit;
+            points = 0;
+            currentWinner = -1;
+            currentHighestCard = -1;
         }
 
         public List<Move> GetMoves()
@@ -38,8 +44,27 @@ namespace SuecaSolver
             if (moves.Count == 0)
             {
                 LeadSuit = Card.GetSuit(move.Card);
+                currentWinner = move.PlayerId;
+                currentHighestCard = move.Card;
             }
-
+            else
+            {
+                if (Card.GetSuit(move.Card) == LeadSuit)
+                {
+                    if (Card.GetSuit(currentHighestCard) == LeadSuit && Card.GetRank(move.Card) > Card.GetRank(currentHighestCard))
+                    {
+                        currentHighestCard = move.Card;
+                    }
+                }
+                else if(Card.GetSuit(move.Card) == Trump)
+                {
+                    if (Card.GetSuit(currentHighestCard) == Trump && Card.GetRank(move.Card) > Card.GetRank(currentHighestCard))
+                    {
+                        
+                    }
+                }
+            }
+            points += Card.GetValue(move.Card);
             moves.Add(move);
         }
 
