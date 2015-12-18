@@ -10,8 +10,11 @@ namespace SuecaSolver
         private List<Move> moves;
         public int Trump;
         private int points;
+        //keep record of winning player and card for every move in order to undo more easily
+        private List<int> winningPlayer;
         private int currentWinner;
-        private int currentHighestCard;
+        private List<int> winningCard;
+        private int currentWinningCard;
 
         public Trick(int trumpSuit)
         {
@@ -19,8 +22,10 @@ namespace SuecaSolver
             LeadSuit = (int)Suit.None;
             Trump = trumpSuit;
             points = 0;
+            winningPlayer = new List<int>(4);
             currentWinner = -1;
-            currentHighestCard = -1;
+            winningCard = new List<int>(4);
+            currentWinningCard = -1;
         }
 
         public List<Move> GetMoves()
@@ -41,27 +46,58 @@ namespace SuecaSolver
 
         public void ApplyMove(Move move)
         {
+            //the first move sets the leadsuit
             if (moves.Count == 0)
             {
                 LeadSuit = Card.GetSuit(move.Card);
+                winningPlayer.Add(move.PlayerId);
                 currentWinner = move.PlayerId;
-                currentHighestCard = move.Card;
+                winningCard.Add(move.Card);
+                currentWinningCard = move.Card;
             }
             else
             {
+                //the next moves might follow the leadsuit, cut with the trump suit, or play other suits
                 if (Card.GetSuit(move.Card) == LeadSuit)
                 {
-                    if (Card.GetSuit(currentHighestCard) == LeadSuit && Card.GetRank(move.Card) > Card.GetRank(currentHighestCard))
+                    //by playing the leadsuit, one just wins if no one had cut yet and his rank is higher than the previous highest 
+                    if (Card.GetSuit(currentWinningCard) == LeadSuit && Card.GetRank(move.Card) > Card.GetRank(currentWinningCard))
                     {
-                        currentHighestCard = move.Card;
+                        winningPlayer.Add(move.PlayerId);
+                        currentWinner = move.PlayerId;
+                        winningCard.Add(move.Card);
+                        currentWinningCard = move.Card;
+                    }
+                    else
+                    {
+                        //last winner remains the winner after the current move
+                        winningPlayer.Add(currentWinner);
+                        winningCard.Add(currentWinningCard);
                     }
                 }
                 else if(Card.GetSuit(move.Card) == Trump)
                 {
-                    if (Card.GetSuit(currentHighestCard) == Trump && Card.GetRank(move.Card) > Card.GetRank(currentHighestCard))
+                    //by playing trump suit, one just wins if is the first player cutting the trick OR is cutting higher than the previous cut
+                    if (Card.GetSuit(currentWinningCard) != Trump ||
+                    (Card.GetSuit(currentWinningCard) == Trump && Card.GetRank(move.Card) > Card.GetRank(currentWinningCard)))
                     {
-                        
+                        winningPlayer.Add(move.PlayerId);
+                        currentWinner = move.PlayerId;
+                        winningCard.Add(move.Card);
+                        currentWinningCard = move.Card;
                     }
+                    else
+                    {
+                        //last winner remains the winner after the current move
+                        winningPlayer.Add(currentWinner);
+                        winningCard.Add(currentWinningCard);
+                    }
+                }
+                else
+                {
+                    //by playing other suits, one never wins and the last winner remains the winner after the current move
+                    winningPlayer.Add(currentWinner);
+                    winningCard.Add(currentWinningCard);
                 }
             }
             points += Card.GetValue(move.Card);
@@ -72,6 +108,12 @@ namespace SuecaSolver
         {
             int currentMove = moves.Count - 1;
             moves.RemoveAt(currentMove);
+            winningCard.RemoveAt(currentMove);
+            winningPlayer.RemoveAt(currentMove);
+            
+            currentMove = moves.Count - 1;
+            currentWinner = winningPlayer[currentMove];
+            currentWinningCard = winningCard[currentMove];
         }
 
         public int GetLastPlayerId()
