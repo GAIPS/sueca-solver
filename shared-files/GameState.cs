@@ -370,7 +370,7 @@ namespace SuecaSolver
 
         public int EvalGame()
         {
-            return botTeamPoints;
+            //return botTeamPoints;
             if (botTeamPoints > otherTeamPoints)
             {
                 return botTeamPoints;
