@@ -50,7 +50,7 @@ namespace SuecaSolver
                 return possibleMoves[0];
             }
 
-            int N = 1000, depthLimit = 1, handSize = infoSet.GetHandSize();
+            int N = 100, depthLimit = 1, handSize = infoSet.GetHandSize();
 
             for (int i = 0; i < N; i++)
             {
@@ -142,15 +142,15 @@ namespace SuecaSolver
             switch (handSize)
             {
                 case 10:
-                    N = 50;
-                    depthLimit = 3;
+                    N = 100;
+                    depthLimit = 2;
                     break;
                 case 9:
-                    N = 50;
+                    N = 100;
                     depthLimit = 3;
                     break;
                 case 8:
-                    N = 50;
+                    N = 100;
                     depthLimit = 3;
                     break;
                 case 7:
@@ -158,24 +158,24 @@ namespace SuecaSolver
                     depthLimit = 3;
                     break;
                 case 6:
-                    N = 50;
-                    depthLimit = 4;
+                    N = 100;
+                    depthLimit = 3;
                     break;
                 case 5:
-                    N = 30;
-                    depthLimit = 10;
+                    N = 100;
+                    depthLimit = 3;
                     break;
                 case 4:
-                    N = 200;
-                    depthLimit = 10;
+                    N = 100;
+                    depthLimit = 3;
                     break;
                 case 3:
-                    N = 2000;
-                    depthLimit = 10;
+                    N = 100;
+                    depthLimit = 3;
                     break;
                 case 2:
-                    N = 1000;
-                    depthLimit = 10;
+                    N = 100;
+                    depthLimit = 2;
                     break;
                 default:
                     Console.WriteLine("PIMC.setNandDepthLimit: Invalid handSize.");

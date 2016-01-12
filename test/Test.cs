@@ -291,11 +291,11 @@ namespace SuecaSolver
 
             int seed = Guid.NewGuid().GetHashCode();
             Random randomNumber = new Random(seed);
-            int NUM_TRICKS = 7;
+            int NUM_TRICKS = 10;
             Deck deck = new Deck(randomNumber, seed);
             List<int> hand = deck.GetHand(NUM_TRICKS);
-            ElephantPlayer ep = new ElephantPlayer(0, hand, (int)Suit.Clubs, randomNumber, seed);
-            //SmartPlayer ep = new SmartPlayer(0, hand, (int)Suit.Clubs, randomNumber, seed);
+            //ElephantPlayer ep = new ElephantPlayer(0, hand, (int)Suit.Clubs, randomNumber, seed);
+            SmartPlayer ep = new SmartPlayer(0, hand, (int)Suit.Clubs, randomNumber, seed);
             //TrickPlayer ep = new TrickPlayer(0, hand, (int)Suit.Clubs, randomNumber, seed);
             int chosenCard = ep.Play();
 
