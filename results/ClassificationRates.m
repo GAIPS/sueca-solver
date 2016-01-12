@@ -1,4 +1,4 @@
-A = dlmread('log7.txt','\t',2,0);
+A = dlmread('log12.txt','\t',2,0);
 numGames = size(A,1);
 AceRank = 9;
 SevenRank = 8;
@@ -51,5 +51,7 @@ numEasyGames
 HardWonDrewRate = (numHardWonDrew / numHardGames) * 100
 MediumWonDrewRate = (numMediumWonDrew / numMediumGames) * 100
 EasyWonDrewRate = (numEasyWonDrew / numEasyGames) * 100
+
+WonDrew = (numHardWonDrew + numMediumWonDrew + numEasyWonDrew) / 1000
 
 

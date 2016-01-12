@@ -12,7 +12,7 @@ namespace SuecaSolver
     public class War
     {
 
-        public const int GAMEMODE = 18;
+        public const int GAMEMODE = 15;
         public const int NUMGAMES = 1000;
         public const bool PARALLEL = true;
         public const int NUM_THREADS = 4;
@@ -258,6 +258,7 @@ namespace SuecaSolver
 
             Console.WriteLine("Mc " + GameState.ComputedSubtreesMaxPlayer.Count + " mc " + GameState.ComputedSubtreesMinPlayer.Count);
             Console.WriteLine("HR " + (GameState.SAVED_ACCESSES * 1.0) / GameState.ACCESSES);
+            Console.ReadLine();
         }
 
         static bool checkHands(List<List<int>> hands, int trump)
