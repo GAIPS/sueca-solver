@@ -112,8 +112,16 @@ namespace SuecaSolver
             winningPlayer.RemoveAt(currentMove);
             
             currentMove = moves.Count - 1;
-            currentWinner = winningPlayer[currentMove];
-            currentWinningCard = winningCard[currentMove];
+            if (currentMove == -1)
+            {
+                currentWinner = -1;
+                currentWinningCard = -1;
+            }
+            else
+            {
+                currentWinner = winningPlayer[currentMove];
+                currentWinningCard = winningCard[currentMove];
+            }
         }
 
         public int GetLastPlayerId()
