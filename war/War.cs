@@ -185,7 +185,7 @@ namespace SuecaSolver
                 int count = dir.GetFiles("log*.txt").Length;
                 using (System.IO.StreamWriter file = new System.IO.StreamWriter(SAVE_DIR + "log" + count + ".txt"))
                 {
-                    file.WriteLine("Mode: " + GAMEMODE + " #Games: " + NUMGAMES);
+                    file.WriteLine("Mode: " + GAMEMODE + " #Games: " + NUMGAMES + " Notes: " + "u1-Half");
 
                     if (SAVE_CARDS)
                     {
