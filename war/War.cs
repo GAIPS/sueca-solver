@@ -16,7 +16,7 @@ namespace SuecaSolver
         public const int NUMGAMES = 1000;
         public const bool PARALLEL = true;
         public const int NUM_THREADS = 4;
-        public const bool SAVE_RESULTS = false;
+        public const bool SAVE_RESULTS = true;
         public const bool SAVE_CARDS = false; //if true log file will contain intial cards of players otherwise will contain specific features
         ////public const string SAVE_DIR = @"Z:\Devel\sueca-solver\results\";
         public const string SAVE_DIR = @"C:\temp\";
@@ -185,7 +185,7 @@ namespace SuecaSolver
                 int count = dir.GetFiles("log*.txt").Length;
                 using (System.IO.StreamWriter file = new System.IO.StreamWriter(SAVE_DIR + "log" + count + ".txt"))
                 {
-                    file.WriteLine("Mode: " + GAMEMODE + " #Games: " + NUMGAMES + " Notes: " + "u1-Half");
+                    file.WriteLine("Mode: " + GAMEMODE + " #Games: " + NUMGAMES + " Notes: " + "u1-5Trick-5");
 
                     if (SAVE_CARDS)
                     {

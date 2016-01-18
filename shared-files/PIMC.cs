@@ -142,40 +142,40 @@ namespace SuecaSolver
             switch (handSize)
             {
                 case 10:
-                    N = 50;
-                    depthLimit = 3;
+                    N = 5;
+                    depthLimit = 5;
                     break;
                 case 9:
-                    N = 50;
-                    depthLimit = 3;
+                    N = 5;
+                    depthLimit = 5;
                     break;
                 case 8:
-                    N = 50;
-                    depthLimit = 3;
+                    N = 5;
+                    depthLimit = 5;
                     break;
                 case 7:
-                    N = 50;
-                    depthLimit = 4;
+                    N = 5;
+                    depthLimit = 5;
                     break;
                 case 6:
-                    N = 50;
-                    depthLimit = 4;
+                    N = 5;
+                    depthLimit = 5;
                     break;
                 case 5:
-                    N = 50;
-                    depthLimit = 10;
+                    N = 5;
+                    depthLimit = 5;
                     break;
                 case 4:
-                    N = 50;
-                    depthLimit = 10;
+                    N = 5;
+                    depthLimit = 5;
                     break;
                 case 3:
-                    N = 50;
-                    depthLimit = 10;
+                    N = 5;
+                    depthLimit = 5;
                     break;
                 case 2:
-                    N = 50;
-                    depthLimit = 10;
+                    N = 5;
+                    depthLimit = 5;
                     break;
                 default:
                     Console.WriteLine("PIMC.setNandDepthLimit: Invalid handSize.");
