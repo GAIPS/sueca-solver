@@ -1,4 +1,4 @@
-A = dlmread('u1-2Trick-50\u1-2Trick-50.txt','\t',2,0);
+A = dlmread('u1-5Trick-5/u1-5Trick-5.txt','\t',2,0);
 numGames = size(A,1);
 
 TeamFinalPoints = zeros(numGames,1);
