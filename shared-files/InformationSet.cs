@@ -7,6 +7,7 @@ namespace SuecaSolver
     {
         private List<int> hand;
         private Trick currentTrick;
+        private Trick lastTrick;
         public int Trump;
         private Dictionary<int, float> pointsPerCard;
         private Deck deck;
@@ -49,6 +50,7 @@ namespace SuecaSolver
             }
 
             currentTrick = new Trick(Trump);
+            lastTrick = null;
             deck = new Deck(currentHand);
             BotTeamPoints = 0;
             OtherTeamPoints = 0;
@@ -114,6 +116,7 @@ namespace SuecaSolver
                     OtherTeamPoints += trickPoints;
                 }
                 trickPoints = 0;
+                lastTrick = currentTrick;
                 currentTrick = new Trick(Trump);
             }
             trickPoints += cardValue;
@@ -161,7 +164,28 @@ namespace SuecaSolver
             {
                 BotTeamPoints += trickPoints;
                 trickPoints = 0;
+                lastTrick = currentTrick;
                 currentTrick = new Trick(Trump);
+            }
+            trickPoints += Card.GetValue(card);
+            currentTrick.ApplyMove(new Move(0, card));
+            hand.Remove(card);
+
+            if (Card.GetSuit(card) == Trump)
+            {
+                remainingTrumps--;
+            }
+        }
+
+        public void RemoveMyPlay(int card)
+        {
+            //count points
+            //to avoid trick winner computation, we assume the first player of the next trick is the winner of the last one
+            if (currentTrick.IsEmpty())
+            {
+                BotTeamPoints += trickPoints;
+                trickPoints = 0;
+                currentTrick = lastTrick;
             }
             trickPoints += Card.GetValue(card);
             currentTrick.ApplyMove(new Move(0, card));
@@ -465,42 +489,42 @@ namespace SuecaSolver
             return hope;
         }
 
-        internal bool ResetTrick()
-        {
-            bool botHasplayedInCurrentTrick = false;
-            int leadSuit = currentTrick.LeadSuit;
-            foreach (Move move in currentTrick.GetMoves())
-            {
-                int cardSuit = Card.GetSuit(move.Card);
-                int cardValue = Card.GetValue(move.Card);
-                int playerId = move.PlayerId;
+        //internal bool ResetTrick()
+        //{
+        //    bool botHasplayedInCurrentTrick = false;
+        //    int leadSuit = currentTrick.LeadSuit;
+        //    foreach (Move move in currentTrick.GetMoves())
+        //    {
+        //        int cardSuit = Card.GetSuit(move.Card);
+        //        int cardValue = Card.GetValue(move.Card);
+        //        int playerId = move.PlayerId;
 
-                if (cardSuit != leadSuit && !suitHasPlayer[leadSuit].Contains(playerId))
-                {
-                    suitHasPlayer[leadSuit].Add(playerId);
-                }
+        //        if (cardSuit != leadSuit && !suitHasPlayer[leadSuit].Contains(playerId))
+        //        {
+        //            suitHasPlayer[leadSuit].Add(playerId);
+        //        }
 
-                if (playerId == 0)
-                {
-                    botHasplayedInCurrentTrick = true;
-                    hand.Add(move.Card);
-                }
+        //        if (playerId == 0)
+        //        {
+        //            botHasplayedInCurrentTrick = true;
+        //            hand.Add(move.Card);
+        //        }
 
-                if (cardValue > 0)
-                {
-                    othersPointCards[cardSuit].Add(Card.GetRank(move.Card));
-                }
+        //        if (cardValue > 0)
+        //        {
+        //            othersPointCards[cardSuit].Add(Card.GetRank(move.Card));
+        //        }
 
-                if (cardSuit == Trump)
-                {
-                    remainingTrumps++;
-                }
+        //        if (cardSuit == Trump)
+        //        {
+        //            remainingTrumps++;
+        //        }
 
-                deck.Add(move.Card);
-            }
-            trickPoints = 0;
-            currentTrick = new Trick(Trump);
-            return botHasplayedInCurrentTrick;
-        }
+        //        deck.Add(move.Card);
+        //    }
+        //    trickPoints = 0;
+        //    currentTrick = new Trick(Trump);
+        //    return botHasplayedInCurrentTrick;
+        //}
     }
 }

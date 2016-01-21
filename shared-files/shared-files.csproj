@@ -48,6 +48,7 @@
     <Compile Include="Deck.cs" />
     <Compile Include="ElephantPlayer.cs" />
     <Compile Include="ExpressPlayer.cs" />
+    <Compile Include="FutureSuecaGame.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="InformationSet.cs" />
     <Compile Include="MaxRuleBasedGame.cs" />

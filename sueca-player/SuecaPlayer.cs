@@ -413,7 +413,7 @@ namespace SuecaPlayer
         public void ResetTrick()
         {
             processingRepeat = true;
-            ai.ResetTrick();
+            //ai.ResetTrick();
             iaPublisher.ForwardResetTrick();
             processingRepeat = false;
         }

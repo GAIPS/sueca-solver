@@ -57,12 +57,12 @@ namespace SuecaSolver
             return infoSet.GetHandHope();
         }
 
-        public void ResetTrick()
-        {
-            if (infoSet.ResetTrick())
-            {
-                HandSize++;
-            }
-        }
+        //public void ResetTrick()
+        //{
+        //    if (infoSet.ResetTrick())
+        //    {
+        //        HandSize++;
+        //    }
+        //}
     }
 }

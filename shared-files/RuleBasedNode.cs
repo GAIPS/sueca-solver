@@ -13,6 +13,34 @@ namespace SuecaSolver
             infoSet = new InformationSet(hand, trump);
         }
 
+        override public void ApplyMove(Move move)
+        {
+            if (move.PlayerId == Id)
+            {
+                infoSet.AddMyPlay(move.Card);
+                Hand.Remove(move.Card);
+                HasSuit[Card.GetSuit(move.Card)]--;
+            }
+            else
+            {
+                infoSet.AddPlay(move.PlayerId, move.Card);
+            }
+        }
+
+        override public void UndoMove(Move move)
+        {
+            if (move.PlayerId == Id)
+            {
+                infoSet.RemoveMyPlay(move.Card);
+                Hand.Add(move.Card);
+                HasSuit[Card.GetSuit(move.Card)]++;
+            }
+            else
+            {
+                //infoSet.RemovePlay(move.Card);
+            }
+        }
+
         override public int PlayGame(GameState gameState, int alpha, int beta, int depthLimit, int card = -1)
         {
             if (gameState.reachedDepthLimit(depthLimit) || gameState.IsOtherTeamWinning() || gameState.IsEndGame())

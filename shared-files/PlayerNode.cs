@@ -30,7 +30,7 @@ namespace SuecaSolver
 
         abstract public int PlayGame(GameState gameState, int alpha, int beta, int depthLimit, int move = -1);
 
-        public void ApplyMove(Move move)
+        public virtual void ApplyMove(Move move)
         {
             if (move.PlayerId == Id)
             {
@@ -43,7 +43,7 @@ namespace SuecaSolver
             }
         }
         
-        public void UndoMove(Move move)
+        public virtual void UndoMove(Move move)
         {
             if (move.PlayerId == Id)
             {

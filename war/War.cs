@@ -378,9 +378,10 @@ namespace SuecaSolver
                 botTeamHasTrumpAce++;
             }
 
-            MinMaxGame game = new MinMaxGame(10, playersHands, trump, null, 0, 0);
+            //MinMaxGame game = new MinMaxGame(10, playersHands, trump, null, 0, 0);
             int currentPlayerID = i % 4;
             int first = currentPlayerID;
+            FutureSuecaGame game = new FutureSuecaGame(trump, first);
             int[] firstPlayer = new int[4] { 0, 0, 0, 0 };
             firstPlayer[first] = 1;
 
