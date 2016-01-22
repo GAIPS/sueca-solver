@@ -24,13 +24,19 @@ namespace SuecaSolver
             {
                 List<List<int>> playersHands = infoSet.Sample();
 
-                MinMaxGame game;
+                //MinMaxGame game;
+                PerfectInformationGame game;
                 int cardValueInTrick;
 
                 for (int j = 0; j < possibleMoves.Count; j++)
                 {
                     int card = possibleMoves[j];
-                    game = new MinMaxGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints, USE_CACHE);
+                    //game = new MinMaxGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints, USE_CACHE);
+                    MaxNode p0 = new MaxNode(0, playersHands[0], false);
+                    MinNode p1 = new MinNode(1, playersHands[1], false);
+                    MaxNode p2 = new MaxNode(2, playersHands[2], false);
+                    MinNode p3 = new MinNode(3, playersHands[3], false);
+                    game = new PerfectInformationGame(p0, p1, p2, p3, handSize, infoSet.Trump);
                     cardValueInTrick = game.SampleGame(depthLimit, card);
                     infoSet.AddCardValue(card, cardValueInTrick);
                 }
@@ -57,13 +63,19 @@ namespace SuecaSolver
             {
                 Console.WriteLine("ExpressExecute i = " + i);
                 List<List<int>> playersHands = infoSet.Sample();
-                MaxRuleBasedGame game;
+                //MaxRuleBasedGame game;
+                PerfectInformationGame game;
                 int cardValueInTrick;
 
                 for (int j = 0; j < possibleMoves.Count; j++)
                 {
                     int card = possibleMoves[j];
-                    game = new MaxRuleBasedGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints, USE_CACHE);
+                    //game = new MaxRuleBasedGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints, USE_CACHE);
+                    MaxNode p0 = new MaxNode(0, playersHands[0], false);
+                    RuleBasedNode p1 = new RuleBasedNode(1, playersHands[1], infoSet.Trump);
+                    RuleBasedNode p2 = new RuleBasedNode(2, playersHands[2], infoSet.Trump);
+                    RuleBasedNode p3 = new RuleBasedNode(3, playersHands[3], infoSet.Trump);
+                    game = new PerfectInformationGame(p0, p1, p2, p3, handSize, infoSet.Trump);
                     cardValueInTrick = game.SampleGame(depthLimit, card);
                     Console.WriteLine("LOL card value = " + cardValueInTrick);
                     infoSet.AddCardValue(card, cardValueInTrick);
@@ -90,13 +102,19 @@ namespace SuecaSolver
             {
                 List<List<int>> playersHands = infoSet.Sample();
 
-                MinMaxGame game;
+                //MinMaxGame game;
+                PerfectInformationGame game;
                 int cardValueInTrick;
 
                 for (int j = 0; j < possibleMoves.Count; j++)
                 {
                     int card = possibleMoves[j];
-                    game = new MinMaxGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints, USE_CACHE);
+                    //game = new MinMaxGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints, USE_CACHE);
+                    MaxNode p0 = new MaxNode(0, playersHands[0], false);
+                    MinNode p1 = new MinNode(1, playersHands[1], false);
+                    MaxNode p2 = new MaxNode(2, playersHands[2], false);
+                    MinNode p3 = new MinNode(3, playersHands[3], false);
+                    game = new PerfectInformationGame(p0, p1, p2, p3, handSize, infoSet.Trump);
                     cardValueInTrick = game.SampleGame(depthLimit, card);
                     infoSet.AddCardValue(card, cardValueInTrick);
                 }
@@ -119,13 +137,19 @@ namespace SuecaSolver
             {
                 List<List<int>> playersHands = infoSet.Sample();
 
-                MinMaxGame game;
+                //MinMaxGame game;
+                PerfectInformationGame game;
                 int cardValueInTrick;
 
                 for (int j = 0; j < possibleMoves.Count; j++)
                 {
                     int card = possibleMoves[j];
-                    game = new MinMaxGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints, USE_CACHE);
+                    //game = new MinMaxGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints, USE_CACHE); MaxNode p0 = new MaxNode(0, playersHands[0], false);
+                    MaxNode p0 = new MaxNode(0, playersHands[0], false); 
+                    MinNode p1 = new MinNode(1, playersHands[1], false);
+                    MaxNode p2 = new MaxNode(2, playersHands[2], false);
+                    MinNode p3 = new MinNode(3, playersHands[3], false);
+                    game = new PerfectInformationGame(p0, p1, p2, p3, handSize, infoSet.Trump);
                     cardValueInTrick = game.SampleGame(10000, card);
                     infoSet.AddCardValue(card, cardValueInTrick);
                 }
@@ -153,13 +177,19 @@ namespace SuecaSolver
                 n++;
                 List<List<int>> playersHands = infoSet.Sample();
 
-                MinMaxGame game;
+                //MinMaxGame game;
+                PerfectInformationGame game;
                 int cardValueInTrick;
 
                 for (int j = 0; j < possibleMoves.Count; j++)
                 {
                     int card = possibleMoves[j];
-                    game = new MinMaxGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints, USE_CACHE);
+                    //game = new MinMaxGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints, USE_CACHE); MaxNode p0 = new MaxNode(0, playersHands[0], false);
+                    MaxNode p0 = new MaxNode(0, playersHands[0], false); 
+                    MinNode p1 = new MinNode(1, playersHands[1], false);
+                    MaxNode p2 = new MaxNode(2, playersHands[2], false);
+                    MinNode p3 = new MinNode(3, playersHands[3], false);
+                    game = new PerfectInformationGame(p0, p1, p2, p3, handSize, infoSet.Trump);
                     cardValueInTrick = game.SampleGame(depthLimit, card);
                     infoSet.AddCardValue(card, cardValueInTrick);
                 }

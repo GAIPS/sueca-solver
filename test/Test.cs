@@ -291,9 +291,9 @@ namespace SuecaSolver
             Deck deck = new Deck();
             List<int> hand = deck.GetHand(NUM_TRICKS);
             //ElephantPlayer ep = new ElephantPlayer(0, hand, (int)Suit.Clubs);
-            //SmartPlayer ep = new SmartPlayer(0, hand, (int)Suit.Clubs);
+            SmartPlayer ep = new SmartPlayer(0, hand, (int)Suit.Clubs);
             //TrickPlayer ep = new TrickPlayer(0, hand, (int)Suit.Clubs);
-            ExpressPlayer ep = new ExpressPlayer(0, hand, (int)Suit.Clubs);
+            //ExpressPlayer ep = new ExpressPlayer(0, hand, (int)Suit.Clubs);
             int chosenCard = ep.Play();
 
             Sueca.PrintCards("Initial hand", hand);

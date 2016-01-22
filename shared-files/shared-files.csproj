@@ -56,6 +56,7 @@
     <Compile Include="MinMaxGame.cs" />
     <Compile Include="MinNode.cs" />
     <Compile Include="Move.cs" />
+    <Compile Include="PerfectInformationGame.cs" />
     <Compile Include="PIMC.cs" />
     <Compile Include="PlayerNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

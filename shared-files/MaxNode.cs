@@ -11,42 +11,39 @@ namespace SuecaSolver
         {
         }
 
-        override public int PlayGame(GameState gameState, int alpha, int beta, int depthLimit, int card = -1)
+        public override int PlayGame(PerfectInformationGame pig, int alpha, int beta, int depthLimit, int card)
         {
             int v = Int32.MinValue;
-            List<int> moves;
+            List<int> cards;
 
-            if (gameState.reachedDepthLimit(depthLimit) || gameState.IsOtherTeamWinning() || gameState.IsEndGame())
+            if (pig.reachedDepthLimit(depthLimit) || pig.IsOtherTeamWinning() || pig.IsEndGame())
             {
-                return gameState.EvalGame();
+                return pig.EvalGame();
             }
 
             if (card == -1)
             {
-                moves = Sueca.PossibleMoves(Hand, gameState.GetLeadSuit());
-                gameState.orderPossibleMoves(moves, Id);
+                cards = Sueca.PossibleMoves(Hand, pig.GetLeadSuit());
+                //TODO gameState.orderPossibleMoves(moves, Id);
             }
             else
             {
-                moves = new List<int>();
-                moves.Add(card);
+                cards = new List<int>();
+                cards.Add(card);
             }
 
-            foreach (int move in moves)
+            foreach (int c in cards)
             {
-                gameState.ApplyMove(new Move(Id, move));
-                // Hand.Remove(move);
-                // HasSuit[Card.GetSuit(move)]--;
-                int moveValue = gameState.GetNextPlayer().PlayGame(gameState, alpha, beta, depthLimit);
+                Move move = new Move(Id, c);
+                pig.ApplyMove(move);
+                int moveValue = pig.GetNextPlayer().PlayGame(pig, alpha, beta, depthLimit);
 
                 if (moveValue > v)
                 {
                     v = moveValue;
                 }
 
-                gameState.UndoMove();
-                // Hand.Add(move);
-                // HasSuit[Card.GetSuit(move)]++;
+                pig.UndoMove(move);
 
                 if (v >= beta)
                 {
@@ -59,6 +56,58 @@ namespace SuecaSolver
                     alpha = v;
                 }
             }
+
+            return v;
+        }
+
+        override public int PlayGame(GameState gameState, int alpha, int beta, int depthLimit, int card = -1)
+        {
+            int v = Int32.MinValue;
+        //    List<int> moves;
+
+        //    if (gameState.reachedDepthLimit(depthLimit) || gameState.IsOtherTeamWinning() || gameState.IsEndGame())
+        //    {
+        //        return gameState.EvalGame();
+        //    }
+
+        //    if (card == -1)
+        //    {
+        //        moves = Sueca.PossibleMoves(Hand, gameState.GetLeadSuit());
+        //        gameState.orderPossibleMoves(moves, Id);
+        //    }
+        //    else
+        //    {
+        //        moves = new List<int>();
+        //        moves.Add(card);
+        //    }
+
+        //    foreach (int move in moves)
+        //    {
+        //        gameState.ApplyMove(new Move(Id, move));
+        //        // Hand.Remove(move);
+        //        // HasSuit[Card.GetSuit(move)]--;
+        //        int moveValue = gameState.GetNextPlayer().PlayGame(gameState, alpha, beta, depthLimit);
+
+        //        if (moveValue > v)
+        //        {
+        //            v = moveValue;
+        //        }
+
+        //        gameState.UndoMove();
+        //        // Hand.Add(move);
+        //        // HasSuit[Card.GetSuit(move)]++;
+
+        //        if (v >= beta)
+        //        {
+        //            NumCuts++;
+        //            return v;
+        //        }
+
+        //        if (v > alpha)
+        //        {
+        //            alpha = v;
+        //        }
+        //    }
 
             return v;
         }

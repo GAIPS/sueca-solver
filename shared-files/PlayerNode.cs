@@ -29,6 +29,7 @@ namespace SuecaSolver
 
 
         abstract public int PlayGame(GameState gameState, int alpha, int beta, int depthLimit, int move = -1);
+        abstract public int PlayGame(PerfectInformationGame pig, int alpha, int beta, int depthLimit, int card = -1);
 
         public virtual void ApplyMove(Move move)
         {
@@ -115,5 +116,7 @@ namespace SuecaSolver
         {
             return "PID: " + Id;
         }
+
+        
     }
 }
