@@ -57,7 +57,7 @@ namespace SuecaSolver
                     MinNode p1 = new MinNode(1, playersHands[1], false);
                     MaxNode p2 = new MaxNode(2, playersHands[2], false);
                     MinNode p3 = new MinNode(3, playersHands[3], false);
-                    game = new PerfectInformationGame(p0, p1, p2, p3, handSize, infoSet.Trump);
+                    game = new PerfectInformationGame(p0, p1, p2, p3, handSize, infoSet.Trump, infoSet.MyTeamPoints, infoSet.OtherTeamPoints);
                     cardUtility = game.SampleGame(depthLimit, card);
                     dict[card] += cardUtility; 
                 }
@@ -121,7 +121,7 @@ namespace SuecaSolver
                     MinNode p1 = new MinNode(1, playersHands[1], false);
                     MaxNode p2 = new MaxNode(2, playersHands[2], false);
                     MinNode p3 = new MinNode(3, playersHands[3], false);
-                    game = new PerfectInformationGame(p0, p1, p2, p3, handSize, infoSet.Trump);
+                    game = new PerfectInformationGame(p0, p1, p2, p3, handSize, infoSet.Trump, infoSet.MyTeamPoints, infoSet.OtherTeamPoints);
                     cardUtility = game.SampleGame(depthLimit, card);
                     dict[card] += cardUtility; 
                 }

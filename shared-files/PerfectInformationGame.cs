@@ -14,12 +14,14 @@ namespace SuecaSolver
         private int firstTeamPoints; // p0 and p2
         private int secondTeamPoints; // p1 and p3
 
-        public PerfectInformationGame(PlayerNode p0, PlayerNode p1, PlayerNode p2, PlayerNode p3, int numberTricks, int trumpSuit)
+        public PerfectInformationGame(PlayerNode p0, PlayerNode p1, PlayerNode p2, PlayerNode p3, int numberTricks, int trumpSuit, int myTeamPoints, int otherTeamPoints)
         {
             trump = trumpSuit;
             tricks = new List<Trick>(numberTricks);
             tricks.Add(new Trick(trumpSuit));
             players = new PlayerNode[4] { p0, p1, p2, p3, };
+            firstTeamPoints = myTeamPoints;
+            secondTeamPoints = otherTeamPoints;
         }
 
         public int SampleGame(int depthLimit, int card)
@@ -82,8 +84,18 @@ namespace SuecaSolver
 
         internal void ApplyMove(Move move)
         {
-            if (tricks[tricks.Count - 1].IsFull())
+            Trick currentTrick = tricks[tricks.Count - 1];
+            if (currentTrick.IsFull())
             {
+                int[] winnerPoints = currentTrick.GetTrickWinnerAndPoints();
+                if (winnerPoints[0] == 0 || winnerPoints[0] == 2)
+                {
+                    firstTeamPoints += winnerPoints[1];
+                }
+                else
+                {
+                    secondTeamPoints += winnerPoints[1];
+                }
                 tricks.Add(new Trick(trump));
             }
             tricks[tricks.Count - 1].ApplyMove(move);
@@ -102,11 +114,24 @@ namespace SuecaSolver
                 Console.WriteLine("PerfectInformationGame.UndoMove >> Negative index");
                 System.Environment.Exit(1);
             }
-            if (tricks[tricks.Count - 1].IsEmpty())
+            Trick currentTrick = tricks[tricks.Count - 1];
+            if (currentTrick.IsFull())
+            {
+                int[] winnerPoints = currentTrick.GetTrickWinnerAndPoints();
+                if (winnerPoints[0] == 0 || winnerPoints[0] == 2)
+                {
+                    firstTeamPoints -= winnerPoints[1];
+                }
+                else
+                {
+                    secondTeamPoints -= winnerPoints[1];
+                }
+            }
+            currentTrick.UndoMove();
+            if (currentTrick.IsEmpty())
             {
                 tricks.RemoveAt(tricks.Count - 1);
             }
-            tricks[tricks.Count - 1].UndoMove();
             foreach (PlayerNode p in players)
             {
                 //TODO review if is this the correct method

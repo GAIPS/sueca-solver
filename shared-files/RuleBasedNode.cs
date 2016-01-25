@@ -10,28 +10,27 @@ namespace SuecaSolver
         public RuleBasedNode(int id, List<int> hand, int trump)
             : base(id, hand, false)
         {
-            infoSet = new InformationSet(hand, trump);
+            infoSet = new InformationSet(id, hand, trump);
         }
 
         override public void ApplyMove(Move move)
         {
             if (move.PlayerId == Id)
             {
-                infoSet.AddMyPlay(move.Card);
                 Hand.Remove(move.Card);
                 HasSuit[Card.GetSuit(move.Card)]--;
             }
             else
             {
-                infoSet.AddPlay(move.PlayerId, move.Card);
             }
+            infoSet.AddPlay(move.PlayerId, move.Card);
         }
 
         override public void UndoMove(Move move)
         {
             if (move.PlayerId == Id)
             {
-                infoSet.RemoveMyPlay(move.Card);
+                infoSet.RemovePlay(move.PlayerId, move.Card);
                 Hand.Add(move.Card);
                 HasSuit[Card.GetSuit(move.Card)]++;
             }

@@ -15,7 +15,7 @@ namespace SuecaSolver
         {
             _idDiff = 0 - id;
             //pimc = new PIMC();
-            infoSet = new InformationSet(initialHand, trumpSuit);
+            infoSet = new InformationSet(id, initialHand, trumpSuit);
             TrickExpectedReward = 0.0f;
         }
 
@@ -43,33 +43,20 @@ namespace SuecaSolver
                 chosenCard = PIMC.Execute(infoSet, new List<int> { 50, 50, 50, 50, 50, 50, 50, 50, 50, 50 }, new List<int> { 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 });
             }
 
-            infoSet.AddMyPlay(chosenCard);
+            //infoSet.AddMyPlay(chosenCard);
             TrickExpectedReward = infoSet.predictTrickPoints();
             return chosenCard;
         }
 
         public float PointsPercentage()
         {
-            float alreadyMadePoints = infoSet.BotTeamPoints + infoSet.OtherTeamPoints;
+            float alreadyMadePoints = infoSet.MyTeamPoints + infoSet.OtherTeamPoints;
             if (alreadyMadePoints == 0.0f)
             {
                 return 0.5f;
             }
-            return infoSet.BotTeamPoints / alreadyMadePoints;
+            return infoSet.MyTeamPoints / alreadyMadePoints;
         }
-
-        public float GetHandHope()
-        {
-            return infoSet.GetHandHope();
-        }
-
-        //public void ResetTrick()
-        //{
-        //    if (infoSet.ResetTrick())
-        //    {
-        //        HandSize++;
-        //    }
-        //}
 
         public int GetHandSize()
         {

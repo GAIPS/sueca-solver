@@ -295,7 +295,6 @@ namespace SuecaPlayer
             {
                 Console.WriteLine("I am thinking about what to play...");
                 int chosenCard = ai.Play();
-                Console.WriteLine("UnityPlayerID " + id + " played " + SuecaSolver.Card.ToString(chosenCard));
                 SuecaSolver.Rank chosenCardRank = (SuecaSolver.Rank)SuecaSolver.Card.GetRank(chosenCard);
                 SuecaSolver.Suit chosenCardSuit = (SuecaSolver.Suit)SuecaSolver.Card.GetSuit(chosenCard);
                 SuecaTypes.Rank msgRank = (SuecaTypes.Rank)Enum.Parse(typeof(SuecaTypes.Rank), chosenCardRank.ToString());
@@ -320,7 +319,6 @@ namespace SuecaPlayer
                 {
                     additionalInfo = "NOT_FOLLOWING";
                 }
-                moveCounter++;
 
                 iaPublisher.Decision(cardSerialized, chosenCardRank.ToString(), chosenCardSuit.ToString(), additionalInfo);
             }
@@ -342,7 +340,7 @@ namespace SuecaPlayer
             processPlay = false;
             while (processingRepeat) { }
 
-            if (myIdOnUnityGame != id && ai != null)
+            if (ai != null)
             {
                 iaPublisher.GazeAtTarget("cardsZone");
 
