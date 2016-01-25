@@ -101,23 +101,27 @@ namespace SuecaSolver
                 {
                     suitHasPlayer[leadSuit].Remove(playerID);
                 }
-                else
-                {
-                    Console.WriteLine("InformationSet:AddPlay >> Player has renounced");
-                    suitHasPlayer = new Dictionary<int, List<int>>
-                    {
-                        { (int)Suit.Clubs, new List<int>(4){ 0, 1, 2, 3 } },
-                        { (int)Suit.Diamonds, new List<int>(4){ 0, 1, 2, 3 } },
-                        { (int)Suit.Hearts, new List<int>(4){ 0, 1, 2, 3 } },
-                        { (int)Suit.Spades, new List<int>(4){ 0, 1, 2, 3 } }
-                    };
-                    suitHasPlayer[(int)Suit.Clubs].Remove(id);
-                    suitHasPlayer[(int)Suit.Diamonds].Remove(id);
-                    suitHasPlayer[(int)Suit.Hearts].Remove(id);
-                    suitHasPlayer[(int)Suit.Spades].Remove(id);
-                }
+                //else
+                //{
+                //    Console.WriteLine("InformationSet:AddPlay >> Player has renounced");
+                //    suitHasPlayer = new Dictionary<int, List<int>>
+                //    {
+                //        { (int)Suit.Clubs, new List<int>(4){ 0, 1, 2, 3 } },
+                //        { (int)Suit.Diamonds, new List<int>(4){ 0, 1, 2, 3 } },
+                //        { (int)Suit.Hearts, new List<int>(4){ 0, 1, 2, 3 } },
+                //        { (int)Suit.Spades, new List<int>(4){ 0, 1, 2, 3 } }
+                //    };
+                //    suitHasPlayer[(int)Suit.Clubs].Remove(id);
+                //    suitHasPlayer[(int)Suit.Diamonds].Remove(id);
+                //    suitHasPlayer[(int)Suit.Hearts].Remove(id);
+                //    suitHasPlayer[(int)Suit.Spades].Remove(id);
+                //}
             }
 
+            if (cardSuit == Trump)
+            {
+                remainingTrumps--;
+            }
             if (playerID == id)
             {
                 hand.Remove(card);
@@ -128,10 +132,6 @@ namespace SuecaSolver
                 if (cardValue > 0)
                 {
                     othersPointCards[cardSuit].Remove(Card.GetRank(card));
-                }
-                if (cardSuit == Trump)
-                {
-                    remainingTrumps--;
                 }
             }
         }

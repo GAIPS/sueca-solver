@@ -42,7 +42,7 @@ namespace SuecaSolver
 
         public override int PlayGame(PerfectInformationGame pig, int alpha, int beta, int depthLimit, int card = -1)
         {
-            if (pig.reachedDepthLimit(depthLimit) || pig.IsOtherTeamWinning() || pig.IsEndGame())
+            if (pig.reachedDepthLimit(depthLimit) || pig.IsEndGame())//pig.IsOtherTeamWinning() || pig.IsEndGame())
             {
                 return pig.EvalGame();
             }

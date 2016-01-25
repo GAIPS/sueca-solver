@@ -59,12 +59,16 @@ namespace SuecaSolver
                     MinNode p3 = new MinNode(3, playersHands[3], false);
                     game = new PerfectInformationGame(p0, p1, p2, p3, handSize, infoSet.Trump, infoSet.MyTeamPoints, infoSet.OtherTeamPoints);
                     cardUtility = game.SampleGame(depthLimit, card);
+                    if (cardUtility > 120 || cardUtility < -120)
+                    {
+                        Console.WriteLine("");
+                    }
                     dict[card] += cardUtility; 
                 }
             }
 
             int bestCard = -1;
-            int bestValue = Int32.MinValue;
+            int bestValue = Int16.MinValue;
 
             foreach (KeyValuePair<int, int> cardValue in dict)
             {
@@ -131,7 +135,7 @@ namespace SuecaSolver
             sw.Stop();
 
             int bestCard = -1;
-            int bestValue = Int32.MinValue;
+            int bestValue = Int16.MinValue;
 
             foreach (KeyValuePair<int, int> cardValue in dict)
             {

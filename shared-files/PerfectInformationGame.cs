@@ -87,6 +87,13 @@ namespace SuecaSolver
             Trick currentTrick = tricks[tricks.Count - 1];
             if (currentTrick.IsFull())
             {
+                tricks.Add(new Trick(trump));
+                currentTrick = tricks[tricks.Count - 1];
+            }
+            currentTrick.ApplyMove(move);
+
+            if (currentTrick.IsFull())
+            {
                 int[] winnerPoints = currentTrick.GetTrickWinnerAndPoints();
                 if (winnerPoints[0] == 0 || winnerPoints[0] == 2)
                 {
@@ -96,11 +103,9 @@ namespace SuecaSolver
                 {
                     secondTeamPoints += winnerPoints[1];
                 }
-                tricks.Add(new Trick(trump));
             }
-            tricks[tricks.Count - 1].ApplyMove(move);
 
-            foreach (PlayerNode p in players)
+            foreach (var p in players)
             {
                 //TODO review if is this the correct method
                 p.ApplyMove(move);

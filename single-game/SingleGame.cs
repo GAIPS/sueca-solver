@@ -25,7 +25,7 @@ namespace SuecaSolver
             playersNames[3] = Console.ReadLine();
             Console.Write("First player ID: ");
             input = Console.ReadLine();
-            firstPlayerID = Convert.ToInt32(input);
+            firstPlayerID = Convert.ToInt16(input);
             Console.WriteLine("");
 
             int seed = Guid.NewGuid().GetHashCode();
@@ -63,7 +63,7 @@ namespace SuecaSolver
                 {
                     Console.Write("Pick the card you want to play by its index: ");
                     input = Console.ReadLine();
-                    cardIndex = Convert.ToInt32(input);
+                    cardIndex = Convert.ToInt16(input);
                     chosenCard = currentHand[cardIndex];
                     artificialPlayer.AddPlay(currentPlayerID, chosenCard);
                 }

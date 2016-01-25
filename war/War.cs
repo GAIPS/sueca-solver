@@ -9,9 +9,9 @@ namespace SuecaSolver
     public class War
     {
 
-        public const int GAMEMODE = 20;
-        public const int NUMGAMES = 500;
-        public const bool PARALLEL = true;
+        public const int GAMEMODE = 18;
+        public const int NUMGAMES = 2;
+        public const bool PARALLEL = false;
         public const int NUM_THREADS = 4;
         public const bool SAVE_RESULTS = true;
         public const bool SAVE_CARDS = true; //if true log file will contain intial cards of players otherwise will contain specific features
@@ -29,10 +29,10 @@ namespace SuecaSolver
             if (args.Length == 6)
             {
                 //Assuming the input is correct
-                gameMode = Int32.Parse(args[0]);
-                numGames = Int32.Parse(args[1]);
+                gameMode = Int16.Parse(args[0]);
+                numGames = Int16.Parse(args[1]);
                 parallel = Boolean.Parse(args[2]);
-                numThreads = Int32.Parse(args[3]);
+                numThreads = Int16.Parse(args[3]);
                 saveResults = Boolean.Parse(args[4]);
                 saveCards = Boolean.Parse(args[5]);
             }
@@ -598,10 +598,7 @@ namespace SuecaSolver
                 game.PlayCard(currentPlayerID, chosenCard);
                 for (int k = 0; k < 4; k++)
                 {
-                    if (k != currentPlayerID)
-                    {
-                        players[k].AddPlay(currentPlayerID, chosenCard);
-                    }
+                    players[k].AddPlay(currentPlayerID, chosenCard);
                 }
                 currentPlayerID = game.GetNextPlayerId();
             }

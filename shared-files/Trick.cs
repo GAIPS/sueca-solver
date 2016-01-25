@@ -114,6 +114,7 @@ namespace SuecaSolver
         public void UndoMove()
         {
             int currentMoveIndex = moves.Count - 1;
+            points -= Card.GetValue(moves[currentMoveIndex].Card);
             moves.RemoveAt(currentMoveIndex);
             winningCard.RemoveAt(currentMoveIndex);
             winningPlayer.RemoveAt(currentMoveIndex);

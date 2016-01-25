@@ -4,7 +4,6 @@ namespace SuecaSolver
 {
     public class ElephantPlayer : ArtificialPlayer
     {
-        private int _idDiff;
         private int _handSize;
         //private PIMC pimc;
         private InformationSet infoSet;
@@ -13,7 +12,7 @@ namespace SuecaSolver
         public ElephantPlayer(int id, List<int> initialHand, int trumpSuit)
             : base(id)
         {
-            _idDiff = 0 - id;
+            //_idDiff = 0 - id;
             _handSize = initialHand.Count;
             //pimc = new PIMC();
             infoSet = new InformationSet(id, initialHand, trumpSuit);
@@ -21,12 +20,12 @@ namespace SuecaSolver
 
         override public void AddPlay(int playerID, int card)
         {
-            int playerIdForMe = playerID + _idDiff;
-            if (playerIdForMe < 0)
-            {
-                playerIdForMe += 4;
-            }
-            infoSet.AddPlay(playerIdForMe, card);
+            //int playerIdForMe = playerID + _idDiff;
+            //if (playerIdForMe < 0)
+            //{
+            //    playerIdForMe += 4;
+            //}
+            infoSet.AddPlay(playerID, card);
         }
 
 
