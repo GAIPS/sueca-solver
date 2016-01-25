@@ -6,7 +6,7 @@ namespace SuecaSolver
     {
         private int _idDiff;
         private int _handSize;
-        private PIMC pimc;
+        //private PIMC pimc;
         private InformationSet infoSet;
 
 
@@ -15,7 +15,7 @@ namespace SuecaSolver
         {
             _idDiff = 0 - id;
             _handSize = initialHand.Count;
-            pimc = new PIMC();
+            //pimc = new PIMC();
             infoSet = new InformationSet(initialHand, trumpSuit);
         }
 
@@ -40,7 +40,7 @@ namespace SuecaSolver
             }
             else
             {
-                chosenCard = pimc.ExecuteWithTimeLimit(infoSet);
+                chosenCard = PIMC.ExecuteWithTimeLimit(infoSet, new List<int> { 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 });
             }
 
             infoSet.AddMyPlay(chosenCard);

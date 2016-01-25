@@ -28,18 +28,25 @@ namespace SuecaSolver
             currentWinningCard = -1;
         }
 
-        public List<Move> GetMoves()
+        public bool IsEmpty()
         {
-            return moves;
+            if (moves.Count == 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool IsFull()
+        {
+            if (moves.Count == moves.Capacity)
+            {
+                return true;
+            }
+            return false;
         }
         
-        public Move GetLastMove()
-        {
-            return moves[moves.Count - 1];
-        }
-        
-        //nome infeliz para o metodo!
-        public int GetTrickSize()
+        public int GetCurrentTrickSize()
         {
             return moves.Count;
         }
@@ -135,64 +142,10 @@ namespace SuecaSolver
             return (moves[moves.Count - 1].PlayerId + 1) % 4;
         }
 
-        public int GetLastPlayerId()
+
+        public int GetCurrentWinningCard()
         {
-            if (moves.Count == 0)
-            {
-                Console.WriteLine("Trick trouble at GetLastPlayerId!!!");
-                return -1;
-            }
-            return moves[moves.Count - 1].PlayerId;
-        }
-
-
-        public bool IsEmpty()
-        {
-            if (moves.Count == 0)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public bool IsFull()
-        {
-            if (moves.Count == moves.Capacity)
-            {
-                return true;
-            }
-            return false;
-        }
-
-
-        public int HighestCardOnCurrentTrick()
-        {
-            int result = 0;
-            bool cut = false;
-            foreach (var move in moves)
-            {
-                int card = move.Card;
-                // int cardSuit = Card.GetSuit(card);
-                int cardRank = Card.GetRank(card);
-
-                if (!cut)
-                {
-                    if (cardRank > result)
-                    {
-                        result = cardRank;
-                    }
-                    else if (cardRank < 0)
-                    {
-                        result = cardRank;
-                        cut = true;
-                    }
-                }
-                else if (cut && cardRank < result)
-                {
-                    result = cardRank;
-                }
-            }
-            return result;
+            return currentWinningCard;
         }
 
         public void PrintTrick()

@@ -331,7 +331,7 @@ namespace SuecaPlayer
 
         public void TrickEnd(int winnerId, int trickPoints)
         {
-            if (ai.HandSize > 1)
+            if (ai.GetHandSize() > 1)
             {
                 iaPublisher.ForwardTrickEnd(winnerId, trickPoints);
             }

@@ -10,7 +10,7 @@ namespace SuecaSolver
         public RuleBasedPlayer(int id, List<int> initialHand, int trumpSuit)
             : base(id)
         {
-            _idDiff = 0 - id;                                                                                                                                                                                                                                                                                                
+            _idDiff = 0 - id;
             infoSet = new InformationSet(initialHand, trumpSuit);
         }
 

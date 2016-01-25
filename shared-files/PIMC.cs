@@ -4,21 +4,42 @@ using System.Collections.Generic;
 
 namespace SuecaSolver
 {
-    public class PIMC
+    public static class PIMC
     {
 
-        public int Execute(InformationSet infoSet, bool USE_CACHE = false)
+        public static int Execute(InformationSet infoSet, List<int> numIterations = null, List<int> depthLimits = null, bool USE_CACHE = false)
         {
-            infoSet.CleanCardValues();
             List<int> possibleMoves = infoSet.GetPossibleMoves();
-
             if (possibleMoves.Count == 1)
             {
                 return possibleMoves[0];
             }
 
+            Dictionary<int, int> dict = new Dictionary<int, int>();
+            foreach (int card in possibleMoves)
+            {
+                dict.Add(card, 0);
+            }
+
+
             int N, depthLimit, handSize = infoSet.GetHandSize();
-            setNandDepthLimit(out N, out depthLimit, handSize);
+            if (numIterations != null)
+            {
+                N = numIterations[handSize - 1];
+                if (depthLimits != null)
+                {
+                    depthLimit = depthLimits[handSize - 1];
+                }
+                else
+                {
+                    depthLimit = 10;
+                }
+            }
+            else
+            {
+                N = 50;
+                depthLimit = 1;
+            }
            
             for (int i = 0; i < N; i++)
             {
@@ -26,7 +47,7 @@ namespace SuecaSolver
 
                 //MinMaxGame game;
                 PerfectInformationGame game;
-                int cardValueInTrick;
+                int cardUtility;
 
                 for (int j = 0; j < possibleMoves.Count; j++)
                 {
@@ -37,141 +58,52 @@ namespace SuecaSolver
                     MaxNode p2 = new MaxNode(2, playersHands[2], false);
                     MinNode p3 = new MinNode(3, playersHands[3], false);
                     game = new PerfectInformationGame(p0, p1, p2, p3, handSize, infoSet.Trump);
-                    cardValueInTrick = game.SampleGame(depthLimit, card);
-                    infoSet.AddCardValue(card, cardValueInTrick);
+                    cardUtility = game.SampleGame(depthLimit, card);
+                    dict[card] += cardUtility; 
                 }
             }
 
-            infoSet.calculateAverageCardValues(N);
-            return infoSet.GetBestCard();
+            int bestCard = -1;
+            int bestValue = Int32.MinValue;
+
+            foreach (KeyValuePair<int, int> cardValue in dict)
+            {
+                if (cardValue.Value > bestValue)
+                {
+                    bestValue = (int)cardValue.Value;
+                    bestCard = cardValue.Key;
+                }
+            }
+
+            if (bestCard == -1)
+            {
+                Console.WriteLine("Trouble at InformationSet.GetBestCardAndValue()");
+            }
+
+            return bestCard;
         }
 
-        public int ExpressExecute(InformationSet infoSet, bool USE_CACHE = false)
-        {
-            infoSet.CleanCardValues();
-            List<int> possibleMoves = infoSet.GetPossibleMoves();
 
+        public static int ExecuteWithTimeLimit(InformationSet infoSet, List<int> depthLimits, bool USE_CACHE = false)
+        {
+            List<int> possibleMoves = infoSet.GetPossibleMoves();
             if (possibleMoves.Count == 1)
             {
                 return possibleMoves[0];
             }
 
-            int N = 100, depthLimit = 8, handSize = infoSet.GetHandSize();
-            //setNandDepthLimit(out N, out depthLimit, handSize);
-
-            for (int i = 0; i < N; i++)
+            Dictionary<int, int> dict = new Dictionary<int, int>();
+            foreach (int card in possibleMoves)
             {
-                Console.WriteLine("ExpressExecute i = " + i);
-                List<List<int>> playersHands = infoSet.Sample();
-                //MaxRuleBasedGame game;
-                PerfectInformationGame game;
-                int cardValueInTrick;
-
-                for (int j = 0; j < possibleMoves.Count; j++)
-                {
-                    int card = possibleMoves[j];
-                    //game = new MaxRuleBasedGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints, USE_CACHE);
-                    MaxNode p0 = new MaxNode(0, playersHands[0], false);
-                    RuleBasedNode p1 = new RuleBasedNode(1, playersHands[1], infoSet.Trump);
-                    RuleBasedNode p2 = new RuleBasedNode(2, playersHands[2], infoSet.Trump);
-                    RuleBasedNode p3 = new RuleBasedNode(3, playersHands[3], infoSet.Trump);
-                    game = new PerfectInformationGame(p0, p1, p2, p3, handSize, infoSet.Trump);
-                    cardValueInTrick = game.SampleGame(depthLimit, card);
-                    Console.WriteLine("LOL card value = " + cardValueInTrick);
-                    infoSet.AddCardValue(card, cardValueInTrick);
-                }
+                dict.Add(card, 0);
             }
 
-            infoSet.calculateAverageCardValues(N);
-            return infoSet.GetBestCard();
-        }
-
-        public int TrickExecute(InformationSet infoSet, bool USE_CACHE = false)
-        {
-            infoSet.CleanCardValues();
-            List<int> possibleMoves = infoSet.GetPossibleMoves();
-
-            if (possibleMoves.Count == 1)
-            {
-                return possibleMoves[0];
-            }
-
-            int N = 1000, depthLimit = 1, handSize = infoSet.GetHandSize();
-
-            for (int i = 0; i < N; i++)
-            {
-                List<List<int>> playersHands = infoSet.Sample();
-
-                //MinMaxGame game;
-                PerfectInformationGame game;
-                int cardValueInTrick;
-
-                for (int j = 0; j < possibleMoves.Count; j++)
-                {
-                    int card = possibleMoves[j];
-                    //game = new MinMaxGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints, USE_CACHE);
-                    MaxNode p0 = new MaxNode(0, playersHands[0], false);
-                    MinNode p1 = new MinNode(1, playersHands[1], false);
-                    MaxNode p2 = new MaxNode(2, playersHands[2], false);
-                    MinNode p3 = new MinNode(3, playersHands[3], false);
-                    game = new PerfectInformationGame(p0, p1, p2, p3, handSize, infoSet.Trump);
-                    cardValueInTrick = game.SampleGame(depthLimit, card);
-                    infoSet.AddCardValue(card, cardValueInTrick);
-                }
-            }
-
-            infoSet.calculateAverageCardValues(N);
-            return infoSet.GetBestCard();
-        }
-
-
-        public int ExecuteTestVersion(InformationSet infoSet, List<int> numIterations, bool USE_CACHE = false)
-        {
-            infoSet.CleanCardValues();
-            List<int> possibleMoves = infoSet.GetPossibleMoves();
-
-            int handSize = infoSet.GetHandSize();
-            int N = numIterations[handSize - 1];
-
-            for (int i = 0; i < N; i++)
-            {
-                List<List<int>> playersHands = infoSet.Sample();
-
-                //MinMaxGame game;
-                PerfectInformationGame game;
-                int cardValueInTrick;
-
-                for (int j = 0; j < possibleMoves.Count; j++)
-                {
-                    int card = possibleMoves[j];
-                    //game = new MinMaxGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints, USE_CACHE); MaxNode p0 = new MaxNode(0, playersHands[0], false);
-                    MaxNode p0 = new MaxNode(0, playersHands[0], false); 
-                    MinNode p1 = new MinNode(1, playersHands[1], false);
-                    MaxNode p2 = new MaxNode(2, playersHands[2], false);
-                    MinNode p3 = new MinNode(3, playersHands[3], false);
-                    game = new PerfectInformationGame(p0, p1, p2, p3, handSize, infoSet.Trump);
-                    cardValueInTrick = game.SampleGame(10000, card);
-                    infoSet.AddCardValue(card, cardValueInTrick);
-                }
-            }
-
-            infoSet.calculateAverageCardValues(N);
-            return infoSet.GetBestCard();
-        }
-
-
-        public int ExecuteWithTimeLimit(InformationSet infoSet, bool USE_CACHE = false)
-        {
-
-            infoSet.CleanCardValues();
-            List<int> possibleMoves = infoSet.GetPossibleMoves();
-
-            int N, depthLimit, handSize = infoSet.GetHandSize();
+            int depthLimit, handSize = infoSet.GetHandSize();
             int n = 0;
             Stopwatch sw = new Stopwatch();
             sw.Start();
             long time = sw.ElapsedMilliseconds;
-            setNandDepthLimit(out N, out depthLimit, handSize);
+            depthLimit = depthLimits[handSize - 1];
             for (; time < 2000; )
             {
                 n++;
@@ -179,7 +111,7 @@ namespace SuecaSolver
 
                 //MinMaxGame game;
                 PerfectInformationGame game;
-                int cardValueInTrick;
+                int cardUtility;
 
                 for (int j = 0; j < possibleMoves.Count; j++)
                 {
@@ -190,63 +122,32 @@ namespace SuecaSolver
                     MaxNode p2 = new MaxNode(2, playersHands[2], false);
                     MinNode p3 = new MinNode(3, playersHands[3], false);
                     game = new PerfectInformationGame(p0, p1, p2, p3, handSize, infoSet.Trump);
-                    cardValueInTrick = game.SampleGame(depthLimit, card);
-                    infoSet.AddCardValue(card, cardValueInTrick);
+                    cardUtility = game.SampleGame(depthLimit, card);
+                    dict[card] += cardUtility; 
                 }
                 time = sw.ElapsedMilliseconds;
             }
 
             sw.Stop();
-            infoSet.calculateAverageCardValues(n);
-            return infoSet.GetBestCard();
-        }
 
-        static void setNandDepthLimit(out int N, out int depthLimit, int handSize)
-        {
-            switch (handSize)
+            int bestCard = -1;
+            int bestValue = Int32.MinValue;
+
+            foreach (KeyValuePair<int, int> cardValue in dict)
             {
-                case 10:
-                    N = 50;
-                    depthLimit = 3;
-                    break;
-                case 9:
-                    N = 50;
-                    depthLimit = 3;
-                    break;
-                case 8:
-                    N = 50;
-                    depthLimit = 3;
-                    break;
-                case 7:
-                    N = 100;
-                    depthLimit = 3;
-                    break;
-                case 6:
-                    N = 50;
-                    depthLimit = 4;
-                    break;
-                case 5:
-                    N = 30;
-                    depthLimit = 10;
-                    break;
-                case 4:
-                    N = 200;
-                    depthLimit = 10;
-                    break;
-                case 3:
-                    N = 2000;
-                    depthLimit = 10;
-                    break;
-                case 2:
-                    N = 1000;
-                    depthLimit = 10;
-                    break;
-                default:
-                    Console.WriteLine("PIMC.setNandDepthLimit: Invalid handSize.");
-                    N = 0;
-                    depthLimit = 0;
-                    break;
+                if (cardValue.Value > bestValue)
+                {
+                    bestValue = (int)cardValue.Value;
+                    bestCard = cardValue.Key;
+                }
             }
+
+            if (bestCard == -1)
+            {
+                Console.WriteLine("Trouble at InformationSet.GetBestCardAndValue()");
+            }
+
+            return bestCard;
         }
     }
 }

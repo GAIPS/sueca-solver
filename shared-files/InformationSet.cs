@@ -9,7 +9,7 @@ namespace SuecaSolver
         private Trick currentTrick;
         private Trick lastTrick;
         public int Trump;
-        private Dictionary<int, float> pointsPerCard;
+        //private Dictionary<int, float> pointsPerCard;
         private Deck deck;
         private Dictionary<int, List<int>> suitHasPlayer;
         private Dictionary<int, List<int>> othersPointCards;
@@ -24,7 +24,7 @@ namespace SuecaSolver
         {
             Trump = trumpSuit;
             hand = new List<int>(currentHand);
-            pointsPerCard = new Dictionary<int,float>();
+            //pointsPerCard = new Dictionary<int,float>();
             suitHasPlayer = new Dictionary<int,List<int>>
             {
                 { (int)Suit.Clubs, new List<int>(3){ 1, 2, 3 } },
@@ -69,33 +69,6 @@ namespace SuecaSolver
         public List<int> GetPossibleMoves()
         {
             return Sueca.PossibleMoves(hand, currentTrick.LeadSuit);
-        }
-
-        public List<Move> GetCardsOnTable()
-        {
-            return currentTrick.GetMoves();
-        }
-
-        public int GetBestCard()
-        {
-            int bestCard = -1;
-            int bestValue = Int32.MinValue;
-
-            foreach (KeyValuePair<int, float> cardValue in pointsPerCard)
-            {
-                if (cardValue.Value > bestValue)
-                {
-                    bestValue = (int) cardValue.Value;
-                    bestCard = cardValue.Key;
-                }
-            }
-
-            if (bestCard == -1)
-            {
-                Console.WriteLine("Trouble at InformationSet.GetBestCardAndValue()");
-            }
-
-            return bestCard;
         }
 
         public void AddPlay(int playerID, int card)
@@ -202,32 +175,6 @@ namespace SuecaSolver
             return currentTrick.GetTrickWinnerAndPoints()[1];
         }
 
-        public void CleanCardValues()
-        {
-            pointsPerCard.Clear();
-        }
-
-        public void AddCardValue(int card, int val)
-        {
-            if (pointsPerCard.ContainsKey(card))
-            {
-                pointsPerCard[card] += val;
-            }
-            else
-            {
-                pointsPerCard[card] = val;
-            }
-        }
-
-        public void calculateAverageCardValues(int n)
-        {
-            List<int> keysCopy = new List<int>(pointsPerCard.Keys);
-            foreach (int card in keysCopy)
-            {
-                pointsPerCard[card] /= n;
-            }
-        }
-
         private bool checkPlayersHaveAllSuits(Dictionary<int,List<int>> suitHasPlayer)
         {
             if (suitHasPlayer[0].Count == 3 &&
@@ -245,7 +192,7 @@ namespace SuecaSolver
             List<List<int>> hands = new List<List<int>>();
             int myHandSize = hand.Count;
             int[] handSizes = new int[3] { myHandSize, myHandSize, myHandSize };
-            int currentTrickSize = currentTrick.GetTrickSize();
+            int currentTrickSize = currentTrick.GetCurrentTrickSize();
             if (currentTrickSize > 3)
             {
                 currentTrickSize = 0;
@@ -367,7 +314,7 @@ namespace SuecaSolver
             }
             else
             {
-                int trickSize = currentTrick.GetTrickSize();
+                int trickSize = currentTrick.GetCurrentTrickSize();
                 if (trickSize == 4 || trickSize == 0)
                 {
                     List<int> counterList = counterPerSuit(possibleMoves);
@@ -423,7 +370,8 @@ namespace SuecaSolver
                 othersHighestRankFromSuit = 0;
             }
 
-            int highestRankOnTable = currentTrick.HighestCardOnCurrentTrick();
+            int winninCard = currentTrick.GetCurrentWinningCard();
+            int highestRankOnTable = Card.GetRank(winninCard);
 
             if (highestRankOnTable >= 0 && highestCardRank > highestRankOnTable && highestCardRank > othersHighestRankFromSuit)
             {
@@ -433,27 +381,6 @@ namespace SuecaSolver
             {
                 return false;
             }
-        }
-
-
-        private void printDictionary(string name)
-        {
-            string str = name + " -";
-            foreach (KeyValuePair<int, float> cardValue in pointsPerCard)
-            {
-                str += " <" + Card.ToString(cardValue.Key) + "," + cardValue.Value + ">";
-            }
-            Console.WriteLine(str);
-        }
-
-
-        public void PrintInfoSet()
-        {
-            Console.WriteLine("------------------INFOSET------------------");
-            Sueca.PrintCards("Hand", hand);
-            Console.WriteLine("Trump - " + Trump);
-            printDictionary("Dictionary");
-            Console.WriteLine("-------------------------------------------");
         }
 
         public float GetHandHope()
@@ -488,43 +415,5 @@ namespace SuecaSolver
             }
             return hope;
         }
-
-        //internal bool ResetTrick()
-        //{
-        //    bool botHasplayedInCurrentTrick = false;
-        //    int leadSuit = currentTrick.LeadSuit;
-        //    foreach (Move move in currentTrick.GetMoves())
-        //    {
-        //        int cardSuit = Card.GetSuit(move.Card);
-        //        int cardValue = Card.GetValue(move.Card);
-        //        int playerId = move.PlayerId;
-
-        //        if (cardSuit != leadSuit && !suitHasPlayer[leadSuit].Contains(playerId))
-        //        {
-        //            suitHasPlayer[leadSuit].Add(playerId);
-        //        }
-
-        //        if (playerId == 0)
-        //        {
-        //            botHasplayedInCurrentTrick = true;
-        //            hand.Add(move.Card);
-        //        }
-
-        //        if (cardValue > 0)
-        //        {
-        //            othersPointCards[cardSuit].Add(Card.GetRank(move.Card));
-        //        }
-
-        //        if (cardSuit == Trump)
-        //        {
-        //            remainingTrumps++;
-        //        }
-
-        //        deck.Add(move.Card);
-        //    }
-        //    trickPoints = 0;
-        //    currentTrick = new Trick(Trump);
-        //    return botHasplayedInCurrentTrick;
-        //}
     }
 }

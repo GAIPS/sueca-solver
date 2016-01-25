@@ -110,6 +110,16 @@ namespace SuecaSolver
 
         public static void PrintHand(List<int> hand)
         {
+            string str = "";
+            foreach (int c in hand)
+            {
+                str += c.ToString() + ", ";
+            }
+            Console.WriteLine(str);
+        }
+
+        public static void PrintCurrentHand(List<int> hand)
+        {
             Console.WriteLine("Your hand:");
             for (int i = 0; i < hand.Count; i++)
             {

@@ -37,8 +37,13 @@ namespace SuecaSolver
             int cardIndex, currentPlayerID = firstPlayerID;
 
             SmartPlayer artificialPlayer = new SmartPlayer(0, playersHand[0], trump);
-            MinMaxGame game = new MinMaxGame(10, playersHand, trump, null, 0, 0);
-            game.PrintPlayersHands();
+            FutureSuecaGame game = new FutureSuecaGame(trump, firstPlayerID);
+            //Console.WriteLine("---------hands---------");
+            //Sueca.PrintHand(playersHand[0]);
+            //Sueca.PrintHand(playersHand[1]);
+            //Sueca.PrintHand(playersHand[2]);
+            //Sueca.PrintHand(playersHand[3]);
+            //Console.WriteLine("-----------------------");
 
             for (int i = 0; i < 40; i++)
             {
@@ -51,7 +56,7 @@ namespace SuecaSolver
 
                 game.PrintLastTrick();
                 game.PrintCurrentTrick();
-                Sueca.PrintHand(currentHand);
+                Sueca.PrintCurrentHand(currentHand);
                 int chosenCard;
 
                 if (currentPlayerID != 0)

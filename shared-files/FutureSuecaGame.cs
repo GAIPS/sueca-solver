@@ -66,5 +66,35 @@ namespace SuecaSolver
 
             return new int[] { firstTeamPoints, secondTeamPoints};
         }
+
+        public void PrintLastTrick()
+        {
+            if (tricks.Count > 0 && tricks[0].IsFull())
+            {
+                Console.WriteLine("Last trick:");
+                Trick currentTrick = tricks[tricks.Count - 1];
+                if (currentTrick.IsFull())
+                {
+                    currentTrick.PrintTrick();
+                }
+                else
+                {
+                    tricks[tricks.Count - 2].PrintTrick();
+                }
+                Console.WriteLine("");
+            }
+        }
+
+
+        public void PrintCurrentTrick()
+        {
+            Console.WriteLine("Current trick:");
+            Trick currentTrick = tricks[tricks.Count - 1];
+            if (!currentTrick.IsFull())
+            {
+                currentTrick.PrintTrick();
+            }
+            Console.WriteLine("");
+        }
     }
 }

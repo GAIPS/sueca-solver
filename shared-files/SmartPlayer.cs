@@ -5,8 +5,7 @@ namespace SuecaSolver
     public class SmartPlayer : ArtificialPlayer
     {
         private int _idDiff;
-        public int HandSize;
-        private PIMC pimc;
+        //private PIMC pimc;
         private InformationSet infoSet;
         public float TrickExpectedReward;
 
@@ -15,8 +14,7 @@ namespace SuecaSolver
             : base(id)
         {
             _idDiff = 0 - id;
-            HandSize = initialHand.Count;
-            pimc = new PIMC();
+            //pimc = new PIMC();
             infoSet = new InformationSet(initialHand, trumpSuit);
             TrickExpectedReward = 0.0f;
         }
@@ -36,17 +34,16 @@ namespace SuecaSolver
         {
             int chosenCard;
 
-            if (HandSize > 10)
+            if (infoSet.GetHandSize() > 10)
             {
                 chosenCard = infoSet.RuleBasedDecision();
             }
             else
             {
-                chosenCard = pimc.Execute(infoSet);
+                chosenCard = PIMC.Execute(infoSet, new List<int> { 50, 50, 50, 50, 50, 50, 50, 50, 50, 50 }, new List<int> { 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 });
             }
 
             infoSet.AddMyPlay(chosenCard);
-            HandSize--;
             TrickExpectedReward = infoSet.predictTrickPoints();
             return chosenCard;
         }
@@ -73,5 +70,10 @@ namespace SuecaSolver
         //        HandSize++;
         //    }
         //}
+
+        public int GetHandSize()
+        {
+            return infoSet.GetHandSize();
+        }
     }
 }

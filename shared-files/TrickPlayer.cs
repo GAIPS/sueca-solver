@@ -6,7 +6,7 @@ namespace SuecaSolver
     {
         private int _idDiff;
         public int HandSize;
-        private PIMC pimc;
+        //private PIMC pimc;
         private InformationSet infoSet;
         public float TrickExpectedReward;
 
@@ -16,7 +16,7 @@ namespace SuecaSolver
         {
             _idDiff = 0 - id;
             HandSize = initialHand.Count;
-            pimc = new PIMC();
+            //pimc = new PIMC();
             infoSet = new InformationSet(initialHand, trumpSuit);
             TrickExpectedReward = 0.0f;
         }
@@ -34,7 +34,7 @@ namespace SuecaSolver
 
         override public int Play()
         {
-            int chosenCard = pimc.TrickExecute(infoSet);
+            int chosenCard = PIMC.Execute(infoSet);
 
             infoSet.AddMyPlay(chosenCard);
             HandSize--;
