@@ -64,6 +64,11 @@ namespace SuecaSolver
             return hand.Count;
         }
 
+        public List<Move> GetCurrentTrickMoves()
+        {
+            return tricks[tricks.Count - 1].GetMoves();
+        }
+
 
         public List<int> GetPossibleMoves()
         {
@@ -101,21 +106,6 @@ namespace SuecaSolver
                 {
                     suitHasPlayer[leadSuit].Remove(playerID);
                 }
-                //else
-                //{
-                //    Console.WriteLine("InformationSet:AddPlay >> Player has renounced");
-                //    suitHasPlayer = new Dictionary<int, List<int>>
-                //    {
-                //        { (int)Suit.Clubs, new List<int>(4){ 0, 1, 2, 3 } },
-                //        { (int)Suit.Diamonds, new List<int>(4){ 0, 1, 2, 3 } },
-                //        { (int)Suit.Hearts, new List<int>(4){ 0, 1, 2, 3 } },
-                //        { (int)Suit.Spades, new List<int>(4){ 0, 1, 2, 3 } }
-                //    };
-                //    suitHasPlayer[(int)Suit.Clubs].Remove(id);
-                //    suitHasPlayer[(int)Suit.Diamonds].Remove(id);
-                //    suitHasPlayer[(int)Suit.Hearts].Remove(id);
-                //    suitHasPlayer[(int)Suit.Spades].Remove(id);
-                //}
             }
 
             if (cardSuit == Trump)

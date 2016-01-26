@@ -28,6 +28,11 @@ namespace SuecaSolver
             currentWinningCard = -1;
         }
 
+        internal List<Move> GetMoves()
+        {
+            return moves;
+        }
+
         public bool IsEmpty()
         {
             if (moves.Count == 0)

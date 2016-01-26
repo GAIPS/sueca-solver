@@ -14,12 +14,17 @@ namespace SuecaSolver
         private int firstTeamPoints; // p0 and p2
         private int secondTeamPoints; // p1 and p3
 
-        public PerfectInformationGame(PlayerNode p0, PlayerNode p1, PlayerNode p2, PlayerNode p3, int numberTricks, int trumpSuit, int myTeamPoints, int otherTeamPoints)
+        public PerfectInformationGame(PlayerNode p0, PlayerNode p1, PlayerNode p2, PlayerNode p3, int numberTricks, int trumpSuit, List<Move> currentTrickMoves, int myTeamPoints, int otherTeamPoints)
         {
+            players = new PlayerNode[4] { p0, p1, p2, p3, };
             trump = trumpSuit;
             tricks = new List<Trick>(numberTricks);
-            tricks.Add(new Trick(trumpSuit));
-            players = new PlayerNode[4] { p0, p1, p2, p3, };
+            Trick currentTrick = new Trick(trumpSuit);
+            tricks.Add(currentTrick);
+            foreach (Move m in currentTrickMoves)
+            {
+                currentTrick.ApplyMove(m);
+            }
             firstTeamPoints = myTeamPoints;
             secondTeamPoints = otherTeamPoints;
         }
