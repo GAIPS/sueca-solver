@@ -148,5 +148,28 @@ namespace SuecaSolver
                 p.UndoMove(move);
             }
         }
+
+
+        public int PredictTrickWinner()
+        {
+            Trick currentTrick = tricks[tricks.Count - 1];
+            int leadSuit = currentTrick.LeadSuit;
+
+            if (currentTrick.IsFull())
+            {
+                Console.WriteLine("PIG::PredictTrickWinner >> Unexpected call");
+                return currentTrick.GetTrickWinnerAndPoints()[0];
+            }
+            int trickSize = currentTrick.GetCurrentTrickSize();
+            int currentWinningCard = currentTrick.GetCurrentWinningCard();
+            bool alreadyCut = currentTrick.IsCut();
+
+            for (int i = trickSize - 1, playerId = currentTrick.GetNextPlayerId(); i < 4; i++, playerId = (playerId + 1) % 4)
+            {
+                
+            }
+            return 0;
+        }
+
     }
 }

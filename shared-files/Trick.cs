@@ -33,6 +33,11 @@ namespace SuecaSolver
             return moves;
         }
 
+        public bool IsCut()
+        {
+            return LeadSuit != Card.GetSuit(currentWinningCard);
+        }
+
         public bool IsEmpty()
         {
             if (moves.Count == 0)
