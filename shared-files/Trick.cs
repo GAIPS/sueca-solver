@@ -159,6 +159,11 @@ namespace SuecaSolver
             return currentWinningCard;
         }
 
+        public int GetCurrentWinningPlayer()
+        {
+            return currentWinner;
+        }
+
         public void PrintTrick()
         {
             foreach (Move m in moves)

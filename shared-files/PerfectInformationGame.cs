@@ -13,6 +13,8 @@ namespace SuecaSolver
         private PlayerNode[] players;
         private int firstTeamPoints; // p0 and p2
         private int secondTeamPoints; // p1 and p3
+        private int predictableTrickWinner;
+        private bool predictableTrickCut;
 
         public PerfectInformationGame(PlayerNode p0, PlayerNode p1, PlayerNode p2, PlayerNode p3, int numberTricks, int trumpSuit, List<Move> currentTrickMoves, int myTeamPoints, int otherTeamPoints)
         {
@@ -27,6 +29,8 @@ namespace SuecaSolver
             }
             firstTeamPoints = myTeamPoints;
             secondTeamPoints = otherTeamPoints;
+            predictableTrickWinner = -1;
+            predictableTrickCut = false;
         }
 
         public int SampleGame(int depthLimit, int card)
@@ -99,6 +103,8 @@ namespace SuecaSolver
 
             if (currentTrick.IsFull())
             {
+                predictableTrickWinner = -1;
+                predictableTrickCut = false;
                 int[] winnerPoints = currentTrick.GetTrickWinnerAndPoints();
                 if (winnerPoints[0] == 0 || winnerPoints[0] == 2)
                 {
@@ -124,6 +130,9 @@ namespace SuecaSolver
                 Console.WriteLine("PerfectInformationGame.UndoMove >> Negative index");
                 System.Environment.Exit(1);
             }
+
+            predictableTrickWinner = -1;
+            predictableTrickCut = false;
             Trick currentTrick = tricks[tricks.Count - 1];
             if (currentTrick.IsFull())
             {
@@ -150,25 +159,91 @@ namespace SuecaSolver
         }
 
 
-        public int PredictTrickWinner()
+        public void predictTrickWinner()
+        {
+            Trick currentTrick = tricks[tricks.Count - 1];
+            int winningCard = currentTrick.GetCurrentWinningCard();
+            int winningPlayerId = currentTrick.GetCurrentWinningPlayer();
+            int remainingPlays = 4 - currentTrick.GetCurrentTrickSize();
+            int leadSuit = currentTrick.LeadSuit;
+
+            if (winningCard == -1)
+            {
+                Console.WriteLine("PIG::predictTrickWinner >> Impossible winningCard");
+            }
+
+            //if (Card.GetSuit(winningCard) != leadSuit)
+            //{
+            //    predictableTrickCut = true;
+            //}
+            predictableTrickCut = false;
+
+            for (int i = 0, pid = currentTrick.GetNextPlayerId(); i < remainingPlays; i++, pid = (pid + 1) % 4)
+            {
+                int bestCard = players[pid].GetHighestRankFromSuit(leadSuit, trump);
+                if (bestCard == -1)
+                {
+                    //the player does not have the leadsuit neigher the trump
+                    continue;
+                }
+
+                if (Card.GetSuit(bestCard) != leadSuit)
+                {
+                    if (Card.GetSuit(winningCard) == leadSuit || Card.GetRank(bestCard) > Card.GetRank(winningCard))
+                    {
+                        predictableTrickCut = true;
+                        winningCard = bestCard;
+                        predictableTrickWinner = pid;
+                    }
+                }
+                else if (Card.GetRank(bestCard) > Card.GetRank(winningCard) && !predictableTrickCut)
+                {
+                    winningCard = bestCard;
+                    predictableTrickWinner = pid;
+                }
+            }
+        }
+
+        public List<int> orderPossibleMoves(List<int> moves, int playerID)
         {
             Trick currentTrick = tricks[tricks.Count - 1];
             int leadSuit = currentTrick.LeadSuit;
+            int currentTrickSize = currentTrick.GetCurrentTrickSize();
 
-            if (currentTrick.IsFull())
+            if (moves.Count == 1)
             {
-                Console.WriteLine("PIG::PredictTrickWinner >> Unexpected call");
-                return currentTrick.GetTrickWinnerAndPoints()[0];
+                return moves;
             }
-            int trickSize = currentTrick.GetCurrentTrickSize();
-            int currentWinningCard = currentTrick.GetCurrentWinningCard();
-            bool alreadyCut = currentTrick.IsCut();
 
-            for (int i = trickSize - 1, playerId = currentTrick.GetNextPlayerId(); i < 4; i++, playerId = (playerId + 1) % 4)
+            if (currentTrickSize == 0)
             {
-                
+                AscendingComparer ac = new AscendingComparer();
+                moves.Sort(ac);
+                return moves;
             }
-            return 0;
+
+            if (predictableTrickWinner == -1)
+            {
+                predictTrickWinner();
+            }
+
+            if (!predictableTrickCut && (predictableTrickWinner == playerID || predictableTrickWinner == (playerID + 2) % 4))
+            {
+                AscendingComparer ac = new AscendingComparer();
+                moves.Sort(ac);
+            }
+            else if (predictableTrickCut && (predictableTrickWinner == playerID || predictableTrickWinner == (playerID + 2) % 4))
+            {
+                AscendingCutComparer acc = new AscendingCutComparer(trump);
+                moves.Sort(acc);
+            }
+            else
+            {
+                DescendingComparer dc = new DescendingComparer();
+                moves.Sort(dc);
+            }
+
+            return moves;
         }
 
     }

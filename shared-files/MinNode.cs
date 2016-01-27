@@ -37,7 +37,7 @@ namespace SuecaSolver
             if (card == -1)
             {
                 cards = Sueca.PossibleMoves(Hand, pig.GetLeadSuit());
-                //TODO gameState.orderPossibleMoves(moves, Id);
+                pig.orderPossibleMoves(cards, Id);
             }
             else
             {

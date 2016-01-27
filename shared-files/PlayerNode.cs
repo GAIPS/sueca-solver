@@ -44,43 +44,34 @@ namespace SuecaSolver
             }
         }
 
-        public int HighestRankForSuit(int leadSuit, int trump)
+        public int GetHighestRankFromSuit(int suit, int trump)
         {
-            if (HasSuit[leadSuit] > 0)
-            {
-                int highestFromLeadSuit = 0;
+            int highestCard = -1;
+            int highestRank = -1;
+            int highestTrump = -1;
+            int highestTrumpRank = -1;
 
-                foreach (int card in Hand)
+            foreach (int c in Hand)
+            {
+                if (Card.GetSuit(c) == suit && Card.GetRank(c) > highestRank)
                 {
-                    if (Card.GetSuit(card) == leadSuit && Card.GetRank(card) + 1 > highestFromLeadSuit)
-                    {
-                        highestFromLeadSuit = Card.GetRank(card) + 1;
-                    }
+                    highestCard = c;
+                    highestRank = Card.GetRank(c);
                 }
 
-                return highestFromLeadSuit;
-            }
-            else if (HasSuit[trump] > 0)
-            {
-                int highestTrump = 0;
-
-                foreach (int card in Hand)
+                if (Card.GetSuit(c) == trump && Card.GetRank(c) > highestTrumpRank)
                 {
-                    if (Card.GetSuit(card) == trump && Card.GetRank(card) + 1 > highestTrump)
-                    {
-                        highestTrump = Card.GetRank(card) + 1;
-                    }
+                    highestTrump = c;
+                    highestTrumpRank = Card.GetRank(c);
                 }
+            }
 
-                return highestTrump * -1;
-            }
-            else
+            if (highestCard == -1)
             {
-                return 0;
+                return highestTrump;
             }
+            return highestCard;
         }
-
-
 
         private void printCards(List<int> cards)
         {
