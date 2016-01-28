@@ -220,7 +220,22 @@ namespace SuecaSolver
             {
                 int decision = Convert.ToInt16(decisions[i].ToString());
                 decision = decision / 10;
-                cardsPerPlayer[decision].Add(deck[i]);
+                if (decision == playerIDhandSizes[0][0])
+                {
+                    cardsPerPlayer[0].Add(deck[i]);
+                }
+                else if (decision == playerIDhandSizes[1][0])
+                {
+                    cardsPerPlayer[1].Add(deck[i]);
+                }
+                else if (decision == playerIDhandSizes[2][0])
+                {
+                    cardsPerPlayer[2].Add(deck[i]);
+                }
+                else
+                {
+                    Console.WriteLine("Deck::SampleHands(with CSP) >> Unkown decision");
+                }
             }
             solver.ClearModel();
             return cardsPerPlayer;

@@ -188,7 +188,7 @@ namespace SuecaSolver
         {
             List<List<int>> hands = new List<List<int>>();
             int myHandSize = hand.Count;
-            int[][] playerIDhandSizes = new int[3][] { new int[2] { (id + 1) % 4, myHandSize }, new int[2] { (id + 2) % 4, myHandSize }, new int[2] { (id + 2) % 4, myHandSize } };
+            int[][] playerIDhandSizes = new int[3][] { new int[2] { (id + 1) % 4, myHandSize }, new int[2] { (id + 2) % 4, myHandSize }, new int[2] { (id + 3) % 4, myHandSize } };
             
             int currentTrickSize = tricks[tricks.Count - 1].GetCurrentTrickSize();
             if (currentTrickSize > 3)
