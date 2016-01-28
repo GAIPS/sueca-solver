@@ -15,8 +15,9 @@ namespace SuecaSolver
         private int secondTeamPoints; // p1 and p3
         private int predictableTrickWinner;
         private bool predictableTrickCut;
+        private bool hybridFlag;
 
-        public PerfectInformationGame(PlayerNode p0, PlayerNode p1, PlayerNode p2, PlayerNode p3, int numberTricks, int trumpSuit, List<Move> currentTrickMoves, int myTeamPoints, int otherTeamPoints)
+        public PerfectInformationGame(PlayerNode p0, PlayerNode p1, PlayerNode p2, PlayerNode p3, int numberTricks, int trumpSuit, List<Move> currentTrickMoves, int myTeamPoints, int otherTeamPoints, bool HYBRID_FLAG = false)
         {
             players = new PlayerNode[4] { p0, p1, p2, p3, };
             trump = trumpSuit;
@@ -31,6 +32,7 @@ namespace SuecaSolver
             secondTeamPoints = otherTeamPoints;
             predictableTrickWinner = -1;
             predictableTrickCut = false;
+            hybridFlag = HYBRID_FLAG;
         }
 
         public int SampleGame(int depthLimit, int card)
@@ -92,6 +94,13 @@ namespace SuecaSolver
 
         internal PlayerNode GetNextPlayer()
         {
+            if (hybridFlag && tricks.Count == 5 && tricks[tricks.Count - 1].IsFull())
+            {
+                MaxNode max0 = new MaxNode(players[0].Id, players[0].Hand);
+                MinNode min1 = new MinNode(players[1].Id, players[1].Hand);
+                MaxNode max2 = new MaxNode(players[2].Id, players[2].Hand);
+                MinNode min3 = new MinNode(players[3].Id, players[3].Hand);
+            }
             int nextPlayerId = tricks[tricks.Count - 1].GetNextPlayerId();
             foreach (PlayerNode p in players)
             {

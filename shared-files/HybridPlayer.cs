@@ -2,12 +2,12 @@ using System.Collections.Generic;
 
 namespace SuecaSolver
 {
-    public class RBOPlayer : ArtificialPlayer
+    public class HybridPlayer : ArtificialPlayer
     {
         private InformationSet infoSet;
 
 
-        public RBOPlayer(int id, List<int> initialHand, int trumpSuit)
+        public HybridPlayer(int id, List<int> initialHand, int trumpSuit)
             : base(id)
         {
             infoSet = new InformationSet(id, initialHand, trumpSuit);
@@ -29,7 +29,7 @@ namespace SuecaSolver
             }
             else
             {
-                chosenCard = PIMC.Execute(_id, infoSet, 1, new List<int> { 50, 50, 50, 50, 50, 50, 50, 50, 50, 50 }, new List<int> { 1000, 1000, 1000, 1000, 1000, 4, 4, 3, 3, 3 });
+                chosenCard = PIMC.ExecuteWithHybridSearch(_id, infoSet, new List<int> { 50, 50, 50, 50, 50, 50, 50, 50, 50, 50 });
             }
 
             return chosenCard;

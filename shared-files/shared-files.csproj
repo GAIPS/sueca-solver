@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="ArtificialPlayer.cs" />
     <Compile Include="Card.cs" />
+    <Compile Include="HybridPlayer.cs" />
     <Compile Include="Deck.cs" />
     <Compile Include="RBOPlayer.cs" />
     <Compile Include="SuecaGame.cs" />

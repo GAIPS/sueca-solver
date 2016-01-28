@@ -108,6 +108,71 @@ namespace SuecaSolver
         }
 
 
+        public static int ExecuteWithHybridSearch(int playerId, InformationSet infoSet, List<int> numIterations = null)
+        {
+            List<int> possibleMoves = infoSet.GetPossibleMoves();
+            if (possibleMoves.Count == 1)
+            {
+                return possibleMoves[0];
+            }
+
+            Dictionary<int, int> dict = new Dictionary<int, int>();
+            foreach (int card in possibleMoves)
+            {
+                dict.Add(card, 0);
+            }
+
+            int N, handSize = infoSet.GetHandSize();
+            if (numIterations != null)
+            {
+                N = numIterations[handSize - 1];
+            }
+            else
+            {
+                N = 50;
+            }
+
+            for (int i = 0; i < N; i++)
+            {
+                List<List<int>> playersHands = infoSet.Sample();
+
+                PerfectInformationGame game;
+                int cardUtility;
+
+                for (int j = 0; j < possibleMoves.Count; j++)
+                {
+                    int card = possibleMoves[j];
+                    RuleBasedNode p0 = new RuleBasedNode(playerId, playersHands[0], infoSet.Trump);
+                    RuleBasedNode p1 = new RuleBasedNode((playerId + 1) % 4, playersHands[1], infoSet.Trump);
+                    RuleBasedNode p2 = new RuleBasedNode((playerId + 2) % 4, playersHands[2], infoSet.Trump);
+                    RuleBasedNode p3 = new RuleBasedNode((playerId + 3) % 4, playersHands[3], infoSet.Trump);
+                    game = new PerfectInformationGame(p0, p1, p2, p3, handSize, infoSet.Trump, infoSet.GetCurrentTrickMoves(), infoSet.MyTeamPoints, infoSet.OtherTeamPoints, true);
+                    cardUtility = game.SampleGame(1000, card);
+                    dict[card] += cardUtility;
+                }
+            }
+
+            int bestCard = -1;
+            int bestValue = Int16.MinValue;
+
+            foreach (KeyValuePair<int, int> cardValue in dict)
+            {
+                if (cardValue.Value > bestValue)
+                {
+                    bestValue = (int)cardValue.Value;
+                    bestCard = cardValue.Key;
+                }
+            }
+
+            if (bestCard == -1)
+            {
+                Console.WriteLine("Trouble at InformationSet.GetBestCardAndValue()");
+            }
+
+            return bestCard;
+        }
+
+
         public static int ExecuteWithTimeLimit(int playerId, InformationSet infoSet, List<int> depthLimits)
         {
             List<int> possibleMoves = infoSet.GetPossibleMoves();
