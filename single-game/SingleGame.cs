@@ -37,7 +37,7 @@ namespace SuecaSolver
             int cardIndex, currentPlayerID = firstPlayerID;
 
             SmartPlayer artificialPlayer = new SmartPlayer(0, playersHand[0], trump);
-            FutureSuecaGame game = new FutureSuecaGame(trump, firstPlayerID);
+            SuecaGame game = new SuecaGame(trump, firstPlayerID);
             //Console.WriteLine("---------hands---------");
             //Sueca.PrintHand(playersHand[0]);
             //Sueca.PrintHand(playersHand[1]);

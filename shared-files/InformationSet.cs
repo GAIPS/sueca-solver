@@ -188,7 +188,8 @@ namespace SuecaSolver
         {
             List<List<int>> hands = new List<List<int>>();
             int myHandSize = hand.Count;
-            int[] handSizes = new int[3] { myHandSize, myHandSize, myHandSize };
+            int[][] playerIDhandSizes = new int[3][] { new int[2] { (id + 1) % 4, myHandSize }, new int[2] { (id + 2) % 4, myHandSize }, new int[2] { (id + 2) % 4, myHandSize } };
+            
             int currentTrickSize = tricks[tricks.Count - 1].GetCurrentTrickSize();
             if (currentTrickSize > 3)
             {
@@ -196,7 +197,13 @@ namespace SuecaSolver
             }
             for (int i = 0; i < currentTrickSize; i++)
             {
-                handSizes[2 - i]--;
+                int pid = (4 + id - i - 1) % 4;
+                int pIndex = ((4 + pid - id) % 4) - 1;
+                if (playerIDhandSizes[pIndex][0] != pid)
+                {
+                    Console.WriteLine("InfoSet::Sample >> Wrong calculation");
+                }
+                playerIDhandSizes[pIndex][1]--;
             }
 
             hands.Add(new List<int>(hand));
@@ -204,11 +211,11 @@ namespace SuecaSolver
 
             if (checkPlayersHaveAllSuits(suitHasPlayer))
             {
-                sampledHands = deck.SampleHands(handSizes);
+                sampledHands = deck.SampleHands( new int[] { playerIDhandSizes[0][1], playerIDhandSizes[1][1], playerIDhandSizes[2][1] });
             }
             else
             {
-                sampledHands = deck.SampleHands(suitHasPlayer, handSizes);
+                sampledHands = deck.SampleHands(suitHasPlayer, playerIDhandSizes);
                 if (sampledHands == null)
                 {
                     suitHasPlayer = new Dictionary<int, List<int>>
@@ -218,7 +225,7 @@ namespace SuecaSolver
                         { (int)Suit.Hearts, new List<int>(3){ 1, 2, 3 } },
                         { (int)Suit.Spades, new List<int>(3){ 1, 2, 3 } }
                     };
-                    sampledHands = deck.SampleHands(handSizes);
+                    sampledHands = deck.SampleHands(new int[] { playerIDhandSizes[0][1], playerIDhandSizes[1][1], playerIDhandSizes[2][1] });
                 }
             }
 

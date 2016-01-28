@@ -8,7 +8,7 @@ namespace SuecaSolver
         private InformationSet infoSet;
 
         public RuleBasedNode(int id, List<int> hand, int trump)
-            : base(id, hand, false)
+            : base(id, hand)
         {
             infoSet = new InformationSet(id, hand, trump);
         }
@@ -18,7 +18,6 @@ namespace SuecaSolver
             if (move.PlayerId == Id)
             {
                 Hand.Remove(move.Card);
-                HasSuit[Card.GetSuit(move.Card)]--;
             }
             else
             {
@@ -30,14 +29,13 @@ namespace SuecaSolver
         {
             if (move.PlayerId == Id)
             {
-                infoSet.RemovePlay(move.PlayerId, move.Card);
                 Hand.Add(move.Card);
-                HasSuit[Card.GetSuit(move.Card)]++;
             }
             else
             {
                 //infoSet.RemovePlay(move.Card);
             }
+            infoSet.RemovePlay(move.PlayerId, move.Card);
         }
 
         public override int PlayGame(PerfectInformationGame pig, int alpha, int beta, int depthLimit, int card = -1)

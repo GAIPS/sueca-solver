@@ -93,15 +93,15 @@ namespace SuecaSolver
         }
 
 
-        private List<List<int>> getDomains(int[] handSizes)
+        private List<List<int>> getDomains(int[][] playerIDhandSizes)
         {
             List<List<int>> list = new List<List<int>>(3);
             for (int i = 0; i < 3; i++)
             {
-                list.Add(new List<int>(handSizes[i]));
-                for (int j = 0; j < handSizes[i]; j++)
+                list.Add(new List<int>(playerIDhandSizes[i][1]));
+                for (int j = 0; j < playerIDhandSizes[i][1]; j++)
                 {
-                    list[i].Add(i * 10 + j);
+                    list[i].Add(playerIDhandSizes[i][0] * 10 + j);
                 }
             }
             return list;
@@ -124,12 +124,12 @@ namespace SuecaSolver
 
         //Sampling a card distribution considering which suits the players have
         //It uses a CSP from Microsoft SolverFoundation
-        public List<List<int>> SampleHands(Dictionary<int,List<int>> suitHasPlayer, int[] handSizes)
+        public List<List<int>> SampleHands(Dictionary<int, List<int>> suitHasPlayer, int[][] playerIDhandSizes)
         {
-            if (deck.Count != handSizes[0] + handSizes[1] + handSizes[2])
+            if (deck.Count != playerIDhandSizes[0][1] + playerIDhandSizes[1][1] + playerIDhandSizes[2][1])
             {
                 //Remover este bocado de codigo se o erro nunca mais ocorrer
-                Console.WriteLine("[" + System.Threading.Thread.CurrentThread.ManagedThreadId + "] - SHIT! - deck.Count: " + deck.Count + " P0: " + handSizes[0] + " P1: " + handSizes[1] + " P2: " + handSizes[2] + " deck: " + deckToString());
+                Console.WriteLine("[" + System.Threading.Thread.CurrentThread.ManagedThreadId + "] - PROBLEM! - deck.Count: " + deck.Count + " P0: " + playerIDhandSizes[0][1] + " P1: " + playerIDhandSizes[1][1] + " P2: " + playerIDhandSizes[2][1] + " deck: " + deckToString());
                 Console.Out.Flush();
                 System.Environment.Exit(1);
             }
@@ -138,7 +138,7 @@ namespace SuecaSolver
             var solver = SolverContext.GetContext();
             var model = solver.CreateModel();
             List<Decision> decisions = new List<Decision>(deck.Count);
-            List<List<int>> players = getDomains(handSizes);
+            List<List<int>> players = getDomains(playerIDhandSizes);
             List<int> player1 = players[0];
             List<int> player1Copy = new List<int>(player1);
             List<int> player2 = players[1];
@@ -167,32 +167,33 @@ namespace SuecaSolver
                 {
                     d = new Decision(domain123, "c" + card);
                 }
-                else if (playersThatHaveSuit.Count == 2 && playersThatHaveSuit[0] == 1 && playersThatHaveSuit[1] == 2)
+                else if (playersThatHaveSuit.Count == 2 && playersThatHaveSuit[0] == playerIDhandSizes[0][0] && playersThatHaveSuit[1] == playerIDhandSizes[1][0])
                 {
                     d = new Decision(domain12, "c" + card);
                 }
-                else if (playersThatHaveSuit.Count == 2 && playersThatHaveSuit[0] == 1 && playersThatHaveSuit[1] == 3)
+                else if (playersThatHaveSuit.Count == 2 && playersThatHaveSuit[0] == playerIDhandSizes[0][0] && playersThatHaveSuit[1] == playerIDhandSizes[2][0])
                 {
                     d = new Decision(domain13, "c" + card);
                 }
-                else if (playersThatHaveSuit.Count == 2 && playersThatHaveSuit[0] == 2 && playersThatHaveSuit[1] == 3)
+                else if (playersThatHaveSuit.Count == 2 && playersThatHaveSuit[0] == playerIDhandSizes[1][0] && playersThatHaveSuit[1] == playerIDhandSizes[2][0])
                 {
                     d = new Decision(domain23, "c" + card);
                 }
-                else if (playersThatHaveSuit.Count == 1 && playersThatHaveSuit[0] == 1)
+                else if (playersThatHaveSuit.Count == 1 && playersThatHaveSuit[0] == playerIDhandSizes[0][0])
                 {
                     d = new Decision(domain1, "c" + card);
                 }
-                else if (playersThatHaveSuit.Count == 1 && playersThatHaveSuit[0] == 2)
+                else if (playersThatHaveSuit.Count == 1 && playersThatHaveSuit[0] == playerIDhandSizes[1][0])
                 {
                     d = new Decision(domain2, "c" + card);
                 }
-                else if (playersThatHaveSuit.Count == 1 && playersThatHaveSuit[0] == 3)
+                else if (playersThatHaveSuit.Count == 1 && playersThatHaveSuit[0] == playerIDhandSizes[2][0])
                 {
                     d = new Decision(domain3, "c" + card);
                 }
                 else
                 {
+                    solver.ClearModel();
                     return null;
                 }
 
@@ -211,9 +212,9 @@ namespace SuecaSolver
             }
 
             List<List<int>> cardsPerPlayer = new List<List<int>>(3);
-            cardsPerPlayer.Add(new List<int>(handSizes[0]));
-            cardsPerPlayer.Add(new List<int>(handSizes[1]));
-            cardsPerPlayer.Add(new List<int>(handSizes[2]));
+            cardsPerPlayer.Add(new List<int>(playerIDhandSizes[0][1]));
+            cardsPerPlayer.Add(new List<int>(playerIDhandSizes[1][1]));
+            cardsPerPlayer.Add(new List<int>(playerIDhandSizes[2][1]));
 
             for (int i = 0; i < deck.Count; i++)
             {

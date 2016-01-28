@@ -6,8 +6,9 @@ namespace SuecaSolver
 {
     public static class PIMC
     {
-
-        public static int Execute(InformationSet infoSet, List<int> numIterations = null, List<int> depthLimits = null, bool USE_CACHE = false)
+        // version = 0 - The search is the MinMax algorithm
+        // version = 1 - The search strats at the last 5 tricks with the MinMax algorithm, until there choices are rulebased
+        public static int Execute(int playerId, InformationSet infoSet, int version, List<int> numIterations = null, List<int> depthLimits = null)
         {
             List<int> possibleMoves = infoSet.GetPossibleMoves();
             if (possibleMoves.Count == 1)
@@ -45,19 +46,38 @@ namespace SuecaSolver
             {
                 List<List<int>> playersHands = infoSet.Sample();
 
-                //MinMaxGame game;
                 PerfectInformationGame game;
                 int cardUtility;
 
                 for (int j = 0; j < possibleMoves.Count; j++)
                 {
                     int card = possibleMoves[j];
-                    //game = new MinMaxGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints, USE_CACHE);
-                    MaxNode p0 = new MaxNode(0, playersHands[0], false);
-                    MinNode p1 = new MinNode(1, playersHands[1], false);
-                    MaxNode p2 = new MaxNode(2, playersHands[2], false);
-                    MinNode p3 = new MinNode(3, playersHands[3], false);
-                    game = new PerfectInformationGame(p0, p1, p2, p3, handSize, infoSet.Trump, infoSet.GetCurrentTrickMoves(), infoSet.MyTeamPoints, infoSet.OtherTeamPoints);
+                    if (version == 0)
+                    {
+                        MaxNode p0 = new MaxNode(playerId, playersHands[0]);
+                        MinNode p1 = new MinNode((playerId + 1) % 4, playersHands[1]);
+                        MaxNode p2 = new MaxNode((playerId + 2) % 4, playersHands[2]);
+                        MinNode p3 = new MinNode((playerId + 3) % 4, playersHands[3]);
+                        game = new PerfectInformationGame(p0, p1, p2, p3, handSize, infoSet.Trump, infoSet.GetCurrentTrickMoves(), infoSet.MyTeamPoints, infoSet.OtherTeamPoints);
+                    }
+                    else if(version == 1)
+                    {
+                        MaxNode p0 = new MaxNode(playerId, playersHands[0]);
+                        RuleBasedNode p1 = new RuleBasedNode((playerId + 1) % 4, playersHands[1], infoSet.Trump);
+                        RuleBasedNode p2 = new RuleBasedNode((playerId + 2) % 4, playersHands[2], infoSet.Trump);
+                        RuleBasedNode p3 = new RuleBasedNode((playerId + 3) % 4, playersHands[3], infoSet.Trump);
+                        game = new PerfectInformationGame(p0, p1, p2, p3, handSize, infoSet.Trump, infoSet.GetCurrentTrickMoves(), infoSet.MyTeamPoints, infoSet.OtherTeamPoints);
+                    }
+                    else
+                    {
+                        Console.WriteLine("PIMC::Execute >> Undefinied version of the algorithm.");
+                        MaxNode p0 = new MaxNode(playerId, playersHands[0]);
+                        MinNode p1 = new MinNode((playerId + 1) % 4, playersHands[1]);
+                        MaxNode p2 = new MaxNode((playerId + 2) % 4, playersHands[2]);
+                        MinNode p3 = new MinNode((playerId + 3) % 4, playersHands[3]);
+                        game = new PerfectInformationGame(p0, p1, p2, p3, handSize, infoSet.Trump, infoSet.GetCurrentTrickMoves(), infoSet.MyTeamPoints, infoSet.OtherTeamPoints);
+                    }
+
                     cardUtility = game.SampleGame(depthLimit, card);
                     if (cardUtility > 120 || cardUtility < -120)
                     {
@@ -88,7 +108,7 @@ namespace SuecaSolver
         }
 
 
-        public static int ExecuteWithTimeLimit(InformationSet infoSet, List<int> depthLimits, bool USE_CACHE = false)
+        public static int ExecuteWithTimeLimit(int playerId, InformationSet infoSet, List<int> depthLimits)
         {
             List<int> possibleMoves = infoSet.GetPossibleMoves();
             if (possibleMoves.Count == 1)
@@ -113,18 +133,16 @@ namespace SuecaSolver
                 n++;
                 List<List<int>> playersHands = infoSet.Sample();
 
-                //MinMaxGame game;
                 PerfectInformationGame game;
                 int cardUtility;
 
                 for (int j = 0; j < possibleMoves.Count; j++)
                 {
                     int card = possibleMoves[j];
-                    //game = new MinMaxGame(handSize, playersHands, infoSet.Trump, infoSet.GetCardsOnTable(), infoSet.BotTeamPoints, infoSet.OtherTeamPoints, USE_CACHE); MaxNode p0 = new MaxNode(0, playersHands[0], false);
-                    MaxNode p0 = new MaxNode(0, playersHands[0], false); 
-                    MinNode p1 = new MinNode(1, playersHands[1], false);
-                    MaxNode p2 = new MaxNode(2, playersHands[2], false);
-                    MinNode p3 = new MinNode(3, playersHands[3], false);
+                    MaxNode p0 = new MaxNode(playerId, playersHands[0]);
+                    MinNode p1 = new MinNode((playerId + 1) % 4, playersHands[1]);
+                    MaxNode p2 = new MaxNode((playerId + 2) % 4, playersHands[2]);
+                    MinNode p3 = new MinNode((playerId + 3) % 4, playersHands[3]);
                     game = new PerfectInformationGame(p0, p1, p2, p3, handSize, infoSet.Trump, infoSet.GetCurrentTrickMoves(), infoSet.MyTeamPoints, infoSet.OtherTeamPoints);
                     cardUtility = game.SampleGame(depthLimit, card);
                     dict[card] += cardUtility; 

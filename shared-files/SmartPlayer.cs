@@ -4,8 +4,6 @@ namespace SuecaSolver
 {
     public class SmartPlayer : ArtificialPlayer
     {
-        //private int _idDiff;
-        //private PIMC pimc;
         private InformationSet infoSet;
         public float TrickExpectedReward;
 
@@ -13,8 +11,6 @@ namespace SuecaSolver
         public SmartPlayer(int id, List<int> initialHand, int trumpSuit)
             : base(id)
         {
-            //_idDiff = 0 - id;
-            //pimc = new PIMC();
             infoSet = new InformationSet(id, initialHand, trumpSuit);
             TrickExpectedReward = 0.0f;
         }
@@ -35,10 +31,9 @@ namespace SuecaSolver
             }
             else
             {
-                chosenCard = PIMC.Execute(infoSet, new List<int> { 50, 50, 50, 50, 50, 50, 50, 50, 50, 50 }, new List<int> { 1000, 1000, 1000, 1000, 1000, 4, 4, 3, 3, 3 });
+                chosenCard = PIMC.Execute(_id, infoSet, 0, new List<int> { 50, 50, 50, 50, 50, 50, 50, 50, 50, 50 }, new List<int> { 1000, 1000, 1000, 1000, 1000, 4, 4, 3, 3, 3 });
             }
 
-            //infoSet.AddMyPlay(chosenCard);
             TrickExpectedReward = infoSet.predictTrickPoints();
             return chosenCard;
         }

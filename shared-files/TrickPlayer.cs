@@ -32,7 +32,7 @@ namespace SuecaSolver
 
         override public int Play()
         {
-            int chosenCard = PIMC.Execute(infoSet);
+            int chosenCard = PIMC.Execute(_id, infoSet, 1);
 
             HandSize--;
             TrickExpectedReward = infoSet.predictTrickPoints();

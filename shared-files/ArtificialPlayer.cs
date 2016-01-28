@@ -4,11 +4,11 @@ namespace SuecaSolver
     public abstract class ArtificialPlayer
     {
 
-        // private int _id;
+        protected int _id;
 
         public ArtificialPlayer(int id)
         {
-            // _id = id;
+            _id = id;
         }
 
         public abstract void AddPlay(int playerID, int card);

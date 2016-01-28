@@ -46,8 +46,8 @@
     <Compile Include="ArtificialPlayer.cs" />
     <Compile Include="Card.cs" />
     <Compile Include="Deck.cs" />
-    <Compile Include="ElephantPlayer.cs" />
-    <Compile Include="FutureSuecaGame.cs" />
+    <Compile Include="RBOPlayer.cs" />
+    <Compile Include="SuecaGame.cs" />
     <Compile Include="InformationSet.cs" />
     <Compile Include="MaxNode.cs" />
     <Compile Include="MinNode.cs" />
@@ -59,7 +59,7 @@
     <Compile Include="RandomPlayer.cs" />
     <Compile Include="RuleBasedNode.cs" />
     <Compile Include="RuleBasedPlayer.cs" />
-    <Compile Include="SmartestPlayer.cs" />
+    <Compile Include="TimeLimitedPlayer.cs" />
     <Compile Include="SmartPlayer.cs" />
     <Compile Include="Sueca.cs" />
     <Compile Include="Trick.cs" />

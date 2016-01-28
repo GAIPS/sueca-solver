@@ -6,8 +6,8 @@ namespace SuecaSolver
     public class MinNode : PlayerNode
     {
 
-        public MinNode(int id, List<int> hand, bool USE_CACHE)
-            : base(id, hand, USE_CACHE)
+        public MinNode(int id, List<int> hand)
+            : base(id, hand)
         {
         }
 
@@ -16,7 +16,18 @@ namespace SuecaSolver
             if (move.PlayerId == Id)
             {
                 Hand.Remove(move.Card);
-                HasSuit[Card.GetSuit(move.Card)]--;
+            }
+            else
+            {
+                //keep track of other players state
+            }
+        }
+
+        public override void UndoMove(Move move)
+        {
+            if (move.PlayerId == Id)
+            {
+                Hand.Add(move.Card);
             }
             else
             {

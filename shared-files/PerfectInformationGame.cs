@@ -36,6 +36,11 @@ namespace SuecaSolver
         public int SampleGame(int depthLimit, int card)
         {
             PlayerNode myPlayer = players[0];
+            int nextPlayerId = tricks[tricks.Count - 1].GetNextPlayerId();
+            if (nextPlayerId != -1 && myPlayer.Id != nextPlayerId)
+            {
+                Console.WriteLine("PIG::SampleGame >> Problem with player ids");
+            }
             int gameUtility = myPlayer.PlayGame(this, Int16.MinValue, Int16.MaxValue, depthLimit, card);
             return gameUtility;
         }

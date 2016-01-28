@@ -9,9 +9,9 @@ namespace SuecaSolver
     public class War
     {
 
-        public const int GAMEMODE = 18;
-        public const int NUMGAMES = 12;
-        public const bool PARALLEL = true;
+        public const int GAMEMODE = 9;
+        public const int NUMGAMES = 1;
+        public const bool PARALLEL = false;
         public const int NUM_THREADS = 4;
         public const bool SAVE_RESULTS = false;
         public const bool SAVE_CARDS = false; //if true log file will contain intial cards of players otherwise will contain specific features
@@ -94,7 +94,7 @@ namespace SuecaSolver
                     Console.WriteLine("Mode 8 (2 RuleBased 2 Random)");
                     break;
                 case 9:
-                    Console.WriteLine("Mode 9 (2 Elephant 2 Random)");
+                    Console.WriteLine("Mode 9 (2 RBO 2 Random)");
                     break;
                 case 10:
                     Console.WriteLine("Mode 10 (2 TrickPlayer 2 Smart)");
@@ -124,7 +124,7 @@ namespace SuecaSolver
                     Console.WriteLine("Mode 18 (1 Smart 3 RuleBased)");
                     break;
                 case 19:
-                    Console.WriteLine("Mode 19 (1 Elephant 3 RuleBased)");
+                    Console.WriteLine("Mode 19 (1 RBO 3 RuleBased)");
                     break;
                 case 20:
                     Console.WriteLine("Mode 20 (2 Smart 2 Smart)");
@@ -381,7 +381,7 @@ namespace SuecaSolver
             //MinMaxGame game = new MinMaxGame(10, playersHands, trump, null, 0, 0);
             int currentPlayerID = i % 4;
             int first = currentPlayerID;
-            FutureSuecaGame game = new FutureSuecaGame(trump, first);
+            SuecaGame game = new SuecaGame(trump, first);
             int[] firstPlayer = new int[4] { 0, 0, 0, 0 };
             firstPlayer[first] = 1;
 
@@ -468,12 +468,12 @@ namespace SuecaSolver
                     players[3] = new RandomPlayer(3, playersHands[3]);
                     break;
                 case 9:
-                    playersNames[0] = "ElephantPlayer1";
-                    players[0] = new ElephantPlayer(0, playersHands[0], trump);
+                    playersNames[0] = "RBO1";
+                    players[0] = new RBOPlayer(0, playersHands[0], trump);
                     playersNames[1] = "Random1";
                     players[1] = new RandomPlayer(1, playersHands[1]);
-                    playersNames[2] = "ElephantPlayer2";
-                    players[2] = new ElephantPlayer(2, playersHands[2], trump);
+                    playersNames[2] = "RBO2";
+                    players[2] = new RBOPlayer(2, playersHands[2], trump);
                     playersNames[3] = "Random2";
                     players[3] = new RandomPlayer(3, playersHands[3]);
                     break;
@@ -568,8 +568,8 @@ namespace SuecaSolver
                     players[3] = new RuleBasedPlayer(3, playersHands[3], trump);
                     break;
                 case 19:
-                    playersNames[0] = "Elephant1";
-                    players[0] = new ElephantPlayer(0, playersHands[0], trump);
+                    playersNames[0] = "RBO1";
+                    players[0] = new RBOPlayer(0, playersHands[0], trump);
                     playersNames[1] = "RuleBased1";
                     players[1] = new RuleBasedPlayer(1, playersHands[1], trump);
                     playersNames[2] = "RuleBased2";

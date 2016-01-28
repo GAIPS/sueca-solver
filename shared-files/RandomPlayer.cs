@@ -39,7 +39,6 @@ namespace SuecaSolver
             int randomIndex = randomNumber.Next(0, possibleMoves.Count);
             int chosenCard = possibleMoves[randomIndex];
             hand.Remove(chosenCard);
-            currentPlay = (currentPlay + 1) % 4;
 
             return chosenCard;
         }

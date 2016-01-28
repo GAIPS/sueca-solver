@@ -149,6 +149,11 @@ namespace SuecaSolver
             {
                 return currentWinner;
             }
+
+            if (moves.Count == 0)
+            {
+                return -1;
+            }
             
             return (moves[moves.Count - 1].PlayerId + 1) % 4;
         }
