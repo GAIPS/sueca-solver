@@ -93,6 +93,15 @@ namespace SuecaSolver
         internal PlayerNode GetNextPlayer()
         {
             int nextPlayerId = tricks[tricks.Count - 1].GetNextPlayerId();
+            foreach (PlayerNode p in players)
+            {
+                if (p.Id == nextPlayerId)
+                {
+                    return p;
+                }
+            }
+
+            Console.WriteLine("PIG::GetNextPlayer >> Unpected next player id");
             return players[nextPlayerId];
         }
 
