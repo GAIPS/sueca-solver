@@ -10,8 +10,8 @@ namespace SuecaSolver
     {
 
         public const int GAMEMODE = 18;
-        public const int NUMGAMES = 10;
-        public const bool PARALLEL = false;
+        public const int NUMGAMES = 12;
+        public const bool PARALLEL = true;
         public const int NUM_THREADS = 4;
         public const bool SAVE_RESULTS = false;
         public const bool SAVE_CARDS = false; //if true log file will contain intial cards of players otherwise will contain specific features

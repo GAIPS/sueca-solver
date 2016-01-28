@@ -35,7 +35,7 @@ namespace SuecaSolver
             }
             else
             {
-                chosenCard = PIMC.Execute(infoSet, new List<int> { 50, 50, 50, 50, 50, 50, 50, 50, 50, 50 }, new List<int> { 3, 3, 3, 4, 4, 1000, 1000, 1000, 1000, 1000 });
+                chosenCard = PIMC.Execute(infoSet, new List<int> { 50, 50, 50, 50, 50, 50, 50, 50, 50, 50 }, new List<int> { 1000, 1000, 1000, 1000, 1000, 4, 4, 3, 3, 3 });
             }
 
             //infoSet.AddMyPlay(chosenCard);

@@ -29,7 +29,7 @@ namespace SuecaSolver
             int v = Int16.MinValue;
             List<int> cards;
 
-            if (pig.reachedDepthLimit(depthLimit) || pig.IsEndGame())//pig.IsOtherTeamWinning() || pig.IsEndGame())
+            if (pig.reachedDepthLimit(depthLimit) || pig.IsOtherTeamWinning() || pig.IsEndGame())
             {
                 return pig.EvalGame();
             }

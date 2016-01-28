@@ -286,16 +286,7 @@ namespace SuecaSolver
             Console.WriteLine("Card: " + Card.ToString(p0[0]) + " value: " + cardValue);
 
 
-            ////foreach (int card in p0Copy)
-            ////{
-            ////    SuecaGame game = new SuecaGame(7, playersHands, (int)Suit.Clubs, new List<Move>(), 0, 0, true);
-            ////    int cardValueInTrick = game.SampleGame(10, card);
-            ////    Console.WriteLine("Card " + Card.ToString(card) + " gave " + cardValueInTrick);
-            ////}
 
-
-            //int seed = Guid.NewGuid().GetHashCode();
-            //Random randomNumber = new Random(seed);
             //int NUM_TRICKS = 6;
             //Deck deck = new Deck();
             //List<int> hand = deck.GetHand(NUM_TRICKS);
