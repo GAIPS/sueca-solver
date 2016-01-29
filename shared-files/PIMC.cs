@@ -183,7 +183,7 @@ namespace SuecaSolver
             for (int j = 0; j < possibleMoves.Count; j++)
             {
                 int card = possibleMoves[j];
-                int hybridTrickChange = 5;
+                int hybridTrickChange = handSize - 5;
 
                 if (handSize > 5)
                 {
