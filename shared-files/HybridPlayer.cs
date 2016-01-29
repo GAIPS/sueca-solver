@@ -29,7 +29,7 @@ namespace SuecaSolver
             }
             else
             {
-                chosenCard = PIMC.ExecuteWithHybridSearch(_id, infoSet, new List<int> { 50, 50, 50, 50, 50, 50, 50, 50, 50, 50 });
+                chosenCard = PIMC.ExecuteWithHybridSearch(_id, infoSet, new List<int> { 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 }, new List<int> { 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 });
             }
 
             return chosenCard;

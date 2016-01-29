@@ -322,7 +322,7 @@ namespace SuecaSolver
                 return possibleMoves[0];
             }
 
-            List<int> highestPerSuit = getHighestPerSuit(possibleMoves);
+            List<int> highestPerSuit = getHighestPerSuit(hand);
 
             if (highestPerSuit.Count == 1)
             {
@@ -343,7 +343,8 @@ namespace SuecaSolver
                 int trickSize = tricks[tricks.Count - 1].GetCurrentTrickSize();
                 if (trickSize == 4 || trickSize == 0)
                 {
-                    List<int> counterList = counterPerSuit(possibleMoves);
+                    List<int> counterList = counterPerSuit(hand);
+                    Random r = new Random();
 
                     //debug
                     if(counterList.Count != highestPerSuit.Count)  
@@ -356,11 +357,11 @@ namespace SuecaSolver
                         int highestCard = highestPerSuit[i];
                         if (shouldPlay(highestCard))
                         {
-                            if (counterList[i] > 5 && Card.GetSuit(highestCard) == Trump)
+                            if (counterList[i] > r.Next(3, 6) && Card.GetSuit(highestCard) == Trump)
                             {
                                 return highestCard;
                             }
-                            else if (counterList[i] > 5 && Card.GetSuit(highestCard) != Trump)
+                            else if (counterList[i] > r.Next(1, 5) && Card.GetSuit(highestCard) != Trump)
                             {
                                 break;
                             }

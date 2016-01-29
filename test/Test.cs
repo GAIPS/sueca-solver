@@ -290,8 +290,8 @@ namespace SuecaSolver
             int NUM_TRICKS = 9;
             Deck deck = new Deck();
             List<int> hand = deck.GetHand(NUM_TRICKS);
-            RBOPlayer ep = new RBOPlayer(0, hand, (int)Suit.Clubs);
-            //HybridPlayer ep = new HybridPlayer(0, hand, (int)Suit.Clubs);
+            //RBOPlayer ep = new RBOPlayer(0, hand, (int)Suit.Clubs);
+            HybridPlayer ep = new HybridPlayer(0, hand, (int)Suit.Clubs);
             //RuleBasedPlayer ep = new RuleBasedPlayer(0, hand, (int)Suit.Clubs);
             //SmartPlayer ep = new SmartPlayer(0, hand, (int)Suit.Clubs);
             //TrickPlayer ep = new TrickPlayer(0, hand, (int)Suit.Clubs);

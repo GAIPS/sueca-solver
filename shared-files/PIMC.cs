@@ -108,7 +108,7 @@ namespace SuecaSolver
         }
 
 
-        public static int ExecuteWithHybridSearch(int playerId, InformationSet infoSet, List<int> numIterations = null)
+        public static int ExecuteWithHybridSearch(int playerId, InformationSet infoSet, List<int> numDistributions, List<int> numIterationsPerCard)
         {
             List<int> possibleMoves = infoSet.GetPossibleMoves();
             if (possibleMoves.Count == 1)
@@ -122,15 +122,9 @@ namespace SuecaSolver
                 dict.Add(card, 0);
             }
 
-            int N, handSize = infoSet.GetHandSize();
-            if (numIterations != null)
-            {
-                N = numIterations[handSize - 1];
-            }
-            else
-            {
-                N = 50;
-            }
+            int N, M, handSize = infoSet.GetHandSize();
+            N = numDistributions[handSize - 1];
+            M = numIterationsPerCard[handSize - 1];
 
             for (int i = 0; i < N; i++)
             {
@@ -138,17 +132,20 @@ namespace SuecaSolver
 
                 PerfectInformationGame game;
                 int cardUtility;
-
                 for (int j = 0; j < possibleMoves.Count; j++)
                 {
                     int card = possibleMoves[j];
-                    RuleBasedNode p0 = new RuleBasedNode(playerId, playersHands[0], infoSet.Trump);
-                    RuleBasedNode p1 = new RuleBasedNode((playerId + 1) % 4, playersHands[1], infoSet.Trump);
-                    RuleBasedNode p2 = new RuleBasedNode((playerId + 2) % 4, playersHands[2], infoSet.Trump);
-                    RuleBasedNode p3 = new RuleBasedNode((playerId + 3) % 4, playersHands[3], infoSet.Trump);
-                    game = new PerfectInformationGame(p0, p1, p2, p3, handSize, infoSet.Trump, infoSet.GetCurrentTrickMoves(), infoSet.MyTeamPoints, infoSet.OtherTeamPoints, true);
-                    cardUtility = game.SampleGame(1000, card);
-                    dict[card] += cardUtility;
+                    for (int k = 0; k < M; k++)
+                    {
+                        RuleBasedNode p0 = new RuleBasedNode(playerId, playersHands[0], infoSet.Trump);
+                        RuleBasedNode p1 = new RuleBasedNode((playerId + 1) % 4, playersHands[1], infoSet.Trump);
+                        RuleBasedNode p2 = new RuleBasedNode((playerId + 2) % 4, playersHands[2], infoSet.Trump);
+                        RuleBasedNode p3 = new RuleBasedNode((playerId + 3) % 4, playersHands[3], infoSet.Trump);
+                        game = new PerfectInformationGame(p0, p1, p2, p3, handSize, infoSet.Trump, infoSet.GetCurrentTrickMoves(), infoSet.MyTeamPoints, infoSet.OtherTeamPoints, true);
+                        cardUtility = game.SampleGame(1000, card);
+                        dict[card] += cardUtility;
+                    }
+                    
                 }
             }
 
