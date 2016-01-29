@@ -94,7 +94,7 @@ namespace SuecaSolver
 
         internal PlayerNode GetNextPlayer()
         {
-            if (hybridFlag && tricks.Count == 5 && tricks[tricks.Count - 1].IsFull())
+            if (hybridFlag && tricks.Count == 4 && tricks[tricks.Count - 1].IsFull())
             {
                 players[0] = new MaxNode(players[0].Id, players[0].Hand);
                 players[1] = new MinNode(players[1].Id, players[1].Hand);

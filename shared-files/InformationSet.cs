@@ -293,6 +293,27 @@ namespace SuecaSolver
             return list;
         }
 
+        private int getRandomStrawCard(List<int> possibleCards)
+        {
+            List<int> strawCards = new List<int>();
+            int randomIndex;
+            foreach (int c in possibleCards)
+            {
+                if (Card.GetValue(c) == 0)
+	            {
+                    strawCards.Add(c);
+	            }
+            }
+
+            if (strawCards.Count == 0)
+            {
+                randomIndex = new Random().Next(0, possibleCards.Count);
+                return possibleCards[randomIndex];
+            }
+            randomIndex = new Random().Next(0, strawCards.Count);
+            return strawCards[randomIndex];
+        }
+
         public int RuleBasedDecision()
         {
             List<int> possibleMoves = GetPossibleMoves();
@@ -313,7 +334,8 @@ namespace SuecaSolver
                 }
                 else
                 {
-                    return possibleMoves[0];
+                    //return possibleMoves[0];
+                    return getRandomStrawCard(possibleMoves);
                 }
             }
             else
@@ -348,13 +370,15 @@ namespace SuecaSolver
                             }
                         }
                     }
-                    return possibleMoves[0];
+                    //return possibleMoves[0];
+                    return getRandomStrawCard(possibleMoves);
                 }
                 else
                 {
                     //we may check if our mate has cut the trick and chose an highest card
                     possibleMoves.Sort(new DescendingComparer());
-                    return possibleMoves[0];
+                    //return possibleMoves[0];
+                    return getRandomStrawCard(possibleMoves);
                 }
             }
         }
