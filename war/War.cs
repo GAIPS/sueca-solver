@@ -9,10 +9,10 @@ namespace SuecaSolver
     public class War
     {
 
-        public const int GAMEMODE = 9;
-        public const int NUMGAMES = 100;
+        public const int GAMEMODE = 21;
+        public const int NUMGAMES = 10;
         public const bool PARALLEL = true;
-        public const int NUM_THREADS = 4;
+        public const int NUM_THREADS = 2;
         public const bool SAVE_RESULTS = false;
         public const bool SAVE_CARDS = false; //if true log file will contain intial cards of players otherwise will contain specific features
         ////public const string SAVE_DIR = @"Z:\Devel\sueca-solver\results\";
@@ -128,6 +128,9 @@ namespace SuecaSolver
                     break;
                 case 20:
                     Console.WriteLine("Mode 20 (2 Smart 2 Smart)");
+                    break;
+                case 21:
+                    Console.WriteLine("Mode 21 (1 Hybrid 3 RuleBased)");
                     break;
                 default:
                     break;
@@ -586,6 +589,16 @@ namespace SuecaSolver
                     players[2] = new SmartPlayer(2, playersHands[2], trump);
                     playersNames[3] = "Smart4";
                     players[3] = new SmartPlayer(3, playersHands[3], trump);
+                    break;
+                case 21:
+                    playersNames[0] = "Hybrid1";
+                    players[0] = new HybridPlayer(0, playersHands[0], trump);
+                    playersNames[1] = "RuleBased1";
+                    players[1] = new RuleBasedPlayer(1, playersHands[1], trump);
+                    playersNames[2] = "Hybrid2";
+                    players[2] = new HybridPlayer(2, playersHands[2], trump);
+                    playersNames[3] = "RuleBased2";
+                    players[3] = new RuleBasedPlayer(3, playersHands[3], trump);
                     break;
                 default:
                     break;

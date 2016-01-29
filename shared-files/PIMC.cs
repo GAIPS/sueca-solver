@@ -126,6 +126,7 @@ namespace SuecaSolver
             int N, M, handSize = infoSet.GetHandSize();
             N = numDistributions[handSize - 1];
             M = numIterationsPerCard[handSize - 1];
+            Object thisLock = new Object();
 
             Parallel.For(0, N,
                     new ParallelOptions { MaxDegreeOfParallelism = 4 },
@@ -133,7 +134,7 @@ namespace SuecaSolver
 
                     (int i, ParallelLoopState state, int[] cardsSamplingValues) =>
                     {
-                        return HybridSearchMainLoop(cardsSamplingValues, playerId, infoSet, possibleMoves, M, handSize);
+                        return HybridSearchMainLoop(cardsSamplingValues, thisLock, playerId, infoSet, possibleMoves, M, handSize);
                     },
 
                     (int[] cardsSamplingValues) =>
@@ -164,7 +165,7 @@ namespace SuecaSolver
             return bestCard;
         }
 
-        private static int[] HybridSearchMainLoop(int[] cardsSamplingValues, int playerId, InformationSet infoSet, List<int> possibleMoves, int M, int handSize)
+        private static int[] HybridSearchMainLoop(int[] cardsSamplingValues, Object thisLock, int playerId, InformationSet infoSet, List<int> possibleMoves, int M, int handSize)
         {
             for (int i = 0; i < possibleMoves.Count; i++)
             {
@@ -172,7 +173,11 @@ namespace SuecaSolver
                 cardsSamplingValues[(i * 2) + 1] = 0;
             }
 
-            List<List<int>> playersHands = infoSet.Sample();
+            List<List<int>> playersHands;
+            lock (thisLock)
+            {
+                playersHands = infoSet.Sample();
+            }
             PerfectInformationGame game;
             int cardUtility;
             for (int j = 0; j < possibleMoves.Count; j++)
