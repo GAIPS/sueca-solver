@@ -16,8 +16,9 @@ namespace SuecaSolver
         private int predictableTrickWinner;
         private bool predictableTrickCut;
         private bool hybridFlag;
+        private int hybridTrickChange;
 
-        public PerfectInformationGame(PlayerNode p0, PlayerNode p1, PlayerNode p2, PlayerNode p3, int numberTricks, int trumpSuit, List<Move> currentTrickMoves, int myTeamPoints, int otherTeamPoints, bool HYBRID_FLAG = false)
+        public PerfectInformationGame(PlayerNode p0, PlayerNode p1, PlayerNode p2, PlayerNode p3, int numberTricks, int trumpSuit, List<Move> currentTrickMoves, int myTeamPoints, int otherTeamPoints, bool HYBRID_FLAG = false, int hybridTrickChange = 5)
         {
             players = new PlayerNode[4] { p0, p1, p2, p3, };
             trump = trumpSuit;
@@ -33,6 +34,7 @@ namespace SuecaSolver
             predictableTrickWinner = -1;
             predictableTrickCut = false;
             hybridFlag = HYBRID_FLAG;
+            this.hybridTrickChange = hybridTrickChange;
         }
 
         public int SampleGame(int depthLimit, int card)
@@ -66,16 +68,16 @@ namespace SuecaSolver
             return false;
         }
 
-        internal bool IsOtherTeamWinning()
+        internal bool IsAnyTeamWinning()
         {
-            if (secondTeamPoints > 60)
+            if (firstTeamPoints > 60 || secondTeamPoints > 60)
             {
                 return true;
             }
             return false;
         }
 
-        internal int EvalGame()
+        internal int EvalGame1()
         {
             if (firstTeamPoints > secondTeamPoints)
             {
@@ -87,6 +89,19 @@ namespace SuecaSolver
             }
         }
 
+        internal int EvalGame2()
+        {
+            if (firstTeamPoints > 60)
+            {
+                return 1;
+            }
+            if (secondTeamPoints > 60)
+            {
+                return -1;
+            }
+            return 0;
+        }
+
         internal int GetLeadSuit()
         {
             return tricks[tricks.Count - 1].LeadSuit;
@@ -94,12 +109,12 @@ namespace SuecaSolver
 
         internal PlayerNode GetNextPlayer()
         {
-            if (hybridFlag && tricks.Count == 4 && tricks[tricks.Count - 1].IsFull())
+            if (hybridFlag && tricks.Count == hybridTrickChange && tricks[tricks.Count - 1].IsFull())
             {
-                players[0] = new MaxNode(players[0].Id, players[0].Hand);
-                players[1] = new MinNode(players[1].Id, players[1].Hand);
-                players[2] = new MaxNode(players[2].Id, players[2].Hand);
-                players[3] = new MinNode(players[3].Id, players[3].Hand);
+                players[0] = new MaxNode(players[0].Id, players[0].Hand, trump, players[0].InfoSet);
+                players[1] = new MinNode(players[1].Id, players[1].Hand, trump, players[1].InfoSet);
+                players[2] = new MaxNode(players[2].Id, players[2].Hand, trump, players[2].InfoSet);
+                players[3] = new MinNode(players[3].Id, players[3].Hand, trump, players[3].InfoSet);
             }
             int nextPlayerId = tricks[tricks.Count - 1].GetNextPlayerId();
             foreach (PlayerNode p in players)

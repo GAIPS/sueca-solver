@@ -6,33 +6,14 @@ namespace SuecaSolver
     public class MinNode : PlayerNode
     {
 
-        public MinNode(int id, List<int> hand)
-            : base(id, hand)
+        public MinNode(int id, List<int> hand, int trump)
+            : base(id, hand, trump)
         {
         }
 
-        public override void ApplyMove(Move move)
+        public MinNode(int id, List<int> hand, int trump, InformationSet infoSet)
+            : base(id, hand, trump, infoSet)
         {
-            if (move.PlayerId == Id)
-            {
-                Hand.Remove(move.Card);
-            }
-            else
-            {
-                //keep track of other players state
-            }
-        }
-
-        public override void UndoMove(Move move)
-        {
-            if (move.PlayerId == Id)
-            {
-                Hand.Add(move.Card);
-            }
-            else
-            {
-                //keep track of other players state
-            }
         }
 
         public override int PlayGame(PerfectInformationGame pig, int alpha, int beta, int depthLimit, int card = -1)
@@ -40,9 +21,13 @@ namespace SuecaSolver
             int v = Int16.MaxValue;
             List<int> cards;
 
-            if (pig.reachedDepthLimit(depthLimit) || pig.IsOtherTeamWinning() || pig.IsEndGame())
+            if (Sueca.UTILITY_FUNC == 2 && pig.IsAnyTeamWinning())
             {
-                return pig.EvalGame();
+                return pig.EvalGame2();
+            }
+            if (pig.reachedDepthLimit(depthLimit) || pig.IsEndGame())
+            {
+                return pig.EvalGame1();
             }
 
             if (card == -1)
@@ -71,7 +56,6 @@ namespace SuecaSolver
                 
                 if (v <= alpha)
                 {
-                    NumCuts++;
                     return v;
                 }
 

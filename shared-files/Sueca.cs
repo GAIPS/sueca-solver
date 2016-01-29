@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace SuecaSolver
 {
+
     public enum Rank
     {
         Two,
@@ -29,6 +30,8 @@ namespace SuecaSolver
 
     public static class Sueca
     {
+        public static int UTILITY_FUNC = 2;
+
         public static int CountPoints(List<int> playerHand)
         {
             int result = 0;

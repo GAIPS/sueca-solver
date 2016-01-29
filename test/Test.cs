@@ -287,7 +287,7 @@ namespace SuecaSolver
 
 
 
-            int NUM_TRICKS = 9;
+            int NUM_TRICKS = 10;
             Deck deck = new Deck();
             List<int> hand = deck.GetHand(NUM_TRICKS);
             //RBOPlayer ep = new RBOPlayer(0, hand, (int)Suit.Clubs);

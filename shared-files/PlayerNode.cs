@@ -8,22 +8,49 @@ namespace SuecaSolver
 
         public int Id;
         public List<int> Hand;
-        public int NumCuts;
+        public InformationSet InfoSet;
 
 
-        public PlayerNode(int id, List<int> hand)
+        public PlayerNode(int id, List<int> hand, int trump)
         {
             Id = id;
-            NumCuts = 0;
             Hand = hand;
+            InfoSet = new InformationSet(id, hand, trump);
+        }
+
+        public PlayerNode(int id, List<int> hand, int trump, InformationSet infoSet)
+        {
+            Id = id;
+            Hand = hand;
+            this.InfoSet = infoSet;
         }
 
         public abstract int PlayGame(PerfectInformationGame pig, int alpha, int beta, int depthLimit, int card = -1);
 
-        public abstract void ApplyMove(Move move);
-        
-        public abstract void UndoMove(Move move);
+        public void ApplyMove(Move move)
+        {
+            if (move.PlayerId == Id)
+            {
+                Hand.Remove(move.Card);
+            }
+            else
+            {
+            }
+            InfoSet.AddPlay(move.PlayerId, move.Card);
+        }
 
+        public void UndoMove(Move move)
+        {
+            if (move.PlayerId == Id)
+            {
+                Hand.Add(move.Card);
+            }
+            else
+            {
+            }
+            InfoSet.RemovePlay(move.PlayerId, move.Card);
+        }
+        
         public int GetHighestRankFromSuit(int suit, int trump)
         {
             int highestCard = -1;
