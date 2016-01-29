@@ -11,8 +11,8 @@ namespace SuecaSolver
         private int trump;
         private List<Trick> tricks;
         private PlayerNode[] players;
-        private int firstTeamPoints; // p0 and p2
-        private int secondTeamPoints; // p1 and p3
+        private int firstTeamPoints; 
+        private int secondTeamPoints; 
         private int predictableTrickWinner;
         private bool predictableTrickCut;
         private bool hybridFlag;
@@ -96,10 +96,10 @@ namespace SuecaSolver
         {
             if (hybridFlag && tricks.Count == 5 && tricks[tricks.Count - 1].IsFull())
             {
-                MaxNode max0 = new MaxNode(players[0].Id, players[0].Hand);
-                MinNode min1 = new MinNode(players[1].Id, players[1].Hand);
-                MaxNode max2 = new MaxNode(players[2].Id, players[2].Hand);
-                MinNode min3 = new MinNode(players[3].Id, players[3].Hand);
+                players[0] = new MaxNode(players[0].Id, players[0].Hand);
+                players[1] = new MinNode(players[1].Id, players[1].Hand);
+                players[2] = new MaxNode(players[2].Id, players[2].Hand);
+                players[3] = new MinNode(players[3].Id, players[3].Hand);
             }
             int nextPlayerId = tricks[tricks.Count - 1].GetNextPlayerId();
             foreach (PlayerNode p in players)
@@ -129,7 +129,7 @@ namespace SuecaSolver
                 predictableTrickWinner = -1;
                 predictableTrickCut = false;
                 int[] winnerPoints = currentTrick.GetTrickWinnerAndPoints();
-                if (winnerPoints[0] == 0 || winnerPoints[0] == 2)
+                if (winnerPoints[0] == players[0].Id || winnerPoints[0] == (players[0].Id + 2) % 4)
                 {
                     firstTeamPoints += winnerPoints[1];
                 }
@@ -160,7 +160,7 @@ namespace SuecaSolver
             if (currentTrick.IsFull())
             {
                 int[] winnerPoints = currentTrick.GetTrickWinnerAndPoints();
-                if (winnerPoints[0] == 0 || winnerPoints[0] == 2)
+                if (winnerPoints[0] == players[0].Id || winnerPoints[0] == (players[0].Id + 2) % 4)
                 {
                     firstTeamPoints -= winnerPoints[1];
                 }

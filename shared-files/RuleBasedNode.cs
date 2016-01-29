@@ -45,7 +45,15 @@ namespace SuecaSolver
                 return pig.EvalGame();
             }
 
-            int chosenCard = infoSet.RuleBasedDecision();
+            int chosenCard;
+            if (card != -1)
+            {
+                chosenCard = card;
+            }
+            else
+            {
+                chosenCard = infoSet.RuleBasedDecision();
+            }
             Move move = new Move(Id, chosenCard);
             pig.ApplyMove(move);
 
