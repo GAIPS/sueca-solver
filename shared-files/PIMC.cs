@@ -129,7 +129,7 @@ namespace SuecaSolver
             Object thisLock = new Object();
 
             Parallel.For(0, N,
-                    new ParallelOptions { MaxDegreeOfParallelism = 4 },
+                    new ParallelOptions { MaxDegreeOfParallelism = Sueca.HYBRID_NUM_THREADS },
                     () => new int[possibleMoves.Count * 2], //{card, value, card, value, ...}
 
                     (int i, ParallelLoopState state, int[] cardsSamplingValues) =>
