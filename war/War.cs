@@ -62,7 +62,7 @@ namespace SuecaSolver
             List<int[]> suitsPerPlayer = new List<int[]>(numGames);
             List<int[]> firstToPlay = new List<int[]>(numGames);
             List<int> finalBotTeamPoints = new List<int>(numGames);
-            List<int[]> timePerTrick = new List<int[]>(numGames);
+            List<ulong[]> timePerTrick = new List<ulong[]>(numGames);
             Object allGamesLock = new Object();
 
             Console.WriteLine("");
@@ -335,7 +335,7 @@ namespace SuecaSolver
             List<int[]> suitsPerPlayer,
             List<int[]> firstToPlay,
             List<int> finalBotTeamPoints,
-            List<int[]> timePerTrick,
+            List<ulong[]> timePerTrick,
             Object allGamesLock)
         {
             int seed = Guid.NewGuid().GetHashCode();
@@ -404,7 +404,7 @@ namespace SuecaSolver
             SuecaGame game = new SuecaGame(trump, first);
             int[] firstPlayer = new int[4] { 0, 0, 0, 0 };
             firstPlayer[first] = 1;
-            int[] timeTemp = new int[10];
+            ulong[] timeTemp = new ulong[10];
 
             switch (gameMode)
             {
@@ -634,8 +634,11 @@ namespace SuecaSolver
                     chosenCard = players[currentPlayerID].Play();
                     sw.Stop();
                     long time = sw.ElapsedMilliseconds;
+                    TimeSpan ts = sw.Elapsed;
+                    ulong realTime = (ulong) ts.Minutes * 60000 + (ulong) ts.Seconds * 1000 + (ulong) ts.Milliseconds;
+                    Console.WriteLine("real: " + realTime + " time: " + time);
                     int trick = j / 4;
-                    timeTemp[trick] = timeTemp[trick] + (int)time;
+                    timeTemp[trick] = timeTemp[trick] + (ulong)time;
                 }
                 else
                 {
