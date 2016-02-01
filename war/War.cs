@@ -9,14 +9,14 @@ namespace SuecaSolver
     public class War
     {
         public const int GAMEMODE = 21;
-        public const int NUMGAMES = 4;
+        public const int NUMGAMES = 100;
         public const bool PARALLEL = false;
         public const int NUM_THREADS = Sueca.WAR_NUM_THREADS;
         public const bool SAVE_RESULTS = true;
         public const bool SAVE_CARDS = true; //if true log file will contain intial cards of players otherwise will contain specific features
         ////public const string SAVE_DIR = @"Z:\Devel\sueca-solver\results\";
-        // public const string SAVE_DIR = @"C:\temp\";
-        public const string SAVE_DIR = "results/";
+        public const string SAVE_DIR = @"C:\temp\";
+        //public const string SAVE_DIR = "results/";
 
         public static void Main(string[] args)
         {
@@ -293,6 +293,7 @@ namespace SuecaSolver
             sw.Stop();
             Console.WriteLine("Total Time taken by functions is {0} seconds", sw.ElapsedMilliseconds / 1000); //seconds
             Console.WriteLine("Total Time taken by functions is {0} minutes", sw.ElapsedMilliseconds / 60000); //minutes
+            Console.ReadLine();
 
         }
 
@@ -633,12 +634,12 @@ namespace SuecaSolver
                     sw.Start();
                     chosenCard = players[currentPlayerID].Play();
                     sw.Stop();
-                    long time = sw.ElapsedMilliseconds;
+                    //long time = sw.ElapsedMilliseconds;
                     TimeSpan ts = sw.Elapsed;
                     ulong realTime = (ulong) ts.Minutes * 60000 + (ulong) ts.Seconds * 1000 + (ulong) ts.Milliseconds;
-                    Console.WriteLine("real: " + realTime + " time: " + time);
+                    //Console.WriteLine("real: " + realTime + " time: " + time);
                     int trick = j / 4;
-                    timeTemp[trick] = timeTemp[trick] + (ulong)time;
+                    timeTemp[trick] = timeTemp[trick] + (ulong)realTime;
                 }
                 else
                 {
