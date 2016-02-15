@@ -220,18 +220,18 @@ namespace SuecaSolver
 
 
 
-            List<int> p0 = new List<int>()
-            {Card.Create(Rank.Four, Suit.Diamonds),
-                Card.Create(Rank.Six, Suit.Diamonds),
-                Card.Create(Rank.Jack, Suit.Diamonds),
-                Card.Create(Rank.Seven, Suit.Diamonds),
-                Card.Create(Rank.Ace, Suit.Hearts),
-                Card.Create(Rank.Five, Suit.Spades),
-                Card.Create(Rank.Four, Suit.Clubs),
-                Card.Create(Rank.Two, Suit.Hearts),
-                Card.Create(Rank.Ace, Suit.Clubs),
-                Card.Create(Rank.Seven, Suit.Spades)
-            };
+            //List<int> p0 = new List<int>()
+            //{Card.Create(Rank.Four, Suit.Diamonds),
+            //    Card.Create(Rank.Six, Suit.Diamonds),
+            //    Card.Create(Rank.Jack, Suit.Diamonds),
+            //    Card.Create(Rank.Seven, Suit.Diamonds),
+            //    Card.Create(Rank.Ace, Suit.Hearts),
+            //    Card.Create(Rank.Five, Suit.Spades),
+            //    Card.Create(Rank.Four, Suit.Clubs),
+            //    Card.Create(Rank.Two, Suit.Hearts),
+            //    Card.Create(Rank.Ace, Suit.Clubs),
+            //    Card.Create(Rank.Seven, Suit.Spades)
+            //};
             //List<int> p1 = new List<int>()
             //{Card.Create(Rank.Six, Suit.Clubs),
             //    Card.Create(Rank.Five, Suit.Diamonds),
@@ -287,13 +287,13 @@ namespace SuecaSolver
 
 
 
-            int NUM_TRICKS = 6;
+            int NUM_TRICKS = 10;
             Deck deck = new Deck();
             List<int> hand = deck.GetHand(NUM_TRICKS);
-            //RBOPlayer ep = new RBOPlayer(0, hand, (int)Suit.Clubs);
+            RBOPlayer ep = new RBOPlayer(0, hand, (int)Suit.Clubs);
             //HybridPlayer ep = new HybridPlayer(0, hand, (int)Suit.Clubs);
             //RuleBasedPlayer ep = new RuleBasedPlayer(0, hand, (int)Suit.Clubs);
-            SmartPlayer ep = new SmartPlayer(0, hand, (int)Suit.Clubs);
+            //SmartPlayer ep = new SmartPlayer(0, hand, (int)Suit.Clubs);
             //TrickPlayer ep = new TrickPlayer(0, hand, (int)Suit.Clubs);
             int chosenCard = ep.Play();
             Sueca.PrintCards("Initial hand", hand);

@@ -8,12 +8,12 @@ namespace SuecaSolver
 {
     public class War
     {
-        public const int GAMEMODE = 21;
-        public const int NUMGAMES = 100;
-        public const bool PARALLEL = false;
+        public const int GAMEMODE = 19;
+        public const int NUMGAMES = 50;
+        public const bool PARALLEL = true;
         public const int NUM_THREADS = Sueca.WAR_NUM_THREADS;
-        public const bool SAVE_RESULTS = true;
-        public const bool SAVE_CARDS = true; //if true log file will contain intial cards of players otherwise will contain specific features
+        public const bool SAVE_RESULTS = false;
+        public const bool SAVE_CARDS = false; //if true log file will contain intial cards of players otherwise will contain specific features
         ////public const string SAVE_DIR = @"Z:\Devel\sueca-solver\results\";
         public const string SAVE_DIR = @"C:\temp\";
         //public const string SAVE_DIR = "results/";
