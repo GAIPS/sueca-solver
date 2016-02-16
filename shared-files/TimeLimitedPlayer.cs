@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace SuecaSolver
 {
-    public class SmartestPlayer : ArtificialPlayer
+    public class TimeLimitedPlayer : ArtificialPlayer
     {
         //private int _idDiff;
         private int _handSize;
@@ -10,7 +10,7 @@ namespace SuecaSolver
         private InformationSet infoSet;
 
 
-        public SmartestPlayer(int id, List<int> initialHand, int trumpSuit)
+        public TimeLimitedPlayer(int id, List<int> initialHand, int trumpSuit)
             : base(id)
         {
             //_idDiff = 0 - id;
