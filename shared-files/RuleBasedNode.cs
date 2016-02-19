@@ -6,8 +6,8 @@ namespace SuecaSolver
     {
 
 
-        public RuleBasedNode(int id, List<int> hand, int trump)
-            : base(id, hand, trump)
+        public RuleBasedNode(int id, List<int> hand, int trumpCard, int trumpPlayerId)
+            : base(id, hand, trumpCard, trumpPlayerId)
         {
         }
 

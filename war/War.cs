@@ -10,7 +10,7 @@ namespace SuecaSolver
     {
         public const int GAMEMODE = 5;
         public const int NUMGAMES = 50;
-        public const bool PARALLEL = true;
+        public const bool PARALLEL = false;
         public const int NUM_THREADS = Sueca.WAR_NUM_THREADS;
         public const bool SAVE_CARDS = false; //if true log file will contain intial cards of players otherwise will contain specific features
         ////public const string SAVE_DIR = @"Z:\Devel\sueca-solver\results\";
@@ -217,12 +217,18 @@ namespace SuecaSolver
             int seed = Guid.NewGuid().GetHashCode();
             Random randomNumber = new Random(seed);
             ArtificialPlayer[] players = new ArtificialPlayer[4];
-            List<List<int>> playersHands;
+            List<List<int>> playersHands = new List<List<int>>(
+                new List<int>[] {
+                    new List<int>(10),
+                    new List<int>(10),
+                    new List<int>(10),
+                    new List<int>(10) });
             Deck deck = new Deck();
-            playersHands = deck.SampleHands(new int[] { 10, 10, 10, 10 });
+            deck.SampleHands(ref playersHands);
             int currentPlayerID = i % 4;
             int first = currentPlayerID;
-            int trumpCard = playersHands[(first - 1 + 4) % 4][0];//the trump card is the first card of player that is seated before the one that will start the game
+            int trumpPlayerId = (first - 1 + 4) % 4;
+            int trumpCard = playersHands[trumpPlayerId][0];//the trump card is the first card of player that is seated before the one that will start the game
             int trumpSuit = Card.GetSuit(trumpCard);
             SuecaGame game = new SuecaGame(trumpSuit, first);
             int[] firstPlayer = new int[4] { 0, 0, 0, 0 };
@@ -242,40 +248,40 @@ namespace SuecaSolver
             switch (gameMode)
             {
                 case 1:
-                    players[0] = new RuleBasedPlayer(0, playersHands[0], trumpCard);
+                    players[0] = new RuleBasedPlayer(0, playersHands[0], trumpCard, trumpPlayerId);
                     players[1] = new RandomPlayer(1, playersHands[1]);
                     players[2] = new RandomPlayer(2, playersHands[2]);
                     players[3] = new RandomPlayer(3, playersHands[3]);
                     break;
                 case 2:
-                    players[0] = new TrickPlayer(0, playersHands[0], trumpCard);
-                    players[1] = new RuleBasedPlayer(1, playersHands[1], trumpCard);
-                    players[2] = new RuleBasedPlayer(2, playersHands[2], trumpCard);
-                    players[3] = new RuleBasedPlayer(3, playersHands[3], trumpCard);
+                    players[0] = new TrickPlayer(0, playersHands[0], trumpCard, trumpPlayerId);
+                    players[1] = new RuleBasedPlayer(1, playersHands[1], trumpCard, trumpPlayerId);
+                    players[2] = new RuleBasedPlayer(2, playersHands[2], trumpCard, trumpPlayerId);
+                    players[3] = new RuleBasedPlayer(3, playersHands[3], trumpCard, trumpPlayerId);
                     break;
                 case 3:
-                    players[0] = new SmartPlayer(0, playersHands[0], trumpCard);
-                    players[1] = new RuleBasedPlayer(1, playersHands[1], trumpCard);
-                    players[2] = new RuleBasedPlayer(2, playersHands[2], trumpCard);
-                    players[3] = new RuleBasedPlayer(3, playersHands[3], trumpCard);
+                    players[0] = new SmartPlayer(0, playersHands[0], trumpCard, trumpPlayerId);
+                    players[1] = new RuleBasedPlayer(1, playersHands[1], trumpCard, trumpPlayerId);
+                    players[2] = new RuleBasedPlayer(2, playersHands[2], trumpCard, trumpPlayerId);
+                    players[3] = new RuleBasedPlayer(3, playersHands[3], trumpCard, trumpPlayerId);
                     break;
                 case 4:
-                    players[0] = new TimeLimitedPlayer(0, playersHands[0], trumpCard);
-                    players[1] = new RuleBasedPlayer(1, playersHands[1], trumpCard);
-                    players[2] = new RuleBasedPlayer(2, playersHands[2], trumpCard);
-                    players[3] = new RuleBasedPlayer(3, playersHands[3], trumpCard);
+                    players[0] = new TimeLimitedPlayer(0, playersHands[0], trumpCard, trumpPlayerId);
+                    players[1] = new RuleBasedPlayer(1, playersHands[1], trumpCard, trumpPlayerId);
+                    players[2] = new RuleBasedPlayer(2, playersHands[2], trumpCard, trumpPlayerId);
+                    players[3] = new RuleBasedPlayer(3, playersHands[3], trumpCard, trumpPlayerId);
                     break;
                 case 5:
-                    players[0] = new RBOPlayer(0, playersHands[0], trumpCard);
-                    players[1] = new RuleBasedPlayer(1, playersHands[1], trumpCard);
-                    players[2] = new RuleBasedPlayer(2, playersHands[2], trumpCard);
-                    players[3] = new RuleBasedPlayer(3, playersHands[3], trumpCard);
+                    players[0] = new RBOPlayer(0, playersHands[0], trumpCard, trumpPlayerId);
+                    players[1] = new RuleBasedPlayer(1, playersHands[1], trumpCard, trumpPlayerId);
+                    players[2] = new RuleBasedPlayer(2, playersHands[2], trumpCard, trumpPlayerId);
+                    players[3] = new RuleBasedPlayer(3, playersHands[3], trumpCard, trumpPlayerId);
                     break;
                 case 6:
-                    players[0] = new HybridPlayer(0, playersHands[0], trumpCard);
-                    players[1] = new RuleBasedPlayer(1, playersHands[1], trumpCard);
-                    players[2] = new RuleBasedPlayer(2, playersHands[2], trumpCard);
-                    players[3] = new RuleBasedPlayer(3, playersHands[3], trumpCard);
+                    players[0] = new HybridPlayer(0, playersHands[0], trumpCard, trumpPlayerId);
+                    players[1] = new RuleBasedPlayer(1, playersHands[1], trumpCard, trumpPlayerId);
+                    players[2] = new RuleBasedPlayer(2, playersHands[2], trumpCard, trumpPlayerId);
+                    players[3] = new RuleBasedPlayer(3, playersHands[3], trumpCard, trumpPlayerId);
                     break;
                 default:
                     break;

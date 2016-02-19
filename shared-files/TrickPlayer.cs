@@ -10,12 +10,12 @@ namespace SuecaSolver
         public float TrickExpectedReward;
 
 
-        public TrickPlayer(int id, List<int> initialHand, int trumpSuit)
+        public TrickPlayer(int id, List<int> initialHand, int trumpCard, int trumpPlayerId)
             : base(id)
         {
             //_idDiff = 0 - id;
             HandSize = initialHand.Count;
-            infoSet = new InformationSet(id, initialHand, trumpSuit);
+            infoSet = new InformationSet(id, initialHand, trumpCard, trumpPlayerId);
             TrickExpectedReward = 0.0f;
         }
 

@@ -55,27 +55,27 @@ namespace SuecaSolver
                     int card = possibleMoves[j];
                     if (version == 0)
                     {
-                        MaxNode p0 = new MaxNode(playerId, playersHands[0], infoSet.Trump);
-                        MinNode p1 = new MinNode((playerId + 1) % 4, playersHands[1], infoSet.Trump);
-                        MaxNode p2 = new MaxNode((playerId + 2) % 4, playersHands[2], infoSet.Trump);
-                        MinNode p3 = new MinNode((playerId + 3) % 4, playersHands[3], infoSet.Trump);
+                        MaxNode p0 = new MaxNode(playerId, playersHands[0], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                        MinNode p1 = new MinNode((playerId + 1) % 4, playersHands[1], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                        MaxNode p2 = new MaxNode((playerId + 2) % 4, playersHands[2], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                        MinNode p3 = new MinNode((playerId + 3) % 4, playersHands[3], infoSet.TrumpCard, infoSet.TrumpPlayerId);
                         game = new PerfectInformationGame(p0, p1, p2, p3, handSize, infoSet.Trump, infoSet.GetCurrentTrickMoves(), infoSet.MyTeamPoints, infoSet.OtherTeamPoints);
                     }
                     else if(version == 1)
                     {
-                        MaxNode p0 = new MaxNode(playerId, playersHands[0], infoSet.Trump);
-                        RuleBasedNode p1 = new RuleBasedNode((playerId + 1) % 4, playersHands[1], infoSet.Trump);
-                        RuleBasedNode p2 = new RuleBasedNode((playerId + 2) % 4, playersHands[2], infoSet.Trump);
-                        RuleBasedNode p3 = new RuleBasedNode((playerId + 3) % 4, playersHands[3], infoSet.Trump);
+                        MaxNode p0 = new MaxNode(playerId, playersHands[0], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                        RuleBasedNode p1 = new RuleBasedNode((playerId + 1) % 4, playersHands[1], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                        RuleBasedNode p2 = new RuleBasedNode((playerId + 2) % 4, playersHands[2], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                        RuleBasedNode p3 = new RuleBasedNode((playerId + 3) % 4, playersHands[3], infoSet.TrumpCard, infoSet.TrumpPlayerId);
                         game = new PerfectInformationGame(p0, p1, p2, p3, handSize, infoSet.Trump, infoSet.GetCurrentTrickMoves(), infoSet.MyTeamPoints, infoSet.OtherTeamPoints);
                     }
                     else
                     {
                         Console.WriteLine("PIMC::Execute >> Undefinied version of the algorithm.");
-                        MaxNode p0 = new MaxNode(playerId, playersHands[0], infoSet.Trump);
-                        MinNode p1 = new MinNode((playerId + 1) % 4, playersHands[1], infoSet.Trump);
-                        MaxNode p2 = new MaxNode((playerId + 2) % 4, playersHands[2], infoSet.Trump);
-                        MinNode p3 = new MinNode((playerId + 3) % 4, playersHands[3], infoSet.Trump);
+                        MaxNode p0 = new MaxNode(playerId, playersHands[0], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                        MinNode p1 = new MinNode((playerId + 1) % 4, playersHands[1], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                        MaxNode p2 = new MaxNode((playerId + 2) % 4, playersHands[2], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                        MinNode p3 = new MinNode((playerId + 3) % 4, playersHands[3], infoSet.TrumpCard, infoSet.TrumpPlayerId);
                         game = new PerfectInformationGame(p0, p1, p2, p3, handSize, infoSet.Trump, infoSet.GetCurrentTrickMoves(), infoSet.MyTeamPoints, infoSet.OtherTeamPoints);
                     }
 
@@ -189,10 +189,10 @@ namespace SuecaSolver
                 {
                     for (int k = 0; k < M; k++)
                     {
-                        RuleBasedNode p0 = new RuleBasedNode(playerId, playersHands[0], infoSet.Trump);
-                        RuleBasedNode p1 = new RuleBasedNode((playerId + 1) % 4, playersHands[1], infoSet.Trump);
-                        RuleBasedNode p2 = new RuleBasedNode((playerId + 2) % 4, playersHands[2], infoSet.Trump);
-                        RuleBasedNode p3 = new RuleBasedNode((playerId + 3) % 4, playersHands[3], infoSet.Trump);
+                        RuleBasedNode p0 = new RuleBasedNode(playerId, playersHands[0], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                        RuleBasedNode p1 = new RuleBasedNode((playerId + 1) % 4, playersHands[1], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                        RuleBasedNode p2 = new RuleBasedNode((playerId + 2) % 4, playersHands[2], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                        RuleBasedNode p3 = new RuleBasedNode((playerId + 3) % 4, playersHands[3], infoSet.TrumpCard, infoSet.TrumpPlayerId);
                         game = new PerfectInformationGame(p0, p1, p2, p3, handSize, infoSet.Trump, infoSet.GetCurrentTrickMoves(), infoSet.MyTeamPoints, infoSet.OtherTeamPoints, true, hybridTrickChange);
                         cardUtility = game.SampleGame(1000, card);
                         cardsSamplingValues[j * 2 + 1] += cardUtility;
@@ -200,10 +200,10 @@ namespace SuecaSolver
                 }
                 else
                 {
-                    MaxNode p0 = new MaxNode(playerId, playersHands[0], infoSet.Trump);
-                    MinNode p1 = new MinNode((playerId + 1) % 4, playersHands[1], infoSet.Trump);
-                    MaxNode p2 = new MaxNode((playerId + 2) % 4, playersHands[2], infoSet.Trump);
-                    MinNode p3 = new MinNode((playerId + 3) % 4, playersHands[3], infoSet.Trump);
+                    MaxNode p0 = new MaxNode(playerId, playersHands[0], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                    MinNode p1 = new MinNode((playerId + 1) % 4, playersHands[1], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                    MaxNode p2 = new MaxNode((playerId + 2) % 4, playersHands[2], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                    MinNode p3 = new MinNode((playerId + 3) % 4, playersHands[3], infoSet.TrumpCard, infoSet.TrumpPlayerId);
                     game = new PerfectInformationGame(p0, p1, p2, p3, handSize, infoSet.Trump, infoSet.GetCurrentTrickMoves(), infoSet.MyTeamPoints, infoSet.OtherTeamPoints);
                     cardUtility = game.SampleGame(1000, card);
                     cardsSamplingValues[j * 2 + 1] += cardUtility;
@@ -244,10 +244,10 @@ namespace SuecaSolver
                 for (int j = 0; j < possibleMoves.Count; j++)
                 {
                     int card = possibleMoves[j];
-                    MaxNode p0 = new MaxNode(playerId, playersHands[0], infoSet.Trump);
-                    MinNode p1 = new MinNode((playerId + 1) % 4, playersHands[1], infoSet.Trump);
-                    MaxNode p2 = new MaxNode((playerId + 2) % 4, playersHands[2], infoSet.Trump);
-                    MinNode p3 = new MinNode((playerId + 3) % 4, playersHands[3], infoSet.Trump);
+                    MaxNode p0 = new MaxNode(playerId, playersHands[0], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                    MinNode p1 = new MinNode((playerId + 1) % 4, playersHands[1], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                    MaxNode p2 = new MaxNode((playerId + 2) % 4, playersHands[2], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                    MinNode p3 = new MinNode((playerId + 3) % 4, playersHands[3], infoSet.TrumpCard, infoSet.TrumpPlayerId);
                     game = new PerfectInformationGame(p0, p1, p2, p3, handSize, infoSet.Trump, infoSet.GetCurrentTrickMoves(), infoSet.MyTeamPoints, infoSet.OtherTeamPoints);
                     cardUtility = game.SampleGame(depthLimit, card);
                     dict[card] += cardUtility; 

@@ -8,7 +8,10 @@ namespace SuecaSolver
         private int id;
         private List<int> hand;
         public int Trump;
-        private Deck deck;
+        private Deck unknownOwnerCards;
+        public int TrumpCard;
+        public int TrumpPlayerId;
+        private bool trumpCardWasPlayed;
         private Dictionary<int, List<int>> suitHasPlayer;
         private Dictionary<int, List<int>> othersPointCards;
         public int MyTeamPoints;
@@ -17,10 +20,13 @@ namespace SuecaSolver
         private List<Trick> tricks;
 
 
-        public InformationSet(int id, List<int> currentHand, int trumpSuit)
+        public InformationSet(int id, List<int> currentHand, int trumpCard, int trumpPlayerId)
         {
             this.id = id;
-            Trump = trumpSuit;
+            Trump = Card.GetSuit(trumpCard);
+            this.TrumpCard = trumpCard;
+            this.TrumpPlayerId = trumpPlayerId;
+            trumpCardWasPlayed = false;
             hand = new List<int>(currentHand);
             suitHasPlayer = new Dictionary<int,List<int>>
             {
@@ -49,13 +55,14 @@ namespace SuecaSolver
             suitHasPlayer[(int)Suit.Diamonds].Remove(id);
             suitHasPlayer[(int)Suit.Hearts].Remove(id);
             suitHasPlayer[(int)Suit.Spades].Remove(id);
-            deck = new Deck(currentHand);
+            unknownOwnerCards = new Deck(currentHand);
+            unknownOwnerCards.RemoveCard(trumpCard);
             MyTeamPoints = 0;
             OtherTeamPoints = 0;
             remainingTrumps = 10;
             
             tricks = new List<Trick>();
-            tricks.Add(new Trick(trumpSuit));
+            tricks.Add(new Trick(Trump));
         }
 
 
@@ -118,7 +125,14 @@ namespace SuecaSolver
             }
             else
             {
-                deck.RemoveCard(card);
+                if (TrumpCard == card)
+                {
+                    trumpCardWasPlayed = true;
+                }
+                else
+                {
+                    unknownOwnerCards.RemoveCard(card);
+                }
                 if (cardValue > 0)
                 {
                     othersPointCards[cardSuit].Remove(Card.GetRank(card));
@@ -154,7 +168,14 @@ namespace SuecaSolver
             }
             else
             {
-                deck.Add(card);
+                if (TrumpCard == card)
+                {
+                    trumpCardWasPlayed = false;
+                }
+                else
+                {
+                    unknownOwnerCards.Add(card);
+                }
                 if (Card.GetValue(card) > 0)
                 {
                     othersPointCards[Card.GetSuit(card)].Add(Card.GetRank(card));
@@ -188,7 +209,8 @@ namespace SuecaSolver
         {
             List<List<int>> hands = new List<List<int>>();
             int myHandSize = hand.Count;
-            int[][] playerIDhandSizes = new int[3][] { new int[2] { (id + 1) % 4, myHandSize }, new int[2] { (id + 2) % 4, myHandSize }, new int[2] { (id + 3) % 4, myHandSize } };
+            int[] playerIDs = new int[] { (id + 1) % 4, (id + 2) % 4, (id + 3) % 4 };
+            int[] handSizes = new int[] { myHandSize, myHandSize, myHandSize };
             
             int currentTrickSize = tricks[tricks.Count - 1].GetCurrentTrickSize();
             if (currentTrickSize > 3)
@@ -199,25 +221,35 @@ namespace SuecaSolver
             {
                 int pid = (4 + id - i - 1) % 4;
                 int pIndex = ((4 + pid - id) % 4) - 1;
-                if (playerIDhandSizes[pIndex][0] != pid)
+                if (playerIDs[pIndex] != pid)
                 {
                     Console.WriteLine("InfoSet::Sample >> Wrong calculation");
                 }
-                playerIDhandSizes[pIndex][1]--;
+                handSizes[pIndex]--;
             }
 
             hands.Add(new List<int>(hand));
-            List<List<int>> sampledHands;
+            List<List<int>> sampledHands = new List<List<int>>(
+                new List<int>[] {
+                    new List<int>(handSizes[0]),
+                    new List<int>(handSizes[1]),
+                    new List<int>(handSizes[2]) });
+            if (!trumpCardWasPlayed && TrumpPlayerId != id)
+            {
+                int trumpPlayerIDindex = ((TrumpPlayerId - id + 4) % 4) - 1;
+                sampledHands[trumpPlayerIDindex].Add(TrumpCard);
+            }
 
             if (checkPlayersHaveAllSuits(suitHasPlayer))
             {
-                sampledHands = deck.SampleHands( new int[] { playerIDhandSizes[0][1], playerIDhandSizes[1][1], playerIDhandSizes[2][1] });
+                unknownOwnerCards.SampleHands(ref sampledHands);
             }
             else
             {
-                sampledHands = deck.SampleHands(suitHasPlayer, playerIDhandSizes);
+                sampledHands = unknownOwnerCards.SampleHands(suitHasPlayer, playerIDs, ref sampledHands);
                 if (sampledHands == null)
                 {
+                    Console.WriteLine("Warning >> CSP returned null");
                     suitHasPlayer = new Dictionary<int, List<int>>
                     {
                         { (int)Suit.Clubs, new List<int>(3){ 1, 2, 3 } },
@@ -225,7 +257,7 @@ namespace SuecaSolver
                         { (int)Suit.Hearts, new List<int>(3){ 1, 2, 3 } },
                         { (int)Suit.Spades, new List<int>(3){ 1, 2, 3 } }
                     };
-                    sampledHands = deck.SampleHands(new int[] { playerIDhandSizes[0][1], playerIDhandSizes[1][1], playerIDhandSizes[2][1] });
+                    unknownOwnerCards.SampleHands(ref sampledHands);
                 }
             }
 

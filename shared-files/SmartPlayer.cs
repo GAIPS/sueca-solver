@@ -8,10 +8,10 @@ namespace SuecaSolver
         public float TrickExpectedReward;
 
 
-        public SmartPlayer(int id, List<int> initialHand, int trumpSuit)
+        public SmartPlayer(int id, List<int> initialHand, int trumpCard, int trumpPlayerId)
             : base(id)
         {
-            infoSet = new InformationSet(id, initialHand, trumpSuit);
+            infoSet = new InformationSet(id, initialHand, trumpCard, trumpPlayerId);
             TrickExpectedReward = 0.0f;
         }
 

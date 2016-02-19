@@ -11,14 +11,14 @@ namespace SuecaSolver
         public InformationSet InfoSet;
 
 
-        public PlayerNode(int id, List<int> hand, int trump)
+        public PlayerNode(int id, List<int> hand, int trumpCard, int trumpPlayerId)
         {
             Id = id;
             Hand = hand;
-            InfoSet = new InformationSet(id, hand, trump);
+            InfoSet = new InformationSet(id, hand, trumpCard, trumpPlayerId);
         }
 
-        public PlayerNode(int id, List<int> hand, int trump, InformationSet infoSet)
+        public PlayerNode(int id, List<int> hand, InformationSet infoSet)
         {
             Id = id;
             Hand = hand;

@@ -6,10 +6,10 @@ namespace SuecaSolver
     {
         private InformationSet infoSet;
 
-        public RuleBasedPlayer(int id, List<int> initialHand, int trumpSuit)
+        public RuleBasedPlayer(int id, List<int> initialHand, int trumpCard, int trumpPlayerId)
             : base(id)
         {
-            infoSet = new InformationSet(id, initialHand, trumpSuit);
+            infoSet = new InformationSet(id, initialHand, trumpCard, trumpPlayerId);
         }
 
         override public void AddPlay(int playerID, int card)

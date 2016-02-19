@@ -6,13 +6,13 @@ namespace SuecaSolver
     public class MaxNode : PlayerNode
     {
 
-        public MaxNode(int id, List<int> hand, int trump)
-            : base(id, hand, trump)
+        public MaxNode(int id, List<int> hand, int trumpCard, int trumpPlayerId)
+            : base(id, hand, trumpCard, trumpPlayerId)
         {
         }
 
         public MaxNode(int id, List<int> hand, int trump, InformationSet infoSet)
-            : base(id, hand, trump, infoSet)
+            : base(id, hand, infoSet)
         {
         }
 
