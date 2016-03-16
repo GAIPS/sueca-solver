@@ -31,7 +31,7 @@ namespace SuecaSolver
             }
             else
             {
-                chosenCard = PIMC.Execute(_id, infoSet, 0, new List<int> { 50, 50, 50, 50, 50, 50, 50, 50, 50, 50 }, new List<int> { 1000, 1000, 1000, 1000, 1000, 4, 4, 3, 3, 3 });
+                chosenCard = PIMC.Execute(_id, infoSet, 0, new List<int> { 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 }, new List<int> { 1000, 1000, 1000, 1000, 1000, 4, 4, 3, 3, 3 });
             }
 
             TrickExpectedReward = infoSet.predictTrickPoints();

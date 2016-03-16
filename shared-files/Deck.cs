@@ -136,17 +136,40 @@ namespace SuecaSolver
             List<int> player2 = players[1];
             List<int> player3 = players[2];
             List<int> player3Copy = new List<int>(player3);
-            Domain domain1 = Domain.Set(player1.ToArray());
-            Domain domain2 = Domain.Set(player2.ToArray());
-            Domain domain3 = Domain.Set(player3.ToArray());
-            player1.AddRange(player2);
-            Domain domain12 = Domain.Set(player1.ToArray());
-            player2.AddRange(player3);
-            Domain domain23 = Domain.Set(player2.ToArray());
-            player3.AddRange(player1Copy);
-            Domain domain13 = Domain.Set(player3.ToArray());
-            player1.AddRange(player3Copy);
-            Domain domain123 = Domain.Set(player1.ToArray());
+            Domain domain1 = null, domain2 = null, domain3 = null, domain12 = null, domain23 = null, domain13 = null, domain123 = null;
+
+            if (player1.Count > 0)
+            {
+                domain1 = Domain.Set(player1.ToArray());
+            }
+            if (player2.Count > 0)
+            {
+                domain2 = Domain.Set(player2.ToArray());
+            }
+            if (player3.Count > 0)
+            {
+                domain3 = Domain.Set(player3.ToArray());
+            }
+            if (player1.Count > 0 && player2.Count > 0)
+            {
+                player1.AddRange(player2);
+                domain12 = Domain.Set(player1.ToArray());
+            }
+            if (player2.Count > 0 && player3.Count > 0)
+            { 
+                player2.AddRange(player3);
+                domain23 = Domain.Set(player2.ToArray());
+            }
+            if (player1.Count > 0 && player3.Count > 0)
+            {
+                player3.AddRange(player1Copy);
+                domain13 = Domain.Set(player3.ToArray());
+            }
+            if (player1.Count > 0 && player2.Count > 0 && player3.Count > 0)
+            {
+                player1.AddRange(player3Copy);
+                domain123 = Domain.Set(player1.ToArray());
+            }
 
 
             for (int i = 0; i < deck.Count; i++)
@@ -220,7 +243,7 @@ namespace SuecaSolver
                 {
                     cardsPerPlayer[1].Add(deck[i]);
                 }
-                else if (decision == playerIDs[0])
+                else if (decision == playerIDs[2])
                 {
                     cardsPerPlayer[2].Add(deck[i]);
                 }

@@ -9,7 +9,7 @@ namespace SuecaSolver
     public class War
     {
         public const int GAMEMODE = 5;
-        public const int NUMGAMES = 50;
+        public const int NUMGAMES = 1;
         public const bool PARALLEL = false;
         public const int NUM_THREADS = Sueca.WAR_NUM_THREADS;
         public const bool SAVE_CARDS = false; //if true log file will contain intial cards of players otherwise will contain specific features
@@ -60,22 +60,22 @@ namespace SuecaSolver
             switch (gameMode)
             {
                 case 1:
-                    Console.WriteLine("Mode 12 (1 RuleBased 3 Random)");
+                    Console.WriteLine("Mode 1 (1 RuleBased 3 Random)");
                     break;
                 case 2:
-                    Console.WriteLine("Mode 15 (1 TrickPlayer 3 RuleBased)");
+                    Console.WriteLine("Mode 2 (1 TrickPlayer 3 RuleBased)");
                     break;
                 case 3:
-                    Console.WriteLine("Mode 18 (1 Smart 3 RuleBased)");
+                    Console.WriteLine("Mode 3 (1 Smart 3 RuleBased)");
                     break;
                 case 4:
-                    Console.WriteLine("Mode 18 (1 TimeLimited 3 RuleBased)");
+                    Console.WriteLine("Mode 4 (1 TimeLimited 3 RuleBased)");
                     break;
                 case 5:
-                    Console.WriteLine("Mode 19 (1 RBO 3 RuleBased)");
+                    Console.WriteLine("Mode 5 (1 RBO 3 RuleBased)");
                     break;
                 case 6:
-                    Console.WriteLine("Mode 21 (1 Hybrid 3 RuleBased)");
+                    Console.WriteLine("Mode 6 (1 Hybrid 3 RuleBased)");
                     break;
                 default:
                     break;

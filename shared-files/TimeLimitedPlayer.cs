@@ -40,7 +40,7 @@ namespace SuecaSolver
             }
             else
             {
-                chosenCard = PIMC.ExecuteWithTimeLimit(_id, infoSet, new List<int> { 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 });
+                chosenCard = PIMC.ExecuteWithTimeLimit(_id, infoSet, new List<int> { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 });
             }
 
             //infoSet.AddMyPlay(chosenCard);

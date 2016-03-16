@@ -89,7 +89,7 @@ namespace SuecaSolver
             }
 
             int bestCard = -1;
-            int bestValue = Int16.MinValue;
+            int bestValue = Int32.MinValue;
 
             foreach (KeyValuePair<int, int> cardValue in dict)
             {
@@ -146,7 +146,7 @@ namespace SuecaSolver
                     });
 
             int bestCard = -1;
-            int bestValue = Int16.MinValue;
+            int bestValue = Int32.MinValue;
 
             foreach (KeyValuePair<int, int> cardValue in dict)
             {
@@ -258,11 +258,11 @@ namespace SuecaSolver
             sw.Stop();
 
             int bestCard = -1;
-            int bestValue = Int16.MinValue;
+            int bestValue = Int32.MinValue;
 
             foreach (KeyValuePair<int, int> cardValue in dict)
             {
-                if (cardValue.Value > bestValue)
+                if (cardValue.Value >= bestValue)
                 {
                     bestValue = (int)cardValue.Value;
                     bestCard = cardValue.Key;
