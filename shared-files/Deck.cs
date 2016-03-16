@@ -41,9 +41,9 @@ namespace SuecaSolver
             return deck[randomIndex];
         }
 
-        public void RemoveCard(int card)
+        public bool RemoveCard(int card)
         {
-            deck.Remove(card);
+            return deck.Remove(card);
         }
 
         public void Add(int card)
@@ -178,31 +178,31 @@ namespace SuecaSolver
                 List<int> playersThatHaveSuit = suitHasPlayer[Card.GetSuit(card)];
                 Decision d;
 
-                if (playersThatHaveSuit.Count == 3)
+                if (playersThatHaveSuit.Count == 3 && domain123 != null)
                 {
                     d = new Decision(domain123, "c" + card);
                 }
-                else if (playersThatHaveSuit.Count == 2 && playersThatHaveSuit[0] == playerIDs[0] && playersThatHaveSuit[1] == playerIDs[1])
+                else if (playersThatHaveSuit.Count >= 2 && playersThatHaveSuit[0] == playerIDs[0] && playersThatHaveSuit[1] == playerIDs[1] && domain12 != null)
                 {
                     d = new Decision(domain12, "c" + card);
                 }
-                else if (playersThatHaveSuit.Count == 2 && playersThatHaveSuit[0] == playerIDs[0] && playersThatHaveSuit[1] == playerIDs[2])
+                else if (playersThatHaveSuit.Count >= 2 && playersThatHaveSuit[0] == playerIDs[0] && playersThatHaveSuit[1] == playerIDs[2] && domain13 != null)
                 {
                     d = new Decision(domain13, "c" + card);
                 }
-                else if (playersThatHaveSuit.Count == 2 && playersThatHaveSuit[0] == playerIDs[1] && playersThatHaveSuit[1] == playerIDs[2])
+                else if (playersThatHaveSuit.Count >= 2 && playersThatHaveSuit[0] == playerIDs[1] && playersThatHaveSuit[1] == playerIDs[2] && domain23 != null)
                 {
                     d = new Decision(domain23, "c" + card);
                 }
-                else if (playersThatHaveSuit.Count == 1 && playersThatHaveSuit[0] == playerIDs[0])
+                else if (playersThatHaveSuit.Count >= 1 && playersThatHaveSuit[0] == playerIDs[0] && domain1 != null)
                 {
                     d = new Decision(domain1, "c" + card);
                 }
-                else if (playersThatHaveSuit.Count == 1 && playersThatHaveSuit[0] == playerIDs[1])
+                else if (playersThatHaveSuit.Count >= 1 && playersThatHaveSuit[0] == playerIDs[1] && domain2 != null)
                 {
                     d = new Decision(domain2, "c" + card);
                 }
-                else if (playersThatHaveSuit.Count == 1 && playersThatHaveSuit[0] == playerIDs[2])
+                else if (playersThatHaveSuit.Count >= 1 && playersThatHaveSuit[0] == playerIDs[2] && domain3 != null)
                 {
                     d = new Decision(domain3, "c" + card);
                 }
@@ -237,15 +237,15 @@ namespace SuecaSolver
                 decision = decision / 10;
                 if (decision == playerIDs[0])
                 {
-                    cardsPerPlayer[0].Add(deck[i]);
+                    hands[0].Add(deck[i]);
                 }
                 else if (decision == playerIDs[1])
                 {
-                    cardsPerPlayer[1].Add(deck[i]);
+                    hands[1].Add(deck[i]);
                 }
                 else if (decision == playerIDs[2])
                 {
-                    cardsPerPlayer[2].Add(deck[i]);
+                    hands[2].Add(deck[i]);
                 }
                 else
                 {
@@ -253,7 +253,7 @@ namespace SuecaSolver
                 }
             }
             solver.ClearModel();
-            return cardsPerPlayer;
+            return hands;
         }
 
 

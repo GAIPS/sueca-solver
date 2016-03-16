@@ -31,7 +31,10 @@ namespace SuecaSolver
         {
             if (move.PlayerId == Id)
             {
-                Hand.Remove(move.Card);
+                if (Hand.Remove(move.Card) == false)
+                {
+                    Console.WriteLine("PLAYERNODE Trying to remove an nonexisting card!!!");
+                }
             }
             else
             {

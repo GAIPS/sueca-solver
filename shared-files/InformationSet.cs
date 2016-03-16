@@ -121,7 +121,10 @@ namespace SuecaSolver
             }
             if (playerID == id)
             {
-                hand.Remove(card);
+                if (hand.Remove(card) == false)
+                {
+                    Console.WriteLine("INFOSET Trying to remove an nonexisting card!!!");
+                }
             }
             else
             {
@@ -131,7 +134,10 @@ namespace SuecaSolver
                 }
                 else
                 {
-                    unknownOwnerCards.RemoveCard(card);
+                    if (unknownOwnerCards.RemoveCard(card) == false)
+                    {
+                        Console.WriteLine("FILIPA");
+                    }
                 }
                 if (cardValue > 0)
                 {
