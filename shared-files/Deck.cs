@@ -182,27 +182,27 @@ namespace SuecaSolver
                 {
                     d = new Decision(domain123, "c" + card);
                 }
-                else if (playersThatHaveSuit.Count >= 2 && playersThatHaveSuit[0] == playerIDs[0] && playersThatHaveSuit[1] == playerIDs[1] && domain12 != null)
+                else if (playersThatHaveSuit.Count >= 2 && playersThatHaveSuit.Contains(playerIDs[0]) && playersThatHaveSuit.Contains(playerIDs[1]) && domain12 != null)
                 {
                     d = new Decision(domain12, "c" + card);
                 }
-                else if (playersThatHaveSuit.Count >= 2 && playersThatHaveSuit[0] == playerIDs[0] && playersThatHaveSuit[1] == playerIDs[2] && domain13 != null)
+                else if (playersThatHaveSuit.Count >= 2 && playersThatHaveSuit.Contains(playerIDs[0]) && playersThatHaveSuit.Contains(playerIDs[2]) && domain13 != null)
                 {
                     d = new Decision(domain13, "c" + card);
                 }
-                else if (playersThatHaveSuit.Count >= 2 && playersThatHaveSuit[0] == playerIDs[1] && playersThatHaveSuit[1] == playerIDs[2] && domain23 != null)
+                else if (playersThatHaveSuit.Count >= 2 && playersThatHaveSuit.Contains(playerIDs[1]) && playersThatHaveSuit.Contains(playerIDs[2]) && domain23 != null)
                 {
                     d = new Decision(domain23, "c" + card);
                 }
-                else if (playersThatHaveSuit.Count >= 1 && playersThatHaveSuit[0] == playerIDs[0] && domain1 != null)
+                else if (playersThatHaveSuit.Count >= 1 && playersThatHaveSuit.Contains(playerIDs[0]) && domain1 != null)
                 {
                     d = new Decision(domain1, "c" + card);
                 }
-                else if (playersThatHaveSuit.Count >= 1 && playersThatHaveSuit[0] == playerIDs[1] && domain2 != null)
+                else if (playersThatHaveSuit.Count >= 1 && playersThatHaveSuit.Contains(playerIDs[1]) && domain2 != null)
                 {
                     d = new Decision(domain2, "c" + card);
                 }
-                else if (playersThatHaveSuit.Count >= 1 && playersThatHaveSuit[0] == playerIDs[2] && domain3 != null)
+                else if (playersThatHaveSuit.Count >= 1 && playersThatHaveSuit.Contains(playerIDs[2]) && domain3 != null)
                 {
                     d = new Decision(domain3, "c" + card);
                 }
