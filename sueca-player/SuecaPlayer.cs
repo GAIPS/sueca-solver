@@ -45,14 +45,24 @@ namespace SuecaPlayer
                 publisher.ForwardDeal(playerId);
             }
 
+            public void ForwardTrumpCard(string trumpCard, int playerId)
+            {
+                publisher.ForwardTrumpCard(trumpCard,playerId);
+            }
+
+            public void ForwardTrumpcard(string trumpCard, int playerId)
+            {
+                publisher.ForwardTrumpcard(trumpCard, playerId);
+            }
+
             public void ForwardGameEnd(int team0Score, int team1Score)
             {
                 publisher.ForwardGameEnd(team0Score, team1Score);
             }
 
-            public void ForwardGameStart(int gameId, int playerId, int teamId, string trump, string[] cards)
+            public void ForwardGameStart(int gameId, int playerId, int teamId, string trumpCard, int trumpCardPlayer, string[] cards)
             {
-                publisher.ForwardGameStart(gameId, playerId, teamId, trump, cards);
+                publisher.ForwardGameStart(gameId, playerId, teamId, trumpCard, trumpCardPlayer, cards);
             }
 
             public void ForwardNextPlayer(int id)
@@ -172,10 +182,13 @@ namespace SuecaPlayer
 
         }
 
-        public void GameStart(int gameId, int playerId, int teamId, string trump, string[] cards)
+        public void GameStart(int gameId, int playerId, int teamId, string trumpCard, int trumpCardPlayer, string[] cards)
         {
             moveCounter = 0;
-            trumpSuit = trump;
+            SuecaTypes.Card sharedTrumpCard = JsonSerializable.DeserializeFromJson<SuecaTypes.Card>(trumpCard);
+            SuecaSolver.Rank trumpRank = (SuecaSolver.Rank)Enum.Parse(typeof(SuecaSolver.Rank), sharedTrumpCard.Rank.ToString());
+            SuecaSolver.Suit trumpSuit = (SuecaSolver.Suit)Enum.Parse(typeof(SuecaSolver.Suit), sharedTrumpCard.Suit.ToString());
+            int myTrumpCard = SuecaSolver.Card.Create(trumpRank, trumpSuit);
             myIdOnUnityGame = playerId;
             myTeamIdOnUnityGame = teamId;
             List<int> initialCards = new List<int>();
@@ -190,13 +203,12 @@ namespace SuecaPlayer
                 initialCards.Add(myCard);
             }
             Console.WriteLine("");
-            SuecaSolver.Suit myTrump = (SuecaSolver.Suit) Enum.Parse(typeof(SuecaSolver.Suit), trump);
 
-            ai = new SmartPlayer(0, initialCards, (int)myTrump);
+            ai = new SmartPlayer(0, initialCards, myTrumpCard, trumpCardPlayer);
             allSet = true;
             processingRepeat = false;
 
-            iaPublisher.ForwardGameStart(gameId, playerId, teamId, trump, cards);
+            iaPublisher.ForwardGameStart(gameId, playerId, teamId, trumpCard, trumpCardPlayer, cards);
         }
 
         public void GameEnd(int team0Score, int team1Score)
@@ -279,6 +291,11 @@ namespace SuecaPlayer
         public void Deal(int playerId)
         {
             iaPublisher.ForwardDeal(playerId);
+        }
+
+        public void TrumpCard(string trumpCard, int playerId)
+        {
+            iaPublisher.ForwardTrumpCard(trumpCard, playerId);
         }
 
         public void ReceiveRobotCards()
