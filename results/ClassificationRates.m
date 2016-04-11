@@ -1,4 +1,4 @@
-A = dlmread('log7.txt','\t',2,0);
+A = dlmread('hybrid-logs/N10M10/N10M10.txt','\t',2,0);
 numGames = size(A,1);
 AceRank = 9;
 SevenRank = 8;
@@ -26,12 +26,13 @@ for i = 1:numGames
    teamNumAces(i,1) = countRank(hand_0, AceRank) + countRank(hand_2, AceRank);
    teamNumSevens(i,1) = countRank(hand_0, SevenRank) + countRank(hand_2, SevenRank);
    
-   if teamNumTrumps(i,1) <= 4 && teamNumAces(i,1) <= 1 && teamNumSevens(i,1) <= 1
+   if teamNumTrumps(i,1) <= 3 && teamNumAces(i,1) + teamNumSevens(i,1) <= 2
+       
        numHardGames = numHardGames + 1;
        if TeamFinalPoints(i,1) >= 60
            numHardWonDrew = numHardWonDrew + 1;
        end
-   elseif teamNumTrumps(i,1) >= 6 && teamNumAces(i,1) >= 3 && teamNumSevens(i,1) >= 3
+   elseif teamNumTrumps(i,1) >= 6 && teamNumAces(i,1) + teamNumSevens(i,1) >= 6
        numEasyGames = numEasyGames + 1;
        if TeamFinalPoints(i,1) >= 60
            numEasyWonDrew = numEasyWonDrew + 1;
@@ -45,9 +46,9 @@ for i = 1:numGames
 end
 
 
-numHardGames
-numMediumGames
-numEasyGames
+numHardGames / numGames * 100
+numMediumGames / numGames * 100
+numEasyGames / numGames * 100
 HardWonDrewRate = (numHardWonDrew / numHardGames) * 100
 MediumWonDrewRate = (numMediumWonDrew / numMediumGames) * 100
 EasyWonDrewRate = (numEasyWonDrew / numEasyGames) * 100
