@@ -1,4 +1,4 @@
-A = dlmread('hybrid-logs/N10M10/N10M10.txt','\t',2,0);
+A = dlmread('hybrid-logs/TeamN5M5/TeamN5M5.txt','\t',2,0);
 numGames = size(A,1);
 AceRank = 9;
 SevenRank = 8;

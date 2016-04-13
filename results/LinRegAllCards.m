@@ -21,6 +21,8 @@ suits_0 = zeros(numGames,1);
 suits_2 = zeros(numGames,1);
 first_0 = zeros(numGames,1);
 first_2 = zeros(numGames,1);
+AW_02 = zeros(numGames,1);
+TAW_02 = zeros(numGames,1);
 
 for i = 1:numGames
    hand_0 = A(i,1:10);
@@ -55,12 +57,25 @@ for i = 1:numGames
    if firstPlayer == 2
       first_2(i,1) = 1; 
    end
+   
+   for j = 0:3
+        if j == trump && hasCard(hand_0, j, AceRank) == 1
+            TAW_02(i,1) = 1 + ((countSuit(hand_0, j) + countSuit(hand_2, j)) / 10);
+        elseif j ~= trump && hasCard(hand_0, j, AceRank) == 1
+            AW_02(i,1) = AW_02(i,1) + (1 / (countSuit(hand_0, j) + countSuit(hand_2, j)));
+        elseif j == trump && hasCard(hand_2, j, AceRank) == 1
+            TAW_02(i,1) = 1 + ((countSuit(hand_0, j) + countSuit(hand_2, j)) / 10);
+        elseif j ~= trump && hasCard(hand_2, j, AceRank) == 1
+            AW_02(i,1) = AW_02(i,1) + (1 / (countSuit(hand_0, j) + countSuit(hand_2, j)));
+        end
+   end
+       
 end
 
 
-tbl = table(p_0, p_2, pt_0, pt_2, t_0, t_2, A_0, A_2, x7_0, x7_2, At_02, suits_0, suits_2, first_0, first_2, fp, 'VariableNames', {'p_0', 'p_2', 'pt_0', 'pt_2', 't_0', 't_2', 'A_0', 'A_2', 'x7_0', 'x7_2', 'At_02', 'suits_0', 'suits_2', 'first_0', 'first_2', 'fp'});
+tbl = table(p_0, p_2, pt_0, pt_2, t_0, t_2, A_0, A_2, x7_0, x7_2, At_02, suits_0, suits_2, first_0, first_2, AW_02, TAW_02, fp, 'VariableNames', {'p_0', 'p_2', 'pt_0', 'pt_2', 't_0', 't_2', 'A_0', 'A_2', 'x7_0', 'x7_2', 'At_02', 'suits_0', 'suits_2', 'first_0', 'first_2', 'AW_02', 'TAW_02', 'fp'});
 %mdl = fitlm(tbl,'fp ~ p_0 + p_2 + pt_0 + pt_2 + t_0 + t_2 + A_0 + A_2 + x7_0 + x7_2 + At_02 + suits_0 + suits_2 + first_0 + first_2')
-mdl = fitlm(tbl,'fp ~ t_0 + t_2 + A_0 + A_2 + x7_0 + x7_2')
+mdl = fitlm(tbl,'fp ~ t_0 + t_2 + A_0 + A_2 + x7_0 + x7_2 + AW_02 + TAW_02')
 %mdl = stepwiselm(tbl,'fp ~ t_0 + t_2 + A_0 + A_2 + x7_0 + x7_2')
 result = table2array(mdl.Coefficients);
-save('LinRegResult5.txt', 'result', '-ascii');
+save('LinRegResult6.txt', 'result', '-ascii');
