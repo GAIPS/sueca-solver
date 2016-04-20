@@ -25,7 +25,7 @@ namespace SuecaSolver
             if (tricks.Count - 1 < 0)
             {
                 Console.WriteLine("SuecaGame.PlayerCard >> Negative index");
-                System.Environment.Exit(1);
+                //System.Environment.Exit(1);
             }
 
             Trick currentTrick = tricks[tricks.Count - 1];

@@ -123,7 +123,7 @@ namespace SuecaSolver
                 //Remover este bocado de codigo se o erro nunca mais ocorrer
                 Console.WriteLine("[" + System.Threading.Thread.CurrentThread.ManagedThreadId + "] - PROBLEM! - deck.Count: " + deck.Count + " P0: " + handSizes[0] + " P1: " + handSizes[1] + " P2: " + handSizes[2] + " deck: " + deckToString());
                 Console.Out.Flush();
-                System.Environment.Exit(1);
+                //System.Environment.Exit(1);
             }
 
             deck = shuffle(deck);
@@ -223,7 +223,7 @@ namespace SuecaSolver
             while (solution.Quality != SolverQuality.Feasible)
             {
                 Console.Write("CSP Problem - solution {0}", solution.Quality);
-                System.Environment.Exit(1);
+                //System.Environment.Exit(1);
             }
 
             List<List<int>> cardsPerPlayer = new List<List<int>>(3);
@@ -268,6 +268,11 @@ namespace SuecaSolver
             str += ">";
 
             return str;
+        }
+
+        internal int GetDeckSize()
+        {
+            return deck.Count;
         }
     }
 }

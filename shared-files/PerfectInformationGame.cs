@@ -166,7 +166,7 @@ namespace SuecaSolver
             if (tricks.Count - 1 < 0)
             {
                 Console.WriteLine("PerfectInformationGame.UndoMove >> Negative index");
-                System.Environment.Exit(1);
+                //System.Environment.Exit(1);
             }
 
             predictableTrickWinner = -1;

@@ -186,10 +186,11 @@ namespace SuecaSolver
                 {
                     othersPointCards[Card.GetSuit(card)].Add(Card.GetRank(card));
                 }
-                if (Card.GetSuit(card) == Trump)
-                {
-                    remainingTrumps++;
-                }
+            }
+
+            if (Card.GetSuit(card) == Trump)
+            {
+                remainingTrumps++;
             }
         }
 
@@ -225,12 +226,13 @@ namespace SuecaSolver
             }
             for (int i = 0; i < currentTrickSize; i++)
             {
-                int pid = (4 + id - i - 1) % 4;
-                int pIndex = ((4 + pid - id) % 4) - 1;
-                if (playerIDs[pIndex] != pid)
-                {
-                    Console.WriteLine("InfoSet::Sample >> Wrong calculation");
-                }
+                //int pid = (4 + id - i - 1) % 4;
+                //int pIndex = ((4 + pid - id) % 4) - 1;
+                //if (playerIDs[pIndex] != pid)
+                //{
+                //    Console.WriteLine("InfoSet::Sample >> Wrong calculation");
+                //}
+                int pIndex = 3 - currentTrickSize + i;
                 handSizes[pIndex]--;
             }
 
@@ -245,7 +247,10 @@ namespace SuecaSolver
                 int trumpPlayerIDindex = ((TrumpPlayerId - id + 4) % 4) - 1;
                 sampledHands[trumpPlayerIDindex].Add(TrumpCard);
             }
-
+            Console.WriteLine("Handsizes: me - " + hands.Count
+                + ", player " + (id + 1) % 4 + " - " + handSizes[0]
+                + ", player " + (id + 2) % 4 + " - " + handSizes[1]
+                + ", player " + (id + 3) % 4 + " - " + handSizes[2]);
             if (checkPlayersHaveAllSuits(suitHasPlayer))
             {
                 unknownOwnerCards.SampleHands(ref sampledHands);
@@ -448,6 +453,11 @@ namespace SuecaSolver
             {
                 return false;
             }
+        }
+
+        internal int GetDeckSize()
+        {
+            return unknownOwnerCards.GetDeckSize();
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace SuecaSolver
@@ -17,7 +18,9 @@ namespace SuecaSolver
 
         override public void AddPlay(int playerID, int card)
         {
+            Console.WriteLine("ADD PLAY OF player " + playerID + " " + Card.ToString(card));
             infoSet.AddPlay(playerID, card);
+            //Console.WriteLine("DECK SIZE: " + infoSet.GetDeckSize());
             TrickExpectedReward = infoSet.predictTrickPoints();
         }
 

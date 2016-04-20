@@ -141,7 +141,7 @@ namespace SuecaPlayer
 
 
         public SuecaPlayer()
-            : base("IA", "SuecaDemo")
+            : base("IA", "Filipa")
         {
             moveCounter = 0;
             trumpSuit = "None";
@@ -204,7 +204,7 @@ namespace SuecaPlayer
             }
             Console.WriteLine("");
 
-            ai = new SmartPlayer(0, initialCards, myTrumpCard, trumpCardPlayer);
+            ai = new SmartPlayer(playerId, initialCards, myTrumpCard, trumpCardPlayer);
             allSet = true;
             processingRepeat = false;
 
@@ -365,8 +365,8 @@ namespace SuecaPlayer
                 SuecaSolver.Rank myRank = (SuecaSolver.Rank)Enum.Parse(typeof(SuecaSolver.Rank), c.Rank.ToString());
                 SuecaSolver.Suit mySuit = (SuecaSolver.Suit)Enum.Parse(typeof(SuecaSolver.Suit), c.Suit.ToString());
                 int myCard = SuecaSolver.Card.Create(myRank, mySuit);
-                int localPlayerId = (id + 4 - myIdOnUnityGame) % 4;
-                ai.AddPlay(localPlayerId, myCard);
+                //int localPlayerId = (id + 4 - myIdOnUnityGame) % 4;
+                ai.AddPlay(id, myCard);
                 Console.WriteLine("UnityPlayerID " + id + " played " + SuecaSolver.Card.ToString(myCard));
 
                 if (moveCounter % 4 == 0)
