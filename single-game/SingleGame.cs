@@ -31,13 +31,20 @@ namespace SuecaSolver
             int seed = Guid.NewGuid().GetHashCode();
             Random randomNumber = new Random(seed);
             Deck deck = new Deck();
-            List<List<int>> playersHand = deck.SampleHands(new int[]{ 10, 10, 10, 10 });
+            List<List<int>> playersHand = new List<List<int>>(
+                new List<int>[] {
+                    new List<int>(10),
+                    new List<int>(10),
+                    new List<int>(10),
+                    new List<int>(10) });
+            deck.SampleHands(ref playersHand);
             List<int> currentHand;
-            int trump = randomNumber.Next(0, 4);
+            int trumpCardPlayer = (firstPlayerID - 1 + 4) % 4;
+            int trumpCard = playersHand[trumpCardPlayer][0];
             int cardIndex, currentPlayerID = firstPlayerID;
 
-            SmartPlayer artificialPlayer = new SmartPlayer(0, playersHand[0], trump);
-            SuecaGame game = new SuecaGame(trump, firstPlayerID);
+            SmartPlayer artificialPlayer = new SmartPlayer(0, playersHand[0], trumpCard, trumpCardPlayer);
+            SuecaGame game = new SuecaGame(Card.GetSuit(trumpCard), firstPlayerID);
             //Console.WriteLine("---------hands---------");
             //Sueca.PrintHand(playersHand[0]);
             //Sueca.PrintHand(playersHand[1]);

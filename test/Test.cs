@@ -289,14 +289,23 @@ namespace SuecaSolver
 
             int NUM_TRICKS = 10;
             Deck deck = new Deck();
-            List<int> hand = deck.GetHand(NUM_TRICKS);
-            RBOPlayer ep = new RBOPlayer(0, hand, (int)Suit.Clubs);
-            //HybridPlayer ep = new HybridPlayer(0, hand, (int)Suit.Clubs);
-            //RuleBasedPlayer ep = new RuleBasedPlayer(0, hand, (int)Suit.Clubs);
-            //SmartPlayer ep = new SmartPlayer(0, hand, (int)Suit.Clubs);
-            //TrickPlayer ep = new TrickPlayer(0, hand, (int)Suit.Clubs);
+            int playerId = 2;
+            int dealerId = (playerId - 1 + 4) % 4;
+            List<List<int>> playersHands = new List<List<int>>(
+                new List<int>[] {
+                    new List<int>(10),
+                    new List<int>(10),
+                    new List<int>(10),
+                    new List<int>(10) });
+            deck.SampleHands(ref playersHands);
+
+            RBOPlayer ep = new RBOPlayer(playerId, playersHands[playerId], playersHands[dealerId][0], dealerId);
+            //HybridPlayer ep = new HybridPlayer(playerId, playersHands[playerId], playersHands[dealerId][0], dealerId);
+            //RuleBasedPlayer ep = new RuleBasedPlayer(playerId, playersHands[playerId], playersHands[dealerId][0], dealerId);
+            //SmartPlayer ep = new SmartPlayer(playerId, playersHands[playerId], playersHands[dealerId][0], dealerId);
+            //TrickPlayer ep = new TrickPlayer(playerId, playersHands[playerId], playersHands[dealerId][0], dealerId);
+            Sueca.PrintCards("Initial hand", playersHands[playerId]);
             int chosenCard = ep.Play();
-            Sueca.PrintCards("Initial hand", hand);
             Console.WriteLine("Chosen card: " + Card.ToString(chosenCard));
 
             sw.Stop();

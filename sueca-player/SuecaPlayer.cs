@@ -137,11 +137,11 @@ namespace SuecaPlayer
         private bool processingRepeat;
 
         private IAPublisher iaPublisher;
-        private SmartPlayer ai;
+        private HybridPlayer ai;
 
 
         public SuecaPlayer()
-            : base("IA", "Filipa")
+            : base("IA", "")
         {
             moveCounter = 0;
             trumpSuit = "None";
@@ -204,7 +204,7 @@ namespace SuecaPlayer
             }
             Console.WriteLine("");
 
-            ai = new SmartPlayer(playerId, initialCards, myTrumpCard, trumpCardPlayer);
+            ai = new HybridPlayer(playerId, initialCards, myTrumpCard, trumpCardPlayer);
             allSet = true;
             processingRepeat = false;
 

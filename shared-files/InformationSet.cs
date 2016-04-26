@@ -247,10 +247,6 @@ namespace SuecaSolver
                 int trumpPlayerIDindex = ((TrumpPlayerId - id + 4) % 4) - 1;
                 sampledHands[trumpPlayerIDindex].Add(TrumpCard);
             }
-            Console.WriteLine("Handsizes: me - " + hands.Count
-                + ", player " + (id + 1) % 4 + " - " + handSizes[0]
-                + ", player " + (id + 2) % 4 + " - " + handSizes[1]
-                + ", player " + (id + 3) % 4 + " - " + handSizes[2]);
             if (checkPlayersHaveAllSuits(suitHasPlayer))
             {
                 unknownOwnerCards.SampleHands(ref sampledHands);
