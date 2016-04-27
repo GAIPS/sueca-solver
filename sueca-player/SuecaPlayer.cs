@@ -129,8 +129,8 @@ namespace SuecaPlayer
         private int sessionGames;
         private int ourWins;
         private int theirWins;
-        private int myIdOnUnityGame;
-        private int myTeamIdOnUnityGame;
+        private int id;
+        private int teamId;
         private bool allSet;
         private bool sessionStart;
         private bool processPlay;
@@ -138,19 +138,21 @@ namespace SuecaPlayer
 
         private IAPublisher iaPublisher;
         private HybridPlayer ai;
+        private int nameId;
 
 
-        public SuecaPlayer()
-            : base("IA", "")
+        public SuecaPlayer(string clientName, string charactersNames = "")
+            : base(clientName, charactersNames)
         {
+            nameId = Int16.Parse("" + clientName[clientName.Length - 1]);
             moveCounter = 0;
             trumpSuit = "None";
             leadSuit = "None";
             sessionGames = 0;
             ourWins = 0;
             theirWins = 0;
-            myIdOnUnityGame = 3; //default
-            myTeamIdOnUnityGame = 1; //default
+            id = 3; //default
+            teamId = 1; //default
             allSet = false;
             sessionStart = false;
             processPlay = true;
@@ -162,17 +164,18 @@ namespace SuecaPlayer
         }
 
 
-        public void SessionStart(int numGames)
+        public void SessionStart(int numGames, int[] agentsIds)
         {
             sessionStart = false;
+            id = agentsIds[nameId - 1];
+            Console.WriteLine("My id is " + id);
+            teamId = 1; //default
             moveCounter = 0;
             trumpSuit = "None";
             leadSuit = "None";
             sessionGames = numGames;
             ourWins = 0;
             theirWins = 0;
-            myIdOnUnityGame = 3; //default
-            myTeamIdOnUnityGame = 1; //default
             processPlay = true;
             allSet = false;
             processingRepeat = false;
@@ -189,8 +192,8 @@ namespace SuecaPlayer
             SuecaSolver.Rank trumpRank = (SuecaSolver.Rank)Enum.Parse(typeof(SuecaSolver.Rank), sharedTrumpCard.Rank.ToString());
             SuecaSolver.Suit trumpSuit = (SuecaSolver.Suit)Enum.Parse(typeof(SuecaSolver.Suit), sharedTrumpCard.Suit.ToString());
             int myTrumpCard = SuecaSolver.Card.Create(trumpRank, trumpSuit);
-            myIdOnUnityGame = playerId;
-            myTeamIdOnUnityGame = teamId;
+            id = playerId;
+            teamId = teamId;
             List<int> initialCards = new List<int>();
             Console.Write("GameStart cards: ");
             foreach (string cardSerialized in cards)
@@ -214,7 +217,7 @@ namespace SuecaPlayer
         public void GameEnd(int team0Score, int team1Score)
         {
             allSet = false;
-            if (myTeamIdOnUnityGame == 0)
+            if (teamId == 0)
             {
                 if (team0Score == 120)
                 {
@@ -308,7 +311,7 @@ namespace SuecaPlayer
             while (!allSet) { }
             while (processingRepeat) { }
 
-            if (myIdOnUnityGame == id && ai != null)
+            if (id == id && ai != null)
             {
                 Console.WriteLine("I am thinking about what to play...");
                 int chosenCard = ai.Play();
@@ -387,7 +390,7 @@ namespace SuecaPlayer
                 desirability = -10.0f;
             }
 
-            if (id == myIdOnUnityGame || id == (myIdOnUnityGame + 2) % 4)
+            if (id == id || id == (id + 2) % 4)
             {
                 desirabilityForOther = desirability;
             }

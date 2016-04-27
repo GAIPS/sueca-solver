@@ -51,8 +51,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Thalamus">
-      <HintPath>..\..\SERA_1-12-2015\Binaries\Thalamus\Thalamus.dll</HintPath>
+    <Reference Include="Thalamus, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\thalamus-code\Binaries\Debug\Thalamus.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
