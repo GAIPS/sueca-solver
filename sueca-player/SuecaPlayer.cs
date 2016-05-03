@@ -187,31 +187,34 @@ namespace SuecaPlayer
 
         public void GameStart(int gameId, int playerId, int teamId, string trumpCard, int trumpCardPlayer, string[] cards)
         {
-            moveCounter = 0;
-            SuecaTypes.Card sharedTrumpCard = JsonSerializable.DeserializeFromJson<SuecaTypes.Card>(trumpCard);
-            SuecaSolver.Rank trumpRank = (SuecaSolver.Rank)Enum.Parse(typeof(SuecaSolver.Rank), sharedTrumpCard.Rank.ToString());
-            SuecaSolver.Suit trumpSuit = (SuecaSolver.Suit)Enum.Parse(typeof(SuecaSolver.Suit), sharedTrumpCard.Suit.ToString());
-            int myTrumpCard = SuecaSolver.Card.Create(trumpRank, trumpSuit);
-            id = playerId;
-            teamId = teamId;
-            List<int> initialCards = new List<int>();
-            Console.Write("GameStart cards: ");
-            foreach (string cardSerialized in cards)
+            if (id == playerId)
             {
-                SuecaTypes.Card card = JsonSerializable.DeserializeFromJson<SuecaTypes.Card>(cardSerialized);
-                SuecaSolver.Rank myRank = (SuecaSolver.Rank) Enum.Parse(typeof(SuecaSolver.Rank), card.Rank.ToString());
-                SuecaSolver.Suit mySuit = (SuecaSolver.Suit) Enum.Parse(typeof(SuecaSolver.Suit), card.Suit.ToString());
-                int myCard = SuecaSolver.Card.Create(myRank, mySuit);
-                Console.Write(SuecaSolver.Card.ToString(myCard) + " ");
-                initialCards.Add(myCard);
+                moveCounter = 0;
+                SuecaTypes.Card sharedTrumpCard = JsonSerializable.DeserializeFromJson<SuecaTypes.Card>(trumpCard);
+                SuecaSolver.Rank trumpRank = (SuecaSolver.Rank)Enum.Parse(typeof(SuecaSolver.Rank), sharedTrumpCard.Rank.ToString());
+                SuecaSolver.Suit trumpSuit = (SuecaSolver.Suit)Enum.Parse(typeof(SuecaSolver.Suit), sharedTrumpCard.Suit.ToString());
+                int myTrumpCard = SuecaSolver.Card.Create(trumpRank, trumpSuit);
+                this.teamId = teamId;
+                List<int> initialCards = new List<int>();
+                Console.Write("GameStart cards: ");
+                foreach (string cardSerialized in cards)
+                {
+                    SuecaTypes.Card card = JsonSerializable.DeserializeFromJson<SuecaTypes.Card>(cardSerialized);
+                    SuecaSolver.Rank myRank = (SuecaSolver.Rank)Enum.Parse(typeof(SuecaSolver.Rank), card.Rank.ToString());
+                    SuecaSolver.Suit mySuit = (SuecaSolver.Suit)Enum.Parse(typeof(SuecaSolver.Suit), card.Suit.ToString());
+                    int myCard = SuecaSolver.Card.Create(myRank, mySuit);
+                    Console.Write(SuecaSolver.Card.ToString(myCard) + " ");
+                    initialCards.Add(myCard);
+                }
+                Console.WriteLine("");
+
+                ai = new HybridPlayer(playerId, initialCards, myTrumpCard, trumpCardPlayer);
+                allSet = true;
+                processingRepeat = false;
+
+                iaPublisher.ForwardGameStart(gameId, playerId, teamId, trumpCard, trumpCardPlayer, cards);
             }
-            Console.WriteLine("");
-
-            ai = new HybridPlayer(playerId, initialCards, myTrumpCard, trumpCardPlayer);
-            allSet = true;
-            processingRepeat = false;
-
-            iaPublisher.ForwardGameStart(gameId, playerId, teamId, trumpCard, trumpCardPlayer, cards);
+            
         }
 
         public void GameEnd(int team0Score, int team1Score)
@@ -311,7 +314,7 @@ namespace SuecaPlayer
             while (!allSet) { }
             while (processingRepeat) { }
 
-            if (id == id && ai != null)
+            if (this.id == id && ai != null)
             {
                 Console.WriteLine("I am thinking about what to play...");
                 int chosenCard = ai.Play();
@@ -390,7 +393,7 @@ namespace SuecaPlayer
                 desirability = -10.0f;
             }
 
-            if (id == id || id == (id + 2) % 4)
+            if (this.id == id || id == (id + 2) % 4)
             {
                 desirabilityForOther = desirability;
             }
