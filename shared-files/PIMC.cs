@@ -91,14 +91,17 @@ namespace SuecaSolver
             int bestCard = -1;
             int bestValue = Int32.MinValue;
 
+            Console.WriteLine("Printing dictionary:");
             foreach (KeyValuePair<int, int> cardValue in dict)
             {
+                Console.Write(Card.ToString(cardValue.Key) + ":" + cardValue.Value + ", ");
                 if (cardValue.Value >= bestValue)
                 {
                     bestValue = (int)cardValue.Value;
                     bestCard = cardValue.Key;
                 }
             }
+            Console.WriteLine("");
 
             if (bestCard == -1)
             {

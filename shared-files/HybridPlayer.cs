@@ -17,7 +17,6 @@ namespace SuecaSolver
 
         override public void AddPlay(int playerID, int card)
         {
-            Console.WriteLine("ADD PLAY OF player " + playerID + " " + Card.ToString(card));
             infoSet.AddPlay(playerID, card);
             TrickExpectedReward = infoSet.predictTrickPoints();
         }
@@ -38,21 +37,6 @@ namespace SuecaSolver
 
             TrickExpectedReward = infoSet.predictTrickPoints();
             return chosenCard;
-        }
-
-        public float PointsPercentage()
-        {
-            float alreadyMadePoints = infoSet.MyTeamPoints + infoSet.OtherTeamPoints;
-            if (alreadyMadePoints == 0.0f)
-            {
-                return 0.5f;
-            }
-            return infoSet.MyTeamPoints / alreadyMadePoints;
-        }
-
-        public int GetHandSize()
-        {
-            return infoSet.GetHandSize();
         }
     }
 }

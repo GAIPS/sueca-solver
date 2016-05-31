@@ -107,6 +107,12 @@ namespace SuecaSolver
             int leadSuit = currentTrick.LeadSuit;
             int cardSuit = Card.GetSuit(card);
             int cardValue = Card.GetValue(card);
+
+            if (playerID != id && cardSuit == leadSuit && !suitHasPlayer[leadSuit].Contains(playerID))
+            {
+                Console.WriteLine("AddPlay: The player has renounced!");
+            }
+
             if (playerID != id && cardSuit != leadSuit && leadSuit != (int)Suit.None)
             {
                 if (suitHasPlayer[leadSuit].Contains(playerID))
@@ -162,6 +168,7 @@ namespace SuecaSolver
                     OtherTeamPoints -= winnerPoints[1];
                 }
             }
+
             currentTrick.UndoMove();
             if (currentTrick.IsEmpty())
             {
@@ -174,6 +181,11 @@ namespace SuecaSolver
             }
             else
             {
+                int cardSuit = Card.GetSuit(card);
+                if (!suitHasPlayer[cardSuit].Contains(playerId))
+                {
+                    suitHasPlayer[cardSuit].Add(playerId);
+                }
                 if (TrumpCard == card)
                 {
                     trumpCardWasPlayed = false;
