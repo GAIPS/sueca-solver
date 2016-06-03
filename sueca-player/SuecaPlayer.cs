@@ -85,9 +85,9 @@ namespace SuecaPlayer
                 publisher.ForwardSessionEnd(team0Score, team1Score, talkingRobot);
             }
 
-            public void ForwardSessionStart(int numGame, int talkingRobot)
+            public void ForwardSessionStart(int numGame, int playerId, int talkingRobot)
             {
-                publisher.ForwardSessionStart(numGame, talkingRobot);
+                publisher.ForwardSessionStart(numGame, playerId, talkingRobot);
             }
 
             public void GazeAtScreen(double x, double y)
@@ -180,7 +180,7 @@ namespace SuecaPlayer
             allSet = false;
             processingRepeat = false;
 
-            iaPublisher.ForwardSessionStart(numGames, talkingRobot);
+            iaPublisher.ForwardSessionStart(numGames, id, talkingRobot);
             sessionStart = true;
 
         }
