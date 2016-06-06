@@ -118,6 +118,14 @@ namespace SuecaSolver
                 }
             }
             points += Card.GetValue(move.Card);
+
+            foreach (var item in moves)
+            {
+                if (item.PlayerId == move.PlayerId)
+                {
+                    Console.WriteLine("Please help!");
+                }
+            }
             moves.Add(move);
         }
 

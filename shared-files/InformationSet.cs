@@ -101,7 +101,6 @@ namespace SuecaSolver
                 tricks.Add(new Trick(Trump));
                 currentTrick = tricks[tricks.Count - 1];
             }
-            currentTrick.ApplyMove(new Move(playerID, card));
 
             //check if player has the leadSuit
             int leadSuit = currentTrick.LeadSuit;
@@ -112,6 +111,8 @@ namespace SuecaSolver
             {
                 Console.WriteLine("AddPlay: The player has renounced!");
             }
+
+            currentTrick.ApplyMove(new Move(playerID, card));
 
             if (playerID != id && cardSuit != leadSuit && leadSuit != (int)Suit.None)
             {
@@ -170,6 +171,7 @@ namespace SuecaSolver
             }
 
             currentTrick.UndoMove();
+
             if (currentTrick.IsEmpty())
             {
                 tricks.RemoveAt(tricks.Count - 1);
