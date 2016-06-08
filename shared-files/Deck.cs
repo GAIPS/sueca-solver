@@ -9,9 +9,12 @@ namespace SuecaSolver
 
         private Random random;
         private List<int> deck;
+        SolverContext solver;
+        static private Object thisLock = new Object();
 
         public Deck()
         {
+            solver = SolverContext.GetContext();
             random = new Random();
             deck = new List<int>(40);
 
@@ -23,6 +26,7 @@ namespace SuecaSolver
 
         public Deck(List<int> cards)
         {
+            solver = SolverContext.GetContext();
             random = new Random();
             deck = new List<int>(40 - cards.Count);
 
@@ -127,132 +131,138 @@ namespace SuecaSolver
             }
 
             deck = shuffle(deck);
-            var solver = SolverContext.GetContext();
-            var model = solver.CreateModel();
-            List<Decision> decisions = new List<Decision>(deck.Count);
-            List<List<int>> players = getDomains(playerIDs, handSizes);
-            List<int> player1 = players[0];
-            List<int> player1Copy = new List<int>(player1);
-            List<int> player2 = players[1];
-            List<int> player3 = players[2];
-            List<int> player3Copy = new List<int>(player3);
-            Domain domain1 = null, domain2 = null, domain3 = null, domain12 = null, domain23 = null, domain13 = null, domain123 = null;
 
-            if (player1.Count > 0)
+            lock (thisLock)
             {
-                domain1 = Domain.Set(player1.ToArray());
-            }
-            if (player2.Count > 0)
-            {
-                domain2 = Domain.Set(player2.ToArray());
-            }
-            if (player3.Count > 0)
-            {
-                domain3 = Domain.Set(player3.ToArray());
-            }
-            if (player1.Count > 0 && player2.Count > 0)
-            {
-                player1.AddRange(player2);
-                domain12 = Domain.Set(player1.ToArray());
-            }
-            if (player2.Count > 0 && player3.Count > 0)
-            { 
-                player2.AddRange(player3);
-                domain23 = Domain.Set(player2.ToArray());
-            }
-            if (player1.Count > 0 && player3.Count > 0)
-            {
-                player3.AddRange(player1Copy);
-                domain13 = Domain.Set(player3.ToArray());
-            }
-            if (player1.Count > 0 && player2.Count > 0 && player3.Count > 0)
-            {
-                player1.AddRange(player3Copy);
-                domain123 = Domain.Set(player1.ToArray());
-            }
+
+                Console.WriteLine("START");
+                var model = solver.CreateModel();
+                List<Decision> decisions = new List<Decision>(deck.Count);
+                List<List<int>> players = getDomains(playerIDs, handSizes);
+                List<int> player1 = players[0];
+                List<int> player1Copy = new List<int>(player1);
+                List<int> player2 = players[1];
+                List<int> player3 = players[2];
+                List<int> player3Copy = new List<int>(player3);
+                Domain domain1 = null, domain2 = null, domain3 = null, domain12 = null, domain23 = null, domain13 = null, domain123 = null;
+
+                if (player1.Count > 0)
+                {
+                    domain1 = Domain.Set(player1.ToArray());
+                }
+                if (player2.Count > 0)
+                {
+                    domain2 = Domain.Set(player2.ToArray());
+                }
+                if (player3.Count > 0)
+                {
+                    domain3 = Domain.Set(player3.ToArray());
+                }
+                if (player1.Count > 0 && player2.Count > 0)
+                {
+                    player1.AddRange(player2);
+                    domain12 = Domain.Set(player1.ToArray());
+                }
+                if (player2.Count > 0 && player3.Count > 0)
+                {
+                    player2.AddRange(player3);
+                    domain23 = Domain.Set(player2.ToArray());
+                }
+                if (player1.Count > 0 && player3.Count > 0)
+                {
+                    player3.AddRange(player1Copy);
+                    domain13 = Domain.Set(player3.ToArray());
+                }
+                if (player1.Count > 0 && player2.Count > 0 && player3.Count > 0)
+                {
+                    player1.AddRange(player3Copy);
+                    domain123 = Domain.Set(player1.ToArray());
+                }
 
 
-            for (int i = 0; i < deck.Count; i++)
-            {
-                int card = deck[i];
-                List<int> playersThatHaveSuit = suitHasPlayer[Card.GetSuit(card)];
-                Decision d;
+                for (int i = 0; i < deck.Count; i++)
+                {
+                    int card = deck[i];
+                    List<int> playersThatHaveSuit = suitHasPlayer[Card.GetSuit(card)];
+                    Decision d;
 
-                if (playersThatHaveSuit.Count == 3 && domain123 != null)
-                {
-                    d = new Decision(domain123, "c" + card);
-                }
-                else if (playersThatHaveSuit.Count >= 2 && playersThatHaveSuit.Contains(playerIDs[0]) && playersThatHaveSuit.Contains(playerIDs[1]) && domain12 != null)
-                {
-                    d = new Decision(domain12, "c" + card);
-                }
-                else if (playersThatHaveSuit.Count >= 2 && playersThatHaveSuit.Contains(playerIDs[0]) && playersThatHaveSuit.Contains(playerIDs[2]) && domain13 != null)
-                {
-                    d = new Decision(domain13, "c" + card);
-                }
-                else if (playersThatHaveSuit.Count >= 2 && playersThatHaveSuit.Contains(playerIDs[1]) && playersThatHaveSuit.Contains(playerIDs[2]) && domain23 != null)
-                {
-                    d = new Decision(domain23, "c" + card);
-                }
-                else if (playersThatHaveSuit.Count >= 1 && playersThatHaveSuit.Contains(playerIDs[0]) && domain1 != null)
-                {
-                    d = new Decision(domain1, "c" + card);
-                }
-                else if (playersThatHaveSuit.Count >= 1 && playersThatHaveSuit.Contains(playerIDs[1]) && domain2 != null)
-                {
-                    d = new Decision(domain2, "c" + card);
-                }
-                else if (playersThatHaveSuit.Count >= 1 && playersThatHaveSuit.Contains(playerIDs[2]) && domain3 != null)
-                {
-                    d = new Decision(domain3, "c" + card);
-                }
-                else
-                {
-                    solver.ClearModel();
-                    return null;
+                    if (playersThatHaveSuit.Count == 3 && domain123 != null)
+                    {
+                        d = new Decision(domain123, "c" + card);
+                    }
+                    else if (playersThatHaveSuit.Count >= 2 && playersThatHaveSuit.Contains(playerIDs[0]) && playersThatHaveSuit.Contains(playerIDs[1]) && domain12 != null)
+                    {
+                        d = new Decision(domain12, "c" + card);
+                    }
+                    else if (playersThatHaveSuit.Count >= 2 && playersThatHaveSuit.Contains(playerIDs[0]) && playersThatHaveSuit.Contains(playerIDs[2]) && domain13 != null)
+                    {
+                        d = new Decision(domain13, "c" + card);
+                    }
+                    else if (playersThatHaveSuit.Count >= 2 && playersThatHaveSuit.Contains(playerIDs[1]) && playersThatHaveSuit.Contains(playerIDs[2]) && domain23 != null)
+                    {
+                        d = new Decision(domain23, "c" + card);
+                    }
+                    else if (playersThatHaveSuit.Count >= 1 && playersThatHaveSuit.Contains(playerIDs[0]) && domain1 != null)
+                    {
+                        d = new Decision(domain1, "c" + card);
+                    }
+                    else if (playersThatHaveSuit.Count >= 1 && playersThatHaveSuit.Contains(playerIDs[1]) && domain2 != null)
+                    {
+                        d = new Decision(domain2, "c" + card);
+                    }
+                    else if (playersThatHaveSuit.Count >= 1 && playersThatHaveSuit.Contains(playerIDs[2]) && domain3 != null)
+                    {
+                        d = new Decision(domain3, "c" + card);
+                    }
+                    else
+                    {
+                        solver.ClearModel();
+                        return null;
+                    }
+
+                    decisions.Add(d);
+                    model.AddDecision(d);
                 }
 
-                decisions.Add(d);
-                model.AddDecision(d);
+                model.AddConstraint("allDiff", Model.AllDifferent(decisions.ToArray()));
+                var solution = solver.Solve();
+
+
+                while (solution.Quality != SolverQuality.Feasible)
+                {
+                    Console.Write("CSP Problem - solution {0}", solution.Quality);
+                    //System.Environment.Exit(1);
+                }
+
+                List<List<int>> cardsPerPlayer = new List<List<int>>(3);
+                cardsPerPlayer.Add(new List<int>(handSizes[0]));
+                cardsPerPlayer.Add(new List<int>(handSizes[1]));
+                cardsPerPlayer.Add(new List<int>(handSizes[2]));
+
+                for (int i = 0; i < deck.Count; i++)
+                {
+                    int decision = Convert.ToInt16(decisions[i].ToString());
+                    decision = decision / 10;
+                    if (decision == playerIDs[0])
+                    {
+                        hands[0].Add(deck[i]);
+                    }
+                    else if (decision == playerIDs[1])
+                    {
+                        hands[1].Add(deck[i]);
+                    }
+                    else if (decision == playerIDs[2])
+                    {
+                        hands[2].Add(deck[i]);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Deck::SampleHands(with CSP) >> Unkown decision");
+                    }
+                }
+                solver.ClearModel();
+                Console.WriteLine("END");
             }
-
-            model.AddConstraint("allDiff", Model.AllDifferent(decisions.ToArray()));
-            var solution = solver.Solve();
-
-
-            while (solution.Quality != SolverQuality.Feasible)
-            {
-                Console.Write("CSP Problem - solution {0}", solution.Quality);
-                //System.Environment.Exit(1);
-            }
-
-            List<List<int>> cardsPerPlayer = new List<List<int>>(3);
-            cardsPerPlayer.Add(new List<int>(handSizes[0]));
-            cardsPerPlayer.Add(new List<int>(handSizes[1]));
-            cardsPerPlayer.Add(new List<int>(handSizes[2]));
-
-            for (int i = 0; i < deck.Count; i++)
-            {
-                int decision = Convert.ToInt16(decisions[i].ToString());
-                decision = decision / 10;
-                if (decision == playerIDs[0])
-                {
-                    hands[0].Add(deck[i]);
-                }
-                else if (decision == playerIDs[1])
-                {
-                    hands[1].Add(deck[i]);
-                }
-                else if (decision == playerIDs[2])
-                {
-                    hands[2].Add(deck[i]);
-                }
-                else
-                {
-                    Console.WriteLine("Deck::SampleHands(with CSP) >> Unkown decision");
-                }
-            }
-            solver.ClearModel();
             return hands;
         }
 

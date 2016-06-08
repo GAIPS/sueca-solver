@@ -76,6 +76,11 @@ namespace SuecaSolver
             return tricks[tricks.Count - 1].GetMoves();
         }
 
+        public List<Trick> GetPastMoves()
+        {
+            return tricks;
+        }
+
 
         public List<int> GetPossibleMoves()
         {
@@ -130,7 +135,7 @@ namespace SuecaSolver
             {
                 if (hand.Remove(card) == false)
                 {
-                    Console.WriteLine("INFOSET Trying to remove an nonexisting card!!!");
+                    //Console.WriteLine("INFOSET Trying to remove an nonexisting card!!!");
                 }
             }
             else

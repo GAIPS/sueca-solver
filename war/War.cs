@@ -9,8 +9,8 @@ namespace SuecaSolver
     public class War
     {
         public const int GAMEMODE = 5;
-        public const int NUMGAMES = 1;
-        public const bool PARALLEL = true;
+        public const int NUMGAMES = 10;
+        public const bool PARALLEL = false;
         public const int NUM_THREADS = Sueca.WAR_NUM_THREADS;
         public const bool SAVE_CARDS = false; //if true log file will contain intial cards of players otherwise will contain specific features
         ////public const string SAVE_DIR = @"Z:\Devel\sueca-solver\results\";
@@ -308,7 +308,7 @@ namespace SuecaSolver
                     chosenCard = players[currentPlayerID].Play();
                 }
                 game.PlayCard(currentPlayerID, chosenCard);
-                Console.WriteLine("Player " + currentPlayerID + " has played " + Card.ToString(chosenCard));
+                //Console.WriteLine("Player " + currentPlayerID + " has played " + Card.ToString(chosenCard));
                 for (int k = 0; k < 4; k++)
                 {
                     players[k].AddPlay(currentPlayerID, chosenCard);

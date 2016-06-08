@@ -18,16 +18,23 @@ namespace SuecaSolver
         private bool hybridFlag;
         private int hybridTrickChange;
 
-        public PerfectInformationGame(PlayerNode p0, PlayerNode p1, PlayerNode p2, PlayerNode p3, int numberTricks, int trumpSuit, List<Move> currentTrickMoves, int myTeamPoints, int otherTeamPoints, bool HYBRID_FLAG = false, int hybridTrickChange = 5)
+        public PerfectInformationGame(PlayerNode p0, PlayerNode p1, PlayerNode p2, PlayerNode p3, int numberTricks, int trumpSuit, List<Trick> pastMoves, int myTeamPoints, int otherTeamPoints, bool HYBRID_FLAG = false, int hybridTrickChange = 5)
         {
-            players = new PlayerNode[4] { p0, p1, p2, p3, };
+            players = new PlayerNode[4] { p0, p1, p2, p3 };
             trump = trumpSuit;
             tricks = new List<Trick>(numberTricks);
-            Trick currentTrick = new Trick(trumpSuit);
-            tricks.Add(currentTrick);
-            foreach (Move m in currentTrickMoves)
+            foreach (Trick t in pastMoves)
             {
-                currentTrick.ApplyMove(m);
+                Trick copyTrick = new Trick(trumpSuit);
+                foreach (Move m in t.GetMoves())
+                {
+                    copyTrick.ApplyMove(m);
+                    foreach (PlayerNode p in players)
+                    {
+                        p.ApplyMove(m);
+                    }
+                }
+                tricks.Add(copyTrick);
             }
             firstTeamPoints = myTeamPoints;
             secondTeamPoints = otherTeamPoints;
