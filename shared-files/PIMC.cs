@@ -59,7 +59,7 @@ namespace SuecaSolver
                         MinNode p1 = new MinNode((playerId + 1) % 4, playersHands[1], infoSet.TrumpCard, infoSet.TrumpPlayerId);
                         MaxNode p2 = new MaxNode((playerId + 2) % 4, playersHands[2], infoSet.TrumpCard, infoSet.TrumpPlayerId);
                         MinNode p3 = new MinNode((playerId + 3) % 4, playersHands[3], infoSet.TrumpCard, infoSet.TrumpPlayerId);
-                        game = new PerfectInformationGame(p0, p1, p2, p3, handSize, infoSet.Trump, infoSet.GetPastMoves(), infoSet.MyTeamPoints, infoSet.OtherTeamPoints);
+                        game = new PerfectInformationGame(p0, p1, p2, p3, infoSet.Trump, infoSet.GetPastMoves(), infoSet.MyTeamPoints, infoSet.OtherTeamPoints);
                     }
                     else if(version == 1)
                     {
@@ -67,7 +67,7 @@ namespace SuecaSolver
                         RuleBasedNode p1 = new RuleBasedNode((playerId + 1) % 4, playersHands[1], infoSet.TrumpCard, infoSet.TrumpPlayerId);
                         RuleBasedNode p2 = new RuleBasedNode((playerId + 2) % 4, playersHands[2], infoSet.TrumpCard, infoSet.TrumpPlayerId);
                         RuleBasedNode p3 = new RuleBasedNode((playerId + 3) % 4, playersHands[3], infoSet.TrumpCard, infoSet.TrumpPlayerId);
-                        game = new PerfectInformationGame(p0, p1, p2, p3, handSize, infoSet.Trump, infoSet.GetPastMoves(), infoSet.MyTeamPoints, infoSet.OtherTeamPoints);
+                        game = new PerfectInformationGame(p0, p1, p2, p3, infoSet.Trump, infoSet.GetPastMoves(), infoSet.MyTeamPoints, infoSet.OtherTeamPoints);
                     }
                     else
                     {
@@ -76,7 +76,7 @@ namespace SuecaSolver
                         MinNode p1 = new MinNode((playerId + 1) % 4, playersHands[1], infoSet.TrumpCard, infoSet.TrumpPlayerId);
                         MaxNode p2 = new MaxNode((playerId + 2) % 4, playersHands[2], infoSet.TrumpCard, infoSet.TrumpPlayerId);
                         MinNode p3 = new MinNode((playerId + 3) % 4, playersHands[3], infoSet.TrumpCard, infoSet.TrumpPlayerId);
-                        game = new PerfectInformationGame(p0, p1, p2, p3, handSize, infoSet.Trump, infoSet.GetPastMoves(), infoSet.MyTeamPoints, infoSet.OtherTeamPoints);
+                        game = new PerfectInformationGame(p0, p1, p2, p3, infoSet.Trump, infoSet.GetPastMoves(), infoSet.MyTeamPoints, infoSet.OtherTeamPoints);
                     }
 
                     cardUtility = game.SampleGame(depthLimit, card);
@@ -91,17 +91,17 @@ namespace SuecaSolver
             int bestCard = -1;
             int bestValue = Int32.MinValue;
 
-            Console.WriteLine("Printing dictionary:");
+            //Console.WriteLine("Printing dictionary:");
             foreach (KeyValuePair<int, int> cardValue in dict)
             {
-                Console.Write(Card.ToString(cardValue.Key) + ":" + cardValue.Value + ", ");
+                //Console.Write(Card.ToString(cardValue.Key) + ":" + cardValue.Value + ", ");
                 if (cardValue.Value >= bestValue)
                 {
                     bestValue = (int)cardValue.Value;
                     bestCard = cardValue.Key;
                 }
             }
-            Console.WriteLine("");
+            //Console.WriteLine("");
 
             if (bestCard == -1)
             {
@@ -196,7 +196,7 @@ namespace SuecaSolver
                         RuleBasedNode p1 = new RuleBasedNode((playerId + 1) % 4, playersHands[1], infoSet.TrumpCard, infoSet.TrumpPlayerId);
                         RuleBasedNode p2 = new RuleBasedNode((playerId + 2) % 4, playersHands[2], infoSet.TrumpCard, infoSet.TrumpPlayerId);
                         RuleBasedNode p3 = new RuleBasedNode((playerId + 3) % 4, playersHands[3], infoSet.TrumpCard, infoSet.TrumpPlayerId);
-                        game = new PerfectInformationGame(p0, p1, p2, p3, handSize, infoSet.Trump, infoSet.GetPastMoves(), infoSet.MyTeamPoints, infoSet.OtherTeamPoints, true, hybridTrickChange);
+                        game = new PerfectInformationGame(p0, p1, p2, p3, infoSet.Trump, infoSet.GetPastMoves(), infoSet.MyTeamPoints, infoSet.OtherTeamPoints, true, hybridTrickChange);
                         cardUtility = game.SampleGame(1000, card);
                         cardsSamplingValues[j * 2 + 1] += cardUtility;
                     }
@@ -207,7 +207,7 @@ namespace SuecaSolver
                     MinNode p1 = new MinNode((playerId + 1) % 4, playersHands[1], infoSet.TrumpCard, infoSet.TrumpPlayerId);
                     MaxNode p2 = new MaxNode((playerId + 2) % 4, playersHands[2], infoSet.TrumpCard, infoSet.TrumpPlayerId);
                     MinNode p3 = new MinNode((playerId + 3) % 4, playersHands[3], infoSet.TrumpCard, infoSet.TrumpPlayerId);
-                    game = new PerfectInformationGame(p0, p1, p2, p3, handSize, infoSet.Trump, infoSet.GetPastMoves(), infoSet.MyTeamPoints, infoSet.OtherTeamPoints);
+                    game = new PerfectInformationGame(p0, p1, p2, p3, infoSet.Trump, infoSet.GetPastMoves(), infoSet.MyTeamPoints, infoSet.OtherTeamPoints);
                     cardUtility = game.SampleGame(1000, card);
                     cardsSamplingValues[j * 2 + 1] += cardUtility;
                 }
@@ -251,7 +251,7 @@ namespace SuecaSolver
                     MinNode p1 = new MinNode((playerId + 1) % 4, playersHands[1], infoSet.TrumpCard, infoSet.TrumpPlayerId);
                     MaxNode p2 = new MaxNode((playerId + 2) % 4, playersHands[2], infoSet.TrumpCard, infoSet.TrumpPlayerId);
                     MinNode p3 = new MinNode((playerId + 3) % 4, playersHands[3], infoSet.TrumpCard, infoSet.TrumpPlayerId);
-                    game = new PerfectInformationGame(p0, p1, p2, p3, handSize, infoSet.Trump, infoSet.GetPastMoves(), infoSet.MyTeamPoints, infoSet.OtherTeamPoints);
+                    game = new PerfectInformationGame(p0, p1, p2, p3, infoSet.Trump, infoSet.GetPastMoves(), infoSet.MyTeamPoints, infoSet.OtherTeamPoints);
                     cardUtility = game.SampleGame(depthLimit, card);
                     dict[card] += cardUtility; 
                 }

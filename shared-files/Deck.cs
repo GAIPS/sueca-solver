@@ -135,7 +135,6 @@ namespace SuecaSolver
             lock (thisLock)
             {
 
-                Console.WriteLine("START");
                 var model = solver.CreateModel();
                 List<Decision> decisions = new List<Decision>(deck.Count);
                 List<List<int>> players = getDomains(playerIDs, handSizes);
@@ -261,7 +260,6 @@ namespace SuecaSolver
                     }
                 }
                 solver.ClearModel();
-                Console.WriteLine("END");
             }
             return hands;
         }

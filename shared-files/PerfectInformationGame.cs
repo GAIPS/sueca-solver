@@ -18,11 +18,11 @@ namespace SuecaSolver
         private bool hybridFlag;
         private int hybridTrickChange;
 
-        public PerfectInformationGame(PlayerNode p0, PlayerNode p1, PlayerNode p2, PlayerNode p3, int numberTricks, int trumpSuit, List<Trick> pastMoves, int myTeamPoints, int otherTeamPoints, bool HYBRID_FLAG = false, int hybridTrickChange = 5)
+        public PerfectInformationGame(PlayerNode p0, PlayerNode p1, PlayerNode p2, PlayerNode p3, int trumpSuit, List<Trick> pastMoves, int myTeamPoints, int otherTeamPoints, bool HYBRID_FLAG = false, int hybridTrickChange = 5)
         {
             players = new PlayerNode[4] { p0, p1, p2, p3 };
             trump = trumpSuit;
-            tricks = new List<Trick>(numberTricks);
+            tricks = new List<Trick>(10);
             foreach (Trick t in pastMoves)
             {
                 Trick copyTrick = new Trick(trumpSuit);
@@ -68,7 +68,7 @@ namespace SuecaSolver
 
         internal bool IsEndGame()
         {
-            if (tricks.Count == tricks.Capacity && tricks[tricks.Count - 1].IsFull())
+            if (tricks.Count == 10 && tricks[tricks.Count - 1].IsFull())
             {
                 return true;
             }

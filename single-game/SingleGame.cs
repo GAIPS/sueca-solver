@@ -58,7 +58,7 @@ namespace SuecaSolver
                 Console.WriteLine("||||||||||||||||||||||||||||||||||||||||||||||||||||");
                 Console.WriteLine("                 Trick " + (i / 4));
                 Console.WriteLine("                 Player " + currentPlayerID + " - " + playersNames[currentPlayerID]);
-                Console.WriteLine("                 Trump is " + (Suit) trump);
+                Console.WriteLine("                 Trump is " + (Suit) Card.GetSuit(trumpCard));
                 Console.WriteLine("");
 
                 game.PrintLastTrick();

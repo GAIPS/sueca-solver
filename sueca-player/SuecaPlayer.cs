@@ -30,24 +30,24 @@ namespace SuecaPlayer
                 publisher.MoveExpectations(playerId, desirability, desirabilityForOther, successProbability, failureProbability);
             }
 
-            public void ForwardShuffle(int playerId, int talkingRobot)
+            public void ForwardShuffle(int playerId)
             {
-                publisher.ForwardShuffle(playerId, talkingRobot);
+                publisher.ForwardShuffle(playerId);
             }
 
-            public void ForwardCut(int playerId, int talkingRobot)
+            public void ForwardCut(int playerId)
             {
-                publisher.ForwardCut(playerId, talkingRobot);
+                publisher.ForwardCut(playerId);
             }
 
-            public void ForwardDeal(int playerId, int talkingRobot)
+            public void ForwardDeal(int playerId)
             {
-                publisher.ForwardDeal(playerId, talkingRobot);
+                publisher.ForwardDeal(playerId);
             }
 
-            public void ForwardTrumpCard(string trumpCard, int playerId, int talkingRobot)
+            public void ForwardTrumpCard(string trumpCard, int playerId)
             {
-                publisher.ForwardTrumpCard(trumpCard, playerId, talkingRobot);
+                publisher.ForwardTrumpCard(trumpCard, playerId);
             }
 
             //public void ForwardTrumpcard(string trumpCard, int playerId)
@@ -55,39 +55,39 @@ namespace SuecaPlayer
             //    publisher.ForwardTrumpcard(trumpCard, playerId);
             //}
 
-            public void ForwardGameEnd(int team0Score, int team1Score, int talkingRobot)
+            public void ForwardGameEnd(int team0Score, int team1Score)
             {
-                publisher.ForwardGameEnd(team0Score, team1Score, talkingRobot);
+                publisher.ForwardGameEnd(team0Score, team1Score);
             }
 
-            public void ForwardGameStart(int gameId, int playerId, int teamId, string trumpCard, int trumpCardPlayer, string[] cards, int talkingRobot)
+            public void ForwardGameStart(int gameId, int playerId, int teamId, string trumpCard, int trumpCardPlayer, string[] cards)
             {
-                publisher.ForwardGameStart(gameId, playerId, teamId, trumpCard, trumpCardPlayer, cards, talkingRobot);
+                publisher.ForwardGameStart(gameId, playerId, teamId, trumpCard, trumpCardPlayer, cards);
             }
 
-            public void ForwardNextPlayer(int id, int talkingRobot)
+            public void ForwardNextPlayer(int id)
             {
-                publisher.ForwardNextPlayer(id, talkingRobot);
+                publisher.ForwardNextPlayer(id);
             }
 
-            public void ForwardTrickEnd(int winnerId, int trickPoints, int talkingRobot)
+            public void ForwardTrickEnd(int winnerId, int trickPoints)
             {
-                publisher.ForwardTrickEnd(winnerId, trickPoints, talkingRobot);
+                publisher.ForwardTrickEnd(winnerId, trickPoints);
             }
 
-            public void ForwardReceiveRobotCards(int playerId, int talkingRobot)
+            public void ForwardReceiveRobotCards(int playerId)
             {
-                publisher.ForwardReceiveRobotCards(playerId, talkingRobot);
+                publisher.ForwardReceiveRobotCards(playerId);
             }
 
-            public void ForwardSessionEnd(int team0Score, int team1Score, int talkingRobot)
+            public void ForwardSessionEnd(int team0Score, int team1Score)
             {
-                publisher.ForwardSessionEnd(team0Score, team1Score, talkingRobot);
+                publisher.ForwardSessionEnd(team0Score, team1Score);
             }
 
-            public void ForwardSessionStart(int numGame, int playerId, int talkingRobot)
+            public void ForwardSessionStart(int numGame, int playerId)
             {
-                publisher.ForwardSessionStart(numGame, playerId, talkingRobot);
+                publisher.ForwardSessionStart(numGame, playerId);
             }
 
             public void GazeAtScreen(double x, double y)
@@ -110,15 +110,15 @@ namespace SuecaPlayer
                 publisher.GlanceAtTarget(targetName);
             }
 
-            public void ForwardRenounce(int playerId, int talkingRobot)
+            public void ForwardRenounce(int playerId)
             {
-                publisher.ForwardRenounce(playerId, talkingRobot);
+                publisher.ForwardRenounce(playerId);
             }
 
 
-            public void ForwardResetTrick(int talkingRobot)
+            public void ForwardResetTrick()
             {
-                publisher.ForwardResetTrick(talkingRobot);
+                publisher.ForwardResetTrick();
             }
         }
 
@@ -164,7 +164,7 @@ namespace SuecaPlayer
         }
 
 
-        public void SessionStart(int numGames, int[] agentsIds, int talkingRobot)
+        public void SessionStart(int numGames, int[] agentsIds)
         {
             sessionStart = false;
             id = agentsIds[nameId - 1];
@@ -180,12 +180,12 @@ namespace SuecaPlayer
             allSet = false;
             processingRepeat = false;
 
-            iaPublisher.ForwardSessionStart(numGames, id, talkingRobot);
+            iaPublisher.ForwardSessionStart(numGames, id);
             sessionStart = true;
 
         }
 
-        public void GameStart(int gameId, int playerId, int teamId, string trumpCard, int trumpCardPlayer, string[] cards, int talkingRobot)
+        public void GameStart(int gameId, int playerId, int teamId, string trumpCard, int trumpCardPlayer, string[] cards)
         {
             if (id == playerId)
             {
@@ -212,12 +212,12 @@ namespace SuecaPlayer
                 allSet = true;
                 processingRepeat = false;
 
-                iaPublisher.ForwardGameStart(gameId, playerId, teamId, trumpCard, trumpCardPlayer, cards, talkingRobot);
+                iaPublisher.ForwardGameStart(gameId, playerId, teamId, trumpCard, trumpCardPlayer, cards);
             }
             
         }
 
-        public void GameEnd(int team0Score, int team1Score, int talkingRobot)
+        public void GameEnd(int team0Score, int team1Score)
         {
             allSet = false;
             if (teamId == 0)
@@ -275,41 +275,41 @@ namespace SuecaPlayer
                 }
             }
 
-            iaPublisher.ForwardGameEnd(team0Score, team1Score, talkingRobot);
+            iaPublisher.ForwardGameEnd(team0Score, team1Score);
         }
 
-        public void SessionEnd(int team0Score, int team1Score, int talkingRobot)
+        public void SessionEnd(int team0Score, int team1Score)
         {
-            iaPublisher.ForwardSessionEnd(team0Score, team1Score, talkingRobot);
+            iaPublisher.ForwardSessionEnd(team0Score, team1Score);
         }
 
-        public void Shuffle(int playerId, int talkingRobot)
+        public void Shuffle(int playerId)
         {
             while (!sessionStart) { }
-            iaPublisher.ForwardShuffle(playerId, talkingRobot);
+            iaPublisher.ForwardShuffle(playerId);
         }
 
-        public void Cut(int playerId, int talkingRobot)
+        public void Cut(int playerId)
         {
-            iaPublisher.ForwardCut(playerId, talkingRobot);
+            iaPublisher.ForwardCut(playerId);
         }
 
-        public void Deal(int playerId, int talkingRobot)
+        public void Deal(int playerId)
         {
-            iaPublisher.ForwardDeal(playerId, talkingRobot);
+            iaPublisher.ForwardDeal(playerId);
         }
 
-        public void TrumpCard(string trumpCard, int playerId, int talkingRobot)
+        public void TrumpCard(string trumpCard, int playerId)
         {
-            iaPublisher.ForwardTrumpCard(trumpCard, playerId, talkingRobot);
+            iaPublisher.ForwardTrumpCard(trumpCard, playerId);
         }
 
-        public void ReceiveRobotCards(int playerId, int talkingRobot)
+        public void ReceiveRobotCards(int playerId)
         {
-            iaPublisher.ForwardReceiveRobotCards(playerId, talkingRobot);
+            iaPublisher.ForwardReceiveRobotCards(playerId);
         }
 
-        public void NextPlayer(int id, int talkingRobot)
+        public void NextPlayer(int id)
         {
             while (!allSet) { }
             while (processingRepeat) { }
@@ -347,18 +347,18 @@ namespace SuecaPlayer
             }
 
             while (!processPlay) { }
-            iaPublisher.ForwardNextPlayer(id, talkingRobot);
+            iaPublisher.ForwardNextPlayer(id);
         }
 
-        public void TrickEnd(int winnerId, int trickPoints, int talkingRobot)
+        public void TrickEnd(int winnerId, int trickPoints)
         {
             if (ai.GetHandSize() > 1)
             {
-                iaPublisher.ForwardTrickEnd(winnerId, trickPoints, talkingRobot);
+                iaPublisher.ForwardTrickEnd(winnerId, trickPoints);
             }
         }
 
-        public void Play(int id, string card, int talkingRobot)
+        public void Play(int id, string card)
         {
             processPlay = false;
             while (processingRepeat) { }
@@ -425,17 +425,17 @@ namespace SuecaPlayer
         }
 
 
-        public void Renounce(int playerId, int talkingRobot)
+        public void Renounce(int playerId)
         {
-            iaPublisher.ForwardRenounce(playerId, talkingRobot);
+            iaPublisher.ForwardRenounce(playerId);
         }
 
 
-        public void ResetTrick(int talkingRobot)
+        public void ResetTrick()
         {
             processingRepeat = true;
             //ai.ResetTrick();
-            iaPublisher.ForwardResetTrick(talkingRobot);
+            iaPublisher.ForwardResetTrick();
             processingRepeat = false;
         }
     }
