@@ -213,10 +213,10 @@ namespace SuecaSolver
             }
         }
 
-        public int predictTrickPoints()
+        public int[] GetTrickWinnerAndPoints()
         {
             Trick currentTrick = tricks[tricks.Count - 1];
-            return currentTrick. GetTrickWinnerAndPoints()[1];
+            return currentTrick.GetTrickWinnerAndPoints();
         }
 
         private bool checkPlayersHaveAllSuits(Dictionary<int,List<int>> suitHasPlayer)
@@ -473,6 +473,11 @@ namespace SuecaSolver
         internal int GetDeckSize()
         {
             return unknownOwnerCards.GetDeckSize();
+        }
+
+        internal bool IsTrickFull()
+        {
+            return tricks[tricks.Count - 1].IsFull();
         }
     }
 }

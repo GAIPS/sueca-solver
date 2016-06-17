@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace SuecaSolver
@@ -5,19 +6,16 @@ namespace SuecaSolver
     public class RBOPlayer : ArtificialPlayer
     {
         private InformationSet infoSet;
-        public float TrickExpectedReward;
 
         public RBOPlayer(int id, List<int> initialHand, int trumpCard, int trumpPlayerId)
             : base(id)
         {
             infoSet = new InformationSet(id, initialHand, trumpCard, trumpPlayerId);
-            TrickExpectedReward = 0.0f;
         }
 
         override public void AddPlay(int playerID, int card)
         {
             infoSet.AddPlay(playerID, card);
-            TrickExpectedReward = infoSet.predictTrickPoints();
         }
 
 
@@ -34,8 +32,16 @@ namespace SuecaSolver
                 chosenCard = PIMC.Execute(_id, infoSet, 1, new List<int> { 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 }, new List<int> { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 });
             }
 
-            TrickExpectedReward = infoSet.predictTrickPoints();
             return chosenCard;
+        }
+
+        public int[] GetTrickWinnerAndPoints()
+        {
+            return infoSet.GetTrickWinnerAndPoints();
+        }
+        public bool IsTrickFull()
+        {
+            return infoSet.IsTrickFull();
         }
 
         public float PointsPercentage()
