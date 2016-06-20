@@ -475,9 +475,9 @@ namespace SuecaSolver
             return unknownOwnerCards.GetDeckSize();
         }
 
-        internal bool IsTrickFull()
+        internal bool IsNewTrick()
         {
-            return tricks[tricks.Count - 1].IsFull();
+            return tricks[tricks.Count - 1].IsFull() || tricks[tricks.Count - 1].IsEmpty();
         }
     }
 }

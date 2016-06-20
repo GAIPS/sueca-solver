@@ -39,9 +39,9 @@ namespace SuecaSolver
         {
             return infoSet.GetTrickWinnerAndPoints();
         }
-        public bool IsTrickFull()
+        public bool IsNewTrick()
         {
-            return infoSet.IsTrickFull();
+            return infoSet.IsNewTrick();
         }
 
         public float PointsPercentage()

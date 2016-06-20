@@ -363,7 +363,7 @@ namespace SuecaPlayer
             processPlay = false;
             while (processingRepeat) { }
             int[] pastWinnerPoints = ai.GetTrickWinnerAndPoints();
-            bool newTrick = ai.IsTrickFull();
+            bool newTrick = ai.IsNewTrick();
 
             if (ai != null)
             {
@@ -387,60 +387,44 @@ namespace SuecaPlayer
 
             int[] newWinnerPoints = ai.GetTrickWinnerAndPoints();
             string additionalInfo = "";
-            if (newTrick)
+            float desirabilityForOther, desirability = (Math.Min(newWinnerPoints[1], 15) / 15.0f) * 10.0f;
+
+
+            if (pastWinnerPoints[0] == this.id && pastWinnerPoints[0] == (this.id + 2) % 4)
             {
-                additionalInfo = "NEW_TRICK";
+                additionalInfo += "OURS_";
             }
             else
             {
-                if (pastWinnerPoints[0] == this.id && pastWinnerPoints[0] == (this.id + 2) % 4)
+                additionalInfo += "THEIRS_";
+            }
+
+            if (newWinnerPoints[0] == this.id && newWinnerPoints[0] == (this.id + 2) % 4)
+            {
+                additionalInfo += "OURS_";
+                if (pastWinnerPoints[0] == -1)
                 {
                     additionalInfo += "OURS_";
                 }
-                else
-                {
-                    pastWinnerPoints[1] *= -1;
-                    additionalInfo += "THEIRS_";
-                }
-                if (newWinnerPoints[0] == this.id && newWinnerPoints[0] == (this.id + 2) % 4)
-                {
-                    additionalInfo += "OURS_";
-                }
-                else
-                {
-                    pastWinnerPoints[1] *= -1;
-                    additionalInfo += "THEIRS_";
-                }
-                if (Math.Abs(newWinnerPoints[1] - pastWinnerPoints[1]) >= 20)
-                {
-                    additionalInfo += "HIGH";
-                }
-                else if (Math.Abs(newWinnerPoints[1] - pastWinnerPoints[1]) >= 5)
-                {
-                    additionalInfo += "LOW";
-                }
-            }
-
-            float desirabilityForOther, desirability = (newWinnerPoints[1] / 15.0f) * 10.0f;
-            
-            // explain 15.0
-            if (desirability > 10.0f)
-            {
-                desirability = 10.0f;
-            }
-            else if (desirability < -10.0f)
-            {
-                desirability = -10.0f;
-            }
-
-            if (this.id == id || id == (id + 2) % 4)
-            {
-                desirabilityForOther = desirability;
             }
             else
             {
-                desirabilityForOther = -desirability;
+                additionalInfo += "THEIRS_";
+                if (pastWinnerPoints[0] == -1)
+                {
+                    additionalInfo += "THEIRS_";
+                }
             }
+
+            if (newWinnerPoints[1] - pastWinnerPoints[1] >= 10)
+            {
+                additionalInfo += "HIGH";
+            }
+            else if (newWinnerPoints[1] - pastWinnerPoints[1] >= 3)
+            {
+                additionalInfo += "LOW";
+            }
+
 
             float totalWins = ourWins + theirWins;
             float ourWinsOfSessionRacio = ourWins / totalWins;
