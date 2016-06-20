@@ -25,9 +25,9 @@ namespace SuecaPlayer
                 publisher.Decision(card, rank, suit, followingInfo);
             }
 
-            public void MoveExpectations(int playerId, string desirability, string desirabilityForOther, string successProbability, string failureProbability)
+            public void MoveExpectations(int playerId, string desirability, string desirabilityForOther, string successProbability, string failureProbability, string additionalInfo)
             {
-                publisher.MoveExpectations(playerId, desirability, desirabilityForOther, successProbability, failureProbability);
+                publisher.MoveExpectations(playerId, desirability, desirabilityForOther, successProbability, failureProbability, additionalInfo);
             }
 
             public void ForwardShuffle(int playerId)
@@ -85,9 +85,9 @@ namespace SuecaPlayer
                 publisher.ForwardSessionEnd(team0Score, team1Score);
             }
 
-            public void ForwardSessionStart(int numGame, int playerId)
+            public void ForwardSessionStart(int numGame, int numRobots, int playerId)
             {
-                publisher.ForwardSessionStart(numGame, playerId);
+                publisher.ForwardSessionStart(numGame, numRobots, playerId);
             }
 
             public void GazeAtScreen(double x, double y)
@@ -180,7 +180,7 @@ namespace SuecaPlayer
             allSet = false;
             processingRepeat = false;
 
-            iaPublisher.ForwardSessionStart(numGames, id);
+            iaPublisher.ForwardSessionStart(numGames, agentsIds.Length, id);
             sessionStart = true;
 
         }
