@@ -226,11 +226,11 @@ namespace SuecaSolver
                 model.AddConstraint("allDiff", Model.AllDifferent(decisions.ToArray()));
                 var solution = solver.Solve();
 
-
-                while (solution.Quality != SolverQuality.Feasible)
+                
+                if (solution.Quality != SolverQuality.Feasible)
                 {
                     Console.Write("CSP Problem - solution {0}", solution.Quality);
-                    //System.Environment.Exit(1);
+                    return null;
                 }
 
                 List<List<int>> cardsPerPlayer = new List<List<int>>(3);
