@@ -35,9 +35,9 @@ namespace SuecaSolver
             return chosenCard;
         }
 
-        public int[] GetTrickWinnerAndPoints()
+        public int[] GetWinnerAndPointsAndTrickNumber()
         {
-            return infoSet.GetTrickWinnerAndPoints();
+            return infoSet.GetWinnerAndPointsAndTrickNumber();
         }
     }
 }

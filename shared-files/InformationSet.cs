@@ -213,10 +213,11 @@ namespace SuecaSolver
             }
         }
 
-        public int[] GetTrickWinnerAndPoints()
+        public int[] GetWinnerAndPointsAndTrickNumber()
         {
             Trick currentTrick = tricks[tricks.Count - 1];
-            return currentTrick.GetTrickWinnerAndPoints();
+            int[] trickAndWinner = currentTrick.GetTrickWinnerAndPoints();
+            return new int[] { trickAndWinner[0], trickAndWinner[1], tricks.Count - 1 };
         }
 
         private bool checkPlayersHaveAllSuits(Dictionary<int,List<int>> suitHasPlayer)

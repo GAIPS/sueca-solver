@@ -133,7 +133,7 @@ namespace SuecaPlayer
         private int teamId;
         private bool allSet;
         private bool sessionStart;
-        private bool processPlay;
+        private bool processingPlay;
         private bool processingRepeat;
 
         private IAPublisher iaPublisher;
@@ -155,7 +155,7 @@ namespace SuecaPlayer
             teamId = 1; //default
             allSet = false;
             sessionStart = false;
-            processPlay = true;
+            processingPlay = false;
             processingRepeat = false;
 
             ai = null;
@@ -176,7 +176,7 @@ namespace SuecaPlayer
             sessionGames = numGames;
             ourWins = 0;
             theirWins = 0;
-            processPlay = true;
+            processingPlay = false;
             allSet = false;
             processingRepeat = false;
 
@@ -313,9 +313,12 @@ namespace SuecaPlayer
         {
             while (!allSet) { }
             while (processingRepeat) { }
+            while (processingPlay) { }
 
             if (this.id == id && ai != null)
             {
+                int[] pastWinnerPoints = ai.GetWinnerAndPointsAndTrickNumber();
+
                 Console.WriteLine("I am thinking about what to play...");
                 int chosenCard = ai.Play();
                 SuecaSolver.Rank chosenCardRank = (SuecaSolver.Rank)SuecaSolver.Card.GetRank(chosenCard);
@@ -324,29 +327,87 @@ namespace SuecaPlayer
                 SuecaTypes.Suit msgSuit = (SuecaTypes.Suit)Enum.Parse(typeof(SuecaTypes.Suit), chosenCardSuit.ToString());
                 string cardSerialized = new SuecaTypes.Card(msgRank, msgSuit).SerializeToJson();
 
-                string additionalInfo;
+                ai.AddPlay(id, chosenCard);
+                Console.WriteLine("UnityPlayerID " + id + " played " + SuecaSolver.Card.ToString(chosenCard));
+
                 if (moveCounter % 4 == 0)
                 {
-                    additionalInfo = "NEW_TRICK";
-                    leadSuit = chosenCardSuit.ToString();
+                    leadSuit = SuecaSolver.Card.GetSuit(chosenCard).ToString();
                 }
-                else if (leadSuit == chosenCardSuit.ToString())
+                moveCounter++;
+
+                int[] newWinnerPoints = ai.GetWinnerAndPointsAndTrickNumber();
+                string additionalInfo = "";
+                float desirabilityForOther = 0.0f, desirability = (Math.Min(newWinnerPoints[1], 15) / 15.0f) * 10.0f;
+
+
+                if (pastWinnerPoints[0] == this.id || pastWinnerPoints[0] == (this.id + 2) % 4)
                 {
-                    additionalInfo = "FOLLOWING";
-                }
-                else if (leadSuit != trumpSuit && chosenCardSuit.ToString() == trumpSuit)
-                {
-                    additionalInfo = "CUT";
+                    additionalInfo += "OURS_";
                 }
                 else
                 {
-                    additionalInfo = "NOT_FOLLOWING";
+                    pastWinnerPoints[1] *= -1;
+                    additionalInfo += "THEIRS_";
                 }
 
+                if (newWinnerPoints[0] == this.id || newWinnerPoints[0] == (this.id + 2) % 4)
+                {
+                    desirabilityForOther -= desirability;
+                    additionalInfo += "OURS_";
+                    if (pastWinnerPoints[0] == -1 || pastWinnerPoints[2] != newWinnerPoints[2])
+                    {
+                        additionalInfo = "NEW_TRICK";
+                    }
+                }
+                else
+                {
+                    newWinnerPoints[1] *= -1;
+                    desirabilityForOther += desirability;
+                    desirability *= -1;
+                    additionalInfo += "THEIRS_";
+                    if (pastWinnerPoints[0] == -1 || pastWinnerPoints[2] != newWinnerPoints[2])
+                    {
+                        Console.WriteLine("This should never happen!");
+                        additionalInfo = "NEW_TRICK";
+                    }
+                }
+
+                Console.WriteLine("Past trick " + pastWinnerPoints[2] + " current trick " + newWinnerPoints[2]);
+                if ((Math.Abs(newWinnerPoints[1] - pastWinnerPoints[1]) >= 10) || (Math.Abs(newWinnerPoints[1]) >= 10 && pastWinnerPoints[2] != newWinnerPoints[2]))
+                {
+                    additionalInfo += "HIGH";
+                }
+                else if ((Math.Abs(newWinnerPoints[1] - pastWinnerPoints[1]) >= 3) || (Math.Abs(newWinnerPoints[1]) >= 3 && pastWinnerPoints[2] != newWinnerPoints[2]))
+                {
+                    additionalInfo += "LOW";
+                }
+
+                Console.WriteLine("AdditionalInfo of my play: " + additionalInfo);
                 iaPublisher.Decision(cardSerialized, chosenCardRank.ToString(), chosenCardSuit.ToString(), additionalInfo);
+
+                float totalWins = ourWins + theirWins;
+                float ourWinsOfSessionRacio = ourWins / totalWins;
+                float theirWinsOfSessionRacio = theirWins / totalWins;
+                float ourPointsOfGameRacio = ai.PointsPercentage();
+                float theirPointsOfGameRacio = 1.0f - ourPointsOfGameRacio;
+                float successProbability, failureProbability;
+
+                if (totalWins != 0)
+                {
+                    successProbability = 0.5f * ourWinsOfSessionRacio + 0.5f * ourPointsOfGameRacio;
+                    failureProbability = 0.5f * theirWinsOfSessionRacio + 0.5f * theirPointsOfGameRacio;
+                }
+                else
+                {
+                    successProbability = ourPointsOfGameRacio;
+                    failureProbability = theirPointsOfGameRacio;
+                }
+
+                iaPublisher.MoveExpectations(id, desirability.ToString(), desirabilityForOther.ToString(), successProbability.ToString(), failureProbability.ToString(), additionalInfo);
+
             }
 
-            while (!processPlay) { }
             iaPublisher.ForwardNextPlayer(id);
         }
 
@@ -360,13 +421,12 @@ namespace SuecaPlayer
 
         public void Play(int id, string card)
         {
-            processPlay = false;
+            processingPlay = true;
             while (processingRepeat) { }
-            int[] pastWinnerPoints = ai.GetTrickWinnerAndPoints();
-            bool newTrick = ai.IsNewTrick();
 
-            if (ai != null)
+            if (ai != null && id != this.id)
             {
+                int[] pastWinnerPoints = ai.GetWinnerAndPointsAndTrickNumber();
                 iaPublisher.GazeAtTarget("cardsZone");
 
                 SuecaTypes.Card c = JsonSerializable.DeserializeFromJson<SuecaTypes.Card>(card);
@@ -382,70 +442,79 @@ namespace SuecaPlayer
                     leadSuit = c.Suit.ToString();
                 }
                 moveCounter++;
-            }
 
 
-            int[] newWinnerPoints = ai.GetTrickWinnerAndPoints();
-            string additionalInfo = "";
-            float desirabilityForOther, desirability = (Math.Min(newWinnerPoints[1], 15) / 15.0f) * 10.0f;
 
+                int[] newWinnerPoints = ai.GetWinnerAndPointsAndTrickNumber();
+                string additionalInfo = "";
+                float desirabilityForOther = 0.0f, desirability = (Math.Min(newWinnerPoints[1], 15) / 15.0f) * 10.0f;
 
-            if (pastWinnerPoints[0] == this.id && pastWinnerPoints[0] == (this.id + 2) % 4)
-            {
-                additionalInfo += "OURS_";
-            }
-            else
-            {
-                additionalInfo += "THEIRS_";
-            }
-
-            if (newWinnerPoints[0] == this.id && newWinnerPoints[0] == (this.id + 2) % 4)
-            {
-                additionalInfo += "OURS_";
-                if (pastWinnerPoints[0] == -1)
+                if (pastWinnerPoints[0] == this.id || pastWinnerPoints[0] == (this.id + 2) % 4)
                 {
                     additionalInfo += "OURS_";
                 }
-            }
-            else
-            {
-                additionalInfo += "THEIRS_";
-                if (pastWinnerPoints[0] == -1)
+                else
                 {
+                    pastWinnerPoints[1] *= -1;
                     additionalInfo += "THEIRS_";
                 }
-            }
-
-            if (newWinnerPoints[1] - pastWinnerPoints[1] >= 10)
-            {
-                additionalInfo += "HIGH";
-            }
-            else if (newWinnerPoints[1] - pastWinnerPoints[1] >= 3)
-            {
-                additionalInfo += "LOW";
-            }
 
 
-            float totalWins = ourWins + theirWins;
-            float ourWinsOfSessionRacio = ourWins / totalWins;
-            float theirWinsOfSessionRacio = theirWins / totalWins;
-            float ourPointsOfGameRacio = ai.PointsPercentage();
-            float theirPointsOfGameRacio = 1.0f - ourPointsOfGameRacio;
-            float successProbability, failureProbability;
+                if (newWinnerPoints[0] == this.id || newWinnerPoints[0] == (this.id + 2) % 4)
+                {
+                    desirabilityForOther -= desirability;
+                    additionalInfo += "OURS_";
+                    if (pastWinnerPoints[0] == -1 || pastWinnerPoints[2] != newWinnerPoints[2])
+                    {
+                        additionalInfo = "OURS_OURS_";
+                    }
+                }
+                else
+                {
+                    newWinnerPoints[1] *= -1;
+                    desirabilityForOther += desirability;
+                    desirability *= -1;
+                    additionalInfo += "THEIRS_";
+                    if (pastWinnerPoints[0] == -1 || pastWinnerPoints[2] != newWinnerPoints[2])
+                    {
+                        additionalInfo = "THEIRS_THEIRS_";
+                    }
+                }
 
-            if (totalWins != 0)
-            {
-                successProbability = 0.5f * ourWinsOfSessionRacio + 0.5f * ourPointsOfGameRacio;
-                failureProbability = 0.5f * theirWinsOfSessionRacio + 0.5f * theirPointsOfGameRacio;
-            }
-            else
-            {
-                successProbability = ourPointsOfGameRacio;
-                failureProbability = theirPointsOfGameRacio;
-            }
+                Console.WriteLine("Past trick " + pastWinnerPoints[2] + " current trick " + newWinnerPoints[2]);
 
-            iaPublisher.MoveExpectations(id, desirability.ToString(), desirabilityForOther.ToString(), successProbability.ToString(), failureProbability.ToString(), additionalInfo);
-            processPlay = true;
+                if ((Math.Abs(newWinnerPoints[1] - pastWinnerPoints[1]) >= 10 && pastWinnerPoints[2] == newWinnerPoints[2]) || (Math.Abs(newWinnerPoints[1]) >= 10 && pastWinnerPoints[2] != newWinnerPoints[2]))
+                {
+                    additionalInfo += "HIGH";
+                }
+                else if ((Math.Abs(newWinnerPoints[1] - pastWinnerPoints[1]) >= 3) || (Math.Abs(newWinnerPoints[1]) >= 3 && pastWinnerPoints[2] != newWinnerPoints[2]))
+                {
+                    additionalInfo += "LOW";
+                }
+
+                Console.WriteLine("AdditionalInfo of play: " + additionalInfo);
+
+                float totalWins = ourWins + theirWins;
+                float ourWinsOfSessionRacio = ourWins / totalWins;
+                float theirWinsOfSessionRacio = theirWins / totalWins;
+                float ourPointsOfGameRacio = ai.PointsPercentage();
+                float theirPointsOfGameRacio = 1.0f - ourPointsOfGameRacio;
+                float successProbability, failureProbability;
+
+                if (totalWins != 0)
+                {
+                    successProbability = 0.5f * ourWinsOfSessionRacio + 0.5f * ourPointsOfGameRacio;
+                    failureProbability = 0.5f * theirWinsOfSessionRacio + 0.5f * theirPointsOfGameRacio;
+                }
+                else
+                {
+                    successProbability = ourPointsOfGameRacio;
+                    failureProbability = theirPointsOfGameRacio;
+                }
+
+                iaPublisher.MoveExpectations(id, desirability.ToString(), desirabilityForOther.ToString(), successProbability.ToString(), failureProbability.ToString(), additionalInfo);
+            }
+            processingPlay = false;
         }
 
 

@@ -27,7 +27,7 @@ namespace SuecaSolver
 
         public int[] GetTrickWinnerAndPoints()
         {
-            return infoSet.GetTrickWinnerAndPoints();
+            return infoSet.GetWinnerAndPointsAndTrickNumber();
         }
 
         public float PointsPercentage()
