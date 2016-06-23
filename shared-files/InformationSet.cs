@@ -273,6 +273,7 @@ namespace SuecaSolver
             }
             else
             {
+
                 sampledHands = unknownOwnerCards.SampleHands(suitHasPlayer, playerIDs, ref sampledHands);
                 if (sampledHands == null)
                 {
@@ -284,6 +285,17 @@ namespace SuecaSolver
                         { (int)Suit.Hearts, new List<int>(3){ 1, 2, 3 } },
                         { (int)Suit.Spades, new List<int>(3){ 1, 2, 3 } }
                     };
+                    Console.WriteLine("resetting sampled hands to h0 " + handSizes[0] + " h1 " + handSizes[1] + " h2 " + handSizes[2]);
+                    sampledHands = new List<List<int>>(
+                        new List<int>[] {
+                            new List<int>(handSizes[0]),
+                            new List<int>(handSizes[1]),
+                            new List<int>(handSizes[2]) });
+                    if (!trumpCardWasPlayed && TrumpPlayerId != id)
+                    {
+                        int trumpPlayerIDindex = ((TrumpPlayerId - id + 4) % 4) - 1;
+                        sampledHands[trumpPlayerIDindex].Add(TrumpCard);
+                    }
                     unknownOwnerCards.SampleHands(ref sampledHands);
                 }
             }
