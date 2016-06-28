@@ -5,6 +5,7 @@ using SuecaMessages;
 using SuecaTypes;
 using System.Collections.Generic;
 using EmoteCommonMessages;
+using System.Threading;
 
 namespace SuecaPlayer
 {
@@ -315,6 +316,8 @@ namespace SuecaPlayer
             while (processingRepeat) { }
             while (processingPlay) { }
 
+            iaPublisher.ForwardNextPlayer(id);
+
             if (this.id == id && ai != null)
             {
                 int[] pastWinnerPoints = ai.GetWinnerAndPointsAndTrickNumber();
@@ -408,7 +411,6 @@ namespace SuecaPlayer
 
             }
 
-            iaPublisher.ForwardNextPlayer(id);
         }
 
         public void TrickEnd(int winnerId, int trickPoints)
