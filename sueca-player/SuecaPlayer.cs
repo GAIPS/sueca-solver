@@ -358,10 +358,6 @@ namespace SuecaPlayer
                 {
                     desirabilityForOther -= desirability;
                     additionalInfo += "OURS_";
-                    if (pastWinnerPoints[0] == -1 || pastWinnerPoints[2] != newWinnerPoints[2])
-                    {
-                        additionalInfo = "NEW_TRICK";
-                    }
                 }
                 else
                 {
@@ -369,15 +365,14 @@ namespace SuecaPlayer
                     desirabilityForOther += desirability;
                     desirability *= -1;
                     additionalInfo += "THEIRS_";
-                    if (pastWinnerPoints[0] == -1 || pastWinnerPoints[2] != newWinnerPoints[2])
-                    {
-                        Console.WriteLine("This should never happen!");
-                        additionalInfo = "NEW_TRICK";
-                    }
                 }
 
                 Console.WriteLine("Past trick " + pastWinnerPoints[2] + " current trick " + newWinnerPoints[2]);
-                if ((Math.Abs(newWinnerPoints[1] - pastWinnerPoints[1]) >= 10) || (Math.Abs(newWinnerPoints[1]) >= 10 && pastWinnerPoints[2] != newWinnerPoints[2]))
+                if (pastWinnerPoints[0] == -1 || pastWinnerPoints[2] != newWinnerPoints[2])
+                {
+                    additionalInfo = "NEW_TRICK";
+                } 
+                else if ((Math.Abs(newWinnerPoints[1] - pastWinnerPoints[1]) >= 10) || (Math.Abs(newWinnerPoints[1]) >= 10 && pastWinnerPoints[2] != newWinnerPoints[2]))
                 {
                     additionalInfo += "HIGH";
                 }
