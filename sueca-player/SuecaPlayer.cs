@@ -86,9 +86,9 @@ namespace SuecaPlayer
                 publisher.ForwardSessionEnd(sessionId, team0Score, team1Score);
             }
 
-            public void ForwardSessionStart(int sessionId, int numGame, int numRobots, int playerId)
+            public void ForwardSessionStart(int sessionId, int numGame, int numRobots, int playerId, int shouldGreet)
             {
-                publisher.ForwardSessionStart(sessionId, numGame, numRobots, playerId);
+                publisher.ForwardSessionStart(sessionId, numGame, numRobots, playerId, shouldGreet);
             }
 
             public void GazeAtScreen(double x, double y)
@@ -165,7 +165,7 @@ namespace SuecaPlayer
         }
 
 
-        public void SessionStart(int sessionId, int numGames, int[] agentsIds)
+        public void SessionStart(int sessionId, int numGames, int[] agentsIds, int shouldGreet)
         {
             sessionStart = false;
             id = agentsIds[nameId - 1];
@@ -181,7 +181,7 @@ namespace SuecaPlayer
             allSet = false;
             processingRepeat = false;
 
-            iaPublisher.ForwardSessionStart(sessionId, numGames, agentsIds.Length, id);
+            iaPublisher.ForwardSessionStart(sessionId, numGames, agentsIds.Length, id, shouldGreet);
             sessionStart = true;
 
         }
