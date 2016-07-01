@@ -81,14 +81,14 @@ namespace SuecaPlayer
                 publisher.ForwardReceiveRobotCards(playerId);
             }
 
-            public void ForwardSessionEnd(int team0Score, int team1Score)
+            public void ForwardSessionEnd(int sessionId, int team0Score, int team1Score)
             {
-                publisher.ForwardSessionEnd(team0Score, team1Score);
+                publisher.ForwardSessionEnd(sessionId, team0Score, team1Score);
             }
 
-            public void ForwardSessionStart(int numGame, int numRobots, int playerId)
+            public void ForwardSessionStart(int sessionId, int numGame, int numRobots, int playerId)
             {
-                publisher.ForwardSessionStart(numGame, numRobots, playerId);
+                publisher.ForwardSessionStart(sessionId, numGame, numRobots, playerId);
             }
 
             public void GazeAtScreen(double x, double y)
@@ -165,7 +165,7 @@ namespace SuecaPlayer
         }
 
 
-        public void SessionStart(int numGames, int[] agentsIds)
+        public void SessionStart(int sessionId, int numGames, int[] agentsIds)
         {
             sessionStart = false;
             id = agentsIds[nameId - 1];
@@ -181,7 +181,7 @@ namespace SuecaPlayer
             allSet = false;
             processingRepeat = false;
 
-            iaPublisher.ForwardSessionStart(numGames, agentsIds.Length, id);
+            iaPublisher.ForwardSessionStart(sessionId, numGames, agentsIds.Length, id);
             sessionStart = true;
 
         }
@@ -279,9 +279,9 @@ namespace SuecaPlayer
             iaPublisher.ForwardGameEnd(team0Score, team1Score);
         }
 
-        public void SessionEnd(int team0Score, int team1Score)
+        public void SessionEnd(int sessionId, int team0Score, int team1Score)
         {
-            iaPublisher.ForwardSessionEnd(team0Score, team1Score);
+            iaPublisher.ForwardSessionEnd(sessionId, team0Score, team1Score);
         }
 
         public void Shuffle(int playerId)
