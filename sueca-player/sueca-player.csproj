@@ -33,7 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EmoteEvents">
-      <HintPath>..\..\SERA_1-12-2015\Binaries\Skene\EmoteEvents.dll</HintPath>
+      <HintPath>..\..\SERA\Binaries\Skene\EmoteEvents.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
