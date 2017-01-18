@@ -7,7 +7,7 @@
     <ProjectGuid>{C5ABC75D-8DA2-4F29-8279-E6B9EFE817B8}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>emotional_player</RootNamespace>
+    <RootNamespace>EmotionalPlayer</RootNamespace>
     <AssemblyName>emotional-player</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -32,9 +32,27 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ActionLibrary">
+      <HintPath>..\..\FAtiMA-Toolkit-UnityDemo\Assets\FAtiMA\Plugins\ActionLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="GAIPS.Rage">
+      <HintPath>..\..\FAtiMA-Toolkit-UnityDemo\Assets\FAtiMA\Plugins\GAIPS.Rage.dll</HintPath>
+    </Reference>
+    <Reference Include="IntegratedAuthoringTool">
+      <HintPath>..\..\FAtiMA-Toolkit-UnityDemo\Assets\FAtiMA\Plugins\IntegratedAuthoringTool.dll</HintPath>
+    </Reference>
+    <Reference Include="KnowledgeBase">
+      <HintPath>..\..\FAtiMA-Toolkit-UnityDemo\Assets\FAtiMA\Plugins\KnowledgeBase.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\SERA\Binaries\Thalamus\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RageAssetManager">
+      <HintPath>..\..\FAtiMA-Toolkit-UnityDemo\Assets\FAtiMA\Plugins\RageAssetManager.dll</HintPath>
+    </Reference>
+    <Reference Include="RolePlayCharacter">
+      <HintPath>..\..\FAtiMA-Toolkit-UnityDemo\Assets\FAtiMA\Plugins\RolePlayCharacter.dll</HintPath>
     </Reference>
     <Reference Include="SuecaMessages">
       <HintPath>..\..\sueca-messages\SuecaMessages\bin\Debug\SuecaMessages.dll</HintPath>
@@ -52,11 +70,15 @@
     <Reference Include="Thalamus">
       <HintPath>..\..\SERA\Binaries\Thalamus\Thalamus.dll</HintPath>
     </Reference>
+    <Reference Include="WellFormedNames">
+      <HintPath>..\..\FAtiMA-Toolkit-UnityDemo\Assets\FAtiMA\Plugins\WellFormedNames.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EmotionalSuecaPlayer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SocialAgentController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

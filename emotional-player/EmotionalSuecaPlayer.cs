@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,14 +8,56 @@ using Thalamus;
 using SuecaSolver;
 using SuecaMessages;
 using SuecaTypes;
+using IntegratedAuthoringTool;
+using IntegratedAuthoringTool.DTOs;
+using RolePlayCharacter;
+using System.Collections;
 
-namespace emotionalPlayer
+namespace EmotionalPlayer
 {
     public interface ISuecaPublisher : IThalamusPublisher, ISuecaActions { }
 
 
     class EmotionalSuecaPlayer : ThalamusClient, ISuecaPerceptions
     {
+        private ScenarioData[] m_scenarios;
+        private IntegratedAuthoringToolAsset _iat;
+        private SocialAgentController _agentController;
+
+        public struct ScenarioData
+        {
+            public readonly string ScenarioPath;
+            public readonly string TTSFolder;
+            private IntegratedAuthoringToolAsset _iat;
+
+            public IntegratedAuthoringToolAsset IAT { get { return _iat; } }
+
+            public ScenarioData(string path, string tts)
+            {
+                ScenarioPath = path;
+                TTSFolder = tts;
+
+                _iat = IntegratedAuthoringToolAsset.LoadFromFile(ScenarioPath);
+            }
+        }
+
+        private void LoadScenario(ScenarioData data)
+        {
+            _iat = data.IAT;
+
+            var characterSources = _iat.GetAllCharacterSources().ToList();
+            foreach (var source in characterSources)
+            {
+                var rpc = RolePlayCharacterAsset.LoadFromFile(source.Source);
+                rpc.Initialize();
+                _iat.BindToRegistry(rpc.DynamicPropertiesRegistry);
+                _agentController = new SocialAgentController(data, rpc, _iat);
+                //_agentController.Start(this, VersionMenu);
+                //Thread newThread = new Thread(() => { _agentController.UpdateCoroutine(); }).Start();
+                _agentController.UpdateCoroutine();
+            }
+        }
+
         private class SuecaPublisher : ISuecaPublisher
         {
             dynamic publisher;
@@ -41,6 +84,23 @@ namespace emotionalPlayer
             SetPublisher<ISuecaPublisher>();
             suecaPublisher = new SuecaPublisher(Publisher);
             ai = null;
+
+            //AssetManager.Instance.Bridge = new AssetManagerBridge();
+
+            string[] entries = System.IO.File.ReadAllLines(@"C:\Users\higino\Documents\FAtiMA-Toolkit-UnityDemo\Assets\StreamingAssets\scenarioList.txt");
+
+            //var entries = www.text.Split(new[] { "\n", "\r\n" }, StringSplitOptions.None);
+
+            List<ScenarioData> data = new List<ScenarioData>();
+
+            for (int i = 0; i < entries.Length; i += 2)
+            {
+                var path = entries[i].Trim();
+                var tts = entries[i + 1].Trim();
+                data.Add(new ScenarioData(path, tts));
+            }
+
+            m_scenarios = data.ToArray();
         }
 
         public void Cut(int playerId)
