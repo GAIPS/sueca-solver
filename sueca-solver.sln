@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sueca-player", "sueca-playe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "unity-emulator", "unity-emulator\unity-emulator.csproj", "{7783EA79-160B-48E1-AB03-4609BFC7A761}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "emotional-player", "emotional-player\emotional-player.csproj", "{C5ABC75D-8DA2-4F29-8279-E6B9EFE817B8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,16 @@ Global
 		{7783EA79-160B-48E1-AB03-4609BFC7A761}.Release|ARM.ActiveCfg = Release|Any CPU
 		{7783EA79-160B-48E1-AB03-4609BFC7A761}.Release|x64.ActiveCfg = Release|Any CPU
 		{7783EA79-160B-48E1-AB03-4609BFC7A761}.Release|x86.ActiveCfg = Release|Any CPU
+		{C5ABC75D-8DA2-4F29-8279-E6B9EFE817B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5ABC75D-8DA2-4F29-8279-E6B9EFE817B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5ABC75D-8DA2-4F29-8279-E6B9EFE817B8}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{C5ABC75D-8DA2-4F29-8279-E6B9EFE817B8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C5ABC75D-8DA2-4F29-8279-E6B9EFE817B8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C5ABC75D-8DA2-4F29-8279-E6B9EFE817B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5ABC75D-8DA2-4F29-8279-E6B9EFE817B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5ABC75D-8DA2-4F29-8279-E6B9EFE817B8}.Release|ARM.ActiveCfg = Release|Any CPU
+		{C5ABC75D-8DA2-4F29-8279-E6B9EFE817B8}.Release|x64.ActiveCfg = Release|Any CPU
+		{C5ABC75D-8DA2-4F29-8279-E6B9EFE817B8}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
