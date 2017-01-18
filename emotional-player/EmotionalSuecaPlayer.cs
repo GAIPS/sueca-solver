@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Thalamus;
 using SuecaSolver;
 using SuecaMessages;
+using SuecaTypes;
 
 namespace emotionalPlayer
 {
@@ -31,82 +32,106 @@ namespace emotionalPlayer
 
 
         private ISuecaPublisher suecaPublisher;
+        private RBOPlayer ai;
+        private int id;
 
         public EmotionalSuecaPlayer(string clientName, string charactersNames = "")
             : base(clientName, charactersNames)
         {
             SetPublisher<ISuecaPublisher>();
             suecaPublisher = new SuecaPublisher(Publisher);
+            ai = null;
         }
 
         public void Cut(int playerId)
         {
-            throw new NotImplementedException();
         }
 
         public void Deal(int playerId)
         {
-            throw new NotImplementedException();
         }
 
         public void GameEnd(int team0Score, int team1Score)
         {
-            throw new NotImplementedException();
         }
 
         public void GameStart(int gameId, int playerId, int teamId, string trumpCard, int trumpCardPlayer, string[] cards)
         {
-            throw new NotImplementedException();
+            List<int> initialCards = new List<int>();
+            foreach (string cardSerialized in cards)
+            {
+                SuecaTypes.Card card = JsonSerializable.DeserializeFromJson<SuecaTypes.Card>(cardSerialized);
+                SuecaSolver.Rank myRank = (SuecaSolver.Rank)Enum.Parse(typeof(SuecaSolver.Rank), card.Rank.ToString());
+                SuecaSolver.Suit mySuit = (SuecaSolver.Suit)Enum.Parse(typeof(SuecaSolver.Suit), card.Suit.ToString());
+                int myCard = SuecaSolver.Card.Create(myRank, mySuit);
+                initialCards.Add(myCard);
+            }
+            SuecaTypes.Card sharedTrumpCard = JsonSerializable.DeserializeFromJson<SuecaTypes.Card>(trumpCard);
+            SuecaSolver.Rank trumpRank = (SuecaSolver.Rank)Enum.Parse(typeof(SuecaSolver.Rank), sharedTrumpCard.Rank.ToString());
+            SuecaSolver.Suit trumpSuit = (SuecaSolver.Suit)Enum.Parse(typeof(SuecaSolver.Suit), sharedTrumpCard.Suit.ToString());
+            int myTrumpCard = SuecaSolver.Card.Create(trumpRank, trumpSuit);
+
+            ai = new RBOPlayer(playerId, initialCards, myTrumpCard, trumpCardPlayer);
         }
 
         public void NextPlayer(int id)
         {
-            throw new NotImplementedException();
+            if (this.id == id && ai != null)
+            {
+                int chosenCard = ai.Play();
+                ai.AddPlay(id, chosenCard);
+
+                SuecaSolver.Rank chosenCardRank = (SuecaSolver.Rank)SuecaSolver.Card.GetRank(chosenCard);
+                SuecaSolver.Suit chosenCardSuit = (SuecaSolver.Suit)SuecaSolver.Card.GetSuit(chosenCard);
+                SuecaTypes.Rank msgRank = (SuecaTypes.Rank)Enum.Parse(typeof(SuecaTypes.Rank), chosenCardRank.ToString());
+                SuecaTypes.Suit msgSuit = (SuecaTypes.Suit)Enum.Parse(typeof(SuecaTypes.Suit), chosenCardSuit.ToString());
+                string cardSerialized = new SuecaTypes.Card(msgRank, msgSuit).SerializeToJson();
+                suecaPublisher.Play(this.id, cardSerialized);
+            }
         }
 
         public void Play(int id, string card)
         {
-            throw new NotImplementedException();
+            if (ai != null && id != this.id)
+            {
+                SuecaTypes.Card c = JsonSerializable.DeserializeFromJson<SuecaTypes.Card>(card);
+                SuecaSolver.Rank myRank = (SuecaSolver.Rank)Enum.Parse(typeof(SuecaSolver.Rank), c.Rank.ToString());
+                SuecaSolver.Suit mySuit = (SuecaSolver.Suit)Enum.Parse(typeof(SuecaSolver.Suit), c.Suit.ToString());
+                int myCard = SuecaSolver.Card.Create(myRank, mySuit);
+                ai.AddPlay(id, myCard);
+            }
         }
 
         public void ReceiveRobotCards(int playerId)
         {
-            throw new NotImplementedException();
         }
 
         public void Renounce(int playerId)
         {
-            throw new NotImplementedException();
         }
 
         public void ResetTrick()
         {
-            throw new NotImplementedException();
         }
 
         public void SessionEnd(int sessionId, int team0Score, int team1Score)
         {
-            throw new NotImplementedException();
         }
 
         public void SessionStart(int sessionId, int numGames, int[] agentsIds, int shouldGreet)
         {
-            throw new NotImplementedException();
         }
 
         public void Shuffle(int playerId)
         {
-            throw new NotImplementedException();
         }
 
         public void TrickEnd(int winnerId, int trickPoints)
         {
-            throw new NotImplementedException();
         }
 
         public void TrumpCard(string trumpCard, int trumpCardPlayer)
         {
-            throw new NotImplementedException();
         }
     }
 }
