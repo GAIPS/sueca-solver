@@ -20,7 +20,7 @@ namespace EmotionalPlayer
             }
             else if (args.Length == 1)
             {
-                client = "IA";
+                client = "EmotionalAgent";
                 character = args[0];
             }
             else
@@ -34,7 +34,7 @@ namespace EmotionalPlayer
             }
             else
             {
-                sp = new EmotionalSuecaPlayer("IA");
+                sp = new EmotionalSuecaPlayer("EmotionalAgent");
             }
             Console.ReadLine();
             sp.Dispose();

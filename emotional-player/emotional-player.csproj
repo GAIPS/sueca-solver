@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>EmotionalPlayer</RootNamespace>
-    <AssemblyName>emotional-player</AssemblyName>
+    <AssemblyName>EmotionalPlayer</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,12 +31,19 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ActionLibrary">
       <HintPath>..\..\FAtiMA-Toolkit-UnityDemo\Assets\FAtiMA\Plugins\ActionLibrary.dll</HintPath>
     </Reference>
     <Reference Include="GAIPS.Rage">
       <HintPath>..\..\FAtiMA-Toolkit-UnityDemo\Assets\FAtiMA\Plugins\GAIPS.Rage.dll</HintPath>
+    </Reference>
+    <Reference Include="GAIPS.Serialization">
+      <HintPath>..\..\FAtiMA-Toolkit-UnityDemo\Assets\FAtiMA\Plugins\GAIPS.Serialization.dll</HintPath>
     </Reference>
     <Reference Include="IntegratedAuthoringTool">
       <HintPath>..\..\FAtiMA-Toolkit-UnityDemo\Assets\FAtiMA\Plugins\IntegratedAuthoringTool.dll</HintPath>
@@ -75,6 +82,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssetManagerBridge.cs" />
     <Compile Include="EmotionalSuecaPlayer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

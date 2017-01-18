@@ -12,6 +12,7 @@ using IntegratedAuthoringTool;
 using IntegratedAuthoringTool.DTOs;
 using RolePlayCharacter;
 using System.Collections;
+using AssetManagerPackage;
 
 namespace EmotionalPlayer
 {
@@ -53,8 +54,10 @@ namespace EmotionalPlayer
                 _iat.BindToRegistry(rpc.DynamicPropertiesRegistry);
                 _agentController = new SocialAgentController(data, rpc, _iat);
                 //_agentController.Start(this, VersionMenu);
-                //Thread newThread = new Thread(() => { _agentController.UpdateCoroutine(); }).Start();
-                _agentController.UpdateCoroutine();
+                Task.Run(() =>
+                {
+                    _agentController.UpdateCoroutine();
+                });
             }
         }
 
@@ -77,17 +80,26 @@ namespace EmotionalPlayer
         private ISuecaPublisher suecaPublisher;
         private RBOPlayer ai;
         private int id;
+        private int nameId;
 
         public EmotionalSuecaPlayer(string clientName, string charactersNames = "")
             : base(clientName, charactersNames)
         {
+            try
+            {
+                nameId = Int16.Parse("" + clientName[clientName.Length - 1]);
+            }
+            catch (Exception)
+            {
+                nameId = 1;
+            }
             SetPublisher<ISuecaPublisher>();
             suecaPublisher = new SuecaPublisher(Publisher);
             ai = null;
 
-            //AssetManager.Instance.Bridge = new AssetManagerBridge();
+            AssetManager.Instance.Bridge = new AssetManagerBridge();
 
-            string[] entries = System.IO.File.ReadAllLines(@"C:\Users\higino\Documents\FAtiMA-Toolkit-UnityDemo\Assets\StreamingAssets\scenarioList.txt");
+            string[] entries = System.IO.File.ReadAllLines(@"C:\Users\Filipa Correia\Devel\FAtiMA-Toolkit-UnityDemo\Assets\StreamingAssets\scenarioList.txt");
 
             //var entries = www.text.Split(new[] { "\n", "\r\n" }, StringSplitOptions.None);
 
@@ -117,6 +129,8 @@ namespace EmotionalPlayer
 
         public void GameStart(int gameId, int playerId, int teamId, string trumpCard, int trumpCardPlayer, string[] cards)
         {
+            Console.WriteLine("The game has started.");
+
             List<int> initialCards = new List<int>();
             foreach (string cardSerialized in cards)
             {
@@ -136,8 +150,12 @@ namespace EmotionalPlayer
 
         public void NextPlayer(int id)
         {
+            Console.WriteLine("The next player is {0}.", id);
+
             if (this.id == id && ai != null)
             {
+                Console.WriteLine("I am going to play...");
+
                 int chosenCard = ai.Play();
                 ai.AddPlay(id, chosenCard);
 
@@ -147,11 +165,14 @@ namespace EmotionalPlayer
                 SuecaTypes.Suit msgSuit = (SuecaTypes.Suit)Enum.Parse(typeof(SuecaTypes.Suit), chosenCardSuit.ToString());
                 string cardSerialized = new SuecaTypes.Card(msgRank, msgSuit).SerializeToJson();
                 suecaPublisher.Play(this.id, cardSerialized);
+                Console.WriteLine("My play has been sent.");
             }
         }
 
         public void Play(int id, string card)
         {
+            Console.WriteLine("Player {0} has played {1}.", id, card);
+
             if (ai != null && id != this.id)
             {
                 SuecaTypes.Card c = JsonSerializable.DeserializeFromJson<SuecaTypes.Card>(card);
@@ -180,6 +201,8 @@ namespace EmotionalPlayer
 
         public void SessionStart(int sessionId, int numGames, int[] agentsIds, int shouldGreet)
         {
+            id = agentsIds[nameId - 1];
+            Console.WriteLine("My id is " + id);
         }
 
         public void Shuffle(int playerId)
