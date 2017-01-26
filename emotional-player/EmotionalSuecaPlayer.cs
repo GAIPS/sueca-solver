@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Threading;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,8 +38,8 @@ namespace EmotionalPlayer
             {
                 ScenarioPath = path;
                 TTSFolder = tts;
-
-                _iat = IntegratedAuthoringToolAsset.LoadFromFile(ScenarioPath);
+                //Console.WriteLine(Directory.GetCurrentDirectory());
+                _iat = IntegratedAuthoringToolAsset.LoadFromFile("../../../Scenarios/group.iat");
             }
         }
 
@@ -50,6 +51,7 @@ namespace EmotionalPlayer
             foreach (var source in characterSources)
             {
                 var rpc = RolePlayCharacterAsset.LoadFromFile(source.Source);
+                Console.WriteLine("RPC: "+ rpc.CharacterName.ToString());
                 rpc.Initialize();
                 _iat.BindToRegistry(rpc.DynamicPropertiesRegistry);
                 _agentController = new SocialAgentController(data, rpc, _iat);
@@ -99,7 +101,8 @@ namespace EmotionalPlayer
 
             AssetManager.Instance.Bridge = new AssetManagerBridge();
 
-            string[] entries = System.IO.File.ReadAllLines(@"C:\Users\Filipa Correia\Devel\FAtiMA-Toolkit-UnityDemo\Assets\StreamingAssets\scenarioList.txt");
+            //string[] entries = System.IO.File.ReadAllLines(@"C:\Users\Filipa Correia\Devel\FAtiMA-Toolkit-UnityDemo\Assets\StreamingAssets\scenarioList.txt");
+            string[] entries = System.IO.File.ReadAllLines(@"C:\Users\higino\Documents\FAtiMA-Toolkit-UnityDemo\Assets\StreamingAssets\scenarioList.txt");
 
             //var entries = www.text.Split(new[] { "\n", "\r\n" }, StringSplitOptions.None);
 
@@ -109,10 +112,12 @@ namespace EmotionalPlayer
             {
                 var path = entries[i].Trim();
                 var tts = entries[i + 1].Trim();
+
                 data.Add(new ScenarioData(path, tts));
             }
 
             m_scenarios = data.ToArray();
+            LoadScenario(data[0]);
         }
 
         public void Cut(int playerId)

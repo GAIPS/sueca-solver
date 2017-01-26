@@ -1,0 +1,82 @@
+{
+	"root":
+		{
+			"classId": 0,
+			"ScenarioName": "Group Emotions",
+			"Description": "Scenario with group emotions",
+			"CharacterSources": ["group.rpc"],
+			"PlayerDialogues": [
+				{
+					"CurrentState": "NextPlayer",
+					"NextState": "OpponentPlay",
+					"Meaning": ["OpponentTurn"],
+					"Style": ["Neutral"],
+					"Utterance": "b"
+				}, 
+				{
+					"CurrentState": "NextPlayer",
+					"NextState": "AllyPlay",
+					"Meaning": ["AllyTurn"],
+					"Style": ["Neutral"],
+					"Utterance": "a"
+				}, 
+				{
+					"CurrentState": "AllyPlay",
+					"NextState": "NextPlayer",
+					"Meaning": ["AllyTurn"],
+					"Style": ["Neutral"],
+					"Utterance": "parceiro a jogar"
+				}, 
+				{
+					"CurrentState": "Start",
+					"NextState": "NextPlayer",
+					"Meaning": ["OpponentTurn"],
+					"Style": ["Neutral"],
+					"Utterance": "a começar o jogo"
+				}, 
+				{
+					"CurrentState": "OpponentPlay",
+					"NextState": "NextPlayer",
+					"Meaning": ["OpponentTurn"],
+					"Style": ["Neutral"],
+					"Utterance": "oponente a jogar"
+				}, 
+				{
+					"CurrentState": "NextPlayer",
+					"NextState": "RobotPlay",
+					"Meaning": ["RobotTurn"],
+					"Style": ["Neutral"],
+					"Utterance": "c"
+				}],
+			"AgentDialogues": [
+				{
+					"CurrentState": "RobotPlay",
+					"NextState": "NextPlayer",
+					"Meaning": ["AgentTurn"],
+					"Style": ["Neutral"],
+					"Utterance": "Sou eu a jogar!",
+					"UtteranceId": "TTS-8B28EF7F1E0F5ED431E64F5B11ADC996"
+				}, 
+				{
+					"CurrentState": "Start",
+					"NextState": "AllyPlay",
+					"Meaning": ["AllyTurn"],
+					"Style": ["Neutral"],
+					"Utterance": "Vamos lá começar isto!",
+					"UtteranceId": "TTS-4E131BA7C1FC92A8D68B474920A96F5F"
+				}, 
+				{
+					"CurrentState": "NextPlayer",
+					"NextState": "OpponentPlay",
+					"Meaning": ["OpponentTurn"],
+					"Style": ["Neutral"],
+					"Utterance": "Espero que jogues mal.",
+					"UtteranceId": "TTS-6F41D2A41EC964C47683ED20736E75FC"
+				}]
+		},
+	"types": [
+		{
+			"TypeId": 0,
+			"ClassName": "IntegratedAuthoringTool.IntegratedAuthoringToolAsset, IntegratedAuthoringTool, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+		}]
+}

@@ -1,0 +1,36 @@
+{
+	"root":
+		{
+			"classId": 0,
+			"DefaultActionPriority": 0,
+			"ActionTendencies": 
+			[
+				{
+					"Action": "Talk",
+					"Target": "[x]",
+					"Conditions": 
+						{
+							"Set": [ "NextPlayer(ID) = 3" ]
+						}
+				},
+				{
+					"Action": "Speak([currentState], [nextState], [meaning], Neutral)",
+					"Target": "Player",
+					"Conditions":
+						{
+							"Set": 
+							[
+								"Mood(SELF) >= 0",
+								"ValidDialogue([currentState], [nextState], [meaning], Neutral) = true", 
+								"DialogueState(Player) = [currentState]"
+							]
+						}
+				}
+			]
+		},
+	"types": [
+		{
+			"TypeId": 0,
+			"ClassName": "EmotionalDecisionMaking.EmotionalDecisionMakingAsset, EmotionalDecisionMaking, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+		}]
+}

@@ -1,0 +1,42 @@
+{
+	"root":
+		{
+			"classId": 0,
+			"Description": null,
+			"KnowledgeBase":
+				{
+					"Perspective": "Emylio",
+					"Knowledge":
+						{
+							"Universal":
+								{
+									"ID(Emylio)": 0,
+									"ID(Player1)": 1
+								}
+						}
+				},
+			"AppraisalRules":
+				{
+					"AppraisalWeight": 1,
+					"Rules": [
+						{
+							"EventName": "Event(Action-Start, *, Talk(AgentPlayer, *, RobotTurn, *), *)",
+							"Conditions":
+								{
+									"Set": []
+								}
+						}]
+				},
+			"EmotionDispositions": [
+				{
+					"Emotion": "*",
+					"Decay": 1,
+					"Threshold": 1
+				}]
+		},
+	"types": [
+		{
+			"TypeId": 0,
+			"ClassName": "EmotionalAppraisal.EmotionalAppraisalAsset, EmotionalAppraisal, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+		}]
+}
