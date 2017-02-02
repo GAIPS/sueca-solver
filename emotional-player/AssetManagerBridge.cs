@@ -85,7 +85,10 @@ namespace EmotionalPlayer
 
         public void Save(string fileId, string fileData)
         {
-            throw new InvalidOperationException();
+            using (var writer = File.CreateText(fileId))
+            {
+                writer.Write(fileData);
+            }
         }
     }
 }

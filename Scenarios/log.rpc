@@ -1,0 +1,202 @@
+{
+	"root":
+		{
+			"classId": 2,
+			"KnowledgeBase":
+				{
+					"Perspective": "EMYS-1",
+					"Knowledge":
+						{
+							"SELF":
+								{
+									"Current(Turn)": "OpponentTurn",
+									"DialogueState(Player)": "NextPlayer"
+								},
+							"Universal":
+								{
+									"ID(EMYS-1)": 3,
+									"ID(Player1)": 0,
+									"ID(Player2)": 1,
+									"ID(Player3)": 2
+								}
+						}
+				},
+			"BodyName": "EMYS-1",
+			"VoiceName": "Male",
+			"EmotionalAppraisalAssetSource": "../../../Scenarios\\group.ea",
+			"EmotionalDecisionMakingSource": "../../../Scenarios\\group.edm",
+			"SocialImportanceAssetSource": null,
+			"CommeillFautAssetSource": null,
+			"EmotionalState":
+				{
+					"Mood": 0,
+					"EmotionalPool": [],
+					"AppraisalConfiguration":
+						{
+							"HalfLifeDecayConstant": 0.5,
+							"EmotionInfluenceOnMoodFactor": 0.3,
+							"MoodInfluenceOnEmotionFactor": 0.3,
+							"MinimumMoodValueForInfluencingEmotions": 0.5,
+							"EmotionalHalfLifeDecayTime": 15,
+							"MoodHalfLifeDecayTime": 60
+						}
+				},
+			"AutobiographicMemory":
+				{
+					"Tick": 3446206,
+					"records": [
+						{
+							"classId": 0,
+							"Id": 1,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 1163315,
+							"Property": "Current(Turn)",
+							"NewValue": "OpponentTurn"
+						}, 
+						{
+							"classId": 1,
+							"Id": 2,
+							"Type": "Action-End",
+							"Subject": "EMYS-1",
+							"Timestamp": 1163316,
+							"Action": "Speak(Start, NextPlayer, OpponentTurn, Neutral)",
+							"Target": "Player"
+						}, 
+						{
+							"classId": 0,
+							"Id": 3,
+							"Type": "Property-Change",
+							"Subject": "Player",
+							"Timestamp": 1163316,
+							"Property": "DialogueState(Player)",
+							"NewValue": "NextPlayer"
+						}, 
+						{
+							"classId": 0,
+							"Id": 4,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 3154274,
+							"Property": "Current(Turn)",
+							"NewValue": "AllyTurn"
+						}, 
+						{
+							"classId": 1,
+							"Id": 5,
+							"Type": "Action-End",
+							"Subject": "EMYS-1",
+							"Timestamp": 3154275,
+							"Action": "Speak(NextPlayer, NextPlayer, AllyTurn, Neutral)",
+							"Target": "Player"
+						}, 
+						{
+							"classId": 0,
+							"Id": 6,
+							"Type": "Property-Change",
+							"Subject": "Player",
+							"Timestamp": 3154275,
+							"Property": "DialogueState(Player)",
+							"NewValue": "NextPlayer"
+						}, 
+						{
+							"classId": 0,
+							"Id": 7,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 3265181,
+							"Property": "Current(Turn)",
+							"NewValue": "OpponentTurn"
+						}, 
+						{
+							"classId": 1,
+							"Id": 8,
+							"Type": "Action-End",
+							"Subject": "EMYS-1",
+							"Timestamp": 3265182,
+							"Action": "Speak(NextPlayer, NextPlayer, OpponentTurn, Neutral)",
+							"Target": "Player"
+						}, 
+						{
+							"classId": 0,
+							"Id": 9,
+							"Type": "Property-Change",
+							"Subject": "Player",
+							"Timestamp": 3265182,
+							"Property": "DialogueState(Player)",
+							"NewValue": "NextPlayer"
+						}, 
+						{
+							"classId": 0,
+							"Id": 10,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 3362105,
+							"Property": "Current(Turn)",
+							"NewValue": "AgentTurn"
+						}, 
+						{
+							"classId": 1,
+							"Id": 11,
+							"Type": "Action-End",
+							"Subject": "EMYS-1",
+							"Timestamp": 3362106,
+							"Action": "Speak(NextPlayer, NextPlayer, AgentTurn, Neutral)",
+							"Target": "Player"
+						}, 
+						{
+							"classId": 0,
+							"Id": 12,
+							"Type": "Property-Change",
+							"Subject": "Player",
+							"Timestamp": 3362106,
+							"Property": "DialogueState(Player)",
+							"NewValue": "NextPlayer"
+						}, 
+						{
+							"classId": 0,
+							"Id": 13,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 3446205,
+							"Property": "Current(Turn)",
+							"NewValue": "OpponentTurn"
+						}, 
+						{
+							"classId": 1,
+							"Id": 14,
+							"Type": "Action-End",
+							"Subject": "EMYS-1",
+							"Timestamp": 3446206,
+							"Action": "Speak(NextPlayer, NextPlayer, OpponentTurn, Neutral)",
+							"Target": "Player"
+						}, 
+						{
+							"classId": 0,
+							"Id": 15,
+							"Type": "Property-Change",
+							"Subject": "Player",
+							"Timestamp": 3446206,
+							"Property": "DialogueState(Player)",
+							"NewValue": "NextPlayer"
+						}]
+				},
+			"OtherAgents":
+				{
+					"dictionary": []
+				}
+		},
+	"types": [
+		{
+			"TypeId": 0,
+			"ClassName": "AutobiographicMemory.AM+PropertyChangeEvent, AutobiographicMemory, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+		}, 
+		{
+			"TypeId": 1,
+			"ClassName": "AutobiographicMemory.AM+ActionEvent, AutobiographicMemory, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+		}, 
+		{
+			"TypeId": 2,
+			"ClassName": "RolePlayCharacter.RolePlayCharacterAsset, RolePlayCharacter, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+		}]
+}

@@ -4,19 +4,16 @@
 			"classId": 0,
 			"KnowledgeBase":
 				{
-					"Perspective": "EMYS-1",
+					"Perspective": "Nameless",
 					"Knowledge":
 						{
-							"SELF":
-								{
-									"DialogueState(Player)": "Start"
-								}
+
 						}
 				},
-			"BodyName": "EMYS-1",
-			"VoiceName": "Male",
-			"EmotionalAppraisalAssetSource": "group.ea",
-			"EmotionalDecisionMakingSource": "group.edm",
+			"BodyName": null,
+			"VoiceName": null,
+			"EmotionalAppraisalAssetSource": null,
+			"EmotionalDecisionMakingSource": null,
 			"SocialImportanceAssetSource": null,
 			"CommeillFautAssetSource": null,
 			"EmotionalState":

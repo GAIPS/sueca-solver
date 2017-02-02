@@ -152,6 +152,7 @@ namespace unity_emulator
             string c9 = new Card(Rank.King, Suit.Spades).SerializeToJson();
 
             Thread.Sleep(5000);
+            Console.WriteLine("A Começar o jogo");
             startPublisher.GameStart(0, 1, 1, c0, 0, new string[] { c0, c1, c2, c3, c4, c5, c6, c7, c8, c9 });
             //Thread.Sleep(5000);
             //startPublisher.NextPlayer(3);

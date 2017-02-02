@@ -5,16 +5,10 @@
 			"Description": null,
 			"KnowledgeBase":
 				{
-					"Perspective": "Emylio",
+					"Perspective": "Nameless",
 					"Knowledge":
 						{
-							"Universal":
-								{
-									"ID(Emylio)": 3,
-									"ID(Player1)": 0,
-									"ID(Player2)": 1,
-									"ID(Player3)": 2
-								}
+
 						}
 				},
 			"AppraisalRules":

@@ -3,30 +3,42 @@
 		{
 			"classId": 0,
 			"DefaultActionPriority": 0,
-			"ActionTendencies": 
-			[
+			"ActionTendencies": [
 				{
-					"Action": "Talk",
-					"Target": "[x]",
-					"Conditions": 
+					"Action": "Speak([currentState], [nextState], OpponentTurn, Neutral)",
+					"Target": "Player",
+					"Conditions":
 						{
-							"Set": [ "NextPlayer(ID) = 3" ]
-						}
-				},
+							"Set": ["ValidDialogue([currentState], [nextState], OpponentTurn, Neutral) = True", "DialogueState(Player) = [currentState]", "Current(Turn) = OpponentTurn"]
+						},
+					"Priority": 1
+				}, 
 				{
 					"Action": "Speak([currentState], [nextState], [meaning], Neutral)",
 					"Target": "Player",
 					"Conditions":
 						{
-							"Set": 
-							[
-								"Mood(SELF) >= 0",
-								"ValidDialogue([currentState], [nextState], [meaning], Neutral) = true", 
-								"DialogueState(Player) = [currentState]"
-							]
+							"Set": ["ValidDialogue([currentState], [nextState], [meaning], Neutral) = True", "DialogueState(Player) = Start"]
 						}
-				}
-			]
+				}, 
+				{
+					"Action": "Speak([currentState], [nextState], AllyTurn, Neutral)",
+					"Target": "Player",
+					"Conditions":
+						{
+							"Set": ["ValidDialogue([currentState], [nextState], AllyTurn, Neutral) = True", "DialogueState(Player) = [currentState]", "Current(Turn) = AllyTurn"]
+						},
+					"Priority": 1
+				}, 
+				{
+					"Action": "Speak([currentState], [nextState], AgentTurn, Neutral)",
+					"Target": "Player",
+					"Conditions":
+						{
+							"Set": ["ValidDialogue([currentState], [nextState], AgentTurn, Neutral) = True", "DialogueState(Player) = [currentState]", "Current(Turn) = AgentTurn"]
+						},
+					"Priority": 1
+				}]
 		},
 	"types": [
 		{

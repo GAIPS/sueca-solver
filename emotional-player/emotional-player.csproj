@@ -50,30 +50,64 @@
     <StartupObject>EmotionalPlayer.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ActionLibrary">
-      <HintPath>..\..\FAtiMA-Toolkit-UnityDemo\Assets\FAtiMA\Plugins\ActionLibrary.dll</HintPath>
+    <Reference Include="ActionLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\fatimalibs\ActionLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="GAIPS.Rage">
-      <HintPath>..\..\FAtiMA-Toolkit-UnityDemo\Assets\FAtiMA\Plugins\GAIPS.Rage.dll</HintPath>
+    <Reference Include="AutobiographicMemory, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\fatimalibs\AutobiographicMemory.dll</HintPath>
     </Reference>
-    <Reference Include="GAIPS.Serialization">
-      <HintPath>..\..\FAtiMA-Toolkit-UnityDemo\Assets\FAtiMA\Plugins\GAIPS.Serialization.dll</HintPath>
+    <Reference Include="CommeillFaut, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\fatimalibs\CommeillFaut.dll</HintPath>
     </Reference>
-    <Reference Include="IntegratedAuthoringTool">
-      <HintPath>..\..\FAtiMA-Toolkit-UnityDemo\Assets\FAtiMA\Plugins\IntegratedAuthoringTool.dll</HintPath>
+    <Reference Include="Conditions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\fatimalibs\Conditions.dll</HintPath>
     </Reference>
-    <Reference Include="KnowledgeBase">
-      <HintPath>..\..\FAtiMA-Toolkit-UnityDemo\Assets\FAtiMA\Plugins\KnowledgeBase.dll</HintPath>
+    <Reference Include="EmoteEvents">
+      <HintPath>..\..\SERA\Binaries\Skene\EmoteEvents.dll</HintPath>
+    </Reference>
+    <Reference Include="EmotionalAppraisal, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\fatimalibs\EmotionalAppraisal.dll</HintPath>
+    </Reference>
+    <Reference Include="EmotionalDecisionMaking, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\fatimalibs\EmotionalDecisionMaking.dll</HintPath>
+    </Reference>
+    <Reference Include="GAIPS.Rage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\fatimalibs\GAIPS.Rage.dll</HintPath>
+    </Reference>
+    <Reference Include="GAIPS.Serialization, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\fatimalibs\GAIPS.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="IntegratedAuthoringTool, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\fatimalibs\IntegratedAuthoringTool.dll</HintPath>
+    </Reference>
+    <Reference Include="KnowledgeBase, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\fatimalibs\KnowledgeBase.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\SERA\Binaries\Thalamus\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="RageAssetManager">
-      <HintPath>..\..\FAtiMA-Toolkit-UnityDemo\Assets\FAtiMA\Plugins\RageAssetManager.dll</HintPath>
+    <Reference Include="RageAssetManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\fatimalibs\RageAssetManager.dll</HintPath>
     </Reference>
-    <Reference Include="RolePlayCharacter">
-      <HintPath>..\..\FAtiMA-Toolkit-UnityDemo\Assets\FAtiMA\Plugins\RolePlayCharacter.dll</HintPath>
+    <Reference Include="RolePlayCharacter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\fatimalibs\RolePlayCharacter.dll</HintPath>
+    </Reference>
+    <Reference Include="SocialImportanceAsset, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\fatimalibs\SocialImportanceAsset.dll</HintPath>
     </Reference>
     <Reference Include="SuecaMessages">
       <HintPath>..\..\sueca-messages\SuecaMessages\bin\Debug\SuecaMessages.dll</HintPath>
@@ -93,10 +127,11 @@
     </Reference>
     <Reference Include="Utilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\FAtiMA-Toolkit-UnityDemo\Assets\FAtiMA\Plugins\Utilities.dll</HintPath>
+      <HintPath>..\fatimalibs\Utilities.dll</HintPath>
     </Reference>
-    <Reference Include="WellFormedNames">
-      <HintPath>..\..\FAtiMA-Toolkit-UnityDemo\Assets\FAtiMA\Plugins\WellFormedNames.dll</HintPath>
+    <Reference Include="WellFormedNames, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\fatimalibs\WellFormedNames.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +162,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

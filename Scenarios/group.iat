@@ -5,52 +5,25 @@
 			"ScenarioName": "Group Emotions",
 			"Description": "Scenario with group emotions",
 			"CharacterSources": ["group.rpc"],
-			"PlayerDialogues": [
-				{
-					"CurrentState": "NextPlayer",
-					"NextState": "OpponentPlay",
-					"Meaning": ["OpponentTurn"],
-					"Style": ["Neutral"],
-					"Utterance": "b"
-				}, 
-				{
-					"CurrentState": "NextPlayer",
-					"NextState": "AllyPlay",
-					"Meaning": ["AllyTurn"],
-					"Style": ["Neutral"],
-					"Utterance": "a"
-				}, 
-				{
-					"CurrentState": "AllyPlay",
-					"NextState": "NextPlayer",
-					"Meaning": ["AllyTurn"],
-					"Style": ["Neutral"],
-					"Utterance": "parceiro a jogar"
-				}, 
-				{
-					"CurrentState": "Start",
-					"NextState": "NextPlayer",
-					"Meaning": ["OpponentTurn"],
-					"Style": ["Neutral"],
-					"Utterance": "a começar o jogo"
-				}, 
-				{
-					"CurrentState": "OpponentPlay",
-					"NextState": "NextPlayer",
-					"Meaning": ["OpponentTurn"],
-					"Style": ["Neutral"],
-					"Utterance": "oponente a jogar"
-				}, 
-				{
-					"CurrentState": "NextPlayer",
-					"NextState": "RobotPlay",
-					"Meaning": ["RobotTurn"],
-					"Style": ["Neutral"],
-					"Utterance": "c"
-				}],
 			"AgentDialogues": [
 				{
-					"CurrentState": "RobotPlay",
+					"CurrentState": "NextPlayer",
+					"NextState": "NextPlayer",
+					"Meaning": ["AllyTurn"],
+					"Style": ["Neutral"],
+					"Utterance": "Joga bem partner.",
+					"UtteranceId": "TTS-74D3510C5F24355CCD24994051E801D1"
+				}, 
+				{
+					"CurrentState": "NextPlayer",
+					"NextState": "NextPlayer",
+					"Meaning": ["OpponentTurn"],
+					"Style": ["Neutral"],
+					"Utterance": "Espero que jogues mal.",
+					"UtteranceId": "TTS-6F41D2A41EC964C47683ED20736E75FC"
+				}, 
+				{
+					"CurrentState": "NextPlayer",
 					"NextState": "NextPlayer",
 					"Meaning": ["AgentTurn"],
 					"Style": ["Neutral"],
@@ -58,20 +31,20 @@
 					"UtteranceId": "TTS-8B28EF7F1E0F5ED431E64F5B11ADC996"
 				}, 
 				{
+					"CurrentState": "GameOver",
+					"NextState": "End",
+					"Meaning": ["-"],
+					"Style": ["Neutral"],
+					"Utterance": "Acabou amigos!",
+					"UtteranceId": "TTS-01ACF9E3D7D79539A31234EA73D8DA65"
+				}, 
+				{
 					"CurrentState": "Start",
-					"NextState": "AllyPlay",
-					"Meaning": ["AllyTurn"],
+					"NextState": "NextPlayer",
+					"Meaning": ["OpponentTurn"],
 					"Style": ["Neutral"],
 					"Utterance": "Vamos lá começar isto!",
 					"UtteranceId": "TTS-4E131BA7C1FC92A8D68B474920A96F5F"
-				}, 
-				{
-					"CurrentState": "NextPlayer",
-					"NextState": "OpponentPlay",
-					"Meaning": ["OpponentTurn"],
-					"Style": ["Neutral"],
-					"Utterance": "Espero que jogues mal.",
-					"UtteranceId": "TTS-6F41D2A41EC964C47683ED20736E75FC"
 				}]
 		},
 	"types": [
