@@ -38,6 +38,18 @@ namespace SuecaSolver
             return LeadSuit != Card.GetSuit(currentWinningCard);
         }
 
+        public bool LastPlayIsCut()
+        {
+            int lastPlaySuit = Card.GetSuit(moves[moves.Count - 1].Card);
+            return LeadSuit != lastPlaySuit && lastPlaySuit == Trump;
+        }
+
+        public bool LastPlayIsFollowing()
+        {
+            int lastPlaySuit = Card.GetSuit(moves[moves.Count - 1].Card);
+            return LeadSuit == lastPlaySuit;
+        }
+
         public bool IsEmpty()
         {
             if (moves.Count == 0)

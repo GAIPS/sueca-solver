@@ -48,9 +48,8 @@ namespace EmotionalPlayer
             }*/
 
             while (m_rpc.GetBeliefValue("DialogueState(Player)") != "Disconnected")
-            //while(true)
             {
-                //Thread.Sleep(500);
+                Thread.Sleep(500);
                 if (_events.Count == 0)
                 {
                     //Console.WriteLine("No events");
@@ -62,6 +61,8 @@ namespace EmotionalPlayer
                 var actionRpc = m_rpc.Decide().FirstOrDefault();
                 _events.Clear();
                 m_rpc.Update();
+
+                m_rpc.SaveToFile("../../../Scenarios/log.rpc");
 
                 if (actionRpc == null)
                 {
@@ -76,18 +77,17 @@ namespace EmotionalPlayer
                         Name meaning = actionRpc.Parameters[2];
                         Name style = actionRpc.Parameters[3];
 
-                        var dialog = m_iat.GetDialogueAction(IATConsts.AGENT, currentState, nextState, meaning, style);
+                        var dialog = m_iat.GetDialogueAction(IATConsts.AGENT, currentState, nextState, meaning, style).Utterance;
                         Console.WriteLine("Mood: " + m_rpc.Mood);
-                        Console.WriteLine(dialog.Utterance);
-                        _esp.SuecaPub.PerformUtterance("", dialog.Utterance, "");
+                        Console.WriteLine(dialog);
+                        _esp.SuecaPub.PerformUtterance("", dialog, "");
                         m_rpc.Perceive(new[] { EventHelper.ActionEnd(m_rpc.CharacterName.ToString(),actionRpc.Name.ToString(),IATConsts.PLAYER) });
-                        m_rpc.Perceive(new[] { EventHelper.PropertyChanged("DialogueState(Player)", nextState.ToString(), "Player") });
+                        //m_rpc.Perceive(new[] { EventHelper.PropertyChanged("DialogueState(Player)", nextState.ToString(), "Player") });
                         break;
                     default:
                         Console.WriteLine("Default Case");
                         break;
                 }
-                m_rpc.SaveToFile("../../../Scenarios/log.rpc");
             }
         }
 

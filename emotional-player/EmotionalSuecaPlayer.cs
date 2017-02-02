@@ -137,14 +137,58 @@ namespace EmotionalPlayer
 
         public void Cut(int playerId)
         {
+            if (playerId == 3)
+            {
+                _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "Cut-SELF", "World").ToString());
+            }
+            else
+            {
+                _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "Cut-OTHER", "World").ToString());
+            }
         }
 
         public void Deal(int playerId)
         {
+            if (playerId == 3)
+            {
+                _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "Deal-SELF", "World").ToString());
+            }
+            else
+            {
+                _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "Deal-OTHER", "World").ToString());
+            }
         }
 
         public void GameEnd(int team0Score, int team1Score)
         {
+            if (team0Score == 120)
+            {
+                _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "GameEnd-QUAD_LOST", "World").ToString());
+            }
+            else if (team0Score > 90)
+            {
+                _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "GameEnd-DOUBLE_LOST", "World").ToString());
+            }
+            else if(team0Score > 60)
+            {
+                _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "GameEnd-SINGLE_LOST", "World").ToString());
+            }
+            if (team1Score == 120)
+            {
+                _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "GameEnd-QUAD_WIN", "World").ToString());
+            }
+            else if (team1Score > 90)
+            {
+                _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "GameEnd-DOUBLE_WIN", "World").ToString());
+            }
+            else if (team1Score > 60)
+            {
+                _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "GameEnd-SINGLE_WIN", "World").ToString());
+            }
+            else if(team0Score == team1Score)
+            {
+                _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "GameEnd-DRAW", "World").ToString());
+            }
         }
 
         public void GameStart(int gameId, int playerId, int teamId, string trumpCard, int trumpCardPlayer, string[] cards)
@@ -171,23 +215,17 @@ namespace EmotionalPlayer
         {
             Console.WriteLine("The next player is {0}.", id);
 
-            switch (id)
+            if (id == 1)
             {
-                case 0:
-                    _agentController.AddEvent(EventHelper.PropertyChanged("Current(Turn)", "OpponentTurn", "World").ToString());
-                    break;
-                case 1:
-                    _agentController.AddEvent(EventHelper.PropertyChanged("Current(Turn)", "AllyTurn", "World").ToString());
-                    break;
-                case 2:
-                    _agentController.AddEvent(EventHelper.PropertyChanged("Current(Turn)", "OpponentTurn", "World").ToString());
-                    break;
+                _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "NextPlayer-TEAM_PLAYER", "World").ToString());
+            }
+            else if (id == 0 || id == 2) {
+                _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "NextPlayer-OPPONENT", "World").ToString());
             }
 
             if (this.id == id && ai != null)
             {
                 //Console.WriteLine("I am going to play...");
-                _agentController.AddEvent(EventHelper.PropertyChanged("Current(Turn)", "AgentTurn", "World").ToString());
 
                 int chosenCard = ai.Play();
                 ai.AddPlay(id, chosenCard);
@@ -198,6 +236,9 @@ namespace EmotionalPlayer
                 SuecaTypes.Suit msgSuit = (SuecaTypes.Suit)Enum.Parse(typeof(SuecaTypes.Suit), chosenCardSuit.ToString());
                 string cardSerialized = new SuecaTypes.Card(msgRank, msgSuit).SerializeToJson();
                 SuecaPub.Play(this.id, cardSerialized);
+
+                string playInfo = ai.GetLastPlayInfo();
+                _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "Playing-" + playInfo, "World").ToString());
                 //Console.WriteLine("My play has been sent.");
             }
         }
@@ -213,15 +254,56 @@ namespace EmotionalPlayer
                 SuecaSolver.Suit mySuit = (SuecaSolver.Suit)Enum.Parse(typeof(SuecaSolver.Suit), c.Suit.ToString());
                 int myCard = SuecaSolver.Card.Create(myRank, mySuit);
                 ai.AddPlay(id, myCard);
+
+                int[] newWinnerPoints = ai.GetWinnerAndPointsAndTrickNumber();
+                float desirabilityForOther = 0.0f, desirability = (Math.Min(newWinnerPoints[1], 15) / 15.0f) * 10.0f;
+                if (newWinnerPoints[0] == this.id || newWinnerPoints[0] == (this.id + 2) % 4)
+                {
+                    desirabilityForOther -= desirability;
+                }
+                else
+                {
+                    newWinnerPoints[1] *= -1;
+                    desirabilityForOther += desirability;
+                    desirability *= -1;
+                }
+
+                //A PARTIR DAQUI ERA A GERACAO DA EMOCAO PELO FATIMA ANTIGO
+                string emotion = "NEUTRAL";
+                if (desirability > 0 && desirabilityForOther > 0)
+                {
+                    emotion = "HAPPY_FOR";
+                }
+                else if (desirability > 0 && desirabilityForOther < 0)
+                {
+                    emotion = "GLOATING";
+                }
+                else if (desirability < 0 && desirabilityForOther > 0)
+                {
+                    emotion = "RESENTMENT";
+                }
+                else if (desirability < 0 && desirabilityForOther < 0)
+                {
+                    emotion = "PITTY";
+                }
+                Console.WriteLine("Emotion: " + emotion);
+                _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "Play-" + emotion, "World").ToString());
             }
         }
 
         public void ReceiveRobotCards(int playerId)
         {
+            //_agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "ReceiveCards-SELF", "World").ToString());
         }
 
         public void Renounce(int playerId)
         {
+            if(playerId == 1 || playerId == 3)
+            {
+                _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "GameEnd-TEAM_CHEAT", "World").ToString());
+            }
+            else
+                _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "GameEnd-OTHER_CHEAT", "World").ToString());
         }
 
         public void ResetTrick()
@@ -230,21 +312,68 @@ namespace EmotionalPlayer
 
         public void SessionEnd(int sessionId, int team0Score, int team1Score)
         {
+            if(team0Score > team1Score)
+            {
+                _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "SessionEnd-LOST", "World").ToString());
+            }
+            if(team0Score < team1Score)
+            {
+                _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "SessionEnd-WIN", "World").ToString());
+            }
+            if(team0Score == team1Score)
+            {
+                _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "SessionEnd-DRAW", "World").ToString());
+            }
         }
 
         public void SessionStart(int sessionId, int numGames, int[] agentsIds, int shouldGreet)
         {
             id = agentsIds[nameId - 1];
             Console.WriteLine("My id is " + id);
-            //_agentController.AddEvent(string.Format("Event(Property-Change,Self,DialogueState(Player),{0})", IATConsts.INITIAL_DIALOGUE_STATE));
+            _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)","SessionStart-GREETING","World").ToString());
         }
 
         public void Shuffle(int playerId)
         {
+            if(playerId == 3)
+            {
+                _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "Shuffle-SELF", "World").ToString());
+            }
+            else
+            {
+                _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "Shuffle-OTHER", "World").ToString());
+            }
         }
 
         public void TrickEnd(int winnerId, int trickPoints)
         {
+            switch (winnerId)
+            {
+                case 0:
+                    if(trickPoints == 0) {
+                        _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "TrickEnd-OPPONENT_ZERO", "World").ToString());
+                    }
+                    else
+                        _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "TrickEnd-OPPONENT", "World").ToString());
+                    break;
+                case 1:
+                    _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "TrickEnd-TEAM_PLAYER", "World").ToString());
+                    break;
+                case 2:
+                    if (trickPoints == 0)
+                    {
+                        _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "TrickEnd-OPPONENT_ZERO", "World").ToString());
+                    }
+                    else
+                        _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "TrickEnd-OPPONENT", "World").ToString());
+                    break;
+                case 3:
+                    _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "TrickEnd-SELF", "World").ToString());
+                    break;
+                default:
+                    Console.WriteLine("Unknown Player");
+                    break;
+            }
         }
 
         public void TrumpCard(string trumpCard, int trumpCardPlayer)

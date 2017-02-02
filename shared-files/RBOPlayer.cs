@@ -58,5 +58,10 @@ namespace SuecaSolver
         {
             return infoSet.GetHandSize();
         }
+
+        public string GetLastPlayInfo()
+        {
+            return infoSet.GetLastPlayInfo();
+        }
     }
 }

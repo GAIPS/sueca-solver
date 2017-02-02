@@ -492,5 +492,26 @@ namespace SuecaSolver
         {
             return tricks[tricks.Count - 1].IsFull() || tricks[tricks.Count - 1].IsEmpty();
         }
+
+        public string GetLastPlayInfo()
+        {
+            Trick currentTrick = tricks[tricks.Count - 1];
+            if (currentTrick.LastPlayIsCut())
+            {
+                return "CUT";
+            }
+            if (IsNewTrick())
+            {
+                return "NEW_TRICK";
+            }
+            if (currentTrick.LastPlayIsFollowing())
+            {
+                return "FOLLOWING";
+            }
+            else
+            {
+                return "NOT_FOLLOWING";
+            }
+        }
     }
 }

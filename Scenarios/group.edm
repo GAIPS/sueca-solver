@@ -2,40 +2,23 @@
 	"root":
 		{
 			"classId": 0,
-			"DefaultActionPriority": 0,
+			"DefaultActionPriority": 2,
 			"ActionTendencies": [
 				{
-					"Action": "Speak([currentState], [nextState], OpponentTurn, Neutral)",
-					"Target": "Player",
+					"Action": "Speak([cs], [ns], [m], [s])",
+					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["ValidDialogue([currentState], [nextState], OpponentTurn, Neutral) = True", "DialogueState(Player) = [currentState]", "Current(Turn) = OpponentTurn"]
+							"Set": ["ValidDialogue([cs], [ns], [m], [s]) = True", "DialogueState(Board) = [cs]"]
 						},
-					"Priority": 1
-				}, 
+					"Priority": 0
+				},
 				{
-					"Action": "Speak([currentState], [nextState], [meaning], Neutral)",
-					"Target": "Player",
+					"Action": "Speak([cs], [ns], Angry, [s])",
+					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["ValidDialogue([currentState], [nextState], [meaning], Neutral) = True", "DialogueState(Player) = Start"]
-						}
-				}, 
-				{
-					"Action": "Speak([currentState], [nextState], AllyTurn, Neutral)",
-					"Target": "Player",
-					"Conditions":
-						{
-							"Set": ["ValidDialogue([currentState], [nextState], AllyTurn, Neutral) = True", "DialogueState(Player) = [currentState]", "Current(Turn) = AllyTurn"]
-						},
-					"Priority": 1
-				}, 
-				{
-					"Action": "Speak([currentState], [nextState], AgentTurn, Neutral)",
-					"Target": "Player",
-					"Conditions":
-						{
-							"Set": ["ValidDialogue([currentState], [nextState], AgentTurn, Neutral) = True", "DialogueState(Player) = [currentState]", "Current(Turn) = AgentTurn"]
+							"Set": ["ValidDialogue([cs], [ns], [m], [s]) = True", "DialogueState(Board) = [cs]", "StrongestEmotion(SELF) = Anger"]
 						},
 					"Priority": 1
 				}]
