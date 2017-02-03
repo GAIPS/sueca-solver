@@ -91,6 +91,11 @@ namespace EmotionalPlayer
             {
                 this.publisher.PerformUtteranceFromLibrary(id, category, subcategory, tagNames, tagValues);
             }
+
+            public void PerformUtterance(string id, string utterance, string[] tagNames, string[] tagValues)
+            {
+                this.publisher.PerformUtterance(id, utterance, tagNames, tagValues);
+            }
         }
 
 
