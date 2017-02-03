@@ -103,6 +103,7 @@ namespace EmotionalPlayer
         private RBOPlayer ai;
         private int id;
         private int nameId;
+        private Random randomNumberGenerator;
 
         public EmotionalSuecaPlayer(string clientName, string charactersNames = "")
             : base(clientName, charactersNames)
@@ -118,6 +119,7 @@ namespace EmotionalPlayer
             SetPublisher<ISuecaPublisher>();
             SuecaPub = new SuecaPublisher(Publisher);
             ai = null;
+            randomNumberGenerator = new Random(System.Guid.NewGuid().GetHashCode());
 
             AssetManager.Instance.Bridge = new AssetManagerBridge();
 
@@ -220,13 +222,6 @@ namespace EmotionalPlayer
         {
             Console.WriteLine("The next player is {0}.", id);
 
-            if (id == 1)
-            {
-                _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "NextPlayer-TEAM_PLAYER", "World").ToString());
-            }
-            else if (id == 0 || id == 2) {
-                _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "NextPlayer-OPPONENT", "World").ToString());
-            }
 
             if (this.id == id && ai != null)
             {
@@ -245,6 +240,17 @@ namespace EmotionalPlayer
                 string playInfo = ai.GetLastPlayInfo();
                 _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "Playing-" + playInfo, "World").ToString());
                 //Console.WriteLine("My play has been sent.");
+            }
+
+            if (id == 1)
+            {
+                Thread.Sleep(randomNumberGenerator.Next(2000,4000));
+                _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "NextPlayer-TEAM_PLAYER", "World").ToString());
+            }
+            else if (id == 0 || id == 2)
+            {
+                Thread.Sleep(randomNumberGenerator.Next(2000, 4000));
+                _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "NextPlayer-OPPONENT", "World").ToString());
             }
         }
 

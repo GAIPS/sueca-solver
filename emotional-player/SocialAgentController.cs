@@ -40,7 +40,7 @@ namespace EmotionalPlayer
 
             while (m_rpc.GetBeliefValue("DialogueState(Player)") != "Disconnected")
             {
-                Thread.Sleep(500);
+                Thread.Sleep(100);
                 if (_events.Count == 0)
                 {
                     //Console.WriteLine("No events");
