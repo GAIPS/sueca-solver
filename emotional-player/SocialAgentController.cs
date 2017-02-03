@@ -79,7 +79,7 @@ namespace EmotionalPlayer
 
                         var dialog = m_iat.GetDialogueAction(IATConsts.AGENT, currentState, nextState, meaning, style).Utterance;
                         Console.WriteLine(dialog);
-                        _esp.SuecaPub.PerformUtterance("", dialog, new string[] { }, new string[] { });
+                        _esp.SuecaPub.PerformUtteranceWithTags("", dialog, new string[] { }, new string[] { });
                         m_rpc.Perceive(new[] { EventHelper.ActionEnd(m_rpc.CharacterName.ToString(),actionRpc.Name.ToString(),IATConsts.PLAYER) });
                         //m_rpc.Perceive(new[] { EventHelper.PropertyChanged("DialogueState(Player)", nextState.ToString(), "Player") });
                         break;

@@ -43,320 +43,149 @@
 				},
 			"AutobiographicMemory":
 				{
-					"Tick": 105,
+					"Tick": 107,
 					"records": [
 						{
 							"classId": 0,
 							"Id": 1,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 31,
+							"Timestamp": 24,
 							"Property": "DialogueState(Board)",
 							"NewValue": "SessionStart-GREETING"
 						}, 
 						{
-							"classId": 0,
-							"Id": 2,
-							"Type": "Property-Change",
-							"Subject": "World",
-							"Timestamp": 31,
-							"Property": "DialogueState(Board)",
-							"NewValue": "NextPlayer-OPPONENT"
-						}, 
-						{
 							"classId": 1,
-							"Id": 3,
+							"Id": 2,
 							"Type": "Action-End",
 							"Subject": "EMYS-1",
-							"Timestamp": 32,
-							"Action": "Speak(NextPlayer-OPPONENT, W, w, w)",
+							"Timestamp": 25,
+							"Action": "Speak(SessionStart-GREETING, W, w, w)",
 							"Target": "Player"
+						}, 
+						{
+							"classId": 0,
+							"Id": 3,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 53,
+							"Property": "DialogueState(Board)",
+							"NewValue": "Play-NEUTRAL"
 						}, 
 						{
 							"classId": 0,
 							"Id": 4,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 35,
-							"Property": "DialogueState(Board)",
-							"NewValue": "Play-NEUTRAL"
-						}, 
-						{
-							"classId": 0,
-							"Id": 5,
-							"Type": "Property-Change",
-							"Subject": "World",
-							"Timestamp": 35,
+							"Timestamp": 53,
 							"Property": "DialogueState(Board)",
 							"NewValue": "NextPlayer-TEAM_PLAYER"
 						}, 
 						{
 							"classId": 1,
-							"Id": 6,
+							"Id": 5,
 							"Type": "Action-End",
 							"Subject": "EMYS-1",
-							"Timestamp": 36,
+							"Timestamp": 54,
 							"Action": "Speak(NextPlayer-TEAM_PLAYER, W, w, w)",
 							"Target": "Player"
+						}, 
+						{
+							"classId": 0,
+							"Id": 6,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 60,
+							"Property": "DialogueState(Board)",
+							"NewValue": "Play-GLOATING"
 						}, 
 						{
 							"classId": 0,
 							"Id": 7,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 40,
-							"Property": "DialogueState(Board)",
-							"NewValue": "Play-GLOATING"
-						}, 
-						{
-							"classId": 0,
-							"Id": 8,
-							"Type": "Property-Change",
-							"Subject": "World",
-							"Timestamp": 40,
+							"Timestamp": 60,
 							"Property": "DialogueState(Board)",
 							"NewValue": "NextPlayer-OPPONENT"
 						}, 
 						{
 							"classId": 1,
-							"Id": 9,
+							"Id": 8,
 							"Type": "Action-End",
 							"Subject": "EMYS-1",
-							"Timestamp": 41,
+							"Timestamp": 61,
 							"Action": "Speak(NextPlayer-OPPONENT, W, w, w)",
 							"Target": "Player"
 						}, 
 						{
 							"classId": 0,
-							"Id": 10,
+							"Id": 9,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 48,
+							"Timestamp": 63,
 							"Property": "DialogueState(Board)",
-							"NewValue": "Play-GLOATING"
+							"NewValue": "Play-RESENTMENT"
 						}, 
 						{
 							"classId": 1,
-							"Id": 11,
+							"Id": 10,
 							"Type": "Action-End",
 							"Subject": "EMYS-1",
-							"Timestamp": 49,
-							"Action": "Speak(Play-GLOATING, W, w, w)",
+							"Timestamp": 64,
+							"Action": "Speak(Play-RESENTMENT, W, w, w)",
 							"Target": "Player"
 						}, 
 						{
 							"classId": 0,
-							"Id": 12,
+							"Id": 11,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 49,
+							"Timestamp": 101,
 							"Property": "DialogueState(Board)",
 							"NewValue": "Playing-NEW_TRICK"
 						}, 
 						{
 							"classId": 1,
-							"Id": 13,
+							"Id": 12,
 							"Type": "Action-End",
 							"Subject": "EMYS-1",
-							"Timestamp": 50,
+							"Timestamp": 102,
 							"Action": "Speak(Playing-NEW_TRICK, W, w, w)",
 							"Target": "Player"
+						}, 
+						{
+							"classId": 0,
+							"Id": 13,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 105,
+							"Property": "DialogueState(Board)",
+							"NewValue": "TrickEnd-SELF"
 						}, 
 						{
 							"classId": 0,
 							"Id": 14,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 53,
+							"Timestamp": 105,
 							"Property": "DialogueState(Board)",
-							"NewValue": "TrickEnd-SELF"
+							"NewValue": "Playing-FOLLOWING"
 						}, 
 						{
-							"classId": 0,
+							"classId": 1,
 							"Id": 15,
-							"Type": "Property-Change",
-							"Subject": "World",
-							"Timestamp": 53,
-							"Property": "DialogueState(Board)",
-							"NewValue": "Playing-FOLLOWING"
+							"Type": "Action-End",
+							"Subject": "EMYS-1",
+							"Timestamp": 106,
+							"Action": "Speak(Playing-FOLLOWING, W, w, w)",
+							"Target": "Player"
 						}, 
 						{
-							"classId": 1,
+							"classId": 0,
 							"Id": 16,
-							"Type": "Action-End",
-							"Subject": "EMYS-1",
-							"Timestamp": 54,
-							"Action": "Speak(Playing-FOLLOWING, W, w, w)",
-							"Target": "Player"
-						}, 
-						{
-							"classId": 0,
-							"Id": 17,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 54,
-							"Property": "DialogueState(Board)",
-							"NewValue": "NextPlayer-OPPONENT"
-						}, 
-						{
-							"classId": 1,
-							"Id": 18,
-							"Type": "Action-End",
-							"Subject": "EMYS-1",
-							"Timestamp": 55,
-							"Action": "Speak(NextPlayer-OPPONENT, W, w, w)",
-							"Target": "Player"
-						}, 
-						{
-							"classId": 0,
-							"Id": 19,
-							"Type": "Property-Change",
-							"Subject": "World",
-							"Timestamp": 69,
-							"Property": "DialogueState(Board)",
-							"NewValue": "Play-NEUTRAL"
-						}, 
-						{
-							"classId": 0,
-							"Id": 20,
-							"Type": "Property-Change",
-							"Subject": "World",
-							"Timestamp": 69,
-							"Property": "DialogueState(Board)",
-							"NewValue": "NextPlayer-TEAM_PLAYER"
-						}, 
-						{
-							"classId": 1,
-							"Id": 21,
-							"Type": "Action-End",
-							"Subject": "EMYS-1",
-							"Timestamp": 70,
-							"Action": "Speak(NextPlayer-TEAM_PLAYER, W, w, w)",
-							"Target": "Player"
-						}, 
-						{
-							"classId": 0,
-							"Id": 22,
-							"Type": "Property-Change",
-							"Subject": "World",
-							"Timestamp": 89,
-							"Property": "DialogueState(Board)",
-							"NewValue": "Play-GLOATING"
-						}, 
-						{
-							"classId": 0,
-							"Id": 23,
-							"Type": "Property-Change",
-							"Subject": "World",
-							"Timestamp": 89,
-							"Property": "DialogueState(Board)",
-							"NewValue": "NextPlayer-OPPONENT"
-						}, 
-						{
-							"classId": 1,
-							"Id": 24,
-							"Type": "Action-End",
-							"Subject": "EMYS-1",
-							"Timestamp": 90,
-							"Action": "Speak(NextPlayer-OPPONENT, W, w, w)",
-							"Target": "Player"
-						}, 
-						{
-							"classId": 0,
-							"Id": 25,
-							"Type": "Property-Change",
-							"Subject": "World",
-							"Timestamp": 94,
-							"Property": "DialogueState(Board)",
-							"NewValue": "Play-GLOATING"
-						}, 
-						{
-							"classId": 0,
-							"Id": 26,
-							"Type": "Property-Change",
-							"Subject": "World",
-							"Timestamp": 94,
-							"Property": "DialogueState(Board)",
-							"NewValue": "TrickEnd-TEAM_PLAYER"
-						}, 
-						{
-							"classId": 0,
-							"Id": 27,
-							"Type": "Property-Change",
-							"Subject": "World",
-							"Timestamp": 94,
-							"Property": "DialogueState(Board)",
-							"NewValue": "NextPlayer-TEAM_PLAYER"
-						}, 
-						{
-							"classId": 1,
-							"Id": 28,
-							"Type": "Action-End",
-							"Subject": "EMYS-1",
-							"Timestamp": 95,
-							"Action": "Speak(NextPlayer-TEAM_PLAYER, W, w, w)",
-							"Target": "Player"
-						}, 
-						{
-							"classId": 0,
-							"Id": 29,
-							"Type": "Property-Change",
-							"Subject": "World",
-							"Timestamp": 99,
-							"Property": "DialogueState(Board)",
-							"NewValue": "Play-NEUTRAL"
-						}, 
-						{
-							"classId": 0,
-							"Id": 30,
-							"Type": "Property-Change",
-							"Subject": "World",
-							"Timestamp": 99,
-							"Property": "DialogueState(Board)",
-							"NewValue": "NextPlayer-OPPONENT"
-						}, 
-						{
-							"classId": 1,
-							"Id": 31,
-							"Type": "Action-End",
-							"Subject": "EMYS-1",
-							"Timestamp": 100,
-							"Action": "Speak(NextPlayer-OPPONENT, W, w, w)",
-							"Target": "Player"
-						}, 
-						{
-							"classId": 0,
-							"Id": 32,
-							"Type": "Property-Change",
-							"Subject": "World",
-							"Timestamp": 103,
-							"Property": "DialogueState(Board)",
-							"NewValue": "Play-NEUTRAL"
-						}, 
-						{
-							"classId": 0,
-							"Id": 33,
-							"Type": "Property-Change",
-							"Subject": "World",
-							"Timestamp": 103,
-							"Property": "DialogueState(Board)",
-							"NewValue": "Playing-FOLLOWING"
-						}, 
-						{
-							"classId": 1,
-							"Id": 34,
-							"Type": "Action-End",
-							"Subject": "EMYS-1",
-							"Timestamp": 104,
-							"Action": "Speak(Playing-FOLLOWING, W, w, w)",
-							"Target": "Player"
-						}, 
-						{
-							"classId": 0,
-							"Id": 35,
-							"Type": "Property-Change",
-							"Subject": "World",
-							"Timestamp": 104,
+							"Timestamp": 106,
 							"Property": "DialogueState(Board)",
 							"NewValue": "NextPlayer-OPPONENT"
 						}]
