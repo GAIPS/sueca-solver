@@ -245,7 +245,6 @@ namespace EmotionalPlayer
 
         public void Play(int id, string card)
         {
-            Console.WriteLine("Player {0} has played {1}.", id, card);
 
             if (ai != null && id != this.id)
             {
@@ -254,6 +253,7 @@ namespace EmotionalPlayer
                 SuecaSolver.Suit mySuit = (SuecaSolver.Suit)Enum.Parse(typeof(SuecaSolver.Suit), c.Suit.ToString());
                 int myCard = SuecaSolver.Card.Create(myRank, mySuit);
                 ai.AddPlay(id, myCard);
+                Console.WriteLine("Player {0} has played {1}.", id, SuecaSolver.Card.ToString(myCard));
 
                 int[] newWinnerPoints = ai.GetWinnerAndPointsAndTrickNumber();
                 float desirabilityForOther = 0.0f, desirability = (Math.Min(newWinnerPoints[1], 15) / 15.0f) * 10.0f;
