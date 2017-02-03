@@ -37,15 +37,6 @@ namespace EmotionalPlayer
         public void UpdateCoroutine()
         {
             _events.Clear();
-            //AddEvent(string.Format("Event(Property-Change,{0},Playing(Self),Game)", m_rpc.CharacterName));
-            //AddEvent(string.Format("Event(Property-Change,Self,DialogueState(Player),{0})", IntegratedAuthoringToolAsset.INITIAL_DIALOGUE_STATE));
-            //Console.WriteLine("HEEEEEEEEEEEEY " +m_rpc.CharacterName + " " + m_rpc.GetBeliefValue("DialogueState(Player)"));
-            //var edm = EmotionalDecisionMakingAsset.LoadFromFile(m_rpc.EmotionalDecisionMakingSource);
-            /*foreach (var react in edm.GetAllReactions())
-            {
-                Console.WriteLine("Action :" + react.Action.ToString());
-                Console.WriteLine("Conditions :" + react.Conditions.ConditionSet[0].ToString());
-            }*/
 
             while (m_rpc.GetBeliefValue("DialogueState(Player)") != "Disconnected")
             {
@@ -68,7 +59,6 @@ namespace EmotionalPlayer
                 {
                     continue;
                 }
-                //WriteAction(actionRpc);
                 switch (actionRpc.Key.ToString())
                 {
                     case "Speak":
@@ -81,7 +71,6 @@ namespace EmotionalPlayer
                         Console.WriteLine(dialog);
                         _esp.SuecaPub.PerformUtteranceWithTags("", dialog, new string[] { }, new string[] { });
                         m_rpc.Perceive(new[] { EventHelper.ActionEnd(m_rpc.CharacterName.ToString(),actionRpc.Name.ToString(),IATConsts.PLAYER) });
-                        //m_rpc.Perceive(new[] { EventHelper.PropertyChanged("DialogueState(Player)", nextState.ToString(), "Player") });
                         break;
                     default:
                         Console.WriteLine("Default Case");
