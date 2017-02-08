@@ -9,6 +9,7 @@ using Utilities;
 using System.Linq;
 using ActionLibrary;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace EmotionalPlayer
 {
@@ -19,6 +20,10 @@ namespace EmotionalPlayer
         private EmotionalSuecaPlayer.ScenarioData m_scenarioData;
         private List<Name> _events = new List<Name>();
         private EmotionalSuecaPlayer _esp;
+        private List<string> _tagList = new List<string>();
+        private List<string> _tagMeaningsList = new List<string>();
+        private string[] _tags = new string[] { };
+        private string[] _tagMeanings = new string[] { };
 
         public SocialAgentController(EmotionalSuecaPlayer esp, EmotionalSuecaPlayer.ScenarioData scenarioData, RolePlayCharacterAsset rpc, IntegratedAuthoringToolAsset iat)
         {
@@ -68,8 +73,10 @@ namespace EmotionalPlayer
                         Name style = actionRpc.Parameters[3];
 
                         var dialog = m_iat.GetDialogueAction(IATConsts.AGENT, currentState, nextState, meaning, style).Utterance;
+                        ParseTags(dialog);
                         Console.WriteLine(dialog);
-                        _esp.SuecaPub.PerformUtteranceWithTags("", dialog, new string[] { }, new string[] { });
+                        _esp.SuecaPub.PerformUtteranceWithTags("", dialog, _tags, _tagMeanings);
+                        ClearLists();
                         m_rpc.Perceive(new[] { EventHelper.ActionEnd(m_rpc.CharacterName.ToString(),actionRpc.Name.ToString(),IATConsts.PLAYER) });
                         break;
                     default:
@@ -77,6 +84,71 @@ namespace EmotionalPlayer
                         break;
                 }
             }
+        }
+
+        private void ClearLists()
+        {
+            _tags.Initialize();
+            _tagList.Clear();
+            _tagMeanings.Initialize();
+            _tagMeaningsList.Clear();
+        }
+
+        private void ParseTags(string dialog)
+        {
+            string pattern = @"\|\w+\|";
+            Regex rgx = new Regex(pattern, RegexOptions.IgnoreCase);
+            MatchCollection matches = rgx.Matches(dialog);
+            if (matches.Count > 0)
+            {
+                foreach (Match match in matches)
+                {
+                    _tagList.Add(match.Value);
+                }
+            }            
+            _tags = _tagList.ToArray();
+            foreach(string tag in _tags)
+            {
+                switch (tag)
+                {
+                    case "|rank|":
+                        //Console.WriteLine("Found Tag: Rank");
+                        _tagMeaningsList.Add(m_rpc.GetBeliefValue("AgentCardRank(Board)"));
+                        break;
+                    case "|suit|":
+                        //Console.WriteLine("Found Tag: Suit");
+                        _tagMeaningsList.Add(m_rpc.GetBeliefValue("AgentCardSuit(Board)"));
+                        break;
+                    case "|nextPlayerId|":
+                        //Console.WriteLine("Found Tag: NextPlayerID");
+                        _tagMeaningsList.Add(m_rpc.GetBeliefValue("NextPlayerId(Board)"));
+                        break;
+                    case "|playerId|":
+                        //Console.WriteLine("Found Tag: PlayerID");
+                        //_tagMeaningsList.Add(m_rpc.GetBeliefValue("NextPlayerId(Board)"));
+                        break;
+                    case "|playerId1|":
+                        //Console.WriteLine("Found Tag: PlayerID1");
+                        //_tagMeaningsList.Add(m_rpc.GetBeliefValue("NextPlayerId(Board)"));
+                        break;
+                    case "|playerId2|":
+                        //Console.WriteLine("Found Tag: PlayerID2");
+                        //_tagMeaningsList.Add(m_rpc.GetBeliefValue("NextPlayerId(Board)"));
+                        break;
+                    case "|intensity|":
+                        //Console.WriteLine("Found Tag: Intensity");
+                        //_tagMeaningsList.Add(m_rpc.GetBeliefValue("NextPlayerId(Board)"));
+                        break;
+                    case "|trickPoints|":
+                        //Console.WriteLine("Found Tag: Trick Points");
+                        //_tagMeaningsList.Add(m_rpc.GetBeliefValue("NextPlayerId(Board)"));
+                        break;
+                    default:
+                        Console.WriteLine("Unknown Tag");
+                        break;
+                }
+            }
+            _tagMeanings = _tagMeaningsList.ToArray();
         }
 
         static void WriteAction(IAction a)

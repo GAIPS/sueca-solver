@@ -152,6 +152,7 @@ namespace EmotionalPlayer
             {
                 _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "Cut-OTHER", "World").ToString());
             }
+            _agentController.AddEvent(EventHelper.PropertyChanged("WhoCutLast(Board)", playerId.ToString(), "World").ToString());
         }
 
         public void Deal(int playerId)
@@ -164,6 +165,7 @@ namespace EmotionalPlayer
             {
                 _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "Deal-OTHER", "World").ToString());
             }
+            _agentController.AddEvent(EventHelper.PropertyChanged("WhoDealtLast(Board)", playerId.ToString(), "World").ToString());
         }
 
         public void GameEnd(int team0Score, int team1Score)
@@ -196,6 +198,8 @@ namespace EmotionalPlayer
             {
                 _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "GameEnd-DRAW", "World").ToString());
             }
+            _agentController.AddEvent(EventHelper.PropertyChanged("OurTeamFinalScore(Board)", team1Score.ToString(), "World").ToString());
+            _agentController.AddEvent(EventHelper.PropertyChanged("TheirTeamFinalScore(Board)", team0Score.ToString(), "World").ToString());
         }
 
         public void GameStart(int gameId, int playerId, int teamId, string trumpCard, int trumpCardPlayer, string[] cards)
@@ -233,7 +237,9 @@ namespace EmotionalPlayer
                 SuecaSolver.Rank chosenCardRank = (SuecaSolver.Rank)SuecaSolver.Card.GetRank(chosenCard);
                 SuecaSolver.Suit chosenCardSuit = (SuecaSolver.Suit)SuecaSolver.Card.GetSuit(chosenCard);
                 SuecaTypes.Rank msgRank = (SuecaTypes.Rank)Enum.Parse(typeof(SuecaTypes.Rank), chosenCardRank.ToString());
+                _agentController.AddEvent(EventHelper.PropertyChanged("AgentCardRank(Board)", msgRank.ToString(), "World").ToString());
                 SuecaTypes.Suit msgSuit = (SuecaTypes.Suit)Enum.Parse(typeof(SuecaTypes.Suit), chosenCardSuit.ToString());
+                _agentController.AddEvent(EventHelper.PropertyChanged("AgentCardSuit(Board)", msgSuit.ToString(), "World").ToString());
                 string cardSerialized = new SuecaTypes.Card(msgRank, msgSuit).SerializeToJson();
                 SuecaPub.Play(this.id, cardSerialized);
 
@@ -252,19 +258,24 @@ namespace EmotionalPlayer
                 Thread.Sleep(randomNumberGenerator.Next(2000, 4000));
                 _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "NextPlayer-OPPONENT", "World").ToString());
             }
+            _agentController.AddEvent(EventHelper.PropertyChanged("NextPlayerId(Board)", id.ToString(), "World").ToString());
         }
 
         public void Play(int id, string card)
         {
-
+            _agentController.AddEvent(EventHelper.PropertyChanged("CurrentPlayerID(Board)", id.ToString(), "World").ToString());
             if (ai != null && id != this.id)
             {
                 SuecaTypes.Card c = JsonSerializable.DeserializeFromJson<SuecaTypes.Card>(card);
                 SuecaSolver.Rank myRank = (SuecaSolver.Rank)Enum.Parse(typeof(SuecaSolver.Rank), c.Rank.ToString());
+                _agentController.AddEvent(EventHelper.PropertyChanged("CurrentPlayerCardRank(Board)", myRank.ToString(), "World").ToString());
                 SuecaSolver.Suit mySuit = (SuecaSolver.Suit)Enum.Parse(typeof(SuecaSolver.Suit), c.Suit.ToString());
+                _agentController.AddEvent(EventHelper.PropertyChanged("CurrentPlayerCardSuit(Board)", mySuit.ToString(), "World").ToString());
                 int myCard = SuecaSolver.Card.Create(myRank, mySuit);
+
                 ai.AddPlay(id, myCard);
                 Console.WriteLine("Player {0} has played {1}.", id, SuecaSolver.Card.ToString(myCard));
+
 
                 int[] newWinnerPoints = ai.GetWinnerAndPointsAndTrickNumber();
                 float desirabilityForOther = 0.0f, desirability = (Math.Min(newWinnerPoints[1], 15) / 15.0f) * 10.0f;
@@ -315,6 +326,7 @@ namespace EmotionalPlayer
             }
             else
                 _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "GameEnd-OTHER_CHEAT", "World").ToString());
+            _agentController.AddEvent(EventHelper.PropertyChanged("WhoRenounced(Board)", playerId.ToString(), "World").ToString());
         }
 
         public void ResetTrick()
