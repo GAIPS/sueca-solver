@@ -5,22 +5,58 @@
 			"Description": null,
 			"KnowledgeBase":
 				{
-					"Perspective": "Emylio",
+					"Perspective": "Agent",
 					"Knowledge":
 						{
-							"Universal":
+							"SELF":
 								{
-									"ID(Emylio)": 3,
-									"ID(Player1)": 0,
-									"ID(Player2)": 1,
-									"ID(Player3)": 2
+									"IsOpponent(0)": true,
+									"IsOpponent(1)": false,
+									"IsOpponent(2)": true,
+									"IsOpponent(3)": false
 								}
 						}
 				},
 			"AppraisalRules":
 				{
 					"AppraisalWeight": 1,
-					"Rules": []
+					"Rules": [
+						{
+							"EventName": "Event(Action-End, [x], NegativePlay, Board)",
+							"Conditions":
+								{
+									"Set": ["IsOpponent([x]) = False"]
+								},
+							"Desirability": -5,
+							"Praiseworthiness": -5
+						}, 
+						{
+							"EventName": "Event(Action-End, [x], NegativePlay, Board)",
+							"Conditions":
+								{
+									"Set": ["IsOpponent([x]) = True"]
+								},
+							"Desirability": 5,
+							"Praiseworthiness": 4
+						}, 
+						{
+							"EventName": "Event(Action-End, [x], PositivePlay, Board)",
+							"Conditions":
+								{
+									"Set": ["IsOpponent([x]) = False"]
+								},
+							"Desirability": 5,
+							"Praiseworthiness": 3
+						}, 
+						{
+							"EventName": "Event(Action-End, [x], PositivePlay, Board)",
+							"Conditions":
+								{
+									"Set": ["IsOpponent([x]) = True"]
+								},
+							"Desirability": -5,
+							"Praiseworthiness": -5
+						}]
 				},
 			"EmotionDispositions": [
 				{

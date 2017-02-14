@@ -407,23 +407,7 @@
 					"UtteranceId": "TTS-3F3A74B995C16F995B91F07BD08DB9CC"
 				}, 
 				{
-					"CurrentState": "Play-HAPPY_FOR",
-					"NextState": "W",
-					"Meaning": ["w"],
-					"Style": ["w"],
-					"Utterance": "<gaze(player|playerId|)> Boa!",
-					"UtteranceId": "TTS-F6AE53EDB4A3EFE5D298A0DC423DFBD5"
-				}, 
-				{
-					"CurrentState": "Play-HAPPY_FOR",
-					"NextState": "W",
-					"Meaning": ["w"],
-					"Style": ["w"],
-					"Utterance": "<gaze(player|playerId|)> <animate(joy|intensity|)> Estamos no bom caminho!",
-					"UtteranceId": "TTS-A9ECDACB5F492029D82F8AFD47322777"
-				}, 
-				{
-					"CurrentState": "Play-HAPPY_FOR",
+					"CurrentState": "Play-JOY",
 					"NextState": "W",
 					"Meaning": ["w"],
 					"Style": ["w"],
@@ -431,7 +415,15 @@
 					"UtteranceId": "TTS-1E9C5B4A8CE26AD9011DD59822E53419"
 				}, 
 				{
-					"CurrentState": "Play-HAPPY_FOR",
+					"CurrentState": "Play-JOY",
+					"NextState": "W",
+					"Meaning": ["w"],
+					"Style": ["w"],
+					"Utterance": "<gaze(player|playerId|)> Boa!",
+					"UtteranceId": "TTS-F6AE53EDB4A3EFE5D298A0DC423DFBD5"
+				}, 
+				{
+					"CurrentState": "Play-JOY",
 					"NextState": "W",
 					"Meaning": ["w"],
 					"Style": ["w"],
@@ -445,14 +437,6 @@
 					"Style": ["w"],
 					"Utterance": "<gaze(player|playerId|)> <animate(joy|intensity|)>Continua assim, estás a ir bem!",
 					"UtteranceId": "TTS-FE8CECEE2FD8C938F86DE960FEB70F89"
-				}, 
-				{
-					"CurrentState": "Play-HAPPY_FOR",
-					"NextState": "W",
-					"Meaning": ["w"],
-					"Style": ["w"],
-					"Utterance": "<gaze(player|playerId|)> <animate(joy|intensity|)>Bem jogado!",
-					"UtteranceId": "TTS-1975846A5C8CF8B6C67A8CFBEF795C73"
 				}, 
 				{
 					"CurrentState": "NextPlayer-TEAM_PLAYER",
@@ -1645,6 +1629,30 @@
 					"Style": ["w"],
 					"Utterance": "<gaze(player0)> Espero que já estejam prontos <gaze(player2)> para uma partida de Sueca... <gaze(player1)> Tu que vais ser meu colega, posso pedir-te uma coisa? Quando for a minha vez de baralhar, partir e distribuir, podes fazê-lo por mim?",
 					"UtteranceId": "TTS-1C95FF48E9AF67B891CD92A644A60DF8"
+				}, 
+				{
+					"CurrentState": "Play-HAPPY_FOR",
+					"NextState": "W",
+					"Meaning": ["w"],
+					"Style": ["w"],
+					"Utterance": "<gaze(player|playerId|)> <animate(joy|intensity|)>Bem jogado!",
+					"UtteranceId": "TTS-1975846A5C8CF8B6C67A8CFBEF795C73"
+				}, 
+				{
+					"CurrentState": "Play-HAPPY_FOR",
+					"NextState": "W",
+					"Meaning": ["w"],
+					"Style": ["w"],
+					"Utterance": "<gaze(player|playerId|)> <animate(joy|intensity|)> Estamos no bom caminho!",
+					"UtteranceId": "TTS-A9ECDACB5F492029D82F8AFD47322777"
+				}, 
+				{
+					"CurrentState": "Play-REPROACH",
+					"NextState": "W",
+					"Meaning": ["w"],
+					"Style": ["w"],
+					"Utterance": "Ouve lá, armas-te em esperto e apanhas!",
+					"UtteranceId": "TTS-A2DB884FD3C8F1A72F4500B9AFF181C3"
 				}]
 		},
 	"types": [

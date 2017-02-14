@@ -37,6 +37,10 @@
 				{
 					"Tick": 0,
 					"records": []
+				},
+			"OtherAgents":
+				{
+					"dictionary": []
 				}
 		},
 	"types": [

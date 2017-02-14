@@ -12,9 +12,9 @@
 							"Set": ["ValidDialogue([cs], [ns], [m], [s]) = True", "DialogueState(Board) = [cs]"]
 						},
 					"Priority": 0
-				},
+				}, 
 				{
-					"Action": "Speak([cs], [ns], Angry, [s])",
+					"Action": "Speak([cs], [ns], [m], Anger)",
 					"Target": "Board",
 					"Conditions":
 						{

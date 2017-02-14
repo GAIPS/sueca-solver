@@ -122,11 +122,7 @@ namespace EmotionalPlayer
             randomNumberGenerator = new Random(System.Guid.NewGuid().GetHashCode());
 
             AssetManager.Instance.Bridge = new AssetManagerBridge();
-
-            //string[] entries = System.IO.File.ReadAllLines(@"C:\Users\Filipa Correia\Devel\FAtiMA-Toolkit-UnityDemo\Assets\StreamingAssets\scenarioList.txt");
             string[] entries = System.IO.File.ReadAllLines(@"../../../Scenarios/ScenarioList.txt");
-
-            //var entries = www.text.Split(new[] { "\n", "\r\n" }, StringSplitOptions.None);
 
             List<ScenarioData> data = new List<ScenarioData>();
 
@@ -204,7 +200,6 @@ namespace EmotionalPlayer
 
         public void GameStart(int gameId, int playerId, int teamId, string trumpCard, int trumpCardPlayer, string[] cards)
         {
-            //Console.WriteLine("The game has started.");
             List<int> initialCards = new List<int>();
             foreach (string cardSerialized in cards)
             {
@@ -225,8 +220,7 @@ namespace EmotionalPlayer
         public void NextPlayer(int id)
         {
             Console.WriteLine("The next player is {0}.", id);
-
-
+            
             if (this.id == id && ai != null)
             {
                 //Console.WriteLine("I am going to play...");
@@ -241,6 +235,7 @@ namespace EmotionalPlayer
                 SuecaTypes.Suit msgSuit = (SuecaTypes.Suit)Enum.Parse(typeof(SuecaTypes.Suit), chosenCardSuit.ToString());
                 _agentController.AddEvent(EventHelper.PropertyChanged("AgentCardSuit(Board)", msgSuit.ToString(), "World").ToString());
                 string cardSerialized = new SuecaTypes.Card(msgRank, msgSuit).SerializeToJson();
+                Console.WriteLine("CARTA :" + cardSerialized);
                 SuecaPub.Play(this.id, cardSerialized);
 
                 string playInfo = ai.GetLastPlayInfo();
@@ -276,8 +271,20 @@ namespace EmotionalPlayer
                 ai.AddPlay(id, myCard);
                 Console.WriteLine("Player {0} has played {1}.", id, SuecaSolver.Card.ToString(myCard));
 
-
                 int[] newWinnerPoints = ai.GetWinnerAndPointsAndTrickNumber();
+                //float goodPlay = (Math.Min(newWinnerPoints[1], 15) / 15.0f) * 10.0f;
+                Console.WriteLine("Pontos: " + newWinnerPoints[1]);
+                if (newWinnerPoints[1] > 7.0f) {
+                    //an above average score play
+                    _agentController.AddEvent(EventHelper.ActionEnd(newWinnerPoints[0].ToString(), "PositivePlay", "Board").ToString());
+                }
+                if (newWinnerPoints[1] < 7.0f)
+                {
+                    //below average score play
+                    _agentController.AddEvent(EventHelper.ActionEnd(newWinnerPoints[0].ToString(), "NegativePlay", "Board").ToString());
+                }
+
+                /*
                 float desirabilityForOther = 0.0f, desirability = (Math.Min(newWinnerPoints[1], 15) / 15.0f) * 10.0f;
                 if (newWinnerPoints[0] == this.id || newWinnerPoints[0] == (this.id + 2) % 4)
                 {
@@ -308,6 +315,9 @@ namespace EmotionalPlayer
                 {
                     emotion = "PITTY";
                 }
+                
+                */
+                string emotion = _agentController.getEmotion().ToUpper();
                 Console.WriteLine("Emotion: " + emotion);
                 _agentController.AddEvent(EventHelper.PropertyChanged("DialogueState(Board)", "Play-" + emotion, "World").ToString());
             }
@@ -397,10 +407,12 @@ namespace EmotionalPlayer
                     Console.WriteLine("Unknown Player");
                     break;
             }
+            _agentController.AddEvent(EventHelper.PropertyChanged("TrickPoints(Board)", trickPoints.ToString(), "World").ToString());
         }
 
         public void TrumpCard(string trumpCard, int trumpCardPlayer)
         {
         }
+
     }
 }
