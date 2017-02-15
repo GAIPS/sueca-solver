@@ -21,6 +21,14 @@
 							"Set": ["ValidDialogue([cs], [ns], [m], Neutral) = True", "DialogueState(Board) = [cs]"]
 						},
 					"Priority": 0
+				}, 
+				{
+					"Action": "Speak(Play, [ns], [m], [s])",
+					"Target": "Board",
+					"Conditions":
+						{
+							"Set": ["ValidDialogue(Play, [ns], [m], [s]) = True", "StrongestEmotion(SELF) = [s]", "DialogueState(Board) = Play", "Current(PlayerID) = [cpId]", "Player([cpId]) = [m]"]
+						}
 				}]
 		},
 	"types": [

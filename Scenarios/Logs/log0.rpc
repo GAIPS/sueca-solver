@@ -11,10 +11,10 @@
 								{
 									"DialogueState(Board)": "SessionStart-GREETING",
 									"DialogueState(Player)": "Start",
-									"IsOpponent(0)": true,
-									"IsOpponent(2)": true,
-									"IsPartner(1)": true,
-									"IsPartner(3)": true
+									"Player(0)": "Opponent",
+									"Player(1)": "Partner",
+									"Player(2)": "Opponent",
+									"Player(3)": "Partner"
 								}
 						}
 				},
@@ -40,14 +40,14 @@
 				},
 			"AutobiographicMemory":
 				{
-					"Tick": 19,
+					"Tick": 15,
 					"records": [
 						{
 							"classId": 0,
 							"Id": 1,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 18,
+							"Timestamp": 14,
 							"Property": "DialogueState(Board)",
 							"NewValue": "SessionStart-GREETING"
 						}]

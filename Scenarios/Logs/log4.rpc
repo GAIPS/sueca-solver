@@ -9,19 +9,19 @@
 						{
 							"SELF":
 								{
-									"Current(PlayerCardRank)": "Five",
-									"Current(PlayerCardSuit)": "Clubs",
+									"Current(PlayerCardRank)": "Queen",
+									"Current(PlayerCardSuit)": "Hearts",
 									"Current(PlayerID)": 1,
 									"DialogueState(Board)": "Play",
 									"DialogueState(Player)": "Start",
-									"IsOpponent(0)": true,
-									"IsOpponent(2)": true,
-									"IsPartner(1)": true,
-									"IsPartner(3)": true,
 									"NextPlayerId(Board)": 1,
-									"Trick(Increase)": 0,
-									"Trick(Score)": 4,
-									"Trick(Winner)": 0
+									"Player(0)": "Opponent",
+									"Player(1)": "Partner",
+									"Player(2)": "Opponent",
+									"Player(3)": "Partner",
+									"Trick(Increase)": 2,
+									"Trick(Score)": 2,
+									"Trick(Winner)": 1
 								}
 						}
 				},
@@ -33,15 +33,15 @@
 			"CommeillFautAssetSource": null,
 			"EmotionalState":
 				{
-					"Mood": -0.8009039,
+					"Mood": 0.8784515,
 					"EmotionalPool": [
 						{
-							"Intensity": 2.297397,
+							"Intensity": 3.819366,
 							"Decay": 1,
 							"Threshold": 1,
-							"CauseId": 9,
-							"EmotionType": "Distress",
-							"Valence": "Negative",
+							"CauseId": 18,
+							"EmotionType": "Joy",
+							"Valence": "Positive",
 							"AppraisalVariables": ["DESIRABILITY"],
 							"InfluenceMood": true
 						}],
@@ -57,14 +57,14 @@
 				},
 			"AutobiographicMemory":
 				{
-					"Tick": 35,
+					"Tick": 27,
 					"records": [
 						{
 							"classId": 0,
 							"Id": 1,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 18,
+							"Timestamp": 14,
 							"Property": "DialogueState(Board)",
 							"NewValue": "SessionStart-GREETING"
 						}, 
@@ -73,7 +73,7 @@
 							"Id": 2,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 19,
+							"Timestamp": 17,
 							"Property": "DialogueState(Board)",
 							"NewValue": "NextPlayer-OPPONENT"
 						}, 
@@ -82,7 +82,7 @@
 							"Id": 3,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 19,
+							"Timestamp": 17,
 							"Property": "NextPlayerId(Board)",
 							"NewValue": 0
 						}, 
@@ -91,7 +91,7 @@
 							"Id": 4,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 23,
+							"Timestamp": 19,
 							"Property": "Current(PlayerID)",
 							"NewValue": 0
 						}, 
@@ -100,25 +100,25 @@
 							"Id": 5,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 23,
+							"Timestamp": 19,
 							"Property": "Current(PlayerCardRank)",
-							"NewValue": "King"
+							"NewValue": "Two"
 						}, 
 						{
 							"classId": 0,
 							"Id": 6,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 23,
+							"Timestamp": 19,
 							"Property": "Current(PlayerCardSuit)",
-							"NewValue": "Clubs"
+							"NewValue": "Hearts"
 						}, 
 						{
 							"classId": 0,
 							"Id": 7,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 23,
+							"Timestamp": 19,
 							"Property": "DialogueState(Board)",
 							"NewValue": "Play"
 						}, 
@@ -127,17 +127,16 @@
 							"Id": 8,
 							"Type": "Property-Change",
 							"Subject": 0,
-							"Timestamp": 23,
+							"Timestamp": 19,
 							"Property": "Trick(Score)",
-							"NewValue": 4
+							"NewValue": 0
 						}, 
 						{
 							"classId": 0,
 							"Id": 9,
 							"Type": "Property-Change",
 							"Subject": 0,
-							"Timestamp": 23,
-							"LinkedEmotions": ["Distress"],
+							"Timestamp": 19,
 							"Property": "Trick(Winner)",
 							"NewValue": 0
 						}, 
@@ -146,16 +145,16 @@
 							"Id": 10,
 							"Type": "Property-Change",
 							"Subject": 0,
-							"Timestamp": 23,
+							"Timestamp": 19,
 							"Property": "Trick(Increase)",
-							"NewValue": 4
+							"NewValue": 0
 						}, 
 						{
 							"classId": 0,
 							"Id": 11,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 27,
+							"Timestamp": 22,
 							"Property": "DialogueState(Board)",
 							"NewValue": "NextPlayer-TEAM_PLAYER"
 						}, 
@@ -164,7 +163,7 @@
 							"Id": 12,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 27,
+							"Timestamp": 22,
 							"Property": "NextPlayerId(Board)",
 							"NewValue": 1
 						}, 
@@ -173,7 +172,7 @@
 							"Id": 13,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 34,
+							"Timestamp": 26,
 							"Property": "Current(PlayerID)",
 							"NewValue": 1
 						}, 
@@ -182,25 +181,25 @@
 							"Id": 14,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 34,
+							"Timestamp": 26,
 							"Property": "Current(PlayerCardRank)",
-							"NewValue": "Five"
+							"NewValue": "Queen"
 						}, 
 						{
 							"classId": 0,
 							"Id": 15,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 34,
+							"Timestamp": 26,
 							"Property": "Current(PlayerCardSuit)",
-							"NewValue": "Clubs"
+							"NewValue": "Hearts"
 						}, 
 						{
 							"classId": 0,
 							"Id": 16,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 34,
+							"Timestamp": 26,
 							"Property": "DialogueState(Board)",
 							"NewValue": "Play"
 						}, 
@@ -209,18 +208,28 @@
 							"Id": 17,
 							"Type": "Property-Change",
 							"Subject": 1,
-							"Timestamp": 34,
+							"Timestamp": 26,
 							"Property": "Trick(Score)",
-							"NewValue": 4
+							"NewValue": 2
 						}, 
 						{
 							"classId": 0,
 							"Id": 18,
 							"Type": "Property-Change",
 							"Subject": 1,
-							"Timestamp": 34,
+							"Timestamp": 26,
+							"LinkedEmotions": ["Joy"],
+							"Property": "Trick(Winner)",
+							"NewValue": 1
+						}, 
+						{
+							"classId": 0,
+							"Id": 19,
+							"Type": "Property-Change",
+							"Subject": 1,
+							"Timestamp": 26,
 							"Property": "Trick(Increase)",
-							"NewValue": 0
+							"NewValue": 2
 						}]
 				},
 			"OtherAgents":
