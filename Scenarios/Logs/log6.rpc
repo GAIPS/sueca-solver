@@ -1,0 +1,310 @@
+{
+	"root":
+		{
+			"classId": 1,
+			"KnowledgeBase":
+				{
+					"Perspective": "EMYS-1",
+					"Knowledge":
+						{
+							"SELF":
+								{
+									"Current(PlayerCardRank)": "Six",
+									"Current(PlayerCardSuit)": "Spades",
+									"Current(PlayerID)": 2,
+									"DialogueState(Board)": "Play",
+									"DialogueState(Player)": "Start",
+									"IsOpponent(0)": true,
+									"IsOpponent(2)": true,
+									"IsPartner(1)": true,
+									"IsPartner(3)": true,
+									"NextPlayerId(Board)": 2,
+									"Trick(Increase)": 0,
+									"Trick(Score)": 3,
+									"Trick(Winner)": 1
+								}
+						}
+				},
+			"BodyName": "EMYS-1",
+			"VoiceName": "Male",
+			"EmotionalAppraisalAssetSource": "../../..\\Scenarios\\group.ea",
+			"EmotionalDecisionMakingSource": "../../..\\Scenarios\\group.edm",
+			"SocialImportanceAssetSource": null,
+			"CommeillFautAssetSource": null,
+			"EmotionalState":
+				{
+					"Mood": 0,
+					"EmotionalPool": [],
+					"AppraisalConfiguration":
+						{
+							"HalfLifeDecayConstant": 0.5,
+							"EmotionInfluenceOnMoodFactor": 0.3,
+							"MoodInfluenceOnEmotionFactor": 0.3,
+							"MinimumMoodValueForInfluencingEmotions": 0.5,
+							"EmotionalHalfLifeDecayTime": 15,
+							"MoodHalfLifeDecayTime": 60
+						}
+				},
+			"AutobiographicMemory":
+				{
+					"Tick": 27,
+					"records": [
+						{
+							"classId": 0,
+							"Id": 1,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 11,
+							"Property": "DialogueState(Board)",
+							"NewValue": "SessionStart-GREETING"
+						}, 
+						{
+							"classId": 0,
+							"Id": 2,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 12,
+							"Property": "DialogueState(Board)",
+							"NewValue": "NextPlayer-OPPONENT"
+						}, 
+						{
+							"classId": 0,
+							"Id": 3,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 12,
+							"Property": "NextPlayerId(Board)",
+							"NewValue": 0
+						}, 
+						{
+							"classId": 0,
+							"Id": 4,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 15,
+							"Property": "Current(PlayerID)",
+							"NewValue": 0
+						}, 
+						{
+							"classId": 0,
+							"Id": 5,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 15,
+							"Property": "Current(PlayerCardRank)",
+							"NewValue": "Five"
+						}, 
+						{
+							"classId": 0,
+							"Id": 6,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 15,
+							"Property": "Current(PlayerCardSuit)",
+							"NewValue": "Spades"
+						}, 
+						{
+							"classId": 0,
+							"Id": 7,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 15,
+							"Property": "DialogueState(Board)",
+							"NewValue": "Play"
+						}, 
+						{
+							"classId": 0,
+							"Id": 8,
+							"Type": "Property-Change",
+							"Subject": 0,
+							"Timestamp": 15,
+							"Property": "Trick(Score)",
+							"NewValue": 0
+						}, 
+						{
+							"classId": 0,
+							"Id": 9,
+							"Type": "Property-Change",
+							"Subject": 0,
+							"Timestamp": 15,
+							"Property": "Trick(Winner)",
+							"NewValue": 0
+						}, 
+						{
+							"classId": 0,
+							"Id": 10,
+							"Type": "Property-Change",
+							"Subject": 0,
+							"Timestamp": 15,
+							"Property": "Trick(Increase)",
+							"NewValue": 0
+						}, 
+						{
+							"classId": 0,
+							"Id": 11,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 18,
+							"Property": "DialogueState(Board)",
+							"NewValue": "NextPlayer-TEAM_PLAYER"
+						}, 
+						{
+							"classId": 0,
+							"Id": 12,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 18,
+							"Property": "NextPlayerId(Board)",
+							"NewValue": 1
+						}, 
+						{
+							"classId": 0,
+							"Id": 13,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 21,
+							"Property": "Current(PlayerID)",
+							"NewValue": 1
+						}, 
+						{
+							"classId": 0,
+							"Id": 14,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 21,
+							"Property": "Current(PlayerCardRank)",
+							"NewValue": "Jack"
+						}, 
+						{
+							"classId": 0,
+							"Id": 15,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 21,
+							"Property": "Current(PlayerCardSuit)",
+							"NewValue": "Spades"
+						}, 
+						{
+							"classId": 0,
+							"Id": 16,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 21,
+							"Property": "DialogueState(Board)",
+							"NewValue": "Play"
+						}, 
+						{
+							"classId": 0,
+							"Id": 17,
+							"Type": "Property-Change",
+							"Subject": 1,
+							"Timestamp": 21,
+							"Property": "Trick(Score)",
+							"NewValue": 3
+						}, 
+						{
+							"classId": 0,
+							"Id": 18,
+							"Type": "Property-Change",
+							"Subject": 1,
+							"Timestamp": 21,
+							"Property": "Trick(Winner)",
+							"NewValue": 1
+						}, 
+						{
+							"classId": 0,
+							"Id": 19,
+							"Type": "Property-Change",
+							"Subject": 1,
+							"Timestamp": 21,
+							"Property": "Trick(Increase)",
+							"NewValue": 3
+						}, 
+						{
+							"classId": 0,
+							"Id": 20,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 24,
+							"Property": "DialogueState(Board)",
+							"NewValue": "NextPlayer-OPPONENT"
+						}, 
+						{
+							"classId": 0,
+							"Id": 21,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 24,
+							"Property": "NextPlayerId(Board)",
+							"NewValue": 2
+						}, 
+						{
+							"classId": 0,
+							"Id": 22,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 26,
+							"Property": "Current(PlayerID)",
+							"NewValue": 2
+						}, 
+						{
+							"classId": 0,
+							"Id": 23,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 26,
+							"Property": "Current(PlayerCardRank)",
+							"NewValue": "Six"
+						}, 
+						{
+							"classId": 0,
+							"Id": 24,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 26,
+							"Property": "Current(PlayerCardSuit)",
+							"NewValue": "Spades"
+						}, 
+						{
+							"classId": 0,
+							"Id": 25,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 26,
+							"Property": "DialogueState(Board)",
+							"NewValue": "Play"
+						}, 
+						{
+							"classId": 0,
+							"Id": 26,
+							"Type": "Property-Change",
+							"Subject": 2,
+							"Timestamp": 26,
+							"Property": "Trick(Score)",
+							"NewValue": 3
+						}, 
+						{
+							"classId": 0,
+							"Id": 27,
+							"Type": "Property-Change",
+							"Subject": 2,
+							"Timestamp": 26,
+							"Property": "Trick(Increase)",
+							"NewValue": 0
+						}]
+				},
+			"OtherAgents":
+				{
+					"dictionary": []
+				}
+		},
+	"types": [
+		{
+			"TypeId": 0,
+			"ClassName": "AutobiographicMemory.AM+PropertyChangeEvent, AutobiographicMemory, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+		}, 
+		{
+			"TypeId": 1,
+			"ClassName": "RolePlayCharacter.RolePlayCharacterAsset, RolePlayCharacter, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+		}]
+}

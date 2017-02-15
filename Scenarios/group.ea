@@ -11,9 +11,9 @@
 							"SELF":
 								{
 									"IsOpponent(0)": true,
-									"IsOpponent(1)": false,
 									"IsOpponent(2)": true,
-									"IsOpponent(3)": false
+									"IsPartner(1)": true,
+									"IsPartner(3)": true
 								}
 						}
 				},
@@ -22,40 +22,68 @@
 					"AppraisalWeight": 1,
 					"Rules": [
 						{
-							"EventName": "Event(Action-End, [x], NegativePlay, Board)",
+							"EventName": "Event(Action-End, [x], NegativeTrick, Board)",
 							"Conditions":
 								{
 									"Set": ["IsOpponent([x]) = False"]
 								},
-							"Desirability": -5,
-							"Praiseworthiness": -5
+							"Desirability": -5
 						}, 
 						{
-							"EventName": "Event(Action-End, [x], NegativePlay, Board)",
+							"EventName": "Event(Action-End, [x], NegativeTrick, Board)",
 							"Conditions":
 								{
 									"Set": ["IsOpponent([x]) = True"]
 								},
-							"Desirability": 5,
-							"Praiseworthiness": 4
+							"Desirability": 5
 						}, 
 						{
-							"EventName": "Event(Action-End, [x], PositivePlay, Board)",
+							"EventName": "Event(Action-End, [x], PositiveTrick, Board)",
 							"Conditions":
 								{
 									"Set": ["IsOpponent([x]) = False"]
 								},
-							"Desirability": 5,
-							"Praiseworthiness": 3
+							"Desirability": 5
 						}, 
 						{
-							"EventName": "Event(Action-End, [x], PositivePlay, Board)",
+							"EventName": "Event(Action-End, [x], PositiveTrick, Board)",
 							"Conditions":
 								{
 									"Set": ["IsOpponent([x]) = True"]
 								},
-							"Desirability": -5,
-							"Praiseworthiness": -5
+							"Desirability": -5
+						}, 
+						{
+							"EventName": "Event(Property-Change, Trick(Increase), [points], [playerID])",
+							"Conditions":
+								{
+									"Set": ["[points] >= 10", "IsPartner([playerID]) = True", "Trick(Winner) = [winner]", "IsPartner([winner]) = True"]
+								},
+							"Desirability": 7
+						}, 
+						{
+							"EventName": "Event(Property-Change, Trick(Increase), [points], [playerID])",
+							"Conditions":
+								{
+									"Set": ["[points] >= 10", "IsOpponent([playerID]) = True", "Trick(Winner) = [winner]", "IsOpponent([winner]) = True"]
+								},
+							"Desirability": -7
+						}, 
+						{
+							"EventName": "Event(Property-Change, Trick(Winner), [winnerID], *)",
+							"Conditions":
+								{
+									"Set": ["IsPartner([winnerID]) = True", "Trick(Score) > 0"]
+								},
+							"Desirability": 5
+						}, 
+						{
+							"EventName": "Event(Property-Change, Trick(Winner), [winnerID], *)",
+							"Conditions":
+								{
+									"Set": ["IsOpponent([winnerID]) = True", "Trick(Score) > 0"]
+								},
+							"Desirability": -5
 						}]
 				},
 			"EmotionDispositions": [

@@ -9,18 +9,18 @@
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["ValidDialogue([cs], [ns], [m], [s]) = True", "DialogueState(Board) = [cs]"]
+							"Set": ["ValidDialogue([cs], [ns], [m], [s]) = True", "DialogueState(Board) = [cs]", "StrongestEmotion(SELF) = [s]"]
 						},
-					"Priority": 0
+					"Priority": 1
 				}, 
 				{
-					"Action": "Speak([cs], [ns], [m], Anger)",
+					"Action": "Speak([cs], [ns], [m], Neutral)",
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["ValidDialogue([cs], [ns], [m], [s]) = True", "DialogueState(Board) = [cs]", "StrongestEmotion(SELF) = Anger"]
+							"Set": ["ValidDialogue([cs], [ns], [m], Neutral) = True", "DialogueState(Board) = [cs]"]
 						},
-					"Priority": 1
+					"Priority": 0
 				}]
 		},
 	"types": [

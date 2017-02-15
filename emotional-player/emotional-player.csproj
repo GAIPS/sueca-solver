@@ -136,6 +136,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssetManagerBridge.cs" />
+    <Compile Include="Consts.cs" />
     <Compile Include="EmotionalSuecaPlayer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

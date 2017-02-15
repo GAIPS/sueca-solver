@@ -26,6 +26,7 @@ namespace EmotionalPlayer
         private string[] _tags = new string[] { };
         private string[] _tagMeanings = new string[] { };
         private String emotion = "none";
+        private static int i;
 
         public SocialAgentController(EmotionalSuecaPlayer esp, EmotionalSuecaPlayer.ScenarioData scenarioData, RolePlayCharacterAsset rpc, IntegratedAuthoringToolAsset iat)
         {
@@ -64,15 +65,17 @@ namespace EmotionalPlayer
                     continue;
                 }
 
+                m_rpc.Perceive(_events);
+
                 Console.WriteLine("Mood: " + m_rpc.Mood);
                 Console.WriteLine("Current Strongest Emotion: " + getEmotion());
 
-                m_rpc.Perceive(_events);   
                 var actionRpc = m_rpc.Decide().FirstOrDefault();
                 _events.Clear();
                 m_rpc.Update();
 
-                m_rpc.SaveToFile("../../../Scenarios/log.rpc");
+                m_rpc.SaveToFile("../../../Scenarios/Logs/log"+i+".rpc");
+                i++;
 
                 if (actionRpc == null)
                 {
@@ -128,11 +131,11 @@ namespace EmotionalPlayer
                 {
                     case "|rank|":
                         //Console.WriteLine("Found Tag: Rank");
-                        _tagMeaningsList.Add(convertRankToPortuguese(m_rpc.GetBeliefValue("AgentCardRank(Board)")));
+                        _tagMeaningsList.Add(convertRankToPortuguese(m_rpc.GetBeliefValue("AgentCard(Rank)")));
                         break;
                     case "|suit|":
                         //Console.WriteLine("Found Tag: Suit");
-                        _tagMeaningsList.Add(convertSuitToPortuguese(m_rpc.GetBeliefValue("AgentCardSuit(Board)")));
+                        _tagMeaningsList.Add(convertSuitToPortuguese(m_rpc.GetBeliefValue("AgentCard(Suit)")));
                         break;
                     case "|nextPlayerId|":
                         //Console.WriteLine("Found Tag: NextPlayerID");
@@ -164,23 +167,6 @@ namespace EmotionalPlayer
                 }
             }
             _tagMeanings = _tagMeaningsList.ToArray();
-        }
-
-        static void WriteAction(IAction a)
-        {
-            if (a == null)
-            {
-                Console.WriteLine("Null action");
-                return;
-            }
-
-            Console.WriteLine("Selected Action: " + a.Key);
-            Console.WriteLine("Parameters: ");
-            foreach (var p in a.Parameters)
-            {
-                Console.Write( p + ", ");
-            }
-            Console.WriteLine();
         }
 
         private string convertRankToPortuguese(string englishRank)

@@ -1,0 +1,69 @@
+{
+	"root":
+		{
+			"classId": 1,
+			"KnowledgeBase":
+				{
+					"Perspective": "EMYS-1",
+					"Knowledge":
+						{
+							"SELF":
+								{
+									"DialogueState(Board)": "SessionStart-GREETING",
+									"DialogueState(Player)": "Start",
+									"IsOpponent(0)": true,
+									"IsOpponent(2)": true,
+									"IsPartner(1)": true,
+									"IsPartner(3)": true
+								}
+						}
+				},
+			"BodyName": "EMYS-1",
+			"VoiceName": "Male",
+			"EmotionalAppraisalAssetSource": "../../../Scenarios\\group.ea",
+			"EmotionalDecisionMakingSource": "../../../Scenarios\\group.edm",
+			"SocialImportanceAssetSource": null,
+			"CommeillFautAssetSource": null,
+			"EmotionalState":
+				{
+					"Mood": 0,
+					"EmotionalPool": [],
+					"AppraisalConfiguration":
+						{
+							"HalfLifeDecayConstant": 0.5,
+							"EmotionInfluenceOnMoodFactor": 0.3,
+							"MoodInfluenceOnEmotionFactor": 0.3,
+							"MinimumMoodValueForInfluencingEmotions": 0.5,
+							"EmotionalHalfLifeDecayTime": 15,
+							"MoodHalfLifeDecayTime": 60
+						}
+				},
+			"AutobiographicMemory":
+				{
+					"Tick": 12,
+					"records": [
+						{
+							"classId": 0,
+							"Id": 1,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 11,
+							"Property": "DialogueState(Board)",
+							"NewValue": "SessionStart-GREETING"
+						}]
+				},
+			"OtherAgents":
+				{
+					"dictionary": []
+				}
+		},
+	"types": [
+		{
+			"TypeId": 0,
+			"ClassName": "AutobiographicMemory.AM+PropertyChangeEvent, AutobiographicMemory, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+		}, 
+		{
+			"TypeId": 1,
+			"ClassName": "RolePlayCharacter.RolePlayCharacterAsset, RolePlayCharacter, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+		}]
+}

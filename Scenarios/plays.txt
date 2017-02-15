@@ -1,0 +1,4 @@
+Positive Trick - A trick worth more than 7 points (7 is an arbitrary value)
+Negative Trick - A trick worth less than or equal to 7 points (7 is an arbitrary value)
+Positive Play - ?
+Negative Play - ? 
