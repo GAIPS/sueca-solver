@@ -11,19 +11,19 @@
 								{
 									"AgentCard(Rank)": "Queen",
 									"AgentCard(Suit)": "Diamonds",
-									"Current(PlayerCardRank)": "Queen",
-									"Current(PlayerCardSuit)": "Hearts",
-									"Current(PlayerID)": 0,
-									"DialogueState(Board)": "NextPlayer-TEAM_PLAYER",
+									"Current(PlayerCardRank)": "King",
+									"Current(PlayerCardSuit)": "Diamonds",
+									"Current(PlayerID)": 1,
+									"DialogueState(Board)": "NextPlayer-OPPONENT",
 									"DialogueState(Player)": "Start",
 									"IsOpponent(0)": true,
 									"IsOpponent(2)": true,
 									"IsPartner(1)": true,
 									"IsPartner(3)": true,
-									"NextPlayerId(Board)": 1,
-									"Trick(Increase)": 2,
-									"Trick(Score)": 4,
-									"Trick(Winner)": 2,
+									"NextPlayerId(Board)": 2,
+									"Trick(Increase)": 4,
+									"Trick(Score)": 8,
+									"Trick(Winner)": 1,
 									"TrickWinner(Board)": 3
 								}
 						}
@@ -37,7 +37,17 @@
 			"EmotionalState":
 				{
 					"Mood": 0,
-					"EmotionalPool": [],
+					"EmotionalPool": [
+						{
+							"Intensity": 3.482202,
+							"Decay": 1,
+							"Threshold": 1,
+							"CauseId": 57,
+							"EmotionType": "Joy",
+							"Valence": "Positive",
+							"AppraisalVariables": ["DESIRABILITY"],
+							"InfluenceMood": true
+						}],
 					"AppraisalConfiguration":
 						{
 							"HalfLifeDecayConstant": 0.5,
@@ -50,7 +60,7 @@
 				},
 			"AutobiographicMemory":
 				{
-					"Tick": 204,
+					"Tick": 218,
 					"records": [
 						{
 							"classId": 0,
@@ -511,6 +521,88 @@
 							"Timestamp": 203,
 							"Property": "NextPlayerId(Board)",
 							"NewValue": 1
+						}, 
+						{
+							"classId": 0,
+							"Id": 52,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 215,
+							"Property": "Current(PlayerID)",
+							"NewValue": 1
+						}, 
+						{
+							"classId": 0,
+							"Id": 53,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 215,
+							"Property": "Current(PlayerCardRank)",
+							"NewValue": "King"
+						}, 
+						{
+							"classId": 0,
+							"Id": 54,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 215,
+							"Property": "Current(PlayerCardSuit)",
+							"NewValue": "Diamonds"
+						}, 
+						{
+							"classId": 0,
+							"Id": 55,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 215,
+							"Property": "DialogueState(Board)",
+							"NewValue": "Play"
+						}, 
+						{
+							"classId": 0,
+							"Id": 56,
+							"Type": "Property-Change",
+							"Subject": 1,
+							"Timestamp": 215,
+							"Property": "Trick(Score)",
+							"NewValue": 8
+						}, 
+						{
+							"classId": 0,
+							"Id": 57,
+							"Type": "Property-Change",
+							"Subject": 1,
+							"Timestamp": 215,
+							"LinkedEmotions": ["Joy"],
+							"Property": "Trick(Winner)",
+							"NewValue": 1
+						}, 
+						{
+							"classId": 0,
+							"Id": 58,
+							"Type": "Property-Change",
+							"Subject": 1,
+							"Timestamp": 215,
+							"Property": "Trick(Increase)",
+							"NewValue": 4
+						}, 
+						{
+							"classId": 0,
+							"Id": 59,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 217,
+							"Property": "DialogueState(Board)",
+							"NewValue": "NextPlayer-OPPONENT"
+						}, 
+						{
+							"classId": 0,
+							"Id": 60,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 217,
+							"Property": "NextPlayerId(Board)",
+							"NewValue": 2
 						}]
 				},
 			"OtherAgents":

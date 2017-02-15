@@ -11,9 +11,9 @@
 								{
 									"AgentCard(Rank)": "Queen",
 									"AgentCard(Suit)": "Diamonds",
-									"Current(PlayerCardRank)": "Queen",
-									"Current(PlayerCardSuit)": "Hearts",
-									"Current(PlayerID)": 0,
+									"Current(PlayerCardRank)": "Six",
+									"Current(PlayerCardSuit)": "Diamonds",
+									"Current(PlayerID)": 2,
 									"DialogueState(Board)": "NextPlayer-TEAM_PLAYER",
 									"DialogueState(Player)": "Start",
 									"IsOpponent(0)": true,
@@ -21,10 +21,10 @@
 									"IsPartner(1)": true,
 									"IsPartner(3)": true,
 									"NextPlayerId(Board)": 1,
-									"Trick(Increase)": 2,
-									"Trick(Score)": 4,
-									"Trick(Winner)": 2,
-									"TrickWinner(Board)": 3
+									"Trick(Increase)": 0,
+									"Trick(Score)": 8,
+									"Trick(Winner)": 1,
+									"TrickWinner(Board)": 1
 								}
 						}
 				},
@@ -37,7 +37,17 @@
 			"EmotionalState":
 				{
 					"Mood": 0,
-					"EmotionalPool": [],
+					"EmotionalPool": [
+						{
+							"Intensity": 1.662476,
+							"Decay": 1,
+							"Threshold": 1,
+							"CauseId": 57,
+							"EmotionType": "Joy",
+							"Valence": "Positive",
+							"AppraisalVariables": ["DESIRABILITY"],
+							"InfluenceMood": true
+						}],
 					"AppraisalConfiguration":
 						{
 							"HalfLifeDecayConstant": 0.5,
@@ -50,7 +60,7 @@
 				},
 			"AutobiographicMemory":
 				{
-					"Tick": 204,
+					"Tick": 234,
 					"records": [
 						{
 							"classId": 0,
@@ -511,6 +521,187 @@
 							"Timestamp": 203,
 							"Property": "NextPlayerId(Board)",
 							"NewValue": 1
+						}, 
+						{
+							"classId": 0,
+							"Id": 52,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 215,
+							"Property": "Current(PlayerID)",
+							"NewValue": 1
+						}, 
+						{
+							"classId": 0,
+							"Id": 53,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 215,
+							"Property": "Current(PlayerCardRank)",
+							"NewValue": "King"
+						}, 
+						{
+							"classId": 0,
+							"Id": 54,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 215,
+							"Property": "Current(PlayerCardSuit)",
+							"NewValue": "Diamonds"
+						}, 
+						{
+							"classId": 0,
+							"Id": 55,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 215,
+							"Property": "DialogueState(Board)",
+							"NewValue": "Play"
+						}, 
+						{
+							"classId": 0,
+							"Id": 56,
+							"Type": "Property-Change",
+							"Subject": 1,
+							"Timestamp": 215,
+							"Property": "Trick(Score)",
+							"NewValue": 8
+						}, 
+						{
+							"classId": 0,
+							"Id": 57,
+							"Type": "Property-Change",
+							"Subject": 1,
+							"Timestamp": 215,
+							"LinkedEmotions": ["Joy"],
+							"Property": "Trick(Winner)",
+							"NewValue": 1
+						}, 
+						{
+							"classId": 0,
+							"Id": 58,
+							"Type": "Property-Change",
+							"Subject": 1,
+							"Timestamp": 215,
+							"Property": "Trick(Increase)",
+							"NewValue": 4
+						}, 
+						{
+							"classId": 0,
+							"Id": 59,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 217,
+							"Property": "DialogueState(Board)",
+							"NewValue": "NextPlayer-OPPONENT"
+						}, 
+						{
+							"classId": 0,
+							"Id": 60,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 217,
+							"Property": "NextPlayerId(Board)",
+							"NewValue": 2
+						}, 
+						{
+							"classId": 0,
+							"Id": 61,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 229,
+							"Property": "Current(PlayerID)",
+							"NewValue": 2
+						}, 
+						{
+							"classId": 0,
+							"Id": 62,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 229,
+							"Property": "Current(PlayerCardRank)",
+							"NewValue": "Six"
+						}, 
+						{
+							"classId": 0,
+							"Id": 63,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 229,
+							"Property": "Current(PlayerCardSuit)",
+							"NewValue": "Diamonds"
+						}, 
+						{
+							"classId": 0,
+							"Id": 64,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 229,
+							"Property": "DialogueState(Board)",
+							"NewValue": "Play"
+						}, 
+						{
+							"classId": 0,
+							"Id": 65,
+							"Type": "Property-Change",
+							"Subject": 2,
+							"Timestamp": 229,
+							"Property": "Trick(Score)",
+							"NewValue": 8
+						}, 
+						{
+							"classId": 0,
+							"Id": 66,
+							"Type": "Property-Change",
+							"Subject": 2,
+							"Timestamp": 229,
+							"Property": "Trick(Increase)",
+							"NewValue": 0
+						}, 
+						{
+							"classId": 0,
+							"Id": 67,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 229,
+							"Property": "DialogueState(Board)",
+							"NewValue": "TrickEnd-TEAM_PLAYER"
+						}, 
+						{
+							"classId": 1,
+							"Id": 68,
+							"Type": "Action-End",
+							"Subject": 1,
+							"Timestamp": 229,
+							"Action": "PositiveTrick",
+							"Target": "Board"
+						}, 
+						{
+							"classId": 0,
+							"Id": 69,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 229,
+							"Property": "TrickWinner(Board)",
+							"NewValue": 1
+						}, 
+						{
+							"classId": 0,
+							"Id": 70,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 233,
+							"Property": "DialogueState(Board)",
+							"NewValue": "NextPlayer-TEAM_PLAYER"
+						}, 
+						{
+							"classId": 0,
+							"Id": 71,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 233,
+							"Property": "NextPlayerId(Board)",
+							"NewValue": 1
 						}]
 				},
 			"OtherAgents":
@@ -521,6 +712,27 @@
 							"value":
 								{
 									"Name": 3,
+									"EmotionalState":
+										{
+											"Mood": 0,
+											"EmotionalPool": [],
+											"AppraisalConfiguration":
+												{
+													"HalfLifeDecayConstant": 0.5,
+													"EmotionInfluenceOnMoodFactor": 0.3,
+													"MoodInfluenceOnEmotionFactor": 0.3,
+													"MinimumMoodValueForInfluencingEmotions": 0.5,
+													"EmotionalHalfLifeDecayTime": 15,
+													"MoodHalfLifeDecayTime": 60
+												}
+										}
+								}
+						}, 
+						{
+							"key": 1,
+							"value":
+								{
+									"Name": 1,
 									"EmotionalState":
 										{
 											"Mood": 0,

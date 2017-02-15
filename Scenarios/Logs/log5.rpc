@@ -9,8 +9,8 @@
 						{
 							"SELF":
 								{
-									"Current(PlayerCardRank)": "Jack",
-									"Current(PlayerCardSuit)": "Spades",
+									"Current(PlayerCardRank)": "Five",
+									"Current(PlayerCardSuit)": "Clubs",
 									"Current(PlayerID)": 1,
 									"DialogueState(Board)": "NextPlayer-OPPONENT",
 									"DialogueState(Player)": "Start",
@@ -19,9 +19,9 @@
 									"IsPartner(1)": true,
 									"IsPartner(3)": true,
 									"NextPlayerId(Board)": 2,
-									"Trick(Increase)": 3,
-									"Trick(Score)": 3,
-									"Trick(Winner)": 1
+									"Trick(Increase)": 0,
+									"Trick(Score)": 4,
+									"Trick(Winner)": 0
 								}
 						}
 				},
@@ -33,8 +33,18 @@
 			"CommeillFautAssetSource": null,
 			"EmotionalState":
 				{
-					"Mood": 0,
-					"EmotionalPool": [],
+					"Mood": -0.7736222,
+					"EmotionalPool": [
+						{
+							"Intensity": 2,
+							"Decay": 1,
+							"Threshold": 1,
+							"CauseId": 9,
+							"EmotionType": "Distress",
+							"Valence": "Negative",
+							"AppraisalVariables": ["DESIRABILITY"],
+							"InfluenceMood": true
+						}],
 					"AppraisalConfiguration":
 						{
 							"HalfLifeDecayConstant": 0.5,
@@ -47,14 +57,14 @@
 				},
 			"AutobiographicMemory":
 				{
-					"Tick": 25,
+					"Tick": 38,
 					"records": [
 						{
 							"classId": 0,
 							"Id": 1,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 11,
+							"Timestamp": 18,
 							"Property": "DialogueState(Board)",
 							"NewValue": "SessionStart-GREETING"
 						}, 
@@ -63,7 +73,7 @@
 							"Id": 2,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 12,
+							"Timestamp": 19,
 							"Property": "DialogueState(Board)",
 							"NewValue": "NextPlayer-OPPONENT"
 						}, 
@@ -72,7 +82,7 @@
 							"Id": 3,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 12,
+							"Timestamp": 19,
 							"Property": "NextPlayerId(Board)",
 							"NewValue": 0
 						}, 
@@ -81,7 +91,7 @@
 							"Id": 4,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 15,
+							"Timestamp": 23,
 							"Property": "Current(PlayerID)",
 							"NewValue": 0
 						}, 
@@ -90,25 +100,25 @@
 							"Id": 5,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 15,
+							"Timestamp": 23,
 							"Property": "Current(PlayerCardRank)",
-							"NewValue": "Five"
+							"NewValue": "King"
 						}, 
 						{
 							"classId": 0,
 							"Id": 6,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 15,
+							"Timestamp": 23,
 							"Property": "Current(PlayerCardSuit)",
-							"NewValue": "Spades"
+							"NewValue": "Clubs"
 						}, 
 						{
 							"classId": 0,
 							"Id": 7,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 15,
+							"Timestamp": 23,
 							"Property": "DialogueState(Board)",
 							"NewValue": "Play"
 						}, 
@@ -117,16 +127,17 @@
 							"Id": 8,
 							"Type": "Property-Change",
 							"Subject": 0,
-							"Timestamp": 15,
+							"Timestamp": 23,
 							"Property": "Trick(Score)",
-							"NewValue": 0
+							"NewValue": 4
 						}, 
 						{
 							"classId": 0,
 							"Id": 9,
 							"Type": "Property-Change",
 							"Subject": 0,
-							"Timestamp": 15,
+							"Timestamp": 23,
+							"LinkedEmotions": ["Distress"],
 							"Property": "Trick(Winner)",
 							"NewValue": 0
 						}, 
@@ -135,16 +146,16 @@
 							"Id": 10,
 							"Type": "Property-Change",
 							"Subject": 0,
-							"Timestamp": 15,
+							"Timestamp": 23,
 							"Property": "Trick(Increase)",
-							"NewValue": 0
+							"NewValue": 4
 						}, 
 						{
 							"classId": 0,
 							"Id": 11,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 18,
+							"Timestamp": 27,
 							"Property": "DialogueState(Board)",
 							"NewValue": "NextPlayer-TEAM_PLAYER"
 						}, 
@@ -153,7 +164,7 @@
 							"Id": 12,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 18,
+							"Timestamp": 27,
 							"Property": "NextPlayerId(Board)",
 							"NewValue": 1
 						}, 
@@ -162,7 +173,7 @@
 							"Id": 13,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 21,
+							"Timestamp": 34,
 							"Property": "Current(PlayerID)",
 							"NewValue": 1
 						}, 
@@ -171,25 +182,25 @@
 							"Id": 14,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 21,
+							"Timestamp": 34,
 							"Property": "Current(PlayerCardRank)",
-							"NewValue": "Jack"
+							"NewValue": "Five"
 						}, 
 						{
 							"classId": 0,
 							"Id": 15,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 21,
+							"Timestamp": 34,
 							"Property": "Current(PlayerCardSuit)",
-							"NewValue": "Spades"
+							"NewValue": "Clubs"
 						}, 
 						{
 							"classId": 0,
 							"Id": 16,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 21,
+							"Timestamp": 34,
 							"Property": "DialogueState(Board)",
 							"NewValue": "Play"
 						}, 
@@ -198,43 +209,34 @@
 							"Id": 17,
 							"Type": "Property-Change",
 							"Subject": 1,
-							"Timestamp": 21,
+							"Timestamp": 34,
 							"Property": "Trick(Score)",
-							"NewValue": 3
+							"NewValue": 4
 						}, 
 						{
 							"classId": 0,
 							"Id": 18,
 							"Type": "Property-Change",
 							"Subject": 1,
-							"Timestamp": 21,
-							"Property": "Trick(Winner)",
-							"NewValue": 1
+							"Timestamp": 34,
+							"Property": "Trick(Increase)",
+							"NewValue": 0
 						}, 
 						{
 							"classId": 0,
 							"Id": 19,
 							"Type": "Property-Change",
-							"Subject": 1,
-							"Timestamp": 21,
-							"Property": "Trick(Increase)",
-							"NewValue": 3
+							"Subject": "World",
+							"Timestamp": 37,
+							"Property": "DialogueState(Board)",
+							"NewValue": "NextPlayer-OPPONENT"
 						}, 
 						{
 							"classId": 0,
 							"Id": 20,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 24,
-							"Property": "DialogueState(Board)",
-							"NewValue": "NextPlayer-OPPONENT"
-						}, 
-						{
-							"classId": 0,
-							"Id": 21,
-							"Type": "Property-Change",
-							"Subject": "World",
-							"Timestamp": 24,
+							"Timestamp": 37,
 							"Property": "NextPlayerId(Board)",
 							"NewValue": 2
 						}]

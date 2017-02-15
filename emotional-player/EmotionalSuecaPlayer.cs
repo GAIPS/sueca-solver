@@ -232,6 +232,7 @@ namespace EmotionalPlayer
                 SuecaPub.Play(this.id, cardSerialized);
           
                 string playInfo = ai.GetLastPlayInfo();
+                Console.WriteLine("Robot has played {0}.", SuecaSolver.Card.ToString(chosenCard));
                 Console.WriteLine("PlayInfo: " + playInfo);
                 _agentController.AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "Playing-" + playInfo, "World").ToString());
                 //Console.WriteLine("My play has been sent.");
