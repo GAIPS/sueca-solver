@@ -9,9 +9,9 @@
 						{
 							"SELF":
 								{
-									"AgentCard(Rank)": "Seven",
+									"AgentCard(Rank)": "Two",
 									"AgentCard(Suit)": "Diamonds",
-									"Current(PlayerCardRank)": "Five",
+									"Current(PlayerCardRank)": "Queen",
 									"Current(PlayerCardSuit)": "Hearts",
 									"Current(PlayerID)": 3,
 									"DialogueState(Board)": "Playing-FOLLOWING",
@@ -21,10 +21,10 @@
 									"Player(1)": "Partner",
 									"Player(2)": "Opponent",
 									"Player(3)": "Partner",
-									"Trick(Increase)": 0,
-									"Trick(Score)": 2,
+									"Trick(Increase)": 2,
+									"Trick(Score)": 6,
 									"Trick(Winner)": 1,
-									"TrickWinner(Board)": 3
+									"TrickWinner(Board)": 1
 								}
 						}
 				},
@@ -36,13 +36,63 @@
 			"CommeillFautAssetSource": null,
 			"EmotionalState":
 				{
-					"Mood": 0,
+					"Mood": 2.92783,
 					"EmotionalPool": [
 						{
-							"Intensity": 3.174802,
+							"Intensity": 1.662476,
 							"Decay": 1,
 							"Threshold": 1,
-							"CauseId": 34,
+							"CauseId": 18,
+							"EmotionType": "Joy",
+							"Valence": "Positive",
+							"AppraisalVariables": ["DESIRABILITY"],
+							"InfluenceMood": true
+						}, 
+						{
+							"Intensity": 2.643337,
+							"Decay": 1,
+							"Threshold": 1,
+							"CauseId": 19,
+							"EmotionType": "Joy",
+							"Valence": "Positive",
+							"AppraisalVariables": ["DESIRABILITY"],
+							"InfluenceMood": true
+						}, 
+						{
+							"Intensity": 2.258939,
+							"Decay": 1,
+							"Threshold": 1,
+							"CauseId": 25,
+							"EmotionType": "Joy",
+							"Valence": "Positive",
+							"AppraisalVariables": ["DESIRABILITY"],
+							"InfluenceMood": true
+						}, 
+						{
+							"Intensity": 2.448818,
+							"Decay": 1,
+							"Threshold": 1,
+							"CauseId": 35,
+							"EmotionType": "Joy",
+							"Valence": "Positive",
+							"AppraisalVariables": ["DESIRABILITY"],
+							"InfluenceMood": true
+						}, 
+						{
+							"Intensity": 4.084845,
+							"Decay": 1,
+							"Threshold": 1,
+							"CauseId": 44,
+							"EmotionType": "Joy",
+							"Valence": "Positive",
+							"AppraisalVariables": ["DESIRABILITY"],
+							"InfluenceMood": true
+						}, 
+						{
+							"Intensity": 4.47229,
+							"Decay": 1,
+							"Threshold": 1,
+							"CauseId": 51,
 							"EmotionType": "Joy",
 							"Valence": "Positive",
 							"AppraisalVariables": ["DESIRABILITY"],
@@ -60,14 +110,14 @@
 				},
 			"AutobiographicMemory":
 				{
-					"Tick": 110,
+					"Tick": 37,
 					"records": [
 						{
 							"classId": 0,
 							"Id": 1,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 14,
+							"Timestamp": 12,
 							"Property": "DialogueState(Board)",
 							"NewValue": "SessionStart-GREETING"
 						}, 
@@ -76,7 +126,7 @@
 							"Id": 2,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 17,
+							"Timestamp": 15,
 							"Property": "DialogueState(Board)",
 							"NewValue": "NextPlayer-OPPONENT"
 						}, 
@@ -85,7 +135,7 @@
 							"Id": 3,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 17,
+							"Timestamp": 15,
 							"Property": "NextPlayerId(Board)",
 							"NewValue": 0
 						}, 
@@ -94,7 +144,7 @@
 							"Id": 4,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 19,
+							"Timestamp": 15,
 							"Property": "Current(PlayerID)",
 							"NewValue": 0
 						}, 
@@ -103,25 +153,25 @@
 							"Id": 5,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 19,
+							"Timestamp": 15,
 							"Property": "Current(PlayerCardRank)",
-							"NewValue": "Two"
+							"NewValue": "Four"
 						}, 
 						{
 							"classId": 0,
 							"Id": 6,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 19,
+							"Timestamp": 15,
 							"Property": "Current(PlayerCardSuit)",
-							"NewValue": "Hearts"
+							"NewValue": "Diamonds"
 						}, 
 						{
 							"classId": 0,
 							"Id": 7,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 19,
+							"Timestamp": 15,
 							"Property": "DialogueState(Board)",
 							"NewValue": "Play"
 						}, 
@@ -130,7 +180,7 @@
 							"Id": 8,
 							"Type": "Property-Change",
 							"Subject": 0,
-							"Timestamp": 19,
+							"Timestamp": 15,
 							"Property": "Trick(Score)",
 							"NewValue": 0
 						}, 
@@ -139,7 +189,7 @@
 							"Id": 9,
 							"Type": "Property-Change",
 							"Subject": 0,
-							"Timestamp": 19,
+							"Timestamp": 15,
 							"Property": "Trick(Winner)",
 							"NewValue": 0
 						}, 
@@ -148,7 +198,7 @@
 							"Id": 10,
 							"Type": "Property-Change",
 							"Subject": 0,
-							"Timestamp": 19,
+							"Timestamp": 15,
 							"Property": "Trick(Increase)",
 							"NewValue": 0
 						}, 
@@ -157,7 +207,7 @@
 							"Id": 11,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 22,
+							"Timestamp": 18,
 							"Property": "DialogueState(Board)",
 							"NewValue": "NextPlayer-TEAM_PLAYER"
 						}, 
@@ -166,7 +216,7 @@
 							"Id": 12,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 22,
+							"Timestamp": 18,
 							"Property": "NextPlayerId(Board)",
 							"NewValue": 1
 						}, 
@@ -175,7 +225,7 @@
 							"Id": 13,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 26,
+							"Timestamp": 18,
 							"Property": "Current(PlayerID)",
 							"NewValue": 1
 						}, 
@@ -184,25 +234,25 @@
 							"Id": 14,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 26,
+							"Timestamp": 18,
 							"Property": "Current(PlayerCardRank)",
-							"NewValue": "Queen"
+							"NewValue": "Ace"
 						}, 
 						{
 							"classId": 0,
 							"Id": 15,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 26,
+							"Timestamp": 18,
 							"Property": "Current(PlayerCardSuit)",
-							"NewValue": "Hearts"
+							"NewValue": "Diamonds"
 						}, 
 						{
 							"classId": 0,
 							"Id": 16,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 26,
+							"Timestamp": 18,
 							"Property": "DialogueState(Board)",
 							"NewValue": "Play"
 						}, 
@@ -211,16 +261,16 @@
 							"Id": 17,
 							"Type": "Property-Change",
 							"Subject": 1,
-							"Timestamp": 26,
+							"Timestamp": 18,
 							"Property": "Trick(Score)",
-							"NewValue": 2
+							"NewValue": 11
 						}, 
 						{
 							"classId": 0,
 							"Id": 18,
 							"Type": "Property-Change",
 							"Subject": 1,
-							"Timestamp": 26,
+							"Timestamp": 18,
 							"LinkedEmotions": ["Joy"],
 							"Property": "Trick(Winner)",
 							"NewValue": 1
@@ -230,197 +280,336 @@
 							"Id": 19,
 							"Type": "Property-Change",
 							"Subject": 1,
-							"Timestamp": 26,
+							"Timestamp": 18,
+							"LinkedEmotions": ["Joy"],
 							"Property": "Trick(Increase)",
-							"NewValue": 2
+							"NewValue": 11
 						}, 
 						{
 							"classId": 0,
 							"Id": 20,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 29,
-							"Property": "DialogueState(Board)",
-							"NewValue": "NextPlayer-OPPONENT"
+							"Timestamp": 21,
+							"Property": "Current(PlayerID)",
+							"NewValue": 2
 						}, 
 						{
 							"classId": 0,
 							"Id": 21,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 29,
-							"Property": "NextPlayerId(Board)",
-							"NewValue": 2
+							"Timestamp": 21,
+							"Property": "Current(PlayerCardRank)",
+							"NewValue": "Queen"
 						}, 
 						{
 							"classId": 0,
 							"Id": 22,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 104,
-							"Property": "Current(PlayerID)",
-							"NewValue": 2
+							"Timestamp": 21,
+							"Property": "Current(PlayerCardSuit)",
+							"NewValue": "Diamonds"
 						}, 
 						{
 							"classId": 0,
 							"Id": 23,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 104,
-							"Property": "Current(PlayerCardRank)",
-							"NewValue": "Five"
+							"Timestamp": 21,
+							"Property": "DialogueState(Board)",
+							"NewValue": "Play"
 						}, 
 						{
 							"classId": 0,
 							"Id": 24,
 							"Type": "Property-Change",
-							"Subject": "World",
-							"Timestamp": 104,
-							"Property": "Current(PlayerCardSuit)",
-							"NewValue": "Hearts"
+							"Subject": 2,
+							"Timestamp": 21,
+							"Property": "Trick(Score)",
+							"NewValue": 13
 						}, 
 						{
 							"classId": 0,
 							"Id": 25,
 							"Type": "Property-Change",
-							"Subject": "World",
-							"Timestamp": 104,
-							"Property": "DialogueState(Board)",
-							"NewValue": "Play"
+							"Subject": 1,
+							"Timestamp": 21,
+							"LinkedEmotions": ["Joy"],
+							"Property": "Trick(Winner)",
+							"NewValue": 1
 						}, 
 						{
 							"classId": 0,
 							"Id": 26,
 							"Type": "Property-Change",
 							"Subject": 2,
-							"Timestamp": 104,
-							"Property": "Trick(Score)",
+							"Timestamp": 21,
+							"Property": "Trick(Increase)",
 							"NewValue": 2
 						}, 
 						{
 							"classId": 0,
 							"Id": 27,
 							"Type": "Property-Change",
-							"Subject": 2,
-							"Timestamp": 104,
-							"Property": "Trick(Increase)",
-							"NewValue": 0
+							"Subject": "World",
+							"Timestamp": 21,
+							"Property": "AgentCard(Rank)",
+							"NewValue": "Two"
 						}, 
 						{
 							"classId": 0,
 							"Id": 28,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 104,
-							"Property": "AgentCard(Rank)",
-							"NewValue": "Ace"
+							"Timestamp": 21,
+							"Property": "AgentCard(Suit)",
+							"NewValue": "Diamonds"
 						}, 
 						{
 							"classId": 0,
 							"Id": 29,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 104,
-							"Property": "AgentCard(Suit)",
-							"NewValue": "Hearts"
+							"Timestamp": 21,
+							"Property": "DialogueState(Board)",
+							"NewValue": "Playing-NEW_TRICK"
 						}, 
 						{
 							"classId": 0,
 							"Id": 30,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 104,
-							"Property": "DialogueState(Board)",
-							"NewValue": "Playing-NEW_TRICK"
+							"Timestamp": 21,
+							"Property": "NextPlayerId(Board)",
+							"NewValue": 3
 						}, 
 						{
 							"classId": 0,
 							"Id": 31,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 104,
-							"Property": "NextPlayerId(Board)",
-							"NewValue": 3
+							"Timestamp": 22,
+							"Property": "DialogueState(Board)",
+							"NewValue": "NextPlayer-OPPONENT"
 						}, 
 						{
 							"classId": 0,
 							"Id": 32,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 105,
-							"Property": "Current(PlayerID)",
-							"NewValue": 3
+							"Timestamp": 22,
+							"Property": "NextPlayerId(Board)",
+							"NewValue": 2
 						}, 
 						{
 							"classId": 0,
 							"Id": 33,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 105,
+							"Timestamp": 22,
+							"Property": "Current(PlayerID)",
+							"NewValue": 3
+						}, 
+						{
+							"classId": 0,
+							"Id": 34,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 22,
 							"Property": "DialogueState(Board)",
-							"NewValue": "TrickEnd-SELF"
+							"NewValue": "TrickEnd-TEAM_PLAYER"
 						}, 
 						{
 							"classId": 1,
-							"Id": 34,
+							"Id": 35,
 							"Type": "Action-End",
-							"Subject": 3,
-							"Timestamp": 105,
+							"Subject": 1,
+							"Timestamp": 22,
 							"LinkedEmotions": ["Joy"],
 							"Action": "PositiveTrick",
 							"Target": "Board"
 						}, 
 						{
 							"classId": 0,
-							"Id": 35,
-							"Type": "Property-Change",
-							"Subject": "World",
-							"Timestamp": 105,
-							"Property": "TrickWinner(Board)",
-							"NewValue": 3
-						}, 
-						{
-							"classId": 0,
 							"Id": 36,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 109,
-							"Property": "AgentCard(Rank)",
-							"NewValue": "Seven"
+							"Timestamp": 22,
+							"Property": "TrickWinner(Board)",
+							"NewValue": 1
 						}, 
 						{
 							"classId": 0,
 							"Id": 37,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 109,
-							"Property": "AgentCard(Suit)",
-							"NewValue": "Diamonds"
+							"Timestamp": 25,
+							"Property": "DialogueState(Board)",
+							"NewValue": "NextPlayer-TEAM_PLAYER"
 						}, 
 						{
 							"classId": 0,
 							"Id": 38,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 109,
-							"Property": "DialogueState(Board)",
-							"NewValue": "Playing-FOLLOWING"
+							"Timestamp": 25,
+							"Property": "NextPlayerId(Board)",
+							"NewValue": 1
 						}, 
 						{
 							"classId": 0,
 							"Id": 39,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 109,
-							"Property": "NextPlayerId(Board)",
-							"NewValue": 3
+							"Timestamp": 33,
+							"Property": "Current(PlayerID)",
+							"NewValue": 1
 						}, 
 						{
 							"classId": 0,
 							"Id": 40,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 109,
+							"Timestamp": 33,
+							"Property": "Current(PlayerCardRank)",
+							"NewValue": "King"
+						}, 
+						{
+							"classId": 0,
+							"Id": 41,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 33,
+							"Property": "Current(PlayerCardSuit)",
+							"NewValue": "Hearts"
+						}, 
+						{
+							"classId": 0,
+							"Id": 42,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 33,
+							"Property": "DialogueState(Board)",
+							"NewValue": "Play"
+						}, 
+						{
+							"classId": 0,
+							"Id": 43,
+							"Type": "Property-Change",
+							"Subject": 1,
+							"Timestamp": 33,
+							"Property": "Trick(Score)",
+							"NewValue": 4
+						}, 
+						{
+							"classId": 0,
+							"Id": 44,
+							"Type": "Property-Change",
+							"Subject": 1,
+							"Timestamp": 33,
+							"LinkedEmotions": ["Joy"],
+							"Property": "Trick(Winner)",
+							"NewValue": 1
+						}, 
+						{
+							"classId": 0,
+							"Id": 45,
+							"Type": "Property-Change",
+							"Subject": 1,
+							"Timestamp": 33,
+							"Property": "Trick(Increase)",
+							"NewValue": 4
+						}, 
+						{
+							"classId": 0,
+							"Id": 46,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 35,
+							"Property": "Current(PlayerID)",
+							"NewValue": 2
+						}, 
+						{
+							"classId": 0,
+							"Id": 47,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 35,
+							"Property": "Current(PlayerCardRank)",
+							"NewValue": "Queen"
+						}, 
+						{
+							"classId": 0,
+							"Id": 48,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 35,
+							"Property": "Current(PlayerCardSuit)",
+							"NewValue": "Hearts"
+						}, 
+						{
+							"classId": 0,
+							"Id": 49,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 35,
+							"Property": "DialogueState(Board)",
+							"NewValue": "Play"
+						}, 
+						{
+							"classId": 0,
+							"Id": 50,
+							"Type": "Property-Change",
+							"Subject": 2,
+							"Timestamp": 35,
+							"Property": "Trick(Score)",
+							"NewValue": 6
+						}, 
+						{
+							"classId": 0,
+							"Id": 51,
+							"Type": "Property-Change",
+							"Subject": 1,
+							"Timestamp": 35,
+							"LinkedEmotions": ["Joy"],
+							"Property": "Trick(Winner)",
+							"NewValue": 1
+						}, 
+						{
+							"classId": 0,
+							"Id": 52,
+							"Type": "Property-Change",
+							"Subject": 2,
+							"Timestamp": 35,
+							"Property": "Trick(Increase)",
+							"NewValue": 2
+						}, 
+						{
+							"classId": 0,
+							"Id": 53,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 36,
+							"Property": "DialogueState(Board)",
+							"NewValue": "Playing-FOLLOWING"
+						}, 
+						{
+							"classId": 0,
+							"Id": 54,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 36,
+							"Property": "NextPlayerId(Board)",
+							"NewValue": 3
+						}, 
+						{
+							"classId": 0,
+							"Id": 55,
+							"Type": "Property-Change",
+							"Subject": "World",
+							"Timestamp": 36,
 							"Property": "Current(PlayerID)",
 							"NewValue": 3
 						}]
@@ -429,10 +618,10 @@
 				{
 					"dictionary": [
 						{
-							"key": 3,
+							"key": 1,
 							"value":
 								{
-									"Name": 3,
+									"Name": 1,
 									"EmotionalState":
 										{
 											"Mood": 0,

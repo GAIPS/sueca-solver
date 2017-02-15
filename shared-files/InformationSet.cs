@@ -220,6 +220,30 @@ namespace SuecaSolver
             return new int[] { trickAndWinner[0], trickAndWinner[1], tricks.Count - 1 };
         }
 
+        public int GetCurrentTrickWinner()
+        {
+            Trick currentTrick = tricks[tricks.Count - 1];
+            return currentTrick.GetCurrentTrickWinner();
+        }
+
+        public int GetCurrentTrickPoints()
+        {
+            Trick currentTrick = tricks[tricks.Count - 1];
+            return currentTrick.GetCurrentTrickPoints();
+        }
+
+        public bool HasNewTrickWinner()
+        {
+            Trick currentTrick = tricks[tricks.Count - 1];
+            return currentTrick.HasNewTrickWinner();
+        }
+
+        public int GetTrickIncrease()
+        {
+            Trick currentTrick = tricks[tricks.Count - 1];
+            return currentTrick.GetTrickIncrease();
+        }
+
         private bool checkPlayersHaveAllSuits(Dictionary<int,List<int>> suitHasPlayer)
         {
             if (suitHasPlayer[0].Count == 3 &&

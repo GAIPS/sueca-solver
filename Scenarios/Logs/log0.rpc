@@ -40,14 +40,14 @@
 				},
 			"AutobiographicMemory":
 				{
-					"Tick": 15,
+					"Tick": 13,
 					"records": [
 						{
 							"classId": 0,
 							"Id": 1,
 							"Type": "Property-Change",
 							"Subject": "World",
-							"Timestamp": 14,
+							"Timestamp": 12,
 							"Property": "DialogueState(Board)",
 							"NewValue": "SessionStart-GREETING"
 						}]

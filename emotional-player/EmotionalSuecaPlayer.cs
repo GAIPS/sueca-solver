@@ -256,11 +256,6 @@ namespace EmotionalPlayer
             _agentController.AddEvent(EventHelper.PropertyChanged("Current(PlayerID)", id.ToString(), "World").ToString());
             if (ai != null && id != this.id)
             {
-                int[] pastPlay = ai.GetWinnerAndPointsAndTrickNumber();
-                int pastWinnerID = pastPlay[0];
-                int pastPlayPoints = pastPlay[1];
-                int pastTrickNumber = pastPlay[2];
-
                 SuecaTypes.Card c = JsonSerializable.DeserializeFromJson<SuecaTypes.Card>(card);
                 SuecaSolver.Rank myRank = (SuecaSolver.Rank)Enum.Parse(typeof(SuecaSolver.Rank), c.Rank.ToString());
                 SuecaSolver.Suit mySuit = (SuecaSolver.Suit)Enum.Parse(typeof(SuecaSolver.Suit), c.Suit.ToString());
@@ -273,18 +268,20 @@ namespace EmotionalPlayer
                 Console.WriteLine("Player {0} has played {1}.", id, SuecaSolver.Card.ToString(myCard));
 
                 _agentController.AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "Play", "World").ToString());
-
-                int[] currentPlay = ai.GetWinnerAndPointsAndTrickNumber();
-                int currentWinnerID = currentPlay[0];
-                int currentPlayPoints = currentPlay[1];
-                int currentTrickNumber = currentPlay[2];
+                
+                int currentPlayPoints = ai.GetCurrentTrickPoints();
+                bool hasNewTrickWinner = ai.HasNewTrickWinner();
 
                 _agentController.AddEvent(EventHelper.PropertyChanged(Consts.TRICK_SCORE, currentPlayPoints.ToString(), id.ToString()).ToString());
 
-                if (currentWinnerID != pastWinnerID)
-                    _agentController.AddEvent(EventHelper.PropertyChanged(Consts.TRICK_WINNER,currentWinnerID.ToString(), currentWinnerID.ToString()).ToString());
+                if (hasNewTrickWinner)
+                {
+                    int currentWinnerID = ai.GetCurrentTrickWinner();
+                    _agentController.AddEvent(EventHelper.PropertyChanged(Consts.TRICK_WINNER, currentWinnerID.ToString(), currentWinnerID.ToString()).ToString());
+                }
 
-                _agentController.AddEvent(EventHelper.PropertyChanged(Consts.TRICK_INCREASE_PROPERTY, Math.Abs(currentPlayPoints - pastPlayPoints).ToString(), id.ToString()).ToString());
+                int trickIncrease = ai.GetTrickIncrease();
+                _agentController.AddEvent(EventHelper.PropertyChanged(Consts.TRICK_INCREASE_PROPERTY, trickIncrease.ToString(), id.ToString()).ToString());
 
             }
         }

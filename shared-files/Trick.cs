@@ -9,7 +9,8 @@ namespace SuecaSolver
         public int LeadSuit;
         private List<Move> moves;
         public int Trump;
-        private int points;
+        private List<int> points;
+        private int currentPoints;
         //keep record of winning player and card for every move in order to undo more easily
         private List<int> winningPlayer;
         private int currentWinner;
@@ -21,7 +22,8 @@ namespace SuecaSolver
             moves = new List<Move>(4);
             LeadSuit = (int)Suit.None;
             Trump = trumpSuit;
-            points = 0;
+            points = new List<int>(4);
+            currentPoints = 0;
             winningPlayer = new List<int>(4);
             currentWinner = -1;
             winningCard = new List<int>(4);
@@ -129,7 +131,8 @@ namespace SuecaSolver
                     winningCard.Add(currentWinningCard);
                 }
             }
-            points += Card.GetValue(move.Card);
+            currentPoints += Card.GetValue(move.Card);
+            points.Add(currentPoints);
 
             foreach (var item in moves)
             {
@@ -144,11 +147,12 @@ namespace SuecaSolver
         public void UndoMove()
         {
             int currentMoveIndex = moves.Count - 1;
-            points -= Card.GetValue(moves[currentMoveIndex].Card);
+            currentPoints -= Card.GetValue(moves[currentMoveIndex].Card);
             moves.RemoveAt(currentMoveIndex);
             winningCard.RemoveAt(currentMoveIndex);
             winningPlayer.RemoveAt(currentMoveIndex);
-            
+            points.RemoveAt(currentMoveIndex);
+
             //update index
             currentMoveIndex = moves.Count - 1;
             if (currentMoveIndex == -1)
@@ -197,9 +201,40 @@ namespace SuecaSolver
             }
         }
 
+        public int GetCurrentTrickWinner()
+        {
+            return currentWinner;
+        }
+
+        public int GetCurrentTrickPoints()
+        {
+            return currentPoints;
+        }
+
+        public bool HasNewTrickWinner()
+        {
+            if (winningPlayer.Count >= 1 || winningPlayer[winningPlayer.Count - 1] != winningPlayer[winningPlayer.Count - 2])
+	        {
+                return true;
+	        }
+            return false;
+        }
+
+        public int GetTrickIncrease()
+        {
+            if (points.Count == 1)
+            {
+                Console.WriteLine("REMOVE PRINT: GetTrickIncrease " + points[points.Count - 1]);
+                return points[points.Count - 1];
+            }
+
+            Console.WriteLine("REMOVE PRINT: GetTrickIncrease " + (points[points.Count - 1] - points[points.Count - 2]));
+            return points[points.Count - 1] - points[points.Count - 2];
+        }
+
         public int[] GetTrickWinnerAndPoints()
         {
-            return new int[] { currentWinner, points};
+            return new int[] { currentWinner, currentPoints};
         }
     }
 }

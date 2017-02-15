@@ -39,6 +39,27 @@ namespace SuecaSolver
         {
             return infoSet.GetWinnerAndPointsAndTrickNumber();
         }
+
+        public int GetCurrentTrickWinner()
+        {
+            return infoSet.GetCurrentTrickWinner();
+        }
+
+        public int GetCurrentTrickPoints()
+        {
+            return infoSet.GetCurrentTrickPoints();
+        }
+
+        public bool HasNewTrickWinner()
+        {
+            return infoSet.HasNewTrickWinner();
+        }
+
+        public int GetTrickIncrease()
+        {
+            return infoSet.GetTrickIncrease();
+        }
+
         public bool IsNewTrick()
         {
             return infoSet.IsNewTrick();
