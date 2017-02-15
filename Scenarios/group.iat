@@ -9,10 +9,10 @@
 				{
 					"CurrentState": "Play",
 					"NextState": "Dynamic",
-					"Meaning": ["-"],
+					"Meaning": ["Partner"],
 					"Style": ["Distress"],
-					"Utterance": "Ouve lá, armas-te em esperto e apanhas!",
-					"UtteranceId": "TTS-A2DB884FD3C8F1A72F4500B9AFF181C3"
+					"Utterance": "Ouve lá colega, isto está mal!",
+					"UtteranceId": "TTS-2F257A94C7EC60E2C32E1BC1F23677A4"
 				}, 
 				{
 					"CurrentState": "Play-HAPPY-FOR",
@@ -1661,6 +1661,14 @@
 					"Style": ["Neutral"],
 					"Utterance": "<gaze(player|playerId|)> Não aprendam a jogar que não é preciso... <animate(joy3)>",
 					"UtteranceId": "TTS-F78BE13F89A136EC5882FF685BFB055D"
+				}, 
+				{
+					"CurrentState": "Play",
+					"NextState": "Dynamic",
+					"Meaning": ["Opponent"],
+					"Style": ["Distress"],
+					"Utterance": "Ouve lá, armas-te em esperto e apanhas!",
+					"UtteranceId": "TTS-A2DB884FD3C8F1A72F4500B9AFF181C3"
 				}]
 		},
 	"types": [
