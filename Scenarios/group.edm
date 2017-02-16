@@ -5,13 +5,13 @@
 			"DefaultActionPriority": 2,
 			"ActionTendencies": [
 				{
-					"Action": "Speak([cs], [ns], [m], [s])",
+					"Action": "Speak(Play, [ns], [m], [s])",
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["ValidDialogue([cs], [ns], [m], [s]) = True", "DialogueState(Board) = [cs]", "StrongestEmotion(SELF) = [s]"]
+							"Set": ["ValidDialogue(Play, [ns], [m], [s]) = True", "StrongestEmotion(SELF) = [s]", "DialogueState(Board) = Play", "Current(PlayerID) = [cpId]", "Player([cpId]) = [m]"]
 						},
-					"Priority": 1
+					"Priority": 3
 				}, 
 				{
 					"Action": "Speak([cs], [ns], [m], Neutral)",
@@ -20,15 +20,24 @@
 						{
 							"Set": ["ValidDialogue([cs], [ns], [m], Neutral) = True", "DialogueState(Board) = [cs]"]
 						},
-					"Priority": 0
+					"Priority": 1
 				}, 
 				{
-					"Action": "Speak(Play, [ns], [m], [s])",
+					"Action": "Speak([cs], [ns], [m], [s])",
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["ValidDialogue(Play, [ns], [m], [s]) = True", "StrongestEmotion(SELF) = [s]", "DialogueState(Board) = Play", "Current(PlayerID) = [cpId]", "Player([cpId]) = [m]"]
+							"Set": ["ValidDialogue([cs], [ns], [m], [s]) = True", "DialogueState(Board) = [cs]", "StrongestEmotion(SELF) = [s]"]
 						}
+				}, 
+				{
+					"Action": "Speak(SessionStart, [ns], [m], [s])",
+					"Target": "Board",
+					"Conditions":
+						{
+							"Set": ["ValidDialogue(SessionStart, [ns], [m], [s]) = True", "DialogueState(Board) = SessionStart"]
+						},
+					"Priority": 0
 				}]
 		},
 	"types": [

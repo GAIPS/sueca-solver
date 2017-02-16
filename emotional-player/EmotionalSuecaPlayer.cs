@@ -146,36 +146,31 @@ namespace EmotionalPlayer
 
         private void UpdateCoroutine()
         {
-            _events.Clear();
-
             while (_rpc.GetBeliefValue("DialogueState(Player)") != "Disconnected")
             {
                 Thread.Sleep(1000);
-                if (_events.Count == 0)
-                {
-                    //Console.WriteLine("No events");
-                    _rpc.Update();
-                    continue;
-                }
+                _rpc.Update();
             }
         }
 
         private void PerceiveAndDecide()
-        {
+        {         
             _rpc.Perceive(_events);
 
             Console.WriteLine("Mood: " + _rpc.Mood);
             Console.WriteLine("Current Strongest Emotion: " + getEmotion());
 
             var actionRpc = _rpc.Decide().FirstOrDefault();
-            _events.Clear();
-            _rpc.Update();
 
             _rpc.SaveToFile("../../../Scenarios/Logs/log" + i + ".rpc");
             i++;
 
+            _events.Clear();
+            _rpc.Update();
+
             if (actionRpc == null)
             {
+                Console.WriteLine("No action");
                 return;
             }
 
@@ -453,12 +448,12 @@ namespace EmotionalPlayer
 
             if (id == 1)
             {
-                //Thread.Sleep(randomNumberGenerator.Next(2000,4000));
+                Thread.Sleep(randomNumberGenerator.Next(2000,4000));
                 AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "NextPlayer-TEAM_PLAYER", "World").ToString());
             }
             else if (id == 0 || id == 2)
             {
-                //Thread.Sleep(randomNumberGenerator.Next(2000, 4000));
+                Thread.Sleep(randomNumberGenerator.Next(2000, 4000));
                 AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "NextPlayer-OPPONENT", "World").ToString());
             }
             AddEvent(EventHelper.PropertyChanged("NextPlayerId(Board)", id.ToString(), "World").ToString());
@@ -543,7 +538,7 @@ namespace EmotionalPlayer
         {
             id = agentsIds[nameId - 1];
             Console.WriteLine("My id is " + id);
-            AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY,"SessionStart-GREETING","World").ToString());
+            AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY,"SessionStart","World").ToString());
             PerceiveAndDecide();
         }
 

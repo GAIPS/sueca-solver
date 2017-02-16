@@ -39,15 +39,7 @@
 					"UtteranceId": "TTS-1975846A5C8CF8B6C67A8CFBEF795C73"
 				}, 
 				{
-					"CurrentState": "SessionStart-GREETING",
-					"NextState": "Dynamic",
-					"Meaning": ["-"],
-					"Style": ["Neutral"],
-					"Utterance": "Bora!",
-					"UtteranceId": "TTS-23B39A393366F66E998499F2D7CD10D5"
-				}, 
-				{
-					"CurrentState": "SessionStart-GREETING",
+					"CurrentState": "SessionStart",
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["Neutral"],
@@ -55,7 +47,7 @@
 					"UtteranceId": "TTS-18D0BCAD58BAD11421D9B4AD85D59A76"
 				}, 
 				{
-					"CurrentState": "SessionStart-GREETING",
+					"CurrentState": "SessionStart",
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["Neutral"],
@@ -63,7 +55,7 @@
 					"UtteranceId": "TTS-823C0F21CCC8D50E1CF2F994AF0D6B91"
 				}, 
 				{
-					"CurrentState": "SessionStart-GREETING",
+					"CurrentState": "SessionStart",
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["Neutral"],
@@ -71,7 +63,7 @@
 					"UtteranceId": "TTS-3D834D6AFAC4866DB1ED076514648A90"
 				}, 
 				{
-					"CurrentState": "SessionStart-GREETING",
+					"CurrentState": "SessionStart",
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["Neutral"],
@@ -1669,6 +1661,14 @@
 					"Style": ["Distress"],
 					"Utterance": "Ouve lá, armas-te em esperto e apanhas!",
 					"UtteranceId": "TTS-A2DB884FD3C8F1A72F4500B9AFF181C3"
+				}, 
+				{
+					"CurrentState": "SessionStart",
+					"NextState": "Dynamic",
+					"Meaning": ["-"],
+					"Style": ["Neutral"],
+					"Utterance": "Bora!",
+					"UtteranceId": "TTS-23B39A393366F66E998499F2D7CD10D5"
 				}]
 		},
 	"types": [
