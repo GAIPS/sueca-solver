@@ -25,16 +25,13 @@ namespace EmotionalPlayer
         private RolePlayCharacterAsset _rpc;
         private List<Name> _events = new List<Name>();
         private int i;
-        private List<string> _tagList = new List<string>();
-        private List<string> _tagMeaningsList = new List<string>();
-        private string[] _tags = new string[] { };
-        private string[] _tagMeanings = new string[] { };
-
         public ISuecaPublisher SuecaPub;
         private RBOPlayer ai;
         private int id;
         private int nameId;
         private Random randomNumberGenerator;
+        private string[] tags;
+        private string[] meanings;
 
         public EmotionalSuecaPlayer(string clientName, string charactersNames = "") : base(clientName, charactersNames)
         {
@@ -130,11 +127,7 @@ namespace EmotionalPlayer
                 _rpc = RolePlayCharacterAsset.LoadFromFile(_iat.GetAllCharacterSources().FirstOrDefault().Source);
                 _rpc.LoadAssociatedAssets();
                 _iat.BindToRegistry(_rpc.DynamicPropertiesRegistry);
-                // = new SocialAgentController(this, data, _rpc, _iat);
-                Task.Run(() =>
-                {
-                    UpdateCoroutine();
-                });
+                Task.Run(() => { UpdateCoroutine(); });
             }
         }
 
@@ -153,12 +146,12 @@ namespace EmotionalPlayer
             }
         }
 
-        private void PerceiveAndDecide()
+        private void PerceiveAndDecide(string[] tags, string[] tagMeanings)
         {         
             _rpc.Perceive(_events);
 
-            Console.WriteLine("Mood: " + _rpc.Mood);
-            Console.WriteLine("Current Strongest Emotion: " + getEmotion());
+            //Console.WriteLine("Mood: " + _rpc.Mood);
+            //Console.WriteLine("Current Strongest Emotion: " + getEmotion());
 
             var actionRpc = _rpc.Decide().FirstOrDefault();
 
@@ -183,10 +176,9 @@ namespace EmotionalPlayer
                     Name style = actionRpc.Parameters[3];
 
                     var dialog = _iat.GetDialogueAction(IATConsts.AGENT, currentState, nextState, meaning, style).Utterance;
-                    ParseTags(dialog);
+
                     Console.WriteLine(dialog);
-                    SuecaPub.PerformUtteranceWithTags("", dialog, _tags, _tagMeanings);
-                    ClearLists();
+                    SuecaPub.PerformUtteranceWithTags("", dialog, tags, tagMeanings);
 
                     break;
                 default:
@@ -204,15 +196,7 @@ namespace EmotionalPlayer
             return "none";
         }
 
-        private void ClearLists()
-        {
-            _tags.Initialize();
-            _tagList.Clear();
-            _tagMeanings.Initialize();
-            _tagMeaningsList.Clear();
-        }
-
-        private void ParseTags(string dialog)
+        /*private void ParseTags(string dialog)
         {
             string pattern = @"\|\w+\|";
             Regex rgx = new Regex(pattern, RegexOptions.IgnoreCase);
@@ -225,37 +209,38 @@ namespace EmotionalPlayer
                 }
             }
             _tags = _tagList.ToArray();
+
             foreach (string tag in _tags)
             {
                 switch (tag)
                 {
                     case "|rank|":
                         //Console.WriteLine("Found Tag: Rank");
-                        _tagMeaningsList.Add(convertRankToPortuguese(_rpc.GetBeliefValue("AgentCard(Rank)")));
+                        _tagMeaningsList.Add(convertRankToPortuguese(_rpc.GetBeliefValue("Current(AgentCardRank)")));
                         break;
                     case "|suit|":
                         //Console.WriteLine("Found Tag: Suit");
-                        _tagMeaningsList.Add(convertSuitToPortuguese(_rpc.GetBeliefValue("AgentCard(Suit)")));
+                        _tagMeaningsList.Add(convertSuitToPortuguese(_rpc.GetBeliefValue("Current(AgentCardSuit)")));
                         break;
                     case "|nextPlayerId|":
                         //Console.WriteLine("Found Tag: NextPlayerID");
-                        _tagMeaningsList.Add(_rpc.GetBeliefValue("NextPlayerId(Board)"));
+                        _tagMeaningsList.Add(_rpc.GetBeliefValue("Next(PlayerId)"));
                         break;
                     case "|playerId|":
                         //Console.WriteLine("Found Tag: PlayerID");
-                        _tagMeaningsList.Add(_rpc.GetBeliefValue("NextPlayerId(Board)"));
+                        _tagMeaningsList.Add(_rpc.GetBeliefValue("Current(PlayerId)"));
                         break;
                     case "|playerId1|":
                         //Console.WriteLine("Found Tag: PlayerID1");
-                        _tagMeaningsList.Add(_rpc.GetBeliefValue("NextPlayerId(Board)"));
+                        _tagMeaningsList.Add("0");
                         break;
                     case "|playerId2|":
                         //Console.WriteLine("Found Tag: PlayerID2");
-                        _tagMeaningsList.Add(_rpc.GetBeliefValue("NextPlayerId(Board)"));
+                        _tagMeaningsList.Add("2");
                         break;
                     case "|intensity|":
                         //Console.WriteLine("Found Tag: Intensity");
-                        _tagMeaningsList.Add(_rpc.GetBeliefValue("NextPlayerId(Board)"));
+                        _tagMeaningsList.Add("2");
                         break;
                     case "|trickPoints|":
                         //Console.WriteLine("Found Tag: Trick Points");
@@ -267,7 +252,7 @@ namespace EmotionalPlayer
                 }
             }
             _tagMeanings = _tagMeaningsList.ToArray();
-        }
+        }*/
 
         private string convertRankToPortuguese(string englishRank)
         {
@@ -344,8 +329,8 @@ namespace EmotionalPlayer
             {
                 AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "Cut-OTHER", "World").ToString());
             }
-            AddEvent(EventHelper.PropertyChanged("WhoCutLast(Board)", playerId.ToString(), "World").ToString());
-            PerceiveAndDecide();
+            //AddEvent(EventHelper.PropertyChanged("WhoCutLast(Board)", playerId.ToString(), "World").ToString());
+            PerceiveAndDecide(new string[] { }, new string[] { });
         }
 
         public void Deal(int playerId)
@@ -358,8 +343,8 @@ namespace EmotionalPlayer
             {
                 AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "Deal-OTHER", "World").ToString());
             }
-            AddEvent(EventHelper.PropertyChanged("WhoDealtLast(Board)", playerId.ToString(), "World").ToString());
-            PerceiveAndDecide();
+            //AddEvent(EventHelper.PropertyChanged("WhoDealtLast(Board)", playerId.ToString(), "World").ToString());
+            PerceiveAndDecide(new string[] { }, new string[] { });
         }
 
         public void GameEnd(int team0Score, int team1Score)
@@ -392,9 +377,9 @@ namespace EmotionalPlayer
             {
                 AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-DRAW", "World").ToString());
             }
-            AddEvent(EventHelper.PropertyChanged("OurTeamFinalScore(Board)", team1Score.ToString(), "World").ToString());
-            AddEvent(EventHelper.PropertyChanged("TheirTeamFinalScore(Board)", team0Score.ToString(), "World").ToString());
-            PerceiveAndDecide();
+           // AddEvent(EventHelper.PropertyChanged("OurTeamFinalScore(Board)", team1Score.ToString(), "World").ToString());
+            //AddEvent(EventHelper.PropertyChanged("TheirTeamFinalScore(Board)", team0Score.ToString(), "World").ToString());
+            PerceiveAndDecide(new string[] { }, new string[] { });
         }
 
         public void GameStart(int gameId, int playerId, int teamId, string trumpCard, int trumpCardPlayer, string[] cards)
@@ -414,7 +399,6 @@ namespace EmotionalPlayer
             int myTrumpCard = SuecaSolver.Card.Create(trumpRank, trumpSuit);
 
             ai = new RBOPlayer(playerId, initialCards, myTrumpCard, trumpCardPlayer);
-            PerceiveAndDecide();
         }
 
         public void NextPlayer(int id)
@@ -434,21 +418,25 @@ namespace EmotionalPlayer
                 SuecaTypes.Suit msgSuit = (SuecaTypes.Suit)Enum.Parse(typeof(SuecaTypes.Suit), chosenCardSuit.ToString());
                 string cardSerialized = new SuecaTypes.Card(msgRank, msgSuit).SerializeToJson();
 
-                AddEvent(EventHelper.PropertyChanged("AgentCard(Rank)", msgRank.ToString(), "World").ToString());
-                AddEvent(EventHelper.PropertyChanged("AgentCard(Suit)", msgSuit.ToString(), "World").ToString());
+                tags = new string[] { "|rank|", "|suit|", "|nextPlayerId|", "|playerId1|", "|playerId1|" };
+                meanings = new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()), id.ToString(), "0", "2" };
+
+                //AddEvent(EventHelper.PropertyChanged("Current(AgentCardRank)", msgRank.ToString(), "World").ToString());
+                //AddEvent(EventHelper.PropertyChanged("Current(AgentCardSuit)", msgSuit.ToString(), "World").ToString());
 
                 SuecaPub.Play(this.id, cardSerialized);
           
                 string playInfo = ai.GetLastPlayInfo();
-                Console.WriteLine("Robot has played {0}.", SuecaSolver.Card.ToString(chosenCard));
-                Console.WriteLine("PlayInfo: " + playInfo);
+                //Console.WriteLine("Robot has played {0}.", SuecaSolver.Card.ToString(chosenCard));
+                //Console.WriteLine("PlayInfo: " + playInfo);
                 AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "Playing-" + playInfo, "World").ToString());
                 //Console.WriteLine("My play has been sent.");
             }
+            //AddEvent(EventHelper.PropertyChanged("Next(PlayerId)", id.ToString(), "World").ToString());
 
             if (id == 1)
             {
-                Thread.Sleep(randomNumberGenerator.Next(2000,4000));
+                Thread.Sleep(randomNumberGenerator.Next(2000, 4000));
                 AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "NextPlayer-TEAM_PLAYER", "World").ToString());
             }
             else if (id == 0 || id == 2)
@@ -456,13 +444,13 @@ namespace EmotionalPlayer
                 Thread.Sleep(randomNumberGenerator.Next(2000, 4000));
                 AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "NextPlayer-OPPONENT", "World").ToString());
             }
-            AddEvent(EventHelper.PropertyChanged("NextPlayerId(Board)", id.ToString(), "World").ToString());
-            PerceiveAndDecide();
+            PerceiveAndDecide(tags, meanings);
         }
 
         public void Play(int id, string card)
         {
-            AddEvent(EventHelper.PropertyChanged("Current(PlayerID)", id.ToString(), "World").ToString());
+            //AddEvent(EventHelper.PropertyChanged("Current(PlayerID)", id.ToString(), "World").ToString());
+
             if (ai != null && id != this.id)
             {
                 SuecaTypes.Card c = JsonSerializable.DeserializeFromJson<SuecaTypes.Card>(card);
@@ -470,11 +458,11 @@ namespace EmotionalPlayer
                 SuecaSolver.Suit mySuit = (SuecaSolver.Suit)Enum.Parse(typeof(SuecaSolver.Suit), c.Suit.ToString());
                 int myCard = SuecaSolver.Card.Create(myRank, mySuit);
 
-                AddEvent(EventHelper.PropertyChanged("Current(PlayerCardRank)", myRank.ToString(), "World").ToString());
-                AddEvent(EventHelper.PropertyChanged("Current(PlayerCardSuit)", mySuit.ToString(), "World").ToString());
+                //AddEvent(EventHelper.PropertyChanged("Current(PlayerCardRank)", myRank.ToString(), "World").ToString());
+                //AddEvent(EventHelper.PropertyChanged("Current(PlayerCardSuit)", mySuit.ToString(), "World").ToString());
 
                 ai.AddPlay(id, myCard);
-                Console.WriteLine("Player {0} has played {1}.", id, SuecaSolver.Card.ToString(myCard));
+                Console.WriteLine("Jogador {0} jogou {1}.", id, SuecaSolver.Card.ToString(myCard));
 
                 AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "Play", "World").ToString());
                 
@@ -490,9 +478,10 @@ namespace EmotionalPlayer
                 }
 
                 int trickIncrease = ai.GetTrickIncrease();
+
                 AddEvent(EventHelper.PropertyChanged(Consts.TRICK_INCREASE_PROPERTY, trickIncrease.ToString(), id.ToString()).ToString());
 
-                PerceiveAndDecide();
+                PerceiveAndDecide(new string[] { "|rank|", "|suit|", "|playerId|", "|playerId1|", "|playerId1|" }, new string[] { convertRankToPortuguese(myRank.ToString()), convertSuitToPortuguese(mySuit.ToString()), id.ToString(), "0", "2" });
             }
         }
 
@@ -509,8 +498,8 @@ namespace EmotionalPlayer
             }
             else
                 AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-OTHER_CHEAT", "World").ToString());
-            AddEvent(EventHelper.PropertyChanged("WhoRenounced(Board)", playerId.ToString(), "World").ToString());
-            PerceiveAndDecide();
+            //AddEvent(EventHelper.PropertyChanged("WhoRenounced(Board)", playerId.ToString(), "World").ToString());
+            PerceiveAndDecide(new string[] { }, new string[] { });
         }
 
         public void ResetTrick()
@@ -531,7 +520,7 @@ namespace EmotionalPlayer
             {
                 AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "SessionEnd-DRAW", "World").ToString());
             }
-            PerceiveAndDecide();
+            PerceiveAndDecide(new string[] { }, new string[] { });
         }
 
         public void SessionStart(int sessionId, int numGames, int[] agentsIds, int shouldGreet)
@@ -539,7 +528,7 @@ namespace EmotionalPlayer
             id = agentsIds[nameId - 1];
             Console.WriteLine("My id is " + id);
             AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY,"SessionStart","World").ToString());
-            PerceiveAndDecide();
+            PerceiveAndDecide(new string[] { }, new string[] { });
         }
 
         public void Shuffle(int playerId)
@@ -552,7 +541,7 @@ namespace EmotionalPlayer
             {
                 AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "Shuffle-OTHER", "World").ToString());
             }
-            PerceiveAndDecide();
+            PerceiveAndDecide(new string[] { }, new string[] { });
         }
 
         public void TrickEnd(int winnerId, int trickPoints)
@@ -596,8 +585,8 @@ namespace EmotionalPlayer
                 AddEvent(EventHelper.ActionEnd(winnerId.ToString(), "NegativeTrick", "Board").ToString());
             }
 
-            AddEvent(EventHelper.PropertyChanged("TrickWinner(Board)", winnerId.ToString(), "World").ToString());
-            PerceiveAndDecide();
+            //AddEvent(EventHelper.PropertyChanged("TrickWinner(Board)", winnerId.ToString(), "World").ToString());
+            PerceiveAndDecide(new string[] { }, new string[] { });
         }
 
         public void TrumpCard(string trumpCard, int trumpCardPlayer)
