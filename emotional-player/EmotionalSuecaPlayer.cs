@@ -151,7 +151,7 @@ namespace EmotionalPlayer
             _rpc.Perceive(_events);
 
             //Console.WriteLine("Mood: " + _rpc.Mood);
-            //Console.WriteLine("Current Strongest Emotion: " + getEmotion());
+            //Console.WriteLine("Current Strongest Emotion: " + _rpc.GetStrongestActiveEmotion().ToString());
 
             var actionRpc = _rpc.Decide().FirstOrDefault();
 
@@ -179,6 +179,8 @@ namespace EmotionalPlayer
 
                     Console.WriteLine(dialog);
                     SuecaPub.PerformUtteranceWithTags("", dialog, tags, tagMeanings);
+                    tags = new string[] { };
+                    tagMeanings = new string[] { };
 
                     break;
                 default:
@@ -186,73 +188,6 @@ namespace EmotionalPlayer
                     break;
             }
         }
-
-        public string getEmotion()
-        {
-            if (_rpc.GetStrongestActiveEmotion() != null)
-            {
-                return _rpc.GetStrongestActiveEmotion().EmotionType;
-            }
-            return "none";
-        }
-
-        /*private void ParseTags(string dialog)
-        {
-            string pattern = @"\|\w+\|";
-            Regex rgx = new Regex(pattern, RegexOptions.IgnoreCase);
-            MatchCollection matches = rgx.Matches(dialog);
-            if (matches.Count > 0)
-            {
-                foreach (Match match in matches)
-                {
-                    _tagList.Add(match.Value);
-                }
-            }
-            _tags = _tagList.ToArray();
-
-            foreach (string tag in _tags)
-            {
-                switch (tag)
-                {
-                    case "|rank|":
-                        //Console.WriteLine("Found Tag: Rank");
-                        _tagMeaningsList.Add(convertRankToPortuguese(_rpc.GetBeliefValue("Current(AgentCardRank)")));
-                        break;
-                    case "|suit|":
-                        //Console.WriteLine("Found Tag: Suit");
-                        _tagMeaningsList.Add(convertSuitToPortuguese(_rpc.GetBeliefValue("Current(AgentCardSuit)")));
-                        break;
-                    case "|nextPlayerId|":
-                        //Console.WriteLine("Found Tag: NextPlayerID");
-                        _tagMeaningsList.Add(_rpc.GetBeliefValue("Next(PlayerId)"));
-                        break;
-                    case "|playerId|":
-                        //Console.WriteLine("Found Tag: PlayerID");
-                        _tagMeaningsList.Add(_rpc.GetBeliefValue("Current(PlayerId)"));
-                        break;
-                    case "|playerId1|":
-                        //Console.WriteLine("Found Tag: PlayerID1");
-                        _tagMeaningsList.Add("0");
-                        break;
-                    case "|playerId2|":
-                        //Console.WriteLine("Found Tag: PlayerID2");
-                        _tagMeaningsList.Add("2");
-                        break;
-                    case "|intensity|":
-                        //Console.WriteLine("Found Tag: Intensity");
-                        _tagMeaningsList.Add("2");
-                        break;
-                    case "|trickPoints|":
-                        //Console.WriteLine("Found Tag: Trick Points");
-                        _tagMeaningsList.Add(_rpc.GetBeliefValue("TrickPoints(Board)"));
-                        break;
-                    default:
-                        Console.WriteLine("Unknown Tag");
-                        break;
-                }
-            }
-            _tagMeanings = _tagMeaningsList.ToArray();
-        }*/
 
         private string convertRankToPortuguese(string englishRank)
         {
@@ -323,13 +258,13 @@ namespace EmotionalPlayer
         {
             if (playerId == 3)
             {
-                AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "Cut-SELF", "World").ToString());
+                AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "Cut-SELF", "World").ToString());
             }
             else
             {
-                AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "Cut-OTHER", "World").ToString());
+                AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "Cut-OTHER", "World").ToString());
             }
-            //AddEvent(EventHelper.PropertyChanged("WhoCutLast(Board)", playerId.ToString(), "World").ToString());
+            //AddEvent(EventHelper.PropertyChange("WhoCutLast(Board)", playerId.ToString(), "World").ToString());
             PerceiveAndDecide(new string[] { }, new string[] { });
         }
 
@@ -337,13 +272,13 @@ namespace EmotionalPlayer
         {
             if (playerId == 3)
             {
-                AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "Deal-SELF", "World").ToString());
+                AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "Deal-SELF", "World").ToString());
             }
             else
             {
-                AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "Deal-OTHER", "World").ToString());
+                AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "Deal-OTHER", "World").ToString());
             }
-            //AddEvent(EventHelper.PropertyChanged("WhoDealtLast(Board)", playerId.ToString(), "World").ToString());
+            //AddEvent(EventHelper.PropertyChange("WhoDealtLast(Board)", playerId.ToString(), "World").ToString());
             PerceiveAndDecide(new string[] { }, new string[] { });
         }
 
@@ -351,34 +286,34 @@ namespace EmotionalPlayer
         {
             if (team0Score == 120)
             {
-                AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-QUAD_LOST", "World").ToString());
+                AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-QUAD_LOST", "World").ToString());
             }
             else if (team0Score > 90)
             {
-                AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-DOUBLE_LOST", "World").ToString());
+                AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-DOUBLE_LOST", "World").ToString());
             }
             else if(team0Score > 60)
             {
-                AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-SINGLE_LOST", "World").ToString());
+                AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-SINGLE_LOST", "World").ToString());
             }
             if (team1Score == 120)
             {
-                AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-QUAD_WIN", "World").ToString());
+                AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-QUAD_WIN", "World").ToString());
             }
             else if (team1Score > 90)
             {
-                AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-DOUBLE_WIN", "World").ToString());
+                AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-DOUBLE_WIN", "World").ToString());
             }
             else if (team1Score > 60)
             {
-                AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-SINGLE_WIN", "World").ToString());
+                AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-SINGLE_WIN", "World").ToString());
             }
             else if(team0Score == team1Score)
             {
-                AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-DRAW", "World").ToString());
+                AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-DRAW", "World").ToString());
             }
-           // AddEvent(EventHelper.PropertyChanged("OurTeamFinalScore(Board)", team1Score.ToString(), "World").ToString());
-            //AddEvent(EventHelper.PropertyChanged("TheirTeamFinalScore(Board)", team0Score.ToString(), "World").ToString());
+           // AddEvent(EventHelper.PropertyChange("OurTeamFinalScore(Board)", team1Score.ToString(), "World").ToString());
+            //AddEvent(EventHelper.PropertyChange("TheirTeamFinalScore(Board)", team0Score.ToString(), "World").ToString());
             PerceiveAndDecide(new string[] { }, new string[] { });
         }
 
@@ -404,7 +339,9 @@ namespace EmotionalPlayer
         public void NextPlayer(int id)
         {
             Console.WriteLine("The next player is {0}.", id);
-            
+            SuecaTypes.Rank msgRank = new SuecaTypes.Rank();
+            SuecaTypes.Suit msgSuit = new SuecaTypes.Suit();
+
             if (this.id == id && ai != null)
             {
                 //Console.WriteLine("I am going to play...");
@@ -414,42 +351,40 @@ namespace EmotionalPlayer
 
                 SuecaSolver.Rank chosenCardRank = (SuecaSolver.Rank)SuecaSolver.Card.GetRank(chosenCard);
                 SuecaSolver.Suit chosenCardSuit = (SuecaSolver.Suit)SuecaSolver.Card.GetSuit(chosenCard);
-                SuecaTypes.Rank msgRank = (SuecaTypes.Rank)Enum.Parse(typeof(SuecaTypes.Rank), chosenCardRank.ToString());
-                SuecaTypes.Suit msgSuit = (SuecaTypes.Suit)Enum.Parse(typeof(SuecaTypes.Suit), chosenCardSuit.ToString());
+                msgRank = (SuecaTypes.Rank)Enum.Parse(typeof(SuecaTypes.Rank), chosenCardRank.ToString());
+                msgSuit = (SuecaTypes.Suit)Enum.Parse(typeof(SuecaTypes.Suit), chosenCardSuit.ToString());
                 string cardSerialized = new SuecaTypes.Card(msgRank, msgSuit).SerializeToJson();
 
-                tags = new string[] { "|rank|", "|suit|", "|nextPlayerId|", "|playerId1|", "|playerId1|" };
-                meanings = new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()), id.ToString(), "0", "2" };
-
-                //AddEvent(EventHelper.PropertyChanged("Current(AgentCardRank)", msgRank.ToString(), "World").ToString());
-                //AddEvent(EventHelper.PropertyChanged("Current(AgentCardSuit)", msgSuit.ToString(), "World").ToString());
+                //AddEvent(EventHelper.PropertyChange("Current(AgentCardRank)", msgRank.ToString(), "World").ToString());
+                //AddEvent(EventHelper.PropertyChange("Current(AgentCardSuit)", msgSuit.ToString(), "World").ToString());
 
                 SuecaPub.Play(this.id, cardSerialized);
           
                 string playInfo = ai.GetLastPlayInfo();
                 //Console.WriteLine("Robot has played {0}.", SuecaSolver.Card.ToString(chosenCard));
                 //Console.WriteLine("PlayInfo: " + playInfo);
-                AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "Playing-" + playInfo, "World").ToString());
+                AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "Playing-" + playInfo, "World").ToString());
                 //Console.WriteLine("My play has been sent.");
             }
-            //AddEvent(EventHelper.PropertyChanged("Next(PlayerId)", id.ToString(), "World").ToString());
+            //AddEvent(EventHelper.PropertyChange("Next(PlayerId)", id.ToString(), "World").ToString());
 
             if (id == 1)
             {
                 Thread.Sleep(randomNumberGenerator.Next(2000, 4000));
-                AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "NextPlayer-TEAM_PLAYER", "World").ToString());
+                AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "NextPlayer-TEAM_PLAYER", "World").ToString());
             }
             else if (id == 0 || id == 2)
             {
                 Thread.Sleep(randomNumberGenerator.Next(2000, 4000));
-                AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "NextPlayer-OPPONENT", "World").ToString());
+                AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "NextPlayer-OPPONENT", "World").ToString());
             }
-            PerceiveAndDecide(tags, meanings);
+            Thread.Sleep(1);
+            PerceiveAndDecide(new string[] { "|rank|", "|suit|", "|nextPlayerId|", "|playerId1|", "|playerId1|" }, new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()), id.ToString(), "0", "2" });
         }
 
         public void Play(int id, string card)
         {
-            //AddEvent(EventHelper.PropertyChanged("Current(PlayerID)", id.ToString(), "World").ToString());
+            //AddEvent(EventHelper.PropertyChange("Current(PlayerID)", id.ToString(), "World").ToString());
 
             if (ai != null && id != this.id)
             {
@@ -458,47 +393,51 @@ namespace EmotionalPlayer
                 SuecaSolver.Suit mySuit = (SuecaSolver.Suit)Enum.Parse(typeof(SuecaSolver.Suit), c.Suit.ToString());
                 int myCard = SuecaSolver.Card.Create(myRank, mySuit);
 
-                //AddEvent(EventHelper.PropertyChanged("Current(PlayerCardRank)", myRank.ToString(), "World").ToString());
-                //AddEvent(EventHelper.PropertyChanged("Current(PlayerCardSuit)", mySuit.ToString(), "World").ToString());
+                //AddEvent(EventHelper.PropertyChange("Current(PlayerCardRank)", myRank.ToString(), "World").ToString());
+                //AddEvent(EventHelper.PropertyChange("Current(PlayerCardSuit)", mySuit.ToString(), "World").ToString());
 
                 ai.AddPlay(id, myCard);
                 Console.WriteLine("Jogador {0} jogou {1}.", id, SuecaSolver.Card.ToString(myCard));
 
-                AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "Play", "World").ToString());
+                Thread.Sleep(1);
+                AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "Play", "World").ToString());
                 
                 int currentPlayPoints = ai.GetCurrentTrickPoints();
                 bool hasNewTrickWinner = ai.HasNewTrickWinner();
 
-                AddEvent(EventHelper.PropertyChanged(Consts.TRICK_SCORE, currentPlayPoints.ToString(), id.ToString()).ToString());
+                AddEvent(EventHelper.PropertyChange(Consts.TRICK_SCORE, currentPlayPoints.ToString(), id.ToString()).ToString());
 
                 if (hasNewTrickWinner)
                 {
                     int currentWinnerID = ai.GetCurrentTrickWinner();
-                    AddEvent(EventHelper.PropertyChanged(Consts.TRICK_WINNER, currentWinnerID.ToString(), currentWinnerID.ToString()).ToString());
+                    AddEvent(EventHelper.PropertyChange(Consts.TRICK_WINNER, currentWinnerID.ToString(), currentWinnerID.ToString()).ToString());
                 }
 
                 int trickIncrease = ai.GetTrickIncrease();
 
-                AddEvent(EventHelper.PropertyChanged(Consts.TRICK_INCREASE_PROPERTY, trickIncrease.ToString(), id.ToString()).ToString());
+                AddEvent(EventHelper.PropertyChange(Consts.TRICK_INCREASE_PROPERTY, trickIncrease.ToString(), id.ToString()).ToString());
 
-                PerceiveAndDecide(new string[] { "|rank|", "|suit|", "|playerId|", "|playerId1|", "|playerId1|" }, new string[] { convertRankToPortuguese(myRank.ToString()), convertSuitToPortuguese(mySuit.ToString()), id.ToString(), "0", "2" });
+                tags = new string[] { "|rank|", "|suit|", "|playerId|", "|playerId1|", "|playerId1|" };
+                meanings = new string[] { convertRankToPortuguese(myRank.ToString()), convertSuitToPortuguese(mySuit.ToString()), id.ToString(), "0", "2" };
+
+                PerceiveAndDecide(tags, meanings);
             }
         }
 
         public void ReceiveRobotCards(int playerId)
         {
-            //AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "ReceiveCards-SELF", "World").ToString());
+            //AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "ReceiveCards-SELF", "World").ToString());
         }
 
         public void Renounce(int playerId)
         {
             if(playerId == 1 || playerId == 3)
             {
-                AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-TEAM_CHEAT", "World").ToString());
+                AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-TEAM_CHEAT", "World").ToString());
             }
             else
-                AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-OTHER_CHEAT", "World").ToString());
-            //AddEvent(EventHelper.PropertyChanged("WhoRenounced(Board)", playerId.ToString(), "World").ToString());
+                AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-OTHER_CHEAT", "World").ToString());
+            //AddEvent(EventHelper.PropertyChange("WhoRenounced(Board)", playerId.ToString(), "World").ToString());
             PerceiveAndDecide(new string[] { }, new string[] { });
         }
 
@@ -510,15 +449,15 @@ namespace EmotionalPlayer
         {
             if(team0Score > team1Score)
             {
-                AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "SessionEnd-LOST", "World").ToString());
+                AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "SessionEnd-LOST", "World").ToString());
             }
             if(team0Score < team1Score)
             {
-                AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "SessionEnd-WIN", "World").ToString());
+                AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "SessionEnd-WIN", "World").ToString());
             }
             if(team0Score == team1Score)
             {
-                AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "SessionEnd-DRAW", "World").ToString());
+                AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "SessionEnd-DRAW", "World").ToString());
             }
             PerceiveAndDecide(new string[] { }, new string[] { });
         }
@@ -527,7 +466,7 @@ namespace EmotionalPlayer
         {
             id = agentsIds[nameId - 1];
             Console.WriteLine("My id is " + id);
-            AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY,"SessionStart","World").ToString());
+            AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY,"SessionStart","World").ToString());
             PerceiveAndDecide(new string[] { }, new string[] { });
         }
 
@@ -535,11 +474,11 @@ namespace EmotionalPlayer
         {
             if(playerId == 3)
             {
-                AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "Shuffle-SELF", "World").ToString());
+                AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "Shuffle-SELF", "World").ToString());
             }
             else
             {
-                AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "Shuffle-OTHER", "World").ToString());
+                AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "Shuffle-OTHER", "World").ToString());
             }
             PerceiveAndDecide(new string[] { }, new string[] { });
         }
@@ -550,29 +489,31 @@ namespace EmotionalPlayer
             {
                 case 0:
                     if(trickPoints == 0) {
-                        AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "TrickEnd-OPPONENT_ZERO", "World").ToString());
+                        AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "TrickEnd-OPPONENT_ZERO", "World").ToString());
                     }
                     else
-                        AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "TrickEnd-OPPONENT", "World").ToString());
+                        AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "TrickEnd-OPPONENT", "World").ToString());
                     break;
                 case 1:
-                    AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "TrickEnd-TEAM_PLAYER", "World").ToString());
+                    AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "TrickEnd-TEAM_PLAYER", "World").ToString());
                     break;
                 case 2:
                     if (trickPoints == 0)
                     {
-                        AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "TrickEnd-OPPONENT_ZERO", "World").ToString());
+                        AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "TrickEnd-OPPONENT_ZERO", "World").ToString());
                     }
                     else
-                        AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "TrickEnd-OPPONENT", "World").ToString());
+                        AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "TrickEnd-OPPONENT", "World").ToString());
                     break;
                 case 3:
-                    AddEvent(EventHelper.PropertyChanged(Consts.DIALOGUE_STATE_PROPERTY, "TrickEnd-SELF", "World").ToString());
+                    AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "TrickEnd-SELF", "World").ToString());
                     break;
                 default:
                     Console.WriteLine("Unknown Player");
                     break;
             }
+
+            Thread.Sleep(randomNumberGenerator.Next(2000, 4000));
 
             if (trickPoints> 7.0f)
             {
@@ -585,7 +526,8 @@ namespace EmotionalPlayer
                 AddEvent(EventHelper.ActionEnd(winnerId.ToString(), "NegativeTrick", "Board").ToString());
             }
 
-            //AddEvent(EventHelper.PropertyChanged("TrickWinner(Board)", winnerId.ToString(), "World").ToString());
+            //AddEvent(EventHelper.PropertyChange("TrickWinner(Board)", winnerId.ToString(), "World").ToString());
+
             PerceiveAndDecide(new string[] { }, new string[] { });
         }
 
