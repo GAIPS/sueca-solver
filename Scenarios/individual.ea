@@ -1,0 +1,101 @@
+{
+	"root":
+		{
+			"classId": 0,
+			"Description": null,
+			"KnowledgeBase":
+				{
+					"Perspective": "Agent",
+					"Knowledge":
+						{
+							"SELF":
+								{
+									"Player(0)": "Opponent",
+									"Player(1)": "Partner",
+									"Player(2)": "Opponent",
+									"Player(3)": "Partner"
+								}
+						}
+				},
+			"AppraisalRules":
+				{
+					"AppraisalWeight": 1,
+					"Rules": [
+						{
+							"EventName": "Event(Action-End, [x], NegativeTrick, Board)",
+							"Conditions":
+								{
+									"Set": ["Player([x]) = Partner"]
+								},
+							"Desirability": -5
+						}, 
+						{
+							"EventName": "Event(Action-End, [x], NegativeTrick, Board)",
+							"Conditions":
+								{
+									"Set": ["Player([x]) = Opponent"]
+								},
+							"Desirability": 5
+						}, 
+						{
+							"EventName": "Event(Action-End, [x], PositiveTrick, Board)",
+							"Conditions":
+								{
+									"Set": ["Player([x]) = Partner"]
+								},
+							"Desirability": 5
+						}, 
+						{
+							"EventName": "Event(Action-End, [x], PositiveTrick, Board)",
+							"Conditions":
+								{
+									"Set": ["Player([x]) = Opponent"]
+								},
+							"Desirability": -5
+						}, 
+						{
+							"EventName": "Event(Property-Change, [playerID], Trick(Increase), [points])",
+							"Conditions":
+								{
+									"Set": ["[points] >= 10", "Player([playerID]) = Partner", "Trick(Winner) = [winner]", "Player([winner]) = Partner"]
+								},
+							"Desirability": 7
+						}, 
+						{
+							"EventName": "Event(Property-Change, [playerID], Trick(Increase), [points])",
+							"Conditions":
+								{
+									"Set": ["[points] >= 10", "Player([playerID]) = Opponent", "Trick(Winner) = [winner]", "Player([winner]) = Opponent"]
+								},
+							"Desirability": -7
+						}, 
+						{
+							"EventName": "Event(Property-Change, *, Trick(Winner), [winnerID])",
+							"Conditions":
+								{
+									"Set": ["Player([winnerID]) = Partner", "Trick(Score) > 0"]
+								},
+							"Desirability": 5
+						}, 
+						{
+							"EventName": "Event(Property-Change, *, Trick(Winner), [winnerID])",
+							"Conditions":
+								{
+									"Set": ["Player([winnerID]) = Opponent", "Trick(Score) > 0"]
+								},
+							"Desirability": -5
+						}]
+				},
+			"EmotionDispositions": [
+				{
+					"Emotion": "*",
+					"Decay": 1,
+					"Threshold": 1
+				}]
+		},
+	"types": [
+		{
+			"TypeId": 0,
+			"ClassName": "EmotionalAppraisal.EmotionalAppraisalAsset, EmotionalAppraisal, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+		}]
+}

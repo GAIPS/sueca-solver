@@ -13,28 +13,35 @@ namespace EmotionalPlayer
             EmotionalSuecaPlayer sp;
             string client = "";
             string character = "";
-            if (args.Length == 2)
+            string path = "";
+            string type = "";
+
+            if (args.Length == 4)
             {
                 client = args[0];
-                character = args[1];
+                path = args[1];
+                type = args[2];
+                character = args[3];
+
             }
             else if (args.Length == 1)
             {
                 client = "EmotionalAgent";
                 character = args[0];
+                type = "group";
             }
             else
             {
                 Console.WriteLine("Unspecified client name and character for Thalamus.");
             }
 
-            if (client != "" && character != "")
+            if (client != "" && character != "" && path != "" && type != "")
             {
-                sp = new EmotionalSuecaPlayer(client, character);
+                sp = new EmotionalSuecaPlayer(client, path, type, character);
             }
             else
             {
-                sp = new EmotionalSuecaPlayer("EmotionalAgent");
+                sp = new EmotionalSuecaPlayer("EmotionalAgent", path, "group");
             }
             Console.ReadLine();
             sp.Dispose();

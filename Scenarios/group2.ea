@@ -1,0 +1,53 @@
+{
+	"root":
+		{
+			"classId": 0,
+			"Description": null,
+			"KnowledgeBase":
+				{
+					"Perspective": "T1",
+					"Knowledge":
+						{
+							"Universal":
+								{
+									"Player(T0)": "Opponent",
+									"Player(T1)": "Partner"
+								}
+						}
+				},
+			"AppraisalRules":
+				{
+					"AppraisalWeight": 1,
+					"Rules": [
+						{
+							"EventName": "Event(Property-Change, SELF, Trick(Increase), [points])",
+							"Conditions":
+								{
+									"Set": ["[points] >= 2"]
+								},
+							"Desirability": 3,
+							"Praiseworthiness": 3
+						}, 
+						{
+							"EventName": "Event(Property-Change, [playerID], Trick(Increase), [points])",
+							"Conditions":
+								{
+									"Set": ["[points] >= 2", "Player([playerID]) = Opponent"]
+								},
+							"Desirability": -3,
+							"Praiseworthiness": -3
+						}]
+				},
+			"EmotionDispositions": [
+				{
+					"Emotion": "*",
+					"Decay": 1,
+					"Threshold": 1
+				}]
+		},
+	"types": [
+		{
+			"TypeId": 0,
+			"ClassName": "EmotionalAppraisal.EmotionalAppraisalAsset, EmotionalAppraisal, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+		}]
+}

@@ -4,19 +4,16 @@
 			"classId": 0,
 			"KnowledgeBase":
 				{
-					"Perspective": "T1",
+					"Perspective": "P3",
 					"Knowledge":
 						{
-							"SELF":
-								{
-									"DialogueState(Player)": "Start"
-								}
+
 						}
 				},
-			"BodyName": "Group",
-			"VoiceName": "Male",
-			"EmotionalAppraisalAssetSource": "group2.ea",
-			"EmotionalDecisionMakingSource": "group.edm",
+			"BodyName": "Individual",
+			"VoiceName": "male",
+			"EmotionalAppraisalAssetSource": "individual.ea",
+			"EmotionalDecisionMakingSource": "individual.edm",
 			"SocialImportanceAssetSource": null,
 			"CommeillFautAssetSource": null,
 			"EmotionalState":
