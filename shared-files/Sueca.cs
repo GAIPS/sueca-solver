@@ -33,6 +33,7 @@ namespace SuecaSolver
         public const int UTILITY_FUNC = 1;
         public const int HYBRID_NUM_THREADS = 4;
         public const int WAR_NUM_THREADS = 2;
+        public const int MAX_MILISEC_DELIBERATION = 4000;
 
         public static int CountPoints(List<int> playerHand)
         {

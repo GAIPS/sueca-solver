@@ -42,9 +42,16 @@ namespace SuecaSolver
                 N = 50;
                 depthLimit = 1;
             }
-           
+
+            var watch = Stopwatch.StartNew();
             for (int i = 0; i < N; i++)
             {
+                if (watch.ElapsedMilliseconds > Sueca.MAX_MILISEC_DELIBERATION)
+                {
+                    watch.Stop();
+                    return infoSet.RuleBasedDecision();
+                }
+
                 List<List<int>> playersHands = infoSet.Sample();
 
                 PerfectInformationGame game;
@@ -87,6 +94,8 @@ namespace SuecaSolver
                     dict[card] += cardUtility; 
                 }
             }
+            watch.Stop();
+
 
             int bestCard = -1;
             int bestValue = Int32.MinValue;
