@@ -20,6 +20,15 @@
 					"AppraisalWeight": 1,
 					"Rules": [
 						{
+							"EventName": "Event(Action-End, [playerID], Trick(End), [points])",
+							"Conditions":
+								{
+									"Set": ["Player([PlayerID]) = Opponent", "0 = [points]"]
+								},
+							"Desirability": 3,
+							"Praiseworthiness": 4
+						}, 
+						{
 							"EventName": "Event(Property-Change, SELF, Trick(Increase), [points])",
 							"Conditions":
 								{

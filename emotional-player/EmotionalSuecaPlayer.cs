@@ -36,6 +36,7 @@ namespace EmotionalPlayer
         private string _agentType;
         private Object threadLock = new Object();
         private Object anotherLock = new object();
+        private List<Utterance> usedUtterances = new List<Utterance>();
 
         public EmotionalSuecaPlayer(string clientName, string path, string type, string charactersNames = "") : base(clientName, charactersNames)
         {
@@ -70,6 +71,19 @@ namespace EmotionalPlayer
                 ScenarioPath = path;
                 _iat = IntegratedAuthoringToolAsset.LoadFromFile(ScenarioPath);
             }
+        }
+
+        private struct Utterance
+        {
+            public string _text { get; set; }
+            public int _uses { get; set; }
+
+            public Utterance(string text, int uses)
+            {
+                _text = text;
+                _uses = uses;
+            }
+
         }
 
         private void LoadScenario(ScenarioData data)
@@ -139,6 +153,32 @@ namespace EmotionalPlayer
             }
         }
 
+        private bool checkUsedUtterances(string text)
+        {
+            int index = usedUtterances.FindIndex(o => string.Equals(text, o._text, StringComparison.OrdinalIgnoreCase));
+
+            if (index == -1)
+            {
+                usedUtterances.Add(new Utterance(text, 3));
+                return true;
+            }
+            else if(index > -1)
+            {
+                var previous = usedUtterances[index];
+
+                if (previous._uses > 0)
+                {
+                    usedUtterances.Add(new Utterance(previous._text, previous._uses--));
+                }
+                else if (previous._uses <= 0)
+                {
+                    usedUtterances.RemoveAt(index);
+                }
+                return false;
+            }
+            return false;
+        }
+
         private void PerceiveAndDecide(string[] tags, string[] tagMeanings)
         {
             lock (threadLock)
@@ -174,11 +214,13 @@ namespace EmotionalPlayer
                         Name style = actionRpc.Parameters[3];
 
                         var dialog = _iat.GetDialogueAction(IATConsts.AGENT, currentState, nextState, meaning, style).Utterance;
-
-                        Console.WriteLine(dialog);
-                        SuecaPub.PerformUtteranceWithTags("", dialog, tags, tagMeanings);
-                        tags = new string[] { };
-                        tagMeanings = new string[] { };
+                        //if (checkUsedUtterances(dialog))
+                        //{
+                            Console.WriteLine(dialog);
+                            SuecaPub.PerformUtteranceWithTags("", dialog, tags, tagMeanings);
+                            tags = new string[] { };
+                            tagMeanings = new string[] { };
+                        //}
 
                         break;
                     default:
@@ -358,13 +400,10 @@ namespace EmotionalPlayer
                     msgSuit = (SuecaTypes.Suit)Enum.Parse(typeof(SuecaTypes.Suit), chosenCardSuit.ToString());
                     string cardSerialized = new SuecaTypes.Card(msgRank, msgSuit).SerializeToJson();
 
-                    //AddEvent(EventHelper.PropertyChange("Current(AgentCardRank)", msgRank.ToString(), "World").ToString());
-                    //AddEvent(EventHelper.PropertyChange("Current(AgentCardSuit)", msgSuit.ToString(), "World").ToString());
-
                     SuecaPub.Play(this.id, cardSerialized);
 
                     string playInfo = ai.GetLastPlayInfo();
-                    //Console.WriteLine("Robot has played {0}.", SuecaSolver.Card.ToString(chosenCard));
+                    Console.WriteLine("Robot has played {0}.", SuecaSolver.Card.ToString(chosenCard));
                     //Console.WriteLine("PlayInfo: " + playInfo);
                     AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "Playing-" + playInfo, "World").ToString());
                     //Console.WriteLine("My play has been sent.");
@@ -543,35 +582,8 @@ namespace EmotionalPlayer
 
         public void TrickEnd(int winnerId, int trickPoints)
         {
-            switch (winnerId)
-            {
-                case 0:
-                    if(trickPoints == 0) {
-                        AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "TrickEnd-OPPONENT_ZERO", "World").ToString());
-                    }
-                    else
-                        AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "TrickEnd-OPPONENT", "World").ToString());
-                    break;
-                case 1:
-                    AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "TrickEnd-TEAM_PLAYER", "World").ToString());
-                    break;
-                case 2:
-                    if (trickPoints == 0)
-                    {
-                        AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "TrickEnd-OPPONENT_ZERO", "World").ToString());
-                    }
-                    else
-                        AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "TrickEnd-OPPONENT", "World").ToString());
-                    break;
-                case 3:
-                    AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "TrickEnd-SELF", "World").ToString());
-                    break;
-                default:
-                    Console.WriteLine("Unknown Player");
-                    break;
-            }
 
-            Thread.Sleep(randomNumberGenerator.Next(2000, 4000));
+            AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "TrickEnd", "Board").ToString());
 
             if (trickPoints> 7.0f)
             {
