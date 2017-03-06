@@ -31,4 +31,4 @@ UpgradeLog.*
 
 # dotCover
 *.dotCover
-Scenarios/Logs/
+Scenarios/Logs/*.rpc
