@@ -432,7 +432,7 @@ namespace EmotionalPlayer
                 SuecaPub.Play(this.id, cardSerialized);
 
                 string playInfo = ai.GetLastPlayInfo();
-                Console.WriteLine("Robot has played {0}.", SuecaSolver.Card.ToString(chosenCard));
+                Console.WriteLine(":::::::::::::::::::::::::::::::::::::::::::: Robot has played {0}.", SuecaSolver.Card.ToString(chosenCard));
                 //Console.WriteLine("PlayInfo: " + playInfo);
                 AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "Playing-" + playInfo, "World");
                 //Console.WriteLine("My play has been sent.");
@@ -477,7 +477,7 @@ namespace EmotionalPlayer
                 int myCard = SuecaSolver.Card.Create(myRank, mySuit);
 
                 ai.AddPlay(id, myCard);
-                Console.WriteLine("Jogador {0} jogou {1}.", id, SuecaSolver.Card.ToString(myCard));
+                Console.WriteLine(":::::::::::::::::::::::::::::::::::::::::::: Player {0} played {1}.", id, SuecaSolver.Card.ToString(myCard));
 
                 AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "Play", "World");
 

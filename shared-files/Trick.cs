@@ -224,11 +224,9 @@ namespace SuecaSolver
         {
             if (points.Count == 1)
             {
-                Console.WriteLine("REMOVE PRINT: GetTrickIncrease " + points[points.Count - 1]);
                 return points[points.Count - 1];
             }
-
-            Console.WriteLine("REMOVE PRINT: GetTrickIncrease " + (points[points.Count - 1] - points[points.Count - 2]));
+            
             return points[points.Count - 1] - points[points.Count - 2];
         }
 
