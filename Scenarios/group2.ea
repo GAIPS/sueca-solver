@@ -20,13 +20,40 @@
 					"AppraisalWeight": 1,
 					"Rules": [
 						{
-							"EventName": "Event(Action-End, [playerID], Trick(End), [points])",
+							"EventName": "Event(Action-End, SELF, Trick(Big), Board)",
 							"Conditions":
 								{
-									"Set": ["Player([PlayerID]) = Opponent", "0 = [points]"]
+									"Set": []
+								},
+							"Desirability": 6,
+							"Praiseworthiness": 8
+						}, 
+						{
+							"EventName": "Event(Action-End, SELF, Trick(Small), Board)",
+							"Conditions":
+								{
+									"Set": []
 								},
 							"Desirability": 3,
 							"Praiseworthiness": 4
+						}, 
+						{
+							"EventName": "Event(Action-End, [winnerID], Trick(Big), Board)",
+							"Conditions":
+								{
+									"Set": ["Player([winnerID]) = Opponent"]
+								},
+							"Desirability": -6,
+							"Praiseworthiness": 2
+						}, 
+						{
+							"EventName": "Event(Action-End, [winnerID], Trick(Small), Board)",
+							"Conditions":
+								{
+									"Set": ["Player([winnerID]) = Opponent"]
+								},
+							"Desirability": -3,
+							"Praiseworthiness": 1
 						}, 
 						{
 							"EventName": "Event(Property-Change, SELF, Trick(Increase), [points])",
@@ -38,6 +65,23 @@
 							"Praiseworthiness": 3
 						}, 
 						{
+							"EventName": "Event(Property-Change, SELF, Trick(Renounce), *)",
+							"Conditions":
+								{
+									"Set": []
+								},
+							"Desirability": -5,
+							"Praiseworthiness": -5
+						}, 
+						{
+							"EventName": "Event(Property-Change, [playerID], Trick(End), [points])",
+							"Conditions":
+								{
+									"Set": ["Player([PlayerID]) = Opponent", "[points] <= 0"]
+								},
+							"Desirability": 6
+						}, 
+						{
 							"EventName": "Event(Property-Change, [playerID], Trick(Increase), [points])",
 							"Conditions":
 								{
@@ -45,6 +89,15 @@
 								},
 							"Desirability": -3,
 							"Praiseworthiness": -3
+						}, 
+						{
+							"EventName": "Event(Property-Change, [playerID], Trick(Renounce), *)",
+							"Conditions":
+								{
+									"Set": ["Player([playerID]) = Opponent"]
+								},
+							"Desirability": 5,
+							"Praiseworthiness": -5
 						}]
 				},
 			"EmotionDispositions": [

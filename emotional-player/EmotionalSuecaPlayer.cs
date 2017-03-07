@@ -237,7 +237,7 @@ namespace EmotionalPlayer
                         string dialog = "";
                         lock (iatLock)
                         {
-                            dialog = _iat.GetDialogueAction(IATConsts.AGENT, currentState, nextState, meaning, style).Utterance;
+                            dialog = _iat.GetDialogueActions(IATConsts.AGENT, currentState, nextState, meaning, style).FirstOrDefault().Utterance;
                         }
                         //if (checkUsedUtterances(dialog))
                         //{
@@ -346,41 +346,47 @@ namespace EmotionalPlayer
                 AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "Deal-OTHER", "World");
             }
             //AddPropertyChangeEvent("WhoDealtLast(Board)", playerId.ToString(), "World");
+
             PerceiveAndDecide(new string[] { }, new string[] { });
         }
 
         public void GameEnd(int team0Score, int team1Score)
         {
+            AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd", "Board");
+
             if (team0Score == 120)
             {
-                AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-QUAD_LOST", "World");
+                AddPropertyChangeEvent(Consts.END_GAME, "Lost(Quad)", "Board");
             }
             else if (team0Score > 90)
             {
-                AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-DOUBLE_LOST", "World");
+                AddPropertyChangeEvent(Consts.END_GAME, "Lost(Double)", "Board");
             }
             else if(team0Score > 60)
             {
-                AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-SINGLE_LOST", "World");
+                AddPropertyChangeEvent(Consts.END_GAME, "Lost(Single)", "Board");
             }
+
             if (team1Score == 120)
             {
-                AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-QUAD_WIN", "World");
+                AddPropertyChangeEvent(Consts.END_GAME, "Win(Quad)", "Board");
             }
             else if (team1Score > 90)
             {
-                AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-DOUBLE_WIN", "World");
+                AddPropertyChangeEvent(Consts.END_GAME, "Win(Double)", "Board");
             }
             else if (team1Score > 60)
             {
-                AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-SINGLE_WIN", "World");
+                AddPropertyChangeEvent(Consts.END_GAME, "Win(Single)", "Board");
             }
-            else if(team0Score == team1Score)
+
+            if (team0Score == team1Score)
             {
-                AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-DRAW", "World");
+                AddPropertyChangeEvent(Consts.END_GAME, "Draw", "Board");
             }
            // AddPropertyChangeEvent("OurTeamFinalScore(Board)", team1Score.ToString(), "World");
             //AddPropertyChangeEvent("TheirTeamFinalScore(Board)", team0Score.ToString(), "World");
+
             PerceiveAndDecide(new string[] { }, new string[] { });
         }
 
@@ -547,12 +553,9 @@ namespace EmotionalPlayer
 
         public void Renounce(int playerId)
         {
-            if(playerId == 1 || playerId == 3)
-            {
-                AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-TEAM_CHEAT", "World");
-            }
-            else
-                AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-OTHER_CHEAT", "World");
+            AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd", "Board");
+            AddPropertyChangeEvent(Consts.TRICK_RENOUNCE, checkTeam(playerId), checkTeam(playerId));
+            
             //AddPropertyChangeEvent("WhoRenounced(Board)", playerId.ToString(), "World");
             PerceiveAndDecide(new string[] { }, new string[] { });
         }
@@ -564,17 +567,18 @@ namespace EmotionalPlayer
 
         public void SessionEnd(int sessionId, int team0Score, int team1Score)
         {
-            if(team0Score > team1Score)
+            AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "SessionEnd", "World");
+            if (team0Score > team1Score)
             {
-                AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "SessionEnd-LOST", "World");
+                AddPropertyChangeEvent(Consts.END_SESSION, "Lost", "World");
             }
             if(team0Score < team1Score)
             {
-                AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "SessionEnd-WIN", "World");
+                AddPropertyChangeEvent(Consts.END_SESSION, "Win", "World");
             }
             if(team0Score == team1Score)
             {
-                AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "SessionEnd-DRAW", "World");
+                AddPropertyChangeEvent(Consts.END_SESSION, "Draw", "World");
             }
             PerceiveAndDecide(new string[] { }, new string[] { });
         }
@@ -602,21 +606,19 @@ namespace EmotionalPlayer
 
         public void TrickEnd(int winnerId, int trickPoints)
         {
+            AddPropertyChangeEvent(Consts.TRICK_END, checkTeam(winnerId), trickPoints.ToString());
+            //AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "TrickEnd", "Board");
 
-            AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "TrickEnd", "Board");
-
-            if (trickPoints> 7.0f)
+        if (trickPoints> 20.0f)
             {
                 //an above average score play
-                AddActionEndEvent(winnerId.ToString(), "PositiveTrick", "Board");
+                AddActionEndEvent(checkTeam(winnerId), "Trick(Big)", "Board");
             }
             if (trickPoints <= 7.0f)
             {
                 //below average score play
-                AddActionEndEvent(winnerId.ToString(), "NegativeTrick", "Board");
+                AddActionEndEvent(checkTeam(winnerId), "Trick(Small)", "Board");
             }
-
-            //AddPropertyChangeEvent("TrickWinner(Board)", winnerId.ToString(), "World");
 
             PerceiveAndDecide(new string[] { }, new string[] { });
         }
