@@ -34,6 +34,7 @@ namespace EmotionalPlayer
     public class AssetManagerBridge : IBridge, ILog, IDataStorage
     {
         public readonly IStorageProvider _provider;
+        private Object saveFileLock = new Object();
 
         public AssetManagerBridge()
         {
@@ -85,9 +86,12 @@ namespace EmotionalPlayer
 
         public void Save(string fileId, string fileData)
         {
-            using (var writer = File.CreateText(fileId))
+            lock (saveFileLock)
             {
-                writer.Write(fileData);
+                using (var writer = File.CreateText(fileId))
+                {
+                    writer.Write(fileData);
+                }
             }
         }
     }
