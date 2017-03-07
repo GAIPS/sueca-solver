@@ -582,21 +582,18 @@ namespace EmotionalPlayer
 
         public void TrickEnd(int winnerId, int trickPoints)
         {
+            AddEvent(EventHelper.PropertyChange(Consts.TRICK_END, checkTeam(winnerId), trickPoints.ToString()).ToString());
 
-            AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "TrickEnd", "Board").ToString());
-
-            if (trickPoints> 7.0f)
+            if (trickPoints> 20.0f)
             {
                 //an above average score play
-                AddEvent(EventHelper.ActionEnd(winnerId.ToString(), "PositiveTrick", "Board").ToString());
+                AddEvent(EventHelper.ActionEnd(checkTeam(winnerId), "BigTrick", "Board").ToString());
             }
             if (trickPoints <= 7.0f)
             {
                 //below average score play
-                AddEvent(EventHelper.ActionEnd(winnerId.ToString(), "NegativeTrick", "Board").ToString());
+                AddEvent(EventHelper.ActionEnd(checkTeam(winnerId), "SmallTrick", "Board").ToString());
             }
-
-            //AddEvent(EventHelper.PropertyChange("TrickWinner(Board)", winnerId.ToString(), "World").ToString());
 
             PerceiveAndDecide(new string[] { }, new string[] { });
         }

@@ -20,13 +20,40 @@
 					"AppraisalWeight": 1,
 					"Rules": [
 						{
-							"EventName": "Event(Action-End, [playerID], Trick(End), [points])",
+							"EventName": "Event(Action-End, [winnerID], BigTrick, Board)",
 							"Conditions":
 								{
-									"Set": ["Player([PlayerID]) = Opponent", "0 = [points]"]
+									"Set": ["Player([winnerID]) = Partner"]
+								},
+							"Desirability": 6,
+							"Praiseworthiness": 8
+						}, 
+						{
+							"EventName": "Event(Action-End, [winnerID], BigTrick, Board)",
+							"Conditions":
+								{
+									"Set": ["Player([winnerID]) = Opponent"]
+								},
+							"Desirability": -6,
+							"Praiseworthiness": 2
+						}, 
+						{
+							"EventName": "Event(Action-End, [winnerID], SmallTrick, Board)",
+							"Conditions":
+								{
+									"Set": ["Player([winnerID]) = Partner"]
 								},
 							"Desirability": 3,
 							"Praiseworthiness": 4
+						}, 
+						{
+							"EventName": "Event(Action-End, [winnerID], SmallTrick, Board)",
+							"Conditions":
+								{
+									"Set": ["Player([winnerID]) = Opponent"]
+								},
+							"Desirability": -3,
+							"Praiseworthiness": 1
 						}, 
 						{
 							"EventName": "Event(Property-Change, SELF, Trick(Increase), [points])",
@@ -36,6 +63,14 @@
 								},
 							"Desirability": 3,
 							"Praiseworthiness": 3
+						}, 
+						{
+							"EventName": "Event(Property-Change, [playerID], Trick(End), [points])",
+							"Conditions":
+								{
+									"Set": ["Player([PlayerID]) = Opponent", "[points] <= 0"]
+								},
+							"Desirability": 6
 						}, 
 						{
 							"EventName": "Event(Property-Change, [playerID], Trick(Increase), [points])",

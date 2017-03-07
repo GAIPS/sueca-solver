@@ -12,6 +12,7 @@ namespace EmotionalPlayer
         public static readonly string TRICK_INCREASE_PROPERTY = "Trick(Increase)";
         public static readonly string TRICK_WINNER = "Trick(Winner)";
         public static readonly string TRICK_SCORE = "Trick(Score)";
+        public static readonly string TRICK_END = "Trick(End)";
 
     }
 }
