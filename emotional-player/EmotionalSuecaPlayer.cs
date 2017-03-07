@@ -306,7 +306,6 @@ namespace EmotionalPlayer
             {
                 AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "Cut-OTHER", "World").ToString());
             }
-            //AddEvent(EventHelper.PropertyChange("WhoCutLast(Board)", playerId.ToString(), "World").ToString());
             PerceiveAndDecide(new string[] { }, new string[] { });
         }
 
@@ -320,42 +319,44 @@ namespace EmotionalPlayer
             {
                 AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "Deal-OTHER", "World").ToString());
             }
-            //AddEvent(EventHelper.PropertyChange("WhoDealtLast(Board)", playerId.ToString(), "World").ToString());
             PerceiveAndDecide(new string[] { }, new string[] { });
         }
 
         public void GameEnd(int team0Score, int team1Score)
         {
+            AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd", "Board").ToString());
+
             if (team0Score == 120)
             {
-                AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-QUAD_LOST", "World").ToString());
+                AddEvent(EventHelper.PropertyChange(Consts.END_GAME, "Lost(Quad)", "Board").ToString());
             }
             else if (team0Score > 90)
             {
-                AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-DOUBLE_LOST", "World").ToString());
+                AddEvent(EventHelper.PropertyChange(Consts.END_GAME, "Lost(Double)", "Board").ToString());
             }
             else if(team0Score > 60)
             {
-                AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-SINGLE_LOST", "World").ToString());
+                AddEvent(EventHelper.PropertyChange(Consts.END_GAME, "Lost(Single)", "Board").ToString());
             }
+
             if (team1Score == 120)
             {
-                AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-QUAD_WIN", "World").ToString());
+                AddEvent(EventHelper.PropertyChange(Consts.END_GAME, "Win(Quad)", "Board").ToString());
             }
             else if (team1Score > 90)
             {
-                AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-DOUBLE_WIN", "World").ToString());
+                AddEvent(EventHelper.PropertyChange(Consts.END_GAME, "Win(Double)", "Board").ToString());
             }
             else if (team1Score > 60)
             {
-                AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-SINGLE_WIN", "World").ToString());
+                AddEvent(EventHelper.PropertyChange(Consts.END_GAME, "Win(Single)", "Board").ToString());
             }
-            else if(team0Score == team1Score)
+
+            if (team0Score == team1Score)
             {
-                AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-DRAW", "World").ToString());
+                AddEvent(EventHelper.PropertyChange(Consts.END_GAME, "Draw", "Board").ToString());
             }
-           // AddEvent(EventHelper.PropertyChange("OurTeamFinalScore(Board)", team1Score.ToString(), "World").ToString());
-            //AddEvent(EventHelper.PropertyChange("TheirTeamFinalScore(Board)", team0Score.ToString(), "World").ToString());
+
             PerceiveAndDecide(new string[] { }, new string[] { });
         }
 
@@ -527,13 +528,8 @@ namespace EmotionalPlayer
 
         public void Renounce(int playerId)
         {
-            if(playerId == 1 || playerId == 3)
-            {
-                AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-TEAM_CHEAT", "World").ToString());
-            }
-            else
-                AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd-OTHER_CHEAT", "World").ToString());
-            //AddEvent(EventHelper.PropertyChange("WhoRenounced(Board)", playerId.ToString(), "World").ToString());
+            AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd", "Board").ToString());
+            AddEvent(EventHelper.PropertyChange(Consts.TRICK_RENOUNCE, checkTeam(playerId), checkTeam(playerId)).ToString());
             PerceiveAndDecide(new string[] { }, new string[] { });
         }
 
@@ -544,17 +540,18 @@ namespace EmotionalPlayer
 
         public void SessionEnd(int sessionId, int team0Score, int team1Score)
         {
-            if(team0Score > team1Score)
+            AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "SessionEnd", "World").ToString());
+            if (team0Score > team1Score)
             {
-                AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "SessionEnd-LOST", "World").ToString());
+                AddEvent(EventHelper.PropertyChange(Consts.END_SESSION, "Lost", "World").ToString());
             }
             if(team0Score < team1Score)
             {
-                AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "SessionEnd-WIN", "World").ToString());
+                AddEvent(EventHelper.PropertyChange(Consts.END_SESSION, "Win", "World").ToString());
             }
             if(team0Score == team1Score)
             {
-                AddEvent(EventHelper.PropertyChange(Consts.DIALOGUE_STATE_PROPERTY, "SessionEnd-DRAW", "World").ToString());
+                AddEvent(EventHelper.PropertyChange(Consts.END_SESSION, "Draw", "World").ToString());
             }
             PerceiveAndDecide(new string[] { }, new string[] { });
         }
@@ -587,12 +584,12 @@ namespace EmotionalPlayer
             if (trickPoints> 20.0f)
             {
                 //an above average score play
-                AddEvent(EventHelper.ActionEnd(checkTeam(winnerId), "BigTrick", "Board").ToString());
+                AddEvent(EventHelper.ActionEnd(checkTeam(winnerId), "Trick(Big)", "Board").ToString());
             }
             if (trickPoints <= 7.0f)
             {
                 //below average score play
-                AddEvent(EventHelper.ActionEnd(checkTeam(winnerId), "SmallTrick", "Board").ToString());
+                AddEvent(EventHelper.ActionEnd(checkTeam(winnerId), "Trick(Small)", "Board").ToString());
             }
 
             PerceiveAndDecide(new string[] { }, new string[] { });

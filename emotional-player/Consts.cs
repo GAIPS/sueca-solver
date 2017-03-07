@@ -13,6 +13,8 @@ namespace EmotionalPlayer
         public static readonly string TRICK_WINNER = "Trick(Winner)";
         public static readonly string TRICK_SCORE = "Trick(Score)";
         public static readonly string TRICK_END = "Trick(End)";
-
+        public static readonly string END_GAME = "End(Game)";
+        public static readonly string TRICK_RENOUNCE = "Trick(Renounce)";
+        public static readonly string END_SESSION = "End(Session)";
     }
 }

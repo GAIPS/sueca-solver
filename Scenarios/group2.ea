@@ -20,16 +20,25 @@
 					"AppraisalWeight": 1,
 					"Rules": [
 						{
-							"EventName": "Event(Action-End, [winnerID], BigTrick, Board)",
+							"EventName": "Event(Action-End, SELF, Trick(Big), Board)",
 							"Conditions":
 								{
-									"Set": ["Player([winnerID]) = Partner"]
+									"Set": []
 								},
 							"Desirability": 6,
 							"Praiseworthiness": 8
 						}, 
 						{
-							"EventName": "Event(Action-End, [winnerID], BigTrick, Board)",
+							"EventName": "Event(Action-End, SELF, Trick(Small), Board)",
+							"Conditions":
+								{
+									"Set": []
+								},
+							"Desirability": 3,
+							"Praiseworthiness": 4
+						}, 
+						{
+							"EventName": "Event(Action-End, [winnerID], Trick(Big), Board)",
 							"Conditions":
 								{
 									"Set": ["Player([winnerID]) = Opponent"]
@@ -38,16 +47,7 @@
 							"Praiseworthiness": 2
 						}, 
 						{
-							"EventName": "Event(Action-End, [winnerID], SmallTrick, Board)",
-							"Conditions":
-								{
-									"Set": ["Player([winnerID]) = Partner"]
-								},
-							"Desirability": 3,
-							"Praiseworthiness": 4
-						}, 
-						{
-							"EventName": "Event(Action-End, [winnerID], SmallTrick, Board)",
+							"EventName": "Event(Action-End, [winnerID], Trick(Small), Board)",
 							"Conditions":
 								{
 									"Set": ["Player([winnerID]) = Opponent"]
@@ -65,6 +65,15 @@
 							"Praiseworthiness": 3
 						}, 
 						{
+							"EventName": "Event(Property-Change, SELF, Trick(Renounce), *)",
+							"Conditions":
+								{
+									"Set": []
+								},
+							"Desirability": -5,
+							"Praiseworthiness": -5
+						}, 
+						{
 							"EventName": "Event(Property-Change, [playerID], Trick(End), [points])",
 							"Conditions":
 								{
@@ -80,6 +89,15 @@
 								},
 							"Desirability": -3,
 							"Praiseworthiness": -3
+						}, 
+						{
+							"EventName": "Event(Property-Change, [playerID], Trick(Renounce), *)",
+							"Conditions":
+								{
+									"Set": ["Player([playerID]) = Opponent"]
+								},
+							"Desirability": 5,
+							"Praiseworthiness": -5
 						}]
 				},
 			"EmotionDispositions": [
