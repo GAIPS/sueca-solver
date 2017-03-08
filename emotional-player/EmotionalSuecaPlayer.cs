@@ -237,7 +237,7 @@ namespace EmotionalPlayer
                         string dialog = "";
                         lock (iatLock)
                         {
-                            dialog = _iat.GetDialogueActions(IATConsts.AGENT, currentState, nextState, meaning, style).FirstOrDefault().Utterance;
+                            dialog = _iat.GetDialogueActions(IATConsts.AGENT, currentState, nextState, meaning, style).Shuffle().FirstOrDefault().Utterance;
                         }
                         //if (checkUsedUtterances(dialog))
                         //{
@@ -411,8 +411,8 @@ namespace EmotionalPlayer
 
         public void NextPlayer(int id)
         {
-            AddPropertyChangeEvent("Next(PlayerID)", checkTeam(id), "World");
-            //Console.WriteLine("The next player is {0}.", id);
+            AddPropertyChangeEvent("Current(PlayerID)", checkTeam(id), "Board");
+            Console.WriteLine("The next player is {0}.", id);
             SuecaTypes.Rank msgRank = new SuecaTypes.Rank();
             SuecaTypes.Suit msgSuit = new SuecaTypes.Suit();
 
@@ -432,9 +432,10 @@ namespace EmotionalPlayer
                 SuecaPub.Play(this.id, cardSerialized);
 
                 string playInfo = ai.GetLastPlayInfo();
+                AddPropertyChangeEvent(Consts.PLAY_INFO, playInfo, "Board");
                 Console.WriteLine(":::::::::::::::::::::::::::::::::::::::::::: Robot has played {0}.", SuecaSolver.Card.ToString(chosenCard));
                 //Console.WriteLine("PlayInfo: " + playInfo);
-                AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "Playing-" + playInfo, "World");
+                AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "Playing", "Board");
                 //Console.WriteLine("My play has been sent.");
 
                 int currentPlayPoints = ai.GetCurrentTrickPoints();
@@ -455,6 +456,7 @@ namespace EmotionalPlayer
                     AddPropertyChangeEvent(Consts.TRICK_INCREASE_PROPERTY, trickIncrease.ToString(), checkTeam(id));
                 }
 
+                PerceiveAndDecide(new string[] { "|rank|", "|suit|", "|nextPlayerId|", "|playerId1|", "|playerId2|" }, new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()), id.ToString(), "0", "2" });
             }
             else
             {
@@ -467,7 +469,8 @@ namespace EmotionalPlayer
 
         public void Play(int id, string card)
         {
-            AddPropertyChangeEvent("Current(PlayerID)", checkTeam(id), "World");
+            //Console.WriteLine("Player {0} is playing.", id);
+            AddPropertyChangeEvent("Current(PlayerID)", checkTeam(id), "Board");
 
             if (ai != null && id != this.id)
             {
@@ -601,13 +604,13 @@ namespace EmotionalPlayer
             {
                 AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "Shuffle-OTHER", "World");
             }
-            PerceiveAndDecide(new string[] { }, new string[] { });
+            PerceiveAndDecide(new string[] {"|playerId|"}, new string[] {playerId.ToString()});
         }
 
         public void TrickEnd(int winnerId, int trickPoints)
         {
             AddPropertyChangeEvent(Consts.TRICK_END, checkTeam(winnerId), trickPoints.ToString());
-            //AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "TrickEnd", "Board");
+            AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "TrickEnd", "Board");
 
         if (trickPoints> 20.0f)
             {
@@ -620,7 +623,7 @@ namespace EmotionalPlayer
                 AddActionEndEvent(checkTeam(winnerId), "Trick(Small)", "Board");
             }
 
-            PerceiveAndDecide(new string[] { }, new string[] { });
+            PerceiveAndDecide(new string[] {"|playerId|","|trickpoints|"}, new string[] {winnerId.ToString(),trickPoints.ToString()});
         }
 
         public void TrumpCard(string trumpCard, int trumpCardPlayer)
