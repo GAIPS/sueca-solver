@@ -3,7 +3,7 @@
 		{
 			"classId": 0,
 			"ScenarioName": "Group Emotions",
-			"Description": "Scenario with group emotions",
+			"Description": "Sueca scenario with group emotions",
 			"CharacterSources": ["group.rpc", "individual.rpc"],
 			"AgentDialogues": [
 				{
@@ -23,132 +23,132 @@
 					"UtteranceId": "TTS-9B25F6E882C88E9BEF7F8105F8A49978"
 				}, 
 				{
-					"CurrentState": "Cut-OTHER",
+					"CurrentState": "Cut",
 					"NextState": "Dynamic",
-					"Meaning": ["-"],
-					"Style": ["Neutral"],
-					"Utterance": "Parte!",
-					"UtteranceId": "TTS-D87CF33EA90C60B6A639D20044791EFE"
-				}, 
-				{
-					"CurrentState": "Cut-OTHER",
-					"NextState": "Dynamic",
-					"Meaning": ["-"],
+					"Meaning": ["Other"],
 					"Style": ["Neutral"],
 					"Utterance": "És tu a partir!",
 					"UtteranceId": "TTS-0AFA19683D67E65988DA522A318AECEC"
 				}, 
 				{
-					"CurrentState": "Cut-OTHER",
+					"CurrentState": "Cut",
 					"NextState": "Dynamic",
-					"Meaning": ["-"],
+					"Meaning": ["Other"],
 					"Style": ["Neutral"],
 					"Utterance": "Já partiste?!",
 					"UtteranceId": "TTS-8398C483F76DDE5DF354564A185C283C"
 				}, 
 				{
-					"CurrentState": "Cut-OTHER",
+					"CurrentState": "Cut",
 					"NextState": "Dynamic",
-					"Meaning": ["-"],
+					"Meaning": ["Other"],
 					"Style": ["Neutral"],
 					"Utterance": "Não te esqueças de partir.",
 					"UtteranceId": "TTS-BB61AAE39C15E8023E71CBD0C2756928"
 				}, 
 				{
-					"CurrentState": "Cut-SELF",
+					"CurrentState": "Cut",
 					"NextState": "Dynamic",
-					"Meaning": ["-"],
+					"Meaning": ["Agent"],
 					"Style": ["Neutral"],
 					"Utterance": "Não te esqueças de partir por mim.",
 					"UtteranceId": "TTS-82FD690224F4474B45159BABCDC31CDE"
 				}, 
 				{
-					"CurrentState": "Cut-SELF",
+					"CurrentState": "Cut",
 					"NextState": "Dynamic",
-					"Meaning": ["-"],
+					"Meaning": ["Agent"],
 					"Style": ["Neutral"],
 					"Utterance": "Hora de alguém partir por mim...",
 					"UtteranceId": "TTS-12B573C2723E3D638B019707867FE2CF"
 				}, 
 				{
-					"CurrentState": "Cut-SELF",
+					"CurrentState": "Cut",
 					"NextState": "Dynamic",
-					"Meaning": ["-"],
+					"Meaning": ["Agent"],
 					"Style": ["Neutral"],
 					"Utterance": "É a minha vez de partir, o que significa que é a tua vez de partir.",
 					"UtteranceId": "TTS-6BEE77C6C8D41A79D5F4238A2E0FE861"
 				}, 
 				{
-					"CurrentState": "Cut-SELF",
+					"CurrentState": "Cut",
 					"NextState": "Dynamic",
-					"Meaning": ["-"],
+					"Meaning": ["Agent"],
 					"Style": ["Neutral"],
 					"Utterance": "Sou eu a partir...",
 					"UtteranceId": "TTS-5381F0D3C27D1EA9D4B0D5928DE9CA14"
 				}, 
 				{
-					"CurrentState": "Cut-SELF",
+					"CurrentState": "Cut",
 					"NextState": "Dynamic",
-					"Meaning": ["-"],
+					"Meaning": ["Agent"],
 					"Style": ["Neutral"],
 					"Utterance": "<gaze(player|playerId2|)> Quem é a partir? <gaze(player|playerId1|)> Ah, sou eu!",
 					"UtteranceId": "TTS-982B0C21F4A52E9F7BFC571EAAE1150C"
 				}, 
 				{
-					"CurrentState": "Deal-OTHER",
+					"CurrentState": "Deal",
 					"NextState": "Dynamic",
-					"Meaning": ["-"],
+					"Meaning": ["Other"],
 					"Style": ["Neutral"],
 					"Utterance": "És tu a dar as cartas!",
 					"UtteranceId": "TTS-3776505EF602A90A00637A94440E75E6"
 				}, 
 				{
-					"CurrentState": "Deal-OTHER",
+					"CurrentState": "Deal",
 					"NextState": "Dynamic",
-					"Meaning": ["-"],
+					"Meaning": ["Other"],
 					"Style": ["Neutral"],
 					"Utterance": "És tu a dar.",
 					"UtteranceId": "TTS-417B742C7AB27E6F68F461691D59DA90"
 				}, 
 				{
-					"CurrentState": "Deal-SELF",
+					"CurrentState": "Deal",
 					"NextState": "Dynamic",
-					"Meaning": ["-"],
+					"Meaning": ["Agent"],
 					"Style": ["Neutral"],
 					"Utterance": "<gaze(player|playerId2|)> Quem é a distribuir? <gaze(player|playerId1|)> Ah, sou eu!",
 					"UtteranceId": "TTS-CF1CB4AD454AD7686ED4D65520DB5120"
 				}, 
 				{
-					"CurrentState": "Deal-SELF",
+					"CurrentState": "Deal",
 					"NextState": "Dynamic",
-					"Meaning": ["-"],
+					"Meaning": ["Agent"],
 					"Style": ["Neutral"],
 					"Utterance": "Não te esqueças de dar as cartas por mim.",
 					"UtteranceId": "TTS-20483B4AD144DE712A6DAE559B9C5B42"
 				}, 
 				{
-					"CurrentState": "Deal-SELF",
+					"CurrentState": "Deal",
 					"NextState": "Dynamic",
-					"Meaning": ["-"],
+					"Meaning": ["Agent"],
 					"Style": ["Neutral"],
 					"Utterance": "Hora de alguém dar as cartas por mim...",
 					"UtteranceId": "TTS-A8B3AB44E13F6079D937DE55F3095013"
 				}, 
 				{
-					"CurrentState": "Deal-SELF",
+					"CurrentState": "Deal",
 					"NextState": "Dynamic",
-					"Meaning": ["-"],
+					"Meaning": ["Agent"],
 					"Style": ["Neutral"],
 					"Utterance": "É a minha vez de distribuir as cartas, <gaze(player|playerId1|)> o que significa que é a tua vez de distribuir.",
 					"UtteranceId": "TTS-182AC5AC2CB00C74A70D14C1962C383F"
 				}, 
 				{
-					"CurrentState": "Deal-SELF",
+					"CurrentState": "Deal",
 					"NextState": "Dynamic",
-					"Meaning": ["-"],
+					"Meaning": ["Agent"],
 					"Style": ["Neutral"],
 					"Utterance": "<animate(joy1)>",
 					"UtteranceId": "TTS-D667F5FC10EF4B6FBE2BEF29489FC2C1"
+				}, 
+				{
+					"CurrentState": "Shuffle",
+					"NextState": "Dynamic",
+					"Meaning": ["Other"],
+					"Style": ["Neutral"],
+					"Utterance": "Baralha isso bem!",
+					"UtteranceId": "TTS-921E4AB0A8AE18BB340EA889E4172CC6"
 				}, 
 				{
 					"CurrentState": "GameEnd",
@@ -1423,84 +1423,84 @@
 					"UtteranceId": "TTS-64F26D7E9F7BF2F83DA5D2A0E336C3D9"
 				}, 
 				{
-					"CurrentState": "Shuffle-OTHER",
+					"CurrentState": "Shuffle",
 					"NextState": "Dynamic",
-					"Meaning": ["-"],
-					"Style": ["Neutral"],
-					"Utterance": "Baralha isso bem!",
-					"UtteranceId": "TTS-921E4AB0A8AE18BB340EA889E4172CC6"
-				}, 
-				{
-					"CurrentState": "Shuffle-OTHER",
-					"NextState": "Dynamic",
-					"Meaning": ["-"],
+					"Meaning": ["Other"],
 					"Style": ["Neutral"],
 					"Utterance": "Quero isso bem baralhadinho.",
 					"UtteranceId": "TTS-F50EC05318047AD14F50BBD3B6E6CBDE"
 				}, 
 				{
-					"CurrentState": "Shuffle-OTHER",
+					"CurrentState": "Shuffle",
 					"NextState": "Dynamic",
-					"Meaning": ["-"],
+					"Meaning": ["Other"],
 					"Style": ["Neutral"],
 					"Utterance": "És tu a baralhar!",
 					"UtteranceId": "TTS-30C8D2DDAF6EE68C97E054F993B4517F"
 				}, 
 				{
-					"CurrentState": "Shuffle-OTHER",
+					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
-					"Meaning": ["-"],
-					"Style": ["Neutral"],
-					"Utterance": "Ainda não baralhaste?",
-					"UtteranceId": "TTS-3F0665BE090F8F9E06BA4CF4DE8E044C"
+					"Meaning": ["Opponent"],
+					"Style": ["Reproach"],
+					"Utterance": "<gaze(player|playerId|)> Ainda não recolheste?",
+					"UtteranceId": "TTS-3F3BEB869718754500822C5967C0B2F4"
 				}, 
 				{
-					"CurrentState": "Shuffle-OTHER",
+					"CurrentState": "Shuffle",
 					"NextState": "Dynamic",
-					"Meaning": ["-"],
+					"Meaning": ["Other"],
 					"Style": ["Neutral"],
 					"Utterance": "Já baralhaste?!",
 					"UtteranceId": "TTS-83878BE091B8692405DF93C37BBB3D7D"
 				}, 
 				{
-					"CurrentState": "Shuffle-SELF",
+					"CurrentState": "Shuffle",
 					"NextState": "Dynamic",
-					"Meaning": ["-"],
+					"Meaning": ["Agent"],
 					"Style": ["Neutral"],
 					"Utterance": "Não te esqueças de baralhar por mim.",
 					"UtteranceId": "TTS-A1779571D741792BE78E892EBA955A8C"
 				}, 
 				{
-					"CurrentState": "Shuffle-SELF",
+					"CurrentState": "Shuffle",
 					"NextState": "Dynamic",
-					"Meaning": ["-"],
+					"Meaning": ["Agent"],
 					"Style": ["Neutral"],
 					"Utterance": "Hora de alguém baralhar por mim...",
 					"UtteranceId": "TTS-4530AA062765D04DF4977C3F857DDA66"
 				}, 
 				{
-					"CurrentState": "Shuffle-SELF",
+					"CurrentState": "Shuffle",
 					"NextState": "Dynamic",
-					"Meaning": ["-"],
+					"Meaning": ["Agent"],
 					"Style": ["Neutral"],
 					"Utterance": "É a minha vez de baralhar, o que significa que é a tua vez de baralhar.",
 					"UtteranceId": "TTS-36BB81AFEF85BE41F3C09FD03C1F05AC"
 				}, 
 				{
-					"CurrentState": "Shuffle-SELF",
+					"CurrentState": "Shuffle",
 					"NextState": "Dynamic",
-					"Meaning": ["-"],
-					"Style": ["Neutral"],
-					"Utterance": "Sou eu a baralhar...",
-					"UtteranceId": "TTS-2800E6993CAC8DAD07291476ACB7A244"
+					"Meaning": ["Other"],
+					"Style": ["Angry"],
+					"Utterance": "Ainda não baralhaste?",
+					"UtteranceId": "TTS-3F0665BE090F8F9E06BA4CF4DE8E044C"
 				}, 
 				{
-					"CurrentState": "Shuffle-SELF",
+					"CurrentState": "Shuffle",
 					"NextState": "Dynamic",
-					"Meaning": ["-"],
+					"Meaning": ["Agent"],
 					"Style": ["Neutral"],
 					"Utterance": "<gaze(player|playerId2|)> Quem é a baralhar? <gaze(player|playerId1|)> Ah, sou eu!",
 					"UtteranceId": "TTS-30949AB51D04802724F2C0A5865427BD"
+				}, 
+				{
+					"CurrentState": "Shuffle",
+					"NextState": "Dynamic",
+					"Meaning": ["Agent"],
+					"Style": ["Neutral"],
+					"Utterance": "Sou eu a baralhar... Alguem baralha por mim?",
+					"UtteranceId": "TTS-51AF07ABB80CFB1249BDA2EE23A7DE1D"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
@@ -1658,9 +1658,9 @@
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["Opponent"],
-					"Style": ["Neutral"],
-					"Utterance": "<gaze(player|playerId|)> Ainda não recolheste?",
-					"UtteranceId": "TTS-3F3BEB869718754500822C5967C0B2F4"
+					"Style": ["Pride"],
+					"Utterance": "<gaze(player|playerId|)> Eu gostava de ajudar, mas a vaza foi vossa!",
+					"UtteranceId": "TTS-07D00C8C8671B3620509CE74685B5EB1"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
@@ -1673,10 +1673,10 @@
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
-					"Meaning": ["Opponent"],
+					"Meaning": ["Opponent", "0"],
 					"Style": ["Neutral"],
-					"Utterance": "<gaze(player|playerId|)> Eu gostava de ajudar, mas a vaza foi vossa!",
-					"UtteranceId": "TTS-07D00C8C8671B3620509CE74685B5EB1"
+					"Utterance": "<gaze(player|playerId|)> Também não levam nada de jeito!",
+					"UtteranceId": "TTS-187E50CCBBDBE2B16E5823118DEB0CBF"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
@@ -1723,14 +1723,6 @@
 					"NextState": "Dynamic",
 					"Meaning": ["Opponent", "0"],
 					"Style": ["Neutral"],
-					"Utterance": "<gaze(player|playerId|)> Também não levam nada de jeito!",
-					"UtteranceId": "TTS-187E50CCBBDBE2B16E5823118DEB0CBF"
-				}, 
-				{
-					"CurrentState": "TrickEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["Opponent", "0"],
-					"Style": ["Neutral"],
 					"Utterance": "<gaze(player|playerId|)> Palha! <animate(joy3)>",
 					"UtteranceId": "TTS-2984822F7129D2321B99CD90C92B7BB2"
 				}, 
@@ -1749,6 +1741,14 @@
 					"Style": ["Neutral"],
 					"Utterance": "<gaze(player|playerId|)> Não aprendam a jogar que não é preciso... <animate(joy3)>",
 					"UtteranceId": "TTS-F78BE13F89A136EC5882FF685BFB055D"
+				}, 
+				{
+					"CurrentState": "Cut",
+					"NextState": "Dynamic",
+					"Meaning": ["Other"],
+					"Style": ["Neutral"],
+					"Utterance": "Parte!",
+					"UtteranceId": "TTS-D87CF33EA90C60B6A639D20044791EFE"
 				}]
 		},
 	"types": [

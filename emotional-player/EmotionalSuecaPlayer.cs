@@ -15,6 +15,7 @@ using WellFormedNames;
 using System.Text.RegularExpressions;
 using System.IO;
 using Utilities;
+using IntegratedAuthoringTool.DTOs;
 
 namespace EmotionalPlayer
 {
@@ -156,7 +157,7 @@ namespace EmotionalPlayer
 
         private void UpdateCoroutine()
         {
-            while (_rpc[_agentType].GetBeliefValue("DialogueState(Player)") != "Disconnected")
+            while (_rpc[_agentType].GetBeliefValue("DialogueState(Board)") != "SessionEnd")
             {
                 lock (rpcLock)
                 {
@@ -166,30 +167,33 @@ namespace EmotionalPlayer
             }
         }
 
-        private bool checkUsedUtterances(string text)
+        private string checkUsedUtterances(List<DialogueStateActionDTO> dialogs)
         {
-            int index = usedUtterances.FindIndex(o => string.Equals(text, o._text, StringComparison.OrdinalIgnoreCase));
+            List<Utterance> candidates = new List<Utterance>();
 
-            if (index == -1)
+            foreach (DialogueStateActionDTO dialog in dialogs)
             {
-                usedUtterances.Add(new Utterance(text, 3));
-                return true;
-            }
-            else if(index > -1)
-            {
-                var previous = usedUtterances[index];
+                int i = usedUtterances.FindIndex(o => string.Equals(dialog.Utterance, o._text, StringComparison.OrdinalIgnoreCase));
 
-                if (previous._uses > 0)
+                if (i == -1)
                 {
-                    usedUtterances.Add(new Utterance(previous._text, previous._uses--));
+                    usedUtterances.Add(new Utterance(dialog.Utterance, 1));
+                    return dialog.Utterance;
                 }
-                else if (previous._uses <= 0)
+                
+                if (i > -1)
                 {
-                    usedUtterances.RemoveAt(index);
+                    var temp = usedUtterances[i];
+                    candidates.Add(temp);
                 }
-                return false;
             }
-            return false;
+            int min = candidates.Min(x => x._uses);
+            var result = candidates.Where(t => t._uses == min).Shuffle().FirstOrDefault();
+            int j = usedUtterances.FindIndex(o => string.Equals(result._text, o._text, StringComparison.OrdinalIgnoreCase));
+            usedUtterances.RemoveAt(j);
+            usedUtterances.Add(new Utterance(result._text, ++result._uses));
+
+            return result._text;
         }
 
         private void PerceiveAndDecide(string[] tags, string[] tagMeanings)
@@ -234,19 +238,17 @@ namespace EmotionalPlayer
                         Name meaning = actionRpc.Parameters[2];
                         Name style = actionRpc.Parameters[3];
 
-                        string dialog = "";
+                        //List<string> dialogs = new List<string>();
                         lock (iatLock)
                         {
-                            dialog = _iat.GetDialogueActions(IATConsts.AGENT, currentState, nextState, meaning, style).Shuffle().FirstOrDefault().Utterance;
+                            var dialogs = _iat.GetDialogueActions(IATConsts.AGENT, currentState, nextState, meaning, style);
+                            var dialog = checkUsedUtterances(dialogs);
+                            Console.WriteLine(dialog);
+                            SuecaPub.PerformUtteranceWithTags("", dialog, tags, tagMeanings);
                         }
-                        //if (checkUsedUtterances(dialog))
-                        //{
-                        Console.WriteLine(dialog);
-                        SuecaPub.PerformUtteranceWithTags("", dialog, tags, tagMeanings);
+
                         tags = new string[] { };
                         tagMeanings = new string[] { };
-                        //}
-
                         break;
                     default:
                         Console.WriteLine("Default Case");
@@ -319,35 +321,74 @@ namespace EmotionalPlayer
             return portugueseSuit;
         }
 
+        private string checkTeam(int id)
+        {
+            string subject = "";
+            switch (_agentType)
+            {
+                case "Group":
+                    if (id == 1 || id == 3)
+                        //Agent Team
+                        subject = "T1";
+                    if (id == 0 || id == 2)
+                        //Opponent Team
+                        subject = "T0";
+                    break;
+                case "Individual":
+                    switch (id)
+                    {
+                        case 0:
+                            subject = "P0";
+                            break;
+                        case 1:
+                            subject = "P1";
+                            break;
+                        case 2:
+                            subject = "P2";
+                            break;
+                        case 3:
+                            subject = "P3";
+                            break;
+                        default:
+                            Console.WriteLine("Unknown Player ID");
+                            break;
+                    }
+                    break;
+                default:
+                    Console.WriteLine("Unknown Agent Type is playing");
+                    break;
+            }
+            return subject;
+        }
+
         #region Game Actions
 
         public void Cut(int playerId)
         {
+            AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "Cut", "Board");
             if (playerId == 3)
             {
-                AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "Cut-SELF", "World");
+                AddPropertyChangeEvent(Consts.TRICK_CUT, "Agent", "Board");
             }
             else
             {
-                AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "Cut-OTHER", "World");
+                AddPropertyChangeEvent(Consts.TRICK_CUT, "Other", "Board");
             }
-            //AddPropertyChangeEvent("WhoCutLast(Board)", playerId.ToString(), "World");
-            PerceiveAndDecide(new string[] { }, new string[] { });
+            PerceiveAndDecide(new string[] {"|playerId1|","|playerId2|" }, new string[] {"0","2"});
         }
 
         public void Deal(int playerId)
         {
+            AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "Deal", "Board");
             if (playerId == 3)
             {
-                AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "Deal-SELF", "World");
+                AddPropertyChangeEvent(Consts.TRICK_CUT, "Agent", "Board");
             }
             else
             {
-                AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "Deal-OTHER", "World");
+                AddPropertyChangeEvent(Consts.TRICK_CUT, "Other", "Board");
             }
-            //AddPropertyChangeEvent("WhoDealtLast(Board)", playerId.ToString(), "World");
-
-            PerceiveAndDecide(new string[] { }, new string[] { });
+            PerceiveAndDecide(new string[] { "|playerId1|", "|playerId2|" }, new string[] { "0", "2" });
         }
 
         public void GameEnd(int team0Score, int team1Score)
@@ -384,8 +425,6 @@ namespace EmotionalPlayer
             {
                 AddPropertyChangeEvent(Consts.END_GAME, "Draw", "Board");
             }
-           // AddPropertyChangeEvent("OurTeamFinalScore(Board)", team1Score.ToString(), "World");
-            //AddPropertyChangeEvent("TheirTeamFinalScore(Board)", team0Score.ToString(), "World");
 
             PerceiveAndDecide(new string[] { }, new string[] { });
         }
@@ -462,7 +501,7 @@ namespace EmotionalPlayer
             {
                 // Only speak NextPlayer dialogues when the next player is not himself
                 Thread.Sleep(randomNumberGenerator.Next(2000, 3000));
-                AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "NextPlayer", "World");
+                AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "NextPlayer", "Board");
                 PerceiveAndDecide(new string[] { "|rank|", "|suit|", "|nextPlayerId|", "|playerId1|", "|playerId2|" }, new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()), id.ToString(), "0", "2" });
             }
         }
@@ -482,7 +521,7 @@ namespace EmotionalPlayer
                 ai.AddPlay(id, myCard);
                 Console.WriteLine(":::::::::::::::::::::::::::::::::::::::::::: Player {0} played {1}.", id, SuecaSolver.Card.ToString(myCard));
 
-                AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "Play", "World");
+                AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "Play", "Board");
 
                 int currentPlayPoints = ai.GetCurrentTrickPoints();
                 bool hasNewTrickWinner = ai.HasNewTrickWinner();
@@ -509,57 +548,15 @@ namespace EmotionalPlayer
             }
         }
 
-        private string checkTeam(int id)
-        {
-            string subject = "";
-            switch (_agentType)
-            {
-                case "Group":
-                    if (id == 1 || id == 3)
-                        //Agent Team
-                        subject = "T1";
-                    if (id == 0 || id == 2)
-                        //Opponent Team
-                        subject = "T0";
-                    break;
-                case "Individual":
-                    switch (id)
-                    {
-                        case 0:
-                            subject = "P0";
-                            break;
-                        case 1:
-                            subject = "P1";
-                            break;
-                        case 2:
-                            subject = "P2";
-                            break;
-                        case 3:
-                            subject = "P3";
-                            break;
-                        default:
-                            Console.WriteLine("Unknown Player ID");
-                            break;
-                    }
-                    break;
-                default:
-                    Console.WriteLine("Unknown Agent Type is playing");
-                    break;
-            }
-            return subject;
-        }
-
         public void ReceiveRobotCards(int playerId)
         {
-            AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "ReceiveCards", "World");
+            AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "ReceiveCards", "Board");
         }
 
         public void Renounce(int playerId)
         {
             AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd", "Board");
             AddPropertyChangeEvent(Consts.TRICK_RENOUNCE, checkTeam(playerId), checkTeam(playerId));
-            
-            //AddPropertyChangeEvent("WhoRenounced(Board)", playerId.ToString(), "World");
             PerceiveAndDecide(new string[] { }, new string[] { });
         }
 
@@ -570,18 +567,18 @@ namespace EmotionalPlayer
 
         public void SessionEnd(int sessionId, int team0Score, int team1Score)
         {
-            AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "SessionEnd", "World");
+            AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "SessionEnd", "Board");
             if (team0Score > team1Score)
             {
-                AddPropertyChangeEvent(Consts.END_SESSION, "Lost", "World");
+                AddPropertyChangeEvent(Consts.END_SESSION, "Lost", "Board");
             }
             if(team0Score < team1Score)
             {
-                AddPropertyChangeEvent(Consts.END_SESSION, "Win", "World");
+                AddPropertyChangeEvent(Consts.END_SESSION, "Win", "Board");
             }
             if(team0Score == team1Score)
             {
-                AddPropertyChangeEvent(Consts.END_SESSION, "Draw", "World");
+                AddPropertyChangeEvent(Consts.END_SESSION, "Draw", "Board");
             }
             PerceiveAndDecide(new string[] { }, new string[] { });
         }
@@ -590,21 +587,22 @@ namespace EmotionalPlayer
         {
             id = agentsIds[nameId - 1];
             //Console.WriteLine("My id is " + id);
-            AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY,"SessionStart","World");
+            AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "SessionStart", "Board");
             PerceiveAndDecide(new string[] { }, new string[] { });
         }
 
         public void Shuffle(int playerId)
         {
-            if(playerId == 3)
+            AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "Shuffle", "Board");
+            if (playerId == 3)
             {
-                AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "Shuffle-SELF", "World");
+                AddPropertyChangeEvent(Consts.PLAY_SHUFFLE, "Agent", "Board");
             }
             else
             {
-                AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "Shuffle-OTHER", "World");
+                AddPropertyChangeEvent(Consts.PLAY_SHUFFLE, "Other", "Board");
             }
-            PerceiveAndDecide(new string[] {"|playerId|"}, new string[] {playerId.ToString()});
+            PerceiveAndDecide(new string[] { "|playerId1|", "|playerId2|" }, new string[] { "0", "2" });
         }
 
         public void TrickEnd(int winnerId, int trickPoints)
@@ -628,7 +626,10 @@ namespace EmotionalPlayer
 
         public void TrumpCard(string trumpCard, int trumpCardPlayer)
         {
+            AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "TrumpCard", "Board");
 
+
+            PerceiveAndDecide(new string[] { "|playerId|" }, new string[] { trumpCardPlayer.ToString() });
         }
         #endregion
     }

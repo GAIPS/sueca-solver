@@ -32,3 +32,4 @@ UpgradeLog.*
 # dotCover
 *.dotCover
 Scenarios/Logs/*.rpc
+Scenarios/teste.iat

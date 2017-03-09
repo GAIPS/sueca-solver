@@ -74,6 +74,33 @@
 							"Set": ["DialogueState(Board) = Playing", "ValidDialogue(Playing, [ns], [m], [s]) = True", "Play(Info) = [m]"]
 						},
 					"Priority": 3
+				}, 
+				{
+					"Action": "Speak(Cut, [ns], [m], [s])",
+					"Target": "Board",
+					"Conditions":
+						{
+							"Set": ["DialogueState(Board) = Cut", "ValidDialogue(Cut, [ns], [m], [s]) = True", "Trick(Cut) = [m]"]
+						},
+					"Priority": 3
+				}, 
+				{
+					"Action": "Speak(Deal, [ns], [m], [s])",
+					"Target": "Board",
+					"Conditions":
+						{
+							"Set": ["DialogueState(Board) = Deal", "ValidDialogue(Deal, [ns], [m], [s]) = True", "Play(Deal) = [m]"]
+						},
+					"Priority": 3
+				}, 
+				{
+					"Action": "Speak(Shuffle, [ns], [m], [s])",
+					"Target": "Board",
+					"Conditions":
+						{
+							"Set": ["DialogueState(Board) = Shuffle", "ValidDialogue(Shuffle, [ns], [m], [s]) = True", "Play(Shuffle) = [m]"]
+						},
+					"Priority": 3
 				}]
 		},
 	"types": [
