@@ -12,8 +12,6 @@ using IntegratedAuthoringTool;
 using RolePlayCharacter;
 using AssetManagerPackage;
 using WellFormedNames;
-using System.Text.RegularExpressions;
-using System.IO;
 using Utilities;
 using IntegratedAuthoringTool.DTOs;
 
@@ -76,13 +74,13 @@ namespace EmotionalPlayer
 
         private struct Utterance
         {
-            public string _text { get; set; }
-            public int _uses { get; set; }
+            public string text { get; set; }
+            public int uses { get; set; }
 
-            public Utterance(string text, int uses)
+            public Utterance(string utterance, int repetitions)
             {
-                _text = text;
-                _uses = uses;
+                text = utterance;
+                uses = repetitions;
             }
 
         }
@@ -100,6 +98,79 @@ namespace EmotionalPlayer
                 _rpc.Add(character.BodyName.ToString(), character);
             }
             Task.Run(() => { UpdateCoroutine(); });
+        }
+
+        private void UpdateCoroutine()
+        {
+            while (_rpc[_agentType].GetBeliefValue("DialogueState(Board)") != "SessionEnd")
+            {
+                lock (rpcLock)
+                {
+                    _rpc[_agentType].Update();
+                }
+                Thread.Sleep(500);
+            }
+        }
+
+        private void PerceiveAndDecide(string[] tags, string[] tagMeanings)
+        {
+            lock (rpcLock)
+            {
+                _rpc[_agentType].Perceive(_events);
+                _events.Clear();
+            }
+
+            if (_rpc[_agentType].GetStrongestActiveEmotion() != null)
+            {
+                Console.WriteLine("Mood: " + _rpc[_agentType].Mood);
+                Console.WriteLine("Current Strongest Emotion: " + _rpc[_agentType].GetStrongestActiveEmotion().EmotionType);
+            }
+
+            ActionLibrary.IAction actionRpc = null;
+            lock (rpcLock)
+            {
+                actionRpc = _rpc[_agentType].Decide().Shuffle().FirstOrDefault();
+            }
+
+
+            if (actionRpc == null)
+            {
+                //Console.WriteLine("No action");
+                return;
+            }
+            else
+            {
+                /**/
+                lock (rpcLock)
+                {
+                    _rpc[_agentType].SaveToFile("../../../Scenarios/Logs/log" + i + ".rpc");
+                }
+                i++;
+                /**/
+                switch (actionRpc.Key.ToString())
+                {
+                    case "Speak":
+                        Name currentState = actionRpc.Parameters[0];
+                        Name nextState = actionRpc.Parameters[1];
+                        Name meaning = actionRpc.Parameters[2];
+                        Name style = actionRpc.Parameters[3];
+
+                        lock (iatLock)
+                        {
+                            var dialogs = _iat.GetDialogueActions(IATConsts.AGENT, currentState, nextState, meaning, style);
+                            var dialog = checkUsedUtterances(dialogs);
+                            Console.WriteLine(dialog);
+                            SuecaPub.PerformUtteranceWithTags("", dialog, tags, tagMeanings);
+                        }
+
+                        tags = new string[] { };
+                        tagMeanings = new string[] { };
+                        break;
+                    default:
+                        Console.WriteLine("Default Case");
+                        break;
+                }
+            }
         }
 
         #region Sueca Publisher
@@ -138,228 +209,6 @@ namespace EmotionalPlayer
             }
         }
         #endregion 
-
-        private void AddActionEndEvent(string subject, string actionName, string target)
-        {
-            lock (rpcLock)
-            {
-                _events.Add(EventHelper.ActionEnd(subject, actionName, target));
-            }
-        }
-
-        private void AddPropertyChangeEvent(string propertyName, string value, string subject)
-        {
-            lock (rpcLock)
-            {
-                _events.Add(EventHelper.PropertyChange(propertyName, value, subject));
-            }
-        }
-
-        private void UpdateCoroutine()
-        {
-            while (_rpc[_agentType].GetBeliefValue("DialogueState(Board)") != "SessionEnd")
-            {
-                lock (rpcLock)
-                {
-                    _rpc[_agentType].Update();
-                }
-                Thread.Sleep(500);
-            }
-        }
-
-        private string checkUsedUtterances(List<DialogueStateActionDTO> dialogs)
-        {
-            List<Utterance> candidates = new List<Utterance>();
-
-            foreach (DialogueStateActionDTO dialog in dialogs)
-            {
-                int i = usedUtterances.FindIndex(o => string.Equals(dialog.Utterance, o._text, StringComparison.OrdinalIgnoreCase));
-
-                if (i == -1)
-                {
-                    usedUtterances.Add(new Utterance(dialog.Utterance, 1));
-                    return dialog.Utterance;
-                }
-                
-                if (i > -1)
-                {
-                    var temp = usedUtterances[i];
-                    candidates.Add(temp);
-                }
-            }
-            int min = candidates.Min(x => x._uses);
-            var result = candidates.Where(t => t._uses == min).Shuffle().FirstOrDefault();
-            int j = usedUtterances.FindIndex(o => string.Equals(result._text, o._text, StringComparison.OrdinalIgnoreCase));
-            usedUtterances.RemoveAt(j);
-            usedUtterances.Add(new Utterance(result._text, ++result._uses));
-
-            return result._text;
-        }
-
-        private void PerceiveAndDecide(string[] tags, string[] tagMeanings)
-        {
-            lock (rpcLock)
-            {
-                _rpc[_agentType].Perceive(_events);
-                _events.Clear();
-            }
-            //_rpc[_agentType].Update();
-
-            if (_rpc[_agentType].GetStrongestActiveEmotion() != null)
-            {
-                Console.WriteLine("Mood: " + _rpc[_agentType].Mood);
-                Console.WriteLine("Current Strongest Emotion: " + _rpc[_agentType].GetStrongestActiveEmotion().EmotionType);
-            }
-
-            ActionLibrary.IAction actionRpc = null;
-            lock (rpcLock)
-            {
-                actionRpc = _rpc[_agentType].Decide().Shuffle().FirstOrDefault();
-            }
-
-
-            if (actionRpc == null)
-            {
-                //Console.WriteLine("No action");
-                return;
-            }
-            else
-            {
-                lock (rpcLock)
-                {
-                    _rpc[_agentType].SaveToFile("../../../Scenarios/Logs/log" + i + ".rpc");
-                }
-                i++;
-                switch (actionRpc.Key.ToString())
-                {
-                    case "Speak":
-                        Name currentState = actionRpc.Parameters[0];
-                        Name nextState = actionRpc.Parameters[1];
-                        Name meaning = actionRpc.Parameters[2];
-                        Name style = actionRpc.Parameters[3];
-
-                        //List<string> dialogs = new List<string>();
-                        lock (iatLock)
-                        {
-                            var dialogs = _iat.GetDialogueActions(IATConsts.AGENT, currentState, nextState, meaning, style);
-                            var dialog = checkUsedUtterances(dialogs);
-                            Console.WriteLine(dialog);
-                            SuecaPub.PerformUtteranceWithTags("", dialog, tags, tagMeanings);
-                        }
-
-                        tags = new string[] { };
-                        tagMeanings = new string[] { };
-                        break;
-                    default:
-                        Console.WriteLine("Default Case");
-                        break;
-                }
-            }
-        }
-
-        private string convertRankToPortuguese(string englishRank)
-        {
-            string portugueseRank = "";
-            switch (englishRank)
-            {
-                case "Two":
-                    portugueseRank = "um dois";
-                    break;
-                case "Three":
-                    portugueseRank = "um três";
-                    break;
-                case "Four":
-                    portugueseRank = "um quatro";
-                    break;
-                case "Five":
-                    portugueseRank = "um cinco";
-                    break;
-                case "Six":
-                    portugueseRank = "um seis";
-                    break;
-                case "Queen":
-                    portugueseRank = "uma dama";
-                    break;
-                case "Jack":
-                    portugueseRank = "um váléte";
-                    break;
-                case "King":
-                    portugueseRank = "um rei";
-                    break;
-                case "Seven":
-                    portugueseRank = "uma manilha";
-                    break;
-                case "Ace":
-                    portugueseRank = "um ás";
-                    break;
-                default:
-                    break;
-            }
-            return portugueseRank;
-        }
-
-        private string convertSuitToPortuguese(string englishSuit)
-        {
-            string portugueseSuit = "";
-            switch (englishSuit)
-            {
-                case "Clubs":
-                    portugueseSuit = "paus";
-                    break;
-                case "Diamonds":
-                    portugueseSuit = "ouros";
-                    break;
-                case "Hearts":
-                    portugueseSuit = "copas";
-                    break;
-                case "Spades":
-                    portugueseSuit = "espadas";
-                    break;
-                default:
-                    break;
-            }
-            return portugueseSuit;
-        }
-
-        private string checkTeam(int id)
-        {
-            string subject = "";
-            switch (_agentType)
-            {
-                case "Group":
-                    if (id == 1 || id == 3)
-                        //Agent Team
-                        subject = "T1";
-                    if (id == 0 || id == 2)
-                        //Opponent Team
-                        subject = "T0";
-                    break;
-                case "Individual":
-                    switch (id)
-                    {
-                        case 0:
-                            subject = "P0";
-                            break;
-                        case 1:
-                            subject = "P1";
-                            break;
-                        case 2:
-                            subject = "P2";
-                            break;
-                        case 3:
-                            subject = "P3";
-                            break;
-                        default:
-                            Console.WriteLine("Unknown Player ID");
-                            break;
-                    }
-                    break;
-                default:
-                    Console.WriteLine("Unknown Agent Type is playing");
-                    break;
-            }
-            return subject;
-        }
 
         #region Game Actions
 
@@ -630,6 +479,173 @@ namespace EmotionalPlayer
 
 
             PerceiveAndDecide(new string[] { "|playerId|" }, new string[] { trumpCardPlayer.ToString() });
+        }
+        #endregion
+
+        #region Auxiliary Methods
+
+        private string convertRankToPortuguese(string englishRank)
+        {
+            string portugueseRank = "";
+            switch (englishRank)
+            {
+                case "Two":
+                    portugueseRank = "um dois";
+                    break;
+                case "Three":
+                    portugueseRank = "um três";
+                    break;
+                case "Four":
+                    portugueseRank = "um quatro";
+                    break;
+                case "Five":
+                    portugueseRank = "um cinco";
+                    break;
+                case "Six":
+                    portugueseRank = "um seis";
+                    break;
+                case "Queen":
+                    portugueseRank = "uma dama";
+                    break;
+                case "Jack":
+                    portugueseRank = "um váléte";
+                    break;
+                case "King":
+                    portugueseRank = "um rei";
+                    break;
+                case "Seven":
+                    portugueseRank = "uma manilha";
+                    break;
+                case "Ace":
+                    portugueseRank = "um ás";
+                    break;
+                default:
+                    break;
+            }
+            return portugueseRank;
+        }
+
+        private string convertSuitToPortuguese(string englishSuit)
+        {
+            string portugueseSuit = "";
+            switch (englishSuit)
+            {
+                case "Clubs":
+                    portugueseSuit = "paus";
+                    break;
+                case "Diamonds":
+                    portugueseSuit = "ouros";
+                    break;
+                case "Hearts":
+                    portugueseSuit = "copas";
+                    break;
+                case "Spades":
+                    portugueseSuit = "espadas";
+                    break;
+                default:
+                    break;
+            }
+            return portugueseSuit;
+        }
+
+        private string checkTeam(int id)
+        {
+            string subject = "";
+            switch (_agentType)
+            {
+                case "Group":
+                    if (id == 1 || id == 3)
+                        //Agent Team
+                        subject = "T1";
+                    if (id == 0 || id == 2)
+                        //Opponent Team
+                        subject = "T0";
+                    break;
+                case "Individual":
+                    switch (id)
+                    {
+                        case 0:
+                            subject = "P0";
+                            break;
+                        case 1:
+                            subject = "P1";
+                            break;
+                        case 2:
+                            subject = "P2";
+                            break;
+                        case 3:
+                            subject = "P3";
+                            break;
+                        default:
+                            Console.WriteLine("Unknown Player ID");
+                            break;
+                    }
+                    break;
+                default:
+                    Console.WriteLine("Unknown Agent Type is playing");
+                    break;
+            }
+            return subject;
+        }
+
+        /// <summary>
+        /// Checks if any of the dialogs is contained within a list of used dialogues.
+        /// If not used yet it just returns that dialog and adds it to the used dialogue list.
+        /// If been used it goes into a list of candidates to be reused (after 5 uses it becomes free again).
+        /// If no unused dialogues, the method returns a random dialog with the least uses.
+        /// </summary>
+        /// <param name="dialogs">List of possible dialogues</param>
+        /// <returns>An unused dialogue or, alternatively, a least used dialogue</returns>
+        private string checkUsedUtterances(List<DialogueStateActionDTO> dialogs)
+        {
+            List<Utterance> candidates = new List<Utterance>();
+
+            foreach (DialogueStateActionDTO dialog in dialogs)
+            {
+                int i = usedUtterances.FindIndex(o => string.Equals(dialog.Utterance, o.text, StringComparison.OrdinalIgnoreCase));
+
+                if (i == -1)
+                {
+                    usedUtterances.Add(new Utterance(dialog.Utterance, 1));
+                    return dialog.Utterance;
+                }
+
+                if (i > -1)
+                {
+                    if (usedUtterances[i].uses <= 5)
+                    {
+                        var temp = usedUtterances[i];
+                        candidates.Add(temp);
+                    }
+                    else if (usedUtterances[i].uses > 5)
+                    {
+                        usedUtterances.RemoveAt(i);
+                    }
+                }
+            }
+            int min = candidates.Min(x => x.uses);
+            var result = candidates.Where(t => t.uses == min).Shuffle().FirstOrDefault();
+            int j = usedUtterances.FindIndex(o => string.Equals(result.text, o.text, StringComparison.OrdinalIgnoreCase));
+            usedUtterances.RemoveAt(j);
+            usedUtterances.Add(new Utterance(result.text, ++result.uses));
+
+            return result.text;
+        }
+
+        private void AddActionEndEvent(string subject, string actionName, string target)
+        {
+            lock (rpcLock)
+            {
+                _events.Add(EventHelper.ActionEnd(subject, actionName, target));
+            }
+        }
+
+        private void AddPropertyChangeEvent(string propertyName, string value, string subject)
+        {
+            lock (rpcLock)
+            {
+                _events.Add(EventHelper.PropertyChange(propertyName, value, subject));
+            }
         }
         #endregion
     }
