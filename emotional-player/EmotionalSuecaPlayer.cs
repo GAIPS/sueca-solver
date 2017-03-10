@@ -246,28 +246,28 @@ namespace EmotionalPlayer
 
             if (team0Score == 120)
             {
-                AddPropertyChangeEvent(Consts.END_GAME, "Lost(Quad)", "Board");
+                AddPropertyChangeEvent(Consts.END_GAME, "LostQuad", "Board");
             }
             else if (team0Score > 90)
             {
-                AddPropertyChangeEvent(Consts.END_GAME, "Lost(Double)", "Board");
+                AddPropertyChangeEvent(Consts.END_GAME, "LostDouble", "Board");
             }
             else if(team0Score > 60)
             {
-                AddPropertyChangeEvent(Consts.END_GAME, "Lost(Single)", "Board");
+                AddPropertyChangeEvent(Consts.END_GAME, "LostSingle", "Board");
             }
 
             if (team1Score == 120)
             {
-                AddPropertyChangeEvent(Consts.END_GAME, "Win(Quad)", "Board");
+                AddPropertyChangeEvent(Consts.END_GAME, "WinQuad", "Board");
             }
             else if (team1Score > 90)
             {
-                AddPropertyChangeEvent(Consts.END_GAME, "Win(Double)", "Board");
+                AddPropertyChangeEvent(Consts.END_GAME, "WinDouble", "Board");
             }
             else if (team1Score > 60)
             {
-                AddPropertyChangeEvent(Consts.END_GAME, "Win(Single)", "Board");
+                AddPropertyChangeEvent(Consts.END_GAME, "WinSingle", "Board");
             }
 
             if (team0Score == team1Score)
