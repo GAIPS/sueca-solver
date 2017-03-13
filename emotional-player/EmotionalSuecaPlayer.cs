@@ -94,21 +94,37 @@ namespace EmotionalPlayer
             {
                 RolePlayCharacterAsset character = RolePlayCharacterAsset.LoadFromFile(source.Source);
                 character.LoadAssociatedAssets();
-                _iat.BindToRegistry(character.DynamicPropertiesRegistry);
-                _rpc.Add(character.BodyName.ToString(), character);
+                lock (iatLock)
+                {
+                    _iat.BindToRegistry(character.DynamicPropertiesRegistry);
+                }
+                lock (rpcLock)
+                {
+                    _rpc.Add(character.BodyName.ToString(), character);
+                }
             }
             Task.Run(() => { UpdateCoroutine(); });
         }
 
         private void UpdateCoroutine()
         {
-            while (_rpc[_agentType].GetBeliefValue("DialogueState(Board)") != "SessionEnd")
+            string currentBelief;
+            lock (rpcLock)
+            {
+                currentBelief = _rpc[_agentType].GetBeliefValue("DialogueState(Board)");
+            }
+            while (currentBelief != "SessionEnd")
             {
                 lock (rpcLock)
                 {
                     _rpc[_agentType].Update();
                 }
+
                 Thread.Sleep(500);
+                lock (rpcLock)
+                {
+                    currentBelief = _rpc[_agentType].GetBeliefValue("DialogueState(Board)");
+                }
             }
         }
 
@@ -120,10 +136,15 @@ namespace EmotionalPlayer
                 _events.Clear();
             }
 
-            if (_rpc[_agentType].GetStrongestActiveEmotion() != null)
+            EmotionalAppraisal.IActiveEmotion strongestEmotion = null;
+            lock (rpcLock)
+            {
+                strongestEmotion = _rpc[_agentType].GetStrongestActiveEmotion();
+            }
+            if (strongestEmotion != null)
             {
                 Console.WriteLine("Mood: " + _rpc[_agentType].Mood);
-                Console.WriteLine("Current Strongest Emotion: " + _rpc[_agentType].GetStrongestActiveEmotion().EmotionType);
+                Console.WriteLine("Current Strongest Emotion: " + strongestEmotion.EmotionType);
             }
 
             ActionLibrary.IAction actionRpc = null;
