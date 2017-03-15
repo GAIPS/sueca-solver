@@ -46,11 +46,11 @@ namespace SuecaSolver
             SmartPlayer artificialPlayer = new SmartPlayer(0, playersHand[0], trumpCard, trumpCardPlayer);
             SuecaGame game = new SuecaGame(Card.GetSuit(trumpCard), firstPlayerID);
             //Console.WriteLine("---------hands---------");
-            //Sueca.PrintHand(playersHand[0]);
-            //Sueca.PrintHand(playersHand[1]);
-            //Sueca.PrintHand(playersHand[2]);
-            //Sueca.PrintHand(playersHand[3]);
-            //Console.WriteLine("-----------------------");
+            //sueca.printhand(playershand[0]);
+            //sueca.printhand(playershand[1]);
+            //sueca.printhand(playershand[2]);
+            //sueca.printhand(playershand[3]);
+            //console.writeline("-----------------------");
 
             for (int i = 0; i < 40; i++)
             {
