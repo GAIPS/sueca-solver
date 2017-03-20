@@ -97,7 +97,6 @@ namespace unity_emulator
         }
             
         StartPublisher startPublisher;
-        Thread emulateGameThread;
         private SuecaTypes.Card botCard;
 
 
@@ -107,22 +106,16 @@ namespace unity_emulator
 
             SetPublisher<IStartPublisher>();
 			startPublisher = new StartPublisher(Publisher);
-
-			emulateGameThread = new Thread(new ThreadStart (emulateSingleGame));
 		}
 
 
         public override void ConnectedToMaster()
         {
-            if (emulateGameThread.ThreadState != ThreadState.Running)
-            {
-                emulateGameThread.Start();
-            }
+            emulateSingleGame();
         }
 
         public override void Dispose()
         {
-            emulateGameThread.Abort();
         }
 
 
@@ -180,19 +173,21 @@ namespace unity_emulator
 
             string input;
             string[] playersNames = new string[4];
-            playersNames[0] = "Bot";
+            playersNames[3] = "Bot";
             int firstPlayerID;
             Console.WriteLine("");
             Console.WriteLine("|||||||||||||||||||| SUECA GAME ||||||||||||||||||||");
             Console.WriteLine("");
 
-            Console.WriteLine("Player 0: Bot");
-            Console.Write("Player 1: ");
+            Console.Write("Press Enter twice to start.");
+            Console.ReadLine();
+            Console.Write("Player 0 name: ");
+            playersNames[0] = Console.ReadLine();
+            Console.Write("Player 1 name: ");
             playersNames[1] = Console.ReadLine();
-            Console.Write("Player 2: ");
+            Console.Write("Player 2 name: ");
             playersNames[2] = Console.ReadLine();
-            Console.Write("Player 3: ");
-            playersNames[3] = Console.ReadLine();
+            Console.WriteLine("Player 3 name: Bot");
             Console.Write("First player ID: ");
             input = Console.ReadLine();
             firstPlayerID = Convert.ToInt16(input);
@@ -213,8 +208,8 @@ namespace unity_emulator
             int trumpCard = playersHand[trumpCardPlayer][0];
             int cardIndex, currentPlayerID = firstPlayerID;
 
-            
-            startPublisher.GameStart(0, 0, 1, serializeCard(trumpCard), trumpCardPlayer, serializeCards(playersHand[0]));
+            startPublisher.SessionStart(0, 1, new int[] { 3 }, 1);
+            startPublisher.GameStart(0, 3, 1, serializeCard(trumpCard), trumpCardPlayer, serializeCards(playersHand[3]));
             SuecaGame game = new SuecaGame(SuecaSolver.Card.GetSuit(trumpCard), firstPlayerID);
 
 
@@ -234,7 +229,7 @@ namespace unity_emulator
                 Sueca.PrintCurrentHand(currentHand);
                 int chosenCard;
 
-                if (currentPlayerID != 0)
+                if (currentPlayerID != 3)
                 {
                     Console.Write("Pick the card you want to play by its index: ");
                     input = Console.ReadLine();
@@ -248,9 +243,8 @@ namespace unity_emulator
                     {
 
                     }
-                    SuecaTypes.Card card = JsonSerializable.DeserializeFromJson<SuecaTypes.Card>(botCard.ToString());
-                    SuecaSolver.Rank myRank = (SuecaSolver.Rank)Enum.Parse(typeof(SuecaSolver.Rank), card.Rank.ToString());
-                    SuecaSolver.Suit mySuit = (SuecaSolver.Suit)Enum.Parse(typeof(SuecaSolver.Suit), card.Suit.ToString());
+                    SuecaSolver.Rank myRank = (SuecaSolver.Rank)Enum.Parse(typeof(SuecaSolver.Rank), botCard.Rank.ToString());
+                    SuecaSolver.Suit mySuit = (SuecaSolver.Suit)Enum.Parse(typeof(SuecaSolver.Suit), botCard.Suit.ToString());
                     chosenCard = SuecaSolver.Card.Create(myRank, mySuit);
                     botCard = null;
                 }

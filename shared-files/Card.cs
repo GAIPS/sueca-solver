@@ -85,6 +85,27 @@ namespace SuecaSolver
         }
     }
 
+    public class AscendingSuitComparer : IComparer<int>
+    {
+        public int Compare(int x, int y)
+        {
+            if (x == -1 || y == -1)
+            {
+                Console.WriteLine("AscendingComparer.Compare: InvalidCastException arguments");
+                return 1;
+            }
+            else if ((Card.GetRank(x) < Card.GetRank(y) && Card.GetSuit(x) == Card.GetSuit(y))
+                || (Card.GetSuit(x) < Card.GetSuit(y)))
+            {
+                return 1;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+    }
+
 
     public class DescendingComparer: IComparer<int>
     {

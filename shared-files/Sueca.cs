@@ -127,6 +127,9 @@ namespace SuecaSolver
         public static void PrintCurrentHand(List<int> hand)
         {
             Console.WriteLine("Your hand:");
+            AscendingSuitComparer acc = new AscendingSuitComparer();
+            hand.Sort(acc);
+
             for (int i = 0; i < hand.Count; i++)
             {
                 Console.Write("-- ");
