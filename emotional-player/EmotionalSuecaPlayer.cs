@@ -181,10 +181,13 @@ namespace EmotionalPlayer
 
                         lock (iatLock)
                         {
-                            var dialogs = _iat.GetDialogueActions(IATConsts.AGENT, currentState, nextState, meaning, style);
-                            var dialog = checkUsedUtterances(dialogs);
-                            Console.WriteLine(dialog);
-                            SuecaPub.PerformUtteranceWithTags("", dialog, tags, tagMeanings);
+                            if (robotHasPlayed)
+                            {
+                                var dialogs = _iat.GetDialogueActions(IATConsts.AGENT, currentState, nextState, meaning, style);
+                                var dialog = checkUsedUtterances(dialogs);
+                                Console.WriteLine(dialog);
+                                SuecaPub.PerformUtteranceWithTags("", dialog, tags, tagMeanings);
+                            }
                         }
 
                         tags = new string[] { };
@@ -247,7 +250,7 @@ namespace EmotionalPlayer
             {
                 AddPropertyChangeEvent(Consts.TRICK_CUT, "Other", "Board");
             }
-            //PerceiveAndDecide(new string[] {"|playerId1|","|playerId2|" }, new string[] {"0","2"});
+            PerceiveAndDecide(new string[] {"|playerId1|","|playerId2|" }, new string[] {"0","2"});
         }
 
         public void Deal(int playerId)
@@ -261,7 +264,7 @@ namespace EmotionalPlayer
             {
                 AddPropertyChangeEvent(Consts.TRICK_CUT, "Other", "Board");
             }
-            //PerceiveAndDecide(new string[] { "|playerId1|", "|playerId2|" }, new string[] { "0", "2" });
+            PerceiveAndDecide(new string[] { "|playerId1|", "|playerId2|" }, new string[] { "0", "2" });
         }
 
         public void GameEnd(int team0Score, int team1Score)
@@ -299,7 +302,7 @@ namespace EmotionalPlayer
                 AddPropertyChangeEvent(Consts.END_GAME, "Draw", "Board");
             }
 
-            //PerceiveAndDecide(new string[] { }, new string[] { });
+            PerceiveAndDecide(new string[] { }, new string[] { });
         }
 
         public void GameStart(int gameId, int playerId, int teamId, string trumpCard, int trumpCardPlayer, string[] cards)
@@ -330,7 +333,7 @@ namespace EmotionalPlayer
 
             if (this.id == id && ai != null)
             {
-                //Console.WriteLine("I am going to play...");
+                Console.WriteLine("I am going to play...");
 
                 int chosenCard = ai.Play();
                 ai.AddPlay(id, chosenCard);
@@ -368,20 +371,15 @@ namespace EmotionalPlayer
                 {
                     AddPropertyChangeEvent(Consts.TRICK_INCREASE_PROPERTY, trickIncrease.ToString(), checkTeam(id));
                 }
-                if (robotHasPlayed)
-                {
-                    PerceiveAndDecide(new string[] { "|rank|", "|suit|", "|nextPlayerId|", "|playerId1|", "|playerId2|" }, new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()), id.ToString(), "0", "2" });
-                }
+
+                PerceiveAndDecide(new string[] { "|rank|", "|suit|", "|nextPlayerId|", "|playerId1|", "|playerId2|" }, new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()), id.ToString(), "0", "2" });
             }
             else
             {
                 // Only speak NextPlayer dialogues when the next player is not himself
                 Thread.Sleep(randomNumberGenerator.Next(2000, 3000));
                 AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "NextPlayer", "Board");
-                if (robotHasPlayed)
-                {
-                    PerceiveAndDecide(new string[] { "|rank|", "|suit|", "|nextPlayerId|", "|playerId1|", "|playerId2|" }, new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()), id.ToString(), "0", "2" });
-                }
+                PerceiveAndDecide(new string[] { "|rank|", "|suit|", "|nextPlayerId|", "|playerId1|", "|playerId2|" }, new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()), id.ToString(), "0", "2" });
             }
         }
 
@@ -422,10 +420,7 @@ namespace EmotionalPlayer
 
                 tags = new string[] { "|rank|", "|suit|", "|playerId|", "|playerId1|", "|playerId1|" };
                 meanings = new string[] { convertRankToPortuguese(myRank.ToString()), convertSuitToPortuguese(mySuit.ToString()), id.ToString(), "0", "2" };
-                if (robotHasPlayed)
-                {
-                    PerceiveAndDecide(tags, meanings);
-                }
+                PerceiveAndDecide(tags, meanings);
             }
         }
 
@@ -438,10 +433,8 @@ namespace EmotionalPlayer
         {
             AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "GameEnd", "Board");
             AddPropertyChangeEvent(Consts.TRICK_RENOUNCE, checkTeam(playerId), checkTeam(playerId));
-            if (robotHasPlayed)
-            {
-                PerceiveAndDecide(new string[] { }, new string[] { });
-            }
+
+            PerceiveAndDecide(new string[] { }, new string[] { });
         }
 
         public void ResetTrick()
@@ -471,7 +464,7 @@ namespace EmotionalPlayer
         public void SessionStart(int sessionId, int numGames, int[] agentsIds, int shouldGreet)
         {
             id = agentsIds[nameId - 1];
-            //Console.WriteLine("My id is " + id);
+            Console.WriteLine("My id is " + id);
             AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "SessionStart", "Board");
             PerceiveAndDecide(new string[] { }, new string[] { });
         }
@@ -513,10 +506,7 @@ namespace EmotionalPlayer
         public void TrumpCard(string trumpCard, int trumpCardPlayer)
         {
             AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "TrumpCard", "Board");
-            if (robotHasPlayed)
-            {
-                PerceiveAndDecide(new string[] { "|playerId|" }, new string[] { trumpCardPlayer.ToString() });
-            }
+            PerceiveAndDecide(new string[] { "|playerId|" }, new string[] { trumpCardPlayer.ToString() });
         }
         #endregion
 

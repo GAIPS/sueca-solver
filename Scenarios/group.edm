@@ -107,7 +107,7 @@
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["ValidDialogue(TrickEnd, [ns], M(Opponent, 0), [s]) = True", "DialogueState(Board) = TrickEnd", "Trick(Winner) = [winnerID]", "Player([winnerID]) = Opponent", "Trick(Score) = 0"]
+							"Set": ["ValidDialogue(TrickEnd, [ns], M(Opponent, 0), [s]) = True", "DialogueState(Board) = TrickEnd", "Trick(Winner) != SELF", "Trick(Score) = 0", "True = [x]"]
 						},
 					"Priority": 4
 				}]

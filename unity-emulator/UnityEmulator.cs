@@ -100,7 +100,7 @@ namespace unity_emulator
         private SuecaTypes.Card botCard;
 
 
-        public UnityEmulator() : base("UnityEmulator", "")
+        public UnityEmulator(string character) : base("UnityEmulator", character)
 		{
             botCard = null;
 
@@ -169,7 +169,7 @@ namespace unity_emulator
         private void emulateSingleGame()
         {
 
-            startPublisher.SessionStart(0, 1, new int[] { 0 }, 1);
+            startPublisher.SessionStart(0, 1, new int[] { 3 }, 1);
 
             string input;
             string[] playersNames = new string[4];
@@ -208,7 +208,7 @@ namespace unity_emulator
             int trumpCard = playersHand[trumpCardPlayer][0];
             int cardIndex, currentPlayerID = firstPlayerID;
 
-            startPublisher.SessionStart(0, 1, new int[] { 3 }, 1);
+
             startPublisher.GameStart(0, 3, 1, serializeCard(trumpCard), trumpCardPlayer, serializeCards(playersHand[3]));
             SuecaGame game = new SuecaGame(SuecaSolver.Card.GetSuit(trumpCard), firstPlayerID);
 

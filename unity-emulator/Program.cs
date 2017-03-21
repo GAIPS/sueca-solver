@@ -6,7 +6,9 @@ namespace unity_emulator
     {
         static void Main(string[] args)
         {
-            UnityEmulator sp = new UnityEmulator();
+            string character = "";
+            character = args[0];
+            UnityEmulator sp = new UnityEmulator(character);
             Console.ReadLine();
             sp.Dispose();
         }
