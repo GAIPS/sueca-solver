@@ -9,24 +9,6 @@
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["ValidDialogue(SessionStart, [ns], [m], [s]) = True", "DialogueState(Board) = SessionStart"]
-						},
-					"Priority": 0
-				}, 
-				{
-					"Action": "Speak(Shuffle, [ns], [m], [s])",
-					"Target": "Board",
-					"Conditions":
-						{
-							"Set": ["DialogueState(Board) = Shuffle", "ValidDialogue(Shuffle, [ns], [m], [s]) = True", "Play(Shuffle) = [m]"]
-						},
-					"Priority": 3
-				}, 
-				{
-					"Action": "Speak(Cut, [ns], [m], [s])",
-					"Target": "Board",
-					"Conditions":
-						{
 							"Set": ["DialogueState(Board) = Cut", "ValidDialogue(Cut, [ns], [m], [s]) = True", "Trick(Cut) = [m]"]
 						},
 					"Priority": 3
@@ -192,6 +174,24 @@
 							"Set": ["DialogueState(Board) = NextPlayer", "Current(PlayerID) = [cpId]", "Player([cpId]) = Opponent", "Mood(SELF) >= 0", "Mood(SELF) < 1"]
 						},
 					"Priority": 4
+				}, 
+				{
+					"Action": "Speak(NextPlayer, [ns], [m], positive)",
+					"Target": "Board",
+					"Conditions":
+						{
+							"Set": ["DialogueState(Board) = NextPlayer", "ValidDialogue(NextPlayer, [ns], [m], [s]) = True", "Next(PlayerID) = [npID]", "Player([npID]) = [m]", "Mood(SELF) >= 0"]
+						},
+					"Priority": 5
+				}, 
+				{
+					"Action": "Speak(NextPlayer, [ns], [m], negative)",
+					"Target": "Board",
+					"Conditions":
+						{
+							"Set": ["DialogueState(Board) = NextPlayer", "ValidDialogue(NextPlayer, [ns], [m], [s]) = True", "Next(PlayerID) = [npID]", "Player([npID]) = [m]", "Mood(SELF) < 0"]
+						},
+					"Priority": 5
 				}]
 		},
 	"types": [

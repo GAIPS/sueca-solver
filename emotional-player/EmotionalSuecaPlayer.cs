@@ -138,6 +138,10 @@ namespace EmotionalPlayer
         {
             lock (rpcLock)
             {
+                foreach (var item in _events)
+                {
+                    Console.WriteLine(item.ToString());
+                }
                 _rpc[_agentType].Perceive(_events);
                 _events.Clear();
             }
@@ -148,17 +152,6 @@ namespace EmotionalPlayer
         {
             IEnumerable<ActionLibrary.IAction> actionRpc = null;
 
-            //DECIDE PHASE
-            EmotionalAppraisal.IActiveEmotion strongestEmotion = null;
-            lock (rpcLock)
-            {
-                strongestEmotion = _rpc[_agentType].GetStrongestActiveEmotion();
-            }
-            if (strongestEmotion != null)
-            {
-                Console.WriteLine("Mood: " + _rpc[_agentType].Mood);
-                Console.WriteLine("Current Strongest Emotion: " + strongestEmotion.EmotionType);
-            }
 
             lock (rpcLock)
             {
@@ -469,7 +462,7 @@ namespace EmotionalPlayer
 
             public void NextPlayer(int id)
             {
-                AddPropertyChangeEvent("Current(PlayerID)", checkTeam(id), "Board");
+                AddPropertyChangeEvent(Consts.NEXT_PLAYER, checkTeam(id), "Board");
                 Console.WriteLine("The next player is {0}.", id);
                 SuecaTypes.Rank msgRank = new SuecaTypes.Rank();
                 SuecaTypes.Suit msgSuit = new SuecaTypes.Suit();
@@ -532,7 +525,7 @@ namespace EmotionalPlayer
             public void Play(int id, string card, string playInfo)
             {
                 //Console.WriteLine("Player {0} is playing.", id);
-                AddPropertyChangeEvent("Current(PlayerID)", checkTeam(id), "Board");
+                AddPropertyChangeEvent(Consts.CURRENT_PLAYER, checkTeam(id), "Board");
 
                 if (ai != null && id != this.id)
                 {
