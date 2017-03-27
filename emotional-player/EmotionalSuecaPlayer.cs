@@ -57,6 +57,7 @@ namespace EmotionalPlayer
             AssetManager.Instance.Bridge = new AssetManagerBridge();
             LoadScenario(new ScenarioData(path));
             _agentType = type;
+            initialyzing = false;
 
         }
 
@@ -131,15 +132,27 @@ namespace EmotionalPlayer
         }
 
 
-
-        private void PerceiveAndDecide(string[] tags, string[] tagMeanings)
+        private void PerceiveOnly()
         {
             lock (rpcLock)
             {
                 _rpc[_agentType].Perceive(_events);
                 _events.Clear();
             }
+        }
 
+
+
+        private void PerceiveAndDecide(string[] tags, string[] tagMeanings)
+        {
+            //PERCEIVE PHASE
+            lock (rpcLock)
+            {
+                _rpc[_agentType].Perceive(_events);
+                _events.Clear();
+            }
+
+            //DECIDE PHASE
             EmotionalAppraisal.IActiveEmotion strongestEmotion = null;
             lock (rpcLock)
             {
@@ -160,18 +173,17 @@ namespace EmotionalPlayer
 
             if (actionRpc == null)
             {
-                //Console.WriteLine("No action");
+                Console.WriteLine("No action");
                 return;
             }
             else
             {
-                /**/
                 lock (rpcLock)
                 {
                     _rpc[_agentType].SaveToFile("../../../Scenarios/Logs/log" + i + ".rpc");
                 }
                 i++;
-                /**/
+                    
                 switch (actionRpc.Key.ToString())
                 {
                     case "Speak":
@@ -182,13 +194,11 @@ namespace EmotionalPlayer
 
                         lock (iatLock)
                         {
-                            if (robotHasPlayed)
-                            {
+                            
                                 var dialogs = _iat.GetDialogueActions(IATConsts.AGENT, currentState, nextState, meaning, style);
                                 var dialog = checkUsedUtterances(dialogs);
                                 Console.WriteLine(dialog);
                                 SuecaPub.PerformUtteranceWithTags("", dialog, tags, tagMeanings);
-                            }
                         }
 
                         tags = new string[] { };
@@ -464,9 +474,16 @@ namespace EmotionalPlayer
                     AddPropertyChangeEvent(Consts.TRICK_INCREASE_PROPERTY, trickIncrease.ToString(), checkTeam(id));
                 }
 
-                tags = new string[] { "|rank|", "|suit|", "|playerId|", "|playerId1|", "|playerId1|" };
-                meanings = new string[] { convertRankToPortuguese(myRank.ToString()), convertSuitToPortuguese(mySuit.ToString()), id.ToString(), "0", "2" };
-                PerceiveAndDecide(tags, meanings);
+                if (robotHasPlayed)
+                {
+                    tags = new string[] { "|rank|", "|suit|", "|playerId|", "|playerId1|", "|playerId1|" };
+                    meanings = new string[] { convertRankToPortuguese(myRank.ToString()), convertSuitToPortuguese(mySuit.ToString()), id.ToString(), "0", "2" };
+                    PerceiveAndDecide(tags, meanings);
+                }
+                else
+                {
+                    PerceiveOnly();
+                }
             }
         }
 
