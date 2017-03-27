@@ -133,23 +133,33 @@ namespace EmotionalPlayer
                 }
             }
         }
+        
 
         private void PerceiveOnly()
         {
             lock (rpcLock)
             {
-                foreach (var item in _events)
-                {
-                    Console.WriteLine(item.ToString());
-                }
                 _rpc[_agentType].Perceive(_events);
                 _events.Clear();
             }
         }
 
+
         private void PerceiveAndDecide(string[] tags, string[] tagMeanings)
         {
             IEnumerable<ActionLibrary.IAction> actionRpc = null;
+
+            //DECIDE PHASE
+            EmotionalAppraisal.IActiveEmotion strongestEmotion = null;
+            lock (rpcLock)
+            {
+                strongestEmotion = _rpc[_agentType].GetStrongestActiveEmotion();
+            }
+            if (strongestEmotion != null)
+            {
+                Console.WriteLine("Mood: " + _rpc[_agentType].Mood);
+                Console.WriteLine("Current Strongest Emotion: " + strongestEmotion.EmotionType);
+            }
 
             lock (rpcLock)
             {
@@ -582,6 +592,17 @@ namespace EmotionalPlayer
                 else
                 {
                     Console.WriteLine("EEE A ULTIMA JOGADA DA RONDA");
+                    PerceiveOnly();
+                }
+
+                if (robotHasPlayed)
+                {
+                    tags = new string[] { "|rank|", "|suit|", "|playerId|", "|playerId1|", "|playerId1|" };
+                    meanings = new string[] { convertRankToPortuguese(myRank.ToString()), convertSuitToPortuguese(mySuit.ToString()), id.ToString(), "0", "2" };
+                    PerceiveAndDecide(tags, meanings);
+                }
+                else
+                {
                     PerceiveOnly();
                 }
             }
