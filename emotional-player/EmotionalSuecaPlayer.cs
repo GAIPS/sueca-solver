@@ -444,11 +444,10 @@ namespace EmotionalPlayer
                     string cardSerialized = new SuecaTypes.Card(msgRank, msgSuit).SerializeToJson();
 
                     SuecaPub.Play(this.id, cardSerialized);
-                    robotHasPlayed = true;
 
                     string playInfo = ai.GetLastPlayInfo();
                     AddPropertyChangeEvent(Consts.PLAY_INFO, playInfo, "Board");
-                    Console.WriteLine(":::::::::::::::::::::::::::::::::::::::::::: Robot has played {0}.", SuecaSolver.Card.ToString(chosenCard));
+                    Console.WriteLine(":::::::::::::::::::::::::::::::::::::::::::: Robot has played {0} - {1}.", SuecaSolver.Card.ToString(chosenCard), playInfo);
                     //Console.WriteLine("PlayInfo: " + playInfo);
                     AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "Playing", "Board");
                     //Console.WriteLine("My play has been sent.");
@@ -472,7 +471,8 @@ namespace EmotionalPlayer
                     }
 
                     PerceiveAndDecide(new string[] { "|rank|", "|suit|", "|nextPlayerId|", "|playerId1|", "|playerId2|" }, new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()), id.ToString(), "0", "2" });
-                }
+                    robotHasPlayed = true;
+            }
                 else
                 {
                     // Only speak NextPlayer dialogues when the next player is not himself

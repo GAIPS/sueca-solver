@@ -512,25 +512,25 @@ namespace SuecaSolver
             return unknownOwnerCards.GetDeckSize();
         }
 
-        internal bool IsNewTrick()
+        internal bool LastPlayIsNewTrick()
         {
-            return tricks[tricks.Count - 1].IsFull() || tricks[tricks.Count - 1].IsEmpty();
+            return tricks[tricks.Count - 1].IsNewTrick();
         }
 
         public string GetLastPlayInfo()
         {
             Trick currentTrick = tricks[tricks.Count - 1];
-            if (currentTrick.LastPlayIsCut())
-            {
-                return "CUT";
-            }
-            if (IsNewTrick())
+            if (LastPlayIsNewTrick())
             {
                 return "NEW_TRICK";
             }
-            if (currentTrick.LastPlayIsFollowing())
+            else if (currentTrick.LastPlayIsFollowing())
             {
                 return "FOLLOWING";
+            }
+            else if (currentTrick.LastPlayIsCut())
+            {
+                return "CUT";
             }
             else
             {
