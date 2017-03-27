@@ -20,6 +20,8 @@ namespace EmotionalPlayer
         public static readonly string PLAY_INFO = "Play(Info)";
         public static readonly string PLAY_DEAL = "Play(Deal)";
         public static readonly string PLAY_SHUFFLE = "Play(Shuffle)";
+        public static readonly string CURRENT_PLAYER = "Current(PlayerID)";
+        public static readonly string NEXT_PLAYER = "Next(PlayerID)";
 
     }
 }
