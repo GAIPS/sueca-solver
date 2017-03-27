@@ -60,11 +60,6 @@ namespace SuecaSolver
             return infoSet.GetTrickIncrease();
         }
 
-        public bool IsNewTrick()
-        {
-            return infoSet.IsNewTrick();
-        }
-
         public float PointsPercentage()
         {
             float alreadyMadePoints = infoSet.MyTeamPoints + infoSet.OtherTeamPoints;
