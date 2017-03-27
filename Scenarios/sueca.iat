@@ -274,113 +274,33 @@
 					"CurrentState": "NextPlayer",
 					"NextState": "Dynamic",
 					"Meaning": ["Partner"],
-					"Style": ["Shame"],
-					"Utterance": "Colega és tu a jogar. Shame",
-					"UtteranceId": "TTS-B2070DCF1D1CED8473B4B5BA6BB70808"
+					"Style": ["positive"],
+					"Utterance": "Colega és tu a jogar. Positivo",
+					"UtteranceId": "TTS-B3852A461BC9B3A764CC5486E4C97C2B"
 				}, 
 				{
 					"CurrentState": "NextPlayer",
 					"NextState": "Dynamic",
 					"Meaning": ["Partner"],
-					"Style": ["Joy"],
-					"Utterance": "Colega és tu a jogar.  Joy",
-					"UtteranceId": "TTS-AD695E1F4F090F1367E8ADC1F4B76718"
-				}, 
-				{
-					"CurrentState": "NextPlayer",
-					"NextState": "Dynamic",
-					"Meaning": ["Partner"],
-					"Style": ["Pride"],
-					"Utterance": "Colega és tu a jogar. Pride",
-					"UtteranceId": "TTS-CDE13EED7B62A62C0DD8272B3824AB19"
-				}, 
-				{
-					"CurrentState": "NextPlayer",
-					"NextState": "Dynamic",
-					"Meaning": ["Partner"],
-					"Style": ["Distress"],
-					"Utterance": "Colega és tu a jogar. Distress",
-					"UtteranceId": "TTS-7D36BE733710E325583B5CD8B32090B6"
-				}, 
-				{
-					"CurrentState": "NextPlayer",
-					"NextState": "Dynamic",
-					"Meaning": ["Partner"],
-					"Style": ["Neutral"],
-					"Utterance": "Colega és tu a jogar. Neutral",
-					"UtteranceId": "TTS-B51E51A629FB211BC2ECA509129A7430"
-				}, 
-				{
-					"CurrentState": "NextPlayer",
-					"NextState": "Dynamic",
-					"Meaning": ["Partner"],
-					"Style": ["Anger"],
-					"Utterance": "Colega és tu a jogar. Anger",
-					"UtteranceId": "TTS-F9F8615E6C6AF6ACAF3A0AB1A545FB75"
-				}, 
-				{
-					"CurrentState": "NextPlayer",
-					"NextState": "Dynamic",
-					"Meaning": ["Partner"],
-					"Style": ["Reproach"],
-					"Utterance": "Colega és tu a jogar. Reproach",
-					"UtteranceId": "TTS-2A5E88893EE06C482F72397DADD07A3C"
+					"Style": ["negative"],
+					"Utterance": "Colega és tu a jogar. Negativo",
+					"UtteranceId": "TTS-3D9190ED77E457A12B64E567EB52A707"
 				}, 
 				{
 					"CurrentState": "NextPlayer",
 					"NextState": "Dynamic",
 					"Meaning": ["Opponent"],
-					"Style": ["Shame"],
-					"Utterance": "Oponente és tu a jogar. Shame",
-					"UtteranceId": "TTS-DF30085568290551A12FDFE6799B412E"
+					"Style": ["positive"],
+					"Utterance": "Oponente és tu a jogar. Positivo",
+					"UtteranceId": "TTS-356247416158B5929072D5D83A9B4AFA"
 				}, 
 				{
 					"CurrentState": "NextPlayer",
 					"NextState": "Dynamic",
 					"Meaning": ["Opponent"],
-					"Style": ["Joy"],
-					"Utterance": "Oponente és tu a jogar.  Joy",
-					"UtteranceId": "TTS-4EAB66B6E9BF82EF13159367DCA46505"
-				}, 
-				{
-					"CurrentState": "NextPlayer",
-					"NextState": "Dynamic",
-					"Meaning": ["Opponent"],
-					"Style": ["Pride"],
-					"Utterance": "Oponente és tu a jogar. Pride",
-					"UtteranceId": "TTS-73931EF64CA2DFF35949A732E00F4399"
-				}, 
-				{
-					"CurrentState": "NextPlayer",
-					"NextState": "Dynamic",
-					"Meaning": ["Opponent"],
-					"Style": ["Distress"],
-					"Utterance": "Oponente és tu a jogar. Distress",
-					"UtteranceId": "TTS-EC80F72330E88D642F03E7945A3A58A6"
-				}, 
-				{
-					"CurrentState": "NextPlayer",
-					"NextState": "Dynamic",
-					"Meaning": ["Opponent"],
-					"Style": ["Neutral"],
-					"Utterance": "Oponente és tu a jogar. Neutral",
-					"UtteranceId": "TTS-E99DF7ED2766F1F5C0B81EE3160F3863"
-				}, 
-				{
-					"CurrentState": "NextPlayer",
-					"NextState": "Dynamic",
-					"Meaning": ["Opponent"],
-					"Style": ["Anger"],
-					"Utterance": "Oponente és tu a jogar. Anger",
-					"UtteranceId": "TTS-77FBFE133B6D2F2081833420B58CE162"
-				}, 
-				{
-					"CurrentState": "NextPlayer",
-					"NextState": "Dynamic",
-					"Meaning": ["Opponent"],
-					"Style": ["Reproach"],
-					"Utterance": "Oponente és tu a jogar. Reproach",
-					"UtteranceId": "TTS-0DB51C66CB965401C8836908EDC3FD13"
+					"Style": ["negative"],
+					"Utterance": "Oponente és tu a jogar. Negativo",
+					"UtteranceId": "TTS-7925BE410F9E3D30133DDC4A1D8BDC1B"
 				}, 
 				{
 					"CurrentState": "GameEnd",
