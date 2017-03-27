@@ -52,6 +52,15 @@ namespace SuecaSolver
             return LeadSuit == lastPlaySuit;
         }
 
+        public bool IsNewTrick()
+        {
+            if (moves.Count == 1)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public bool IsEmpty()
         {
             if (moves.Count == 0)
