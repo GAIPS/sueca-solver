@@ -5,23 +5,6 @@
 			"DefaultActionPriority": 2,
 			"ActionTendencies": [
 				{
-					"Action": "Speak(NextPlayer, [ns], [m], [s])",
-					"Target": "Board",
-					"Conditions":
-						{
-							"Set": ["DialogueState(Board) = NextPlayer", "ValidDialogue(NextPlayer, [ns], [m], [s]) = True", "StrongestEmotion(SELF) = [s]", "Current(PlayerID) = [npID]", "Player([npID]) = [m]"]
-						},
-					"Priority": 3
-				}, 
-				{
-					"Action": "Speak(NextPlayer, [ns], [m], [s])",
-					"Target": "Board",
-					"Conditions":
-						{
-							"Set": ["DialogueState(Board) = NextPlayer", "ValidDialogue(NextPlayer, [ns], [m], [s]) = True", "Current(PlayerID) = [npID]", "Player([npID]) = [m]"]
-						}
-				}, 
-				{
 					"Action": "Speak(SessionStart, [ns], [m], [s])",
 					"Target": "Board",
 					"Conditions":
@@ -110,6 +93,24 @@
 							"Set": ["ValidDialogue(TrickEnd, [ns], M(Opponent, 0), [s]) = True", "DialogueState(Board) = TrickEnd", "Trick(Winner) != SELF", "Trick(Score) = 0", "True = [x]"]
 						},
 					"Priority": 4
+				}, 
+				{
+					"Action": "Speak(NextPlayer, [ns], [m], positive)",
+					"Target": "Board",
+					"Conditions":
+						{
+							"Set": ["DialogueState(Board) = NextPlayer", "ValidDialogue(NextPlayer, [ns], [m], [s]) = True", "Next(PlayerID) = [npID]", "Player([npID]) = [m]", "Mood(SELF) >= 0"]
+						},
+					"Priority": 5
+				}, 
+				{
+					"Action": "Speak(NextPlayer, [ns], [m], negative)",
+					"Target": "Board",
+					"Conditions":
+						{
+							"Set": ["DialogueState(Board) = NextPlayer", "ValidDialogue(NextPlayer, [ns], [m], [s]) = True", "Next(PlayerID) = [npID]", "Player([npID]) = [m]", "Mood(SELF) < 0"]
+						},
+					"Priority": 5
 				}]
 		},
 	"types": [
