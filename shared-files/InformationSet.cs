@@ -522,21 +522,26 @@ namespace SuecaSolver
         {
             return unknownOwnerCards.GetDeckSize();
         }
+        
+        internal bool LastPlayIsNewTrick()
+        {
+            return tricks[tricks.Count - 1].IsNewTrick();
+        }
 
         public string GetLastPlayInfo()
         {
             Trick currentTrick = tricks[tricks.Count - 1];
-            if (currentTrick.LastPlayIsNewTrick())
-            {
-                return Sueca.PLAY_INFO_NEWTRICK;
-            }
-            else if (currentTrick.LastPlayIsFollowing())
+            if (LastPlayIsNewTrick())
             {
                 return Sueca.PLAY_INFO_FOLLOWING;
             }
-            else if (currentTrick.LastPlayIsCut())
+            else if (currentTrick.LastPlayIsFollowing())
             {
                 return Sueca.PLAY_INFO_CUT;
+            }
+            else if (currentTrick.LastPlayIsCut())
+            {
+                return "CUT";
             }
             else
             {

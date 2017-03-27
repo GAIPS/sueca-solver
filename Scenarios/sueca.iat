@@ -233,49 +233,10 @@
 				{
 					"CurrentState": "Play",
 					"NextState": "Dynamic",
-<<<<<<< HEAD
-					"Meaning": ["Partner"],
-					"Style": ["Pride"],
-					"Utterance": "Colega jogou. Pride",
-					"UtteranceId": "TTS-7B173C46364C89DD48B1CDE52EE0561B"
-=======
 					"Meaning": ["Opponent"],
 					"Style": ["Pride"],
 					"Utterance": "Oponente jogou. Pride",
 					"UtteranceId": "TTS-1730A859A07E353BEC3B5051D1E68625"
->>>>>>> Fiz perceive only to work only for play events. Add testing dialogues.
-				}, 
-				{
-					"CurrentState": "Play",
-					"NextState": "Dynamic",
-<<<<<<< HEAD
-					"Meaning": ["Partner"],
-					"Style": ["Neutral"],
-					"Utterance": "Colega jogou. Neutral",
-					"UtteranceId": "TTS-EB688E2A5BACA8A647134C48C7E3EEAA"
-=======
-					"Meaning": ["Opponent"],
-					"Style": ["Distress"],
-					"Utterance": "Oponente jogou. Distress",
-					"UtteranceId": "TTS-07A7FE0355FB7ADD4CCC26CF0388F093"
->>>>>>> Fiz perceive only to work only for play events. Add testing dialogues.
-				}, 
-				{
-					"CurrentState": "Play",
-					"NextState": "Dynamic",
-<<<<<<< HEAD
-					"Meaning": ["Partner"],
-					"Style": ["Reproach"],
-					"Utterance": "Colega jogou. reproach",
-					"UtteranceId": "TTS-BEC78441402919F25F56819294DF617B"
-				}, 
-				{
-					"CurrentState": "Play",
-					"NextState": "Dynamic",
-					"Meaning": ["Opponent"],
-					"Style": ["Joy"],
-					"Utterance": "Oponente jogou. Joy",
-					"UtteranceId": "TTS-C4C0CD06638BAFC2504CCB9E9FF6EA4E"
 				}, 
 				{
 					"CurrentState": "Play",
@@ -288,11 +249,6 @@
 				{
 					"CurrentState": "Play",
 					"NextState": "Dynamic",
-					"Meaning": ["Opponent"],
-					"Style": ["Neutral"],
-					"Utterance": "Oponente jogou. Neutral",
-					"UtteranceId": "TTS-A17FE5CC2DCE5F96C02D1DA0343C1B89"
-=======
 					"Meaning": ["Opponent"],
 					"Style": ["Neutral"],
 					"Utterance": "Oponente jogou. Neutral",
@@ -337,116 +293,34 @@
 					"Style": ["Pride"],
 					"Utterance": "Colega és tu a jogar. Pride",
 					"UtteranceId": "TTS-CDE13EED7B62A62C0DD8272B3824AB19"
->>>>>>> Fiz perceive only to work only for play events. Add testing dialogues.
 				}, 
 				{
 					"CurrentState": "NextPlayer",
 					"NextState": "Dynamic",
 					"Meaning": ["Partner"],
-<<<<<<< HEAD
-					"Style": ["positive"],
-					"Utterance": "Colega és tu a jogar. Positivo",
-					"UtteranceId": "TTS-B3852A461BC9B3A764CC5486E4C97C2B"
-=======
 					"Style": ["Distress"],
 					"Utterance": "Colega és tu a jogar. Distress",
 					"UtteranceId": "TTS-7D36BE733710E325583B5CD8B32090B6"
->>>>>>> Fiz perceive only to work only for play events. Add testing dialogues.
 				}, 
 				{
 					"CurrentState": "NextPlayer",
 					"NextState": "Dynamic",
 					"Meaning": ["Partner"],
-<<<<<<< HEAD
-					"Style": ["negative"],
-					"Utterance": "Colega és tu a jogar. Negativo",
-					"UtteranceId": "TTS-3D9190ED77E457A12B64E567EB52A707"
-=======
 					"Style": ["Neutral"],
 					"Utterance": "Colega és tu a jogar. Neutral",
 					"UtteranceId": "TTS-B51E51A629FB211BC2ECA509129A7430"
->>>>>>> Fiz perceive only to work only for play events. Add testing dialogues.
 				}, 
 				{
 					"CurrentState": "NextPlayer",
 					"NextState": "Dynamic",
-<<<<<<< HEAD
-					"Meaning": ["Opponent"],
-					"Style": ["positive"],
-					"Utterance": "Oponente és tu a jogar. Positivo",
-					"UtteranceId": "TTS-356247416158B5929072D5D83A9B4AFA"
-=======
 					"Meaning": ["Partner"],
 					"Style": ["Anger"],
 					"Utterance": "Colega és tu a jogar. Anger",
 					"UtteranceId": "TTS-F9F8615E6C6AF6ACAF3A0AB1A545FB75"
->>>>>>> Fiz perceive only to work only for play events. Add testing dialogues.
 				}, 
 				{
 					"CurrentState": "NextPlayer",
 					"NextState": "Dynamic",
-<<<<<<< HEAD
-					"Meaning": ["Opponent"],
-					"Style": ["negative"],
-					"Utterance": "Oponente és tu a jogar. Negativo",
-					"UtteranceId": "TTS-7925BE410F9E3D30133DDC4A1D8BDC1B"
-				}, 
-				{
-					"CurrentState": "GameEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["WinSingle"],
-					"Style": ["Joy"],
-					"Utterance": " Uma vitória para a nossa equipa!",
-					"UtteranceId": "TTS-E15E6CD3FF37F8392859F7F6E04C31E1"
-				}, 
-				{
-					"CurrentState": "GameEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["WinQuad"],
-					"Style": ["Neutral"],
-					"Utterance": "Boa colega! Foi chiita para os outros!",
-					"UtteranceId": "TTS-8AD1E181DB8AD0BA27B51977C2B35316"
-				}, 
-				{
-					"CurrentState": "GameEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["WinDouble"],
-					"Style": ["Neutral"],
-					"Utterance": "Ganhámos mais dois jogos!",
-					"UtteranceId": "TTS-28348A401B65C61BB46CC4C5FF8AC33A"
-				}, 
-				{
-					"CurrentState": "GameEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["LostSingle"],
-					"Style": ["Neutral"],
-					"Utterance": " Perder a batalha, não é perder a guerra.",
-					"UtteranceId": "TTS-6AB3F3C5280A21E2F836A3C0DEE81FAC"
-				}, 
-				{
-					"CurrentState": "GameEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["LostQuad"],
-					"Style": ["Neutral"],
-					"Utterance": " Levámos uma chiita... ",
-					"UtteranceId": "TTS-D694CE719BD38E9346AC36A7698F64C6"
-				}, 
-				{
-					"CurrentState": "GameEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["LostDouble"],
-					"Style": ["Neutral"],
-					"Utterance": "Perdemos 2 jogos.",
-					"UtteranceId": "TTS-3186675436237BDDD5C6C98CCFF5CF60"
-				}, 
-				{
-					"CurrentState": "GameEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["Draw"],
-					"Style": ["Neutral"],
-					"Utterance": "Temos um empate.",
-					"UtteranceId": "TTS-6EC8D753712B3B66C9EC4B38ECC441B6"
-=======
 					"Meaning": ["Partner"],
 					"Style": ["Reproach"],
 					"Utterance": "Colega és tu a jogar. Reproach",
@@ -507,80 +381,18 @@
 					"Style": ["Reproach"],
 					"Utterance": "Oponente és tu a jogar. Reproach",
 					"UtteranceId": "TTS-0DB51C66CB965401C8836908EDC3FD13"
->>>>>>> Fiz perceive only to work only for play events. Add testing dialogues.
 				}, 
 				{
 					"CurrentState": "GameEnd",
 					"NextState": "Dynamic",
-<<<<<<< HEAD
-					"Meaning": ["Cheat", "Partner"],
-					"Style": ["Neutral"],
-					"Utterance": "Colega, fizeste renúncia! Distraíste-te?",
-					"UtteranceId": "TTS-93C41C43B271CAB19B5B25652784848A"
-=======
 					"Meaning": ["WinSingle"],
 					"Style": ["Joy"],
 					"Utterance": " Uma vitória para a nossa equipa!",
 					"UtteranceId": "TTS-E15E6CD3FF37F8392859F7F6E04C31E1"
->>>>>>> Fiz perceive only to work only for play events. Add testing dialogues.
 				}, 
 				{
 					"CurrentState": "GameEnd",
 					"NextState": "Dynamic",
-<<<<<<< HEAD
-					"Meaning": ["Cheat", "Opponent"],
-					"Style": ["Neutral"],
-					"Utterance": "Oponente, fizeste renúncia!",
-					"UtteranceId": "TTS-52D8E7AD0DC8D5700EFC82F353E3A761"
-				}, 
-				{
-					"CurrentState": "Deal",
-					"NextState": "Dynamic",
-					"Meaning": ["Other"],
-					"Style": ["Neutral"],
-					"Utterance": "Sou eu a dar as cartas!",
-					"UtteranceId": "TTS-6A55A9116F5C030A182C0089DC6775EF"
-				}, 
-				{
-					"CurrentState": "Deal",
-					"NextState": "Dynamic",
-					"Meaning": ["Other"],
-					"Style": ["Neutral"],
-					"Utterance": "És tu a dar.",
-					"UtteranceId": "TTS-417B742C7AB27E6F68F461691D59DA90"
-				}, 
-				{
-					"CurrentState": "Cut",
-					"NextState": "Dynamic",
-					"Meaning": ["Other"],
-					"Style": ["Neutral"],
-					"Utterance": "És tu a partir!",
-					"UtteranceId": "TTS-0AFA19683D67E65988DA522A318AECEC"
-				}, 
-				{
-					"CurrentState": "Cut",
-					"NextState": "Dynamic",
-					"Meaning": ["Agent"],
-					"Style": ["Neutral"],
-					"Utterance": "Sou eu a partir...",
-					"UtteranceId": "TTS-5381F0D3C27D1EA9D4B0D5928DE9CA14"
-				}, 
-				{
-					"CurrentState": "TrickEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["Partner"],
-					"Style": ["Shame"],
-					"Utterance": "Acabou a ronda e foi das minha equipa. Estou shame",
-					"UtteranceId": "TTS-C9056F2F4D89C6E2AE482E4EF1FA2BF9"
-				}, 
-				{
-					"CurrentState": "TrickEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["Partner"],
-					"Style": ["Neutral"],
-					"Utterance": "Acabou a ronda e foi das minha equipa. Estou neutro",
-					"UtteranceId": "TTS-9CDF5DF80FD94F768309B6F09E8B8C6E"
-=======
 					"Meaning": ["WinQuad"],
 					"Style": ["Neutral"],
 					"Utterance": "Boa colega! Foi chiita para os outros!",
@@ -673,7 +485,6 @@
 					"Style": ["Neutral"],
 					"Utterance": "Sou eu a partir...",
 					"UtteranceId": "TTS-5381F0D3C27D1EA9D4B0D5928DE9CA14"
->>>>>>> Fiz perceive only to work only for play events. Add testing dialogues.
 				}]
 		},
 	"types": [

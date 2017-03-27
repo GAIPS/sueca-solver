@@ -51,8 +51,8 @@ namespace SuecaSolver
             int lastPlaySuit = Card.GetSuit(moves[moves.Count - 1].Card);
             return LeadSuit == lastPlaySuit;
         }
-
-        public bool LastPlayIsNewTrick()
+        
+        public bool IsNewTrick()
         {
             if (moves.Count == 1)
             {
