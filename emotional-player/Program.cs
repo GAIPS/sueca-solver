@@ -10,7 +10,6 @@ namespace EmotionalPlayer
     {
         static void Main(string[] args)
         {
-            EmotionalSuecaPlayer sp;
             string client = "";
             string character = "";
             string path = "";

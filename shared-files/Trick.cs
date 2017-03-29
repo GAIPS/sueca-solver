@@ -231,8 +231,8 @@ namespace SuecaSolver
 
         public bool HasNewTrickTeamWinner()
         {
-            //if the absolute difference between the ids of the two last players is 2, then they are on the same team
-            if (winningPlayer.Count <= 1 || ((winningPlayer[winningPlayer.Count - 1] - winningPlayer[winningPlayer.Count - 2] + 4) % 4 != 2))
+            //if the absolute difference between the ids of the two last players is 2 or 0, then they are on the same team or the same player
+            if (winningPlayer.Count <= 1 || ((winningPlayer[winningPlayer.Count - 1] - winningPlayer[winningPlayer.Count - 2] + 4) % 2 != 0))
             {
                 return true;
             }
@@ -252,6 +252,11 @@ namespace SuecaSolver
         public int[] GetTrickWinnerAndPoints()
         {
             return new int[] { currentWinner, currentPoints};
+        }
+
+        internal bool IsLastPlayOfTrick()
+        {
+            return moves.Count == 4;
         }
     }
 }

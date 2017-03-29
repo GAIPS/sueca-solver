@@ -65,7 +65,6 @@ namespace SuecaSolver
             tricks.Add(new Trick(Trump));
         }
 
-
         public int GetHandSize()
         {
             return hand.Count;
@@ -242,6 +241,12 @@ namespace SuecaSolver
         {
             Trick currentTrick = tricks[tricks.Count - 1];
             return currentTrick.HasNewTrickTeamWinner();
+        }
+
+        internal bool IsLastPlayOfTrick()
+        {
+            Trick currentTrick = tricks[tricks.Count - 1];
+            return currentTrick.IsLastPlayOfTrick();
         }
 
         public int GetTrickIncrease()
