@@ -149,24 +149,19 @@ namespace EmotionalPlayer
 
         private void PerceiveAndDecide(string[] tags, string[] tagMeanings)
         {
-            //PERCEIVE PHASE
+            IEnumerable<ActionLibrary.IAction> actionRpc = null;
+
             lock (rpcLock)
             {
+                //PERCEIVE PHASE
                 foreach (var item in _events)
                 {
                     Console.WriteLine(item.ToString());
                 }
                 _rpc[_agentType].Perceive(_events);
                 _events.Clear();
-            }
 
-            //DECIDE PHASE
-            
-            Console.WriteLine("Mood: " + _rpc[_agentType].Mood);
-            
-            IEnumerable<ActionLibrary.IAction> actionRpc = null;
-            lock (rpcLock)
-            {
+                //DECIDE PHASE            
                 actionRpc = _rpc[_agentType].Decide();
                 //if (_rpc[_agentType].GetAllActiveEmotions().IsEmpty())
                 //{
@@ -483,14 +478,22 @@ namespace EmotionalPlayer
                     //Console.WriteLine("My play has been sent.");
 
                     int currentPlayPoints = ai.GetCurrentTrickPoints();
-                    bool hasNewTrickWinner = ai.HasNewTrickWinner();
+                    bool hasNewTrickWinner = ai.HasNewTrickTeamWinner();
 
                     AddPropertyChangeEvent(Consts.TRICK_SCORE, currentPlayPoints.ToString(), checkTeam(id));
 
                     if (hasNewTrickWinner)
                     {
                         int currentWinnerID = ai.GetCurrentTrickWinner();
-                        AddPropertyChangeEvent(Consts.TRICK_WINNER, checkTeam(currentWinnerID), checkTeam(id));
+                        string lastPlayInfo = ai.GetLastPlayInfo();
+                        if (lastPlayInfo == Sueca.PLAY_INFO_NEWTRICK)
+                        {
+                            AddPropertyChangeEvent(Consts.TRICK_WINNER, checkTeam(currentWinnerID), Sueca.PLAY_INFO_NEWTRICK);
+                        }
+                        else
+                        {
+                            AddPropertyChangeEvent(Consts.TRICK_WINNER, checkTeam(currentWinnerID), checkTeam(id));
+                        }
                     }
 
                     int trickIncrease = ai.GetTrickIncrease();
@@ -531,14 +534,22 @@ namespace EmotionalPlayer
                     AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "Play", "Board");
 
                     int currentPlayPoints = ai.GetCurrentTrickPoints();
-                    bool hasNewTrickWinner = ai.HasNewTrickWinner();
+                    bool hasNewTrickWinner = ai.HasNewTrickTeamWinner();
 
                     AddPropertyChangeEvent(Consts.TRICK_SCORE, currentPlayPoints.ToString(), checkTeam(id));
 
                     if (hasNewTrickWinner)
                     {
                         int currentWinnerID = ai.GetCurrentTrickWinner();
-                        AddPropertyChangeEvent(Consts.TRICK_WINNER, checkTeam(currentWinnerID), checkTeam(id));
+                        string lastPlayInfo = ai.GetLastPlayInfo();
+                        if (lastPlayInfo == Sueca.PLAY_INFO_NEWTRICK)
+                        {
+                            AddPropertyChangeEvent(Consts.TRICK_WINNER, checkTeam(currentWinnerID), Sueca.PLAY_INFO_NEWTRICK);
+                        }
+                        else
+                        {
+                            AddPropertyChangeEvent(Consts.TRICK_WINNER, checkTeam(currentWinnerID), checkTeam(id));
+                        }
                     }
 
                     int trickIncrease = ai.GetTrickIncrease();

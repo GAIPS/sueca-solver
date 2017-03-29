@@ -52,7 +52,7 @@ namespace SuecaSolver
             return LeadSuit == lastPlaySuit;
         }
 
-        public bool IsNewTrick()
+        public bool LastPlayIsNewTrick()
         {
             if (moves.Count == 1)
             {
@@ -226,6 +226,16 @@ namespace SuecaSolver
 	        {
                 return true;
 	        }
+            return false;
+        }
+
+        public bool HasNewTrickTeamWinner()
+        {
+            //if the absolute difference between the ids of the two last players is 2, then they are on the same team
+            if (winningPlayer.Count <= 1 || ((winningPlayer[winningPlayer.Count - 1] - winningPlayer[winningPlayer.Count - 2] + 4) % 4 != 2))
+            {
+                return true;
+            }
             return false;
         }
 
