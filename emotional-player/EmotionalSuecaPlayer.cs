@@ -333,6 +333,7 @@ namespace EmotionalPlayer
 
             if (this.id == id && ai != null)
             {
+                /*
                 Console.WriteLine("I am going to play...");
 
                 int chosenCard = ai.Play();
@@ -373,6 +374,7 @@ namespace EmotionalPlayer
                 }
 
                 PerceiveAndDecide(new string[] { "|rank|", "|suit|", "|nextPlayerId|", "|playerId1|", "|playerId2|" }, new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()), id.ToString(), "0", "2" });
+                */
             }
             else
             {
@@ -387,8 +389,46 @@ namespace EmotionalPlayer
         {
             //Console.WriteLine("Player {0} is playing.", id);
             AddPropertyChangeEvent("Current(PlayerID)", checkTeam(id), "Board");
+            if (this.id == id && ai != null)
+            {
 
-            if (ai != null && id != this.id)
+                SuecaTypes.Card c = JsonSerializable.DeserializeFromJson<SuecaTypes.Card>(card);
+                SuecaSolver.Rank myRank = (SuecaSolver.Rank)Enum.Parse(typeof(SuecaSolver.Rank), c.Rank.ToString());
+                SuecaSolver.Suit mySuit = (SuecaSolver.Suit)Enum.Parse(typeof(SuecaSolver.Suit), c.Suit.ToString());
+                int myCard = SuecaSolver.Card.Create(myRank, mySuit);
+
+                ai.AddPlay(id, myCard);
+
+                robotHasPlayed = true;
+
+                string playInfo = ai.GetLastPlayInfo();
+                AddPropertyChangeEvent(Consts.PLAY_INFO, playInfo, "Board");
+                Console.WriteLine(":::::::::::::::::::::::::::::::::::::::::::: Robot has played {0}.", SuecaSolver.Card.ToString(myCard));
+                //Console.WriteLine("PlayInfo: " + playInfo);
+                AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "Playing", "Board");
+                //Console.WriteLine("My play has been sent.");
+
+                int currentPlayPoints = ai.GetCurrentTrickPoints();
+                bool hasNewTrickWinner = ai.HasNewTrickWinner();
+
+                AddPropertyChangeEvent(Consts.TRICK_SCORE, currentPlayPoints.ToString(), checkTeam(id));
+
+                if (hasNewTrickWinner)
+                {
+                    int currentWinnerID = ai.GetCurrentTrickWinner();
+                    AddPropertyChangeEvent(Consts.TRICK_WINNER, checkTeam(currentWinnerID), checkTeam(currentWinnerID));
+                }
+
+                int trickIncrease = ai.GetTrickIncrease();
+
+                if (trickIncrease > 0)
+                {
+                    AddPropertyChangeEvent(Consts.TRICK_INCREASE_PROPERTY, trickIncrease.ToString(), checkTeam(id));
+                }
+
+                PerceiveAndDecide(new string[] { "|rank|", "|suit|", "|nextPlayerId|", "|playerId1|", "|playerId2|" }, new string[] { convertRankToPortuguese(myRank.ToString()), convertSuitToPortuguese(mySuit.ToString()), id.ToString(), "0", "2" });
+            }
+            else if (ai != null && id != this.id)
             {
                 SuecaTypes.Card c = JsonSerializable.DeserializeFromJson<SuecaTypes.Card>(card);
                 SuecaSolver.Rank myRank = (SuecaSolver.Rank)Enum.Parse(typeof(SuecaSolver.Rank), c.Rank.ToString());
@@ -464,7 +504,7 @@ namespace EmotionalPlayer
         public void SessionStart(int sessionId, int numGames, int[] agentsIds, int shouldGreet)
         {
             id = agentsIds[nameId - 1];
-            Console.WriteLine("My id is " + id);
+            //Console.WriteLine("My id is " + id);
             AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "SessionStart", "Board");
             PerceiveAndDecide(new string[] { }, new string[] { });
         }
