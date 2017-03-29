@@ -55,6 +55,11 @@ namespace SuecaSolver
             return infoSet.HasNewTrickWinner();
         }
 
+        public bool HasNewTrickTeamWinner()
+        {
+            return infoSet.HasNewTrickTeamWinner();
+        }
+
         public int GetTrickIncrease()
         {
             return infoSet.GetTrickIncrease();

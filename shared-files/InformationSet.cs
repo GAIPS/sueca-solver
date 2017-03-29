@@ -238,6 +238,12 @@ namespace SuecaSolver
             return currentTrick.HasNewTrickWinner();
         }
 
+        public bool HasNewTrickTeamWinner()
+        {
+            Trick currentTrick = tricks[tricks.Count - 1];
+            return currentTrick.HasNewTrickTeamWinner();
+        }
+
         public int GetTrickIncrease()
         {
             Trick currentTrick = tricks[tricks.Count - 1];
@@ -512,29 +518,24 @@ namespace SuecaSolver
             return unknownOwnerCards.GetDeckSize();
         }
 
-        internal bool LastPlayIsNewTrick()
-        {
-            return tricks[tricks.Count - 1].IsNewTrick();
-        }
-
         public string GetLastPlayInfo()
         {
             Trick currentTrick = tricks[tricks.Count - 1];
-            if (LastPlayIsNewTrick())
+            if (currentTrick.LastPlayIsNewTrick())
             {
-                return "NEW_TRICK";
+                return Sueca.PLAY_INFO_NEWTRICK;
             }
             else if (currentTrick.LastPlayIsFollowing())
             {
-                return "FOLLOWING";
+                return Sueca.PLAY_INFO_FOLLOWING;
             }
             else if (currentTrick.LastPlayIsCut())
             {
-                return "CUT";
+                return Sueca.PLAY_INFO_CUT;
             }
             else
             {
-                return "NOT_FOLLOWING";
+                return Sueca.PLAY_INFO_NOTFOLLOWING;
             }
         }
     }
