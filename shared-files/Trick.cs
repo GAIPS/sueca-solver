@@ -222,7 +222,7 @@ namespace SuecaSolver
 
         public bool HasNewTrickWinner()
         {
-            if (winningPlayer.Count >= 1 || winningPlayer[winningPlayer.Count - 1] != winningPlayer[winningPlayer.Count - 2])
+            if (winningPlayer.Count <= 1 || winningPlayer[winningPlayer.Count - 1] != winningPlayer[winningPlayer.Count - 2])
 	        {
                 return true;
 	        }
