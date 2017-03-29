@@ -222,7 +222,7 @@ namespace unity_emulator
                 Console.WriteLine("||||||||||||||||||||||||||||||||||||||||||||||||||||");
                 Console.WriteLine("                 Trick " + (i / 4));
                 Console.WriteLine("                 Player " + currentPlayerID + " - " + playersNames[currentPlayerID]);
-                Console.WriteLine("                 Trump is " + SuecaSolver.Card.GetSuit(trumpCard));
+                Console.WriteLine("                 Trump is " + SuecaSolver.Card.ToString(trumpCard)[1]);
                 Console.WriteLine("");
 
                 game.PrintLastTrick();

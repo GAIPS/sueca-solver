@@ -37,6 +37,7 @@ namespace EmotionalPlayer
         private string _agentType;
         private List<Utterance> usedUtterances = new List<Utterance>();
         private bool robotHasPlayed = false;
+        private bool initialyzing;
 
         public EmotionalSuecaPlayer(string clientName, string path, string type, string charactersNames = "") : base(clientName, charactersNames)
         {
@@ -307,6 +308,7 @@ namespace EmotionalPlayer
 
         public void GameStart(int gameId, int playerId, int teamId, string trumpCard, int trumpCardPlayer, string[] cards)
         {
+            initialyzing = true;
             List<int> initialCards = new List<int>();
             foreach (string cardSerialized in cards)
             {
@@ -322,6 +324,7 @@ namespace EmotionalPlayer
             int myTrumpCard = SuecaSolver.Card.Create(trumpRank, trumpSuit);
 
             ai = new RBOPlayer(playerId, initialCards, myTrumpCard, trumpCardPlayer);
+            initialyzing = false;
         }
 
         public void NextPlayer(int id)
@@ -330,6 +333,9 @@ namespace EmotionalPlayer
             Console.WriteLine("The next player is {0}.", id);
             SuecaTypes.Rank msgRank = new SuecaTypes.Rank();
             SuecaTypes.Suit msgSuit = new SuecaTypes.Suit();
+
+            //If a GameStart event has been received but not fully proccessed wait
+            while (initialyzing) { }
 
             if (this.id == id && ai != null)
             {

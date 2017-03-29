@@ -33,3 +33,6 @@ UpgradeLog.*
 *.dotCover
 Scenarios/Logs/*.rpc
 Scenarios/teste.iat
+
+#FAtiMA
+authoringtools/*
