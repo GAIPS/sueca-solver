@@ -230,6 +230,11 @@ namespace EmotionalPlayer
                         tags = new string[] { };
                         tagMeanings = new string[] { };
                         break;
+                    case "Animation":
+                        Name state = chosenAction.Parameters[0];
+                        Name emotionName = chosenAction.Parameters[1];
+                        Console.WriteLine("[ANIMATION] Soft reaction to " + state + " with the emotion " + emotionName);
+                        break;
                     default:
                         Console.WriteLine("Default Case");
                         break;
