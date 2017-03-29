@@ -7,62 +7,6 @@
 			"CharacterSources": ["group.rpc", "individual.rpc"],
 			"AgentDialogues": [
 				{
-					"CurrentState": "TrickEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["Partner"],
-					"Style": ["Neutral"],
-					"Utterance": "Acabou a ronda e foi das minha equipa. Estou neutro",
-					"UtteranceId": "TTS-9CDF5DF80FD94F768309B6F09E8B8C6E"
-				}, 
-				{
-					"CurrentState": "TrickEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["Opponent", "0"],
-					"Style": ["Neutral"],
-					"Utterance": "Acabou a ronda e foi dos oponentes. Estou neutro e com 2 meanings",
-					"UtteranceId": "TTS-7359A1851E8EE0F2B732C41AB464B0C9"
-				}, 
-				{
-					"CurrentState": "TrickEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["Opponent"],
-					"Style": ["Reproach"],
-					"Utterance": "Acabou a ronda e foi dos oponentes. Estou reproach",
-					"UtteranceId": "TTS-F5D5B8EF06B055F54E14C2ACA29C8520"
-				}, 
-				{
-					"CurrentState": "TrickEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["Opponent"],
-					"Style": ["Pride"],
-					"Utterance": "Acabou a ronda e foi dos oponentes. Estou pride",
-					"UtteranceId": "TTS-FA451BCE6028BF634D505E4B833F1B87"
-				}, 
-				{
-					"CurrentState": "TrickEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["Opponent"],
-					"Style": ["Neutral"],
-					"Utterance": "Acabou a ronda e foi dos oponentes. Estou neutro",
-					"UtteranceId": "TTS-D1A7F1C3C695C07ADA912604F69E1E1A"
-				}, 
-				{
-					"CurrentState": "Shuffle",
-					"NextState": "Dynamic",
-					"Meaning": ["Other"],
-					"Style": ["Neutral"],
-					"Utterance": "És tu a baralhar!",
-					"UtteranceId": "TTS-30C8D2DDAF6EE68C97E054F993B4517F"
-				}, 
-				{
-					"CurrentState": "Shuffle",
-					"NextState": "Dynamic",
-					"Meaning": ["Agent"],
-					"Style": ["Neutral"],
-					"Utterance": "Sou eu a baralhar.",
-					"UtteranceId": "TTS-C16A6A147EF819A80205689045A30535"
-				}, 
-				{
 					"CurrentState": "SessionStart",
 					"NextState": "Dynamic",
 					"Meaning": [],
@@ -107,40 +51,96 @@
 					"NextState": "Dynamic",
 					"Meaning": ["NOT_FOLLOWING"],
 					"Style": ["Neutral"],
-					"Utterance": " Deixa cá ver...",
-					"UtteranceId": "TTS-68B6B155D55E251E1D8EB1AB787A6103"
+					"Utterance": "Não estou a assistir. Neutral",
+					"UtteranceId": "TTS-B02F8725B8D0DDF322181AFEF781E228"
 				}, 
 				{
 					"CurrentState": "Playing",
 					"NextState": "Dynamic",
 					"Meaning": ["NEW_TRICK"],
 					"Style": ["Neutral"],
-					"Utterance": " Aqui vai |rank| de |suit|!",
-					"UtteranceId": "TTS-F7C4F4B7BB606F309FF07A7A61D66611"
-				}, 
-				{
-					"CurrentState": "Playing",
-					"NextState": "Dynamic",
-					"Meaning": ["New"],
-					"Style": ["Neutral"],
-					"Utterance": " Eu puxo |suit|.",
-					"UtteranceId": "TTS-9D66610AE55E55DEDD031C57DA208662"
+					"Utterance": "Nova ronda. Neutral",
+					"UtteranceId": "TTS-6AB49157720D3C52AB632E0A10CFC654"
 				}, 
 				{
 					"CurrentState": "Playing",
 					"NextState": "Dynamic",
 					"Meaning": ["FOLLOWING"],
 					"Style": ["Neutral"],
-					"Utterance": " Foi puxado a |suit|, certo?",
-					"UtteranceId": "TTS-34677623A5034CD9D4E0344FE8E5BC10"
+					"Utterance": "Estou a assitir. Neutral",
+					"UtteranceId": "TTS-52B8BE874B474A4BAB286ECAA089A7BF"
 				}, 
 				{
 					"CurrentState": "Playing",
 					"NextState": "Dynamic",
 					"Meaning": ["CUT"],
 					"Style": ["Neutral"],
-					"Utterance": " Eu corto isso!",
-					"UtteranceId": "TTS-5E8CBB9D2B70AAF0EBE40C4C3D2FEAB5"
+					"Utterance": " Eu corto isso! Neutral",
+					"UtteranceId": "TTS-AD6E87495E556582B028748DF11F3455"
+				}, 
+				{
+					"CurrentState": "Playing",
+					"NextState": "Dynamic",
+					"Meaning": ["NOT_FOLLOWING"],
+					"Style": ["Shame"],
+					"Utterance": "Não estou a assistir. Shame",
+					"UtteranceId": "TTS-1B36F1E185ADC0FFE4657DD1AC9456E9"
+				}, 
+				{
+					"CurrentState": "Playing",
+					"NextState": "Dynamic",
+					"Meaning": ["NEW_TRICK"],
+					"Style": ["Shame"],
+					"Utterance": "Nova ronda. Shame",
+					"UtteranceId": "TTS-04C896C1FC092F218D1AA781260CA3B8"
+				}, 
+				{
+					"CurrentState": "Playing",
+					"NextState": "Dynamic",
+					"Meaning": ["FOLLOWING"],
+					"Style": ["Shame"],
+					"Utterance": "Estou a assitir. Shame",
+					"UtteranceId": "TTS-850E4117DECEB6365883960985F44150"
+				}, 
+				{
+					"CurrentState": "Playing",
+					"NextState": "Dynamic",
+					"Meaning": ["CUT"],
+					"Style": ["Shame"],
+					"Utterance": " Eu corto isso! Shame",
+					"UtteranceId": "TTS-DB66BAE12F5121A28709E5BF036A865E"
+				}, 
+				{
+					"CurrentState": "Playing",
+					"NextState": "Dynamic",
+					"Meaning": ["NOT_FOLLOWING"],
+					"Style": ["Pride"],
+					"Utterance": "Não estou a assistir. Pride",
+					"UtteranceId": "TTS-A94315D7FC3EAE9BCEAFCC018102FE8B"
+				}, 
+				{
+					"CurrentState": "Playing",
+					"NextState": "Dynamic",
+					"Meaning": ["NEW_TRICK"],
+					"Style": ["Pride"],
+					"Utterance": "Nova ronda. Pride",
+					"UtteranceId": "TTS-DCD9EB9BE8125C95746CCFD5902C948D"
+				}, 
+				{
+					"CurrentState": "Playing",
+					"NextState": "Dynamic",
+					"Meaning": ["FOLLOWING"],
+					"Style": ["Pride"],
+					"Utterance": "Estou a assitir. Pride",
+					"UtteranceId": "TTS-9A2B1B11AA96058A02C2E72126A025AB"
+				}, 
+				{
+					"CurrentState": "Playing",
+					"NextState": "Dynamic",
+					"Meaning": ["CUT"],
+					"Style": ["Pride"],
+					"Utterance": " Eu corto isso! Pride",
+					"UtteranceId": "TTS-3ABD8D0C00C42F087BAAE568767F9492"
 				}, 
 				{
 					"CurrentState": "Play",
@@ -162,25 +162,9 @@
 					"CurrentState": "Play",
 					"NextState": "Dynamic",
 					"Meaning": ["Partner"],
-					"Style": ["Joy"],
-					"Utterance": "Colega jogou. Joy",
-					"UtteranceId": "TTS-C88C2BDBD796BE12BB85AFD7DD0B28A3"
-				}, 
-				{
-					"CurrentState": "Play",
-					"NextState": "Dynamic",
-					"Meaning": ["Partner"],
 					"Style": ["Pride"],
 					"Utterance": "Colega jogou. Pride",
 					"UtteranceId": "TTS-7B173C46364C89DD48B1CDE52EE0561B"
-				}, 
-				{
-					"CurrentState": "Play",
-					"NextState": "Dynamic",
-					"Meaning": ["Partner"],
-					"Style": ["Distress"],
-					"Utterance": "Colega jogou. Distress",
-					"UtteranceId": "TTS-25A01B2C3D8D1C4FBEBAE7764399FB8D"
 				}, 
 				{
 					"CurrentState": "Play",
@@ -194,14 +178,6 @@
 					"CurrentState": "Play",
 					"NextState": "Dynamic",
 					"Meaning": ["Partner"],
-					"Style": ["Anger"],
-					"Utterance": "Colega jogou. Anger",
-					"UtteranceId": "TTS-BE62D374C4B15E2BDDACDF63A869CF82"
-				}, 
-				{
-					"CurrentState": "Play",
-					"NextState": "Dynamic",
-					"Meaning": ["Partner"],
 					"Style": ["Reproach"],
 					"Utterance": "Colega jogou. reproach",
 					"UtteranceId": "TTS-BEC78441402919F25F56819294DF617B"
@@ -210,33 +186,9 @@
 					"CurrentState": "Play",
 					"NextState": "Dynamic",
 					"Meaning": ["Opponent"],
-					"Style": ["Admiration"],
-					"Utterance": "Oponente jogou. Admiration",
-					"UtteranceId": "TTS-B4394FF042084F0449AD78509734C46C"
-				}, 
-				{
-					"CurrentState": "Play",
-					"NextState": "Dynamic",
-					"Meaning": ["Opponent"],
-					"Style": ["Shame"],
-					"Utterance": "Oponente jogou. Shame",
-					"UtteranceId": "TTS-461141479594F1287D90231784B32056"
-				}, 
-				{
-					"CurrentState": "Play",
-					"NextState": "Dynamic",
-					"Meaning": ["Opponent"],
 					"Style": ["Joy"],
 					"Utterance": "Oponente jogou. Joy",
 					"UtteranceId": "TTS-C4C0CD06638BAFC2504CCB9E9FF6EA4E"
-				}, 
-				{
-					"CurrentState": "Play",
-					"NextState": "Dynamic",
-					"Meaning": ["Opponent"],
-					"Style": ["Pride"],
-					"Utterance": "Oponente jogou. Pride",
-					"UtteranceId": "TTS-1730A859A07E353BEC3B5051D1E68625"
 				}, 
 				{
 					"CurrentState": "Play",
@@ -253,22 +205,6 @@
 					"Style": ["Neutral"],
 					"Utterance": "Oponente jogou. Neutral",
 					"UtteranceId": "TTS-A17FE5CC2DCE5F96C02D1DA0343C1B89"
-				}, 
-				{
-					"CurrentState": "Play",
-					"NextState": "Dynamic",
-					"Meaning": ["Opponent"],
-					"Style": ["Anger"],
-					"Utterance": "Oponente jogou. Anger",
-					"UtteranceId": "TTS-935F288837BC39347AF94FBA4907360F"
-				}, 
-				{
-					"CurrentState": "Play",
-					"NextState": "Dynamic",
-					"Meaning": ["Opponent"],
-					"Style": ["Reproach"],
-					"Utterance": "Oponente jogou. reproach",
-					"UtteranceId": "TTS-A341963DBB89786455928F67364D309D"
 				}, 
 				{
 					"CurrentState": "NextPlayer",
@@ -405,6 +341,62 @@
 					"Style": ["Neutral"],
 					"Utterance": "Sou eu a partir...",
 					"UtteranceId": "TTS-5381F0D3C27D1EA9D4B0D5928DE9CA14"
+				}, 
+				{
+					"CurrentState": "Shuffle",
+					"NextState": "Dynamic",
+					"Meaning": ["Agent"],
+					"Style": ["Neutral"],
+					"Utterance": "Sou eu a baralhar.",
+					"UtteranceId": "TTS-C16A6A147EF819A80205689045A30535"
+				}, 
+				{
+					"CurrentState": "Shuffle",
+					"NextState": "Dynamic",
+					"Meaning": ["Other"],
+					"Style": ["Neutral"],
+					"Utterance": "És tu a baralhar!",
+					"UtteranceId": "TTS-30C8D2DDAF6EE68C97E054F993B4517F"
+				}, 
+				{
+					"CurrentState": "TrickEnd",
+					"NextState": "Dynamic",
+					"Meaning": ["Opponent"],
+					"Style": ["Neutral"],
+					"Utterance": "Acabou a ronda e foi dos oponentes. Estou neutro",
+					"UtteranceId": "TTS-D1A7F1C3C695C07ADA912604F69E1E1A"
+				}, 
+				{
+					"CurrentState": "TrickEnd",
+					"NextState": "Dynamic",
+					"Meaning": ["Opponent"],
+					"Style": ["Pride"],
+					"Utterance": "Acabou a ronda e foi dos oponentes. Estou pride",
+					"UtteranceId": "TTS-FA451BCE6028BF634D505E4B833F1B87"
+				}, 
+				{
+					"CurrentState": "TrickEnd",
+					"NextState": "Dynamic",
+					"Meaning": ["Opponent"],
+					"Style": ["Reproach"],
+					"Utterance": "Acabou a ronda e foi dos oponentes. Estou reproach",
+					"UtteranceId": "TTS-F5D5B8EF06B055F54E14C2ACA29C8520"
+				}, 
+				{
+					"CurrentState": "TrickEnd",
+					"NextState": "Dynamic",
+					"Meaning": ["Opponent", "0"],
+					"Style": ["Neutral"],
+					"Utterance": "Acabou a ronda e foi dos oponentes. Estou neutro e com 2 meanings",
+					"UtteranceId": "TTS-7359A1851E8EE0F2B732C41AB464B0C9"
+				}, 
+				{
+					"CurrentState": "TrickEnd",
+					"NextState": "Dynamic",
+					"Meaning": ["Partner"],
+					"Style": ["Neutral"],
+					"Utterance": "Acabou a ronda e foi das minha equipa. Estou neutro",
+					"UtteranceId": "TTS-9CDF5DF80FD94F768309B6F09E8B8C6E"
 				}]
 		},
 	"types": [

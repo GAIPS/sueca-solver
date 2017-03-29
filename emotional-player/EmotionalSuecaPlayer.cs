@@ -150,9 +150,6 @@ namespace EmotionalPlayer
 
         private void PerceiveAndDecide(string[] tags, string[] tagMeanings)
         {
-            IEnumerable<ActionLibrary.IAction> actionRpc = null;
-
-
             lock (rpcLock)
             {
                 //PERCEIVE PHASE
@@ -162,15 +159,16 @@ namespace EmotionalPlayer
                 }
                 _rpc[_agentType].Perceive(_events);
                 _events.Clear();
-
-                //DECIDE PHASE            
+            }
+                
+            //DECIDE PHASE
+            
+            Console.WriteLine("Mood: " + _rpc[_agentType].Mood);
+            
+            IEnumerable<ActionLibrary.IAction> actionRpc = null;
+            lock (rpcLock)
+            {
                 actionRpc = _rpc[_agentType].Decide();
-                Console.WriteLine("Agent's Mood: " + _rpc[_agentType].Mood);
-                /*Console.WriteLine("Emotions being felt");
-                foreach(var emotion in _rpc[_agentType].GetAllActiveEmotions())
-                {
-                    Console.WriteLine("\t\t" + emotion.Type);
-                }*/
                 //if (_rpc[_agentType].GetAllActiveEmotions().IsEmpty())
                 //{
                 //    Console.WriteLine("No active emnotions!");
@@ -187,8 +185,7 @@ namespace EmotionalPlayer
                 //    }
                 //}
             }
-
-            //ACTION PHASE
+            
             if (actionRpc == null || actionRpc.IsEmpty())
             {
                 Console.WriteLine("No action");
@@ -198,12 +195,12 @@ namespace EmotionalPlayer
             {
                 foreach (var item in actionRpc)
                 {
-                    foreach (var par in item.Parameters)
-                    {
-                        Console.WriteLine(" act_par: " + par);
-                    }
-                    Console.WriteLine("");
-                    Console.WriteLine("----------------");
+                    //foreach (var par in item.Parameters)
+                    //{
+                    //    Console.Write(" act_par: " + par);
+                    //}
+                    //Console.WriteLine("");
+                    //Console.WriteLine("----------------");
                 }
                 ActionLibrary.IAction chosenAction = actionRpc.FirstOrDefault();
                 lock (rpcLock)
@@ -500,7 +497,7 @@ namespace EmotionalPlayer
                     if (hasNewTrickWinner)
                     {
                         int currentWinnerID = ai.GetCurrentTrickWinner();
-                        AddPropertyChangeEvent(Consts.TRICK_WINNER, checkTeam(currentWinnerID), checkTeam(currentWinnerID));
+                        AddPropertyChangeEvent(Consts.TRICK_WINNER, checkTeam(currentWinnerID), checkTeam(id));
                     }
 
                     int trickIncrease = ai. GetTrickIncrease();
@@ -510,7 +507,8 @@ namespace EmotionalPlayer
                         AddPropertyChangeEvent(Consts.TRICK_INCREASE_PROPERTY, trickIncrease.ToString(), checkTeam(id));
                     }
 
-                    PerceiveAndDecide(new string[] { "|rank|", "|suit|", "|nextPlayerId|", "|playerId1|", "|playerId2|" }, new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()), id.ToString(), "0", "2" });
+                    PerceiveOnly();
+                    //PerceiveAndDecide(new string[] { "|rank|", "|suit|", "|nextPlayerId|", "|playerId1|", "|playerId2|" }, new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()), id.ToString(), "0", "2" });
                     robotHasPlayed = true;
             }
                 else
@@ -518,7 +516,7 @@ namespace EmotionalPlayer
                     // Only speak NextPlayer dialogues when the next player is not himself
                     Thread.Sleep(randomNumberGenerator.Next(2000, 3000));
                     AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "NextPlayer", "Board");
-                    PerceiveAndDecide(new string[] { "|rank|", "|suit|", "|nextPlayerId|", "|playerId1|", "|playerId2|" }, new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()), id.ToString(), "0", "2" });
+                    //PerceiveAndDecide(new string[] { "|rank|", "|suit|", "|nextPlayerId|", "|playerId1|", "|playerId2|" }, new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()), id.ToString(), "0", "2" });
                 }
             }
         
@@ -547,7 +545,7 @@ namespace EmotionalPlayer
                     if (hasNewTrickWinner)
                     {
                         int currentWinnerID = ai.GetCurrentTrickWinner();
-                        AddPropertyChangeEvent(Consts.TRICK_WINNER, checkTeam(currentWinnerID), checkTeam(currentWinnerID));
+                        AddPropertyChangeEvent(Consts.TRICK_WINNER, checkTeam(currentWinnerID), checkTeam(id));
                     }
 
                     int trickIncrease = ai.GetTrickIncrease();
@@ -557,16 +555,16 @@ namespace EmotionalPlayer
                         AddPropertyChangeEvent(Consts.TRICK_INCREASE_PROPERTY, trickIncrease.ToString(), checkTeam(id));
                     }
 
-                    if (robotHasPlayed)
+                    //if (robotHasPlayed)
                     {
                         tags = new string[] { "|rank|", "|suit|", "|playerId|", "|playerId1|", "|playerId1|" };
                         meanings = new string[] { convertRankToPortuguese(myRank.ToString()), convertSuitToPortuguese(mySuit.ToString()), id.ToString(), "0", "2" };
                         PerceiveAndDecide(tags, meanings);
                     }
-                    else
-                    {
-                        PerceiveOnly();
-                    }
+                    //else
+                    //{
+                    //    PerceiveOnly();
+                    //}
                 }
             }
 
@@ -579,12 +577,12 @@ namespace EmotionalPlayer
             if (trickPoints> 20.0f)
                 {
                     //an above average score play
-                    AddActionEndEvent(checkTeam(winnerId), "Trick(Big)", "Board");
+                    //AddActionEndEvent(checkTeam(winnerId), "Trick(Big)", "Board");
                 }
                 if (trickPoints <= 7.0f)
                 {
                     //below average score play
-                    AddActionEndEvent(checkTeam(winnerId), "Trick(Small)", "Board");
+                    //AddActionEndEvent(checkTeam(winnerId), "Trick(Small)", "Board");
                 }
 
                 PerceiveAndDecide(new string[] {"|playerId|","|trickpoints|"}, new string[] {winnerId.ToString(),trickPoints.ToString()});
