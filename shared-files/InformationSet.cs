@@ -242,7 +242,13 @@ namespace SuecaSolver
             Trick currentTrick = tricks[tricks.Count - 1];
             return currentTrick.HasNewTrickTeamWinner();
         }
-        
+
+        internal bool IsLastPlayOfTrick()
+        {
+            Trick currentTrick = tricks[tricks.Count - 1];
+            return currentTrick.IsLastPlayOfTrick();
+        }
+
         public int GetTrickIncrease()
         {
             Trick currentTrick = tricks[tricks.Count - 1];
