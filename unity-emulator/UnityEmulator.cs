@@ -253,6 +253,12 @@ namespace unity_emulator
 
                 game.PlayCard(currentPlayerID, chosenCard);
                 currentHand.Remove(chosenCard);
+
+                if ((i + 1) % 4 == 0)
+                {
+                    //startPublisher.TrickEnd(game.);
+                }
+
                 currentPlayerID = game.GetNextPlayerId();
             }
 
