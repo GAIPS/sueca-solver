@@ -84,5 +84,10 @@ namespace SuecaSolver
         {
             return infoSet.GetLastPlayInfo();
         }
+
+        public bool IsLastPlayOfTrick()
+        {
+            return infoSet.IsLastPlayOfTrick();
+        }
     }
 }

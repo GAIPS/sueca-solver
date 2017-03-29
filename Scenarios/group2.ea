@@ -20,6 +20,24 @@
 					"AppraisalWeight": 1,
 					"Rules": [
 						{
+							"EventName": "Event(Property-Change, SELF, Trick(End), [trickPoints])",
+							"Conditions":
+								{
+									"Set": ["[trickPoints] >= 14"]
+								},
+							"Desirability": 10,
+							"Praiseworthiness": 10
+						}, 
+						{
+							"EventName": "Event(Property-Change, SELF, Trick(End), [trickPoints])",
+							"Conditions":
+								{
+									"Set": ["[trickPoints] < 14", "[trickPoints] > 4"]
+								},
+							"Desirability": 6,
+							"Praiseworthiness": 6
+						}, 
+						{
 							"EventName": "Event(Property-Change, SELF, Trick(Increase), [points])",
 							"Conditions":
 								{
@@ -74,12 +92,20 @@
 							"Praiseworthiness": 8
 						}, 
 						{
-							"EventName": "Event(Property-Change, [playerID], Trick(End), [points])",
+							"EventName": "Event(Property-Change, [playerID], Trick(End), [trickPoints])",
 							"Conditions":
 								{
-									"Set": ["Player([PlayerID]) = Opponent", "[points] <= 0"]
+									"Set": ["Player([PlayerID]) = Opponent", "[trickPoins] >= 14"]
 								},
-							"Desirability": 6
+							"Desirability": -10
+						}, 
+						{
+							"EventName": "Event(Property-Change, [playerID], Trick(End), [trickPoints])",
+							"Conditions":
+								{
+									"Set": ["Player([PlayerID]) = Opponent", "[trickPoins] < 14", "[trickPoins] > 4"]
+								},
+							"Desirability": -8
 						}, 
 						{
 							"EventName": "Event(Property-Change, [playerId], Trick(Increase), [points])",
