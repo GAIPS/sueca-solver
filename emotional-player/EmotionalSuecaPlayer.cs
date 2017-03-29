@@ -14,6 +14,7 @@ using AssetManagerPackage;
 using WellFormedNames;
 using Utilities;
 using IntegratedAuthoringTool.DTOs;
+using EmotionalAppraisal.OCCModel;
 
 namespace EmotionalPlayer
 {
@@ -160,44 +161,62 @@ namespace EmotionalPlayer
             }
 
             //DECIDE PHASE
-            EmotionalAppraisal.IActiveEmotion strongestEmotion = null;
+            
+            Console.WriteLine("Mood: " + _rpc[_agentType].Mood);
+            
+            IEnumerable<ActionLibrary.IAction> actionRpc = null;
             lock (rpcLock)
             {
-                strongestEmotion = _rpc[_agentType].GetStrongestActiveEmotion();
-            }
-            if (strongestEmotion != null)
-            {
-                Console.WriteLine("Mood: " + _rpc[_agentType].Mood);
-                Console.WriteLine("Current Strongest Emotion: " + strongestEmotion.EmotionType);
+                actionRpc = _rpc[_agentType].Decide();
+                //if (_rpc[_agentType].GetAllActiveEmotions().IsEmpty())
+                //{
+                //    Console.WriteLine("No active emnotions!");
+                //}
+                //else
+                //{
+                //    if (_rpc[_agentType].GetAllActiveEmotions().Where(em => em.Type == OCCEmotionType.Joy.Name || em.Type == OCCEmotionType.Distress.Name).IsEmpty())
+                //    {
+                //        Console.WriteLine("NO WELLBEING emnotions!");
+                //    }
+                //    if (_rpc[_agentType].GetAllActiveEmotions().Where(em => em.Type == OCCEmotionType.Shame.Name || em.Type == OCCEmotionType.Pride.Name || em.Type == OCCEmotionType.Reproach.Name || em.Type == OCCEmotionType.Admiration.Name).IsEmpty())
+                //    {
+                //        Console.WriteLine("NO ATTRIBUTION emnotions!");
+                //    }
+                //}
             }
 
-            ActionLibrary.IAction actionRpc = null;
-            lock (rpcLock)
-            {
-                actionRpc = _rpc[_agentType].Decide().Shuffle().FirstOrDefault();
-            }
 
 
-            if (actionRpc == null)
+            if (actionRpc == null || actionRpc.IsEmpty())
             {
                 Console.WriteLine("No action");
                 return;
             }
             else
             {
+                foreach (var item in actionRpc)
+                {
+                    //foreach (var par in item.Parameters)
+                    //{
+                    //    Console.Write(" act_par: " + par);
+                    //}
+                    //Console.WriteLine("");
+                    //Console.WriteLine("----------------");
+                }
+                ActionLibrary.IAction chosenAction = actionRpc.FirstOrDefault();
                 lock (rpcLock)
                 {
                     _rpc[_agentType].SaveToFile("../../../Scenarios/Logs/log" + i + ".rpc");
                 }
                 i++;
                     
-                switch (actionRpc.Key.ToString())
+                switch (chosenAction.Key.ToString())
                 {
                     case "Speak":
-                        Name currentState = actionRpc.Parameters[0];
-                        Name nextState = actionRpc.Parameters[1];
-                        Name meaning = actionRpc.Parameters[2];
-                        Name style = actionRpc.Parameters[3];
+                        Name currentState = chosenAction.Parameters[0];
+                        Name nextState = chosenAction.Parameters[1];
+                        Name meaning = chosenAction.Parameters[2];
+                        Name style = chosenAction.Parameters[3];
 
                         lock (iatLock)
                         {
@@ -468,7 +487,7 @@ namespace EmotionalPlayer
                     if (hasNewTrickWinner)
                     {
                         int currentWinnerID = ai.GetCurrentTrickWinner();
-                        AddPropertyChangeEvent(Consts.TRICK_WINNER, checkTeam(currentWinnerID), checkTeam(currentWinnerID));
+                        AddPropertyChangeEvent(Consts.TRICK_WINNER, checkTeam(currentWinnerID), checkTeam(id));
                     }
 
                     int trickIncrease = ai.GetTrickIncrease();
@@ -478,7 +497,8 @@ namespace EmotionalPlayer
                         AddPropertyChangeEvent(Consts.TRICK_INCREASE_PROPERTY, trickIncrease.ToString(), checkTeam(id));
                     }
 
-                    PerceiveAndDecide(new string[] { "|rank|", "|suit|", "|nextPlayerId|", "|playerId1|", "|playerId2|" }, new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()), id.ToString(), "0", "2" });
+                    PerceiveOnly();
+                    //PerceiveAndDecide(new string[] { "|rank|", "|suit|", "|nextPlayerId|", "|playerId1|", "|playerId2|" }, new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()), id.ToString(), "0", "2" });
                     robotHasPlayed = true;
             }
                 else
@@ -486,7 +506,7 @@ namespace EmotionalPlayer
                     // Only speak NextPlayer dialogues when the next player is not himself
                     Thread.Sleep(randomNumberGenerator.Next(2000, 3000));
                     AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "NextPlayer", "Board");
-                    PerceiveAndDecide(new string[] { "|rank|", "|suit|", "|nextPlayerId|", "|playerId1|", "|playerId2|" }, new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()), id.ToString(), "0", "2" });
+                    //PerceiveAndDecide(new string[] { "|rank|", "|suit|", "|nextPlayerId|", "|playerId1|", "|playerId2|" }, new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()), id.ToString(), "0", "2" });
                 }
             }
 
@@ -515,7 +535,7 @@ namespace EmotionalPlayer
                     if (hasNewTrickWinner)
                     {
                         int currentWinnerID = ai.GetCurrentTrickWinner();
-                        AddPropertyChangeEvent(Consts.TRICK_WINNER, checkTeam(currentWinnerID), checkTeam(currentWinnerID));
+                        AddPropertyChangeEvent(Consts.TRICK_WINNER, checkTeam(currentWinnerID), checkTeam(id));
                     }
 
                     int trickIncrease = ai.GetTrickIncrease();
@@ -525,16 +545,16 @@ namespace EmotionalPlayer
                         AddPropertyChangeEvent(Consts.TRICK_INCREASE_PROPERTY, trickIncrease.ToString(), checkTeam(id));
                     }
 
-                    if (robotHasPlayed)
+                    //if (robotHasPlayed)
                     {
                         tags = new string[] { "|rank|", "|suit|", "|playerId|", "|playerId1|", "|playerId1|" };
                         meanings = new string[] { convertRankToPortuguese(myRank.ToString()), convertSuitToPortuguese(mySuit.ToString()), id.ToString(), "0", "2" };
                         PerceiveAndDecide(tags, meanings);
                     }
-                    else
-                    {
-                        PerceiveOnly();
-                    }
+                    //else
+                    //{
+                    //    PerceiveOnly();
+                    //}
                 }
             }
 
@@ -547,12 +567,12 @@ namespace EmotionalPlayer
             if (trickPoints> 20.0f)
                 {
                     //an above average score play
-                    AddActionEndEvent(checkTeam(winnerId), "Trick(Big)", "Board");
+                    //AddActionEndEvent(checkTeam(winnerId), "Trick(Big)", "Board");
                 }
                 if (trickPoints <= 7.0f)
                 {
                     //below average score play
-                    AddActionEndEvent(checkTeam(winnerId), "Trick(Small)", "Board");
+                    //AddActionEndEvent(checkTeam(winnerId), "Trick(Small)", "Board");
                 }
 
                 PerceiveAndDecide(new string[] {"|playerId|","|trickpoints|"}, new string[] {winnerId.ToString(),trickPoints.ToString()});
@@ -671,6 +691,11 @@ namespace EmotionalPlayer
                     break;
             }
             return subject;
+        }
+
+        private bool isPartner(int id)
+        {
+            return id == 1;
         }
 
         /// <summary>

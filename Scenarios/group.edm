@@ -14,29 +14,11 @@
 					"Priority": 0
 				}, 
 				{
-					"Action": "Speak(Play, [ns], [m], [s])",
+					"Action": "Speak(Shuffle, [ns], [m], [s])",
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["DialogueState(Board) = Play", "ValidDialogue(Play, [ns], [m], [s]) = True", "StrongestEmotion(SELF) = [s]", "Current(PlayerID) = [cpId]", "Player([cpId]) = [m]"]
-						},
-					"Priority": 3
-				}, 
-				{
-					"Action": "Speak(TrickEnd, [ns], [m], [s])",
-					"Target": "Board",
-					"Conditions":
-						{
-							"Set": ["ValidDialogue(TrickEnd, [ns], [m], [s]) = True", "DialogueState(Board) = TrickEnd", "Trick(Winner) = [winnerID]", "Player([winnerID]) = [m]", "Trick(Score) > 0"]
-						},
-					"Priority": 3
-				}, 
-				{
-					"Action": "Speak(Playing, [ns], [m], [s])",
-					"Target": "Board",
-					"Conditions":
-						{
-							"Set": ["DialogueState(Board) = Playing", "ValidDialogue(Playing, [ns], [m], [s]) = True", "Play(Info) = [m]"]
+							"Set": ["DialogueState(Board) = Shuffle", "ValidDialogue(Shuffle, [ns], [m], [s]) = True", "Play(Shuffle) = [m]"]
 						},
 					"Priority": 3
 				}, 
@@ -59,15 +41,6 @@
 					"Priority": 3
 				}, 
 				{
-					"Action": "Speak(Shuffle, [ns], [m], [s])",
-					"Target": "Board",
-					"Conditions":
-						{
-							"Set": ["DialogueState(Board) = Shuffle", "ValidDialogue(Shuffle, [ns], [m], [s]) = True", "Play(Shuffle) = [m]"]
-						},
-					"Priority": 3
-				}, 
-				{
 					"Action": "Speak(GameEnd, [ns], [m], [s])",
 					"Target": "Board",
 					"Conditions":
@@ -86,13 +59,13 @@
 					"Priority": 3
 				}, 
 				{
-					"Action": "Speak(TrickEnd, [ns], M(Opponent, 0), [s])",
+					"Action": "Speak(Playing, [ns], [m], [s])",
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["ValidDialogue(TrickEnd, [ns], M(Opponent, 0), [s]) = True", "DialogueState(Board) = TrickEnd", "Trick(Winner) != SELF", "Trick(Score) = 0", "True = [x]"]
+							"Set": ["DialogueState(Board) = Playing", "ValidDialogue(Playing, [ns], [m], [s]) = True", "Play(Info) = [m]"]
 						},
-					"Priority": 4
+					"Priority": 3
 				}, 
 				{
 					"Action": "Speak(NextPlayer, [ns], [m], positive)",
@@ -111,6 +84,42 @@
 							"Set": ["DialogueState(Board) = NextPlayer", "ValidDialogue(NextPlayer, [ns], [m], [s]) = True", "Next(PlayerID) = [npID]", "Player([npID]) = [m]", "Mood(SELF) < 0"]
 						},
 					"Priority": 5
+				}, 
+				{
+					"Action": "Speak(Play, [ns], Partner, [s])",
+					"Target": "Board",
+					"Conditions":
+						{
+							"Set": ["DialogueState(Board) = Play", "ValidDialogue(Play, [ns], [m], [s]) = True", "Current(PlayerID) = [cpId]", "Player([cpId]) = Partner", "StrongestAttributionEmotion(SELF) = [s]"]
+						},
+					"Priority": 3
+				}, 
+				{
+					"Action": "Speak(Play, [ns], Opponent, [s])",
+					"Target": "Board",
+					"Conditions":
+						{
+							"Set": ["DialogueState(Board) = Play", "ValidDialogue(Play, [ns], [m], [s]) = True", "Current(PlayerID) = [cpId]", "Player([cpId]) = Opponent", "StrongestWellBeingEmotion(SELF) = [s]"]
+						},
+					"Priority": 3
+				}, 
+				{
+					"Action": "Speak(TrickEnd, [ns], [m], [s])",
+					"Target": "Board",
+					"Conditions":
+						{
+							"Set": ["ValidDialogue(TrickEnd, [ns], [m], [s]) = True", "DialogueState(Board) = TrickEnd", "Trick(Winner) = [winnerID]", "Player([winnerID]) = [m]", "Trick(Score) > 0"]
+						},
+					"Priority": 3
+				}, 
+				{
+					"Action": "Speak(TrickEnd, [ns], M(Opponent, 0), [s])",
+					"Target": "Board",
+					"Conditions":
+						{
+							"Set": ["ValidDialogue(TrickEnd, [ns], M(Opponent, 0), [s]) = True", "DialogueState(Board) = TrickEnd", "Trick(Winner) != SELF", "Trick(Score) = 0", "True = [x]"]
+						},
+					"Priority": 4
 				}]
 		},
 	"types": [
