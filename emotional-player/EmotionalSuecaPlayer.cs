@@ -232,12 +232,7 @@ namespace EmotionalPlayer
                     case "Animation":
                         Name state = chosenAction.Parameters[0];
                         Name emotionName = chosenAction.Parameters[1];
-                        if(emotionName == (Name) "positive" || emotionName == (Name)"negative")
-                        {
-                            Console.WriteLine("[ANIMATION] Soft reaction to " + state + " with " + emotionName + " mood");
-                        }
-                        else
-                            Console.WriteLine("[ANIMATION] Soft reaction to " + state + " with the emotion " + emotionName);
+                        Console.WriteLine("[ANIMATION] Soft reaction to " + state + " with the emotion " + emotionName);
                         break;
                     default:
                         Console.WriteLine("Unknown Action");
