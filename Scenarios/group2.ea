@@ -25,7 +25,7 @@
 								{
 									"Set": ["[trickPoints] >= 14"]
 								},
-							"Desirability": 10,
+							"Desirability": 3,
 							"Praiseworthiness": 10
 						}, 
 						{
@@ -34,7 +34,7 @@
 								{
 									"Set": ["[trickPoints] < 14", "[trickPoints] > 4"]
 								},
-							"Desirability": 6,
+							"Desirability": 2,
 							"Praiseworthiness": 6
 						}, 
 						{
@@ -43,7 +43,7 @@
 								{
 									"Set": ["[points] >= 2", "[points] < 10", "Trick(Winner) = [x]", "Player([x]) = Partner"]
 								},
-							"Desirability": 4,
+							"Desirability": 2,
 							"Praiseworthiness": 4
 						}, 
 						{
@@ -52,7 +52,7 @@
 								{
 									"Set": ["[points] >= 10", "Trick(Winner) = [x]", "Player([x]) = Partner"]
 								},
-							"Desirability": 4,
+							"Desirability": 2,
 							"Praiseworthiness": 8
 						}, 
 						{
@@ -61,7 +61,7 @@
 								{
 									"Set": ["[points] >= 2", "[points] < 10", "Trick(Winner) = [x]", "Player([x]) = Opponent"]
 								},
-							"Desirability": -4,
+							"Desirability": -2,
 							"Praiseworthiness": -4
 						}, 
 						{
@@ -70,7 +70,7 @@
 								{
 									"Set": ["[points] >= 10", "Trick(Winner) = [x]", "Player([x]) = Opponent"]
 								},
-							"Desirability": -4,
+							"Desirability": -2,
 							"Praiseworthiness": -8
 						}, 
 						{
@@ -88,7 +88,7 @@
 								{
 									"Set": ["Trick(Score) >= 10"]
 								},
-							"Desirability": 8,
+							"Desirability": 2,
 							"Praiseworthiness": 8
 						}, 
 						{
@@ -145,8 +145,7 @@
 								{
 									"Set": ["Player([playerID]) = Opponent"]
 								},
-							"Desirability": 6,
-							"Praiseworthiness": -10
+							"Desirability": 6
 						}, 
 						{
 							"EventName": "Event(Property-Change, [subject], Trick(Winner), [trickWinnerID])",
