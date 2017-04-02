@@ -256,7 +256,7 @@ namespace unity_emulator
 
                 if ((i + 1) % 4 == 0)
                 {
-                    //startPublisher.TrickEnd(game.);
+                    startPublisher.TrickEnd(game.GetCurrentTrickWinner(), game.GetCurrentTrickPoints());
                 }
 
                 currentPlayerID = game.GetNextPlayerId();
