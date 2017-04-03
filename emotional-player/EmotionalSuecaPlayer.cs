@@ -197,12 +197,12 @@ namespace EmotionalPlayer
             {
                 foreach (var item in actionRpc)
                 {
-                    //foreach (var par in item.Parameters)
-                    //{
-                    //    Console.Write(" act_par: " + par);
-                    //}
-                    //Console.WriteLine("");
-                    //Console.WriteLine("----------------");
+                    foreach (var par in item.Parameters)
+                    {
+                        Console.WriteLine(" act_par: " + par);
+                    }
+                    Console.WriteLine("");
+                    Console.WriteLine("----------------");
                 }
                 ActionLibrary.IAction chosenAction = actionRpc.FirstOrDefault();
                 lock (rpcLock)
@@ -561,22 +561,23 @@ namespace EmotionalPlayer
                     }
                 }
 
-                int trickIncrease = ai.GetTrickIncrease();
-
-                if (trickIncrease > 0)
-                {
-                    AddPropertyChangeEvent(Consts.TRICK_INCREASE_PROPERTY, trickIncrease.ToString(), checkTeam(id));
-                }
-
                 //if (robotHasPlayed && !lastPlayOfTrick)
                 if(!lastPlayOfTrick)
                 {
+                    Console.WriteLine("NAO E A ULTIMA JOGADA DA RONDA");
+                    int trickIncrease = ai.GetTrickIncrease();
+
+                    if (trickIncrease > 0)
+                    {
+                        AddPropertyChangeEvent(Consts.TRICK_INCREASE_PROPERTY, trickIncrease.ToString(), checkTeam(id));
+                    }
                     tags = new string[] { "|rank|", "|suit|", "|playerId|", "|playerId1|", "|playerId1|" };
                     meanings = new string[] { convertRankToPortuguese(myRank.ToString()), convertSuitToPortuguese(mySuit.ToString()), id.ToString(), "0", "2" };
                     PerceiveAndDecide(tags, meanings);
                 }
                 else
                 {
+                    Console.WriteLine("EEE A ULTIMA JOGADA DA RONDA");
                     PerceiveOnly();
                 }
             }
