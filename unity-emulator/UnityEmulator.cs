@@ -74,9 +74,9 @@ namespace unity_emulator
                 publisher.TrickEnd(winnerId, trickPoints);
             }
 
-            public void Play(int id, string card)
+            public void Play(int id, string card, string playInfo)
             {
-                publisher.Play(id, card);
+                publisher.Play(id, card, playInfo);
             }
 
 
@@ -250,22 +250,19 @@ namespace unity_emulator
                     botCard = null;
                 }*/
 
-                startPublisher.Play(currentPlayerID, serializeCard(chosenCard));
+                startPublisher.Play(currentPlayerID, serializeCard(chosenCard),"");
 
                 game.PlayCard(currentPlayerID, chosenCard);
                 currentHand.Remove(chosenCard);
+                currentPlayerID = game.GetNextPlayerId();
 
-                if ((i + 1) % 4 == 0)
+                if (i != 0 && i % 4 == 3)
                 {
                     startPublisher.TrickEnd(game.GetCurrentTrickWinner(), game.GetCurrentTrickPoints());
                 }
 
                 currentPlayerID = game.GetNextPlayerId();
-
-                if (i != 0 && i % 4 == 3)
-                {
-                    startPublisher.TrickEnd(game.GetTrickWinnerAndPoints()[0], game.GetTrickWinnerAndPoints()[1]);
-                }
+                
             }
 
             Console.WriteLine("|||||||||||||||||||||||| END |||||||||||||||||||||||");
@@ -301,7 +298,7 @@ namespace unity_emulator
             return new SuecaTypes.Card(msgRank, msgSuit).SerializeToJson();
         }
 
-        public void Play(int id, string card)
+        public void Play(int id, string card, string playInfo)
         {
             botCard = JsonSerializable.DeserializeFromJson<SuecaTypes.Card>(card);
         }
