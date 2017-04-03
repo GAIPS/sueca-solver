@@ -215,6 +215,7 @@ namespace unity_emulator
 
             for (int i = 0; i < 40; i++)
             {
+                Console.WriteLine(i);
                 startPublisher.NextPlayer(currentPlayerID);
 
                 currentHand = playersHand[currentPlayerID];
@@ -229,16 +230,16 @@ namespace unity_emulator
                 Sueca.PrintCurrentHand(currentHand);
                 int chosenCard;
 
-                if (currentPlayerID != 3)
-                {
+                //if (currentPlayerID != 3)
+                //{
                     Console.Write("Pick the card you want to play by its index: ");
                     input = Console.ReadLine();
                     cardIndex = Convert.ToInt16(input);
                     chosenCard = currentHand[cardIndex];
-                    
-                }
-                else
-                {
+
+                //}
+                //else
+                /*{
                     while (botCard == null)
                     {
 
@@ -247,19 +248,18 @@ namespace unity_emulator
                     SuecaSolver.Suit mySuit = (SuecaSolver.Suit)Enum.Parse(typeof(SuecaSolver.Suit), botCard.Suit.ToString());
                     chosenCard = SuecaSolver.Card.Create(myRank, mySuit);
                     botCard = null;
-                }
+                }*/
 
                 startPublisher.Play(currentPlayerID, serializeCard(chosenCard));
 
                 game.PlayCard(currentPlayerID, chosenCard);
                 currentHand.Remove(chosenCard);
-
-                if ((i + 1) % 4 == 0)
-                {
-                    //startPublisher.TrickEnd(game.);
-                }
-
                 currentPlayerID = game.GetNextPlayerId();
+
+                if (i != 0 && i % 4 == 3)
+                {
+                    startPublisher.TrickEnd(game.GetTrickWinnerAndPoints()[0], game.GetTrickWinnerAndPoints()[1]);
+                }
             }
 
             Console.WriteLine("|||||||||||||||||||||||| END |||||||||||||||||||||||");
