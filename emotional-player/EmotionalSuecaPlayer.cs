@@ -127,13 +127,10 @@ namespace EmotionalPlayer
                 lock (rpcLock)
                 {
                     _rpc[_agentType].Update();
+                    currentBelief = _rpc[_agentType].GetBeliefValue("DialogueState(Board)");
                 }
 
                 Thread.Sleep(500);
-                lock (rpcLock)
-                {
-                    currentBelief = _rpc[_agentType].GetBeliefValue("DialogueState(Board)");
-                }
             }
         }
 
@@ -141,10 +138,10 @@ namespace EmotionalPlayer
         {
             lock (rpcLock)
             {
-                foreach (var item in _events)
-                {
-                    Console.WriteLine(item.ToString());
-                }
+                //foreach (var item in _events)
+                //{
+                //    Console.WriteLine(item.ToString());
+                //}
                 _rpc[_agentType].Perceive(_events);
                 _events.Clear();
             }
@@ -197,15 +194,15 @@ namespace EmotionalPlayer
             }
             else
             {
-                foreach (var item in actionRpc)
-                {
-                    foreach (var par in item.Parameters)
-                    {
-                        Console.WriteLine(" act_par: " + par);
-                    }
-                    Console.WriteLine("");
-                    Console.WriteLine("----------------");
-                }
+                //foreach (var item in actionRpc)
+                //{
+                //    foreach (var par in item.Parameters)
+                //    {
+                //        Console.WriteLine(" act_par: " + par);
+                //    }
+                //    Console.WriteLine("");
+                //    Console.WriteLine("----------------");
+                //}
                 ActionLibrary.IAction chosenAction = actionRpc.FirstOrDefault();
                 lock (rpcLock)
                 {
@@ -220,18 +217,17 @@ namespace EmotionalPlayer
                         Name nextState = chosenAction.Parameters[1];
                         Name meaning = chosenAction.Parameters[2];
                         Name style = chosenAction.Parameters[3];
+                        var dialog = "Empty dialogue";
 
                         lock (iatLock)
                         {
                             
                                 var dialogs = _iat.GetDialogueActions(IATConsts.AGENT, currentState, nextState, meaning, style);
-                                var dialog = checkUsedUtterances(dialogs);
-                                Console.WriteLine(dialog);
-                                SuecaPub.PerformUtteranceWithTags("", dialog, tags, tagMeanings);
+                                dialog = checkUsedUtterances(dialogs);
                         }
-
-                        tags = new string[] { };
-                        tagMeanings = new string[] { };
+                        
+                        Console.WriteLine(dialog);
+                        SuecaPub.PerformUtteranceWithTags("", dialog, tags, tagMeanings);
                         break;
                     case "Animation":
                         Name state = chosenAction.Parameters[0];
