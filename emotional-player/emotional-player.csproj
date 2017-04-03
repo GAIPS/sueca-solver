@@ -95,7 +95,7 @@
       <HintPath>..\fatimalibs\KnowledgeBase.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\SERA\SERA\Binaries\Thalamus\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\SERA\Binaries\Thalamus\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="RageAssetManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

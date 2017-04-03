@@ -10,13 +10,11 @@ namespace EmotionalPlayer
     {
         static void Main(string[] args)
         {
+            EmotionalSuecaPlayer sp = null;
             string client = "";
             string character = "";
             string path = "";
             string type = "";
-
-            EmotionalSuecaPlayer emotionalPlayer = null;
-
 
             if (args.Length == 4)
             {
@@ -24,17 +22,18 @@ namespace EmotionalPlayer
                 path = args[1];
                 type = args[2];
                 character = args[3];
-                emotionalPlayer = new EmotionalSuecaPlayer(client, path, type, character);
+                sp = new EmotionalSuecaPlayer(client, path, type, character);
             }
             else
             {
                 Console.WriteLine("Incorrect number of parameters. 4 are required: [thalamusClientName], [scenarioPath], [agentType], [thalamusCharacter]");
             }
-            
+
             Console.ReadLine();
-            if (emotionalPlayer != null)
+
+            if (sp != null)
             {
-                emotionalPlayer.Dispose();
+                sp.Dispose();
             }
         }
     }
