@@ -7,6 +7,62 @@
 			"CharacterSources": ["group.rpc", "individual.rpc"],
 			"AgentDialogues": [
 				{
+					"CurrentState": "TrickEnd",
+					"NextState": "Dynamic",
+					"Meaning": ["Partner"],
+					"Style": ["Pride"],
+					"Utterance": "Acabou a ronda e foi das minha equipa. Estou pride",
+					"UtteranceId": "TTS-661D814B086110FE2BE7312FFB6F23C5"
+				}, 
+				{
+					"CurrentState": "TrickEnd",
+					"NextState": "Dynamic",
+					"Meaning": ["Opponent", "0"],
+					"Style": ["Neutral"],
+					"Utterance": "Acabou a ronda e foi dos oponentes. Zero pontos para eles",
+					"UtteranceId": "TTS-FE2344BFE2C6208F78E6A008C41C3B08"
+				}, 
+				{
+					"CurrentState": "TrickEnd",
+					"NextState": "Dynamic",
+					"Meaning": ["Opponent"],
+					"Style": ["Joy"],
+					"Utterance": "Acabou a ronda e foi dos oponentes. Estou Joy",
+					"UtteranceId": "TTS-35DEE76E0FAC35FAC984FAA7348698F2"
+				}, 
+				{
+					"CurrentState": "TrickEnd",
+					"NextState": "Dynamic",
+					"Meaning": ["Opponent"],
+					"Style": ["Distress"],
+					"Utterance": "Acabou a ronda e foi dos oponentes. Estou Distress",
+					"UtteranceId": "TTS-C78889DFD39143AF87952456AF2A08E7"
+				}, 
+				{
+					"CurrentState": "TrickEnd",
+					"NextState": "Dynamic",
+					"Meaning": ["Opponent"],
+					"Style": ["Neutral"],
+					"Utterance": "Acabou a ronda e foi dos oponentes. Estou neutro",
+					"UtteranceId": "TTS-D1A7F1C3C695C07ADA912604F69E1E1A"
+				}, 
+				{
+					"CurrentState": "Shuffle",
+					"NextState": "Dynamic",
+					"Meaning": ["Other"],
+					"Style": ["Neutral"],
+					"Utterance": "És tu a baralhar!",
+					"UtteranceId": "TTS-30C8D2DDAF6EE68C97E054F993B4517F"
+				}, 
+				{
+					"CurrentState": "Shuffle",
+					"NextState": "Dynamic",
+					"Meaning": ["Agent"],
+					"Style": ["Neutral"],
+					"Utterance": "Sou eu a baralhar.",
+					"UtteranceId": "TTS-C16A6A147EF819A80205689045A30535"
+				}, 
+				{
 					"CurrentState": "SessionStart",
 					"NextState": "Dynamic",
 					"Meaning": [],
@@ -343,52 +399,12 @@
 					"UtteranceId": "TTS-5381F0D3C27D1EA9D4B0D5928DE9CA14"
 				}, 
 				{
-					"CurrentState": "Shuffle",
-					"NextState": "Dynamic",
-					"Meaning": ["Agent"],
-					"Style": ["Neutral"],
-					"Utterance": "Sou eu a baralhar.",
-					"UtteranceId": "TTS-C16A6A147EF819A80205689045A30535"
-				}, 
-				{
-					"CurrentState": "Shuffle",
-					"NextState": "Dynamic",
-					"Meaning": ["Other"],
-					"Style": ["Neutral"],
-					"Utterance": "És tu a baralhar!",
-					"UtteranceId": "TTS-30C8D2DDAF6EE68C97E054F993B4517F"
-				}, 
-				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
-					"Meaning": ["Opponent"],
-					"Style": ["Neutral"],
-					"Utterance": "Acabou a ronda e foi dos oponentes. Estou neutro",
-					"UtteranceId": "TTS-D1A7F1C3C695C07ADA912604F69E1E1A"
-				}, 
-				{
-					"CurrentState": "TrickEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["Opponent"],
-					"Style": ["Pride"],
-					"Utterance": "Acabou a ronda e foi dos oponentes. Estou pride",
-					"UtteranceId": "TTS-FA451BCE6028BF634D505E4B833F1B87"
-				}, 
-				{
-					"CurrentState": "TrickEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["Opponent"],
-					"Style": ["Reproach"],
-					"Utterance": "Acabou a ronda e foi dos oponentes. Estou reproach",
-					"UtteranceId": "TTS-F5D5B8EF06B055F54E14C2ACA29C8520"
-				}, 
-				{
-					"CurrentState": "TrickEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["Opponent", "0"],
-					"Style": ["Neutral"],
-					"Utterance": "Acabou a ronda e foi dos oponentes. Estou neutro e com 2 meanings",
-					"UtteranceId": "TTS-7359A1851E8EE0F2B732C41AB464B0C9"
+					"Meaning": ["Partner"],
+					"Style": ["Shame"],
+					"Utterance": "Acabou a ronda e foi das minha equipa. Estou shame",
+					"UtteranceId": "TTS-C9056F2F4D89C6E2AE482E4EF1FA2BF9"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
