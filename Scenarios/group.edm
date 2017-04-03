@@ -155,8 +155,6 @@
 						{
 							"Set": ["DialogueState(Board) = Play", "ValidDialogue(Play, [ns], [m], [s]) = True", "Current(PlayerID) = [cpId]", "Player([cpId]) = Partner", "StrongestAttributionEmotion(SELF) = [s]", "EmotionIntensity(SELF, [s]) >= 5"]
 						},
-<<<<<<< HEAD
-=======
 					"Priority": 3
 				}, 
 				{
@@ -184,10 +182,6 @@
 						{
 							"Set": ["DialogueState(Board) = Playing", "StrongestAttributionEmotion(SELF) = [s]", "EmotionIntensity(SELF, [s]) < 5", "EmotionIntensity(SELF, [s]) > 2"]
 						},
-<<<<<<< HEAD
-=======
->>>>>>> 75b6b105d8e072ab224da654a10fd26de283230f
->>>>>>> 1fd93856da5181a55a96145b6199435bc8edf3c9
 					"Priority": 4
 				}, 
 				{
