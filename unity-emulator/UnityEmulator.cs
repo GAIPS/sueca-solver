@@ -256,18 +256,10 @@ namespace unity_emulator
 
                 if ((i + 1) % 4 == 0)
                 {
-<<<<<<< HEAD
-                    startPublisher.TrickEnd(game.GetCurrentTrickWinner(), game.GetCurrentTrickPoints());
+                    startPublisher.TrickEnd(game.GetTrickWinnerAndPoints()[0], game.GetTrickWinnerAndPoints()[1]);
                 }
 
                 currentPlayerID = game.GetNextPlayerId();
-                
-=======
-                    //startPublisher.TrickEnd(game.);
-                }
-
-                currentPlayerID = game.GetNextPlayerId();
->>>>>>> Fix unexpected behaviour of branch merging: Robot playing manually, which is a feature of Master branch.
             }
 
             Console.WriteLine("|||||||||||||||||||||||| END |||||||||||||||||||||||");
