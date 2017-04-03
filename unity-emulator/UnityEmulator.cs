@@ -235,7 +235,7 @@ namespace unity_emulator
                     input = Console.ReadLine();
                     cardIndex = Convert.ToInt16(input);
                     chosenCard = currentHand[cardIndex];
-                    
+
                 }
                 else
                 {

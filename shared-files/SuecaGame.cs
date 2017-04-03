@@ -67,6 +67,11 @@ namespace SuecaSolver
             return new int[] { firstTeamPoints, secondTeamPoints};
         }
 
+        public int[] GetTrickWinnerAndPoints()
+        {
+            return tricks[tricks.Count-1].GetTrickWinnerAndPoints();
+        }
+
         public void PrintLastTrick()
         {
             if (tricks.Count > 0 && tricks[0].IsFull())

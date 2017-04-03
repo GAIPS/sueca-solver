@@ -163,6 +163,12 @@ namespace EmotionalPlayer
 
                 //DECIDE PHASE            
                 actionRpc = _rpc[_agentType].Decide();
+                Console.WriteLine("Agent's Mood: " + _rpc[_agentType].Mood);
+                /*Console.WriteLine("Emotions being felt");
+                foreach(var emotion in _rpc[_agentType].GetAllActiveEmotions())
+                {
+                    Console.WriteLine("\t\t" + emotion.Type);
+                }*/
                 //if (_rpc[_agentType].GetAllActiveEmotions().IsEmpty())
                 //{
                 //    Console.WriteLine("No active emnotions!");
@@ -180,8 +186,7 @@ namespace EmotionalPlayer
                 //}
             }
 
-
-
+            //ACTION PHASE
             if (actionRpc == null || actionRpc.IsEmpty())
             {
                 Console.WriteLine("No action");
@@ -231,7 +236,7 @@ namespace EmotionalPlayer
                         Console.WriteLine("[ANIMATION] Soft reaction to " + state + " with the emotion " + emotionName);
                         break;
                     default:
-                        Console.WriteLine("Default Case");
+                        Console.WriteLine("Unknown Action");
                         break;
                 }
             }
@@ -459,7 +464,7 @@ namespace EmotionalPlayer
 
             if (this.id == id && ai != null)
             {
-                Console.WriteLine("I am going to play...");
+                //Console.WriteLine("I am going to play...");
 
                 int chosenCard = ai.Play();
                 ai.AddPlay(id, chosenCard);
@@ -514,7 +519,7 @@ namespace EmotionalPlayer
                 // Only speak NextPlayer dialogues when the next player is not himself
                 Thread.Sleep(randomNumberGenerator.Next(2000, 3000));
                 AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "NextPlayer", "Board");
-                //PerceiveAndDecide(new string[] { "|rank|", "|suit|", "|nextPlayerId|", "|playerId1|", "|playerId2|" }, new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()), id.ToString(), "0", "2" });
+                PerceiveAndDecide(new string[] { "|rank|", "|suit|", "|nextPlayerId|", "|playerId1|", "|playerId2|" }, new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()), id.ToString(), "0", "2" });
             }
         }
 
@@ -583,7 +588,7 @@ namespace EmotionalPlayer
             AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "TrickEnd", "Board");
             AddPropertyChangeEvent(Consts.TRICK_END, trickPoints.ToString(), checkTeam(winnerId));
 
-            PerceiveAndDecide(new string[] {"|playerId|","|trickpoints|"}, new string[] {winnerId.ToString(),trickPoints.ToString()});
+            //PerceiveAndDecide(new string[] {"|playerId|","|trickpoints|"}, new string[] {winnerId.ToString(),trickPoints.ToString()});
         }
 
         public void ResetTrick()

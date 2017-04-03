@@ -66,7 +66,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\fatimalibs\Conditions.dll</HintPath>
     </Reference>
-    <Reference Include="EmoteEvents">
+    <Reference Include="EmoteEvents, Version=1.0.6243.26124, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\SERA\Binaries\Skene\EmoteEvents.dll</HintPath>
     </Reference>
     <Reference Include="EmotionalAppraisal, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -93,9 +94,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\fatimalibs\KnowledgeBase.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\SERA\Binaries\Thalamus\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\SERA\SERA\Binaries\Thalamus\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="RageAssetManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -109,10 +109,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\fatimalibs\SocialImportanceAsset.dll</HintPath>
     </Reference>
-    <Reference Include="SuecaMessages">
+    <Reference Include="SuecaMessages, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\sueca-messages\SuecaMessages\bin\Debug\SuecaMessages.dll</HintPath>
     </Reference>
-    <Reference Include="SuecaTypes">
+    <Reference Include="SuecaTypes, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\sueca-messages\SuecaTypes\bin\Debug\SuecaTypes.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -122,7 +124,8 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Thalamus">
+    <Reference Include="Thalamus, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\SERA\Binaries\Thalamus\Thalamus.dll</HintPath>
     </Reference>
     <Reference Include="Utilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
