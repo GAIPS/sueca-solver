@@ -233,7 +233,12 @@ namespace EmotionalPlayer
                     case "Animation":
                         Name state = chosenAction.Parameters[0];
                         Name emotionName = chosenAction.Parameters[1];
-                        Console.WriteLine("[ANIMATION] Soft reaction to " + state + " with the emotion " + emotionName);
+                        if(emotionName == (Name) "positive" || emotionName == (Name)"negative")
+                        {
+                            Console.WriteLine("[ANIMATION] Soft reaction to " + state + " with " + emotionName + " mood");
+                        }
+                        else
+                            Console.WriteLine("[ANIMATION] Soft reaction to " + state + " with the emotion " + emotionName);
                         break;
                     default:
                         Console.WriteLine("Unknown Action");
@@ -510,8 +515,8 @@ namespace EmotionalPlayer
                     AddPropertyChangeEvent(Consts.TRICK_INCREASE_PROPERTY, trickIncrease.ToString(), checkTeam(id));
                 }
 
-                PerceiveOnly();
-                //PerceiveAndDecide(new string[] { "|rank|", "|suit|", "|nextPlayerId|", "|playerId1|", "|playerId2|" }, new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()), id.ToString(), "0", "2" });
+                //PerceiveOnly();
+                PerceiveAndDecide(new string[] { "|rank|", "|suit|", "|nextPlayerId|", "|playerId1|", "|playerId2|" }, new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()), id.ToString(), "0", "2" });
                 robotHasPlayed = true;
         }
             else
@@ -587,8 +592,8 @@ namespace EmotionalPlayer
             robotHasPlayed = false;
             AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "TrickEnd", "Board");
             AddPropertyChangeEvent(Consts.TRICK_END, trickPoints.ToString(), checkTeam(winnerId));
-
-            //PerceiveAndDecide(new string[] {"|playerId|","|trickpoints|"}, new string[] {winnerId.ToString(),trickPoints.ToString()});
+            //PerceiveOnly();
+            PerceiveAndDecide(new string[] {"|playerId|","|trickpoints|"}, new string[] {winnerId.ToString(),trickPoints.ToString()});
         }
 
         public void ResetTrick()
