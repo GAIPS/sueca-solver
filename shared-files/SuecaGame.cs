@@ -101,5 +101,17 @@ namespace SuecaSolver
             }
             Console.WriteLine("");
         }
+
+        public int GetCurrentTrickWinner()
+        {
+            Trick currentTrick = tricks[tricks.Count - 1];
+            return currentTrick.GetCurrentWinningPlayer();
+        }
+
+        public int GetCurrentTrickPoints()
+        {
+            Trick currentTrick = tricks[tricks.Count - 1];
+            return currentTrick.GetCurrentTrickPoints();
+        }
     }
 }
