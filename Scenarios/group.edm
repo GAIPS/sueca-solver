@@ -59,15 +59,6 @@
 					"Priority": 3
 				}, 
 				{
-					"Action": "Speak(Playing, [ns], [m], [s])",
-					"Target": "Board",
-					"Conditions":
-						{
-							"Set": ["DialogueState(Board) = Playing", "ValidDialogue(Playing, [ns], [m], [s]) = True", "Play(Info) = [m]"]
-						},
-					"Priority": 3
-				}, 
-				{
 					"Action": "Speak(NextPlayer, [ns], [m], positive)",
 					"Target": "Board",
 					"Conditions":
@@ -165,6 +156,33 @@
 							"Set": ["DialogueState(Board) = TrickEnd", "Trick(Winner) = [winnerID]", "Player([winnerID]) = Partner", "StrongestAttributionEmotion(SELF) = [s]", "EmotionIntensity(SELF, [s]) <= 5", "EmotionIntensity(SELF, [s]) > 2"]
 						},
 					"Priority": 3
+				}, 
+				{
+					"Action": "Speak(Playing, [ns], [m], [s])",
+					"Target": "Board",
+					"Conditions":
+						{
+							"Set": ["DialogueState(Board) = Playing", "ValidDialogue(Playing, [ns], [m], [s]) = True", "Play(Info) = [m]", "StrongestAttributionEmotion(SELF) = [s]", "EmotionIntensity(SELF, [s]) >= 5"]
+						},
+					"Priority": 4
+				}, 
+				{
+					"Action": "Speak(Playing, [ns], [m], Neutral)",
+					"Target": "Board",
+					"Conditions":
+						{
+							"Set": ["DialogueState(Board) = Playing", "ValidDialogue(Playing, [ns], [m], [s]) = True", "Play(Info) = [m]"]
+						},
+					"Priority": 3
+				}, 
+				{
+					"Action": "Animation(Playing, [s])",
+					"Target": "Board",
+					"Conditions":
+						{
+							"Set": ["DialogueState(Board) = Playing", "StrongestAttributionEmotion(SELF) = [s]", "EmotionIntensity(SELF, [s]) < 5", "EmotionIntensity(SELF, [s]) > 2"]
+						},
+					"Priority": 4
 				}]
 		},
 	"types": [
