@@ -17,77 +17,13 @@
 				},
 			"AppraisalRules":
 				{
-					"AppraisalWeight": 1,
-					"Rules": [
-						{
-							"EventName": "Event(Action-End, SELF, Trick(Big), Board)",
-							"Conditions":
-								{
-									"Set": []
-								},
-<<<<<<< HEAD
-							"Desirability": 3,
-							"Praiseworthiness": 8
-=======
-							"Desirability": 6,
-							"Praiseworthiness": 5
->>>>>>> 75b6b105d8e072ab224da654a10fd26de283230f
-						}, 
-						{
-							"EventName": "Event(Action-End, SELF, Trick(Small), Board)",
-							"Conditions":
-								{
-									"Set": []
-								},
-<<<<<<< HEAD
-							"Desirability": 2,
-							"Praiseworthiness": 4
-=======
-							"Desirability": 3,
-							"Praiseworthiness": 2
->>>>>>> 75b6b105d8e072ab224da654a10fd26de283230f
-						}, 
-						{
-							"EventName": "Event(Action-End, [winnerID], Trick(Big), Board)",
-							"Conditions":
-								{
-									"Set": ["Player([winnerID]) = Opponent"]
-								},
-<<<<<<< HEAD
-							"Desirability": 2,
-							"Praiseworthiness": 4
-=======
-							"Desirability": -6,
-							"Praiseworthiness": 5
->>>>>>> 75b6b105d8e072ab224da654a10fd26de283230f
-						}, 
-						{
-							"EventName": "Event(Action-End, [winnerID], Trick(Small), Board)",
-							"Conditions":
-								{
-									"Set": ["Player([winnerID]) = Opponent"]
-								},
-<<<<<<< HEAD
-							"Desirability": 2,
-							"Praiseworthiness": 8
-=======
-							"Desirability": -3,
-							"Praiseworthiness": 2
->>>>>>> 75b6b105d8e072ab224da654a10fd26de283230f
-						}, 
-						{
 							"EventName": "Event(Property-Change, SELF, Trick(Increase), [points])",
 							"Conditions":
 								{
 									"Set": ["[points] >= 10", "Trick(Winner) != SELF"]
 								},
-<<<<<<< HEAD
 							"Desirability": -2,
 							"Praiseworthiness": -4
-=======
-							"Desirability": -3,
-							"Praiseworthiness": -3
->>>>>>> 75b6b105d8e072ab224da654a10fd26de283230f
 						}, 
 						{
 							"EventName": "Event(Property-Change, SELF, Trick(Increase), [points])",
@@ -95,13 +31,8 @@
 								{
 									"Set": ["[points] >= 10"]
 								},
-<<<<<<< HEAD
 							"Desirability": -2,
 							"Praiseworthiness": -8
-=======
-							"Desirability": 3,
-							"Praiseworthiness": 3
->>>>>>> 75b6b105d8e072ab224da654a10fd26de283230f
 						}, 
 						{
 							"EventName": "Event(Property-Change, SELF, Trick(Renounce), *)",
@@ -113,7 +44,6 @@
 							"Praiseworthiness": -10
 						}, 
 						{
-<<<<<<< HEAD
 							"EventName": "Event(Property-Change, SELF, Trick(Winner), SELF)",
 							"Conditions":
 								{
@@ -132,18 +62,11 @@
 						}, 
 						{
 							"EventName": "Event(Property-Change, [playerID], Trick(End), [trickPoints])",
-=======
-							"EventName": "Event(Property-Change, [playerID], Trick(End), [points])",
->>>>>>> 75b6b105d8e072ab224da654a10fd26de283230f
 							"Conditions":
 								{
 									"Set": ["Player([PlayerID]) = Opponent", "[points] <= 0"]
 								},
-<<<<<<< HEAD
 							"Desirability": -4
-=======
-							"Desirability": 6
->>>>>>> 75b6b105d8e072ab224da654a10fd26de283230f
 						}, 
 						{
 							"EventName": "Event(Property-Change, [playerID], Trick(Increase), [points])",
@@ -169,7 +92,6 @@
 								{
 									"Set": ["Player([playerID]) = Opponent"]
 								},
-<<<<<<< HEAD
 							"Desirability": 6
 						}, 
 						{
@@ -179,10 +101,6 @@
 									"Set": ["Player([subject]) = Opponent", "Player([trickWinnerID]) = Opponent", "Trick(Score) >= 10"]
 								},
 							"Desirability": -8
-=======
-							"Desirability": 6,
-							"Praiseworthiness": -10
->>>>>>> 75b6b105d8e072ab224da654a10fd26de283230f
 						}]
 				},
 			"EmotionDispositions": [
