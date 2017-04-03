@@ -7,10 +7,22 @@ namespace unity_emulator
         static void Main(string[] args)
         {
             string character = "";
-            character = args[0];
-            UnityEmulator sp = new UnityEmulator(character);
+            UnityEmulator sp = null;
+            if (args.Length == 1)
+            {
+                character = args[0];
+                sp = new UnityEmulator(character);
+            }
+            else
+            {
+                Console.WriteLine("Unspecified client name for Thalamus.");
+            }
             Console.ReadLine();
-            sp.Dispose();
+
+            if (sp != null)
+            {
+                sp.Dispose();
+            }
         }
     }
 }

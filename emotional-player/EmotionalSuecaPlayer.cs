@@ -39,6 +39,7 @@ namespace EmotionalPlayer
         private List<Utterance> usedUtterances = new List<Utterance>();
         private bool robotHasPlayed = false;
         private bool initialyzing;
+        private const string LOGS_PATH = "../../../Scenarios/Logs";
 
         public EmotionalSuecaPlayer(string clientName, string path, string type, string charactersNames = "") : base(clientName, charactersNames)
         {
@@ -91,8 +92,10 @@ namespace EmotionalPlayer
 
         private void LoadScenario(ScenarioData data)
         {
+            System.IO.Directory.CreateDirectory(LOGS_PATH);
             _iat = data.IAT;
 
+            
             var characterSources = _iat.GetAllCharacterSources().ToList();
             foreach (var source in characterSources)
             {
@@ -206,7 +209,7 @@ namespace EmotionalPlayer
                 ActionLibrary.IAction chosenAction = actionRpc.FirstOrDefault();
                 lock (rpcLock)
                 {
-                    _rpc[_agentType].SaveToFile("../../../Scenarios/Logs/log" + i + ".rpc");
+                    _rpc[_agentType].SaveToFile(LOGS_PATH + "/log" + i + ".rpc");
                 }
                 i++;
                     
