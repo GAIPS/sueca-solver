@@ -163,6 +163,11 @@ namespace EmotionalPlayer
 
                 //DECIDE PHASE            
                 actionRpc = _rpc[_agentType].Decide();
+                Console.WriteLine("Emotions being felt");
+                foreach(var emotion in _rpc[_agentType].GetAllActiveEmotions())
+                {
+                    Console.WriteLine("\t\t" + emotion.Type);
+                }
                 //if (_rpc[_agentType].GetAllActiveEmotions().IsEmpty())
                 //{
                 //    Console.WriteLine("No active emnotions!");
@@ -180,8 +185,7 @@ namespace EmotionalPlayer
                 //}
             }
 
-
-
+            //ACTION PHASE
             if (actionRpc == null || actionRpc.IsEmpty())
             {
                 Console.WriteLine("No action");
@@ -231,7 +235,7 @@ namespace EmotionalPlayer
                         Console.WriteLine("[ANIMATION] Soft reaction to " + state + " with the emotion " + emotionName);
                         break;
                     default:
-                        Console.WriteLine("Default Case");
+                        Console.WriteLine("Unknown Action");
                         break;
                 }
             }
@@ -367,12 +371,6 @@ namespace EmotionalPlayer
             PerceiveAndDecide(new string[] { "|playerId1|", "|playerId2|" }, new string[] { "0", "2" });
         }
 
-<<<<<<< HEAD
-            public void Renounce(int playerId)
-            {
-                PerceiveAndDecide(new string[] { }, new string[] { });
-            }
-=======
         public void ReceiveRobotCards(int playerId)
         {
             AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "ReceiveCards", "Board");
@@ -383,7 +381,6 @@ namespace EmotionalPlayer
             AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "TrumpCard", "Board");
             PerceiveAndDecide(new string[] { "|playerId|" }, new string[] { trumpCardPlayer.ToString() });
         }
->>>>>>> Add appraisal rules and decions for TrickEnd events
 
         public void Renounce(int playerId)
         {
@@ -447,13 +444,8 @@ namespace EmotionalPlayer
                 AddPropertyChangeEvent(Consts.END_SESSION, "Draw", "Board");
             }
 
-<<<<<<< HEAD
-
-            #endregion
-=======
             PerceiveAndDecide(new string[] { }, new string[] { });
         }
->>>>>>> Add appraisal rules and decions for TrickEnd events
 
         #endregion
 
@@ -471,31 +463,20 @@ namespace EmotionalPlayer
 
             if (this.id == id && ai != null)
             {
-                Console.WriteLine("I am going to play...");
+                //Console.WriteLine("I am going to play...");
 
                 int chosenCard = ai.Play();
                 ai.AddPlay(id, chosenCard);
 
-<<<<<<< HEAD
-                    string playInfo = ai.GetLastPlayInfo();
-                    SuecaPub.Play(this.id, cardSerialized, playInfo);
-                    robotHasPlayed = true;
-                    AddPropertyChangeEvent(Consts.PLAY_INFO, playInfo, "Board");
-                    Console.WriteLine(":::::::::::::::::::::::::::::::::::::::::::: Robot has played {0} - {1}.", SuecaSolver.Card.ToString(chosenCard), playInfo);
-                    //Console.WriteLine("PlayInfo: " + playInfo);
-                    AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "Playing", "Board");
-                    //Console.WriteLine("My play has been sent.");
-=======
                 SuecaSolver.Rank chosenCardRank = (SuecaSolver.Rank)SuecaSolver.Card.GetRank(chosenCard);
                 SuecaSolver.Suit chosenCardSuit = (SuecaSolver.Suit)SuecaSolver.Card.GetSuit(chosenCard);
                 msgRank = (SuecaTypes.Rank)Enum.Parse(typeof(SuecaTypes.Rank), chosenCardRank.ToString());
                 msgSuit = (SuecaTypes.Suit)Enum.Parse(typeof(SuecaTypes.Suit), chosenCardSuit.ToString());
                 string cardSerialized = new SuecaTypes.Card(msgRank, msgSuit).SerializeToJson();
 
-                SuecaPub.Play(this.id, cardSerialized);
->>>>>>> Add appraisal rules and decions for TrickEnd events
 
                 string playInfo = ai.GetLastPlayInfo();
+                SuecaPub.Play(this.id, cardSerialized, playInfo);
                 AddPropertyChangeEvent(Consts.PLAY_INFO, playInfo, "Board");
                 Console.WriteLine(":::::::::::::::::::::::::::::::::::::::::::: Robot has played {0} - {1}.", SuecaSolver.Card.ToString(chosenCard), playInfo);
                 //Console.WriteLine("PlayInfo: " + playInfo);
@@ -528,16 +509,6 @@ namespace EmotionalPlayer
                     AddPropertyChangeEvent(Consts.TRICK_INCREASE_PROPERTY, trickIncrease.ToString(), checkTeam(id));
                 }
 
-<<<<<<< HEAD
-            public void Play(int id, string card, string playInfo)
-=======
-                PerceiveOnly();
-                //PerceiveAndDecide(new string[] { "|rank|", "|suit|", "|nextPlayerId|", "|playerId1|", "|playerId2|" }, new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()), id.ToString(), "0", "2" });
-                robotHasPlayed = true;
-        }
-            else
->>>>>>> Add appraisal rules and decions for TrickEnd events
-            {
                 // Only speak NextPlayer dialogues when the next player is not himself
                 Thread.Sleep(randomNumberGenerator.Next(2000, 3000));
                 AddPropertyChangeEvent(Consts.DIALOGUE_STATE_PROPERTY, "NextPlayer", "Board");
@@ -545,7 +516,7 @@ namespace EmotionalPlayer
             }
         }
 
-        public void Play(int id, string card)
+        public void Play(int id, string card, string playInfo)
         {
             //Console.WriteLine("Player {0} is playing.", id);
             AddPropertyChangeEvent(Consts.CURRENT_PLAYER, checkTeam(id), "Board");
@@ -566,10 +537,6 @@ namespace EmotionalPlayer
                 bool hasNewTrickWinner = ai.HasNewTrickTeamWinner();
                 bool lastPlayOfTrick = ai.IsLastPlayOfTrick();
 
-<<<<<<< HEAD
-                    int trickIncrease = ai.GetTrickIncrease();
-                    if (trickIncrease > 0)
-=======
                 AddPropertyChangeEvent(Consts.TRICK_SCORE, currentPlayPoints.ToString(), checkTeam(id));
 
                 if (hasNewTrickWinner)
@@ -577,7 +544,6 @@ namespace EmotionalPlayer
                     int currentWinnerID = ai.GetCurrentTrickWinner();
                     string lastPlayInfo = ai.GetLastPlayInfo();
                     if (lastPlayInfo == Sueca.PLAY_INFO_NEWTRICK)
->>>>>>> Add appraisal rules and decions for TrickEnd events
                     {
                         AddPropertyChangeEvent(Consts.TRICK_WINNER, checkTeam(currentWinnerID), Sueca.PLAY_INFO_NEWTRICK);
                     }
