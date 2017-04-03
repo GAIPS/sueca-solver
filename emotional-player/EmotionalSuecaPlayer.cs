@@ -163,6 +163,11 @@ namespace EmotionalPlayer
 
                 //DECIDE PHASE            
                 actionRpc = _rpc[_agentType].Decide();
+                Console.WriteLine("Emotions being felt");
+                foreach(var emotion in _rpc[_agentType].GetAllActiveEmotions())
+                {
+                    Console.WriteLine("\t\t" + emotion.Type);
+                }
                 //if (_rpc[_agentType].GetAllActiveEmotions().IsEmpty())
                 //{
                 //    Console.WriteLine("No active emnotions!");
@@ -180,8 +185,7 @@ namespace EmotionalPlayer
                 //}
             }
 
-
-
+            //ACTION PHASE
             if (actionRpc == null || actionRpc.IsEmpty())
             {
                 Console.WriteLine("No action");
@@ -231,7 +235,7 @@ namespace EmotionalPlayer
                         Console.WriteLine("[ANIMATION] Soft reaction to " + state + " with the emotion " + emotionName);
                         break;
                     default:
-                        Console.WriteLine("Default Case");
+                        Console.WriteLine("Unknown Action");
                         break;
                 }
             }
@@ -459,7 +463,7 @@ namespace EmotionalPlayer
 
             if (this.id == id && ai != null)
             {
-                Console.WriteLine("I am going to play...");
+                //Console.WriteLine("I am going to play...");
 
                 int chosenCard = ai.Play();
                 ai.AddPlay(id, chosenCard);
@@ -505,8 +509,8 @@ namespace EmotionalPlayer
                     AddPropertyChangeEvent(Consts.TRICK_INCREASE_PROPERTY, trickIncrease.ToString(), checkTeam(id));
                 }
 
-                PerceiveOnly();
-                //PerceiveAndDecide(new string[] { "|rank|", "|suit|", "|nextPlayerId|", "|playerId1|", "|playerId2|" }, new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()), id.ToString(), "0", "2" });
+                //PerceiveOnly();
+                PerceiveAndDecide(new string[] { "|rank|", "|suit|", "|nextPlayerId|", "|playerId1|", "|playerId2|" }, new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()), id.ToString(), "0", "2" });
                 robotHasPlayed = true;
         }
             else
