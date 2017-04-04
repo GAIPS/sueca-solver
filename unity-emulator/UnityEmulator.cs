@@ -73,11 +73,10 @@ namespace unity_emulator
                 publisher.TrickEnd(winnerId, trickPoints);
             }
 
-            public void Play(int id, string card)
+            public void Play(int id, string card, string playInfo)
             {
-                publisher.Play(id, card);
+                publisher.Play(id, card, playInfo);
             }
-
 
             public void Renounce(int playerId)
             {
@@ -96,13 +95,14 @@ namespace unity_emulator
         }
             
         StartPublisher startPublisher;
-        private SuecaTypes.Card botCard;
+        private SuecaTypes.Card _botCard;
+        private string _playInfo;
 
 
         public UnityEmulator(string character) : base("UnityEmulator", character)
 		{
-            botCard = null;
-
+            _botCard = null;
+            _playInfo = "";
             SetPublisher<IStartPublisher>();
 			startPublisher = new StartPublisher(Publisher);
 		}
@@ -227,6 +227,7 @@ namespace unity_emulator
                 game.PrintCurrentTrick();
                 Sueca.PrintCurrentHand(currentHand);
                 int chosenCard;
+                string playInfo = "";
 
                 if (currentPlayerID != 3)
                 {
@@ -238,17 +239,19 @@ namespace unity_emulator
                 }
                 else
                 {
-                    while (botCard == null)
+                    while (_botCard == null)
                     {
 
                     }
-                    SuecaSolver.Rank myRank = (SuecaSolver.Rank)Enum.Parse(typeof(SuecaSolver.Rank), botCard.Rank.ToString());
-                    SuecaSolver.Suit mySuit = (SuecaSolver.Suit)Enum.Parse(typeof(SuecaSolver.Suit), botCard.Suit.ToString());
+                    SuecaSolver.Rank myRank = (SuecaSolver.Rank)Enum.Parse(typeof(SuecaSolver.Rank), _botCard.Rank.ToString());
+                    SuecaSolver.Suit mySuit = (SuecaSolver.Suit)Enum.Parse(typeof(SuecaSolver.Suit), _botCard.Suit.ToString());
                     chosenCard = SuecaSolver.Card.Create(myRank, mySuit);
-                    botCard = null;
+                    _botCard = null;
+                    playInfo = _playInfo;
+                    _playInfo = "";
                 }
 
-                startPublisher.Play(currentPlayerID, serializeCard(chosenCard));
+                startPublisher.Play(currentPlayerID, serializeCard(chosenCard), playInfo);
 
                 game.PlayCard(currentPlayerID, chosenCard);
                 currentHand.Remove(chosenCard);
@@ -294,9 +297,10 @@ namespace unity_emulator
             return new SuecaTypes.Card(msgRank, msgSuit).SerializeToJson();
         }
 
-        public void Play(int id, string card)
+        public void Play(int id, string card, string playInfo)
         {
-            botCard = JsonSerializable.DeserializeFromJson<SuecaTypes.Card>(card);
+            _botCard = JsonSerializable.DeserializeFromJson<SuecaTypes.Card>(card);
+            _playInfo = playInfo;
         }
     }
 }
