@@ -63,7 +63,7 @@
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["DialogueState(Board) = NextPlayer", "ValidDialogue(NextPlayer, [ns], [m], [s]) = True", "Next(PlayerID) = [npID]", "Player([npID]) = [m]", "Mood(SELF) >= 1"]
+							"Set": ["DialogueState(Board) = NextPlayer", "ValidDialogue(NextPlayer, [ns], [m], [s]) = True", "Next(PlayerID) = [npID]", "Player([npID]) = [m]", "Mood(SELF) >= 3"]
 						},
 					"Priority": 5
 				}, 
@@ -72,7 +72,7 @@
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["DialogueState(Board) = NextPlayer", "ValidDialogue(NextPlayer, [ns], [m], [s]) = True", "Next(PlayerID) = [npID]", "Player([npID]) = [m]", "Mood(SELF) <= -1"]
+							"Set": ["DialogueState(Board) = NextPlayer", "ValidDialogue(NextPlayer, [ns], [m], [s]) = True", "Next(PlayerID) = [npID]", "Player([npID]) = [m]", "Mood(SELF) <= -3"]
 						},
 					"Priority": 5
 				}, 
@@ -189,7 +189,7 @@
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["DialogueState(Board) = NextPlayer", "Current(PlayerID) = [cpId]", "Player([cpId]) = Partner", "Mood(SELF) < 0", "Mood(SELF) > -1"]
+							"Set": ["DialogueState(Board) = NextPlayer", "Current(PlayerID) = [cpId]", "Player([cpId]) = Partner", "Mood(SELF) < 0", "Mood(SELF) > -3"]
 						},
 					"Priority": 4
 				}, 
@@ -198,7 +198,7 @@
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["DialogueState(Board) = NextPlayer", "Current(PlayerID) = [cpId]", "Player([cpId]) = Partner", "Mood(SELF) >= 0", "Mood(SELF) < 1"]
+							"Set": ["DialogueState(Board) = NextPlayer", "Current(PlayerID) = [cpId]", "Player([cpId]) = Partner", "Mood(SELF) >= 0", "Mood(SELF) < 3"]
 						},
 					"Priority": 4
 				}, 
@@ -207,7 +207,7 @@
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["DialogueState(Board) = NextPlayer", "Current(PlayerID) = [cpId]", "Player([cpId]) = Opponent", "Mood(SELF) < 0", "Mood(SELF) > -1"]
+							"Set": ["DialogueState(Board) = NextPlayer", "Current(PlayerID) = [cpId]", "Player([cpId]) = Opponent", "Mood(SELF) < 0", "Mood(SELF) > -3"]
 						},
 					"Priority": 4
 				}, 
@@ -216,7 +216,7 @@
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["DialogueState(Board) = NextPlayer", "Current(PlayerID) = [cpId]", "Player([cpId]) = Opponent", "Mood(SELF) >= 0", "Mood(SELF) < 1"]
+							"Set": ["DialogueState(Board) = NextPlayer", "Current(PlayerID) = [cpId]", "Player([cpId]) = Opponent", "Mood(SELF) >= 0", "Mood(SELF) < 3"]
 						},
 					"Priority": 4
 				}]
