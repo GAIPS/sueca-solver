@@ -416,7 +416,7 @@ namespace SuecaPlayer
             }
         }
 
-        public void Play(int id, string card)
+        public void Play(int id, string card, string playInfo)
         {
             processingPlay = true;
             while (processingRepeat) { }
