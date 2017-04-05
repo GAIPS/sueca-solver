@@ -59,20 +59,11 @@
 					"Priority": 3
 				}, 
 				{
-					"Action": "Speak(NextPlayer, [ns], [m], positive)",
+					"Action": "Speak(NextPlayer, [ns], [m], [s])",
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["DialogueState(Board) = NextPlayer", "ValidDialogue(NextPlayer, [ns], [m], [s]) = True", "Next(PlayerID) = [npID]", "Player([npID]) = [m]", "Mood(SELF) >= 3"]
-						},
-					"Priority": 5
-				}, 
-				{
-					"Action": "Speak(NextPlayer, [ns], [m], negative)",
-					"Target": "Board",
-					"Conditions":
-						{
-							"Set": ["DialogueState(Board) = NextPlayer", "ValidDialogue(NextPlayer, [ns], [m], [s]) = True", "Next(PlayerID) = [npID]", "Player([npID]) = [m]", "Mood(SELF) <= -3"]
+							"Set": ["DialogueState(Board) = NextPlayer", "ValidDialogue(NextPlayer, [ns], [m], [s]) = True"]
 						},
 					"Priority": 5
 				}, 
@@ -136,42 +127,6 @@
 					"Conditions":
 						{
 							"Set": ["DialogueState(Board) = Playing", "StrongestAttributionEmotion(SELF) = [s]", "EmotionIntensity(SELF, [s]) < 5", "EmotionIntensity(SELF, [s]) > 2"]
-						},
-					"Priority": 4
-				}, 
-				{
-					"Action": "Animation(NextPlayer, negative)",
-					"Target": "Board",
-					"Conditions":
-						{
-							"Set": ["DialogueState(Board) = NextPlayer", "Current(PlayerID) = [cpId]", "Player([cpId]) = Partner", "Mood(SELF) < 0", "Mood(SELF) > -3"]
-						},
-					"Priority": 4
-				}, 
-				{
-					"Action": "Animation(NextPlayer, positive)",
-					"Target": "Board",
-					"Conditions":
-						{
-							"Set": ["DialogueState(Board) = NextPlayer", "Current(PlayerID) = [cpId]", "Player([cpId]) = Partner", "Mood(SELF) >= 0", "Mood(SELF) < 3"]
-						},
-					"Priority": 4
-				}, 
-				{
-					"Action": "Animation(NextPlayer, negative)",
-					"Target": "Board",
-					"Conditions":
-						{
-							"Set": ["DialogueState(Board) = NextPlayer", "Current(PlayerID) = [cpId]", "Player([cpId]) = Opponent", "Mood(SELF) < 0", "Mood(SELF) > -3"]
-						},
-					"Priority": 4
-				}, 
-				{
-					"Action": "Animation(NextPlayer, positive)",
-					"Target": "Board",
-					"Conditions":
-						{
-							"Set": ["DialogueState(Board) = NextPlayer", "Current(PlayerID) = [cpId]", "Player([cpId]) = Opponent", "Mood(SELF) >= 0", "Mood(SELF) < 3"]
 						},
 					"Priority": 4
 				}, 
