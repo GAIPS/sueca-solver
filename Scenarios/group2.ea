@@ -97,7 +97,8 @@
 								{
 									"Set": ["Player([PlayerID]) = Opponent", "[trickPoins] >= 14"]
 								},
-							"Desirability": -8
+							"Desirability": -8,
+							"Praiseworthiness": -8
 						}, 
 						{
 							"EventName": "Event(Property-Change, [playerID], Trick(End), [trickPoints])",
@@ -105,7 +106,8 @@
 								{
 									"Set": ["Player([PlayerID]) = Opponent", "[trickPoins] < 14", "[trickPoins] > 4"]
 								},
-							"Desirability": -4
+							"Desirability": -4,
+							"Praiseworthiness": -4
 						}, 
 						{
 							"EventName": "Event(Property-Change, [playerId], Trick(Increase), [points])",
