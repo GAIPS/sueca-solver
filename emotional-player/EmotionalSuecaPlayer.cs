@@ -341,8 +341,8 @@ namespace EmotionalPlayer
             SuecaEvent ev = new SuecaEvent(Consts.STATE_TRICK_END);
             _suecaRPC.AddSuecaEvent(ev);
             ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_TRICK_END, Consts.DEFAULT_SUBJECT);
-            ev.AddPropertyChange(Consts.TRICK_END, trickPoints.ToString(), checkTeam(winnerId));
-            //ev.AddPropertyChange(Consts.TRICK_WINNER, checkTeam(winnerId), checkTeam(winnerId));
+            ev.AddPropertyChange(Consts.TRICK_WINNER, checkTeam(winnerId), checkTeam(winnerId));
+            ev.AddPropertyChange(Consts.TRICK_END, trickPoints.ToString(), checkTeam(_id));
             ev.ChangeTagsAndMeanings(new string[] {"|playerId|","|trickpoints|"}, new string[] {winnerId.ToString(),trickPoints.ToString()});
             ev.Finished = true;
         }
