@@ -244,8 +244,10 @@ namespace EmotionalPlayer
 
         public void NextPlayer(int id)
         {
+            //NextPlayer events arrive to Thalamus Client around 10miliseconds later than Play events, however this method is called first than Play
+            //This sleep allows Play event to be fully processed
+            Thread.Sleep(100);
             SuecaEvent ev = new SuecaEvent(Consts.STATE_NEXT_PLAYER);
-            _suecaRPC.AddSuecaEvent(ev);
             ev.AddPropertyChange(Consts.NEXT_PLAYER, checkTeam(id), Consts.DEFAULT_SUBJECT);
 
             Console.WriteLine("The next player is {0}.", id);
@@ -266,40 +268,6 @@ namespace EmotionalPlayer
                 string playInfo = _ai.GetLastPlayInfo();
 
                 SuecaPub.Play(this._id, cardSerialized, playInfo);
-
-                /*ev.Name = Consts.STATE_PLAYING;
-                ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_PLAYING, Consts.DEFAULT_SUBJECT);
-                ev.AddPropertyChange(Consts.PLAY_INFO, playInfo, Consts.DEFAULT_SUBJECT);
-                Console.WriteLine(":::::::::::::::::::::::::::::::::::::::::::: Robot has played {0} - {1}.", SuecaSolver.Card.ToString(chosenCard), playInfo);
-
-                int currentPlayPoints = _ai.GetCurrentTrickPoints();
-                bool hasNewTrickWinner = _ai.HasNewTrickTeamWinner();
-
-                ev.AddPropertyChange(Consts.TRICK_SCORE, currentPlayPoints.ToString(), checkTeam(id));
-
-                if (hasNewTrickWinner)
-                {
-                    int currentWinnerID = _ai.GetCurrentTrickWinner();
-                    string lastPlayInfo = _ai.GetLastPlayInfo();
-                    if (lastPlayInfo == Sueca.PLAY_INFO_NEWTRICK)
-                    {
-                        ev.AddPropertyChange(Consts.TRICK_WINNER, checkTeam(currentWinnerID), Sueca.PLAY_INFO_NEWTRICK);
-                    }
-                    else
-                    {
-                        ev.AddPropertyChange(Consts.TRICK_WINNER, checkTeam(currentWinnerID), checkTeam(id));
-                    }
-                }
-
-                int trickIncrease = _ai.GetTrickIncrease();
-
-                if (trickIncrease > 0)
-                {
-                    ev.AddPropertyChange(Consts.TRICK_INCREASE_PROPERTY, trickIncrease.ToString(), checkTeam(id));
-                }
-
-                ev.ChangeTagsAndMeanings(new string[] { "|rank|", "|suit|", "|nextPlayerId|", "|playerId1|", "|playerId2|" }, new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()), id.ToString(), "0", "2" });
-                */
                 _robotHasPlayed = true;
             }
             else
@@ -308,6 +276,7 @@ namespace EmotionalPlayer
                 ev.ChangeTagsAndMeanings(new string[] {"|nextPlayerId|" }, new string[] { id.ToString() });
             }
             ev.Finished = true;
+            _suecaRPC.AddSuecaEvent(ev);
         }
 
         public void Play(int id, string card, string playInfo)
@@ -327,9 +296,13 @@ namespace EmotionalPlayer
             if (_ai != null && id != this._id)
             {
                 _ai.AddPlay(id, myCard);
+                ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_PLAY, Consts.DEFAULT_SUBJECT);
             }
-
-            ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_PLAY, Consts.DEFAULT_SUBJECT);
+            else
+            {
+                ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_PLAYING, Consts.DEFAULT_SUBJECT);
+                ev.AddPropertyChange(Consts.PLAY_INFO, playInfo, Consts.DEFAULT_SUBJECT);
+            }
 
             int currentPlayPoints = _ai.GetCurrentTrickPoints();
             bool hasNewTrickWinner = _ai.HasNewTrickTeamWinner();
