@@ -150,6 +150,78 @@
 							"Desirability": 6
 						}, 
 						{
+							"EventName": "Event(Property-Change, [subject], Game(End), LostDouble)",
+							"Conditions":
+								{
+									"Set": []
+								},
+							"Desirability": -8,
+							"Praiseworthiness": -8
+						}, 
+						{
+							"EventName": "Event(Property-Change, [subject], Game(End), LostQuad)",
+							"Conditions":
+								{
+									"Set": []
+								},
+							"Desirability": -10,
+							"Praiseworthiness": -10
+						}, 
+						{
+							"EventName": "Event(Property-Change, [subject], Game(End), LostSingle)",
+							"Conditions":
+								{
+									"Set": []
+								},
+							"Desirability": -6,
+							"Praiseworthiness": -6
+						}, 
+						{
+							"EventName": "Event(Property-Change, [subject], Game(End), WinDouble)",
+							"Conditions":
+								{
+									"Set": []
+								},
+							"Desirability": 8,
+							"Praiseworthiness": 8
+						}, 
+						{
+							"EventName": "Event(Property-Change, [subject], Game(End), WinQuad)",
+							"Conditions":
+								{
+									"Set": []
+								},
+							"Desirability": 10,
+							"Praiseworthiness": 10
+						}, 
+						{
+							"EventName": "Event(Property-Change, [subject], Game(End), WinSingle)",
+							"Conditions":
+								{
+									"Set": []
+								},
+							"Desirability": 6,
+							"Praiseworthiness": 6
+						}, 
+						{
+							"EventName": "Event(Property-Change, [subject], Session(End), Lost)",
+							"Conditions":
+								{
+									"Set": []
+								},
+							"Desirability": -10,
+							"Praiseworthiness": -10
+						}, 
+						{
+							"EventName": "Event(Property-Change, [subject], Session(End), Win)",
+							"Conditions":
+								{
+									"Set": []
+								},
+							"Desirability": 10,
+							"Praiseworthiness": 10
+						}, 
+						{
 							"EventName": "Event(Property-Change, [subject], Trick(Winner), [trickWinnerID])",
 							"Conditions":
 								{
@@ -162,51 +234,6 @@
 				{
 					"Emotion": "*",
 					"Decay": 1,
-					"Threshold": 1
-				}, 
-				{
-					"Emotion": "Admiration",
-					"Decay": 10,
-					"Threshold": 1
-				}, 
-				{
-					"Emotion": "Anger",
-					"Decay": 10,
-					"Threshold": 1
-				}, 
-				{
-					"Emotion": "Gratitude",
-					"Decay": 10,
-					"Threshold": 1
-				}, 
-				{
-					"Emotion": "Distress",
-					"Decay": 10,
-					"Threshold": 1
-				}, 
-				{
-					"Emotion": "Gratification",
-					"Decay": 10,
-					"Threshold": 1
-				}, 
-				{
-					"Emotion": "Joy",
-					"Decay": 10,
-					"Threshold": 1
-				}, 
-				{
-					"Emotion": "Pride",
-					"Decay": 10,
-					"Threshold": 1
-				}, 
-				{
-					"Emotion": "Reproach",
-					"Decay": 10,
-					"Threshold": 1
-				}, 
-				{
-					"Emotion": "Shame",
-					"Decay": 10,
 					"Threshold": 1
 				}]
 		},

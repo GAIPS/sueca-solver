@@ -115,6 +115,8 @@ namespace EmotionalPlayer
 
         private void perceive(SuecaEvent ev)
         {
+            foreach (var lol in ev.Events)
+                Console.WriteLine(lol.ToString());
             _rpc.Perceive(ev.Events);
         }
 
