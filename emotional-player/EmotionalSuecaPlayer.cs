@@ -23,7 +23,7 @@ namespace EmotionalPlayer
     class EmotionalSuecaPlayer : ThalamusClient, ISuecaPerceptions
     {
         public static ISuecaPublisher SuecaPub;
-        private RBOPlayer _ai;
+        private RuleBasedPlayer _ai;
         private int _id;
         private int _nameId;
         private Random _randomNumberGenerator;
@@ -129,7 +129,7 @@ namespace EmotionalPlayer
             SuecaSolver.Suit trumpSuit = (SuecaSolver.Suit)Enum.Parse(typeof(SuecaSolver.Suit), sharedTrumpCard.Suit.ToString());
             int myTrumpCard = SuecaSolver.Card.Create(trumpRank, trumpSuit);
 
-            _ai = new RBOPlayer(playerId, initialCards, myTrumpCard, trumpCardPlayer);
+            _ai = new RuleBasedPlayer(playerId, initialCards, myTrumpCard, trumpCardPlayer);
             _initialyzing = false;
         }
 
@@ -310,7 +310,8 @@ namespace EmotionalPlayer
 
             ev.AddPropertyChange(Consts.TRICK_SCORE, currentPlayPoints.ToString(), checkTeam(id));
 
-            if (hasNewTrickWinner)
+            //if (hasNewTrickWinner && !lastPlayOfTrick && !robotHasPlayed)
+            if (hasNewTrickWinner && !lastPlayOfTrick)
             {
                 int currentWinnerID = _ai.GetCurrentTrickWinner();
                 string lastPlayInfo = _ai.GetLastPlayInfo();
@@ -322,11 +323,7 @@ namespace EmotionalPlayer
                 {
                     ev.AddPropertyChange(Consts.TRICK_WINNER, checkTeam(currentWinnerID), checkTeam(id));
                 }
-            }
 
-            //if (robotHasPlayed && !lastPlayOfTrick)
-            if(!lastPlayOfTrick)
-            {
                 int trickIncrease = _ai.GetTrickIncrease();
 
                 if (trickIncrease > 0)
@@ -345,6 +342,7 @@ namespace EmotionalPlayer
             _suecaRPC.AddSuecaEvent(ev);
             ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_TRICK_END, Consts.DEFAULT_SUBJECT);
             ev.AddPropertyChange(Consts.TRICK_END, trickPoints.ToString(), checkTeam(winnerId));
+            //ev.AddPropertyChange(Consts.TRICK_WINNER, checkTeam(winnerId), checkTeam(winnerId));
             ev.ChangeTagsAndMeanings(new string[] {"|playerId|","|trickpoints|"}, new string[] {winnerId.ToString(),trickPoints.ToString()});
             ev.Finished = true;
         }

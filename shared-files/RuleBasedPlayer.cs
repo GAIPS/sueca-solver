@@ -22,5 +22,60 @@ namespace SuecaSolver
         {
             return infoSet.RuleBasedDecision();
         }
+
+        public int[] GetWinnerAndPointsAndTrickNumber()
+        {
+            return infoSet.GetWinnerAndPointsAndTrickNumber();
+        }
+
+        public int GetCurrentTrickWinner()
+        {
+            return infoSet.GetCurrentTrickWinner();
+        }
+
+        public int GetCurrentTrickPoints()
+        {
+            return infoSet.GetCurrentTrickPoints();
+        }
+
+        public bool HasNewTrickWinner()
+        {
+            return infoSet.HasNewTrickWinner();
+        }
+
+        public bool HasNewTrickTeamWinner()
+        {
+            return infoSet.HasNewTrickTeamWinner();
+        }
+
+        public int GetTrickIncrease()
+        {
+            return infoSet.GetTrickIncrease();
+        }
+
+        public float PointsPercentage()
+        {
+            float alreadyMadePoints = infoSet.MyTeamPoints + infoSet.OtherTeamPoints;
+            if (alreadyMadePoints == 0.0f)
+            {
+                return 0.5f;
+            }
+            return infoSet.MyTeamPoints / alreadyMadePoints;
+        }
+
+        public int GetHandSize()
+        {
+            return infoSet.GetHandSize();
+        }
+
+        public string GetLastPlayInfo()
+        {
+            return infoSet.GetLastPlayInfo();
+        }
+
+        public bool IsLastPlayOfTrick()
+        {
+            return infoSet.IsLastPlayOfTrick();
+        }
     }
 }
