@@ -108,16 +108,7 @@
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["DialogueState(Board) = TrickEnd", "Trick(Winner) = [winnerID]", "Player([winnerID]) = Opponent", "StrongestWellBeingEmotion(SELF) = [s]", "EmotionIntensity(SELF, [s]) <= 5", "EmotionIntensity(SELF, [s]) > 2"]
-						},
-					"Priority": 3
-				}, 
-				{
-					"Action": "Animation(TrickEnd, [s])",
-					"Target": "Board",
-					"Conditions":
-						{
-							"Set": ["DialogueState(Board) = TrickEnd", "Trick(Winner) = [winnerID]", "Player([winnerID]) = Partner", "StrongestAttributionEmotion(SELF) = [s]", "EmotionIntensity(SELF, [s]) <= 5", "EmotionIntensity(SELF, [s]) > 2"]
+							"Set": ["DialogueState(Board) = TrickEnd", "StrongestAttributionEmotion(SELF) = [s]", "EmotionIntensity(SELF, [s]) <= 5", "EmotionIntensity(SELF, [s]) > 2"]
 						},
 					"Priority": 3
 				}, 
