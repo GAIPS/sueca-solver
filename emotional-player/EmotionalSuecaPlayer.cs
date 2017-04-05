@@ -26,7 +26,6 @@ namespace EmotionalPlayer
         private RuleBasedPlayer _ai;
         private int _id;
         private int _nameId;
-        private Random _randomNumberGenerator;
         private bool _robotHasPlayed;
         private bool _initialyzing;
         private SuecaRolePlayCharacter _suecaRPC;
@@ -46,7 +45,6 @@ namespace EmotionalPlayer
             SetPublisher<ISuecaPublisher>();
             SuecaPub = new SuecaPublisher(Publisher);
             _ai = null;
-            _randomNumberGenerator = new Random(System.Guid.NewGuid().GetHashCode());
             _suecaRPC = new SuecaRolePlayCharacter(agentType, scenarioPath);
             _initialyzing = false;
             _robotHasPlayed = false;
@@ -345,11 +343,6 @@ namespace EmotionalPlayer
             ev.AddPropertyChange(Consts.TRICK_END, trickPoints.ToString(), checkTeam(_id));
             ev.ChangeTagsAndMeanings(new string[] {"|playerId|","|trickpoints|"}, new string[] {winnerId.ToString(),trickPoints.ToString()});
             ev.Finished = true;
-        }
-
-        public void ResetTrick()
-        {
-
         }
 
         #endregion
