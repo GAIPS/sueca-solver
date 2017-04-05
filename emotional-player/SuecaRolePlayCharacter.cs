@@ -34,10 +34,12 @@ namespace EmotionalPlayer
         private List<Utterance> usedUtterances;
         private const string LOGS_PATH = "../../../Scenarios/Logs";
         private int i;
+        private Random _randomNumberGenerator;
 
 
         public SuecaRolePlayCharacter(string agentType, string scenarioPath)
         {
+            _randomNumberGenerator = new Random(System.Guid.NewGuid().GetHashCode());
             _events = new List<SuecaEvent>();
             AssetManager.Instance.Bridge = new AssetManagerBridge();
             _iat = IntegratedAuthoringToolAsset.LoadFromFile(scenarioPath);
@@ -96,9 +98,20 @@ namespace EmotionalPlayer
 
                     perceive(ev);
 
-                    // Sleep before nextplayer events if no one has played after
-                    //Thread.Sleep(_randomNumberGenerator.Next(2000, 3000));
-                    decide(ev);
+                    if (ev.Name == Consts.STATE_NEXT_PLAYER)
+                    {
+                        // Sleep randomly until decide
+                        Thread.Sleep(_randomNumberGenerator.Next(2000, 5000));
+                        if (_events.Count == 0)
+                        {
+                            //decide only if after sleeping no one has played
+                            decide(ev);
+                        }
+                    }
+                    else
+                    {
+                        decide(ev);
+                    }
                 }
 
                 Thread.Sleep(500);
@@ -115,8 +128,11 @@ namespace EmotionalPlayer
 
         private void perceive(SuecaEvent ev)
         {
-            foreach (var lol in ev.Events)
-                Console.WriteLine(lol.ToString());
+            //DEBUG
+            //foreach (var el in ev.Events)
+            //{
+            //    Console.WriteLine(el.ToString());
+            //}
             _rpc.Perceive(ev.Events);
         }
 

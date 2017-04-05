@@ -26,7 +26,7 @@ namespace EmotionalPlayer
         public static readonly string STATE_SHUFFLE = "Shuffle";
         public static readonly string STATE_CUT = "Cut";
         public static readonly string STATE_DEAL = "Deal";
-        public static readonly string STATE_GAME_END = "GameENd";
+        public static readonly string STATE_GAME_END = "GameEnd";
         public static readonly string STATE_SESSION_END = "SessionEnd";
         public static readonly string STATE_PLAY = "Play";
         public static readonly string STATE_PLAYING = "Playing";
