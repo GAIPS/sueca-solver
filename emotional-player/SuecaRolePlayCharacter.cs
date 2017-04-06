@@ -138,7 +138,7 @@ namespace EmotionalPlayer
 
         private void decide(SuecaEvent ev)
         {
-            Console.WriteLine("DECING FOR EVENT: " + ev.Name);
+            //Console.WriteLine("DECING FOR EVENT: " + ev.Name);
             string[] tags = ev.Tags.ToArray();
             string[] meanings = ev.Meanings.ToArray();
 
@@ -146,7 +146,7 @@ namespace EmotionalPlayer
             
             if (possibleActions == null || possibleActions.IsEmpty())
             {
-                Console.WriteLine("No action");
+                //Console.WriteLine("No action");
                 return;
             }
             else
@@ -184,8 +184,7 @@ namespace EmotionalPlayer
 
         /// <summary>
         /// Checks if any of the dialogs is contained within a list of used dialogues.
-        /// If not used yet it just returns that dialog and adds it to the used dialogue list.
-        /// If been used it goes into a list of candidates to be reused (after 5 uses it becomes free again).
+        /// If been used it goes into a list of candidates to be reused.
         /// If no unused dialogues, the method returns a random dialog with the least uses.
         /// </summary>
         /// <param name="dialogs">List of possible dialogues</param>
@@ -200,28 +199,31 @@ namespace EmotionalPlayer
 
                 if (i == -1)
                 {
-                    usedUtterances.Add(new Utterance(dialog.Utterance, 1));
-                    return dialog.Utterance;
+                    //usedUtterances.Add(new Utterance(dialog.Utterance, 1));
+                    candidates.Add(new Utterance(dialog.Utterance, 0));
+                    //return dialog.Utterance;
                 }
 
-                if (i > -1)
+                else if (i > -1)
                 {
-                    if (usedUtterances[i].uses <= 5)
-                    {
-                        var temp = usedUtterances[i];
-                        candidates.Add(temp);
-                    }
-                    else if (usedUtterances[i].uses > 5)
-                    {
-                        usedUtterances.RemoveAt(i);
-                    }
+                    var temp = usedUtterances[i];
+                    candidates.Add(temp);
                 }
             }
+
             int min = candidates.Min(x => x.uses);
             var result = candidates.Where(t => t.uses == min).Shuffle().FirstOrDefault();
             int j = usedUtterances.FindIndex(o => string.Equals(result.text, o.text, StringComparison.OrdinalIgnoreCase));
-            usedUtterances.RemoveAt(j);
-            usedUtterances.Add(new Utterance(result.text, ++result.uses));
+
+            if (j == -1)
+            {
+                usedUtterances.Add(new Utterance(result.text, ++result.uses));
+            }
+            else if (j >= -1)
+            {
+                usedUtterances.RemoveAt(j);
+                usedUtterances.Add(new Utterance(result.text, ++result.uses));
+            }
 
             return result.text;
         }

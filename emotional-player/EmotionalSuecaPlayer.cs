@@ -97,7 +97,7 @@ namespace EmotionalPlayer
         public void SessionStart(int sessionId, int numGames, int[] agentsIds, int shouldGreet)
         {
             _id = agentsIds[_nameId - 1];
-            Console.WriteLine("My id is " + _id);
+            //Console.WriteLine("My id is " + _id);
 
             SuecaEvent ev = new SuecaEvent(Consts.STATE_SESSION_START);
             _suecaRPC.AddSuecaEvent(ev);
@@ -247,7 +247,7 @@ namespace EmotionalPlayer
             Thread.Sleep(100);
             SuecaEvent ev = new SuecaEvent(Consts.STATE_NEXT_PLAYER);
 
-            Console.WriteLine("The next player is {0}.", id);
+            //Console.WriteLine("The next player is {0}.", id);
 
             //If a GameStart event has been received but not fully proccessed wait
             while (_initialyzing) { }
@@ -428,7 +428,7 @@ namespace EmotionalPlayer
                     portugueseSuit = "paus";
                     break;
                 case "Diamonds":
-                    portugueseSuit = "ouros";
+                    portugueseSuit = "oúros";
                     break;
                 case "Hearts":
                     portugueseSuit = "copas";
