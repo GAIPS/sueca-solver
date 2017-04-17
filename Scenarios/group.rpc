@@ -15,13 +15,13 @@
 				},
 			"BodyName": "Group",
 			"VoiceName": "Male",
-			"EmotionalAppraisalAssetSource": "group2.ea",
+			"EmotionalAppraisalAssetSource": "group.ea",
 			"EmotionalDecisionMakingSource": "group.edm",
 			"SocialImportanceAssetSource": null,
 			"CommeillFautAssetSource": null,
 			"EmotionalState":
 				{
-					"Mood": 0,
+					"Mood": -3,
 					"EmotionalPool": [],
 					"AppraisalConfiguration":
 						{
