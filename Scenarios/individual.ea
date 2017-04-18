@@ -5,13 +5,14 @@
 			"Description": null,
 			"KnowledgeBase":
 				{
-					"Perspective": "T1",
+					"Perspective": "P3",
 					"Knowledge":
 						{
-							"Universal":
+							"SELF":
 								{
-									"Player(T0)": "Opponent",
-									"Player(T1)": "Partner"
+									"Player(P0)": "Opponent",
+									"Player(P1)": "Partner",
+									"Player(P2)": "Opponent"
 								}
 						}
 				},
