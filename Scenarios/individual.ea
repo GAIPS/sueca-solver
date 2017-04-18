@@ -12,8 +12,7 @@
 								{
 									"Player(P0)": "Opponent",
 									"Player(P1)": "Partner",
-									"Player(P2)": "Opponent",
-									"Player(P3)": "Partner"
+									"Player(P2)": "Opponent"
 								}
 						}
 				},
