@@ -268,6 +268,7 @@ namespace EmotionalPlayer
                 ev.Name = Consts.STATE_PLAYING;
                 ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_PLAYING, Consts.DEFAULT_SUBJECT);
                 ev.AddPropertyChange(Consts.PLAY_INFO, playInfo, Consts.DEFAULT_SUBJECT);
+                ev.ChangeTagsAndMeanings(new string[] { "|rank|", "|suit|" }, new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()) });
 
 
                 int currentPlayPoints = _ai.GetCurrentTrickPoints();
@@ -311,22 +312,22 @@ namespace EmotionalPlayer
 
         public void Play(int id, string card, string playInfo)
         {
-            SuecaEvent ev = new SuecaEvent(Consts.STATE_PLAY);
-            _suecaRPC.AddSuecaEvent(ev);
-            ev.AddPropertyChange(Consts.CURRENT_PLAYER, checkTeam(id), Consts.DEFAULT_SUBJECT);
 
             SuecaTypes.Card c = JsonSerializable.DeserializeFromJson<SuecaTypes.Card>(card);
             SuecaSolver.Rank myRank = (SuecaSolver.Rank)Enum.Parse(typeof(SuecaSolver.Rank), c.Rank.ToString());
             SuecaSolver.Suit mySuit = (SuecaSolver.Suit)Enum.Parse(typeof(SuecaSolver.Suit), c.Suit.ToString());
             int myCard = SuecaSolver.Card.Create(myRank, mySuit);
-            string[] tags = new string[] { "|rank|", "|suit|", "|playerId|" };
-            string[] meanings = new string[] { convertRankToPortuguese(myRank.ToString()), convertSuitToPortuguese(mySuit.ToString()), id.ToString() };
-            ev.ChangeTagsAndMeanings(tags, meanings);
 
             if (_ai != null && id != this._id)
             {
+                SuecaEvent ev = new SuecaEvent(Consts.STATE_PLAY);
+                _suecaRPC.AddSuecaEvent(ev);
+                ev.AddPropertyChange(Consts.CURRENT_PLAYER, checkTeam(id), Consts.DEFAULT_SUBJECT);
                 _ai.AddPlay(id, myCard);
                 ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_PLAY, Consts.DEFAULT_SUBJECT);
+                string[] tags = new string[] { "|rank|", "|suit|", "|playerId|" };
+                string[] meanings = new string[] { convertRankToPortuguese(myRank.ToString()), convertSuitToPortuguese(mySuit.ToString()), id.ToString() };
+                ev.ChangeTagsAndMeanings(tags, meanings);
 
                 int currentPlayPoints = _ai.GetCurrentTrickPoints();
                 bool hasNewTrickWinner = _ai.HasNewTrickTeamWinner();
@@ -355,8 +356,8 @@ namespace EmotionalPlayer
                         ev.AddPropertyChange(Consts.TRICK_INCREASE_PROPERTY, trickIncrease.ToString(), checkTeam(id));
                     }
                 }
+                ev.Finished = true;
             }
-            ev.Finished = true;
         }
 
         public void TrickEnd(int winnerId, int trickPoints)

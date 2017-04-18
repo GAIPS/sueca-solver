@@ -97,7 +97,7 @@ namespace EmotionalPlayer
                     while (!ev.Finished) { }
 
                     perceive(ev);
-
+                    //Console.WriteLine("Event Name: " + ev.Name);
                     if (ev.Name == Consts.STATE_NEXT_PLAYER)
                     {
                         // Sleep randomly until decide
