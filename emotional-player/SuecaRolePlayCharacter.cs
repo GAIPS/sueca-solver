@@ -100,12 +100,15 @@ namespace EmotionalPlayer
                     //Console.WriteLine("Event Name: " + ev.Name);
                     if (ev.Name == Consts.STATE_NEXT_PLAYER)
                     {
-                        // Sleep randomly until decide
-                        Thread.Sleep(_randomNumberGenerator.Next(2000, 5000));
-                        if (_events.Count == 0)
+                        if (_randomNumberGenerator.Next(0, 10) < 6)
                         {
-                            //decide only if after sleeping no one has played
-                            decide(ev);
+                            // Sleep randomly until decide
+                            Thread.Sleep(_randomNumberGenerator.Next(2000, 5000));
+                            if (_events.Count == 0)
+                            {
+                                //decide only if after sleeping no one has played
+                                decide(ev);
+                            }
                         }
                     }
                     else
