@@ -26,7 +26,7 @@ namespace EmotionalPlayer
             }
             else
             {
-                Console.WriteLine("Incorrect number of parameters. 4 are required: [thalamusClientName], [scenarioPath], [agentType], [thalamusCharacter]");
+                Console.WriteLine("Unspecified number of arguments: [thisClientName], [scenarioPath], [agentType:\"Group\"|\"Individual\"], [ThalamusCharacter(s)]");
             }
 
             Console.ReadLine();
