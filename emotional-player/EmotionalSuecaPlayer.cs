@@ -469,6 +469,7 @@ namespace EmotionalPlayer
                             subject = "P2";
                             break;
                         case 3:
+                            //robot
                             subject = "P3";
                             break;
                         default:

@@ -75,13 +75,25 @@ namespace EmotionalPlayer
             i++;
         }
 
+        private void showEmotions()
+        {
+            string emotions = "";
+            foreach (var emotion in _rpc.GetAllActiveEmotions())
+            {
+                emotions += " " + emotion.Type.ToString();
+            }
+            Console.WriteLine("Emotions: " + emotions);
+        }
+
 
         private void UpdateCoroutine()
         {
             string currentBelief = _rpc.GetBeliefValue(Consts.DIALOGUE_STATE_PROPERTY);
 
+
             while (currentBelief != Consts.STATE_SESSION_END)
             {
+                //showEmotions();
                 _rpc.Update();
                 currentBelief = _rpc.GetBeliefValue(Consts.DIALOGUE_STATE_PROPERTY);
                 if (_events.Count > 0)
@@ -132,16 +144,16 @@ namespace EmotionalPlayer
         private void perceive(SuecaEvent ev)
         {
             //DEBUG
-            //foreach (var el in ev.Events)
-            //{
-            //    Console.WriteLine(el.ToString());
-            //}
+            foreach (var el in ev.Events)
+            {
+                Console.WriteLine(el.ToString());
+            }
             _rpc.Perceive(ev.Events);
         }
 
         private void decide(SuecaEvent ev)
         {
-            //Console.WriteLine("DECING FOR EVENT: " + ev.Name);
+            Console.WriteLine("DECING FOR EVENT: " + ev.Name);
             string[] tags = ev.Tags.ToArray();
             string[] meanings = ev.Meanings.ToArray();
 

@@ -933,6 +933,22 @@
 					"Style": ["Shame"],
 					"Utterance": "<gaze(player1)> Assim é que não vamos a lado nenhum.",
 					"UtteranceId": "TTS-E329F429DFEDB8B3B00C9459C2F26A41"
+				}, 
+				{
+					"CurrentState": "Play",
+					"NextState": "Dynamic",
+					"Meaning": ["Partner"],
+					"Style": ["Admiration"],
+					"Utterance": "<gaze(player|playerId|)> Colega, admiração",
+					"UtteranceId": "TTS-48F70D7B6AE8561A15A2318C73696C7A"
+				}, 
+				{
+					"CurrentState": "Play",
+					"NextState": "Dynamic",
+					"Meaning": ["Opponent"],
+					"Style": ["Admiration"],
+					"Utterance": "<gaze(player|playerId|)> Oponente, admiração",
+					"UtteranceId": "TTS-E228754452BE2131D3755C2790C9B5BB"
 				}]
 		},
 	"types": [
