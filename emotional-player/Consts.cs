@@ -33,5 +33,8 @@ namespace EmotionalPlayer
         public static readonly string STATE_NEXT_PLAYER = "NextPlayer";
         public static readonly string STATE_TRICK_END = "TrickEnd";
 
+        public const string AGENT_TYPE_GROUP = "Group";
+        public const string AGENT_TYPE_INDIVIDUAL = "Individual";
+
     }
 }

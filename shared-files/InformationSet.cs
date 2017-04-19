@@ -65,6 +65,28 @@ namespace SuecaSolver
             tricks.Add(new Trick(Trump));
         }
 
+        internal int GetCurrentTrickResponsible()
+        {
+            Trick currentTrick = tricks[tricks.Count - 1];
+            if (currentTrick.IsFull())
+            {
+                int partnerID = ((id + 2) % 4);
+                int winnerId = currentTrick.GetCurrentTrickWinner();
+                if (winnerId == id || winnerId == partnerID)
+                {
+                    return winnerId;
+                }
+                else
+                {
+                    int myPlayPoints = Card.GetValue(currentTrick.GetPlayOf(id));
+                    int partnerPlayPoints = Card.GetValue(currentTrick.GetPlayOf(partnerID));
+                    
+                    return myPlayPoints >= partnerPlayPoints ? id : partnerID;
+                }
+            }
+            return -1;
+        }
+
         public int GetHandSize()
         {
             return hand.Count;

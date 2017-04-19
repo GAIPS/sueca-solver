@@ -19,8 +19,24 @@
 					"NextState": "Dynamic",
 					"Meaning": ["Individualist"],
 					"Style": ["Shame"],
-					"Utterance": "Tenho vergonha em mim!",
-					"UtteranceId": "TTS-41C118BFAEDCBEFCF4CD3A9F5A52C835"
+					"Utterance": "Tenho vergonha de mim!",
+					"UtteranceId": "TTS-B1A800EB71367666E2B54C0FDA6B14FF"
+				}, 
+				{
+					"CurrentState": "TrickEnd",
+					"NextState": "Dynamic",
+					"Meaning": ["Individualist"],
+					"Style": ["Reproach"],
+					"Utterance": "Opá sinceramente?!",
+					"UtteranceId": "TTS-AA197668CBAFAB1294EDFAB91FA7B871"
+				}, 
+				{
+					"CurrentState": "TrickEnd",
+					"NextState": "Dynamic",
+					"Meaning": ["Individualist"],
+					"Style": ["Admiration"],
+					"Utterance": "Sim senhora estiveste bem",
+					"UtteranceId": "TTS-4871761F0D6ABE6AEC804896840C9EC7"
 				}, 
 				{
 					"CurrentState": "TrickEnd",

@@ -161,7 +161,8 @@ namespace EmotionalPlayer
             
             if (possibleActions == null || possibleActions.IsEmpty())
             {
-                //Console.WriteLine("No action");
+                Console.WriteLine("No action");
+                saveToFile();
                 return;
             }
             else

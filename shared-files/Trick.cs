@@ -153,6 +153,18 @@ namespace SuecaSolver
             moves.Add(move);
         }
 
+        internal int GetPlayOf(int id)
+        {
+            foreach (Move m in moves)
+            {
+                if (m.PlayerId == id)
+                {
+                    return m.Card;
+                }
+            }
+            return -1;
+        }
+
         public void UndoMove()
         {
             int currentMoveIndex = moves.Count - 1;
