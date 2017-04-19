@@ -977,10 +977,10 @@
 				{
 					"CurrentState": "Play",
 					"NextState": "Dynamic",
-					"Meaning": ["Opponent"],
-					"Style": ["Admiration"],
-					"Utterance": "<gaze(player|playerId|)> Oponente, admiração",
-					"UtteranceId": "TTS-E228754452BE2131D3755C2790C9B5BB"
+					"Meaning": ["Partner"],
+					"Style": ["Reproach"],
+					"Utterance": "Colega, Reproach!",
+					"UtteranceId": "TTS-95F079DC889726D2EE3BB161BB01BF8C"
 				}]
 		},
 	"types": [

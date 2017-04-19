@@ -336,7 +336,7 @@ namespace EmotionalPlayer
                 ev.AddPropertyChange(Consts.TRICK_SCORE, currentPlayPoints.ToString(), subjectName(id));
 
                 //if (hasNewTrickWinner && !lastPlayOfTrick && !robotHasPlayed)
-                if (hasNewTrickWinner && !lastPlayOfTrick)
+                if (hasNewTrickWinner)
                 {
                     int currentWinnerID = _ai.GetCurrentTrickWinner();
                     string lastPlayInfo = _ai.GetLastPlayInfo();
@@ -347,10 +347,10 @@ namespace EmotionalPlayer
                     else
                     {
                         ev.AddPropertyChange(Consts.TRICK_WINNER, subjectName(currentWinnerID), subjectName(id));
-                    }
-
+                    }                    
+                }
+                if (!lastPlayOfTrick) {
                     int trickIncrease = _ai.GetTrickIncrease();
-
                     if (trickIncrease > 0)
                     {
                         ev.AddPropertyChange(Consts.TRICK_INCREASE_PROPERTY, trickIncrease.ToString(), subjectName(id));
