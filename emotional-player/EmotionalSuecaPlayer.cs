@@ -278,7 +278,7 @@ namespace EmotionalPlayer
                 ev.AddPropertyChange(Consts.TRICK_SCORE, currentPlayPoints.ToString(), subjectName(id));
 
                 //if (hasNewTrickWinner && !lastPlayOfTrick && !robotHasPlayed)
-                if (hasNewTrickWinner && !lastPlayOfTrick)
+                if (hasNewTrickWinner)
                 {
                     int currentWinnerID = _ai.GetCurrentTrickWinner();
                     string lastPlayInfo = _ai.GetLastPlayInfo();
@@ -290,7 +290,8 @@ namespace EmotionalPlayer
                     {
                         ev.AddPropertyChange(Consts.TRICK_WINNER, subjectName(currentWinnerID), subjectName(id));
                     }
-
+                }
+                if (!lastPlayOfTrick) { 
                     int trickIncrease = _ai.GetTrickIncrease();
 
                     if (trickIncrease > 0)
@@ -372,6 +373,7 @@ namespace EmotionalPlayer
             if (_agentType == Consts.AGENT_TYPE_GROUP)
             {
                 //attribute the event always to himself
+                Thread.Sleep(100);
                 ev.AddPropertyChange(Consts.TRICK_END, trickPoints.ToString(), subjectName(_id));
             }
             else
@@ -379,6 +381,7 @@ namespace EmotionalPlayer
                 //attribute the event to the winner when he is from my team and blame himself or the partner when winner is an opponent
                 int resposibleForTrick = _ai.GetResposibleForLastTrick();
                 Console.WriteLine("RESPOSIBLE: " + resposibleForTrick);
+                Thread.Sleep(100);
                 ev.AddPropertyChange(Consts.TRICK_END, trickPoints.ToString(), subjectName(resposibleForTrick));
             }
             ev.ChangeTagsAndMeanings(new string[] {"|playerId|","|trickpoints|"}, new string[] {winnerId.ToString(),trickPoints.ToString()});
