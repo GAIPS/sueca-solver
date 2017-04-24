@@ -381,7 +381,6 @@ namespace EmotionalPlayer
                 //attribute the event to the winner when he is from my team and blame himself or the partner when winner is an opponent
                 int resposibleForTrick = _ai.GetResposibleForLastTrick();
                 Console.WriteLine("RESPOSIBLE: " + resposibleForTrick);
-                Thread.Sleep(100);
                 ev.AddPropertyChange(Consts.TRICK_END, trickPoints.ToString(), subjectName(resposibleForTrick));
             }
             ev.ChangeTagsAndMeanings(new string[] {"|playerId|","|trickpoints|"}, new string[] {winnerId.ToString(),trickPoints.ToString()});

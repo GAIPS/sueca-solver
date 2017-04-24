@@ -157,6 +157,7 @@ namespace EmotionalPlayer
             string[] tags = ev.Tags.ToArray();
             string[] meanings = ev.Meanings.ToArray();
 
+            
             IEnumerable<ActionLibrary.IAction> possibleActions = _rpc.Decide();
             
             if (possibleActions == null || possibleActions.IsEmpty())
