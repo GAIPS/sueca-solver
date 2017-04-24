@@ -167,7 +167,7 @@ namespace unity_emulator
 
         private void emulateSingleGame()
         {
-
+            Thread.Sleep(1000);
             startPublisher.SessionStart(0, 1, new int[] { 3 }, 1);
 
             string input;
