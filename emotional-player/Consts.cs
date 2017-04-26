@@ -12,8 +12,8 @@ namespace EmotionalPlayer
         public static readonly string TRICK_WINNER = "Trick(Winner)";
         public static readonly string TRICK_SCORE = "Trick(Score)";
         public static readonly string TRICK_END = "Trick(End)";
-        public static readonly string END_GAME = "End(Game)";
-        public static readonly string END_SESSION = "End(Session)";
+        public static readonly string END_GAME = "Game(End)";
+        public static readonly string END_SESSION = "Session(End)";
         public static readonly string PLAY_INFO = "Play(Info)";
         public static readonly string CURRENT_PLAYER = "Current(PlayerID)";
         public static readonly string NEXT_PLAYER = "Next(PlayerID)";

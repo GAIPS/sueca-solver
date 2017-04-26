@@ -7,174 +7,6 @@
 			"CharacterSources": ["group.rpc", "individual.rpc"],
 			"AgentDialogues": [
 				{
-					"CurrentState": "Deal",
-					"NextState": "Dynamic",
-					"Meaning": ["-"],
-					"Style": ["-"],
-					"Utterance": "És tu a dar.",
-					"UtteranceId": "TTS-417B742C7AB27E6F68F461691D59DA90"
-				}, 
-				{
-					"CurrentState": "GameEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["Team"],
-					"Style": ["Neutral"],
-					"Utterance": "O jogo terminou.",
-					"UtteranceId": "TTS-D8D7EF990A57CB82C2D088C6F56A9410"
-				}, 
-				{
-					"CurrentState": "GameEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["Team"],
-					"Style": ["Pride"],
-					"Utterance": "Incrível, ganhámos o jogo!",
-					"UtteranceId": "TTS-B5C37527A198688710C23E13A7555ECF"
-				}, 
-				{
-					"CurrentState": "GameEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["Team"],
-					"Style": ["Pride"],
-					"Utterance": "Muito bem, ganhámos!",
-					"UtteranceId": "TTS-027FD24F12D35A835F9BADA714033EBA"
-				}, 
-				{
-					"CurrentState": "GameEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["Team"],
-					"Style": ["Pride"],
-					"Utterance": "Ena, ganhámos este jogo!",
-					"UtteranceId": "TTS-4CC32B1E044B918B2FDEAD3DBC74D1FE"
-				}, 
-				{
-					"CurrentState": "GameEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["Team"],
-					"Style": ["Pride"],
-					"Utterance": "Ganhámos este jogo. Assim sim",
-					"UtteranceId": "TTS-7A6CDA40CCC94EDA4D43EAE83C2FD7E0"
-				}, 
-				{
-					"CurrentState": "GameEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["Team"],
-					"Style": ["Shame"],
-					"Utterance": "Desta vez perdemos o jogo.",
-					"UtteranceId": "TTS-46D4F42A7DF3F77AF93AD84F48DD8713"
-				}, 
-				{
-					"CurrentState": "GameEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["Team"],
-					"Style": ["Shame"],
-					"Utterance": "Bolas, perdemos!",
-					"UtteranceId": "TTS-208F6C1061DC98DCC55226EBF9A039B5"
-				}, 
-				{
-					"CurrentState": "GameEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["Team"],
-					"Style": ["Shame"],
-					"Utterance": "Epá, perdemos este jogo!",
-					"UtteranceId": "TTS-582F1D568F96DC35C90EC67A3017CD70"
-				}, 
-				{
-					"CurrentState": "GameEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["Team"],
-					"Style": ["Shame"],
-					"Utterance": "Perdemos o jogo, ora bolas.",
-					"UtteranceId": "TTS-B8674BEF290EDED6A977FC7E2A749386"
-				}, 
-				{
-					"CurrentState": "GameEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["Individualist"],
-					"Style": ["Neutral"],
-					"Utterance": "O jogo terminou.",
-					"UtteranceId": "TTS-D8D7EF990A57CB82C2D088C6F56A9410"
-				}, 
-				{
-					"CurrentState": "GameEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["Individualist"],
-					"Style": ["Pride"],
-					"Utterance": "Incrível, ganhei o jogo!",
-					"UtteranceId": "TTS-B0BA0CD7624FD2EA73361BEA669F9DAD"
-				}, 
-				{
-					"CurrentState": "GameEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["Individualist"],
-					"Style": ["Pride"],
-					"Utterance": "Muito bem, ganhei!",
-					"UtteranceId": "TTS-A4AE2D47012BB5F49C073BD8B7559C2B"
-				}, 
-				{
-					"CurrentState": "GameEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["Individualist"],
-					"Style": ["Pride"],
-					"Utterance": "Ena, ganhei este jogo!",
-					"UtteranceId": "TTS-1BBF3FCCE8AD281E9428871B43E03863"
-				}, 
-				{
-					"CurrentState": "GameEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["Individualist"],
-					"Style": ["Pride"],
-					"Utterance": "Ganhei este jogo. Assim sim",
-					"UtteranceId": "TTS-E04643F8169EEFD3A6A53FE36B37908F"
-				}, 
-				{
-					"CurrentState": "GameEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["Individualist"],
-					"Style": ["Shame"],
-					"Utterance": "Desta vez perdi o jogo.",
-					"UtteranceId": "TTS-349EBEC5E2B18CA462D8BF9EFDAD5696"
-				}, 
-				{
-					"CurrentState": "GameEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["Individualist"],
-					"Style": ["Shame"],
-					"Utterance": "Bolas, perdi!",
-					"UtteranceId": "TTS-72FCE01B27288CFF934190EC2F54A358"
-				}, 
-				{
-					"CurrentState": "GameEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["Individualist"],
-					"Style": ["Shame"],
-					"Utterance": "Epá, perdi este jogo!",
-					"UtteranceId": "TTS-D3BCD09517D446E12A528DC98BD4693D"
-				}, 
-				{
-					"CurrentState": "GameEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["Individualist"],
-					"Style": ["Shame"],
-					"Utterance": "Perdi o jogo, ora bolas.",
-					"UtteranceId": "TTS-5E201EA1068D7354B63BA821099F72EA"
-				}, 
-				{
-					"CurrentState": "GameEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["Renounce"],
-					"Style": ["-"],
-					"Utterance": "Alguem fez batota! Podem retirar as cartas porque o jogo terminou.",
-					"UtteranceId": "TTS-67DA9B36150803F922FAE27C80FFB123"
-				}, 
-				{
-					"CurrentState": "NextPlayer",
-					"NextState": "Dynamic",
-					"Meaning": ["-"],
-					"Style": ["-"],
-					"Utterance": "<gaze(player|nextPlayerId|)> Joga!",
-					"UtteranceId": "TTS-77921D2787C461E4A29C2D15218A1499"
-				}, 
-				{
 					"CurrentState": "NextPlayer",
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
@@ -1149,6 +981,126 @@
 					"Style": ["Shame"],
 					"Utterance": "<gaze(player1)> Assim é que não vamos a lado nenhum.",
 					"UtteranceId": "TTS-E329F429DFEDB8B3B00C9459C2F26A41"
+				}, 
+				{
+					"CurrentState": "NextPlayer",
+					"NextState": "Dynamic",
+					"Meaning": ["-"],
+					"Style": ["-"],
+					"Utterance": "<gaze(player|nextPlayerId|)> Joga!",
+					"UtteranceId": "TTS-77921D2787C461E4A29C2D15218A1499"
+				}, 
+				{
+					"CurrentState": "GameEnd",
+					"NextState": "Dynamic",
+					"Meaning": ["Renounce"],
+					"Style": ["-"],
+					"Utterance": "Alguem fez batota! Podem retirar as cartas porque o jogo terminou.",
+					"UtteranceId": "TTS-67DA9B36150803F922FAE27C80FFB123"
+				}, 
+				{
+					"CurrentState": "GameEnd",
+					"NextState": "Dynamic",
+					"Meaning": ["-"],
+					"Style": ["Shame"],
+					"Utterance": "Perdemos o jogo, ora bolas.",
+					"UtteranceId": "TTS-B8674BEF290EDED6A977FC7E2A749386"
+				}, 
+				{
+					"CurrentState": "GameEnd",
+					"NextState": "Dynamic",
+					"Meaning": ["-"],
+					"Style": ["Shame"],
+					"Utterance": "Epá, perdemos este jogo!",
+					"UtteranceId": "TTS-582F1D568F96DC35C90EC67A3017CD70"
+				}, 
+				{
+					"CurrentState": "GameEnd",
+					"NextState": "Dynamic",
+					"Meaning": ["-"],
+					"Style": ["Shame"],
+					"Utterance": "Bolas, perdemos!",
+					"UtteranceId": "TTS-208F6C1061DC98DCC55226EBF9A039B5"
+				}, 
+				{
+					"CurrentState": "GameEnd",
+					"NextState": "Dynamic",
+					"Meaning": ["-"],
+					"Style": ["Shame"],
+					"Utterance": "Desta vez perdemos o jogo.",
+					"UtteranceId": "TTS-46D4F42A7DF3F77AF93AD84F48DD8713"
+				}, 
+				{
+					"CurrentState": "GameEnd",
+					"NextState": "Dynamic",
+					"Meaning": ["-"],
+					"Style": ["Pride"],
+					"Utterance": "Ganhámos este jogo. Assim sim",
+					"UtteranceId": "TTS-7A6CDA40CCC94EDA4D43EAE83C2FD7E0"
+				}, 
+				{
+					"CurrentState": "GameEnd",
+					"NextState": "Dynamic",
+					"Meaning": ["-"],
+					"Style": ["Pride"],
+					"Utterance": "Ena, ganhámos este jogo!",
+					"UtteranceId": "TTS-4CC32B1E044B918B2FDEAD3DBC74D1FE"
+				}, 
+				{
+					"CurrentState": "GameEnd",
+					"NextState": "Dynamic",
+					"Meaning": ["-"],
+					"Style": ["Pride"],
+					"Utterance": "Muito bem, ganhámos!",
+					"UtteranceId": "TTS-027FD24F12D35A835F9BADA714033EBA"
+				}, 
+				{
+					"CurrentState": "GameEnd",
+					"NextState": "Dynamic",
+					"Meaning": ["-"],
+					"Style": ["Pride"],
+					"Utterance": "Incrível, ganhámos o jogo!",
+					"UtteranceId": "TTS-B5C37527A198688710C23E13A7555ECF"
+				}, 
+				{
+					"CurrentState": "GameEnd",
+					"NextState": "Dynamic",
+					"Meaning": ["-"],
+					"Style": ["Neutral"],
+					"Utterance": "O jogo terminou. Empatámos?",
+					"UtteranceId": "TTS-CE915698A5B9521B3CD3D9D5178CA51F"
+				}, 
+				{
+					"CurrentState": "GameEnd",
+					"NextState": "Dynamic",
+					"Meaning": ["-"],
+					"Style": ["Neutral"],
+					"Utterance": "O jogo terminou. Empatámos?",
+					"UtteranceId": "TTS-CE915698A5B9521B3CD3D9D5178CA51F"
+				}, 
+				{
+					"CurrentState": "GameEnd",
+					"NextState": "Dynamic",
+					"Meaning": ["-"],
+					"Style": ["Neutral"],
+					"Utterance": "O jogo terminou. Empatámos?",
+					"UtteranceId": "TTS-CE915698A5B9521B3CD3D9D5178CA51F"
+				}, 
+				{
+					"CurrentState": "GameEnd",
+					"NextState": "Dynamic",
+					"Meaning": ["-"],
+					"Style": ["Neutral"],
+					"Utterance": "O jogo terminou. Empatámos?",
+					"UtteranceId": "TTS-CE915698A5B9521B3CD3D9D5178CA51F"
+				}, 
+				{
+					"CurrentState": "Deal",
+					"NextState": "Dynamic",
+					"Meaning": ["-"],
+					"Style": ["-"],
+					"Utterance": "És tu a dar.",
+					"UtteranceId": "TTS-417B742C7AB27E6F68F461691D59DA90"
 				}, 
 				{
 					"CurrentState": "Deal",
