@@ -81,7 +81,7 @@
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["DialogueState(Board) = GameEnd", "ValidDialogue(GameEnd, [ns], [m], [s]) = True", "End(Game) = [m]"]
+							"Set": ["DialogueState(Board) = GameEnd", "ValidDialogue(GameEnd, [ns], [m], [s]) = True", "Team = [m]", "StrongestAttributionEmotion(SELF) = [s]", "EmotionIntensity(SELF, [s]) > 4"]
 						},
 					"Priority": 3
 				}, 
@@ -90,7 +90,7 @@
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["DialogueState(Board) = SessionEnd", "ValidDialogue(SessionEnd, [ns], [m], [s]) = True", "End(Session) = [m]"]
+							"Set": ["DialogueState(Board) = SessionEnd", "ValidDialogue(SessionEnd, [ns], [m], [s]) = True", "Team = [m]", "StrongestAttributionEmotion(SELF) = [s]", "EmotionIntensity(SELF, [s]) > 7"]
 						},
 					"Priority": 3
 				}, 

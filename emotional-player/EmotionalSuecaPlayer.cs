@@ -97,7 +97,7 @@ namespace EmotionalPlayer
         public void SessionStart(int sessionId, int numGames, int[] agentsIds, int shouldGreet)
         {
             _id = agentsIds[_nameId - 1];
-            //Console.WriteLine("My id is " + _id);
+            Console.WriteLine("My id is " + _id);
 
             SuecaEvent ev = new SuecaEvent(Consts.STATE_SESSION_START);
             _suecaRPC.AddSuecaEvent(ev);
@@ -107,28 +107,31 @@ namespace EmotionalPlayer
 
         public void GameStart(int gameId, int playerId, int teamId, string trumpCard, int trumpCardPlayer, string[] cards)
         {
-            _initialyzing = true;
-            SuecaEvent ev = new SuecaEvent(Consts.STATE_GAME_START);
-            _suecaRPC.AddSuecaEvent(ev);
-            ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_GAME_START, Consts.DEFAULT_SUBJECT);
-            ev.Finished = true;
-
-            List<int> initialCards = new List<int>();
-            foreach (string cardSerialized in cards)
+            if (playerId == _id)
             {
-                SuecaTypes.Card card = JsonSerializable.DeserializeFromJson<SuecaTypes.Card>(cardSerialized);
-                SuecaSolver.Rank myRank = (SuecaSolver.Rank)Enum.Parse(typeof(SuecaSolver.Rank), card.Rank.ToString());
-                SuecaSolver.Suit mySuit = (SuecaSolver.Suit)Enum.Parse(typeof(SuecaSolver.Suit), card.Suit.ToString());
-                int myCard = SuecaSolver.Card.Create(myRank, mySuit);
-                initialCards.Add(myCard);
-            }
-            SuecaTypes.Card sharedTrumpCard = JsonSerializable.DeserializeFromJson<SuecaTypes.Card>(trumpCard);
-            SuecaSolver.Rank trumpRank = (SuecaSolver.Rank)Enum.Parse(typeof(SuecaSolver.Rank), sharedTrumpCard.Rank.ToString());
-            SuecaSolver.Suit trumpSuit = (SuecaSolver.Suit)Enum.Parse(typeof(SuecaSolver.Suit), sharedTrumpCard.Suit.ToString());
-            int myTrumpCard = SuecaSolver.Card.Create(trumpRank, trumpSuit);
+                _initialyzing = true;
+                SuecaEvent ev = new SuecaEvent(Consts.STATE_GAME_START);
+                _suecaRPC.AddSuecaEvent(ev);
+                ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_GAME_START, Consts.DEFAULT_SUBJECT);
+                ev.Finished = true;
 
-            _ai = new RuleBasedPlayer(playerId, initialCards, myTrumpCard, trumpCardPlayer);
-            _initialyzing = false;
+                List<int> initialCards = new List<int>();
+                foreach (string cardSerialized in cards)
+                {
+                    SuecaTypes.Card card = JsonSerializable.DeserializeFromJson<SuecaTypes.Card>(cardSerialized);
+                    SuecaSolver.Rank myRank = (SuecaSolver.Rank)Enum.Parse(typeof(SuecaSolver.Rank), card.Rank.ToString());
+                    SuecaSolver.Suit mySuit = (SuecaSolver.Suit)Enum.Parse(typeof(SuecaSolver.Suit), card.Suit.ToString());
+                    int myCard = SuecaSolver.Card.Create(myRank, mySuit);
+                    initialCards.Add(myCard);
+                }
+                SuecaTypes.Card sharedTrumpCard = JsonSerializable.DeserializeFromJson<SuecaTypes.Card>(trumpCard);
+                SuecaSolver.Rank trumpRank = (SuecaSolver.Rank)Enum.Parse(typeof(SuecaSolver.Rank), sharedTrumpCard.Rank.ToString());
+                SuecaSolver.Suit trumpSuit = (SuecaSolver.Suit)Enum.Parse(typeof(SuecaSolver.Suit), sharedTrumpCard.Suit.ToString());
+                int myTrumpCard = SuecaSolver.Card.Create(trumpRank, trumpSuit);
+
+                _ai = new RuleBasedPlayer(playerId, initialCards, myTrumpCard, trumpCardPlayer);
+                _initialyzing = false;
+            }
         }
 
         public void Shuffle(int playerId)
@@ -185,33 +188,33 @@ namespace EmotionalPlayer
 
             if (team0Score == 120)
             {
-                ev.AddPropertyChange(Consts.END_GAME, "LostQuad", Consts.DEFAULT_SUBJECT);
+                ev.AddPropertyChange(Consts.END_GAME, "LostQuad", subjectName(_id));
             }
             else if (team0Score > 90)
             {
-                ev.AddPropertyChange(Consts.END_GAME, "LostDouble", Consts.DEFAULT_SUBJECT);
+                ev.AddPropertyChange(Consts.END_GAME, "LostDouble", subjectName(_id));
             }
             else if (team0Score > 60)
             {
-                ev.AddPropertyChange(Consts.END_GAME, "LostSingle", Consts.DEFAULT_SUBJECT);
+                ev.AddPropertyChange(Consts.END_GAME, "LostSingle", subjectName(_id));
             }
 
             if (team1Score == 120)
             {
-                ev.AddPropertyChange(Consts.END_GAME, "WinQuad", Consts.DEFAULT_SUBJECT);
+                ev.AddPropertyChange(Consts.END_GAME, "WinQuad", subjectName(_id));
             }
             else if (team1Score > 90)
             {
-                ev.AddPropertyChange(Consts.END_GAME, "WinDouble", Consts.DEFAULT_SUBJECT);
+                ev.AddPropertyChange(Consts.END_GAME, "WinDouble", subjectName(_id));
             }
             else if (team1Score > 60)
             {
-                ev.AddPropertyChange(Consts.END_GAME, "WinSingle", Consts.DEFAULT_SUBJECT);
+                ev.AddPropertyChange(Consts.END_GAME, "WinSingle", subjectName(_id));
             }
 
             if (team0Score == team1Score)
             {
-                ev.AddPropertyChange(Consts.END_GAME, "Draw", Consts.DEFAULT_SUBJECT);
+                ev.AddPropertyChange(Consts.END_GAME, "Draw", subjectName(_id));
             }
             ev.Finished = true;
         }
@@ -223,15 +226,15 @@ namespace EmotionalPlayer
             ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_SESSION_END, Consts.DEFAULT_SUBJECT);
             if (team0Score > team1Score)
             {
-                ev.AddPropertyChange(Consts.END_SESSION, "Lost", Consts.DEFAULT_SUBJECT);
+                ev.AddPropertyChange(Consts.END_SESSION, "Lost", subjectName(_id));
             }
             if (team0Score < team1Score)
             {
-                ev.AddPropertyChange(Consts.END_SESSION, "Win", Consts.DEFAULT_SUBJECT);
+                ev.AddPropertyChange(Consts.END_SESSION, "Win", subjectName(_id));
             }
             if (team0Score == team1Score)
             {
-                ev.AddPropertyChange(Consts.END_SESSION, "Draw", Consts.DEFAULT_SUBJECT);
+                ev.AddPropertyChange(Consts.END_SESSION, "Draw", subjectName(_id));
             }
             ev.Finished = true;
         }
