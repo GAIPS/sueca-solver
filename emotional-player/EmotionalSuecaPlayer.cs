@@ -352,7 +352,8 @@ namespace EmotionalPlayer
                     {
                         ev.AddPropertyChange(Consts.TRICK_WINNER, subjectName(currentWinnerID), subjectName(id));
                     }
-
+                }
+                if (!lastPlayOfTrick) {
                     int trickIncrease = _ai.GetTrickIncrease();
                     if (trickIncrease > 0)
                     {
