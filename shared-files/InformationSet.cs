@@ -68,10 +68,11 @@ namespace SuecaSolver
         internal int GetCurrentTrickResponsible()
         {
             Trick currentTrick = tricks[tricks.Count - 1];
+            int partnerID = ((id + 2) % 4);
+            int winnerId = currentTrick.GetCurrentTrickWinner();
+
             if (currentTrick.IsFull())
             {
-                int partnerID = ((id + 2) % 4);
-                int winnerId = currentTrick.GetCurrentTrickWinner();
                 if (winnerId == id || winnerId == partnerID)
                 {
                     return winnerId;
@@ -84,7 +85,7 @@ namespace SuecaSolver
                     return myPlayPoints >= partnerPlayPoints ? id : partnerID;
                 }
             }
-            return -1;
+            return winnerId;
         }
 
         public int GetHandSize()
