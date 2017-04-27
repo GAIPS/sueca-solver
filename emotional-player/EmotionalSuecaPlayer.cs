@@ -45,7 +45,7 @@ namespace EmotionalPlayer
             SetPublisher<ISuecaPublisher>();
             SuecaPub = new SuecaPublisher(Publisher);
             _ai = null;
-            _suecaRPC = new SuecaRolePlayCharacter(agentType, scenarioPath);
+            _suecaRPC = new SuecaRolePlayCharacter(_nameId, agentType, scenarioPath);
             _initialyzing = false;
             _robotHasPlayed = false;
             _agentType = agentType;

@@ -35,11 +35,13 @@ namespace EmotionalPlayer
         private const string LOGS_PATH = "../../../Scenarios/Logs";
         private int i;
         private Random _randomNumberGenerator;
-        bool _sleepNotify = false;
+        private bool _sleepNotify = false;
+        private string _agentName;
 
 
-        public SuecaRolePlayCharacter(string agentType, string scenarioPath)
+        public SuecaRolePlayCharacter(int nameId, string agentType, string scenarioPath)
         {
+            _agentName = "EMYS-" + nameId + "(" + agentType + ")";
             _randomNumberGenerator = new Random(System.Guid.NewGuid().GetHashCode());
             _events = new List<SuecaEvent>();
             AssetManager.Instance.Bridge = new AssetManagerBridge();
@@ -72,7 +74,7 @@ namespace EmotionalPlayer
 
         private void saveToFile()
         {
-            _rpc.SaveToFile(LOGS_PATH + "/log" + i + ".rpc");
+            _rpc.SaveToFile(LOGS_PATH + "/" + _agentName + "log" + i + ".rpc");
             i++;
         }
 
