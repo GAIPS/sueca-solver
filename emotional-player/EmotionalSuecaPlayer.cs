@@ -1,35 +1,37 @@
 ﻿using System;
 using System.Threading;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Thalamus;
 using SuecaSolver;
 using SuecaMessages;
 using SuecaTypes;
 using EmoteCommonMessages;
-using IntegratedAuthoringTool;
-using RolePlayCharacter;
-using AssetManagerPackage;
-using WellFormedNames;
-using Utilities;
-using IntegratedAuthoringTool.DTOs;
-using EmotionalAppraisal.OCCModel;
+using System.Diagnostics;
 
 namespace EmotionalPlayer
 {
-    public interface ISuecaPublisher : IThalamusPublisher, ISuecaActions, IFMLSpeech { }
+    public interface ISuecaPublisher : IThalamusPublisher, ISuecaActions, IFMLSpeech, IRobotPerceptions { }
 
-    class EmotionalSuecaPlayer : ThalamusClient, ISuecaPerceptions
+    class EmotionalSuecaPlayer : ThalamusClient, ISuecaPerceptions, IRobotPerceptions, IFMLSpeechEvents
     {
         public static ISuecaPublisher SuecaPub;
         private RuleBasedPlayer _ai;
-        private int _id;
+        public int _id;
         private int _nameId;
         private bool _robotHasPlayed;
         private bool _initialyzing;
         private SuecaRolePlayCharacter _suecaRPC;
         private string _agentType;
+
+        private Random _randomNumberGenerator;
+        private bool PendingRequest;
+        public bool Talking;
+        private bool SomeoneIsTalking;
+        private string pendingCategory;
+        private string pendingSubcategory;
+        private int requestCounter;
+        private bool Retrying;
+        private int numRobots;
 
         public EmotionalSuecaPlayer(string clientName, string scenarioPath, string agentType, string charactersNames = "") : base(clientName, charactersNames)
         {
@@ -42,14 +44,16 @@ namespace EmotionalPlayer
                 _nameId = 1;
             }
 
+
+            _randomNumberGenerator = new Random(System.Guid.NewGuid().GetHashCode());
             SetPublisher<ISuecaPublisher>();
             SuecaPub = new SuecaPublisher(Publisher);
             _ai = null;
-            _suecaRPC = new SuecaRolePlayCharacter(_nameId, agentType, scenarioPath);
+            _suecaRPC = new SuecaRolePlayCharacter(_nameId, agentType, scenarioPath, this);
             _initialyzing = false;
             _robotHasPlayed = false;
             _agentType = agentType;
-
+            numRobots = 1; //default
         }
         
 
@@ -87,6 +91,31 @@ namespace EmotionalPlayer
             {
                 this.publisher.PerformUtteranceWithTags(id, utterance, tagNames, tagValues);
             }
+
+            public void RequestUtterance(int playerId, string category, string subcategory)
+            {
+                this.publisher.RequestUtterance(playerId, category, subcategory);
+            }
+
+            public void OKUtterance(int playerId)
+            {
+                this.publisher.OKUtterance(playerId);
+            }
+
+            public void NOUtterance(int playerId)
+            {
+                this.publisher.NOUtterance(playerId);
+            }
+
+            public void StartedUtterance(int playerId, string category, string subcategory)
+            {
+                this.publisher.StartedUtterance(playerId, category, subcategory);
+            }
+
+            public void FinishedUtterance(int playerId)
+            {
+                this.publisher.FinishedUtterance(playerId);
+            }
         }
         #endregion
 
@@ -102,6 +131,7 @@ namespace EmotionalPlayer
             SuecaEvent ev = new SuecaEvent(Consts.STATE_SESSION_START);
             _suecaRPC.AddSuecaEvent(ev);
             ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_SESSION_START, Consts.DEFAULT_SUBJECT);
+            numRobots = agentsIds.Length;
             ev.Finished = true;
         }
 
@@ -391,6 +421,132 @@ namespace EmotionalPlayer
         }
 
         #endregion
+
+        #endregion
+
+        #region SynchronizeBothAgents
+        
+        public void RequestUtterance(int playerId, string category, string subcategory)
+        {
+            if (playerId != _id)
+            {
+                if (PendingRequest || Talking)
+                {
+                    SuecaPub.NOUtterance(_id);
+                }
+                else
+                {
+                    SuecaPub.OKUtterance(_id);
+                    SomeoneIsTalking = true;
+                }
+            }
+        }
+
+
+        public void OKUtterance(int playerId)
+        {
+            if (playerId != _id)
+            {
+                Talking = true;
+                PendingRequest = false;
+                Retrying = false;
+                requestCounter = 0;
+            }
+        }
+
+
+        public void NOUtterance(int playerId)
+        {
+            if (playerId != _id)
+            {
+                if (PendingRequest && requestCounter < 3)
+                {
+                    Retrying = true;
+                    PendingRequest = false;
+                    Thread.Sleep(_randomNumberGenerator.Next(2000));
+                    retryRequest();
+                }
+                else
+                {
+                    requestCounter = 0;
+                    Retrying = false;
+                    PendingRequest = false;
+                }
+            }
+        }
+
+
+        public void StartedUtterance(int playerId, string category, string subcategory)
+        {
+            if (playerId != _id)
+            {
+                //otherRobotIsTalking = true;
+            }
+        }
+
+
+        public void FinishedUtterance(int playerId)
+        {
+            if (playerId != _id)
+            {
+                SomeoneIsTalking = false;
+            }
+        }
+
+        public void RequestUtterance(string category, string subcategory)
+        {
+            if (numRobots > 1)
+            {
+                PendingRequest = true;
+                pendingCategory = category;
+                pendingSubcategory = subcategory;
+                requestCounter++;
+                SuecaPub.RequestUtterance(_id, category, subcategory);
+            }
+            else
+            {
+                Console.WriteLine("LOOOOOOOOOOOOOL");
+                Talking = true;
+            }
+
+        }
+
+        private void retryRequest()
+        {
+            requestCounter++;
+            RequestUtterance(pendingCategory, pendingSubcategory);
+        }
+
+        public void WaitForResponse()
+        {
+            Stopwatch s = new Stopwatch();
+            s.Start();
+            while (PendingRequest || Retrying || SomeoneIsTalking)
+            {
+                if (s.ElapsedMilliseconds > 3000)
+                {
+                    PendingRequest = false;
+                    Retrying = false;
+                    SomeoneIsTalking = false;
+                    Talking = false;
+                    pendingCategory = "";
+                    pendingSubcategory = "";
+                    requestCounter = 0;
+                    s.Stop();
+                }
+            }
+        }
+
+
+        void IFMLSpeechEvents.UtteranceFinished(string id)
+        {
+            SuecaPub.FinishedUtterance(_id);
+            Talking = false;
+        }
+
+        void IFMLSpeechEvents.UtteranceStarted(string id)
+        {
+        }
 
         #endregion
 

@@ -5,7 +5,6 @@ using RolePlayCharacter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Utilities;
@@ -37,10 +36,12 @@ namespace EmotionalPlayer
         private Random _randomNumberGenerator;
         private bool _sleepNotify = false;
         private string _agentName;
+        private EmotionalSuecaPlayer _esp;
 
 
-        public SuecaRolePlayCharacter(int nameId, string agentType, string scenarioPath)
+        public SuecaRolePlayCharacter(int nameId, string agentType, string scenarioPath, EmotionalSuecaPlayer esp)
         {
+            _esp = esp;
             _agentName = "EMYS-" + nameId + "(" + agentType + ")";
             _randomNumberGenerator = new Random(System.Guid.NewGuid().GetHashCode());
             _events = new List<SuecaEvent>();
@@ -201,16 +202,23 @@ namespace EmotionalPlayer
                 switch (chosenAction.Key.ToString())
                 {
                     case "Speak":
-                        Name currentState = chosenAction.Parameters[0];
-                        Name nextState = chosenAction.Parameters[1];
-                        Name meaning = chosenAction.Parameters[2];
-                        Name style = chosenAction.Parameters[3];
+                        _esp.RequestUtterance(ev.Name, "");
+                        _esp.WaitForResponse();
+                        if (_esp.Talking)
+                        {
+                            Name currentState = chosenAction.Parameters[0];
+                            Name nextState = chosenAction.Parameters[1];
+                            Name meaning = chosenAction.Parameters[2];
+                            Name style = chosenAction.Parameters[3];
 
-                        var possibleDialogs = _iat.GetDialogueActions(IATConsts.AGENT, currentState, nextState, meaning, style);
-                        var dialog = getUtterance(possibleDialogs);
+                            var possibleDialogs = _iat.GetDialogueActions(IATConsts.AGENT, currentState, nextState, meaning, style);
+                            var dialog = getUtterance(possibleDialogs);
 
-                        Console.WriteLine(dialog);
-                        EmotionalSuecaPlayer.SuecaPub.PerformUtteranceWithTags("", dialog, tags, meanings);
+                            Console.WriteLine(dialog);
+                            EmotionalSuecaPlayer.SuecaPub.StartedUtterance(_esp._id, ev.Name, "");
+                            EmotionalSuecaPlayer.SuecaPub.PerformUtteranceWithTags("", dialog, tags, meanings);
+                        }
+
                         break;
 
                     case "Animation":
