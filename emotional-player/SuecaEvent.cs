@@ -15,6 +15,8 @@ namespace EmotionalPlayer
         public List<string> Tags;
         public List<string> Meanings;
         public bool Finished;
+        public string[] OtherStringInfos;
+        public int[] OtherIntInfos;
 
         public SuecaEvent(string name)
         {
