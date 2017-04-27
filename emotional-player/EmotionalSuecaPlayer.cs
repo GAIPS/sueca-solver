@@ -267,12 +267,12 @@ namespace EmotionalPlayer
                 string cardSerialized = new SuecaTypes.Card(msgRank, msgSuit).SerializeToJson();
                 string playInfo = _ai.GetLastPlayInfo();
                 
-                SuecaPub.Play(this._id, cardSerialized, playInfo);
                 ev.Name = Consts.STATE_PLAYING;
                 ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_PLAYING, Consts.DEFAULT_SUBJECT);
                 ev.AddPropertyChange(Consts.PLAY_INFO, playInfo, Consts.DEFAULT_SUBJECT);
                 ev.ChangeTagsAndMeanings(new string[] { "|rank|", "|suit|" }, new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()) });
-
+                ev.OtherIntInfos = new int[] { this._id};
+                ev.OtherStringInfos = new string[] { cardSerialized, playInfo};
 
                 int currentPlayPoints = _ai.GetCurrentTrickPoints();
                 bool hasNewTrickWinner = _ai.HasNewTrickTeamWinner();

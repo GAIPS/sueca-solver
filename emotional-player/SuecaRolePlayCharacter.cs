@@ -111,17 +111,19 @@ namespace EmotionalPlayer
                     while (!ev.Finished) { }
 
                     perceive(ev);
-                    //Console.WriteLine("Event Name: " + ev.Name);
+
                     if (ev.Name == Consts.STATE_NEXT_PLAYER)
                     {
                         if (_randomNumberGenerator.Next(0, 10) < 6)
                         {
                             // Sleep randomly until decide
-                            new Thread(this.SleepForNextPlayerEvent).Start();
-                            while (_sleepNotify && _events.Count == 0)
+                            Thread waitForDeciding = new Thread(this.SleepForNextPlayerEvent);
+                            waitForDeciding.Start();
+                            while (!_sleepNotify && _events.Count == 0)
                             {
 
                             }
+                            waitForDeciding.Interrupt();
                             _sleepNotify = false;
                             if (_events.Count == 0)
                             {
@@ -130,20 +132,32 @@ namespace EmotionalPlayer
                             }
                         }
                     }
+                    else if (ev.Name == Consts.STATE_PLAYING)
+                    {
+                        decide(ev);
+                        EmotionalSuecaPlayer.SuecaPub.Play(ev.OtherIntInfos[0], ev.OtherStringInfos[0], ev.OtherStringInfos[1]);
+                    }
                     else
                     {
                         decide(ev);
                     }
                 }
 
-                Thread.Sleep(500);
+                Thread.Sleep(100);
             }
         }
 
         public void SleepForNextPlayerEvent(object data)
         {
-            Thread.Sleep(_randomNumberGenerator.Next(2000, 5000));
-            _sleepNotify = true;
+            try
+            {
+                Thread.Sleep(_randomNumberGenerator.Next(3000, 7000));
+                _sleepNotify = true;
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Skipped a nextPlayer event.");
+            }
         }
 
         public void AddSuecaEvent(SuecaEvent ev)
