@@ -35,6 +35,7 @@ namespace EmotionalPlayer
         private const string LOGS_PATH = "../../../Scenarios/Logs";
         private int i;
         private Random _randomNumberGenerator;
+        bool _sleepNotify = false;
 
 
         public SuecaRolePlayCharacter(string agentType, string scenarioPath)
@@ -90,7 +91,6 @@ namespace EmotionalPlayer
         {
             string currentBelief = _rpc.GetBeliefValue(Consts.DIALOGUE_STATE_PROPERTY);
 
-
             while (currentBelief != Consts.STATE_SESSION_END)
             {
                 //showEmotions();
@@ -115,7 +115,12 @@ namespace EmotionalPlayer
                         if (_randomNumberGenerator.Next(0, 10) < 6)
                         {
                             // Sleep randomly until decide
-                            Thread.Sleep(_randomNumberGenerator.Next(2000, 5000));
+                            new Thread(this.SleepForNextPlayerEvent).Start();
+                            while (_sleepNotify && _events.Count == 0)
+                            {
+
+                            }
+                            _sleepNotify = false;
                             if (_events.Count == 0)
                             {
                                 //decide only if after sleeping no one has played
@@ -131,6 +136,12 @@ namespace EmotionalPlayer
 
                 Thread.Sleep(500);
             }
+        }
+
+        public void SleepForNextPlayerEvent(object data)
+        {
+            Thread.Sleep(_randomNumberGenerator.Next(2000, 5000));
+            _sleepNotify = true;
         }
 
         public void AddSuecaEvent(SuecaEvent ev)
