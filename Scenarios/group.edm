@@ -68,15 +68,6 @@
 					"Priority": 3
 				}, 
 				{
-					"Action": "Animation(Playing, [s])",
-					"Target": "Board",
-					"Conditions":
-						{
-							"Set": ["DialogueState(Board) = Playing", "StrongestAttributionEmotion(SELF) = [s]", "EmotionIntensity(SELF, [s]) < 5", "EmotionIntensity(SELF, [s]) > 2"]
-						},
-					"Priority": 4
-				}, 
-				{
 					"Action": "Speak(GameEnd, [ns], [m], [s])",
 					"Target": "Board",
 					"Conditions":
