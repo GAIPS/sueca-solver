@@ -6,15 +6,15 @@ namespace EmotionalPlayer
 {
     public interface IStorageProvider
     {
-        Stream LoadFile(string absoluteFilePath, FileMode mode, FileAccess access);
+        FileStream LoadFile(string absoluteFilePath, FileMode mode, FileAccess access);
         bool FileExists(string absoluteFilePath);
     }
 
     public class DefaultStreamingAssetsStorageProvider : IStorageProvider
     {
-        public Stream LoadFile(string absoluteFilePath, FileMode mode, FileAccess access)
+        public FileStream LoadFile(string absoluteFilePath, FileMode mode, FileAccess access)
         {
-            return File.Open(RootPath(absoluteFilePath), mode, access);
+            return File.OpenRead(RootPath(absoluteFilePath));
         }
 
         public bool FileExists(string absoluteFilePath)
