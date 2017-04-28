@@ -17,6 +17,7 @@ namespace EmotionalPlayer
         public static ISuecaPublisher SuecaPub;
         private RuleBasedPlayer _ai;
         public int _id;
+        private int _teamId;
         private int _nameId;
         private bool _robotHasPlayed;
         private bool _initialyzing;
@@ -132,11 +133,31 @@ namespace EmotionalPlayer
             Console.WriteLine("My id is " + _id);
             _numGames = numGames;
             _currentGameId = 0;
-            SuecaEvent ev = new SuecaEvent(Consts.STATE_SESSION_START);
-            _suecaRPC.AddSuecaEvent(ev);
-            ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_SESSION_START, Consts.DEFAULT_SUBJECT);
+            SuecaEvent ev1 = new SuecaEvent(Consts.INIT);
+            _suecaRPC.AddSuecaEvent(ev1);
+            ev1.OtherStringInfos = new string[] { subjectName(_id) };
+            switch (_agentType)
+            {
+                case Consts.AGENT_TYPE_GROUP:
+                    ev1.AddPropertyChange("Player(" + subjectName(_id) + ")", Consts.PARTNER, Consts.DEFAULT_SUBJECT);
+                    ev1.AddPropertyChange("Player(" + subjectName((_id + 1) % 4) + ")", Consts.OPPONENT, Consts.DEFAULT_SUBJECT);
+                    break;
+                case Consts.AGENT_TYPE_INDIVIDUAL:
+                    ev1.AddPropertyChange("Player(" + subjectName(_id) + ")", Consts.PARTNER, Consts.DEFAULT_SUBJECT);
+                    ev1.AddPropertyChange("Player(" + subjectName((_id + 1) % 4) + ")", Consts.OPPONENT, Consts.DEFAULT_SUBJECT);
+                    ev1.AddPropertyChange("Player(" + subjectName((_id + 2) % 4) + ")", Consts.PARTNER, Consts.DEFAULT_SUBJECT);
+                    ev1.AddPropertyChange("Player(" + subjectName((_id + 3) % 4) + ")", Consts.OPPONENT, Consts.DEFAULT_SUBJECT);
+                    break;
+                default:
+                    break;
+            }
+            ev1.Finished = true;
+
+            SuecaEvent ev2 = new SuecaEvent(Consts.STATE_SESSION_START);
+            _suecaRPC.AddSuecaEvent(ev2);
+            ev2.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_SESSION_START, Consts.DEFAULT_SUBJECT);
             numRobots = agentsIds.Length;
-            ev.Finished = true;
+            ev2.Finished = true;
         }
 
         public void GameStart(int gameId, int playerId, int teamId, string trumpCard, int trumpCardPlayer, string[] cards)
@@ -144,6 +165,7 @@ namespace EmotionalPlayer
             if (playerId == _id)
             {
                 _initialyzing = true;
+                _teamId = teamId;
                 _currentGameId = gameId;
                 _currentTrickId = 0;
                 //do not talk for the first game start event
@@ -229,33 +251,45 @@ namespace EmotionalPlayer
                 _suecaRPC.AddSuecaEvent(ev);
                 ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_GAME_END, Consts.DEFAULT_SUBJECT);
 
-                if (team0Score == 120)
+                int myTeamScore, otherTeamScore;
+                if (_teamId == 0)
+                {
+                    myTeamScore = team0Score;
+                    otherTeamScore = team1Score;
+                }
+                else
+                {
+                    myTeamScore = team1Score;
+                    otherTeamScore = team0Score;
+                }
+
+                if (otherTeamScore == 120)
                 {
                     ev.AddPropertyChange(Consts.END_GAME, "LostQuad", subjectName(_id));
                 }
-                else if (team0Score > 90)
+                else if (otherTeamScore > 90)
                 {
                     ev.AddPropertyChange(Consts.END_GAME, "LostDouble", subjectName(_id));
                 }
-                else if (team0Score > 60)
+                else if (otherTeamScore > 60)
                 {
                     ev.AddPropertyChange(Consts.END_GAME, "LostSingle", subjectName(_id));
                 }
 
-                if (team1Score == 120)
+                if (myTeamScore == 120)
                 {
                     ev.AddPropertyChange(Consts.END_GAME, "WinQuad", subjectName(_id));
                 }
-                else if (team1Score > 90)
+                else if (myTeamScore > 90)
                 {
                     ev.AddPropertyChange(Consts.END_GAME, "WinDouble", subjectName(_id));
                 }
-                else if (team1Score > 60)
+                else if (myTeamScore > 60)
                 {
                     ev.AddPropertyChange(Consts.END_GAME, "WinSingle", subjectName(_id));
                 }
 
-                if (team0Score == team1Score)
+                if (myTeamScore == otherTeamScore)
                 {
                     ev.AddPropertyChange(Consts.END_GAME, "Draw", subjectName(_id));
                 }
@@ -268,15 +302,28 @@ namespace EmotionalPlayer
             SuecaEvent ev = new SuecaEvent(Consts.STATE_SESSION_END);
             _suecaRPC.AddSuecaEvent(ev);
             ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_SESSION_END, Consts.DEFAULT_SUBJECT);
-            if (team0Score > team1Score)
+
+            int myTeamScore, otherTeamScore;
+            if (_teamId == 0)
+            {
+                myTeamScore = team0Score;
+                otherTeamScore = team1Score;
+            }
+            else
+            {
+                myTeamScore = team1Score;
+                otherTeamScore = team0Score;
+            }
+
+            if (otherTeamScore > myTeamScore)
             {
                 ev.AddPropertyChange(Consts.END_SESSION, "Lost", subjectName(_id));
             }
-            if (team0Score < team1Score)
+            if (otherTeamScore < myTeamScore)
             {
                 ev.AddPropertyChange(Consts.END_SESSION, "Win", subjectName(_id));
             }
-            if (team0Score == team1Score)
+            if (otherTeamScore == myTeamScore)
             {
                 ev.AddPropertyChange(Consts.END_SESSION, "Draw", subjectName(_id));
             }
@@ -641,12 +688,14 @@ namespace EmotionalPlayer
             switch (_agentType)
             {
                 case Consts.AGENT_TYPE_GROUP:
-                    if (id == 1 || id == 3)
-                        //Agent Team
-                        subject = "T1";
-                    if (id == 0 || id == 2)
-                        //Opponent Team
+                    if (_teamId == 0)
+                    {
                         subject = "T0";
+                    }
+                    else
+                    {
+                        subject = "T1";
+                    }
                     break;
                 case Consts.AGENT_TYPE_INDIVIDUAL:
                     switch (id)
@@ -661,7 +710,6 @@ namespace EmotionalPlayer
                             subject = "P2";
                             break;
                         case 3:
-                            //robot
                             subject = "P3";
                             break;
                         default:

@@ -73,6 +73,7 @@ namespace EmotionalPlayer
             }
         }
 
+
         private void saveToFile()
         {
             _rpc.SaveToFile(LOGS_PATH + "/" + _agentName + "log" + i + ".rpc");
@@ -110,6 +111,12 @@ namespace EmotionalPlayer
 
                     //wait until event is finished
                     while (!ev.Finished) { }
+
+                    if (ev.Name == Consts.INIT)
+                    {
+                        _rpc.CharacterName = (Name)ev.OtherStringInfos[0];
+                        _rpc.m_kb.SetPerspective((Name)ev.OtherStringInfos[0]);
+                    }
 
                     perceive(ev);
 
