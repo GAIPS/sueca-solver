@@ -8,6 +8,10 @@ namespace EmotionalPlayer
 {
     public class Consts
     {
+        public static readonly string INIT = "INIT";
+        public static readonly string PARTNER = "Partner";
+        public static readonly string OPPONENT = "Opponent";
+
         public static readonly string TRICK_INCREASE_PROPERTY = "Trick(Increase)";
         public static readonly string TRICK_WINNER = "Trick(Winner)";
         public static readonly string TRICK_SCORE = "Trick(Score)";
