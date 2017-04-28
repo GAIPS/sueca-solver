@@ -121,8 +121,8 @@
 								{
 									"Set": []
 								},
-							"Desirability": -8,
-							"Praiseworthiness": -8
+							"Desirability": -10,
+							"Praiseworthiness": -10
 						}, 
 						{
 							"EventName": "Event(Property-Change, [subject], Game(End), LostQuad)",
@@ -139,8 +139,8 @@
 								{
 									"Set": []
 								},
-							"Desirability": -6,
-							"Praiseworthiness": -6
+							"Desirability": -10,
+							"Praiseworthiness": -10
 						}, 
 						{
 							"EventName": "Event(Property-Change, [subject], Game(End), WinDouble)",
@@ -148,8 +148,8 @@
 								{
 									"Set": []
 								},
-							"Desirability": 8,
-							"Praiseworthiness": 8
+							"Desirability": 10,
+							"Praiseworthiness": 10
 						}, 
 						{
 							"EventName": "Event(Property-Change, [subject], Game(End), WinQuad)",
@@ -166,8 +166,8 @@
 								{
 									"Set": []
 								},
-							"Desirability": 6,
-							"Praiseworthiness": 6
+							"Desirability": 10,
+							"Praiseworthiness": 10
 						}, 
 						{
 							"EventName": "Event(Property-Change, [subject], Session(End), Lost)",

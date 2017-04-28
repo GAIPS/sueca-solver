@@ -7,6 +7,30 @@
 			"CharacterSources": ["group.rpc", "individual.rpc"],
 			"AgentDialogues": [
 				{
+					"CurrentState": "Cut",
+					"NextState": "Dynamic",
+					"Meaning": ["-"],
+					"Style": ["-"],
+					"Utterance": "Podes partir por favor?",
+					"UtteranceId": "TTS-2822EE8EF5709769DAB4FFF44DF1C41C"
+				}, 
+				{
+					"CurrentState": "Deal",
+					"NextState": "Dynamic",
+					"Meaning": ["-"],
+					"Style": ["-"],
+					"Utterance": "É a tua vez de dar as cartas.",
+					"UtteranceId": "TTS-F59702433AB24B2FC2F58BBDA30A2CB2"
+				}, 
+				{
+					"CurrentState": "Deal",
+					"NextState": "Dynamic",
+					"Meaning": ["-"],
+					"Style": ["-"],
+					"Utterance": "És tu a dar as cartas!",
+					"UtteranceId": "TTS-3776505EF602A90A00637A94440E75E6"
+				}, 
+				{
 					"CurrentState": "Deal",
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
@@ -625,7 +649,7 @@
 				{
 					"CurrentState": "SessionEnd",
 					"NextState": "Dynamic",
-					"Meaning": ["-"],
+					"Meaning": ["Team"],
 					"Style": ["Neutral"],
 					"Utterance": "Terminou a sessão!",
 					"UtteranceId": "TTS-AC06D6FEA49B71812641EABE3AE13FC8"
@@ -633,7 +657,7 @@
 				{
 					"CurrentState": "SessionEnd",
 					"NextState": "Dynamic",
-					"Meaning": ["-"],
+					"Meaning": ["Team"],
 					"Style": ["Shame"],
 					"Utterance": "Terminou a sessão. Perdemos ésta partida de sueca.",
 					"UtteranceId": "TTS-094E8339667BBAFDA2A20BEDCCDF34C0"
@@ -641,10 +665,34 @@
 				{
 					"CurrentState": "SessionEnd",
 					"NextState": "Dynamic",
-					"Meaning": ["-"],
+					"Meaning": ["Team"],
 					"Style": ["Pride"],
 					"Utterance": "Terminou a sessão. Ganhámos ésta partida de sueca.",
 					"UtteranceId": "TTS-75A0D1F0E8B4336043DAD12560B6AA5A"
+				}, 
+				{
+					"CurrentState": "SessionEnd",
+					"NextState": "Dynamic",
+					"Meaning": ["Individualist"],
+					"Style": ["Neutral"],
+					"Utterance": "Terminou a sessão!",
+					"UtteranceId": "TTS-AC06D6FEA49B71812641EABE3AE13FC8"
+				}, 
+				{
+					"CurrentState": "SessionEnd",
+					"NextState": "Dynamic",
+					"Meaning": ["Individualist"],
+					"Style": ["Shame"],
+					"Utterance": "Terminou a sessão. Perdi ésta partida de sueca.",
+					"UtteranceId": "TTS-FCA609D48895BF0F51E2B4E2151640BE"
+				}, 
+				{
+					"CurrentState": "SessionEnd",
+					"NextState": "Dynamic",
+					"Meaning": ["Individualist"],
+					"Style": ["Pride"],
+					"Utterance": "Terminou a sessão. Ganhei ésta partida de sueca.",
+					"UtteranceId": "TTS-DCEFB38A9C5928D673D33705F20B2B8D"
 				}, 
 				{
 					"CurrentState": "GameStart",
@@ -689,7 +737,7 @@
 				{
 					"CurrentState": "GameStart",
 					"NextState": "Dynamic",
-					"Meaning": ["First"],
+					"Meaning": [],
 					"Style": [],
 					"Utterance": "Vamos lá começar o jogo!",
 					"UtteranceId": "TTS-D52374AEBAA965FC6645BB2B83EA0502"
@@ -1149,30 +1197,6 @@
 					"Style": ["Shame"],
 					"Utterance": "<gaze(player1)> Assim é que não vamos a lado nenhum.",
 					"UtteranceId": "TTS-E329F429DFEDB8B3B00C9459C2F26A41"
-				}, 
-				{
-					"CurrentState": "Deal",
-					"NextState": "Dynamic",
-					"Meaning": ["-"],
-					"Style": ["-"],
-					"Utterance": "És tu a dar as cartas!",
-					"UtteranceId": "TTS-3776505EF602A90A00637A94440E75E6"
-				}, 
-				{
-					"CurrentState": "Deal",
-					"NextState": "Dynamic",
-					"Meaning": ["-"],
-					"Style": ["-"],
-					"Utterance": "É a tua vez de dar as cartas.",
-					"UtteranceId": "TTS-F59702433AB24B2FC2F58BBDA30A2CB2"
-				}, 
-				{
-					"CurrentState": "Cut",
-					"NextState": "Dynamic",
-					"Meaning": ["-"],
-					"Style": ["-"],
-					"Utterance": "Podes partir por favor?",
-					"UtteranceId": "TTS-2822EE8EF5709769DAB4FFF44DF1C41C"
 				}, 
 				{
 					"CurrentState": "Cut",
