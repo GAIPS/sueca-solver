@@ -89,5 +89,12 @@ namespace SuecaSolver
         {
             return infoSet.IsLastPlayOfTrick();
         }
+
+
+        //attribute the event to the winner when he is from my team and blame himself or the partner when winner is an opponent
+        public int GetResposibleForLastTrick()
+        {
+            return infoSet.GetCurrentTrickResponsible();
+        }
     }
 }
