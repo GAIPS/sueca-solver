@@ -35,9 +35,46 @@ namespace SuecaSolver
             return chosenCard;
         }
 
-        public int[] GetWinnerAndPointsAndTrickNumber()
+        public int GetCurrentTrickWinner()
         {
-            return infoSet.GetWinnerAndPointsAndTrickNumber();
+            return infoSet.GetCurrentTrickWinner();
+        }
+
+        public int GetCurrentTrickPoints()
+        {
+            return infoSet.GetCurrentTrickPoints();
+        }
+
+        public bool HasNewTrickWinner()
+        {
+            return infoSet.HasNewTrickWinner();
+        }
+
+        public bool HasNewTrickTeamWinner()
+        {
+            return infoSet.HasNewTrickTeamWinner();
+        }
+
+        public int GetTrickIncrease()
+        {
+            return infoSet.GetTrickIncrease();
+        }
+
+        public string GetLastPlayInfo()
+        {
+            return infoSet.GetLastPlayInfo();
+        }
+
+        public bool IsLastPlayOfTrick()
+        {
+            return infoSet.IsLastPlayOfTrick();
+        }
+
+
+        //attribute the event to the winner when he is from my team and blame himself or the partner when winner is an opponent
+        public int GetResposibleForLastTrick()
+        {
+            return infoSet.GetCurrentTrickResponsible();
         }
     }
 }

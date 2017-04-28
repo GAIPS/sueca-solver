@@ -15,7 +15,7 @@ namespace EmotionalPlayer
     class EmotionalSuecaPlayer : ThalamusClient, ISuecaPerceptions, IRobotPerceptions, IFMLSpeechEvents
     {
         public static ISuecaPublisher SuecaPub;
-        private RuleBasedPlayer _ai;
+        private HybridPlayer _ai;
         public int _id;
         private int _teamId;
         private int _nameId;
@@ -191,7 +191,7 @@ namespace EmotionalPlayer
                 SuecaSolver.Suit trumpSuit = (SuecaSolver.Suit)Enum.Parse(typeof(SuecaSolver.Suit), sharedTrumpCard.Suit.ToString());
                 int myTrumpCard = SuecaSolver.Card.Create(trumpRank, trumpSuit);
 
-                _ai = new RuleBasedPlayer(playerId, initialCards, myTrumpCard, trumpCardPlayer);
+                _ai = new HybridPlayer(playerId, initialCards, myTrumpCard, trumpCardPlayer);
                 _initialyzing = false;
             }
         }
