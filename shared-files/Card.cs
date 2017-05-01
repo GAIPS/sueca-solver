@@ -8,11 +8,23 @@ namespace SuecaSolver
     {
         private static int[] cardValues = new int[10] { 0, 0, 0, 0, 0, 2, 3, 4, 10, 11 };
         private static string[] cardRanks = new string[10] { "2", "3", "4", "5", "6", "Q", "J", "K", "7", "A" };
+        private static string[] cardSuits = new string[4] { "Clubs", "Diamonds", "Hearts", "Spaces" };
 
 
         public static int Create(Rank rank, Suit suit)
         {
             return (int)suit * 10 + (int)rank;
+        }
+        public static int CreateFromLog(string card)
+        {
+            string rank = card.Substring(0, 1);
+            string suit = card.Substring(1, card.Length - 1);
+            List<string> ranks = new List<string>(cardRanks);
+            List<string> suits = new List<string>(cardSuits);
+            int convertedRank = ranks.IndexOf(rank);
+            int convertedSuit = suits.IndexOf(suit);
+
+            return convertedSuit * 10 + convertedRank;
         }
 
         public static int GetRank(int card)
