@@ -23,7 +23,7 @@
 							"EventName": "Event(Property-Change, SELF, Trick(End), [trickPoints])",
 							"Conditions":
 								{
-									"Set": ["Trick(Winner) = [winnerId]", "Player([winnerId]) = Partner", "[trickPoints] >= 14"]
+									"Set": ["Trick(Winner) = [winnerId]", "Player([winnerId]) = Partner", "[trickPoints] >= 10"]
 								},
 							"Desirability": 3,
 							"Praiseworthiness": 8
@@ -32,7 +32,7 @@
 							"EventName": "Event(Property-Change, SELF, Trick(End), [trickPoints])",
 							"Conditions":
 								{
-									"Set": ["Trick(Winner) = [winnerId]", "Player([winnerId]) = Partner", "[trickPoints] < 14", "[trickPoints] > 4"]
+									"Set": ["Trick(Winner) = [winnerId]", "Player([winnerId]) = Partner", "[trickPoints] < 10", "[trickPoints] > 4"]
 								},
 							"Desirability": 2,
 							"Praiseworthiness": 4
@@ -41,7 +41,7 @@
 							"EventName": "Event(Property-Change, SELF, Trick(End), [trickPoints])",
 							"Conditions":
 								{
-									"Set": ["Trick(Winner) = [winnerId]", "Player([winnerId]) = Opponent", "[trickPoints] >= 14"]
+									"Set": ["Trick(Winner) = [winnerId]", "Player([winnerId]) = Opponent", "[trickPoints] >= 10"]
 								},
 							"Desirability": -8,
 							"Praiseworthiness": -8
@@ -50,7 +50,7 @@
 							"EventName": "Event(Property-Change, SELF, Trick(End), [trickPoints])",
 							"Conditions":
 								{
-									"Set": ["Trick(Winner) = [winnerId]", "Player([winnerId]) = Opponent", "[trickPoints] < 14", "[trickPoints] > 4"]
+									"Set": ["Trick(Winner) = [winnerId]", "Player([winnerId]) = Opponent", "[trickPoints] < 10", "[trickPoints] > 4"]
 								},
 							"Desirability": -4,
 							"Praiseworthiness": -4
