@@ -7,10 +7,11 @@ using SuecaMessages;
 using SuecaTypes;
 using EmoteCommonMessages;
 using System.Diagnostics;
+using Thalamus.BML;
 
 namespace EmotionalPlayer
 {
-    public interface ISuecaPublisher : IThalamusPublisher, ISuecaActions, IFMLSpeech, IRobotPerceptions { }
+    public interface ISuecaPublisher : IThalamusPublisher, ISuecaActions, IFMLSpeech, IAnimationActions,  IRobotPerceptions { }
 
     class EmotionalSuecaPlayer : ThalamusClient, ISuecaPerceptions, IRobotPerceptions, IFMLSpeechEvents
     {
@@ -30,7 +31,7 @@ namespace EmotionalPlayer
         private Random _randomNumberGenerator;
         private bool PendingRequest;
         public bool Talking;
-        private bool SomeoneIsTalking;
+        public bool SomeoneIsTalking;
         private string pendingCategory;
         private string pendingSubcategory;
         private int requestCounter;
@@ -119,6 +120,21 @@ namespace EmotionalPlayer
             public void FinishedUtterance(int playerId)
             {
                 this.publisher.FinishedUtterance(playerId);
+            }
+
+            public void PlayAnimation(string id, string animation)
+            {
+                this.publisher.PlayAnimation(id, animation);
+            }
+
+            public void PlayAnimationQueued(string id, string animation)
+            {
+                this.publisher.PlayAnimationQueued(id, animation);
+            }
+
+            public void StopAnimation(string id)
+            {
+                this.publisher.StopAnimation(id);
             }
         }
         #endregion
@@ -479,7 +495,6 @@ namespace EmotionalPlayer
                 {
                     //attribute the event to the winner when he is from my team and blame himself or the partner when winner is an opponent
                     int resposibleForTrick = _ai.GetResposibleForLastTrick();
-                    Console.WriteLine("RESPOSIBLE: " + resposibleForTrick);
                     ev.AddPropertyChange(Consts.TRICK_END, trickPoints.ToString(), subjectName(resposibleForTrick));
                 }
                 ev.ChangeTagsAndMeanings(new string[] { "|playerId|", "|trickpoints|" }, new string[] { winnerId.ToString(), trickPoints.ToString() });
@@ -547,7 +562,7 @@ namespace EmotionalPlayer
         {
             if (playerId != _id)
             {
-                //otherRobotIsTalking = true;
+                SomeoneIsTalking = true;
             }
         }
 
@@ -593,8 +608,6 @@ namespace EmotionalPlayer
                 {
                     PendingRequest = false;
                     Retrying = false;
-                    SomeoneIsTalking = false;
-                    Talking = false;
                     pendingCategory = "";
                     pendingSubcategory = "";
                     requestCounter = 0;
