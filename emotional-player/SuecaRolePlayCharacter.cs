@@ -221,7 +221,7 @@ namespace EmotionalPlayer
                             var possibleDialogs = _iat.GetDialogueActions(IATConsts.AGENT, currentState, nextState, meaning, style);
                             var dialog = getUtterance(possibleDialogs);
 
-                            Console.WriteLine(dialog);
+                            //Console.WriteLine(dialog);
                             EmotionalSuecaPlayer.SuecaPub.StartedUtterance(_esp._id, ev.Name, "");
                             EmotionalSuecaPlayer.SuecaPub.PerformUtteranceWithTags("", dialog, tags, meanings);
                         }
@@ -231,7 +231,8 @@ namespace EmotionalPlayer
                     case "Animation":
                         Name state = chosenAction.Parameters[0];
                         Name emotionName = chosenAction.Parameters[1];
-                        Console.WriteLine("[ANIMATION] Soft reaction to " + state + " with the style " + emotionName);
+                        //Console.WriteLine("[ANIMATION] Soft reaction to " + state + " with the style " + emotionName);
+                        EmotionalSuecaPlayer.SuecaPub.PlayAnimation("", emotionName.ToString());
                         break;
 
                     default:
