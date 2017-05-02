@@ -99,7 +99,7 @@
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["DialogueState(Board) = GameEnd", "ValidDialogue(GameEnd, [ns], [m], [s]) = True", "Renounce = [m]"]
+							"Set": ["DialogueState(Board) = GameEnd", "ValidDialogue(GameEnd, [ns], [m], [s]) = True", "Game(End) = Renounce", "Renounce = [m]"]
 						},
 					"Priority": 4
 				}]
