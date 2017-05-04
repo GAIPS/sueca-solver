@@ -116,7 +116,7 @@
 							"Desirability": 6
 						}, 
 						{
-							"EventName": "Event(Property-Change, [subject], Game(End), LostDouble)",
+							"EventName": "Event(Property-Change, SELF, Game(End), LostDouble)",
 							"Conditions":
 								{
 									"Set": []
@@ -125,7 +125,7 @@
 							"Praiseworthiness": -10
 						}, 
 						{
-							"EventName": "Event(Property-Change, [subject], Game(End), LostQuad)",
+							"EventName": "Event(Property-Change, SELF, Game(End), LostQuad)",
 							"Conditions":
 								{
 									"Set": []
@@ -134,7 +134,7 @@
 							"Praiseworthiness": -10
 						}, 
 						{
-							"EventName": "Event(Property-Change, [subject], Game(End), LostSingle)",
+							"EventName": "Event(Property-Change, SELF, Game(End), LostSingle)",
 							"Conditions":
 								{
 									"Set": []
@@ -143,7 +143,7 @@
 							"Praiseworthiness": -10
 						}, 
 						{
-							"EventName": "Event(Property-Change, [subject], Game(End), WinDouble)",
+							"EventName": "Event(Property-Change, SELF, Game(End), WinDouble)",
 							"Conditions":
 								{
 									"Set": []
@@ -152,7 +152,7 @@
 							"Praiseworthiness": 10
 						}, 
 						{
-							"EventName": "Event(Property-Change, [subject], Game(End), WinQuad)",
+							"EventName": "Event(Property-Change, SELF, Game(End), WinQuad)",
 							"Conditions":
 								{
 									"Set": []
@@ -161,7 +161,7 @@
 							"Praiseworthiness": 10
 						}, 
 						{
-							"EventName": "Event(Property-Change, [subject], Game(End), WinSingle)",
+							"EventName": "Event(Property-Change, SELF, Game(End), WinSingle)",
 							"Conditions":
 								{
 									"Set": []
@@ -170,7 +170,7 @@
 							"Praiseworthiness": 10
 						}, 
 						{
-							"EventName": "Event(Property-Change, [subject], Session(End), Lost)",
+							"EventName": "Event(Property-Change, SELF, Session(End), Lost)",
 							"Conditions":
 								{
 									"Set": []
@@ -179,7 +179,7 @@
 							"Praiseworthiness": -10
 						}, 
 						{
-							"EventName": "Event(Property-Change, [subject], Session(End), Win)",
+							"EventName": "Event(Property-Change, SELF, Session(End), Win)",
 							"Conditions":
 								{
 									"Set": []
