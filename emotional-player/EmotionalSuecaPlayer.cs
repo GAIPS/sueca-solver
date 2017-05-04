@@ -159,11 +159,11 @@ namespace EmotionalPlayer
 
         public void GameStart(int gameId, int playerId, int teamId, string trumpCard, int trumpCardPlayer, string[] cards)
         {
+            _initialyzing = true;
             Thread.Sleep(500);
             if (playerId == _id)
             {
                 _teamId = teamId;
-                _initialyzing = true;
                 SuecaEvent ev1 = new SuecaEvent(Consts.INIT);
                 _suecaRPC.AddSuecaEvent(ev1);
                 ev1.OtherStringInfos = new string[] { subjectName(_id) };
@@ -211,8 +211,8 @@ namespace EmotionalPlayer
                 int myTrumpCard = SuecaSolver.Card.Create(trumpRank, trumpSuit);
 
                 _ai = new RBOPlayer(playerId, initialCards, myTrumpCard, trumpCardPlayer);
-                _initialyzing = false;
             }
+            _initialyzing = false;
         }
 
         public void Shuffle(int playerId)
