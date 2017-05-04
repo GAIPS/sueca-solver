@@ -12,7 +12,16 @@
 							"Set": ["DialogueState(Board) = PlaySelf", "ValidDialogue(PlaySelf, [ns], [m], [s]) = True", "Play(Info) = [m]"]
 						},
 					"Priority": 3
-				}, 
+				},
+				{
+					"Action": "Speak(PlaySelf, [ns], [m], Neutral)",
+					"Target": "Board",
+					"Conditions":
+						{
+							"Set": ["DialogueState(Board) = PlaySelf", "ValidDialogue(PlaySelf, [ns], [m], Neutral) = True", "Play(Info) = [m]"]
+						},
+					"Priority": 2
+				},				
 				{
 					"Action": "Speak(PlayPartner, [ns], [m], [s])",
 					"Target": "Board",
@@ -45,19 +54,37 @@
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["DialogueState(Board) = GameEnd", "ValidDialogue(GameEnd, [ns], [m], [s]) = True", "IND = [m]", "StrongestAttributionEmotion(SELF) = [s]", "EmotionIntensity(SELF, [s]) > 4"]
+							"Set": ["DialogueState(Board) = GameEnd", "ValidDialogue(GameEnd, [ns], [m], [s]) = True", "IND = [m]", "StrongestWellBeingEmotion(SELF) = [s]", "EmotionIntensity(SELF, [s]) > 4"]
 						},
 					"Priority": 3
-				}, 
+				},
+				{
+					"Action": "Speak(GameEnd, [ns], [m], Neutral)",
+					"Target": "Board",
+					"Conditions":
+						{
+							"Set": ["DialogueState(Board) = GameEnd", "ValidDialogue(GameEnd, [ns], [m], Neutral) = True", "IND = [m]"]
+						},
+					"Priority": 3
+				},				
 				{
 					"Action": "Speak(SessionEnd, [ns], [m], [s])",
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["DialogueState(Board) = SessionEnd", "ValidDialogue(SessionEnd, [ns], [m], [s]) = True", "IND = [m]", "StrongestAttributionEmotion(SELF) = [s]", "EmotionIntensity(SELF, [s]) > 7"]
+							"Set": ["DialogueState(Board) = SessionEnd", "ValidDialogue(SessionEnd, [ns], [m], [s]) = True", "IND = [m]", "StrongestWellBeingEmotion(SELF) = [s]", "EmotionIntensity(SELF, [s]) > 7"]
 						},
 					"Priority": 3
-				}, 
+				},
+				{
+					"Action": "Speak(SessionEnd, [ns], [m], Neutral)",
+					"Target": "Board",
+					"Conditions":
+						{
+							"Set": ["DialogueState(Board) = SessionEnd", "ValidDialogue(SessionEnd, [ns], [m], Neutral) = True", "IND = [m]"]
+						},
+					"Priority": 2
+				},				
 				{
 					"Action": "Speak([cs], [ns], [m], [s])",
 					"Target": "Board",
