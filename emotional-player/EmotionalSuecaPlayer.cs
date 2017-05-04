@@ -159,8 +159,10 @@ namespace EmotionalPlayer
 
         public void GameStart(int gameId, int playerId, int teamId, string trumpCard, int trumpCardPlayer, string[] cards)
         {
+            Thread.Sleep(500);
             if (playerId == _id)
             {
+                _teamId = teamId;
                 _initialyzing = true;
                 SuecaEvent ev1 = new SuecaEvent(Consts.INIT);
                 _suecaRPC.AddSuecaEvent(ev1);
@@ -182,14 +184,6 @@ namespace EmotionalPlayer
                 }
                 ev1.Finished = true;
 
-                if (_suecaRPC._agentName == "EMYS-1(Individual)")
-                {
-                    _teamId = 0;
-                }
-                else if(_suecaRPC._agentName == "EMYS-2(Individual)")
-                {
-                    _teamId = 1;
-                }
                 Console.WriteLine("--------------------------------------------------------------------------" + _teamId);
                 _currentGameId = gameId;
                 _currentTrickId = 0;
@@ -486,7 +480,7 @@ namespace EmotionalPlayer
         {
             _currentTrickId++;
             //do not talk for the last trickEnd event
-            if (_currentTrickId != 9)
+            if (_currentTrickId != 10)
             {
                 _robotHasPlayed = false;
 
