@@ -150,26 +150,6 @@ namespace EmotionalPlayer
             _numGames = numGames;
             _currentGameId = 0;
 
-            SuecaEvent ev1 = new SuecaEvent(Consts.INIT);
-            _suecaRPC.AddSuecaEvent(ev1);
-            ev1.OtherStringInfos = new string[] { subjectName(_id) };
-            switch (_agentType)
-            {
-                case Consts.AGENT_TYPE_GROUP:
-                    ev1.AddPropertyChange("Player(" + subjectName(_id) + ")", Consts.PARTNER, Consts.DEFAULT_SUBJECT);
-                    ev1.AddPropertyChange("Player(" + subjectName((_id + 1) % 4) + ")", Consts.OPPONENT, Consts.DEFAULT_SUBJECT);
-                    break;
-                case Consts.AGENT_TYPE_INDIVIDUAL:
-                    ev1.AddPropertyChange("Player(" + subjectName(_id) + ")", Consts.PARTNER, Consts.DEFAULT_SUBJECT);
-                    ev1.AddPropertyChange("Player(" + subjectName((_id + 1) % 4) + ")", Consts.OPPONENT, Consts.DEFAULT_SUBJECT);
-                    ev1.AddPropertyChange("Player(" + subjectName((_id + 2) % 4) + ")", Consts.PARTNER, Consts.DEFAULT_SUBJECT);
-                    ev1.AddPropertyChange("Player(" + subjectName((_id + 3) % 4) + ")", Consts.OPPONENT, Consts.DEFAULT_SUBJECT);
-                    break;
-                default:
-                    break;
-            }
-            ev1.Finished = true;
-
             SuecaEvent ev2 = new SuecaEvent(Consts.STATE_SESSION_START);
             _suecaRPC.AddSuecaEvent(ev2);
             ev2.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_SESSION_START, Consts.DEFAULT_SUBJECT);
@@ -182,7 +162,35 @@ namespace EmotionalPlayer
             if (playerId == _id)
             {
                 _initialyzing = true;
-                _teamId = teamId;
+                SuecaEvent ev1 = new SuecaEvent(Consts.INIT);
+                _suecaRPC.AddSuecaEvent(ev1);
+                ev1.OtherStringInfos = new string[] { subjectName(_id) };
+                switch (_agentType)
+                {
+                    case Consts.AGENT_TYPE_GROUP:
+                        ev1.AddPropertyChange("Player(" + subjectName(_id) + ")", Consts.PARTNER, Consts.DEFAULT_SUBJECT);
+                        ev1.AddPropertyChange("Player(" + subjectName((_id + 1) % 4) + ")", Consts.OPPONENT, Consts.DEFAULT_SUBJECT);
+                        break;
+                    case Consts.AGENT_TYPE_INDIVIDUAL:
+                        ev1.AddPropertyChange("Player(" + subjectName(_id) + ")", Consts.PARTNER, Consts.DEFAULT_SUBJECT);
+                        ev1.AddPropertyChange("Player(" + subjectName((_id + 1) % 4) + ")", Consts.OPPONENT, Consts.DEFAULT_SUBJECT);
+                        ev1.AddPropertyChange("Player(" + subjectName((_id + 2) % 4) + ")", Consts.PARTNER, Consts.DEFAULT_SUBJECT);
+                        ev1.AddPropertyChange("Player(" + subjectName((_id + 3) % 4) + ")", Consts.OPPONENT, Consts.DEFAULT_SUBJECT);
+                        break;
+                    default:
+                        break;
+                }
+                ev1.Finished = true;
+
+                if (_suecaRPC._agentName == "EMYS-1(Individual)")
+                {
+                    _teamId = 0;
+                }
+                else if(_suecaRPC._agentName == "EMYS-2(Individual)")
+                {
+                    _teamId = 1;
+                }
+                Console.WriteLine("--------------------------------------------------------------------------" + _teamId);
                 _currentGameId = gameId;
                 _currentTrickId = 0;
                 //do not talk for the first game start event

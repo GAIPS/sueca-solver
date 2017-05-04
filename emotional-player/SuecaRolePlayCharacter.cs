@@ -35,7 +35,7 @@ namespace EmotionalPlayer
         private int i;
         private Random _randomNumberGenerator;
         private bool _sleepNotify = false;
-        private string _agentName;
+        public string _agentName;
         private EmotionalSuecaPlayer _esp;
 
 
