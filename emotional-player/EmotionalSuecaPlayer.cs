@@ -149,6 +149,7 @@ namespace EmotionalPlayer
             Console.WriteLine("My id is " + _id);
             _numGames = numGames;
             _currentGameId = 0;
+
             SuecaEvent ev1 = new SuecaEvent(Consts.INIT);
             _suecaRPC.AddSuecaEvent(ev1);
             ev1.OtherStringInfos = new string[] { subjectName(_id) };
@@ -374,8 +375,8 @@ namespace EmotionalPlayer
                 string cardSerialized = new SuecaTypes.Card(msgRank, msgSuit).SerializeToJson();
                 string playInfo = _ai.GetLastPlayInfo();
                 
-                ev.Name = Consts.STATE_PLAYING;
-                ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_PLAYING, Consts.DEFAULT_SUBJECT);
+                ev.Name = Consts.STATE_PLAYSELF;
+                ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_PLAYSELF, Consts.DEFAULT_SUBJECT);
                 ev.AddPropertyChange(Consts.PLAY_INFO, playInfo, Consts.DEFAULT_SUBJECT);
                 ev.ChangeTagsAndMeanings(new string[] { "|rank|", "|suit|" }, new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()) });
                 ev.OtherIntInfos = new int[] { this._id};
@@ -432,11 +433,11 @@ namespace EmotionalPlayer
 
             if (_ai != null && id != this._id)
             {
-                SuecaEvent ev = new SuecaEvent(Consts.STATE_PLAY);
+                SuecaEvent ev = new SuecaEvent(Consts.STATE_PLAYPARTNER);
                 _suecaRPC.AddSuecaEvent(ev);
                 ev.AddPropertyChange(Consts.CURRENT_PLAYER, subjectName(id), Consts.DEFAULT_SUBJECT);
                 _ai.AddPlay(id, myCard);
-                ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_PLAY, Consts.DEFAULT_SUBJECT);
+                ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_PLAYPARTNER, Consts.DEFAULT_SUBJECT);
                 string[] tags = new string[] { "|rank|", "|suit|", "|playerId|" };
                 string[] meanings = new string[] { convertRankToPortuguese(myRank.ToString()), convertSuitToPortuguese(mySuit.ToString()), id.ToString() };
                 ev.ChangeTagsAndMeanings(tags, meanings);
