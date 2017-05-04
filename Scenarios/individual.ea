@@ -30,6 +30,69 @@
 							"Praiseworthiness": -10
 						}, 
 						{
+							"EventName": "Event(Property-Change, SELF, Game(End), LostQuad)",
+							"Conditions":
+								{
+									"Set": []
+								},
+							"Desirability": -10,
+							"Praiseworthiness": -10
+						}, 
+						{
+							"EventName": "Event(Property-Change, SELF, Game(End), LostSingle)",
+							"Conditions":
+								{
+									"Set": []
+								},
+							"Desirability": -10,
+							"Praiseworthiness": -10
+						}, 
+						{
+							"EventName": "Event(Property-Change, SELF, Game(End), WinDouble)",
+							"Conditions":
+								{
+									"Set": []
+								},
+							"Desirability": 10,
+							"Praiseworthiness": 10
+						}, 
+						{
+							"EventName": "Event(Property-Change, SELF, Game(End), WinQuad)",
+							"Conditions":
+								{
+									"Set": []
+								},
+							"Desirability": 10,
+							"Praiseworthiness": 10
+						}, 
+						{
+							"EventName": "Event(Property-Change, SELF, Game(End), WinSingle)",
+							"Conditions":
+								{
+									"Set": []
+								},
+							"Desirability": 10,
+							"Praiseworthiness": 10
+						}, 
+						{
+							"EventName": "Event(Property-Change, SELF, Session(End), Lost)",
+							"Conditions":
+								{
+									"Set": []
+								},
+							"Desirability": -10,
+							"Praiseworthiness": -10
+						}, 
+						{
+							"EventName": "Event(Property-Change, SELF, Session(End), Win)",
+							"Conditions":
+								{
+									"Set": []
+								},
+							"Desirability": 10,
+							"Praiseworthiness": 10
+						}, 
+						{
 							"EventName": "Event(Property-Change, SELF, Trick(End), [trickPoints])",
 							"Conditions":
 								{
@@ -161,69 +224,6 @@
 								},
 							"Desirability": -4,
 							"Praiseworthiness": -4
-						}, 
-						{
-							"EventName": "Event(Property-Change, SELF, Game(End), LostQuad)",
-							"Conditions":
-								{
-									"Set": []
-								},
-							"Desirability": -10,
-							"Praiseworthiness": -10
-						}, 
-						{
-							"EventName": "Event(Property-Change, SELF, Game(End), LostSingle)",
-							"Conditions":
-								{
-									"Set": []
-								},
-							"Desirability": -10,
-							"Praiseworthiness": -10
-						}, 
-						{
-							"EventName": "Event(Property-Change, SELF, Game(End), WinDouble)",
-							"Conditions":
-								{
-									"Set": []
-								},
-							"Desirability": 10,
-							"Praiseworthiness": 10
-						}, 
-						{
-							"EventName": "Event(Property-Change, SELF, Game(End), WinQuad)",
-							"Conditions":
-								{
-									"Set": []
-								},
-							"Desirability": 10,
-							"Praiseworthiness": 10
-						}, 
-						{
-							"EventName": "Event(Property-Change, SELF, Game(End), WinSingle)",
-							"Conditions":
-								{
-									"Set": []
-								},
-							"Desirability": 10,
-							"Praiseworthiness": 10
-						}, 
-						{
-							"EventName": "Event(Property-Change, SELF, Session(End), Lost)",
-							"Conditions":
-								{
-									"Set": []
-								},
-							"Desirability": -10,
-							"Praiseworthiness": -10
-						}, 
-						{
-							"EventName": "Event(Property-Change, SELF, Session(End), Win)",
-							"Conditions":
-								{
-									"Set": []
-								},
-							"Desirability": 10,
-							"Praiseworthiness": 10
 						}, 
 						{
 							"EventName": "Event(Property-Change, [subject], Trick(Winner), [trickWinnerID])",
