@@ -9,7 +9,7 @@
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["DialogueState(Board) = PlaySelf", "ValidDialogue(PlaySelf, [ns], [m], [s]) = True", "Play(Info) = [m]", "Dialogue(Style) = [ds]"]
+							"Set": ["DialogueState(Board) = PlaySelf", "ValidDialogue(PlaySelf, [ns], [m], [s]) = True", "Play(Info) = [m]", "Dialogue(Style) = [s]"]
 						},
 					"Priority": 3
 				}, 
