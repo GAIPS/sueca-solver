@@ -386,13 +386,20 @@ namespace EmotionalPlayer
                 SuecaTypes.Suit msgSuit = (SuecaTypes.Suit)Enum.Parse(typeof(SuecaTypes.Suit), chosenCardSuit.ToString());
                 string cardSerialized = new SuecaTypes.Card(msgRank, msgSuit).SerializeToJson();
                 string playInfo = _ai.GetLastPlayInfo();
-                
-                ev.Name = Consts.STATE_PLAYSELF;
-                ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_PLAYSELF, Consts.DEFAULT_SUBJECT);
-                ev.AddPropertyChange(Consts.PLAY_INFO, playInfo, Consts.DEFAULT_SUBJECT);
-                ev.ChangeTagsAndMeanings(new string[] { "|rank|", "|suit|" }, new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()) });
-                ev.OtherIntInfos = new int[] { this._id};
-                ev.OtherStringInfos = new string[] { cardSerialized, playInfo};
+
+                if (_currentTrickId == 9)
+                {
+                    SuecaPub.Play(_id, cardSerialized, playInfo);
+                }
+                else
+                {
+                    ev.Name = Consts.STATE_PLAYSELF;
+                    ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_PLAYSELF, Consts.DEFAULT_SUBJECT);
+                    ev.AddPropertyChange(Consts.PLAY_INFO, playInfo, Consts.DEFAULT_SUBJECT);
+                    ev.ChangeTagsAndMeanings(new string[] { "|rank|", "|suit|" }, new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()) });
+                    ev.OtherIntInfos = new int[] { this._id };
+                    ev.OtherStringInfos = new string[] { cardSerialized, playInfo };
+                }
 
                 int currentPlayPoints = _ai.GetCurrentTrickPoints();
                 bool hasNewTrickWinner = _ai.HasNewTrickTeamWinner();

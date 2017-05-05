@@ -58,15 +58,6 @@
 					"Priority": 3
 				}, 
 				{
-					"Action": "Speak(GameEnd, [ns], [m], Neutral)",
-					"Target": "Board",
-					"Conditions":
-						{
-							"Set": ["DialogueState(Board) = GameEnd", "ValidDialogue(GameEnd, [ns], [m], Neutral) = True", "COL = [m]"]
-						},
-					"Priority": 3
-				}, 
-				{
 					"Action": "Speak(SessionEnd, [ns], [m], Neutral)",
 					"Target": "Board",
 					"Conditions":
