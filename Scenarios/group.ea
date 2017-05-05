@@ -8,8 +8,9 @@
 					"Perspective": "T1",
 					"Knowledge":
 						{
-							"Universal":
+							"SELF":
 								{
+									"Dialogue(Style)": "A",
 									"Player(T0)": "Opponent",
 									"Player(T1)": "Partner"
 								}
@@ -19,6 +20,78 @@
 				{
 					"AppraisalWeight": 1,
 					"Rules": [
+						{
+							"EventName": "Event(Property-Change, SELF, Game(End), LostDouble)",
+							"Conditions":
+								{
+									"Set": []
+								},
+							"Desirability": -10,
+							"Praiseworthiness": -10
+						}, 
+						{
+							"EventName": "Event(Property-Change, SELF, Game(End), LostQuad)",
+							"Conditions":
+								{
+									"Set": []
+								},
+							"Desirability": -10,
+							"Praiseworthiness": -10
+						}, 
+						{
+							"EventName": "Event(Property-Change, SELF, Game(End), LostSingle)",
+							"Conditions":
+								{
+									"Set": []
+								},
+							"Desirability": -10,
+							"Praiseworthiness": -10
+						}, 
+						{
+							"EventName": "Event(Property-Change, SELF, Game(End), WinDouble)",
+							"Conditions":
+								{
+									"Set": []
+								},
+							"Desirability": 10,
+							"Praiseworthiness": 10
+						}, 
+						{
+							"EventName": "Event(Property-Change, SELF, Game(End), WinQuad)",
+							"Conditions":
+								{
+									"Set": []
+								},
+							"Desirability": 10,
+							"Praiseworthiness": 10
+						}, 
+						{
+							"EventName": "Event(Property-Change, SELF, Game(End), WinSingle)",
+							"Conditions":
+								{
+									"Set": []
+								},
+							"Desirability": 10,
+							"Praiseworthiness": 10
+						}, 
+						{
+							"EventName": "Event(Property-Change, SELF, Session(End), Lost)",
+							"Conditions":
+								{
+									"Set": []
+								},
+							"Desirability": -10,
+							"Praiseworthiness": -10
+						}, 
+						{
+							"EventName": "Event(Property-Change, SELF, Session(End), Win)",
+							"Conditions":
+								{
+									"Set": []
+								},
+							"Desirability": 10,
+							"Praiseworthiness": 10
+						}, 
 						{
 							"EventName": "Event(Property-Change, SELF, Trick(End), [trickPoints])",
 							"Conditions":
@@ -114,78 +187,6 @@
 									"Set": ["Player([playerId]) = Opponent"]
 								},
 							"Desirability": 6
-						}, 
-						{
-							"EventName": "Event(Property-Change, SELF, Game(End), LostDouble)",
-							"Conditions":
-								{
-									"Set": []
-								},
-							"Desirability": -10,
-							"Praiseworthiness": -10
-						}, 
-						{
-							"EventName": "Event(Property-Change, SELF, Game(End), LostQuad)",
-							"Conditions":
-								{
-									"Set": []
-								},
-							"Desirability": -10,
-							"Praiseworthiness": -10
-						}, 
-						{
-							"EventName": "Event(Property-Change, SELF, Game(End), LostSingle)",
-							"Conditions":
-								{
-									"Set": []
-								},
-							"Desirability": -10,
-							"Praiseworthiness": -10
-						}, 
-						{
-							"EventName": "Event(Property-Change, SELF, Game(End), WinDouble)",
-							"Conditions":
-								{
-									"Set": []
-								},
-							"Desirability": 10,
-							"Praiseworthiness": 10
-						}, 
-						{
-							"EventName": "Event(Property-Change, SELF, Game(End), WinQuad)",
-							"Conditions":
-								{
-									"Set": []
-								},
-							"Desirability": 10,
-							"Praiseworthiness": 10
-						}, 
-						{
-							"EventName": "Event(Property-Change, SELF, Game(End), WinSingle)",
-							"Conditions":
-								{
-									"Set": []
-								},
-							"Desirability": 10,
-							"Praiseworthiness": 10
-						}, 
-						{
-							"EventName": "Event(Property-Change, SELF, Session(End), Lost)",
-							"Conditions":
-								{
-									"Set": []
-								},
-							"Desirability": -10,
-							"Praiseworthiness": -10
-						}, 
-						{
-							"EventName": "Event(Property-Change, SELF, Session(End), Win)",
-							"Conditions":
-								{
-									"Set": []
-								},
-							"Desirability": 10,
-							"Praiseworthiness": 10
 						}, 
 						{
 							"EventName": "Event(Property-Change, [subject], Trick(Winner), [trickWinnerID])",
