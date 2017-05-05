@@ -721,13 +721,14 @@ namespace EmotionalPlayer
             switch (_agentType)
             {
                 case Consts.AGENT_TYPE_GROUP:
-                    if (_teamId == 0)
+                    string[] teams = new string[] { "T0", "T1" };
+                    if (id == _id || id == ((_id + 2) % 4))
                     {
-                        subject = "T0";
+                        subject = teams[_teamId];
                     }
                     else
                     {
-                        subject = "T1";
+                        subject = teams[(_teamId + 1) % 2];
                     }
                     break;
                 case Consts.AGENT_TYPE_INDIVIDUAL:
