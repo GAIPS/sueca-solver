@@ -149,20 +149,15 @@ namespace EmotionalPlayer
             Console.WriteLine("My id is " + _id);
             _numGames = numGames;
             _currentGameId = 0;
-
-            SuecaEvent ev2 = new SuecaEvent(Consts.STATE_SESSION_START);
-            _suecaRPC.AddSuecaEvent(ev2);
-            ev2.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_SESSION_START, Consts.DEFAULT_SUBJECT);
             numRobots = agentsIds.Length;
-            ev2.Finished = true;
         }
 
         public void GameStart(int gameId, int playerId, int teamId, string trumpCard, int trumpCardPlayer, string[] cards)
         {
-            _initialyzing = true;
-            Thread.Sleep(500);
             if (playerId == _id)
             {
+                _initialyzing = true;
+
                 _teamId = teamId;
                 SuecaEvent ev1 = new SuecaEvent(Consts.INIT);
                 _suecaRPC.AddSuecaEvent(ev1);
@@ -182,13 +177,28 @@ namespace EmotionalPlayer
                     default:
                         break;
                 }
+                if (_nameId == 1)
+                {
+                    ev1.AddPropertyChange("Dialogue(Style)", "A", Consts.DEFAULT_SUBJECT);
+                }
+                else
+                {
+                    ev1.AddPropertyChange("Dialogue(Style)", "B", Consts.DEFAULT_SUBJECT);
+                }
                 ev1.Finished = true;
 
-                Console.WriteLine("--------------------------------------------------------------------------" + _teamId);
+
                 _currentGameId = gameId;
                 _currentTrickId = 0;
-                //do not talk for the first game start event
-                if (gameId != 0)
+
+                if (gameId == 0)
+                {
+                    SuecaEvent ev = new SuecaEvent(Consts.STATE_SESSION_START);
+                    _suecaRPC.AddSuecaEvent(ev);
+                    ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_SESSION_START, Consts.DEFAULT_SUBJECT);
+                    ev.Finished = true;
+                }
+                else
                 {
                     SuecaEvent ev = new SuecaEvent(Consts.STATE_GAME_START);
                     _suecaRPC.AddSuecaEvent(ev);
@@ -211,8 +221,8 @@ namespace EmotionalPlayer
                 int myTrumpCard = SuecaSolver.Card.Create(trumpRank, trumpSuit);
 
                 _ai = new RBOPlayer(playerId, initialCards, myTrumpCard, trumpCardPlayer);
+                _initialyzing = false;
             }
-            _initialyzing = false;
         }
 
         public void Shuffle(int playerId)
@@ -357,8 +367,8 @@ namespace EmotionalPlayer
         {
             //NextPlayer events arrive to Thalamus Client around 10miliseconds later than Play events, however this method is called first than Play
             //This sleep allows Play event to be fully processed before the next player
-            Thread.Sleep(100);
             SuecaEvent ev = new SuecaEvent(Consts.STATE_NEXT_PLAYER);
+            Thread.Sleep(500);
 
             //Console.WriteLine("The next player is {0}.", id);
 

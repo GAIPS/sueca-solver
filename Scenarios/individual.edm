@@ -9,24 +9,16 @@
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["DialogueState(Board) = PlaySelf", "ValidDialogue(PlaySelf, [ns], [m], [s]) = True", "Play(Info) = [m]"]
+							"Set": ["DialogueState(Board) = PlaySelf", "ValidDialogue(PlaySelf, [ns], [m], [s]) = True", "Play(Info) = [m]", "Dialogue(Style) = [s]"]
 						},
 					"Priority": 3
-				}, 
-				{
-					"Action": "Speak(PlaySelf, [ns], [m], Neutral)",
-					"Target": "Board",
-					"Conditions":
-						{
-							"Set": ["DialogueState(Board) = PlaySelf", "ValidDialogue(PlaySelf, [ns], [m], Neutral) = True", "Play(Info) = [m]"]
-						}
 				}, 
 				{
 					"Action": "Speak(PlayPartner, [ns], [m], [s])",
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["DialogueState(Board) = PlayPartner", "ValidDialogue(PlayPartner, [ns], [m], [s]) = True", "IND = [m]", "Current(PlayerID) = [cpId]", "Player([cpId]) = Partner", "StrongestAttributionEmotion(SELF) = [s]", "EmotionIntensity(SELF, [s]) >= 5"]
+							"Set": ["DialogueState(Board) = PlayPartner", "ValidDialogue(PlayPartner, [ns], [m], [s]) = True", "IND = [m]", "Current(PlayerID) = [cpId]", "Player([cpId]) = Partner", "StrongestAttributionEmotion(SELF) = [e]", "EmotionIntensity(SELF, [e]) >= 5", "Dialogue(Style) = [ds]", "S([e], [ds]) = [s]"]
 						},
 					"Priority": 3
 				}, 
@@ -35,7 +27,7 @@
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["DialogueState(Board) = TrickEnd", "ValidDialogue(TrickEnd, [ns], [m], [s]) = True", "IND = [m]", "StrongestAttributionEmotion(SELF) = [s]", "EmotionIntensity(SELF, [s]) > 5"]
+							"Set": ["DialogueState(Board) = TrickEnd", "ValidDialogue(TrickEnd, [ns], [m], [s]) = True", "IND = [m]", "StrongestAttributionEmotion(SELF) = [e]", "EmotionIntensity(SELF, [e]) > 5", "Dialogue(Style) = [ds]", "S([e], [ds]) = [s]"]
 						},
 					"Priority": 4
 				}, 
@@ -53,7 +45,7 @@
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["DialogueState(Board) = GameEnd", "ValidDialogue(GameEnd, [ns], [m], [s]) = True", "IND = [m]", "StrongestWellBeingEmotion(SELF) = [s]", "EmotionIntensity(SELF, [s]) > 4"]
+							"Set": ["DialogueState(Board) = GameEnd", "ValidDialogue(GameEnd, [ns], [m], [s]) = True", "IND = [m]", "StrongestWellBeingEmotion(SELF) = [e]", "EmotionIntensity(SELF, [e]) > 4", "Dialogue(Style) = [ds]", "S([e], [ds]) = [s]"]
 						},
 					"Priority": 3
 				}, 
@@ -62,7 +54,7 @@
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["DialogueState(Board) = SessionEnd", "ValidDialogue(SessionEnd, [ns], [m], [s]) = True", "IND = [m]", "StrongestWellBeingEmotion(SELF) = [s]", "EmotionIntensity(SELF, [s]) > 7"]
+							"Set": ["DialogueState(Board) = SessionEnd", "ValidDialogue(SessionEnd, [ns], [m], [s]) = True", "IND = [m]", "StrongestWellBeingEmotion(SELF) = [e]", "EmotionIntensity(SELF, [e]) > 7", "Dialogue(Style) = [ds]", "S([e], [ds]) = [s]"]
 						},
 					"Priority": 3
 				}, 
@@ -79,7 +71,7 @@
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["ValidDialogue([cs], [ns], [m], [s]) = True", "DialogueState(Board) = [cs]", "DialogueState(Board) != PlayPartner", "DialogueState(Board) != PlaySelf", "DialogueState(Board) != TrickEnd", "DialogueState(Board) != GameEnd", "DialogueState(Board) != SessionEnd"]
+							"Set": ["ValidDialogue([cs], [ns], [m], [s]) = True", "DialogueState(Board) = [cs]", "DialogueState(Board) != PlayPartner", "DialogueState(Board) != PlaySelf", "DialogueState(Board) != TrickEnd", "DialogueState(Board) != GameEnd", "DialogueState(Board) != SessionEnd", "Dialogue(Style) = [s]"]
 						},
 					"Priority": 0
 				}, 
