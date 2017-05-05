@@ -7,6 +7,174 @@
 			"CharacterSources": ["group.rpc", "individual.rpc"],
 			"AgentDialogues": [
 				{
+					"CurrentState": "Shuffle",
+					"NextState": "Dynamic",
+					"Meaning": ["-"],
+					"Style": ["-"],
+					"Utterance": "É a tua vez de baralhar as cartas.",
+					"UtteranceId": "TTS-FBBF6A58F32E57DA277C45440E65860A"
+				}, 
+				{
+					"CurrentState": "Shuffle",
+					"NextState": "Dynamic",
+					"Meaning": ["-"],
+					"Style": ["-"],
+					"Utterance": "É a tua vez de baralhar.",
+					"UtteranceId": "TTS-A3D04F8A03B73CE8AEDBFDB984ED1790"
+				}, 
+				{
+					"CurrentState": "Shuffle",
+					"NextState": "Dynamic",
+					"Meaning": ["-"],
+					"Style": ["-"],
+					"Utterance": "És tu a baralhar!",
+					"UtteranceId": "TTS-30C8D2DDAF6EE68C97E054F993B4517F"
+				}, 
+				{
+					"CurrentState": "Shuffle",
+					"NextState": "Dynamic",
+					"Meaning": ["-"],
+					"Style": ["-"],
+					"Utterance": "És tu a baralhar as cartas.",
+					"UtteranceId": "TTS-F6003C3631B0370BB6E1B81981C04BC4"
+				}, 
+				{
+					"CurrentState": "Cut",
+					"NextState": "Dynamic",
+					"Meaning": ["-"],
+					"Style": ["-"],
+					"Utterance": "É a tua vez de partir",
+					"UtteranceId": "TTS-C3D8ED5EB189050A18756971E806D358"
+				}, 
+				{
+					"CurrentState": "Cut",
+					"NextState": "Dynamic",
+					"Meaning": ["-"],
+					"Style": ["-"],
+					"Utterance": "És tu a partir!",
+					"UtteranceId": "TTS-0AFA19683D67E65988DA522A318AECEC"
+				}, 
+				{
+					"CurrentState": "Cut",
+					"NextState": "Dynamic",
+					"Meaning": ["-"],
+					"Style": ["-"],
+					"Utterance": "Não te esqueças de partir.",
+					"UtteranceId": "TTS-BB61AAE39C15E8023E71CBD0C2756928"
+				}, 
+				{
+					"CurrentState": "Cut",
+					"NextState": "Dynamic",
+					"Meaning": ["-"],
+					"Style": ["-"],
+					"Utterance": "Podes partir por favor?",
+					"UtteranceId": "TTS-2822EE8EF5709769DAB4FFF44DF1C41C"
+				}, 
+				{
+					"CurrentState": "Deal",
+					"NextState": "Dynamic",
+					"Meaning": ["-"],
+					"Style": ["-"],
+					"Utterance": "És tu a distribuir as cartas.",
+					"UtteranceId": "TTS-8E45D92627336C232380A0F8B3651534"
+				}, 
+				{
+					"CurrentState": "Deal",
+					"NextState": "Dynamic",
+					"Meaning": ["-"],
+					"Style": ["-"],
+					"Utterance": "Podes distribuir as cartas por favor?",
+					"UtteranceId": "TTS-0F56E72C8A5926D68DBE7D798F5645DF"
+				}, 
+				{
+					"CurrentState": "Deal",
+					"NextState": "Dynamic",
+					"Meaning": ["-"],
+					"Style": ["-"],
+					"Utterance": "É a tua vez de distribuir as cartas.",
+					"UtteranceId": "TTS-64A3F21486B96BE90373D2217BA6247B"
+				}, 
+				{
+					"CurrentState": "Deal",
+					"NextState": "Dynamic",
+					"Meaning": ["-"],
+					"Style": ["-"],
+					"Utterance": "É a tua vez de dar as cartas.",
+					"UtteranceId": "TTS-F59702433AB24B2FC2F58BBDA30A2CB2"
+				}, 
+				{
+					"CurrentState": "Deal",
+					"NextState": "Dynamic",
+					"Meaning": ["-"],
+					"Style": ["-"],
+					"Utterance": "És tu a dar as cartas!",
+					"UtteranceId": "TTS-3776505EF602A90A00637A94440E75E6"
+				}, 
+				{
+					"CurrentState": "Deal",
+					"NextState": "Dynamic",
+					"Meaning": ["-"],
+					"Style": ["-"],
+					"Utterance": "És tu a dar.",
+					"UtteranceId": "TTS-417B742C7AB27E6F68F461691D59DA90"
+				}, 
+				{
+					"CurrentState": "GameEnd",
+					"NextState": "Dynamic",
+					"Meaning": ["IND"],
+					"Style": ["Neutral"],
+					"Utterance": "O jogo terminou.",
+					"UtteranceId": "TTS-D8D7EF990A57CB82C2D088C6F56A9410"
+				}, 
+				{
+					"CurrentState": "GameEnd",
+					"NextState": "Dynamic",
+					"Meaning": ["IND"],
+					"Style": ["Joy"],
+					"Utterance": "Vitória é minha!",
+					"UtteranceId": "TTS-5CF54CB5ED341CE4EC887F654DA2354C"
+				}, 
+				{
+					"CurrentState": "GameEnd",
+					"NextState": "Dynamic",
+					"Meaning": ["IND"],
+					"Style": ["Joy"],
+					"Utterance": "Muito bem, ganhei!",
+					"UtteranceId": "TTS-A4AE2D47012BB5F49C073BD8B7559C2B"
+				}, 
+				{
+					"CurrentState": "GameEnd",
+					"NextState": "Dynamic",
+					"Meaning": ["IND"],
+					"Style": ["Joy"],
+					"Utterance": "Ena, venci este jogo!",
+					"UtteranceId": "TTS-645DA0F6CDF4FF929CBE468BCDA08E07"
+				}, 
+				{
+					"CurrentState": "GameEnd",
+					"NextState": "Dynamic",
+					"Meaning": ["IND"],
+					"Style": ["Joy"],
+					"Utterance": "Ganhei este jogo. Assim sim",
+					"UtteranceId": "TTS-E04643F8169EEFD3A6A53FE36B37908F"
+				}, 
+				{
+					"CurrentState": "GameEnd",
+					"NextState": "Dynamic",
+					"Meaning": ["IND"],
+					"Style": ["Distress"],
+					"Utterance": "Desta vez perdi o jogo.",
+					"UtteranceId": "TTS-349EBEC5E2B18CA462D8BF9EFDAD5696"
+				}, 
+				{
+					"CurrentState": "GameEnd",
+					"NextState": "Dynamic",
+					"Meaning": ["IND"],
+					"Style": ["Distress"],
+					"Utterance": "Bolas, perdi!",
+					"UtteranceId": "TTS-72FCE01B27288CFF934190EC2F54A358"
+				}, 
+				{
 					"CurrentState": "GameEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
@@ -419,16 +587,16 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Admiration"],
-					"Utterance": "<gaze(player|playerId|)> É isso mesmo!",
-					"UtteranceId": "TTS-32A50352F6CBE7F90AD1EB9DF950F2B0"
+					"Utterance": "<gaze(player|playerId|)> É isso mesmo colega!",
+					"UtteranceId": "TTS-77D8677CD3516A7BCB2A1C9BB4179D32"
 				}, 
 				{
 					"CurrentState": "PlayPartner",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Admiration"],
-					"Utterance": "<gaze(player|playerId|)> Muito bem!",
-					"UtteranceId": "TTS-50A6C52D5AD229DB70E2A84A7B1A29C7"
+					"Utterance": "<gaze(player|playerId|)> Muito bem colega!",
+					"UtteranceId": "TTS-54A9ED31472793EA358CE28670556B25"
 				}, 
 				{
 					"CurrentState": "PlayPartner",
@@ -443,8 +611,8 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Admiration"],
-					"Utterance": "<gaze(player|playerId|)> Bem jogado!",
-					"UtteranceId": "TTS-DC5A42968AB7E9AA005E3EA02BEBA43F"
+					"Utterance": "<gaze(player|playerId|)> Bem jogado colega!",
+					"UtteranceId": "TTS-A75E098F0F0BB99F1C999CD9CF579DF0"
 				}, 
 				{
 					"CurrentState": "PlayPartner",
@@ -517,14 +685,6 @@
 					"Style": ["Shame"],
 					"Utterance": "Não jogámos nada bem",
 					"UtteranceId": "TTS-A207D258B7A562B430B255B723E2F144"
-				}, 
-				{
-					"CurrentState": "PlayPartner",
-					"NextState": "Dynamic",
-					"Meaning": ["COL"],
-					"Style": ["Shame"],
-					"Utterance": "<gaze(player|playerId|)> Oh não, não estamos a ter sorte nenhuma",
-					"UtteranceId": "TTS-9625897F47F56D313F54A20602620040"
 				}, 
 				{
 					"CurrentState": "PlayPartner",
@@ -1147,14 +1307,6 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride"],
-					"Utterance": "Estamos no bom caminho",
-					"UtteranceId": "TTS-19B8077012B15A5290D2DABFED397A3A"
-				}, 
-				{
-					"CurrentState": "TrickEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["COL"],
-					"Style": ["Pride"],
 					"Utterance": "Assim sim, estamos a jogar bem",
 					"UtteranceId": "TTS-82B2E1768D27D9E3CC4CE5CBEA7A7BC4"
 				}, 
@@ -1179,14 +1331,6 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Shame"],
-					"Utterance": "<gaze(player|playerId|)> Assim não conseguimos ganhar.",
-					"UtteranceId": "TTS-40D6C3C3D5E059B5FC7EF499EE696284"
-				}, 
-				{
-					"CurrentState": "TrickEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["COL"],
-					"Style": ["Shame"],
 					"Utterance": "<gaze(player|playerId|)> Isto já correu melhor para nós.",
 					"UtteranceId": "TTS-C3B2A148BC2B62BDB806FB520C297498"
 				}, 
@@ -1205,14 +1349,6 @@
 					"Style": ["Shame"],
 					"Utterance": "<gaze(player|playerId|)> Isto está a ficar tramado para nós.",
 					"UtteranceId": "TTS-A0717276B3454116F27E8BD847707115"
-				}, 
-				{
-					"CurrentState": "TrickEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["COL"],
-					"Style": ["Shame"],
-					"Utterance": "<gaze(player|playerId|)> Esta ronda não nos correu muito bem.",
-					"UtteranceId": "TTS-6AB9712FD5E66909022EB33D7C932019"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
@@ -1261,174 +1397,6 @@
 					"Style": ["Shame"],
 					"Utterance": "<gaze(player|playerId|)> Assim é que não vamos a lado nenhum.",
 					"UtteranceId": "TTS-07EEA23EE39A5E3D5B2C9125CB3D6582"
-				}, 
-				{
-					"CurrentState": "GameEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["IND"],
-					"Style": ["Distress"],
-					"Utterance": "Bolas, perdi!",
-					"UtteranceId": "TTS-72FCE01B27288CFF934190EC2F54A358"
-				}, 
-				{
-					"CurrentState": "GameEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["IND"],
-					"Style": ["Distress"],
-					"Utterance": "Desta vez perdi o jogo.",
-					"UtteranceId": "TTS-349EBEC5E2B18CA462D8BF9EFDAD5696"
-				}, 
-				{
-					"CurrentState": "GameEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["IND"],
-					"Style": ["Joy"],
-					"Utterance": "Ganhei este jogo. Assim sim",
-					"UtteranceId": "TTS-E04643F8169EEFD3A6A53FE36B37908F"
-				}, 
-				{
-					"CurrentState": "GameEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["IND"],
-					"Style": ["Joy"],
-					"Utterance": "Ena, venci este jogo!",
-					"UtteranceId": "TTS-645DA0F6CDF4FF929CBE468BCDA08E07"
-				}, 
-				{
-					"CurrentState": "GameEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["IND"],
-					"Style": ["Joy"],
-					"Utterance": "Muito bem, ganhei!",
-					"UtteranceId": "TTS-A4AE2D47012BB5F49C073BD8B7559C2B"
-				}, 
-				{
-					"CurrentState": "GameEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["IND"],
-					"Style": ["Joy"],
-					"Utterance": "Vitória é minha!",
-					"UtteranceId": "TTS-5CF54CB5ED341CE4EC887F654DA2354C"
-				}, 
-				{
-					"CurrentState": "GameEnd",
-					"NextState": "Dynamic",
-					"Meaning": ["IND"],
-					"Style": ["Neutral"],
-					"Utterance": "O jogo terminou.",
-					"UtteranceId": "TTS-D8D7EF990A57CB82C2D088C6F56A9410"
-				}, 
-				{
-					"CurrentState": "Deal",
-					"NextState": "Dynamic",
-					"Meaning": ["-"],
-					"Style": ["-"],
-					"Utterance": "És tu a dar.",
-					"UtteranceId": "TTS-417B742C7AB27E6F68F461691D59DA90"
-				}, 
-				{
-					"CurrentState": "Deal",
-					"NextState": "Dynamic",
-					"Meaning": ["-"],
-					"Style": ["-"],
-					"Utterance": "És tu a dar as cartas!",
-					"UtteranceId": "TTS-3776505EF602A90A00637A94440E75E6"
-				}, 
-				{
-					"CurrentState": "Deal",
-					"NextState": "Dynamic",
-					"Meaning": ["-"],
-					"Style": ["-"],
-					"Utterance": "É a tua vez de dar as cartas.",
-					"UtteranceId": "TTS-F59702433AB24B2FC2F58BBDA30A2CB2"
-				}, 
-				{
-					"CurrentState": "Deal",
-					"NextState": "Dynamic",
-					"Meaning": ["-"],
-					"Style": ["-"],
-					"Utterance": "É a tua vez de distribuir as cartas.",
-					"UtteranceId": "TTS-64A3F21486B96BE90373D2217BA6247B"
-				}, 
-				{
-					"CurrentState": "Deal",
-					"NextState": "Dynamic",
-					"Meaning": ["-"],
-					"Style": ["-"],
-					"Utterance": "Podes distribuir as cartas por favor?",
-					"UtteranceId": "TTS-0F56E72C8A5926D68DBE7D798F5645DF"
-				}, 
-				{
-					"CurrentState": "Deal",
-					"NextState": "Dynamic",
-					"Meaning": ["-"],
-					"Style": ["-"],
-					"Utterance": "És tu a distribuir as cartas.",
-					"UtteranceId": "TTS-8E45D92627336C232380A0F8B3651534"
-				}, 
-				{
-					"CurrentState": "Cut",
-					"NextState": "Dynamic",
-					"Meaning": ["-"],
-					"Style": ["-"],
-					"Utterance": "Podes partir por favor?",
-					"UtteranceId": "TTS-2822EE8EF5709769DAB4FFF44DF1C41C"
-				}, 
-				{
-					"CurrentState": "Cut",
-					"NextState": "Dynamic",
-					"Meaning": ["-"],
-					"Style": ["-"],
-					"Utterance": "Não te esqueças de partir.",
-					"UtteranceId": "TTS-BB61AAE39C15E8023E71CBD0C2756928"
-				}, 
-				{
-					"CurrentState": "Cut",
-					"NextState": "Dynamic",
-					"Meaning": ["-"],
-					"Style": ["-"],
-					"Utterance": "És tu a partir!",
-					"UtteranceId": "TTS-0AFA19683D67E65988DA522A318AECEC"
-				}, 
-				{
-					"CurrentState": "Cut",
-					"NextState": "Dynamic",
-					"Meaning": ["-"],
-					"Style": ["-"],
-					"Utterance": "É a tua vez de partir",
-					"UtteranceId": "TTS-C3D8ED5EB189050A18756971E806D358"
-				}, 
-				{
-					"CurrentState": "Shuffle",
-					"NextState": "Dynamic",
-					"Meaning": ["-"],
-					"Style": ["-"],
-					"Utterance": "És tu a baralhar as cartas.",
-					"UtteranceId": "TTS-F6003C3631B0370BB6E1B81981C04BC4"
-				}, 
-				{
-					"CurrentState": "Shuffle",
-					"NextState": "Dynamic",
-					"Meaning": ["-"],
-					"Style": ["-"],
-					"Utterance": "És tu a baralhar!",
-					"UtteranceId": "TTS-30C8D2DDAF6EE68C97E054F993B4517F"
-				}, 
-				{
-					"CurrentState": "Shuffle",
-					"NextState": "Dynamic",
-					"Meaning": ["-"],
-					"Style": ["-"],
-					"Utterance": "É a tua vez de baralhar.",
-					"UtteranceId": "TTS-A3D04F8A03B73CE8AEDBFDB984ED1790"
-				}, 
-				{
-					"CurrentState": "Shuffle",
-					"NextState": "Dynamic",
-					"Meaning": ["-"],
-					"Style": ["-"],
-					"Utterance": "É a tua vez de baralhar as cartas.",
-					"UtteranceId": "TTS-FBBF6A58F32E57DA277C45440E65860A"
 				}]
 		},
 	"types": [
