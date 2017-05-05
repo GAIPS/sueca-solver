@@ -79,7 +79,7 @@
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["ValidDialogue([cs], [ns], [m], [s]) = True", "DialogueState(Board) = [cs]", "DialogueState(Board) != PlayPartner", "DialogueState(Board) != PlaySelf", "DialogueState(Board) != TrickEnd", "DialogueState(Board) != GameEnd", "DialogueState(Board) != SessionEnd", "Dialogue(Style) = [ds]"]
+							"Set": ["ValidDialogue([cs], [ns], [m], [s]) = True", "DialogueState(Board) = [cs]", "DialogueState(Board) != PlayPartner", "DialogueState(Board) != PlaySelf", "DialogueState(Board) != TrickEnd", "DialogueState(Board) != GameEnd", "DialogueState(Board) != SessionEnd", "Dialogue(Style) = [s]"]
 						},
 					"Priority": 0
 				}, 
