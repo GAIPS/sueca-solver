@@ -11,8 +11,7 @@
 							"SELF":
 								{
 									"Dialogue(Style)": "A",
-									"Player(T0)": "Opponent",
-									"Player(T1)": "Partner"
+									"Player(T0)": "Opponent"
 								}
 						}
 				},
