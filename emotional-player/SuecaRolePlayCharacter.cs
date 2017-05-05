@@ -217,7 +217,7 @@ namespace EmotionalPlayer
                             Name nextState = chosenAction.Parameters[1];
                             Name meaning = chosenAction.Parameters[2];
                             Name style = chosenAction.Parameters[3];
-
+                            Console.WriteLine("Speak(" + currentState + ", " + nextState + ", " + meaning + ", " + style + ")");
                             var possibleDialogs = _iat.GetDialogueActions(IATConsts.AGENT, currentState, nextState, meaning, style);
                             var dialog = getUtterance(possibleDialogs);
 
