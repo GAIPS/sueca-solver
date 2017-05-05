@@ -145,7 +145,7 @@ namespace EmotionalPlayer
                         decide(ev);
                         EmotionalSuecaPlayer.SuecaPub.Play(ev.OtherIntInfos[0], ev.OtherStringInfos[0], ev.OtherStringInfos[1]);
                     }
-                    else
+                    else if (ev.Name != Consts.INIT)
                     {
                         decide(ev);
                     }

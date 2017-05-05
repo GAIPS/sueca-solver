@@ -150,6 +150,11 @@ namespace EmotionalPlayer
             _numGames = numGames;
             _currentGameId = 0;
             numRobots = agentsIds.Length;
+
+            SuecaEvent ev = new SuecaEvent(Consts.STATE_SESSION_START);
+            _suecaRPC.AddSuecaEvent(ev);
+            ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_SESSION_START, Consts.DEFAULT_SUBJECT);
+            ev.Finished = true;
         }
 
         public void GameStart(int gameId, int playerId, int teamId, string trumpCard, int trumpCardPlayer, string[] cards)
@@ -191,14 +196,7 @@ namespace EmotionalPlayer
                 _currentGameId = gameId;
                 _currentTrickId = 0;
 
-                if (gameId == 0)
-                {
-                    SuecaEvent ev = new SuecaEvent(Consts.STATE_SESSION_START);
-                    _suecaRPC.AddSuecaEvent(ev);
-                    ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_SESSION_START, Consts.DEFAULT_SUBJECT);
-                    ev.Finished = true;
-                }
-                else
+                if (gameId != 0)
                 {
                     SuecaEvent ev = new SuecaEvent(Consts.STATE_GAME_START);
                     _suecaRPC.AddSuecaEvent(ev);
