@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Utilities;
 using WellFormedNames;
+using EmotionalAppraisal.DTOs;
 
 namespace EmotionalPlayer
 {
@@ -146,6 +147,21 @@ namespace EmotionalPlayer
                         EmotionalSuecaPlayer.SuecaPub.GazeAtTarget("cardsZone");
                         EmotionalSuecaPlayer.SuecaPub.Play(ev.OtherIntInfos[0], ev.OtherStringInfos[0], ev.OtherStringInfos[1]);
                     }
+                    else if (ev.Name == Consts.STATE_PLAY)
+                    {
+                        decide(ev);
+
+                        if (ev.OtherIntInfos[0] == ((_esp._id + 2) % 4))
+                        {
+                            string attributionEmotion = getStrongestAttributionEmotion(_rpc.GetAllActiveEmotions());
+                            EmotionalSuecaPlayer.SuecaPub.SetPosture("", attributionEmotion);
+                        }
+                        else
+                        {
+                            string wellbeingEmotion = getStrongestWellbeingEmotion(_rpc.GetAllActiveEmotions());
+                            EmotionalSuecaPlayer.SuecaPub.SetPosture("", wellbeingEmotion);
+                        }
+                    }
                     else if (ev.Name != Consts.INIT)
                     {
                         decide(ev);
@@ -154,6 +170,42 @@ namespace EmotionalPlayer
 
                 Thread.Sleep(100);
             }
+        }
+
+        private string getStrongestAttributionEmotion(IEnumerable<EmotionDTO> activeEmotions)
+        {
+            float intensity = 0;
+            string strongestEmotion = "";
+            foreach (var emotion in activeEmotions)
+            {
+                if (emotion.Type == "Pride" || emotion.Type == "Admiration" || emotion.Type == "Shame" || emotion.Type == "Reproach")
+                {
+                    if (emotion.Intensity > intensity)
+                    {
+                        intensity = emotion.Intensity;
+                        strongestEmotion = emotion.Type.ToLower();
+                    }
+                }
+            }
+            return strongestEmotion;
+        }
+
+        private string getStrongestWellbeingEmotion(IEnumerable<EmotionDTO> activeEmotions)
+        {
+            float intensity = 0;
+            string strongestEmotion = "";
+            foreach (var emotion in activeEmotions)
+            {
+                if (emotion.Type == "Joy" || emotion.Type == "Distress")
+                {
+                    if (emotion.Intensity > intensity)
+                    {
+                        intensity = emotion.Intensity;
+                        strongestEmotion = emotion.Type.ToLower();
+                    }
+                }
+            }
+            return strongestEmotion;
         }
 
         public void SleepForNextPlayerEvent(object data)
