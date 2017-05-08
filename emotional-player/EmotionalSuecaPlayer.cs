@@ -548,6 +548,7 @@ namespace EmotionalPlayer
 
         public void TrickEnd(int winnerId, int trickPoints)
         {
+            int resposibleForTrick;
             _currentTrickId++;
             //do not talk for the last trickEnd event
             if (_currentTrickId != 10)
@@ -563,14 +564,15 @@ namespace EmotionalPlayer
                 {
                     //attribute the event always to himself
                     ev.AddPropertyChange(Consts.TRICK_END, trickPoints.ToString(), SubjectName(_id));
+                    resposibleForTrick = winnerId;
                 }
                 else
                 {
                     //attribute the event to the winner when he is from my team and blame himself or the partner when winner is an opponent
-                    int resposibleForTrick = _ai.GetResposibleForLastTrick();
+                    resposibleForTrick = _ai.GetResposibleForLastTrick();
                     ev.AddPropertyChange(Consts.TRICK_END, trickPoints.ToString(), SubjectName(resposibleForTrick));
                 }
-                ev.ChangeTagsAndMeanings(new string[] { "|playerID|", "|trickpoints|" }, new string[] { winnerId.ToString(), trickPoints.ToString() });
+                ev.ChangeTagsAndMeanings(new string[] { "|playerID|", "|trickpoints|" }, new string[] { resposibleForTrick.ToString(), trickPoints.ToString() });
                 ev.Finished = true;
             }
         }
