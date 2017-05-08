@@ -11,7 +11,7 @@ using Thalamus.BML;
 
 namespace EmotionalPlayer
 {
-    public interface ISuecaPublisher : IThalamusPublisher, ISuecaActions, IFMLSpeech, IAnimationActions,  IRobotPerceptions { }
+    public interface ISuecaPublisher : IThalamusPublisher, ISuecaActions, IFMLSpeech, IAnimationActions, Thalamus.BML.IPostureActions, EmoteCommonMessages.IGazeStateActions,  IRobotPerceptions { }
 
     class EmotionalSuecaPlayer : ThalamusClient, ISuecaPerceptions, IRobotPerceptions, IFMLSpeechEvents
     {
@@ -136,6 +136,36 @@ namespace EmotionalPlayer
             {
                 this.publisher.StopAnimation(id);
             }
+
+            public void SetPosture(string id, string posture, double percent = 1, double decay = 1)
+            {
+                this.publisher.SetPosture(id, posture, percent, decay);
+            }
+
+            public void ResetPose()
+            {
+                this.publisher.ResetPose();
+            }
+
+            public void GazeAtScreen(double x, double y)
+            {
+                this.publisher.GazeAtScreen(x, y);
+            }
+
+            public void GlanceAtScreen(double x, double y)
+            {
+                this.publisher.GlanceAtScreen(x, y);
+            }
+
+            public void GazeAtTarget(string targetName)
+            {
+                this.publisher.GazeAtTarget(targetName);
+            }
+
+            public void GlanceAtTarget(string targetName)
+            {
+                this.publisher.GlanceAtTarget(targetName);
+            }
         }
         #endregion
 
@@ -151,14 +181,23 @@ namespace EmotionalPlayer
             _currentGameId = 0;
             numRobots = agentsIds.Length;
 
+            int playerID1 = _randomNumberGenerator.Next(1, 2);
+            int playerID2 = ((playerID1 + 1) % 2);
+            SuecaPub.GazeAtTarget("player" + playerID1);
+
             SuecaEvent ev = new SuecaEvent(Consts.STATE_SESSION_START);
             _suecaRPC.AddSuecaEvent(ev);
             ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_SESSION_START, Consts.DEFAULT_SUBJECT);
+            ev.ChangeTagsAndMeanings(new string[] { "|playerID1|", "|playerID2|" }, new string[] { playerID1.ToString(), playerID2.ToString() });
             ev.Finished = true;
         }
 
         public void GameStart(int gameId, int playerId, int teamId, string trumpCard, int trumpCardPlayer, string[] cards)
         {
+            int playerID1 = _randomNumberGenerator.Next(1, 2);
+            int playerID2 = ((playerID1 + 1) % 2);
+            SuecaPub.GazeAtTarget("player" + playerID1);
+
             if (playerId == _id)
             {
                 _initialyzing = true;
@@ -201,6 +240,7 @@ namespace EmotionalPlayer
                     SuecaEvent ev = new SuecaEvent(Consts.STATE_GAME_START);
                     _suecaRPC.AddSuecaEvent(ev);
                     ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_GAME_START, Consts.DEFAULT_SUBJECT);
+                    ev.ChangeTagsAndMeanings(new string[] { "|playerID1|", "|playerID2|" }, new string[] { playerID1.ToString(), playerID2 .ToString() });
                     ev.Finished = true;
                 }
 
@@ -225,43 +265,47 @@ namespace EmotionalPlayer
 
         public void Shuffle(int playerId)
         {
+            SuecaPub.GazeAtTarget("player" + playerId);
             SuecaEvent ev = new SuecaEvent(Consts.STATE_SHUFFLE);
             _suecaRPC.AddSuecaEvent(ev);
             ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_SHUFFLE, Consts.DEFAULT_SUBJECT);
-            ev.ChangeTagsAndMeanings(new string[] { "|playerId1|" }, new string[] { playerId.ToString() });
+            ev.ChangeTagsAndMeanings(new string[] { "|playerID|" }, new string[] { playerId.ToString() });
             ev.Finished = true;
         }
 
         public void Cut(int playerId)
         {
+            SuecaPub.GazeAtTarget("player" + playerId);
             SuecaEvent ev = new SuecaEvent(Consts.STATE_CUT);
             _suecaRPC.AddSuecaEvent(ev);
             ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_CUT, Consts.DEFAULT_SUBJECT);
-            ev.ChangeTagsAndMeanings(new string[] { "|playerId1|" }, new string[] { playerId.ToString() });
+            ev.ChangeTagsAndMeanings(new string[] { "|playerID|" }, new string[] { playerId.ToString() });
             ev.Finished = true;
         }
 
         public void Deal(int playerId)
         {
+            SuecaPub.GazeAtTarget("player" + playerId);
             SuecaEvent ev = new SuecaEvent(Consts.STATE_DEAL);
             _suecaRPC.AddSuecaEvent(ev);
             ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_DEAL, Consts.DEFAULT_SUBJECT);
-            ev.ChangeTagsAndMeanings(new string[] { "|playerId1|" }, new string[] { playerId.ToString() });
+            ev.ChangeTagsAndMeanings(new string[] { "|playerID|" }, new string[] { playerId.ToString() });
             ev.Finished = true;
         }
 
         public void ReceiveRobotCards(int playerId)
         {
-            //MAYBE JUST GAZE
+            SuecaPub.GazeAtTarget("random");
         }
 
         public void TrumpCard(string trumpCard, int trumpCardPlayer)
         {
-            //MAYBE JUST GAZE RANDOM
+            SuecaPub.GazeAtTarget("cardsZone");
         }
 
         public void Renounce(int playerId)
         {
+            SuecaPub.GazeAtTarget("player" + playerId);
             SuecaEvent ev = new SuecaEvent(Consts.STATE_GAME_END);
             _suecaRPC.AddSuecaEvent(ev);
             ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_GAME_END, Consts.DEFAULT_SUBJECT);
@@ -271,6 +315,8 @@ namespace EmotionalPlayer
 
         public void GameEnd(int team0Score, int team1Score)
         {
+            int playerId = ((_id + 1) % 2); //partner
+            SuecaPub.GazeAtTarget("player" + playerId);
             //do not talk for the last game end event
             if (_currentGameId != _numGames - 1)
             {
@@ -320,12 +366,15 @@ namespace EmotionalPlayer
                 {
                     ev.AddPropertyChange(Consts.END_GAME, "Draw", subjectName(_id));
                 }
+                ev.ChangeTagsAndMeanings(new string[] { "|playerID|" }, new string[] { playerId.ToString() });
                 ev.Finished = true;
             }
         }
 
         public void SessionEnd(int sessionId, int team0Score, int team1Score)
         {
+            int playerId = ((_id + 1) % 2); //partner
+            SuecaPub.GazeAtTarget("player" + playerId);
             SuecaEvent ev = new SuecaEvent(Consts.STATE_SESSION_END);
             _suecaRPC.AddSuecaEvent(ev);
             ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_SESSION_END, Consts.DEFAULT_SUBJECT);
@@ -354,6 +403,7 @@ namespace EmotionalPlayer
             {
                 ev.AddPropertyChange(Consts.END_SESSION, "Draw", subjectName(_id));
             }
+            ev.ChangeTagsAndMeanings(new string[] { "|playerID|" }, new string[] { playerId.ToString() });
             ev.Finished = true;
         }
 
@@ -375,6 +425,7 @@ namespace EmotionalPlayer
 
             if (this._id == id && _ai != null)
             {
+                SuecaPub.GazeAtTarget("cards" + _id);
                 int chosenCard = _ai.Play();
                 _ai.AddPlay(id, chosenCard);
 
@@ -432,9 +483,10 @@ namespace EmotionalPlayer
             }
             else
             {
+                SuecaPub.GazeAtTarget("player" + id);
                 ev.AddPropertyChange(Consts.NEXT_PLAYER, subjectName(id), Consts.DEFAULT_SUBJECT);
                 ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_NEXT_PLAYER, Consts.DEFAULT_SUBJECT);
-                ev.ChangeTagsAndMeanings(new string[] {"|nextPlayerId|" }, new string[] { id.ToString() });
+                ev.ChangeTagsAndMeanings(new string[] {"|nextPlayerID|" }, new string[] { id.ToString() });
             }
             ev.Finished = true;
             _suecaRPC.AddSuecaEvent(ev);
@@ -450,12 +502,14 @@ namespace EmotionalPlayer
 
             if (_ai != null && id != this._id)
             {
+                SuecaPub.GazeAtTarget("player" + id);
+
                 SuecaEvent ev = new SuecaEvent(Consts.STATE_PLAYPARTNER);
                 _suecaRPC.AddSuecaEvent(ev);
                 ev.AddPropertyChange(Consts.CURRENT_PLAYER, subjectName(id), Consts.DEFAULT_SUBJECT);
                 _ai.AddPlay(id, myCard);
                 ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_PLAYPARTNER, Consts.DEFAULT_SUBJECT);
-                string[] tags = new string[] { "|rank|", "|suit|", "|playerId|" };
+                string[] tags = new string[] { "|rank|", "|suit|", "|playerID|" };
                 string[] meanings = new string[] { convertRankToPortuguese(myRank.ToString()), convertSuitToPortuguese(mySuit.ToString()), id.ToString() };
                 ev.ChangeTagsAndMeanings(tags, meanings);
 
@@ -515,7 +569,7 @@ namespace EmotionalPlayer
                     int resposibleForTrick = _ai.GetResposibleForLastTrick();
                     ev.AddPropertyChange(Consts.TRICK_END, trickPoints.ToString(), subjectName(resposibleForTrick));
                 }
-                ev.ChangeTagsAndMeanings(new string[] { "|playerId|", "|trickpoints|" }, new string[] { winnerId.ToString(), trickPoints.ToString() });
+                ev.ChangeTagsAndMeanings(new string[] { "|playerID|", "|trickpoints|" }, new string[] { winnerId.ToString(), trickPoints.ToString() });
                 ev.Finished = true;
             }
         }
