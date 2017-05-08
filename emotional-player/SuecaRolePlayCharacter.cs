@@ -212,7 +212,7 @@ namespace EmotionalPlayer
         {
             try
             {
-                Thread.Sleep(_randomNumberGenerator.Next(3000, 7000));
+                Thread.Sleep(_randomNumberGenerator.Next(20000, 50000));
                 _sleepNotify = true;
             }
             catch (Exception)
