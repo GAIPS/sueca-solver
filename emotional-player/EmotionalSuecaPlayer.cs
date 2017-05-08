@@ -205,18 +205,18 @@ namespace EmotionalPlayer
                 _teamId = teamId;
                 SuecaEvent ev1 = new SuecaEvent(Consts.INIT);
                 _suecaRPC.AddSuecaEvent(ev1);
-                ev1.OtherStringInfos = new string[] { subjectName(_id) };
+                ev1.OtherStringInfos = new string[] { SubjectName(_id) };
                 switch (_agentType)
                 {
                     case Consts.AGENT_TYPE_GROUP:
-                        ev1.AddPropertyChange("Player(" + subjectName(_id) + ")", Consts.PARTNER, Consts.DEFAULT_SUBJECT);
-                        ev1.AddPropertyChange("Player(" + subjectName((_id + 1) % 4) + ")", Consts.OPPONENT, Consts.DEFAULT_SUBJECT);
+                        ev1.AddPropertyChange("Player(" + SubjectName(_id) + ")", Consts.PARTNER, Consts.DEFAULT_SUBJECT);
+                        ev1.AddPropertyChange("Player(" + SubjectName((_id + 1) % 4) + ")", Consts.OPPONENT, Consts.DEFAULT_SUBJECT);
                         break;
                     case Consts.AGENT_TYPE_INDIVIDUAL:
-                        ev1.AddPropertyChange("Player(" + subjectName(_id) + ")", Consts.PARTNER, Consts.DEFAULT_SUBJECT);
-                        ev1.AddPropertyChange("Player(" + subjectName((_id + 1) % 4) + ")", Consts.OPPONENT, Consts.DEFAULT_SUBJECT);
-                        ev1.AddPropertyChange("Player(" + subjectName((_id + 2) % 4) + ")", Consts.PARTNER, Consts.DEFAULT_SUBJECT);
-                        ev1.AddPropertyChange("Player(" + subjectName((_id + 3) % 4) + ")", Consts.OPPONENT, Consts.DEFAULT_SUBJECT);
+                        ev1.AddPropertyChange("Player(" + SubjectName(_id) + ")", Consts.PARTNER, Consts.DEFAULT_SUBJECT);
+                        ev1.AddPropertyChange("Player(" + SubjectName((_id + 1) % 4) + ")", Consts.OPPONENT, Consts.DEFAULT_SUBJECT);
+                        ev1.AddPropertyChange("Player(" + SubjectName((_id + 2) % 4) + ")", Consts.PARTNER, Consts.DEFAULT_SUBJECT);
+                        ev1.AddPropertyChange("Player(" + SubjectName((_id + 3) % 4) + ")", Consts.OPPONENT, Consts.DEFAULT_SUBJECT);
                         break;
                     default:
                         break;
@@ -338,33 +338,33 @@ namespace EmotionalPlayer
 
                 if (otherTeamScore == 120)
                 {
-                    ev.AddPropertyChange(Consts.END_GAME, "LostQuad", subjectName(_id));
+                    ev.AddPropertyChange(Consts.END_GAME, "LostQuad", SubjectName(_id));
                 }
                 else if (otherTeamScore > 90)
                 {
-                    ev.AddPropertyChange(Consts.END_GAME, "LostDouble", subjectName(_id));
+                    ev.AddPropertyChange(Consts.END_GAME, "LostDouble", SubjectName(_id));
                 }
                 else if (otherTeamScore > 60)
                 {
-                    ev.AddPropertyChange(Consts.END_GAME, "LostSingle", subjectName(_id));
+                    ev.AddPropertyChange(Consts.END_GAME, "LostSingle", SubjectName(_id));
                 }
 
                 if (myTeamScore == 120)
                 {
-                    ev.AddPropertyChange(Consts.END_GAME, "WinQuad", subjectName(_id));
+                    ev.AddPropertyChange(Consts.END_GAME, "WinQuad", SubjectName(_id));
                 }
                 else if (myTeamScore > 90)
                 {
-                    ev.AddPropertyChange(Consts.END_GAME, "WinDouble", subjectName(_id));
+                    ev.AddPropertyChange(Consts.END_GAME, "WinDouble", SubjectName(_id));
                 }
                 else if (myTeamScore > 60)
                 {
-                    ev.AddPropertyChange(Consts.END_GAME, "WinSingle", subjectName(_id));
+                    ev.AddPropertyChange(Consts.END_GAME, "WinSingle", SubjectName(_id));
                 }
 
                 if (myTeamScore == otherTeamScore)
                 {
-                    ev.AddPropertyChange(Consts.END_GAME, "Draw", subjectName(_id));
+                    ev.AddPropertyChange(Consts.END_GAME, "Draw", SubjectName(_id));
                 }
                 ev.ChangeTagsAndMeanings(new string[] { "|playerID|" }, new string[] { playerId.ToString() });
                 ev.Finished = true;
@@ -393,15 +393,15 @@ namespace EmotionalPlayer
 
             if (otherTeamScore > myTeamScore)
             {
-                ev.AddPropertyChange(Consts.END_SESSION, "Lost", subjectName(_id));
+                ev.AddPropertyChange(Consts.END_SESSION, "Lost", SubjectName(_id));
             }
             if (otherTeamScore < myTeamScore)
             {
-                ev.AddPropertyChange(Consts.END_SESSION, "Win", subjectName(_id));
+                ev.AddPropertyChange(Consts.END_SESSION, "Win", SubjectName(_id));
             }
             if (otherTeamScore == myTeamScore)
             {
-                ev.AddPropertyChange(Consts.END_SESSION, "Draw", subjectName(_id));
+                ev.AddPropertyChange(Consts.END_SESSION, "Draw", SubjectName(_id));
             }
             ev.ChangeTagsAndMeanings(new string[] { "|playerID|" }, new string[] { playerId.ToString() });
             ev.Finished = true;
@@ -454,7 +454,7 @@ namespace EmotionalPlayer
                 bool hasNewTrickWinner = _ai.HasNewTrickTeamWinner();
                 bool lastPlayOfTrick = _ai.IsLastPlayOfTrick();
 
-                ev.AddPropertyChange(Consts.TRICK_SCORE, currentPlayPoints.ToString(), subjectName(id));
+                ev.AddPropertyChange(Consts.TRICK_SCORE, currentPlayPoints.ToString(), SubjectName(id));
 
                 //if (hasNewTrickWinner && !lastPlayOfTrick && !robotHasPlayed)
                 if (!lastPlayOfTrick)
@@ -465,18 +465,18 @@ namespace EmotionalPlayer
                         string lastPlayInfo = _ai.GetLastPlayInfo();
                         if (lastPlayInfo == Sueca.PLAY_INFO_NEWTRICK)
                         {
-                            ev.AddPropertyChange(Consts.TRICK_WINNER, subjectName(currentWinnerID), Sueca.PLAY_INFO_NEWTRICK);
+                            ev.AddPropertyChange(Consts.TRICK_WINNER, SubjectName(currentWinnerID), Sueca.PLAY_INFO_NEWTRICK);
                         }
                         else
                         {
-                            ev.AddPropertyChange(Consts.TRICK_WINNER, subjectName(currentWinnerID), subjectName(id));
+                            ev.AddPropertyChange(Consts.TRICK_WINNER, SubjectName(currentWinnerID), SubjectName(id));
                         }
                     }
                     int trickIncrease = _ai.GetTrickIncrease();
 
                     if (trickIncrease > 0)
                     {
-                        ev.AddPropertyChange(Consts.TRICK_INCREASE_PROPERTY, trickIncrease.ToString(), subjectName(id));
+                        ev.AddPropertyChange(Consts.TRICK_INCREASE_PROPERTY, trickIncrease.ToString(), SubjectName(id));
                     }
                 }
                 _robotHasPlayed = true;
@@ -484,7 +484,7 @@ namespace EmotionalPlayer
             else
             {
                 SuecaPub.GazeAtTarget("player" + id);
-                ev.AddPropertyChange(Consts.NEXT_PLAYER, subjectName(id), Consts.DEFAULT_SUBJECT);
+                ev.AddPropertyChange(Consts.NEXT_PLAYER, SubjectName(id), Consts.DEFAULT_SUBJECT);
                 ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_NEXT_PLAYER, Consts.DEFAULT_SUBJECT);
                 ev.ChangeTagsAndMeanings(new string[] {"|nextPlayerID|" }, new string[] { id.ToString() });
             }
@@ -504,11 +504,11 @@ namespace EmotionalPlayer
             {
                 SuecaPub.GazeAtTarget("player" + id);
 
-                SuecaEvent ev = new SuecaEvent(Consts.STATE_PLAYPARTNER);
+                SuecaEvent ev = new SuecaEvent(Consts.STATE_PLAY);
                 _suecaRPC.AddSuecaEvent(ev);
-                ev.AddPropertyChange(Consts.CURRENT_PLAYER, subjectName(id), Consts.DEFAULT_SUBJECT);
+                ev.AddPropertyChange(Consts.CURRENT_PLAYER, SubjectName(id), Consts.DEFAULT_SUBJECT);
                 _ai.AddPlay(id, myCard);
-                ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_PLAYPARTNER, Consts.DEFAULT_SUBJECT);
+                ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_PLAY, Consts.DEFAULT_SUBJECT);
                 string[] tags = new string[] { "|rank|", "|suit|", "|playerID|" };
                 string[] meanings = new string[] { convertRankToPortuguese(myRank.ToString()), convertSuitToPortuguese(mySuit.ToString()), id.ToString() };
                 ev.ChangeTagsAndMeanings(tags, meanings);
@@ -517,7 +517,7 @@ namespace EmotionalPlayer
                 bool hasNewTrickWinner = _ai.HasNewTrickTeamWinner();
                 bool lastPlayOfTrick = _ai.IsLastPlayOfTrick();
 
-                ev.AddPropertyChange(Consts.TRICK_SCORE, currentPlayPoints.ToString(), subjectName(id));
+                ev.AddPropertyChange(Consts.TRICK_SCORE, currentPlayPoints.ToString(), SubjectName(id));
 
                 //if (hasNewTrickWinner && !lastPlayOfTrick && !robotHasPlayed)
                 if (!lastPlayOfTrick)
@@ -528,19 +528,20 @@ namespace EmotionalPlayer
                         string lastPlayInfo = _ai.GetLastPlayInfo();
                         if (lastPlayInfo == Sueca.PLAY_INFO_NEWTRICK)
                         {
-                            ev.AddPropertyChange(Consts.TRICK_WINNER, subjectName(currentWinnerID), Sueca.PLAY_INFO_NEWTRICK);
+                            ev.AddPropertyChange(Consts.TRICK_WINNER, SubjectName(currentWinnerID), Sueca.PLAY_INFO_NEWTRICK);
                         }
                         else
                         {
-                            ev.AddPropertyChange(Consts.TRICK_WINNER, subjectName(currentWinnerID), subjectName(id));
+                            ev.AddPropertyChange(Consts.TRICK_WINNER, SubjectName(currentWinnerID), SubjectName(id));
                         }
                     }
                     int trickIncrease = _ai.GetTrickIncrease();
                     if (trickIncrease > 0)
                     {
-                        ev.AddPropertyChange(Consts.TRICK_INCREASE_PROPERTY, trickIncrease.ToString(), subjectName(id));
+                        ev.AddPropertyChange(Consts.TRICK_INCREASE_PROPERTY, trickIncrease.ToString(), SubjectName(id));
                     }
                 }
+                ev.OtherIntInfos = new int[] { id };
                 ev.Finished = true;
             }
         }
@@ -556,18 +557,18 @@ namespace EmotionalPlayer
                 SuecaEvent ev = new SuecaEvent(Consts.STATE_TRICK_END);
                 _suecaRPC.AddSuecaEvent(ev);
                 ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_TRICK_END, Consts.DEFAULT_SUBJECT);
-                ev.AddPropertyChange(Consts.TRICK_WINNER, subjectName(winnerId), subjectName(winnerId));
+                ev.AddPropertyChange(Consts.TRICK_WINNER, SubjectName(winnerId), SubjectName(winnerId));
 
                 if (_agentType == Consts.AGENT_TYPE_GROUP)
                 {
                     //attribute the event always to himself
-                    ev.AddPropertyChange(Consts.TRICK_END, trickPoints.ToString(), subjectName(_id));
+                    ev.AddPropertyChange(Consts.TRICK_END, trickPoints.ToString(), SubjectName(_id));
                 }
                 else
                 {
                     //attribute the event to the winner when he is from my team and blame himself or the partner when winner is an opponent
                     int resposibleForTrick = _ai.GetResposibleForLastTrick();
-                    ev.AddPropertyChange(Consts.TRICK_END, trickPoints.ToString(), subjectName(resposibleForTrick));
+                    ev.AddPropertyChange(Consts.TRICK_END, trickPoints.ToString(), SubjectName(resposibleForTrick));
                 }
                 ev.ChangeTagsAndMeanings(new string[] { "|playerID|", "|trickpoints|" }, new string[] { winnerId.ToString(), trickPoints.ToString() });
                 ev.Finished = true;
@@ -767,7 +768,7 @@ namespace EmotionalPlayer
             return portugueseSuit;
         }
 
-        private string subjectName(int id)
+        public string SubjectName(int id)
         {
             string subject = "";
             switch (_agentType)
