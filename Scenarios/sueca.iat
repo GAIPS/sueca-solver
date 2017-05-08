@@ -11,415 +11,415 @@
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["B"],
-					"Utterance": "É a tua vez de baralhar as cartas.",
-					"UtteranceId": "TTS-FBBF6A58F32E57DA277C45440E65860A"
+					"Utterance": "<gaze(player|playerID|)> É a tua vez de baralhar as cartas.",
+					"UtteranceId": "TTS-56B45A92B7F33CD1C546D1A153D527ED"
 				}, 
 				{
 					"CurrentState": "Shuffle",
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["A"],
-					"Utterance": "É a tua vez de baralhar.",
-					"UtteranceId": "TTS-A3D04F8A03B73CE8AEDBFDB984ED1790"
+					"Utterance": "<gaze(player|playerID|)> É a tua vez de baralhar.",
+					"UtteranceId": "TTS-9427ACC5A8BF2765E8FF6C937AF9A64D"
 				}, 
 				{
 					"CurrentState": "Shuffle",
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["B"],
-					"Utterance": "És tu a baralhar!",
-					"UtteranceId": "TTS-30C8D2DDAF6EE68C97E054F993B4517F"
+					"Utterance": "<gaze(player|playerID|)> És tu a baralhar!",
+					"UtteranceId": "TTS-2D75464130ABA9BBF99ABD43CF2E9DB1"
 				}, 
 				{
 					"CurrentState": "Shuffle",
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["A"],
-					"Utterance": "És tu a baralhar as cartas.",
-					"UtteranceId": "TTS-F6003C3631B0370BB6E1B81981C04BC4"
+					"Utterance": "<gaze(player|playerID|)> És tu a baralhar as cartas.",
+					"UtteranceId": "TTS-80F9ACB4E1E886A6F837A49963347F2F"
 				}, 
 				{
 					"CurrentState": "Cut",
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["B"],
-					"Utterance": "É a tua vez de partir",
-					"UtteranceId": "TTS-C3D8ED5EB189050A18756971E806D358"
+					"Utterance": "<gaze(player|playerID|)> É a tua vez de partir",
+					"UtteranceId": "TTS-4AADD5A584C6CB64C340DC11E5A900DA"
 				}, 
 				{
 					"CurrentState": "Cut",
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["A"],
-					"Utterance": "És tu a partir!",
-					"UtteranceId": "TTS-0AFA19683D67E65988DA522A318AECEC"
+					"Utterance": "<gaze(player|playerID|)> És tu a partir!",
+					"UtteranceId": "TTS-D69AEF9D8E3236AFE407E55795585EE4"
 				}, 
 				{
 					"CurrentState": "Cut",
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["B"],
-					"Utterance": "Não te esqueças de partir.",
-					"UtteranceId": "TTS-BB61AAE39C15E8023E71CBD0C2756928"
+					"Utterance": "<gaze(player|playerID|)> Não te esqueças de partir.",
+					"UtteranceId": "TTS-4015EC3ECD1BACF91245A8F2C4F2501D"
 				}, 
 				{
 					"CurrentState": "Cut",
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["A"],
-					"Utterance": "Podes partir por favor?",
-					"UtteranceId": "TTS-2822EE8EF5709769DAB4FFF44DF1C41C"
+					"Utterance": "<gaze(player|playerID|)> Podes partir por favor?",
+					"UtteranceId": "TTS-02CC85347F1F42CFE5C65A2CBB484F26"
 				}, 
 				{
 					"CurrentState": "Deal",
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["B"],
-					"Utterance": "És tu a distribuir as cartas.",
-					"UtteranceId": "TTS-8E45D92627336C232380A0F8B3651534"
+					"Utterance": "<gaze(player|playerID|)> És tu a distribuir as cartas.",
+					"UtteranceId": "TTS-498A671828684800C35FF16EB18A09BD"
 				}, 
 				{
 					"CurrentState": "Deal",
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["A"],
-					"Utterance": "Podes distribuir as cartas por favor?",
-					"UtteranceId": "TTS-0F56E72C8A5926D68DBE7D798F5645DF"
+					"Utterance": "<gaze(player|playerID|)> Podes distribuir as cartas por favor?",
+					"UtteranceId": "TTS-F758223EEDA207ABB482DC438EDAA391"
 				}, 
 				{
 					"CurrentState": "Deal",
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["B"],
-					"Utterance": "É a tua vez de distribuir as cartas.",
-					"UtteranceId": "TTS-64A3F21486B96BE90373D2217BA6247B"
+					"Utterance": "<gaze(player|playerID|)> É a tua vez de distribuir as cartas.",
+					"UtteranceId": "TTS-48906DF8C59D99E64D82579AEEE6A285"
 				}, 
 				{
 					"CurrentState": "Deal",
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["A"],
-					"Utterance": "É a tua vez de dar as cartas.",
-					"UtteranceId": "TTS-F59702433AB24B2FC2F58BBDA30A2CB2"
+					"Utterance": "<gaze(player|playerID|)> É a tua vez de dar as cartas.",
+					"UtteranceId": "TTS-3192ED98F45299EE54FD9D5883A94C3C"
 				}, 
 				{
 					"CurrentState": "Deal",
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["B"],
-					"Utterance": "És tu a dar as cartas!",
-					"UtteranceId": "TTS-3776505EF602A90A00637A94440E75E6"
+					"Utterance": "<gaze(player|playerID|)> És tu a dar as cartas!",
+					"UtteranceId": "TTS-3F83E4EDB9ACA174A4440660C5D0E0F1"
 				}, 
 				{
 					"CurrentState": "Deal",
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["A"],
-					"Utterance": "És tu a dar.",
-					"UtteranceId": "TTS-417B742C7AB27E6F68F461691D59DA90"
+					"Utterance": "<gaze(player|playerID|)> És tu a dar.",
+					"UtteranceId": "TTS-C4F6323825FF3B228E86D67E29677E3E"
 				}, 
 				{
 					"CurrentState": "GameEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Neutral"],
-					"Utterance": "O jogo terminou.",
-					"UtteranceId": "TTS-D8D7EF990A57CB82C2D088C6F56A9410"
+					"Utterance": "<gaze(player|playerID|)> O jogo terminou.",
+					"UtteranceId": "TTS-2B0C6B41BB922D6D1B0102721385FB76"
 				}, 
 				{
 					"CurrentState": "GameEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Joy", "B"],
-					"Utterance": "Vitória é minha!",
-					"UtteranceId": "TTS-5CF54CB5ED341CE4EC887F654DA2354C"
+					"Utterance": "<gaze(player|playerID|)> Vitória é minha!",
+					"UtteranceId": "TTS-0B7D1AA8345EF5F10FCB25F4EC5EBCDF"
 				}, 
 				{
 					"CurrentState": "GameEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Joy", "A"],
-					"Utterance": "Muito bem, ganhei!",
-					"UtteranceId": "TTS-A4AE2D47012BB5F49C073BD8B7559C2B"
+					"Utterance": "<gaze(player|playerID|)> Muito bem, ganhei!",
+					"UtteranceId": "TTS-8BE4E0BA455936FFDDD528DD80998A91"
 				}, 
 				{
 					"CurrentState": "GameEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Joy", "B"],
-					"Utterance": "Ena, venci este jogo!",
-					"UtteranceId": "TTS-645DA0F6CDF4FF929CBE468BCDA08E07"
+					"Utterance": "<gaze(player|playerID|)> Ena, venci este jogo!",
+					"UtteranceId": "TTS-96B70EE231F9F301A12EC67BA944CD38"
 				}, 
 				{
 					"CurrentState": "GameEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Joy", "A"],
-					"Utterance": "Ganhei este jogo. Assim sim",
-					"UtteranceId": "TTS-E04643F8169EEFD3A6A53FE36B37908F"
+					"Utterance": "<gaze(player|playerID|)> Ganhei este jogo. Assim sim",
+					"UtteranceId": "TTS-5DFFBB81EA6DF8C1FB92F4695540589C"
 				}, 
 				{
 					"CurrentState": "GameEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Distress", "B"],
-					"Utterance": "Desta vez perdi o jogo.",
-					"UtteranceId": "TTS-349EBEC5E2B18CA462D8BF9EFDAD5696"
+					"Utterance": "<gaze(player|playerID|)> Desta vez perdi o jogo.",
+					"UtteranceId": "TTS-8FC50D7D0C69213893ED806547E74809"
 				}, 
 				{
 					"CurrentState": "GameEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Distress", "A"],
-					"Utterance": "Bolas, perdi!",
-					"UtteranceId": "TTS-72FCE01B27288CFF934190EC2F54A358"
+					"Utterance": "<gaze(player|playerID|)> Bolas, perdi!",
+					"UtteranceId": "TTS-B7E1E4687ECF8DA249C67AD2B9B23B05"
 				}, 
 				{
 					"CurrentState": "GameEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Distress", "B"],
-					"Utterance": "Epá, perdi este jogo!",
-					"UtteranceId": "TTS-D3BCD09517D446E12A528DC98BD4693D"
+					"Utterance": "<gaze(player|playerID|)> Epá, perdi este jogo!",
+					"UtteranceId": "TTS-8AB53C861BBCDDB0AB1842F0E716E24E"
 				}, 
 				{
 					"CurrentState": "GameEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Distress", "A"],
-					"Utterance": "Fui derrotado, ora bolas.",
-					"UtteranceId": "TTS-EAA8EBE2B196A345DED5DA69AB26E223"
+					"Utterance": "<gaze(player|playerID|)> Fui derrotado, ora bolas.",
+					"UtteranceId": "TTS-4D592BD4AEE459ED6B20C04D368297E1"
 				}, 
 				{
 					"CurrentState": "GameEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Neutral"],
-					"Utterance": "O jogo terminou.",
-					"UtteranceId": "TTS-D8D7EF990A57CB82C2D088C6F56A9410"
+					"Utterance": "<gaze(player|playerID|)> O jogo terminou.",
+					"UtteranceId": "TTS-2B0C6B41BB922D6D1B0102721385FB76"
 				}, 
 				{
 					"CurrentState": "GameEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Joy", "B"],
-					"Utterance": "Incrível, ganhámos o jogo!",
-					"UtteranceId": "TTS-B5C37527A198688710C23E13A7555ECF"
+					"Utterance": "<gaze(player|playerID|)> Incrível, ganhámos o jogo!",
+					"UtteranceId": "TTS-AC71B5792817FF3223762C7E971D4A37"
 				}, 
 				{
 					"CurrentState": "GameEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Joy", "A"],
-					"Utterance": "Muito bem, ganhámos!",
-					"UtteranceId": "TTS-027FD24F12D35A835F9BADA714033EBA"
+					"Utterance": "<gaze(player|playerID|)> Muito bem, ganhámos!",
+					"UtteranceId": "TTS-EAF45E48A2009903E07BE29F096D2C62"
 				}, 
 				{
 					"CurrentState": "GameEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Joy", "B"],
-					"Utterance": "Ena, ganhámos este jogo!",
-					"UtteranceId": "TTS-4CC32B1E044B918B2FDEAD3DBC74D1FE"
+					"Utterance": "<gaze(player|playerID|)> Ena, ganhámos este jogo!",
+					"UtteranceId": "TTS-4134C58A0C7FA3EC9D1EA7F364C1FDDE"
 				}, 
 				{
 					"CurrentState": "GameEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Joy", "A"],
-					"Utterance": "Ganhámos este jogo. Assim sim",
-					"UtteranceId": "TTS-7A6CDA40CCC94EDA4D43EAE83C2FD7E0"
+					"Utterance": "<gaze(player|playerID|)> Ganhámos este jogo. Assim sim",
+					"UtteranceId": "TTS-0989C4087CDB8A6DA286A9BB54E4E262"
 				}, 
 				{
 					"CurrentState": "GameEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Distress", "B"],
-					"Utterance": "Desta vez perdemos o jogo.",
-					"UtteranceId": "TTS-46D4F42A7DF3F77AF93AD84F48DD8713"
+					"Utterance": "<gaze(player|playerID|)> Desta vez perdemos o jogo.",
+					"UtteranceId": "TTS-F6D047592F6A5BC48C20F2D5356F2BB9"
 				}, 
 				{
 					"CurrentState": "GameEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Distress", "A"],
-					"Utterance": "Bolas, perdemos!",
-					"UtteranceId": "TTS-208F6C1061DC98DCC55226EBF9A039B5"
+					"Utterance": "<gaze(player|playerID|)> Bolas, perdemos!",
+					"UtteranceId": "TTS-D7B2F125205921BD54AC481E0C4B64A6"
 				}, 
 				{
 					"CurrentState": "GameEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Distress", "B"],
-					"Utterance": "Epá, perdemos este jogo!",
-					"UtteranceId": "TTS-582F1D568F96DC35C90EC67A3017CD70"
+					"Utterance": "<gaze(player|playerID|)> Epá, perdemos este jogo!",
+					"UtteranceId": "TTS-3C4F42A7A3A1C68F27EB5ADCE8ED2D2F"
 				}, 
 				{
 					"CurrentState": "GameEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Distress", "A"],
-					"Utterance": "Perdemos o jogo, ora bolas.",
-					"UtteranceId": "TTS-B8674BEF290EDED6A977FC7E2A749386"
+					"Utterance": "<gaze(player|playerID|)> Perdemos o jogo, ora bolas.",
+					"UtteranceId": "TTS-C32B6D3FD882773317CD9D7AAC79FF24"
 				}, 
 				{
 					"CurrentState": "GameEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["Renounce"],
 					"Style": ["-"],
-					"Utterance": "Alguem fez batota! Podem retirar as cartas porque o jogo terminou.",
-					"UtteranceId": "TTS-67DA9B36150803F922FAE27C80FFB123"
+					"Utterance": "<gaze(player|playerID|)> Alguem fez batota! Podem retirar as cartas porque o jogo terminou.",
+					"UtteranceId": "TTS-20D4C58A4821BBCBEA364160D6A4E5F9"
 				}, 
 				{
 					"CurrentState": "SessionEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Neutral"],
-					"Utterance": "Terminou a sessão!",
-					"UtteranceId": "TTS-AC06D6FEA49B71812641EABE3AE13FC8"
+					"Utterance": "<gaze(player|playerID|)> Terminou a sessão!",
+					"UtteranceId": "TTS-E17DB17CD728728CB172C1729393332D"
 				}, 
 				{
 					"CurrentState": "SessionEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Distress", "B"],
-					"Utterance": "Terminou a sessão. Não ganhei desta vez.",
-					"UtteranceId": "TTS-66F3AF98D4CE1E7D26B7C63AD5AA22AA"
+					"Utterance": "<gaze(player|playerID|)> Terminou a sessão. Não ganhei desta vez.",
+					"UtteranceId": "TTS-7EB371DE4BA77A6B14C9AEBF9F1BB79C"
 				}, 
 				{
 					"CurrentState": "SessionEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Distress", "A"],
-					"Utterance": "Terminou a sessão. Fui derrotado",
-					"UtteranceId": "TTS-090609C3E82AC1D56123478516BE959E"
+					"Utterance": "<gaze(player|playerID|)> Terminou a sessão. Fui derrotado",
+					"UtteranceId": "TTS-AD639A83F86245FF850E0EF56A8BF7D6"
 				}, 
 				{
 					"CurrentState": "SessionEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Joy", "B"],
-					"Utterance": "Terminou a sessão. Ganhei esta partida!",
-					"UtteranceId": "TTS-40F7AF28F5ADFA131249422DA3F3370E"
+					"Utterance": "<gaze(player|playerID|)> Terminou a sessão. Ganhei esta partida!",
+					"UtteranceId": "TTS-CE320E031A79A74A505407F1F7E917A0"
 				}, 
 				{
 					"CurrentState": "SessionEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Joy", "A"],
-					"Utterance": "Terminou a sessão. Fui o vencedor!",
-					"UtteranceId": "TTS-252FC8E9D5E679C1543E6A87E561AAA2"
+					"Utterance": "<gaze(player|playerID|)> Terminou a sessão. Fui o vencedor!",
+					"UtteranceId": "TTS-0DB5C1314908C95DF7A1A52E8EA425CD"
 				}, 
 				{
 					"CurrentState": "SessionEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Neutral"],
-					"Utterance": "Terminou a sessão!",
-					"UtteranceId": "TTS-AC06D6FEA49B71812641EABE3AE13FC8"
+					"Utterance": "<gaze(player|playerID|)> Terminou a sessão!",
+					"UtteranceId": "TTS-E17DB17CD728728CB172C1729393332D"
 				}, 
 				{
 					"CurrentState": "SessionEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Distress", "B"],
-					"Utterance": "Terminou a sessão. Fomos derrotados.",
-					"UtteranceId": "TTS-A317A1BFBE9537EE653BC4D5E8A4E244"
+					"Utterance": "<gaze(player|playerID|)> Terminou a sessão. Fomos derrotados.",
+					"UtteranceId": "TTS-B04F653171753BA9A4BF0B58BC99CC1F"
 				}, 
 				{
 					"CurrentState": "SessionEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Distress", "A"],
-					"Utterance": "Terminou a sessão. Perdemos ésta partida de sueca.",
-					"UtteranceId": "TTS-094E8339667BBAFDA2A20BEDCCDF34C0"
+					"Utterance": "<gaze(player|playerID|)> Terminou a sessão. Perdemos ésta partida de sueca.",
+					"UtteranceId": "TTS-EB34BA1EC96CAE5E8496C39A144513D0"
 				}, 
 				{
 					"CurrentState": "SessionEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Joy", "B"],
-					"Utterance": "Terminou a sessão. Ganhámos ésta partida de sueca.",
-					"UtteranceId": "TTS-75A0D1F0E8B4336043DAD12560B6AA5A"
+					"Utterance": "<gaze(player|playerID|)> Terminou a sessão. Ganhámos ésta partida de sueca.",
+					"UtteranceId": "TTS-47490A144571E2BBABEE0A525C590A87"
 				}, 
 				{
 					"CurrentState": "SessionEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Joy", "A"],
-					"Utterance": "Terminou a sessão. Vencemos ésta partida de sueca.",
-					"UtteranceId": "TTS-2BD6CADDACD1FCEC3E67822E710E618B"
+					"Utterance": "<gaze(player|playerID|)> Terminou a sessão. Vencemos ésta partida de sueca.",
+					"UtteranceId": "TTS-FF20B78C11159784C8BD7117107CC2FC"
 				}, 
 				{
 					"CurrentState": "GameStart",
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["B"],
-					"Utterance": "Vamos então para mais um joguinho.",
-					"UtteranceId": "TTS-56C08126CD9A3B3974E758DC2A0A09F3"
+					"Utterance": "<gaze(player|playerID1|)> Vamos então para mais <glance(player|playerID2|)> um joguinho.",
+					"UtteranceId": "TTS-0CEC498FFA31C9C73C3541C0BE191A98"
 				}, 
 				{
 					"CurrentState": "GameStart",
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["A"],
-					"Utterance": "Bora lá jogar mais um jogo.",
-					"UtteranceId": "TTS-BF78BAE40F936184B4D99AC848D270EC"
+					"Utterance": "<gaze(player|playerID1|)> Bora lá jogar mais <glance(player|playerID2|)> um jogo.",
+					"UtteranceId": "TTS-17B6E2118900B6638DB8399FF34D4330"
 				}, 
 				{
 					"CurrentState": "GameStart",
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["B"],
-					"Utterance": "Vamos a mais um jogo?",
-					"UtteranceId": "TTS-E0EC0A29B1780BE19C03939C01D1F85F"
+					"Utterance": "<gaze(player|playerID1|)> Vamos a mais <glance(player|playerID2|)> um jogo?",
+					"UtteranceId": "TTS-EF97B819800D96AEF738075E4873EECE"
 				}, 
 				{
 					"CurrentState": "GameStart",
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["A"],
-					"Utterance": "Vamos então jogar o próximo jogo.",
-					"UtteranceId": "TTS-11D450EAEB2FC8C4118E9CBED4A6FD8E"
+					"Utterance": "<gaze(player|playerID1|)> Vamos então jogar <glance(player|playerID2|)> o próximo jogo.",
+					"UtteranceId": "TTS-0781D83F82A74F885B3A0ECC2D02821C"
 				}, 
 				{
 					"CurrentState": "GameStart",
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["B"],
-					"Utterance": "Prontos para mais um jogo?",
-					"UtteranceId": "TTS-4C2EFE1A913AB3A548DC987019F2F0A6"
+					"Utterance": "<gaze(player|playerID1|)> Prontos para mais <glance(player|playerID2|)> um jogo?",
+					"UtteranceId": "TTS-4E20C99BEA85F6F9DF359F4DE58F2341"
 				}, 
 				{
 					"CurrentState": "GameStart",
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["A"],
-					"Utterance": "Vamos lá começar o jogo!",
-					"UtteranceId": "TTS-D52374AEBAA965FC6645BB2B83EA0502"
+					"Utterance": "<gaze(player|playerID1|)> Vamos lá começar <glance(player|playerID2|)> o jogo!",
+					"UtteranceId": "TTS-03D30069DCADD29C67F533EDA46FA22E"
 				}, 
 				{
 					"CurrentState": "SessionStart",
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["B"],
-					"Utterance": "Olá! Prontos para jogar uma partida de 3 jogos de sueca?",
-					"UtteranceId": "TTS-F33BA6CDB2CF98DD742428E14EF667F1"
+					"Utterance": "<gaze(player|playerID1|)> Olá! Prontos para jogar uma partida <glance(player|playerID2|)> de 3 jogos de sueca?",
+					"UtteranceId": "TTS-B6B29DC5119E6985D7D6A6F6347761E2"
 				}, 
 				{
 					"CurrentState": "SessionStart",
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["A"],
-					"Utterance": "Olá! Vamos então jogar uma partida de 3 jogos de sueca?",
-					"UtteranceId": "TTS-64AD51BC73ECCDD0C463B35C81609EC6"
+					"Utterance": "<gaze(player|playerID1|)> Olá! Vamos então jogar uma partida <glance(player|playerID2|)> de 3 jogos de sueca?",
+					"UtteranceId": "TTS-0DBB11BCC723A8F98026B990DFA90582"
 				}, 
 				{
 					"CurrentState": "NextPlayer",
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["B"],
-					"Utterance": "<gaze(player|nextPlayerId|)> Bora, é a tua vez.",
+					"Utterance": "<gaze(player|nextPlayerID|)> Bora, é a tua vez.",
 					"UtteranceId": "TTS-2B92193AE212F346602492DF6D1EC8A2"
 				}, 
 				{
@@ -427,7 +427,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["A"],
-					"Utterance": "<gaze(player|nextPlayerId|)> És tu a jogar agora.",
+					"Utterance": "<gaze(player|nextPlayerID|)> És tu a jogar agora.",
 					"UtteranceId": "TTS-633C15B2128EFE2FF37771A0675676BF"
 				}, 
 				{
@@ -435,7 +435,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["B"],
-					"Utterance": "<gaze(player|nextPlayerId|)> És tu agora.",
+					"Utterance": "<gaze(player|nextPlayerID|)> És tu agora.",
 					"UtteranceId": "TTS-0075C021C843A8D423F3FA00F6747CA1"
 				}, 
 				{
@@ -443,7 +443,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["A"],
-					"Utterance": "<gaze(player|nextPlayerId|)> Vais jogar?",
+					"Utterance": "<gaze(player|nextPlayerID|)> Vais jogar?",
 					"UtteranceId": "TTS-834173AD448E6E67E262E6F1DA8FF62F"
 				}, 
 				{
@@ -451,7 +451,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["B"],
-					"Utterance": "<gaze(player|nextPlayerId|)> Podes jogar.",
+					"Utterance": "<gaze(player|nextPlayerID|)> Podes jogar.",
 					"UtteranceId": "TTS-99794AC55F8B54D89723413273140145"
 				}, 
 				{
@@ -459,7 +459,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["A"],
-					"Utterance": "<gaze(player|nextPlayerId|)> Pensa bem e joga.",
+					"Utterance": "<gaze(player|nextPlayerID|)> Pensa bem e joga.",
 					"UtteranceId": "TTS-599115352F5FF27FA0498D20C3693FB7"
 				}, 
 				{
@@ -467,7 +467,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["B"],
-					"Utterance": "<gaze(player|nextPlayerId|)> cámóne, léts gou",
+					"Utterance": "<gaze(player|nextPlayerID|)> cámóne, léts gou",
 					"UtteranceId": "TTS-249DF7AB0EDA3EF2452D6563461516D2"
 				}, 
 				{
@@ -475,7 +475,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["A"],
-					"Utterance": "<gaze(player|nextPlayerId|)> cámóne, pelei",
+					"Utterance": "<gaze(player|nextPlayerID|)> cámóne, pelei",
 					"UtteranceId": "TTS-DF7560EAD8A19013FB2927746C6D7C40"
 				}, 
 				{
@@ -483,7 +483,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["B"],
-					"Utterance": "<gaze(player|nextPlayerId|)> Quando quiseres estás a vontade.",
+					"Utterance": "<gaze(player|nextPlayerID|)> Quando quiseres estás a vontade.",
 					"UtteranceId": "TTS-3F342E5B061650D17EAE90A2EDB4198F"
 				}, 
 				{
@@ -491,7 +491,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["A"],
-					"Utterance": "<gaze(player|nextPlayerId|)> Ok, podes jogar",
+					"Utterance": "<gaze(player|nextPlayerID|)> Ok, podes jogar",
 					"UtteranceId": "TTS-4F877F0D20B8A29E66E8251A7B2C24A4"
 				}, 
 				{
@@ -499,7 +499,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["B"],
-					"Utterance": "<gaze(player|nextPlayerId|)> Joga!",
+					"Utterance": "<gaze(player|nextPlayerID|)> Joga!",
 					"UtteranceId": "TTS-77921D2787C461E4A29C2D15218A1499"
 				}, 
 				{
@@ -507,7 +507,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["A"],
-					"Utterance": "<gaze(player|nextPlayerId|)> É a tua vez!",
+					"Utterance": "<gaze(player|nextPlayerID|)> É a tua vez!",
 					"UtteranceId": "TTS-A7BB66B6C1F634FB8AD6A6F6356965C6"
 				}, 
 				{
@@ -515,7 +515,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["B"],
-					"Utterance": "<gaze(player|nextPlayerId|)> Estamos à tua espera!",
+					"Utterance": "<gaze(player|nextPlayerID|)> Estamos à tua espera!",
 					"UtteranceId": "TTS-FEDE2E1B0ED4EB020E04E85C42B6AFE8"
 				}, 
 				{
@@ -523,7 +523,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["A"],
-					"Utterance": "<gaze(player|nextPlayerId|)> És tu!",
+					"Utterance": "<gaze(player|nextPlayerID|)> És tu!",
 					"UtteranceId": "TTS-CF31BEC48398110D051BE23F9C102BEA"
 				}, 
 				{
@@ -531,7 +531,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["B"],
-					"Utterance": "<gaze(player|nextPlayerId|)> És tu a jogar!",
+					"Utterance": "<gaze(player|nextPlayerID|)> És tu a jogar!",
 					"UtteranceId": "TTS-C2F3079B817E0C18AE0029E20E15F59F"
 				}, 
 				{
@@ -539,7 +539,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["A"],
-					"Utterance": "<gaze(player|nextPlayerId|)> Bora lá, és tu!",
+					"Utterance": "<gaze(player|nextPlayerID|)> Bora lá, és tu!",
 					"UtteranceId": "TTS-99B7E758145A9E4E23CAEBA22B51266C"
 				}, 
 				{
@@ -547,7 +547,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["B"],
-					"Utterance": "<gaze(player|nextPlayerId|)> Anda... é a tua vez.",
+					"Utterance": "<gaze(player|nextPlayerID|)> Anda... é a tua vez.",
 					"UtteranceId": "TTS-6B3D7F90FFEA7E0ED8B08C80B763C4C0"
 				}, 
 				{
@@ -555,7 +555,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["A"],
-					"Utterance": "<gaze(player|nextPlayerId|)> Vá, és tu.",
+					"Utterance": "<gaze(player|nextPlayerID|)> Vá, és tu.",
 					"UtteranceId": "TTS-2D3643AEF8296C1F6191F72F6A072C6F"
 				}, 
 				{
@@ -563,7 +563,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["B"],
-					"Utterance": "<gaze(player|nextPlayerId|)> Agora é a tua vez.",
+					"Utterance": "<gaze(player|nextPlayerID|)> Agora é a tua vez.",
 					"UtteranceId": "TTS-5BEAB34381B424E7D703BF8A4BAB3428"
 				}, 
 				{
@@ -571,7 +571,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["-"],
 					"Style": ["A"],
-					"Utterance": "<gaze(player|nextPlayerId|)> cêe tuá.",
+					"Utterance": "<gaze(player|nextPlayerID|)> cêe tuá.",
 					"UtteranceId": "TTS-D1AF39EF558D66688EDFE4E881406F51"
 				}, 
 				{
@@ -579,7 +579,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Admiration", "A"],
-					"Utterance": "<gaze(player|playerId|)> Estás a ir bem!",
+					"Utterance": "<gaze(player|playerID|)> Estás a ir bem!",
 					"UtteranceId": "TTS-4B093660D0DFED2763A4439D8EFDF5AA"
 				}, 
 				{
@@ -587,7 +587,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Admiration", "B"],
-					"Utterance": "<gaze(player|playerId|)> Estás a arrasar!",
+					"Utterance": "<gaze(player|playerID|)> Estás a arrasar!",
 					"UtteranceId": "TTS-6E1728FEBC1016509C9314900560942C"
 				}, 
 				{
@@ -595,7 +595,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Admiration", "A"],
-					"Utterance": "<gaze(player|playerId|)> Estás no bom caminho!",
+					"Utterance": "<gaze(player|playerID|)> Estás no bom caminho!",
 					"UtteranceId": "TTS-5AEA55009EB1EA6F3CA6F7B8756A33E3"
 				}, 
 				{
@@ -603,7 +603,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Admiration", "B"],
-					"Utterance": "<gaze(player|playerId|)> É isso mesmo colega!",
+					"Utterance": "<gaze(player|playerID|)> É isso mesmo colega!",
 					"UtteranceId": "TTS-77D8677CD3516A7BCB2A1C9BB4179D32"
 				}, 
 				{
@@ -611,7 +611,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Admiration", "A"],
-					"Utterance": "<gaze(player|playerId|)> Muito bem colega!",
+					"Utterance": "<gaze(player|playerID|)> Muito bem colega!",
 					"UtteranceId": "TTS-54A9ED31472793EA358CE28670556B25"
 				}, 
 				{
@@ -619,7 +619,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Admiration", "B"],
-					"Utterance": "<gaze(player|playerId|)> Continua a jogar bem!",
+					"Utterance": "<gaze(player|playerID|)> Continua a jogar bem!",
 					"UtteranceId": "TTS-D5665273A3C15E74C393C5CA3D726CF0"
 				}, 
 				{
@@ -627,7 +627,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Admiration", "A"],
-					"Utterance": "<gaze(player|playerId|)> Bem jogado colega!",
+					"Utterance": "<gaze(player|playerID|)> Bem jogado colega!",
 					"UtteranceId": "TTS-A75E098F0F0BB99F1C999CD9CF579DF0"
 				}, 
 				{
@@ -635,31 +635,31 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Reproach", "A"],
-					"Utterance": "Opá não tinhas uma carta melhor?",
-					"UtteranceId": "TTS-A65893F319209B547F12E0FE5B151FAD"
+					"Utterance": "<gaze(player|playerID|)> Opá não tinhas uma carta melhor?",
+					"UtteranceId": "TTS-B70BC1D5D31F655C9DD2DFA05FEE30A4"
 				}, 
 				{
 					"CurrentState": "PlayPartner",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Reproach", "B"],
-					"Utterance": "Não acredito no que acabaste de jogar",
-					"UtteranceId": "TTS-E273032A79F2646F4A8E0898360A0205"
+					"Utterance": "<gaze(player|playerID|)> Não acredito no que acabaste de jogar",
+					"UtteranceId": "TTS-ACFC22DB3E2DC026D3278BBA7A831BA8"
 				}, 
 				{
 					"CurrentState": "PlayPartner",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Reproach", "A"],
-					"Utterance": "Como é que acabaste de jogar essa carta",
-					"UtteranceId": "TTS-585823A0F1D70BA37A482B60452E9697"
+					"Utterance": "<gaze(player|playerID|)> Como é que acabaste de jogar essa carta",
+					"UtteranceId": "TTS-5464372C5357BD3A85CB60FC80C40CB3"
 				}, 
 				{
 					"CurrentState": "PlayPartner",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Reproach", "B"],
-					"Utterance": "<gaze(player|playerId|)> Assim com essa tua jogada não sei se vamos ganhar..",
+					"Utterance": "<gaze(player|playerID|)> Assim com essa tua jogada não sei se vamos ganhar..",
 					"UtteranceId": "TTS-8C93AB62A6F4D9B63176DE952AA3B2CA"
 				}, 
 				{
@@ -667,15 +667,15 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Reproach", "A"],
-					"Utterance": "Mas a sério que jogaste isso?",
-					"UtteranceId": "TTS-6E3291C76A8AECB9AEA048B46D2B2D1C"
+					"Utterance": "<gaze(player|playerID|)> Mas a sério que jogaste isso?",
+					"UtteranceId": "TTS-23707649836C92DD9F0C2408187390B1"
 				}, 
 				{
 					"CurrentState": "PlayPartner",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Reproach", "B"],
-					"Utterance": "<gaze(player|playerId|)> Bolas, não podes continuar assim.",
+					"Utterance": "<gaze(player|playerID|)> Bolas, não podes continuar assim.",
 					"UtteranceId": "TTS-DA771A39C4EDA2E6CE07B41A4C03A7A8"
 				}, 
 				{
@@ -683,15 +683,15 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Reproach", "A"],
-					"Utterance": "Opá, mas que jogada foi essa?",
-					"UtteranceId": "TTS-BA5DD4E4B9759F345D183A0A9F366381"
+					"Utterance": "<gaze(player|playerID|)> Opá, mas que jogada foi essa?",
+					"UtteranceId": "TTS-B1D91E165F3227DF1DFE09FC0AC1E0AC"
 				}, 
 				{
 					"CurrentState": "PlayPartner",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Shame", "A"],
-					"Utterance": "<gaze(player|playerId|)> Não podemos continuar assim...",
+					"Utterance": "<gaze(player|playerID|)> Não podemos continuar assim...",
 					"UtteranceId": "TTS-A204FF80F798E18C832AA379CD08B045"
 				}, 
 				{
@@ -699,15 +699,15 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Shame", "B"],
-					"Utterance": "Não jogámos nada bem",
-					"UtteranceId": "TTS-A207D258B7A562B430B255B723E2F144"
+					"Utterance": "<gaze(player|playerID|)> Não jogámos nada bem",
+					"UtteranceId": "TTS-10E89334FF6965DC7A3F100C796E641C"
 				}, 
 				{
 					"CurrentState": "PlayPartner",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Shame", "A"],
-					"Utterance": "<gaze(player|playerId|)> Éh pá, assim não estamos a ir bem.",
+					"Utterance": "<gaze(player|playerID|)> Éh pá, assim não estamos a ir bem.",
 					"UtteranceId": "TTS-9B948F7BEEE8CE520D643E845F6BABE1"
 				}, 
 				{
@@ -715,7 +715,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Shame", "B"],
-					"Utterance": "<gaze(player|playerId|)> Assim não sei se vamos ganhar..",
+					"Utterance": "<gaze(player|playerID|)> Assim não sei se vamos ganhar..",
 					"UtteranceId": "TTS-8FEA78FECF690B7CBBF441C1FE49752F"
 				}, 
 				{
@@ -723,7 +723,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Shame", "A"],
-					"Utterance": "<gaze(player|playerId|)> Fogo, assim não sei se conseguimos.",
+					"Utterance": "<gaze(player|playerID|)> Fogo, assim não sei se conseguimos.",
 					"UtteranceId": "TTS-FD5E040181888C1D14A05409FD750E0E"
 				}, 
 				{
@@ -731,7 +731,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Shame", "B"],
-					"Utterance": "<gaze(player|playerId|)> Bolas, não podemos continuar assim.",
+					"Utterance": "<gaze(player|playerID|)> Bolas, não podemos continuar assim.",
 					"UtteranceId": "TTS-C6351573534997D0B057239075B506CC"
 				}, 
 				{
@@ -739,7 +739,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Shame", "A"],
-					"Utterance": "<gaze(player|playerId|)> Que lamentável da nossa parte",
+					"Utterance": "<gaze(player|playerID|)> Que lamentável da nossa parte",
 					"UtteranceId": "TTS-7CDDE39490F7836F14601FD0DE8BC89E"
 				}, 
 				{
@@ -747,7 +747,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride", "A"],
-					"Utterance": "<gaze(player|playerId|)> Estamos a ir bem!",
+					"Utterance": "<gaze(player|playerID|)> Estamos a ir bem!",
 					"UtteranceId": "TTS-B968883E5AFD39F4DA1038171296C7A4"
 				}, 
 				{
@@ -755,7 +755,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride", "B"],
-					"Utterance": "<gaze(player|playerId|)> Estamos a arrasar!",
+					"Utterance": "<gaze(player|playerID|)> Estamos a arrasar!",
 					"UtteranceId": "TTS-213254242924739B29F40EA0178E89C2"
 				}, 
 				{
@@ -763,7 +763,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride", "A"],
-					"Utterance": "<gaze(player|playerId|)> Estamos no bom caminho!",
+					"Utterance": "<gaze(player|playerID|)> Estamos no bom caminho!",
 					"UtteranceId": "TTS-E9C11B4F49ABEA19E440C85FD03D1661"
 				}, 
 				{
@@ -771,7 +771,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride", "B"],
-					"Utterance": "<gaze(player|playerId|)> É isso mesmo equipa!",
+					"Utterance": "<gaze(player|playerID|)> É isso mesmo equipa!",
 					"UtteranceId": "TTS-6C2AED31F34B07CE2237F8E3A243A85F"
 				}, 
 				{
@@ -779,7 +779,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride", "A"],
-					"Utterance": "<gaze(player|playerId|)> Muito bem equipa!",
+					"Utterance": "<gaze(player|playerID|)> Muito bem equipa!",
 					"UtteranceId": "TTS-F1CD76ECB6D6596DACEF4611561CF991"
 				}, 
 				{
@@ -787,7 +787,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride", "B"],
-					"Utterance": "<gaze(player|playerId|)> Continuamos a jogar bem!",
+					"Utterance": "<gaze(player|playerID|)> Continuamos a jogar bem!",
 					"UtteranceId": "TTS-36228968FC714E870409C8D3F4ED9A3D"
 				}, 
 				{
@@ -795,7 +795,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride", "A"],
-					"Utterance": "<gaze(player|playerId|)> Bem jogado equipa!",
+					"Utterance": "<gaze(player|playerID|)> Bem jogado equipa!",
 					"UtteranceId": "TTS-5DD695209A3013A93EB66EA5D02FAD74"
 				}, 
 				{
@@ -995,424 +995,424 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Reproach", "A"],
-					"Utterance": "<animate(sad1)> Será muito tarde para mudar de parceiro?",
-					"UtteranceId": "TTS-2EF9905A285A11DFBFF155E66B896ABE"
+					"Utterance": "<glance(player|playerID|)> Será muito tarde para mudar de parceiro?",
+					"UtteranceId": "TTS-2A908D28F44433F14DAF126D487A3B53"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Reproach", "B"],
-					"Utterance": "Bolas, podes tomar mais atenção por favor",
-					"UtteranceId": "TTS-4EEB9B7CCC310F33D9830A070257A333"
+					"Utterance": "<glance(player|playerID|)> Bolas, podes tomar mais atenção por favor",
+					"UtteranceId": "TTS-6373F5861858063D856D794057AB5E5D"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Reproach", "A"],
-					"Utterance": "Mas o que foi isso colega?",
-					"UtteranceId": "TTS-A67A6082F2FC9E5B3A3548711322B637"
+					"Utterance": "<glance(player|playerID|)> Mas o que foi isso colega?",
+					"UtteranceId": "TTS-1843FBBF052FE567C04B1E2FFC69B18A"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Reproach", "B"],
-					"Utterance": "Não acredito no que acabaste de fazer",
-					"UtteranceId": "TTS-507CD3425DD51B4F08E98D9A11ECC3DD"
+					"Utterance": "<glance(player|playerID|)> Não acredito no que acabaste de fazer",
+					"UtteranceId": "TTS-0BFFD62A0D19AE3E9B73F79AEA1A14EC"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Reproach", "A"],
-					"Utterance": "Olha o que fizeste. Fogo",
-					"UtteranceId": "TTS-E550E7CD94A606B95A38475EB2D189FD"
+					"Utterance": "<glance(player|playerID|)> Olha o que fizeste. Fogo",
+					"UtteranceId": "TTS-AAB22780C3A719BF1C81A9DC53200E22"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Reproach", "B"],
-					"Utterance": "A sério que jogaste isso?",
-					"UtteranceId": "TTS-4D500067FB7A190C1B6B3EFA3B190444"
+					"Utterance": "<glance(player|playerID|)> A sério que jogaste isso?",
+					"UtteranceId": "TTS-7C66DCB9205FEFA197091C851FA5806D"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Reproach", "A"],
-					"Utterance": "Opá sinceramente colega…",
-					"UtteranceId": "TTS-69C5877DC60117A79AAAB409BDFB175E"
+					"Utterance": "<glance(player|playerID|)> Opá sinceramente colega…",
+					"UtteranceId": "TTS-1434336F18D87BC75494D0C6BA1C1697"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Admiration", "A"],
-					"Utterance": "Boa, continua assim colega",
-					"UtteranceId": "TTS-85AE96FE41AF26BF990B8B6A82CCBF01"
+					"Utterance": "<glance(player|playerID|)> Boa, continua assim colega",
+					"UtteranceId": "TTS-6129D2D43C5E6C17FD617AF797FEDD9C"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Admiration", "B"],
-					"Utterance": "estou impressionado contigo",
-					"UtteranceId": "TTS-CBE5B453C9C37076EDA348D6F493F217"
+					"Utterance": "<glance(player|playerID|)> estou impressionado contigo",
+					"UtteranceId": "TTS-DCFE71986872095677BA7526AD5F3EAB"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Admiration", "A"],
-					"Utterance": "Muito bem, estou a gostar da tua prestação",
-					"UtteranceId": "TTS-E83838079D7184E58B825D3AF5346C96"
+					"Utterance": "<glance(player|playerID|)> Muito bem, estou a gostar da tua prestação",
+					"UtteranceId": "TTS-CA38E5055094C4B33BAF6B99D9FF3907"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Admiration", "B"],
-					"Utterance": "A jogar assim, ninguém te pára.",
-					"UtteranceId": "TTS-827DD5122BA964DF9E7C9E47C67BD0D2"
+					"Utterance": "<glance(player|playerID|)> A jogar assim, ninguém te pára.",
+					"UtteranceId": "TTS-3AA9535FFEF8378627A2803810AD8F52"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Admiration", "A"],
-					"Utterance": "É isso mesmo camarada",
-					"UtteranceId": "TTS-F50BE0FE1F786BDCDA07338AA004D296"
+					"Utterance": "<glance(player|playerID|)> É isso mesmo camarada",
+					"UtteranceId": "TTS-E507BBE6832D9C239FE305A01DAA5FC8"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Admiration", "B"],
-					"Utterance": "Boa, estiveste muito bem",
-					"UtteranceId": "TTS-54E54655D5024B41014F10E6F2F33FD2"
+					"Utterance": "<glance(player|playerID|)> Boa, estiveste muito bem",
+					"UtteranceId": "TTS-74D8A15DD09C2610F6CD49065607FD4F"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Admiration", "A"],
-					"Utterance": "Bem jogado colega",
-					"UtteranceId": "TTS-7333C632B6926489F043589F7222CD61"
+					"Utterance": "<glance(player|playerID|)> Bem jogado colega",
+					"UtteranceId": "TTS-9E40F84C820B9B338FD17E2DCE6011A5"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Admiration", "B"],
-					"Utterance": "Assim sim, continua a jogar bem",
-					"UtteranceId": "TTS-1AA8BA310EE83116CD7499F8B2FBD80A"
+					"Utterance": "<glance(player|playerID|)> Assim sim, continua a jogar bem",
+					"UtteranceId": "TTS-0CBCA3930E92CBCC5FC1E606CC278514"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Admiration", "A"],
-					"Utterance": "Sim senhora, estou a gostar das tuas jogadas",
-					"UtteranceId": "TTS-967B277C8D9A0BBC302C3B59805F16F2"
+					"Utterance": "<glance(player|playerID|)> Sim senhora, estou a gostar das tuas jogadas",
+					"UtteranceId": "TTS-01494D1342D476448A4973A7A9551BD5"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Shame", "B"],
-					"Utterance": "Estive mal, que vergonha.",
-					"UtteranceId": "TTS-F857790DF63EBC9D3E32893B84BD1CD7"
+					"Utterance": "<glance(player|playerID|)> Estive mal, que vergonha.",
+					"UtteranceId": "TTS-A3B75DE33F4F00CD42F195CBACF650C7"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Shame", "A"],
-					"Utterance": "Não acredito no que acabei de fazer",
-					"UtteranceId": "TTS-62EF28CEA49F805F78F4F50366C08A92"
+					"Utterance": "<glance(player|playerID|)> Não acredito no que acabei de fazer",
+					"UtteranceId": "TTS-181EC93076C56C643A19BB4253E81FD4"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Shame", "B"],
-					"Utterance": "Que nabo que sou",
-					"UtteranceId": "TTS-BBC1DEE00C2557FBBB6683E96BFAF4DA"
+					"Utterance": "<glance(player|playerID|)> Que nabo que sou",
+					"UtteranceId": "TTS-F5DE7972B2785EF07E4E022D88B3B599"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Shame", "A"],
-					"Utterance": "Oh não, como é que não reparei...",
-					"UtteranceId": "TTS-DCD81C54391B25C86E78C46BDE8C7786"
+					"Utterance": "<glance(player|playerID|)> Oh não, como é que não reparei...",
+					"UtteranceId": "TTS-DD3194E2BE5C7001019CDCD14D786EF5"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Shame", "B"],
-					"Utterance": "Mas o que é que eu fui fazer",
-					"UtteranceId": "TTS-583BD4F415F3173F609557CFDFB834F3"
+					"Utterance": "<glance(player|playerID|)> Mas o que é que eu fui fazer",
+					"UtteranceId": "TTS-37132700BC0557939F6C4EEE16FF9516"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Shame", "A"],
-					"Utterance": "Desculpa lá a minha jogada",
-					"UtteranceId": "TTS-A369643678F4AA9C43948156D22B009C"
+					"Utterance": "<glance(player|playerID|)> Desculpa lá a minha jogada",
+					"UtteranceId": "TTS-F5761A1392FC2B50F428EFF135A8BFBC"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Shame", "B"],
-					"Utterance": "Que vergonha...",
-					"UtteranceId": "TTS-43716769DF73018BE7A0D55A121A7A62"
+					"Utterance": "<glance(player|playerID|)> Que vergonha...",
+					"UtteranceId": "TTS-20873C9E35741BC5083474F8902D1248"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Shame", "A"],
-					"Utterance": "Aih o que eu fui fazer",
-					"UtteranceId": "TTS-27A510D55AC20FCF277360D47C2C53DF"
+					"Utterance": "<glance(player|playerID|)> Aih o que eu fui fazer",
+					"UtteranceId": "TTS-CCC8378B386E893A0E24D7A2F3CB75BF"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Pride", "A"],
-					"Utterance": "Ganhei esta ronda, estou a jogar muito bem",
-					"UtteranceId": "TTS-2074D7A7362A23A1DC6B82EDCD091A40"
+					"Utterance": "<glance(player|playerID|)> Ganhei esta ronda, estou a jogar muito bem",
+					"UtteranceId": "TTS-7C46A2CF84F8C357E5D42C88B41C5C0E"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Pride", "B"],
-					"Utterance": "Estou orgulhoso da minha jogada",
-					"UtteranceId": "TTS-F28234EDB1040DF405123424EA686DAD"
+					"Utterance": "<glance(player|playerID|)> Estou orgulhoso da minha jogada",
+					"UtteranceId": "TTS-FE488BD081FDF10B008DE1422E01BFF0"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Pride", "A"],
-					"Utterance": "Estou imparável",
-					"UtteranceId": "TTS-5335A5B0493E1ABFD4A786B79E200FAD"
+					"Utterance": "<glance(player|playerID|)> Estou imparável",
+					"UtteranceId": "TTS-7CFCC0FF5DBA114447D2A1EF2C662474"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Pride", "B"],
-					"Utterance": "Fui espetacular nesta ronda",
-					"UtteranceId": "TTS-D80B7C913197798C84167B0391C29B39"
+					"Utterance": "<glance(player|playerID|)> Fui espetacular nesta ronda",
+					"UtteranceId": "TTS-5B475FB0342847429A20CCE2C3FA74E6"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Pride", "A"],
-					"Utterance": "Superei-me a mim prórpio nesta jogada",
-					"UtteranceId": "TTS-F08A807EBB445DBFA6496144CD56E179"
+					"Utterance": "<glance(player|playerID|)> Superei-me a mim prórpio nesta jogada",
+					"UtteranceId": "TTS-19184E15874AB4C09062A16ABE769FBB"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Pride", "B"],
-					"Utterance": "Estou a jogar mesmo bem",
-					"UtteranceId": "TTS-42DC4E33E0796D8786E8D0DE8D5026AB"
+					"Utterance": "<glance(player|playerID|)> Estou a jogar mesmo bem",
+					"UtteranceId": "TTS-E7D8BDB5556CFA54FDB87570CB36CA16"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Pride", "A"],
-					"Utterance": "Grande jogada da minha parte.",
-					"UtteranceId": "TTS-4F2B90CAB9821DA2A80908A1B764D163"
+					"Utterance": "<glance(player|playerID|)> Grande jogada da minha parte.",
+					"UtteranceId": "TTS-40B02A56C17B88732FB1351B8C286140"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Pride", "B"],
-					"Utterance": "A jogar assim, ninguém me pára.",
-					"UtteranceId": "TTS-8216777F6311FDE41400E31A97E6EA49"
+					"Utterance": "<glance(player|playerID|)> A jogar assim, ninguém me pára.",
+					"UtteranceId": "TTS-C018317C5DE568074CB9EAB950FEC92D"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride", "A"],
-					"Utterance": "<gaze(player|playerId|)> A jogar assim, ninguém nos pára. <animate(joy1)>",
-					"UtteranceId": "TTS-72795BC29DDF1954C3CAD09A7822DFF0"
+					"Utterance": "<glance(player|playerID|)> A jogar assim, ninguém nos pára. <animate(joy1)>",
+					"UtteranceId": "TTS-2DBB59489A62A9084A8E964228E63B11"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride", "B"],
-					"Utterance": "a nossa equipa é um espetáculo",
-					"UtteranceId": "TTS-770FD51996E7D36F806CB9B20631A3FC"
+					"Utterance": "<glance(player|playerID|)> a nossa equipa é um espetáculo",
+					"UtteranceId": "TTS-F264EF21A575547E6BCB5DF392B2635C"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride", "A"],
-					"Utterance": "<gaze(player|playerId|)> |trickPoints|! Estamos imparáveis.",
-					"UtteranceId": "TTS-0EFE436C3B3728AD583DA64DB6B2DB7A"
+					"Utterance": "<glance(player|playerID|)>  |trickPoints|! Estamos imparáveis.",
+					"UtteranceId": "TTS-8B986FB91809A04AE8AEDBC7D88D20B5"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride", "B"],
-					"Utterance": "Vamos tentar continuar assim",
-					"UtteranceId": "TTS-1A4DE22E40E2D285CDC5C5978E9DEFF5"
+					"Utterance": "<glance(player|playerID|)> Vamos tentar continuar assim",
+					"UtteranceId": "TTS-0607EC57DB078E675FACB63AFDB597A2"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride", "A"],
-					"Utterance": "estou impressionado conosco",
-					"UtteranceId": "TTS-69A6D3E28D6B1701C59E55BB48C471E5"
+					"Utterance": "<glance(player|playerID|)> estou impressionado conosco",
+					"UtteranceId": "TTS-582E1BF850658D4649E878F59493B078"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride", "B"],
-					"Utterance": "Muito bem, estou a gostar da nossa prestação",
-					"UtteranceId": "TTS-6AC6E38C8A9031272BF952D44C2B80E1"
+					"Utterance": "<glance(player|playerID|)> Muito bem, estou a gostar da nossa prestação",
+					"UtteranceId": "TTS-3EFB8505431821243D38F61B2A39B17B"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride", "A"],
-					"Utterance": "Somos os melhores",
-					"UtteranceId": "TTS-58924F79EC60D18C189773A60B6F6E11"
+					"Utterance": "<glance(player|playerID|)> Somos os melhores",
+					"UtteranceId": "TTS-718EE57E2668A3B89F21991FBDEA7182"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride", "B"],
-					"Utterance": "Estamos a arrasar",
-					"UtteranceId": "TTS-69C181F815B87DC6C4BD5F3D804FD5F5"
+					"Utterance": "<glance(player|playerID|)> Estamos a arrasar",
+					"UtteranceId": "TTS-581F8A0667501D76919A339831D8CCB4"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride", "A"],
-					"Utterance": "Boa, estivemos muito bem",
-					"UtteranceId": "TTS-C0336F87E62CA0801ECF3D05AEC16BB5"
+					"Utterance": "<glance(player|playerID|)> Boa, estivemos muito bem",
+					"UtteranceId": "TTS-8C342AB177E39CE1F9BF44D52ACA2864"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride", "B"],
-					"Utterance": "Assim sim, estamos a jogar bem",
-					"UtteranceId": "TTS-82B2E1768D27D9E3CC4CE5CBEA7A7BC4"
+					"Utterance": "<glance(player|playerID|)> Assim sim, estamos a jogar bem",
+					"UtteranceId": "TTS-F142E09495B57A3CEF49B06DB27910CE"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride", "A"],
-					"Utterance": "Sim senhora, estou a gostar das nossas jogadas",
-					"UtteranceId": "TTS-5BC089A958FEDDCC75291F046ABE76F5"
+					"Utterance": "<glance(player|playerID|)> Sim senhora, estou a gostar das nossas jogadas",
+					"UtteranceId": "TTS-9D6B75E9B86EB6F783DCCDDA6B7F5208"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Shame", "B"],
-					"Utterance": "<gaze(player|playerId|)> Não estamos a dar o nosso melhor.",
-					"UtteranceId": "TTS-DAB50E3EA7371DEDE5438252A4B8F585"
+					"Utterance": "<glance(player|playerID|)>  Não estamos a dar o nosso melhor.",
+					"UtteranceId": "TTS-4B44A313380FFA696403AC649D7E9A5B"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Shame", "A"],
-					"Utterance": "<gaze(player|playerId|)> Isto já correu melhor para nós.",
-					"UtteranceId": "TTS-C3B2A148BC2B62BDB806FB520C297498"
+					"Utterance": "<glance(player|playerID|)>  Isto já correu melhor para nós.",
+					"UtteranceId": "TTS-0F38DCFD4365B89D112C2BCF50DC8D44"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Shame", "B"],
-					"Utterance": "<gaze(player|playerId|)> Não acredito que estamos a ficar para trás.",
-					"UtteranceId": "TTS-AF8E4C2AC8FFF680BFF411D5E5FFA125"
+					"Utterance": "<glance(player|playerID|)> Não acredito que estamos a ficar para trás.",
+					"UtteranceId": "TTS-B94C6F79454BFD0AE36C2909763E6EB0"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Shame", "A"],
-					"Utterance": "<gaze(player|playerId|)> Isto está a ficar tramado para nós.",
-					"UtteranceId": "TTS-A0717276B3454116F27E8BD847707115"
+					"Utterance": "<glance(player|playerID|)>  Isto está a ficar tramado para nós.",
+					"UtteranceId": "TTS-A8A2B63CD1E9BC3A08E164BF0AC0A8C4"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Shame", "B"],
-					"Utterance": "<gaze(player|playerId|)> A jogar assim não vamos lá.",
-					"UtteranceId": "TTS-74EA7462EDD4B007DF85FDD5E349BAE6"
+					"Utterance": "<glance(player|playerID|)>  A jogar assim não vamos lá.",
+					"UtteranceId": "TTS-D170528C3031D1FF800B0B3A167EA840"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Shame", "A"],
-					"Utterance": "<gaze(player|playerId|)> Temos que jogar melhor que isto.",
-					"UtteranceId": "TTS-44EECFF62D475E4438A98F34E2C3B6A1"
+					"Utterance": "<glance(player|playerID|)>  Temos que jogar melhor que isto.",
+					"UtteranceId": "TTS-E3E369916C6B2D3E38E9BD5AEE37E10F"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Shame", "B"],
-					"Utterance": "<gaze(player|playerId|)> Gostava de imaginar que ésta ronda não nos aconteceu.",
-					"UtteranceId": "TTS-E39B719DD57338B3C5812CCD881DBCDC"
+					"Utterance": "<glance(player|playerID|)>  Gostava de imaginar que ésta ronda não nos aconteceu.",
+					"UtteranceId": "TTS-538817A7BF8A738DF56BD67D25F866B9"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Shame", "A"],
-					"Utterance": "<gaze(player|playerId|)> Não estivemos lá muito bem desta vez.",
-					"UtteranceId": "TTS-878F8C13067D6CD7F74CE05031A38EE6"
+					"Utterance": "<glance(player|playerID|)>  Não estivemos lá muito bem desta vez.",
+					"UtteranceId": "TTS-98F6A7359C4CA88F29AACA40B0EF9B3A"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Shame", "B"],
-					"Utterance": "<gaze(player|playerId|)> Oh pá, isto não nos está a correr lá muito bem.",
-					"UtteranceId": "TTS-9CFD653287EC07248D8CD8E6BDC3D2A0"
+					"Utterance": "<glance(player|playerID|)>  Oh pá, isto não nos está a correr lá muito bem.",
+					"UtteranceId": "TTS-31FC3B9E6A042B9E2B8107C664C2E843"
 				}, 
 				{
 					"CurrentState": "TrickEnd",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Shame", "A"],
-					"Utterance": "<gaze(player|playerId|)> Assim é que não vamos a lado nenhum.",
-					"UtteranceId": "TTS-07EEA23EE39A5E3D5B2C9125CB3D6582"
+					"Utterance": "<glance(player|playerID|)>  Assim é que não vamos a lado nenhum.",
+					"UtteranceId": "TTS-A8525B40BE2BB81FD23E2E3114FC0246"
 				}]
 		},
 	"types": [

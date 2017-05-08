@@ -143,6 +143,7 @@ namespace EmotionalPlayer
                     else if (ev.Name == Consts.STATE_PLAYSELF)
                     {
                         decide(ev);
+                        EmotionalSuecaPlayer.SuecaPub.GazeAtTarget("cardsZone");
                         EmotionalSuecaPlayer.SuecaPub.Play(ev.OtherIntInfos[0], ev.OtherStringInfos[0], ev.OtherStringInfos[1]);
                     }
                     else if (ev.Name != Consts.INIT)
