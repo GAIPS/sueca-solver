@@ -112,6 +112,33 @@
 							"Praiseworthiness": -6
 						}, 
 						{
+							"EventName": "Event(Property-Change, SELF, Trick(Increase), [points])",
+							"Conditions":
+								{
+									"Set": ["[points] >= 10", "Trick(Winner) = [x]", "Player([x]) = Opponent"]
+								},
+							"Desirability": -2,
+							"Praiseworthiness": -6
+						}, 
+						{
+							"EventName": "Event(Property-Change, SELF, Trick(Increase), [points])",
+							"Conditions":
+								{
+									"Set": ["[points] >= 10", "Trick(Winner) = [x]", "Player([x]) = Partner"]
+								},
+							"Desirability": 2,
+							"Praiseworthiness": 6
+						}, 
+						{
+							"EventName": "Event(Property-Change, SELF, Trick(Winner), SELF)",
+							"Conditions":
+								{
+									"Set": ["Trick(Score) >= 10"]
+								},
+							"Desirability": 2,
+							"Praiseworthiness": 6
+						}, 
+						{
 							"EventName": "Event(Property-Change, [playerId], Trick(Increase), [points])",
 							"Conditions":
 								{
@@ -124,16 +151,7 @@
 							"EventName": "Event(Property-Change, [playerId], Trick(Increase), [points])",
 							"Conditions":
 								{
-									"Set": ["Player([playerId]) = Partner", "[points] >= 10", "Trick(Winner) = [x]", "Player([x]) = Partner"]
-								},
-							"Desirability": 2,
-							"Praiseworthiness": 6
-						}, 
-						{
-							"EventName": "Event(Property-Change, [playerId], Trick(Winner), [playerId])",
-							"Conditions":
-								{
-									"Set": ["Player([playerId]) = Partner", "Trick(Score) >= 10"]
+									"Set": ["[points] >= 10", "Player([playerId]) = Opponent", "Trick(Winner) = [x]", "Player([x]) = Partner"]
 								},
 							"Desirability": 2,
 							"Praiseworthiness": 6
