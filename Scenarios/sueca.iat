@@ -915,7 +915,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["FOLLOWING"],
 					"Style": ["B"],
-					"Utterance": "<gaze(cardsZone)> Ainda tenho disto!",
+					"Utterance": "<gaze(cardsZone)> Tenho disto!",
 					"UtteranceId": "TTS-1A14536D4F45838BD31DE16000D0452A"
 				}, 
 				{
