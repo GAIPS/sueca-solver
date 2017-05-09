@@ -20,13 +20,13 @@ namespace EmotionalPlayer
         public int _id;
         private int _teamId;
         private int _nameId;
-        private bool _robotHasPlayed;
         private bool _initialyzing;
         private SuecaRolePlayCharacter _suecaRPC;
         private string _agentType;
         private int _numGames;
         private int _currentGameId;
         private int _currentTrickId;
+        private int _currentPlayInTrickId;
 
         private Random _randomNumberGenerator;
         private bool PendingRequest;
@@ -56,7 +56,6 @@ namespace EmotionalPlayer
             _ai = null;
             _suecaRPC = new SuecaRolePlayCharacter(_nameId, agentType, scenarioPath, this);
             _initialyzing = false;
-            _robotHasPlayed = false;
             _agentType = agentType;
             numRobots = 1; //default
         }
@@ -204,6 +203,7 @@ namespace EmotionalPlayer
                 _teamId = teamId;
                 _currentGameId = gameId;
                 _currentTrickId = 0;
+                _currentPlayInTrickId = 0;
 
                 if (gameId == 0)
                 {
@@ -442,7 +442,8 @@ namespace EmotionalPlayer
                 ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_PLAYSELF, Consts.DEFAULT_SUBJECT);
                 ev.AddPropertyChange(Consts.PLAY_INFO, playInfo, Consts.DEFAULT_SUBJECT);
 
-                if (_currentTrickId == 9)
+                //do not talk in the last play of trinck and in the last trick of the game
+                if (_currentTrickId == 9 || _currentPlayInTrickId == 3)
                 {
                     SuecaPub.Play(_id, cardSerialized, playInfo);
                 }
@@ -482,7 +483,6 @@ namespace EmotionalPlayer
                         ev.AddPropertyChange(Consts.TRICK_INCREASE_PROPERTY, trickIncrease.ToString(), SubjectName(id));
                     }
                 }
-                _robotHasPlayed = true;
             }
             else
             {
@@ -496,7 +496,6 @@ namespace EmotionalPlayer
 
         public void Play(int id, string card, string playInfo)
         {
-
             SuecaTypes.Card c = JsonSerializable.DeserializeFromJson<SuecaTypes.Card>(card);
             SuecaSolver.Rank myRank = (SuecaSolver.Rank)Enum.Parse(typeof(SuecaSolver.Rank), c.Rank.ToString());
             SuecaSolver.Suit mySuit = (SuecaSolver.Suit)Enum.Parse(typeof(SuecaSolver.Suit), c.Suit.ToString());
@@ -545,6 +544,7 @@ namespace EmotionalPlayer
                 }
                 ev.OtherIntInfos = new int[] { id };
                 ev.Finished = true;
+                _currentPlayInTrickId++;
             }
         }
 
@@ -552,11 +552,11 @@ namespace EmotionalPlayer
         {
             int resposibleForTrick;
             _currentTrickId++;
+            _currentPlayInTrickId = 0;
+
             //do not talk for the last trickEnd event
             if (_currentTrickId != 10)
             {
-                _robotHasPlayed = false;
-
                 SuecaEvent ev = new SuecaEvent(Consts.STATE_TRICK_END);
                 _suecaRPC.AddSuecaEvent(ev);
                 ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_TRICK_END, Consts.DEFAULT_SUBJECT);
