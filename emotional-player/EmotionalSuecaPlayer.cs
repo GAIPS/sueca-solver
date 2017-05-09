@@ -566,7 +566,7 @@ namespace EmotionalPlayer
                 {
                     //attribute the event always to himself
                     ev.AddPropertyChange(Consts.TRICK_END, trickPoints.ToString(), SubjectName(_id));
-                    resposibleForTrick = winnerId;
+                    resposibleForTrick = ((_id + 2) % 4);
                 }
                 else
                 {
