@@ -149,7 +149,7 @@
 			"EmotionDispositions": [
 				{
 					"Emotion": "*",
-					"Decay": 1,
+					"Decay": 9,
 					"Threshold": 1
 				}]
 		},
