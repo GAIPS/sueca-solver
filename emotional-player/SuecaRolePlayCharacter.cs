@@ -253,53 +253,62 @@ namespace EmotionalPlayer
             string[] tags = ev.Tags.ToArray();
             string[] meanings = ev.Meanings.ToArray();
 
-            
-            IEnumerable<ActionLibrary.IAction> possibleActions = _rpc.Decide();
-            
-            if (possibleActions == null || possibleActions.IsEmpty())
+            try
             {
-                Console.WriteLine("No action");
-                saveToFile();
-                return;
-            }
-            else
-            {
-                ActionLibrary.IAction chosenAction = possibleActions.FirstOrDefault();
-                saveToFile();
+                IEnumerable<ActionLibrary.IAction> possibleActions = _rpc.Decide();
 
-                switch (chosenAction.Key.ToString())
+                if (possibleActions == null || possibleActions.IsEmpty())
                 {
-                    case "Speak":
-                        _esp.RequestUtterance(ev.Name, "");
-                        _esp.WaitForResponse();
-                        if (_esp.Talking)
-                        {
-                            Name currentState = chosenAction.Parameters[0];
-                            Name nextState = chosenAction.Parameters[1];
-                            Name meaning = chosenAction.Parameters[2];
-                            Name style = chosenAction.Parameters[3];
-                            var possibleDialogs = _iat.GetDialogueActions(IATConsts.AGENT, currentState, nextState, meaning, style);
-                            var dialog = getUtterance(possibleDialogs);
+                    Console.WriteLine("No action");
+                    saveToFile();
+                    return;
+                }
+                else
+                {
+                    ActionLibrary.IAction chosenAction = possibleActions.FirstOrDefault();
+                    saveToFile();
 
-                            Console.WriteLine(dialog);
-                            EmotionalSuecaPlayer.SuecaPub.StartedUtterance(_esp._id, ev.Name, "");
-                            EmotionalSuecaPlayer.SuecaPub.PerformUtteranceWithTags("", dialog, tags, meanings);
-                        }
+                    switch (chosenAction.Key.ToString())
+                    {
+                        case "Speak":
+                            _esp.RequestUtterance(ev.Name, "");
+                            _esp.WaitForResponse();
+                            if (_esp.Talking)
+                            {
+                                Name currentState = chosenAction.Parameters[0];
+                                Name nextState = chosenAction.Parameters[1];
+                                Name meaning = chosenAction.Parameters[2];
+                                Name style = chosenAction.Parameters[3];
+                                var possibleDialogs = _iat.GetDialogueActions(IATConsts.AGENT, currentState, nextState, meaning, style);
+                                var dialog = getUtterance(possibleDialogs);
 
-                        break;
+                                Console.WriteLine(dialog);
+                                EmotionalSuecaPlayer.SuecaPub.StartedUtterance(_esp._id, ev.Name, "");
+                                EmotionalSuecaPlayer.SuecaPub.PerformUtteranceWithTags("", dialog, tags, meanings);
+                            }
 
-                    case "Animation":
-                        Name state = chosenAction.Parameters[0];
-                        Name emotionName = chosenAction.Parameters[1];
-                        //Console.WriteLine("[ANIMATION] Soft reaction to " + state + " with the style " + emotionName);
-                        EmotionalSuecaPlayer.SuecaPub.PlayAnimation("", emotionName.ToString());
-                        break;
+                            break;
 
-                    default:
-                        Console.WriteLine("Unknown Action");
-                        break;
+                        case "Animation":
+                            Name state = chosenAction.Parameters[0];
+                            Name emotionName = chosenAction.Parameters[1];
+                            //Console.WriteLine("[ANIMATION] Soft reaction to " + state + " with the style " + emotionName);
+                            EmotionalSuecaPlayer.SuecaPub.PlayAnimation("", emotionName.ToString());
+                            break;
+
+                        default:
+                            Console.WriteLine("Unknown Action");
+                            break;
+                    }
                 }
             }
+            catch (Exception e)
+            {
+
+                Console.WriteLine(e.ToString());
+            }
+            
+            
         }
 
         /// <summary>
