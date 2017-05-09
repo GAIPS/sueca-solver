@@ -39,7 +39,6 @@ namespace EmotionalPlayer
         public string _agentName;
         private EmotionalSuecaPlayer _esp;
 
-
         public SuecaRolePlayCharacter(int nameId, string agentType, string scenarioPath, EmotionalSuecaPlayer esp)
         {
             _esp = esp;
@@ -112,6 +111,7 @@ namespace EmotionalPlayer
 
                     //wait until event is finished
                     while (!ev.Finished) { }
+                    
 
                     if (ev.Name == Consts.INIT)
                     {
@@ -123,6 +123,11 @@ namespace EmotionalPlayer
 
                     if (ev.Name == Consts.STATE_NEXT_PLAYER)
                     {
+                        if (ev.OtherIntInfos.Length > 0)
+                        {
+                            EmotionalSuecaPlayer.SuecaPub.GazeAtTarget("player" + ev.OtherIntInfos[0]);
+                        }
+                        
                         if (_randomNumberGenerator.Next(0, 10) < 6)
                         {
                             // Sleep randomly until decide
@@ -143,9 +148,12 @@ namespace EmotionalPlayer
                     }
                     else if (ev.Name == Consts.STATE_PLAYSELF)
                     {
-                        decide(ev);
                         EmotionalSuecaPlayer.SuecaPub.GazeAtTarget("cardsZone");
-                        EmotionalSuecaPlayer.SuecaPub.Play(ev.OtherIntInfos[0], ev.OtherStringInfos[0], ev.OtherStringInfos[1]);
+                        if (ev.OtherStringInfos.Length > 0)
+                        {
+                            decide(ev);
+                            EmotionalSuecaPlayer.SuecaPub.Play(ev.OtherIntInfos[0], ev.OtherStringInfos[0], ev.OtherStringInfos[1]);
+                        }
                     }
                     else if (ev.Name == Consts.STATE_PLAY)
                     {
@@ -167,7 +175,6 @@ namespace EmotionalPlayer
                         decide(ev);
                     }
                 }
-
                 Thread.Sleep(100);
             }
         }
@@ -232,6 +239,7 @@ namespace EmotionalPlayer
         private void perceive(SuecaEvent ev)
         {
             //DEBUG
+            Console.WriteLine("Going to perceive event " + ev.Name);
             foreach (var el in ev.Events)
             {
                 Console.WriteLine(el.ToString());
@@ -270,11 +278,10 @@ namespace EmotionalPlayer
                             Name nextState = chosenAction.Parameters[1];
                             Name meaning = chosenAction.Parameters[2];
                             Name style = chosenAction.Parameters[3];
-                            Console.WriteLine("Speak(" + currentState + ", " + nextState + ", " + meaning + ", " + style + ")");
                             var possibleDialogs = _iat.GetDialogueActions(IATConsts.AGENT, currentState, nextState, meaning, style);
                             var dialog = getUtterance(possibleDialogs);
 
-                            //Console.WriteLine(dialog);
+                            Console.WriteLine(dialog);
                             EmotionalSuecaPlayer.SuecaPub.StartedUtterance(_esp._id, ev.Name, "");
                             EmotionalSuecaPlayer.SuecaPub.PerformUtteranceWithTags("", dialog, tags, meanings);
                         }

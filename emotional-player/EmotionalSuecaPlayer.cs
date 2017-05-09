@@ -197,46 +197,47 @@ namespace EmotionalPlayer
             int playerID1 = _randomNumberGenerator.Next(1, 2);
             int playerID2 = ((playerID1 + 1) % 2);
             SuecaPub.GazeAtTarget("player" + playerID1);
-
             if (playerId == _id)
             {
                 _initialyzing = true;
 
                 _teamId = teamId;
-                SuecaEvent ev1 = new SuecaEvent(Consts.INIT);
-                _suecaRPC.AddSuecaEvent(ev1);
-                ev1.OtherStringInfos = new string[] { SubjectName(_id) };
-                switch (_agentType)
-                {
-                    case Consts.AGENT_TYPE_GROUP:
-                        ev1.AddPropertyChange("Player(" + SubjectName(_id) + ")", Consts.PARTNER, Consts.DEFAULT_SUBJECT);
-                        ev1.AddPropertyChange("Player(" + SubjectName((_id + 1) % 4) + ")", Consts.OPPONENT, Consts.DEFAULT_SUBJECT);
-                        break;
-                    case Consts.AGENT_TYPE_INDIVIDUAL:
-                        ev1.AddPropertyChange("Player(" + SubjectName(_id) + ")", Consts.PARTNER, Consts.DEFAULT_SUBJECT);
-                        ev1.AddPropertyChange("Player(" + SubjectName((_id + 1) % 4) + ")", Consts.OPPONENT, Consts.DEFAULT_SUBJECT);
-                        ev1.AddPropertyChange("Player(" + SubjectName((_id + 2) % 4) + ")", Consts.PARTNER, Consts.DEFAULT_SUBJECT);
-                        ev1.AddPropertyChange("Player(" + SubjectName((_id + 3) % 4) + ")", Consts.OPPONENT, Consts.DEFAULT_SUBJECT);
-                        break;
-                    default:
-                        break;
-                }
-                if (_nameId == 1)
-                {
-                    ev1.AddPropertyChange("Dialogue(Style)", "A", Consts.DEFAULT_SUBJECT);
-                }
-                else
-                {
-                    ev1.AddPropertyChange("Dialogue(Style)", "B", Consts.DEFAULT_SUBJECT);
-                }
-                ev1.Finished = true;
-
-
                 _currentGameId = gameId;
                 _currentTrickId = 0;
 
-                if (gameId != 0)
+                if (gameId == 0)
                 {
+                    SuecaEvent ev1 = new SuecaEvent(Consts.INIT);
+                    _suecaRPC.AddSuecaEvent(ev1);
+                    ev1.OtherStringInfos = new string[] { SubjectName(_id) };
+                    switch (_agentType)
+                    {
+                        case Consts.AGENT_TYPE_GROUP:
+                            ev1.AddPropertyChange("Player(" + SubjectName(_id) + ")", Consts.PARTNER, Consts.DEFAULT_SUBJECT);
+                            ev1.AddPropertyChange("Player(" + SubjectName((_id + 1) % 4) + ")", Consts.OPPONENT, Consts.DEFAULT_SUBJECT);
+                            break;
+                        case Consts.AGENT_TYPE_INDIVIDUAL:
+                            ev1.AddPropertyChange("Player(" + SubjectName(_id) + ")", Consts.PARTNER, Consts.DEFAULT_SUBJECT);
+                            ev1.AddPropertyChange("Player(" + SubjectName((_id + 1) % 4) + ")", Consts.OPPONENT, Consts.DEFAULT_SUBJECT);
+                            ev1.AddPropertyChange("Player(" + SubjectName((_id + 2) % 4) + ")", Consts.PARTNER, Consts.DEFAULT_SUBJECT);
+                            ev1.AddPropertyChange("Player(" + SubjectName((_id + 3) % 4) + ")", Consts.OPPONENT, Consts.DEFAULT_SUBJECT);
+                            break;
+                        default:
+                            break;
+                    }
+                    if (_nameId == 1)
+                    {
+                        ev1.AddPropertyChange("Dialogue(Style)", "A", Consts.DEFAULT_SUBJECT);
+                    }
+                    else
+                    {
+                        ev1.AddPropertyChange("Dialogue(Style)", "B", Consts.DEFAULT_SUBJECT);
+                    }
+                    ev1.Finished = true;
+                }
+                else
+                {
+                    Console.WriteLine("next games");
                     SuecaEvent ev = new SuecaEvent(Consts.STATE_GAME_START);
                     _suecaRPC.AddSuecaEvent(ev);
                     ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_GAME_START, Consts.DEFAULT_SUBJECT);
@@ -416,6 +417,7 @@ namespace EmotionalPlayer
             //NextPlayer events arrive to Thalamus Client around 10miliseconds later than Play events, however this method is called first than Play
             //This sleep allows Play event to be fully processed before the next player
             SuecaEvent ev = new SuecaEvent(Consts.STATE_NEXT_PLAYER);
+            _suecaRPC.AddSuecaEvent(ev);
             Thread.Sleep(500);
 
             //Console.WriteLine("The next player is {0}.", id);
@@ -436,15 +438,16 @@ namespace EmotionalPlayer
                 string cardSerialized = new SuecaTypes.Card(msgRank, msgSuit).SerializeToJson();
                 string playInfo = _ai.GetLastPlayInfo();
 
+                ev.Name = Consts.STATE_PLAYSELF;
+                ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_PLAYSELF, Consts.DEFAULT_SUBJECT);
+                ev.AddPropertyChange(Consts.PLAY_INFO, playInfo, Consts.DEFAULT_SUBJECT);
+
                 if (_currentTrickId == 9)
                 {
                     SuecaPub.Play(_id, cardSerialized, playInfo);
                 }
                 else
                 {
-                    ev.Name = Consts.STATE_PLAYSELF;
-                    ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_PLAYSELF, Consts.DEFAULT_SUBJECT);
-                    ev.AddPropertyChange(Consts.PLAY_INFO, playInfo, Consts.DEFAULT_SUBJECT);
                     ev.ChangeTagsAndMeanings(new string[] { "|rank|", "|suit|" }, new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()) });
                     ev.OtherIntInfos = new int[] { this._id };
                     ev.OtherStringInfos = new string[] { cardSerialized, playInfo };
@@ -483,13 +486,12 @@ namespace EmotionalPlayer
             }
             else
             {
-                SuecaPub.GazeAtTarget("player" + id);
                 ev.AddPropertyChange(Consts.NEXT_PLAYER, SubjectName(id), Consts.DEFAULT_SUBJECT);
                 ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_NEXT_PLAYER, Consts.DEFAULT_SUBJECT);
                 ev.ChangeTagsAndMeanings(new string[] {"|nextPlayerID|" }, new string[] { id.ToString() });
+                ev.OtherIntInfos = new int[] { id };
             }
             ev.Finished = true;
-            _suecaRPC.AddSuecaEvent(ev);
         }
 
         public void Play(int id, string card, string playInfo)

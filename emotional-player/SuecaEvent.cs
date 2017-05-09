@@ -25,6 +25,8 @@ namespace EmotionalPlayer
             Tags = new List<string>();
             Meanings = new List<string>();
             Finished = false;
+            OtherStringInfos = new string[] { };
+            OtherIntInfos = new int[] { };
         }
 
         public void AddPropertyChange(string propertyName, string value, string subject)
