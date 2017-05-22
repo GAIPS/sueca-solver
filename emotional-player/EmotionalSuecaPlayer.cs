@@ -446,10 +446,6 @@ namespace EmotionalPlayer
                 SuecaTypes.Suit msgSuit = (SuecaTypes.Suit)Enum.Parse(typeof(SuecaTypes.Suit), chosenCardSuit.ToString());
                 string cardSerialized = new SuecaTypes.Card(msgRank, msgSuit).SerializeToJson();
                 string playInfo = _ai.GetLastPlayInfo();
-
-                ev.Name = Consts.STATE_PLAYSELF;
-                ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_PLAYSELF, Consts.DEFAULT_SUBJECT);
-                ev.AddPropertyChange(Consts.DIALOGUE_FLOOR_PROPERTY, _id.ToString(), Consts.DEFAULT_SUBJECT);
                 ev.AddPropertyChange(Consts.PLAY_INFO, playInfo, Consts.DEFAULT_SUBJECT);
 
                 //do not talk in the last play of trinck and in the last trick of the game
@@ -488,10 +484,20 @@ namespace EmotionalPlayer
                     }
                     int trickIncrease = _ai.GetTrickIncrease();
 
+                    //testing purposes
+                    if(trickIncrease == 0)
+                    {
+                        Console.WriteLine("não dei pontos");
+                        ev.AddPropertyChange(Consts.TRICK_INCREASE_PROPERTY, trickIncrease.ToString(), SubjectName(id));
+                    }
                     if (trickIncrease > 0)
                     {
                         ev.AddPropertyChange(Consts.TRICK_INCREASE_PROPERTY, trickIncrease.ToString(), SubjectName(id));
                     }
+                    
+                    ev.Name = Consts.STATE_PLAYSELF;
+                    ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_PLAYSELF, Consts.DEFAULT_SUBJECT);
+                    ev.AddPropertyChange(Consts.DIALOGUE_FLOOR_PROPERTY, _id.ToString(), Consts.DEFAULT_SUBJECT);
                 }
             }
             else
