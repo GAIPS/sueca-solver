@@ -172,7 +172,7 @@ namespace EmotionalPlayer
 
         #region Game Actions - Before or after the game
 
-        public void SessionStart(int sessionId, int numGames, int[] agentsIds, int shouldGreet)
+        public void SessionStart(int sessionId, int numGames, int[] agentsIds, int floorId)
         {
             _id = agentsIds[_nameId - 1];
             Console.WriteLine("My id is " + _id);
@@ -187,11 +187,12 @@ namespace EmotionalPlayer
             SuecaEvent ev = new SuecaEvent(Consts.STATE_SESSION_START);
             _suecaRPC.AddSuecaEvent(ev);
             ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_SESSION_START, Consts.DEFAULT_SUBJECT);
+            ev.AddPropertyChange(Consts.DIALOGUE_FLOOR_PROPERTY, floorId.ToString(), Consts.DEFAULT_SUBJECT);
             ev.ChangeTagsAndMeanings(new string[] { "|playerID1|", "|playerID2|" }, new string[] { playerID1.ToString(), playerID2.ToString() });
             ev.Finished = true;
         }
 
-        public void GameStart(int gameId, int playerId, int teamId, string trumpCard, int trumpCardPlayer, string[] cards)
+        public void GameStart(int gameId, int playerId, int teamId, string trumpCard, int trumpCardPlayer, string[] cards, int floorId)
         {
             int playerID1 = _randomNumberGenerator.Next(1, 2);
             int playerID2 = ((playerID1 + 1) % 2);
@@ -233,6 +234,7 @@ namespace EmotionalPlayer
                     {
                         ev1.AddPropertyChange("Dialogue(Style)", "B", Consts.DEFAULT_SUBJECT);
                     }
+                    ev1.AddPropertyChange(Consts.ID_PROPERTY, _id.ToString(), Consts.DEFAULT_SUBJECT);
                     ev1.Finished = true;
                 }
                 else
@@ -241,6 +243,7 @@ namespace EmotionalPlayer
                     SuecaEvent ev = new SuecaEvent(Consts.STATE_GAME_START);
                     _suecaRPC.AddSuecaEvent(ev);
                     ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_GAME_START, Consts.DEFAULT_SUBJECT);
+                    ev.AddPropertyChange(Consts.DIALOGUE_FLOOR_PROPERTY, floorId.ToString(), Consts.DEFAULT_SUBJECT);
                     ev.ChangeTagsAndMeanings(new string[] { "|playerID1|", "|playerID2|" }, new string[] { playerID1.ToString(), playerID2 .ToString() });
                     ev.Finished = true;
                 }
@@ -264,57 +267,61 @@ namespace EmotionalPlayer
             }
         }
 
-        public void Shuffle(int playerId)
+        public void Shuffle(int playerId, int floorId)
         {
             SuecaPub.GazeAtTarget("player" + playerId);
             SuecaEvent ev = new SuecaEvent(Consts.STATE_SHUFFLE);
             _suecaRPC.AddSuecaEvent(ev);
             ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_SHUFFLE, Consts.DEFAULT_SUBJECT);
+            ev.AddPropertyChange(Consts.DIALOGUE_FLOOR_PROPERTY, floorId.ToString(), Consts.DEFAULT_SUBJECT);
             ev.ChangeTagsAndMeanings(new string[] { "|playerID|" }, new string[] { playerId.ToString() });
             ev.Finished = true;
         }
 
-        public void Cut(int playerId)
+        public void Cut(int playerId, int floorId)
         {
             SuecaPub.GazeAtTarget("player" + playerId);
             SuecaEvent ev = new SuecaEvent(Consts.STATE_CUT);
             _suecaRPC.AddSuecaEvent(ev);
             ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_CUT, Consts.DEFAULT_SUBJECT);
+            ev.AddPropertyChange(Consts.DIALOGUE_FLOOR_PROPERTY, floorId.ToString(), Consts.DEFAULT_SUBJECT);
             ev.ChangeTagsAndMeanings(new string[] { "|playerID|" }, new string[] { playerId.ToString() });
             ev.Finished = true;
         }
 
-        public void Deal(int playerId)
+        public void Deal(int playerId, int floorId)
         {
             SuecaPub.GazeAtTarget("player" + playerId);
             SuecaEvent ev = new SuecaEvent(Consts.STATE_DEAL);
             _suecaRPC.AddSuecaEvent(ev);
             ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_DEAL, Consts.DEFAULT_SUBJECT);
+            ev.AddPropertyChange(Consts.DIALOGUE_FLOOR_PROPERTY, floorId.ToString(), Consts.DEFAULT_SUBJECT);
             ev.ChangeTagsAndMeanings(new string[] { "|playerID|" }, new string[] { playerId.ToString() });
             ev.Finished = true;
         }
 
-        public void ReceiveRobotCards(int playerId)
+        public void ReceiveRobotCards(int playerId, int floorId)
         {
             SuecaPub.GazeAtTarget("random");
         }
 
-        public void TrumpCard(string trumpCard, int trumpCardPlayer)
+        public void TrumpCard(string trumpCard, int trumpCardPlayer, int floorId)
         {
             SuecaPub.GazeAtTarget("cardsZone");
         }
 
-        public void Renounce(int playerId)
+        public void Renounce(int playerId, int floorId)
         {
             SuecaPub.GazeAtTarget("player" + playerId);
             SuecaEvent ev = new SuecaEvent(Consts.STATE_GAME_END);
             _suecaRPC.AddSuecaEvent(ev);
             ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_GAME_END, Consts.DEFAULT_SUBJECT);
+            ev.AddPropertyChange(Consts.DIALOGUE_FLOOR_PROPERTY, floorId.ToString(), Consts.DEFAULT_SUBJECT);
             ev.AddPropertyChange(Consts.END_GAME, "Renounce", Consts.DEFAULT_SUBJECT);
             ev.Finished = true;
         }
 
-        public void GameEnd(int team0Score, int team1Score)
+        public void GameEnd(int team0Score, int team1Score, int floorId)
         {
             int playerId = ((_id + 2) % 4); //partner
             SuecaPub.GazeAtTarget("player" + playerId);
@@ -324,6 +331,7 @@ namespace EmotionalPlayer
                 SuecaEvent ev = new SuecaEvent(Consts.STATE_GAME_END);
                 _suecaRPC.AddSuecaEvent(ev);
                 ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_GAME_END, Consts.DEFAULT_SUBJECT);
+                ev.AddPropertyChange(Consts.DIALOGUE_FLOOR_PROPERTY, floorId.ToString(), Consts.DEFAULT_SUBJECT);
 
                 int myTeamScore, otherTeamScore;
                 if (_teamId == 0)
@@ -372,13 +380,14 @@ namespace EmotionalPlayer
             }
         }
 
-        public void SessionEnd(int sessionId, int team0Score, int team1Score)
+        public void SessionEnd(int sessionId, int team0Score, int team1Score, int floorId)
         {
             int playerId = ((_id + 2) % 4); //partner
             SuecaPub.GazeAtTarget("player" + playerId);
             SuecaEvent ev = new SuecaEvent(Consts.STATE_SESSION_END);
             _suecaRPC.AddSuecaEvent(ev);
             ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_SESSION_END, Consts.DEFAULT_SUBJECT);
+            ev.AddPropertyChange(Consts.DIALOGUE_FLOOR_PROPERTY, floorId.ToString(), Consts.DEFAULT_SUBJECT);
 
             int myTeamScore, otherTeamScore;
             if (_teamId == 0)
@@ -412,7 +421,7 @@ namespace EmotionalPlayer
 
         #region Game Actions - During the game
 
-        public void NextPlayer(int id)
+        public void NextPlayer(int id, int floorId)
         {
             //NextPlayer events arrive to Thalamus Client around 10miliseconds later than Play events, however this method is called first than Play
             //This sleep allows Play event to be fully processed before the next player
@@ -440,6 +449,7 @@ namespace EmotionalPlayer
 
                 ev.Name = Consts.STATE_PLAYSELF;
                 ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_PLAYSELF, Consts.DEFAULT_SUBJECT);
+                ev.AddPropertyChange(Consts.DIALOGUE_FLOOR_PROPERTY, _id.ToString(), Consts.DEFAULT_SUBJECT);
                 ev.AddPropertyChange(Consts.PLAY_INFO, playInfo, Consts.DEFAULT_SUBJECT);
 
                 //do not talk in the last play of trinck and in the last trick of the game
@@ -488,13 +498,14 @@ namespace EmotionalPlayer
             {
                 ev.AddPropertyChange(Consts.NEXT_PLAYER, SubjectName(id), Consts.DEFAULT_SUBJECT);
                 ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_NEXT_PLAYER, Consts.DEFAULT_SUBJECT);
+                ev.AddPropertyChange(Consts.DIALOGUE_FLOOR_PROPERTY, floorId.ToString(), Consts.DEFAULT_SUBJECT);
                 ev.ChangeTagsAndMeanings(new string[] {"|nextPlayerID|" }, new string[] { id.ToString() });
                 ev.OtherIntInfos = new int[] { id };
             }
             ev.Finished = true;
         }
 
-        public void Play(int id, string card, string playInfo)
+        public void Play(int id, string card, string playInfo, int floorId)
         {
             SuecaTypes.Card c = JsonSerializable.DeserializeFromJson<SuecaTypes.Card>(card);
             SuecaSolver.Rank myRank = (SuecaSolver.Rank)Enum.Parse(typeof(SuecaSolver.Rank), c.Rank.ToString());
@@ -510,6 +521,7 @@ namespace EmotionalPlayer
                 ev.AddPropertyChange(Consts.CURRENT_PLAYER, SubjectName(id), Consts.DEFAULT_SUBJECT);
                 _ai.AddPlay(id, myCard);
                 ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_PLAY, Consts.DEFAULT_SUBJECT);
+                ev.AddPropertyChange(Consts.DIALOGUE_FLOOR_PROPERTY, floorId.ToString(), Consts.DEFAULT_SUBJECT);
                 string[] tags = new string[] { "|rank|", "|suit|", "|playerID|" };
                 string[] meanings = new string[] { convertRankToPortuguese(myRank.ToString()), convertSuitToPortuguese(mySuit.ToString()), id.ToString() };
                 ev.ChangeTagsAndMeanings(tags, meanings);
@@ -548,7 +560,7 @@ namespace EmotionalPlayer
             }
         }
 
-        public void TrickEnd(int winnerId, int trickPoints)
+        public void TrickEnd(int winnerId, int trickPoints, int floorId)
         {
             int partnerID = ((_id + 2) % 4);
             _currentTrickId++;
@@ -560,6 +572,7 @@ namespace EmotionalPlayer
                 SuecaEvent ev = new SuecaEvent(Consts.STATE_TRICK_END);
                 _suecaRPC.AddSuecaEvent(ev);
                 ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_TRICK_END, Consts.DEFAULT_SUBJECT);
+                ev.AddPropertyChange(Consts.DIALOGUE_FLOOR_PROPERTY, floorId.ToString(), Consts.DEFAULT_SUBJECT);
                 ev.AddPropertyChange(Consts.TRICK_WINNER, SubjectName(winnerId), SubjectName(winnerId));
 
                 if (_agentType == Consts.AGENT_TYPE_GROUP)
@@ -587,51 +600,51 @@ namespace EmotionalPlayer
         
         public void RequestUtterance(int playerId, string category, string subcategory)
         {
-            if (playerId != _id)
-            {
-                if (PendingRequest || Talking)
-                {
-                    SuecaPub.NOUtterance(_id);
-                }
-                else
-                {
-                    SuecaPub.OKUtterance(_id);
-                    SomeoneIsTalking = true;
-                }
-            }
+            //if (playerId != _id)
+            //{
+            //    if (PendingRequest || Talking)
+            //    {
+            //        SuecaPub.NOUtterance(_id);
+            //    }
+            //    else
+            //    {
+            //        SuecaPub.OKUtterance(_id);
+            //        SomeoneIsTalking = true;
+            //    }
+            //}
         }
 
 
         public void OKUtterance(int playerId)
         {
-            if (playerId != _id)
-            {
-                Talking = true;
-                PendingRequest = false;
-                Retrying = false;
-                requestCounter = 0;
-            }
+            //if (playerId != _id)
+            //{
+            //    Talking = true;
+            //    PendingRequest = false;
+            //    Retrying = false;
+            //    requestCounter = 0;
+            //}
         }
 
 
         public void NOUtterance(int playerId)
         {
-            if (playerId != _id)
-            {
-                if (PendingRequest && requestCounter < 3)
-                {
-                    Retrying = true;
-                    PendingRequest = false;
-                    Thread.Sleep(_randomNumberGenerator.Next(2000));
-                    retryRequest();
-                }
-                else
-                {
-                    requestCounter = 0;
-                    Retrying = false;
-                    PendingRequest = false;
-                }
-            }
+            //if (playerId != _id)
+            //{
+            //    if (PendingRequest && requestCounter < 3)
+            //    {
+            //        Retrying = true;
+            //        PendingRequest = false;
+            //        Thread.Sleep(_randomNumberGenerator.Next(2000));
+            //        retryRequest();
+            //    }
+            //    else
+            //    {
+            //        requestCounter = 0;
+            //        Retrying = false;
+            //        PendingRequest = false;
+            //    }
+            //}
         }
 
 
@@ -654,43 +667,43 @@ namespace EmotionalPlayer
 
         public void RequestUtterance(string category, string subcategory)
         {
-            if (numRobots > 1)
-            {
-                PendingRequest = true;
-                pendingCategory = category;
-                pendingSubcategory = subcategory;
-                requestCounter++;
-                SuecaPub.RequestUtterance(_id, category, subcategory);
-            }
-            else
-            {
-                Talking = true;
-            }
+            //if (numRobots > 1)
+            //{
+            //    PendingRequest = true;
+            //    pendingCategory = category;
+            //    pendingSubcategory = subcategory;
+            //    requestCounter++;
+            //    SuecaPub.RequestUtterance(_id, category, subcategory);
+            //}
+            //else
+            //{
+            //    Talking = true;
+            //}
 
         }
 
         private void retryRequest()
         {
-            requestCounter++;
-            RequestUtterance(pendingCategory, pendingSubcategory);
+            //requestCounter++;
+            //RequestUtterance(pendingCategory, pendingSubcategory);
         }
 
         public void WaitForResponse()
         {
-            Stopwatch s = new Stopwatch();
-            s.Start();
-            while (PendingRequest || Retrying || SomeoneIsTalking)
-            {
-                if (s.ElapsedMilliseconds > 3000)
-                {
-                    PendingRequest = false;
-                    Retrying = false;
-                    pendingCategory = "";
-                    pendingSubcategory = "";
-                    requestCounter = 0;
-                    s.Stop();
-                }
-            }
+            //Stopwatch s = new Stopwatch();
+            //s.Start();
+            //while (PendingRequest || Retrying || SomeoneIsTalking)
+            //{
+            //    if (s.ElapsedMilliseconds > 3000)
+            //    {
+            //        PendingRequest = false;
+            //        Retrying = false;
+            //        pendingCategory = "";
+            //        pendingSubcategory = "";
+            //        requestCounter = 0;
+            //        s.Stop();
+            //    }
+            //}
         }
 
 

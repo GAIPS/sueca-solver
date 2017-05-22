@@ -22,6 +22,9 @@ namespace EmotionalPlayer
         public static readonly string CURRENT_PLAYER = "Current(PlayerID)";
         public static readonly string NEXT_PLAYER = "Next(PlayerID)";
 
+        public static readonly string ID_PROPERTY = "My(Id)";
+        public static readonly string DIALOGUE_FLOOR_PROPERTY = "Dialogue(Floor)";
+
         public static readonly string DEFAULT_SUBJECT = "Board";
 
         public static readonly string DIALOGUE_STATE_PROPERTY = "DialogueState(Board)";
