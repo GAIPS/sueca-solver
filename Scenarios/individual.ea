@@ -142,7 +142,7 @@
 							"EventName": "Event(Property-Change, [playerId], Trick(Increase), [points])",
 							"Conditions":
 								{
-									"Set": ["[points] >= 10", "Player([playerId]) = Opponent", "Trick(Winner) = [x]", "Player([x]) = Opponent"]
+									"Set": ["[points] >= 10", "Player([playerId]) = Partner", "Trick(Winner) = [x]", "Player([x]) = Opponent"]
 								},
 							"Desirability": -2,
 							"Praiseworthiness": -6
@@ -155,6 +155,24 @@
 								},
 							"Desirability": 2,
 							"Praiseworthiness": 6
+						}, 
+						{
+							"EventName": "Event(Property-Change, [playerId], Trick(Increase), [points])",
+							"Conditions":
+								{
+									"Set": ["[points] >= 10", "Player([playerId]) = Partner", "Trick(Winner) = [x]", "Player([x]) = Partner"]
+								},
+							"Desirability": 2,
+							"Praiseworthiness": 6
+						}, 
+						{
+							"EventName": "Event(Property-Change, [playerId], Trick(Increase), [points])",
+							"Conditions":
+								{
+									"Set": ["[points] >= 10", "Player([playerId]) = Opponent", "Trick(Winner) = [x]", "Player([x]) = Opponent"]
+								},
+							"Desirability": -2,
+							"Praiseworthiness": -6
 						}, 
 						{
 							"EventName": "Event(Property-Change, [responsible], Trick(End), [trickPoints])",
