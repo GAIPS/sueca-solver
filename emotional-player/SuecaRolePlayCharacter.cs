@@ -271,21 +271,19 @@ namespace EmotionalPlayer
                     switch (chosenAction.Key.ToString())
                     {
                         case "Speak":
-                            //_esp.RequestUtterance(ev.Name, "");
-                            //_esp.WaitForResponse();
-                            //if (_esp.Talking)
-                            {
-                                Name currentState = chosenAction.Parameters[0];
-                                Name nextState = chosenAction.Parameters[1];
-                                Name meaning = chosenAction.Parameters[2];
-                                Name style = chosenAction.Parameters[3];
-                                var possibleDialogs = _iat.GetDialogueActions(IATConsts.AGENT, currentState, nextState, meaning, style);
-                                var dialog = getUtterance(possibleDialogs);
+                            
+                            while (_esp.SomeoneIsTalking) { }
+                            
+                            Name currentState = chosenAction.Parameters[0];
+                            Name nextState = chosenAction.Parameters[1];
+                            Name meaning = chosenAction.Parameters[2];
+                            Name style = chosenAction.Parameters[3];
+                            var possibleDialogs = _iat.GetDialogueActions(IATConsts.AGENT, currentState, nextState, meaning, style);
+                            var dialog = getUtterance(possibleDialogs);
 
-                                Console.WriteLine(dialog);
-                                EmotionalSuecaPlayer.SuecaPub.StartedUtterance(_esp._id, ev.Name, "");
-                                EmotionalSuecaPlayer.SuecaPub.PerformUtteranceWithTags("", dialog, tags, meanings);
-                            }
+                            Console.WriteLine(dialog);
+                            EmotionalSuecaPlayer.SuecaPub.StartedUtterance(_esp._id, ev.Name, "");
+                            EmotionalSuecaPlayer.SuecaPub.PerformUtteranceWithTags("", dialog, tags, meanings);
 
                             break;
 
