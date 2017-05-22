@@ -271,9 +271,9 @@ namespace EmotionalPlayer
                     switch (chosenAction.Key.ToString())
                     {
                         case "Speak":
-                            _esp.RequestUtterance(ev.Name, "");
-                            _esp.WaitForResponse();
-                            if (_esp.Talking)
+                            //_esp.RequestUtterance(ev.Name, "");
+                            //_esp.WaitForResponse();
+                            //if (_esp.Talking)
                             {
                                 Name currentState = chosenAction.Parameters[0];
                                 Name nextState = chosenAction.Parameters[1];
