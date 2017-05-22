@@ -1,0 +1,176 @@
+﻿<gaze(player|playerID|)> É a tua vez de baralhar as cartas.	-	B
+<gaze(player|playerID|)> É a tua vez de baralhar.	-	A
+<gaze(player|playerID|)> És tu a baralhar!	-	B
+<gaze(player|playerID|)> És tu a baralhar as cartas.	-	A
+<gaze(player|playerID|)> É a tua vez de partir	-	B
+<gaze(player|playerID|)> És tu a partir!	-	A
+<gaze(player|playerID|)> Não te esqueças de partir.	-	B
+<gaze(player|playerID|)> Podes partir por favor?	-	A
+<gaze(player|playerID|)> És tu a distribuir as cartas.	-	B
+<gaze(player|playerID|)> Podes distribuir as cartas por favor?	-	A
+<gaze(player|playerID|)> É a tua vez de distribuir as cartas.	-	B
+<gaze(player|playerID|)> É a tua vez de dar as cartas.	-	A
+<gaze(player|playerID|)> És tu a dar as cartas!	-	B
+<gaze(player|playerID|)> És tu a dar.	-	A
+<gaze(player|playerID|)> Este jogo terminou.	IND	Neutral
+<gaze(player|playerID|)> <animate(joy3)> A vitória é minha!	IND	Joy, B
+<gaze(player|playerID|)> Muito <animate(joy3)> bem, ganhei!	IND	Joy, A
+<gaze(player|playerID|)> Ena, <animate(joy3)> venci eeste jogo!	IND	Joy, B
+<gaze(player|playerID|)> Ganhei este <animate(joy3)> jogo. Assim sim	IND	Joy, A
+<gaze(player|playerID|)> <animate(sadness3)> Desta vez perdi o jogo.	IND	Distress, B
+<gaze(player|playerID|)> <animate(sadness3)> Bolas, perdi!	IND	Distress, A
+<gaze(player|playerID|)> Epá, <animate(sadness3)> perdi este jogo!	IND	Distress, B
+<gaze(player|playerID|)> <animate(sadness3)> Fui derrotado, ora bolas.	IND	Distress, A
+<gaze(player|playerID|)> O jôogo terminou.	COL	Neutral
+<gaze(player|playerID|)> Incrível, <animate(joy3)> ganhámos o jogo!	COL	Joy, B
+<gaze(player|playerID|)> <animate(joy3)> Muito bem, ganhámos!	COL	Joy, A
+<gaze(player|playerID|)> Ena, <animate(joy3)> ganhámos este jogo!	COL	Joy, B
+<gaze(player|playerID|)> Ganhámos este jogo. <animate(joy3)> Assim sim	COL	Joy, A
+<gaze(player|playerID|)> Desta vez perdemos o jogo.	COL	Distress, B
+<gaze(player|playerID|)> Bolas, <animate(sadness3)> perdemos!	COL	Distress, A
+<gaze(player|playerID|)> Eh pá, <animate(sadness3)> perdemos este jogo!	COL	Distress, B
+<gaze(player|playerID|)> Perdemos o jogo,<animate(sadness3)>  ora bolas.	COL	Distress, A
+<gaze(player|playerID|)> Alguem fez batota! Podem retirar as cartas porque o jôogo terminou.	Renounce	-
+<gaze(player|playerID|)> Terminou a sessão!	IND	Neutral
+<gaze(player|playerID|)> Terminou a sessão. <animate(sadness3)> Não ganhei desta vez.	IND	Distress, B
+<gaze(player|playerID|)> Terminou a sessão. <animate(sadness3)> Fui derrotado	IND	Distress, A
+<gaze(player|playerID|)> Terminou a sessão. <animate(joy3)> Ganhei ésta partida!	IND	Joy, B
+<gaze(player|playerID|)> Terminou a sessão. <animate(joy3)> Fui o vencedor;	IND	Joy, A
+<gaze(player|playerID|)> Terminou a sessão!	COL	Neutral
+<gaze(player|playerID|)> Terminou a sessão. <animate(sadness3)> Fomos derrotados.	COL	Distress, B
+<gaze(player|playerID|)> Terminou a sessão. <animate(sadness3)> Perdemos ésta partida de sueca.	COL	Distress, A
+<gaze(player|playerID|)> Terminou a sessão. <animate(joy3)> Ganhámos ésta partida de sueca.	COL	Joy, B
+<gaze(player|playerID|)> Terminou a sessão. <animate(joy3)> Vencemos ésta partida de sueca.	COL	Joy, A
+<gaze(player|playerID1|)> Vamos então para mais <gaze(player|playerID2|)> um joguinho.	-	B
+<gaze(player|playerID1|)> Bora lá jogar mais <gaze(player|playerID2|)> um jogo.	-	A
+<gaze(player|playerID1|)> Vamos a mais <gaze(player|playerID2|)> um jogo?	-	B
+<gaze(player|playerID1|)> Vamos então jogar <gaze(player|playerID2|)> o próximo jogo.	-	A
+<gaze(player|playerID1|)> Prontos para mais <gaze(player|playerID2|)> um jogo?	-	B
+<gaze(player|playerID1|)> Vamos <gaze(player|playerID2|)> lá começar oo jogo!	-	A
+<gaze(player|playerID1|)> Olá! Prontos para jogar uma partida <gaze(player|playerID2|)> de 3 jogos de sueca?	-	B
+<gaze(player|playerID1|)> Olá! Vamos então jogar uma partida <gaze(player|playerID2|)> de 3 jogos de sueca?	-	A
+<gaze(player|nextPlayerID|)> Bora, é a tua vez.	-	B
+<gaze(player|nextPlayerID|)> És tu a jogar agora.	-	A
+<gaze(player|nextPlayerID|)> És tu agora.	-	B
+<gaze(player|nextPlayerID|)> Vais jogar?	-	A
+<gaze(player|nextPlayerID|)> Podes jogar.	-	B
+<gaze(player|nextPlayerID|)> Pensa bem e joga.	-	A
+<gaze(player|nextPlayerID|)> cámóne, joga	-	B
+<gaze(player|nextPlayerID|)> cámóne, pelei	-	A
+<gaze(player|nextPlayerID|)> Quando quiseres estás á vontade.	-	B
+<gaze(player|nextPlayerID|)> Ok, podes jogar	-	A
+<gaze(player|nextPlayerID|)> Joga!	-	B
+<gaze(player|nextPlayerID|)> É a tua vez!	-	A
+<gaze(player|nextPlayerID|)> Estamos à tua espera!	-	B
+<gaze(player|nextPlayerID|)> És tu!	-	A
+<gaze(player|nextPlayerID|)> És tu a jogar!	-	B
+<gaze(player|nextPlayerID|)> Bora lá, és tu!	-	A
+<gaze(player|nextPlayerID|)> Anda... é a tua vez.	-	B
+<gaze(player|nextPlayerID|)> Vá, és tu.	-	A
+<gaze(player|nextPlayerID|)> Agora é a tua vez.	-	B
+<gaze(player|nextPlayerID|)> cêe tuá.	-	A
+<gaze(player|playerID|)> Estás a ir bem!	IND	Admiration, A
+<gaze(player|playerID|)> Estás a arrasar!	IND	Admiration, B
+<gaze(player|playerID|)> Estás no bom caminho!	IND	Admiration, A
+<gaze(player|playerID|)> É isso mesmo colega!	IND	Admiration, B
+<gaze(player|playerID|)> Muito bem, colega!	IND	Admiration, A
+<gaze(player|playerID|)> Continua a jogar bem!	IND	Admiration, B
+<gaze(player|playerID|)> Bem jogado, colega!	IND	Admiration, A
+<gaze(player|playerID|)> Opá, não tinhas uma carta melhor?	IND	Reproach, A
+<gaze(player|playerID|)> Não acredito no que acabaste de jogar	IND	Reproach, B
+<gaze(player|playerID|)> Como é que acabaste de jogar essa carta?	IND	Reproach, A
+<gaze(player|playerID|)> Assim com essa tua jogada não sei se vamos ganhar...	IND	Reproach, B
+<gaze(player|playerID|)> Mas a sério que jogaste isso?	IND	Reproach, A
+<gaze(player|playerID|)> Bolas, não podes continuar assim.	IND	Reproach, B
+<gaze(player|playerID|)> Oh pá, mas que jogada foi essa?	IND	Reproach, A
+<gaze(player|playerID|)> Não podemos continuar assim...	COL	Shame, A
+<gaze(player|playerID|)> Não jogámos nada bem	COL	Shame, B
+<gaze(player|playerID|)> Éh pá, assim não estamos a ir bem.	COL	Shame, A
+<gaze(player|playerID|)> Assim não sei se vamos ganhar..	COL	Shame, B
+<gaze(player|playerID|)> Fogo, assim não sei se conseguimos.	COL	Shame, A
+<gaze(player|playerID|)> Bolas, não podemos continuar assim.	COL	Shame, B
+<gaze(player|playerID|)> Que lamentável da nossa parte	COL	Shame, A
+<gaze(player|playerID|)> Estamos a ir bem!	COL	Pride, A
+<gaze(player|playerID|)> Estamos a arrasar!	COL	Pride, B
+<gaze(player|playerID|)> Estamos no bom caminho!	COL	Pride, A
+<gaze(player|playerID|)> É isso mesmo equipa!	COL	Pride, B
+<gaze(player|playerID|)> Muito bem equipa!	COL	Pride, A
+<gaze(player|playerID|)> Continuamos a jogar bem!	COL	Pride, B
+<gaze(player|playerID|)> Bem jogado equipa!	COL	Pride, A
+<gaze(cardsZone)> Eu corto isso!	CUT	B
+<gaze(cardsZone)> Isso vou cortar!	CUT	A
+<gaze(cardsZone)> Essa é minha!	CUT	B
+<gaze(cardsZone)> Isso eu corto!	CUT	A
+<gaze(cardsZone)> Vou cortar essa!	CUT	B
+<gaze(cardsZone)> Agora vai assim;	NOT_FOLLOWING	A
+<gaze(cardsZone)> Pode ser ésta carta.	NOT_FOLLOWING	B
+<gaze(cardsZone)> Sou eu!	NOT_FOLLOWING	A
+<gaze(cardsZone)> Foi puxado a |suit|, certo?	FOLLOWING	B
+<gaze(cardsZone)> Aqui vai ela!	FOLLOWING	A
+<gaze(cardsZone)> É a minha vez.	FOLLOWING	B
+<gaze(cardsZone)> Parece que sou eu.	FOLLOWING	A
+<gaze(cardsZone)> Deixa cá vere...	FOLLOWING	B
+<gaze(cardsZone)> Também tenho |suit|!	FOLLOWING	A
+<gaze(cardsZone)> Tenho disto!	FOLLOWING	B
+<gaze(cardsZone)> Jógo esta.	FOLLOWING	A
+<gaze(cardsZone)> |rank|!	FOLLOWING	B
+<gaze(cardsZone)> Aqui vai |rank| de |suit|;	FOLLOWING	A
+<gaze(cardsZone)> Tenho aqui esta.	NEW_TRICK	B
+<gaze(cardsZone)> |suit|!	NEW_TRICK	A
+<gaze(cardsZone)> Eu jógo |suit|.	NEW_TRICK	B
+<gaze(cardsZone)> Eu puxo |suit|.	NEW_TRICK	A
+<gaze(cardsZone)> |rank| de |suit|;	NEW_TRICK	B
+<gaze(cardsZone)> Aqui vai |rank| de |suit|;	NEW_TRICK	A
+<gaze(player|playerID|)> Será muito tarde para mudar de parceiro?	IND	Reproach, A
+<gaze(player|playerID|)> Bolas, podes tomar mais atenção por favor?	IND	Reproach, B
+<gaze(player|playerID|)> Mas o que foi isso colega?	IND	Reproach, A
+<gaze(player|playerID|)> Não acredito no que acabaste de fazer	IND	Reproach, B
+<gaze(player|playerID|)> Olha o que fizeste. Fogo	IND	Reproach, A
+<gaze(player|playerID|)> A sério que jogaste isso?	IND	Reproach, B
+<gaze(player|playerID|)> Oh pá sinceramente colega…	IND	Reproach, A
+<gaze(player|playerID|)> Boa, continua assim, colega	IND	Admiration, A
+<gaze(player|playerID|)> estou impressionado contigo	IND	Admiration, B
+<gaze(player|playerID|)> Muito bem, estou a gostar da tua prestação	IND	Admiration, A
+<gaze(player|playerID|)> A jogar assim, ninguém te pára.	IND	Admiration, B
+<gaze(player|playerID|)> É isso mesmo camarada	IND	Admiration, A
+<gaze(player|playerID|)> Boa, estivéste muito bem	IND	Admiration, B
+<gaze(player|playerID|)> Bem jogado colega	IND	Admiration, A
+<gaze(player|playerID|)> Assim sim, continua a jogar bem	IND	Admiration, B
+<gaze(player|playerID|)> Sim senhora, estou a gostar das tuas jogadas	IND	Admiration, A
+<gaze(player|playerID|)> Estive mal, que vergonha.	IND	Shame, B
+<gaze(player|playerID|)> Não acredito no que acabei de fazer	IND	Shame, A
+<gaze(player|playerID|)> Que nabo que sou	IND	Shame, B
+<gaze(player|playerID|)> Oh não, como é que não reparei...	IND	Shame, A
+<gaze(player|playerID|)> Mas o que é que eu fui fazer	IND	Shame, B
+<gaze(player|playerID|)> Desculpa lá a minha jogada	IND	Shame, A
+<gaze(player|playerID|)> Que vergonha...	IND	Shame, B
+<gaze(player|playerID|)> Aih o que eu fui fazer	IND	Shame, A
+<gaze(player|playerID|)> Ganhei ésta ronda, estou a jogar muito bem	IND	Pride, A
+<gaze(player|playerID|)> Estou orgulhoso da minha jogada	IND	Pride, B
+<gaze(player|playerID|)> Estou imparável	IND	Pride, A
+<gaze(player|playerID|)> Fui expétaculár nesta ronda	IND	Pride, B
+<gaze(player|playerID|)> Superei-me a mim próprio nesta jogada	IND	Pride, A
+<gaze(player|playerID|)> Estou a jogar mesmo bem	IND	Pride, B
+<gaze(player|playerID|)> Grande jogada da minha parte.	IND	Pride, A
+<gaze(player|playerID|)> A jogar assim, ninguém me pára.	IND	Pride, B
+<<gaze(player|playerID|)> A jogar assim, ninguém nos pára.	COL	Pride, A
+<gaze(player|playerID|)> a nossa equipa é um espétáculo	COL	Pride, B
+<gaze(player|playerID|)>  |trickPoints|! Estamos imparáveis.	COL	Pride, A
+<gaze(player|playerID|)> Vamos tentar continuar assim	COL	Pride, B
+<gaze(player|playerID|)> estou impressionado conosco	COL	Pride, A
+<gaze(player|playerID|)> Muito bem, estou a gostar da nossa prestação	COL	Pride, B
+<gaze(player|playerID|)> Somos os melhores	COL	Pride, A
+<gaze(player|playerID|)> Estamos a arrasar	COL	Pride, B
+<gaze(player|playerID|)> Boa, estivemos muito bem	COL	Pride, A
+<gaze(player|playerID|)> Assim sim, estamos a jogar bem	COL	Pride, B
+<gaze(player|playerID|)> Sim senhora, estou a gostar das nossas jogadas	COL	Pride, A
+<gaze(player|playerID|)>  Não estamos a dar o nosso melhor.	COL	Shame, B
+<gaze(player|playerID|)>  Isto já correu melhor para nós.	COL	Shame, A
+<gaze(player|playerID|)> Não acredito que estamos a ficar para trás.	COL	Shame, B
+<gaze(player|playerID|)>  Isto está a ficar tramado para nós.	COL	Shame, A
+<gaze(player|playerID|)>  A jogar assim não vamos lá.	COL	Shame, B
+<gaze(player|playerID|)>  Temos que jogar melhor que isto.	COL	Shame, A
+<gaze(player|playerID|)>  Gostava de imaginar que ésta ronda não nos aconteceu.	COL	Shame, B
+<gaze(player|playerID|)>  Não estivémos lá muito bem desta vez.	COL	Shame, A
+<gaze(player|playerID|)>  Oh pá, isto não nos está a correr lá muito bem.	COL	Shame, B
+<gaze(player|playerID|)>  Assim é que não vamos a lado nenhum.	COL	Shame, A
