@@ -4,16 +4,16 @@
 			"classId": 0,
 			"KnowledgeBase":
 				{
-					"Perspective": "Nameless",
+					"Perspective": "P3",
 					"Knowledge":
 						{
 
 						}
 				},
-			"BodyName": null,
-			"VoiceName": null,
-			"EmotionalAppraisalAssetSource": null,
-			"EmotionalDecisionMakingSource": null,
+			"BodyName": "IndividualSFE",
+			"VoiceName": "male",
+			"EmotionalAppraisalAssetSource": "individual.ea",
+			"EmotionalDecisionMakingSource": "individualSFE.edm",
 			"SocialImportanceAssetSource": null,
 			"CommeillFautAssetSource": null,
 			"EmotionalState":
@@ -34,6 +34,10 @@
 				{
 					"Tick": 0,
 					"records": []
+				},
+			"OtherAgents":
+				{
+					"dictionary": []
 				}
 		},
 	"types": [

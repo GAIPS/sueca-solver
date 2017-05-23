@@ -4,7 +4,7 @@
 			"classId": 0,
 			"ScenarioName": "Group Emotions",
 			"Description": "Sueca scenario with group emotions",
-			"CharacterSources": ["group.rpc", "individual.rpc"],
+			"CharacterSources": ["group.rpc", "individual.rpc", "groupSFE.rpc", "individualSFE.rpc"],
 			"AgentDialogues": [
 				{
 					"CurrentState": "TrickEnd",
