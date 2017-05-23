@@ -133,7 +133,7 @@
 							"EventName": "Event(Property-Change, SELF, Trick(Increase), [points])",
 							"Conditions":
 								{
-									"Set": ["0 = [points]", "Trick(Winner) = [x]", "Player([x]) = Partner", "Trick(Score) >= 4"]
+									"Set": ["0 = [points]", "Trick(Winner) = [x]", "Player([x]) = Partner", "Trick(Score) >= 10"]
 								},
 							"Desirability": -2,
 							"Praiseworthiness": -6
