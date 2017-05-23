@@ -97,7 +97,7 @@
 							"EventName": "Event(Property-Change, SELF, Trick(End), [trickPoints])",
 							"Conditions":
 								{
-									"Set": ["Trick(Winner) = [winnerId]", "Log([winnerId]) = 0", "Player([winnerId]) = Partner", "[trickPoints] >= 10"]
+									"Set": ["Trick(Winner) = [winnerId]", "Player([winnerId]) = Partner", "[trickPoints] >= 10"]
 								},
 							"Desirability": 3,
 							"Praiseworthiness": 6
