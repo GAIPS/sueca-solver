@@ -646,6 +646,10 @@ namespace EmotionalPlayer
             {
                 SomeoneIsTalking = true;
             }
+            else
+            {
+                Talking = true;
+            }
         }
 
 
