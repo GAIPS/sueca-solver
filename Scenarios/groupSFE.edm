@@ -18,7 +18,7 @@
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["DialogueState(Board) = TrickEnd", "Dialogue(Floor) = My(Id)", "ValidDialogue(TrickEnd, [ns], [m], S([e], [ds])) = True", "COL = [m]", "StrongestEmotionForEvent(SELF,Event(Property-Change,*,Trick(End),*)) = [e]", "EmotionIntensity(SELF, [e]) > 4", "Dialogue(Style) = [ds]"]
+							"Set": ["DialogueState(Board) = TrickEnd", "Dialogue(Floor) = My(Id)", "ValidDialogue(TrickEnd, [ns], [m], S([e], [ds])) = True", "COL = [m]", "StrongestEmotionForEvent(SELF, Event(Property-Change, *, Trick(End), *)) = [e]", "Dialogue(Style) = [ds]"]
 						},
 					"Priority": 4
 				}, 
@@ -62,7 +62,7 @@
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["Dialogue(Floor) = My(Id)", "DialogueState(Board) = PlaySelf", "ValidDialogue(PlaySelf, [ns], [m], S([e], [ds])) = True", "COL = [m]", "StrongestEmotionForEvent(SELF,Event(Property-Change,*,Trick(Increase),*)) = [e]", "EmotionIntensity(SELF, [e]) >= 4", "Dialogue(Style) = [ds]"]
+							"Set": ["Dialogue(Floor) = My(Id)", "DialogueState(Board) = PlaySelf", "ValidDialogue(PlaySelf, [ns], [m], S([e], [ds])) = True", "COL = [m]", "StrongestEmotionForEvent(SELF, Event(Property-Change, *, Trick(Increase), *)) = [e]", "Dialogue(Style) = [ds]"]
 						},
 					"Priority": 4
 				}, 
@@ -71,7 +71,7 @@
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["DialogueState(Board) = PlayPartner", "Dialogue(Floor) = My(Id)", "ValidDialogue(PlayPartner, [ns], [m], S([e], [ds])) = True", "COL = [m]", "Current(PlayerID) = [cpId]", "Player([cpId]) = Partner", "StrongestEmotionForEvent(SELF,Event(Property-Change,*,Trick(Increase),*)) = [e]", "EmotionIntensity(SELF, [e]) >= 4", "Dialogue(Style) = [ds]"]
+							"Set": ["DialogueState(Board) = PlayPartner", "Dialogue(Floor) = My(Id)", "ValidDialogue(PlayPartner, [ns], [m], S([e], [ds])) = True", "COL = [m]", "Current(PlayerID) = [cpId]", "Player([cpId]) = Partner", "StrongestEmotionForEvent(SELF, Event(Property-Change, *, Trick(Increase), *)) = [e]", "Dialogue(Style) = [ds]"]
 						},
 					"Priority": 3
 				}]
