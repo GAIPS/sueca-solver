@@ -175,7 +175,7 @@ namespace EmotionalPlayer
         public void SessionStart(int sessionId, int numGames, int[] agentsIds, int floorId)
         {
             _id = agentsIds[_nameId - 1];
-            Console.WriteLine("My id is " + _id);
+            Console.WriteLine("EMYS-" + _nameId + "--- " + "My id is " + _id);
             if (_id == 0 || _id == 2)
             {
                 _teamId = 0;
@@ -244,7 +244,7 @@ namespace EmotionalPlayer
 
                 if (gameId != 0)
                 {
-                    Console.WriteLine("next games");
+                    //Console.WriteLine("next games");
                     SuecaEvent ev = new SuecaEvent(Consts.STATE_GAME_START);
                     _suecaRPC.AddSuecaEvent(ev);
                     ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_GAME_START, Consts.DEFAULT_SUBJECT);
@@ -483,13 +483,6 @@ namespace EmotionalPlayer
                     }
 
                     int trickIncrease = _ai.GetTrickIncrease();
-
-                    //testing purposes
-                    if(trickIncrease == 0)
-                    {
-                        Console.WriteLine("não dei pontos");
-                        ev.AddPropertyChange(Consts.TRICK_INCREASE_PROPERTY, trickIncrease.ToString(), SubjectName(id));
-                    }
                     if (trickIncrease > 0)
                     {
                         ev.AddPropertyChange(Consts.TRICK_INCREASE_PROPERTY, trickIncrease.ToString(), SubjectName(id));
@@ -583,7 +576,7 @@ namespace EmotionalPlayer
                 {
                     //attribute the event to the winner when he is from my team and blame himself or the partner when winner is an opponent
                     int resposibleForTrick = _ai.GetResposibleForLastTrick();
-                    Console.WriteLine("Responsible for trick " + resposibleForTrick);
+                    Console.WriteLine("EMYS-" + _nameId + "--- " + "Responsible for trick " + resposibleForTrick);
                     ev.AddPropertyChange(Consts.TRICK_END, trickPoints.ToString(), SubjectName(resposibleForTrick));
                 }
                 ev.ChangeTagsAndMeanings(new string[] { "|playerID|", "|trickpoints|" }, new string[] { partnerID.ToString(), trickPoints.ToString() });
