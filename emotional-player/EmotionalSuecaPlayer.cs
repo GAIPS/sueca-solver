@@ -528,8 +528,8 @@ namespace EmotionalPlayer
                 _ai.AddPlay(id, myCard);
                 ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_PLAY, Consts.DEFAULT_SUBJECT);
                 ev.AddPropertyChange(Consts.DIALOGUE_FLOOR_PROPERTY, floorId.ToString(), Consts.DEFAULT_SUBJECT);
-                string[] tags = new string[] { "|rank|", "|suit|", "|playerID|" };
-                string[] meanings = new string[] { convertRankToPortuguese(myRank.ToString()), convertSuitToPortuguese(mySuit.ToString()), id.ToString() };
+                string[] tags = new string[] { "|rank|", "|suit|", "|playerID|", "|nextPlayerID|" };
+                string[] meanings = new string[] { convertRankToPortuguese(myRank.ToString()), convertSuitToPortuguese(mySuit.ToString()), id.ToString(), _ai.GetNextPlayerId().ToString() };
                 ev.ChangeTagsAndMeanings(tags, meanings);
 
                 int currentPlayPoints = _ai.GetCurrentTrickPoints();
@@ -714,6 +714,7 @@ namespace EmotionalPlayer
 
         void IFMLSpeechEvents.UtteranceStarted(string id)
         {
+            Talking = true;
         }
 
         #endregion
