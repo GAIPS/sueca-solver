@@ -123,7 +123,7 @@ namespace EmotionalPlayer
 
                     if (ev.Name == Consts.STATE_NEXT_PLAYER)
                     {
-                        if (ev.OtherIntInfos.Length > 0)
+                        if (ev.OtherIntInfos.Length > 0 && !_esp.Talking)
                         {
                             EmotionalSuecaPlayer.SuecaPub.GazeAtTarget("player" + ev.OtherIntInfos[0]);
                         }

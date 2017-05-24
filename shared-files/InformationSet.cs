@@ -103,6 +103,17 @@ namespace SuecaSolver
             return Sueca.PossibleMoves(hand, currentTrick.LeadSuit);
         }
 
+
+        public int GetNextPlayerId()
+        {
+            if (tricks.Count == 0)
+            {
+                return -1;
+            }
+
+            return tricks[tricks.Count - 1].GetNextPlayerId();
+        }
+
         public void AddPlay(int playerID, int card)
         {
             Trick currentTrick = tricks[tricks.Count - 1];
