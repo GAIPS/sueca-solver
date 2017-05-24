@@ -479,15 +479,9 @@ namespace EmotionalPlayer
                     {
                         int currentWinnerID = _ai.GetCurrentTrickWinner();
                         string lastPlayInfo = _ai.GetLastPlayInfo();
-                        if (lastPlayInfo == Sueca.PLAY_INFO_NEWTRICK)
-                        {
-                            ev.AddPropertyChange(Consts.TRICK_WINNER, Sueca.PLAY_INFO_NEWTRICK, SubjectName(currentWinnerID));
-                        }
-                        else
-                        {
-                            ev.AddPropertyChange(Consts.TRICK_WINNER, SubjectName(currentWinnerID), SubjectName(id));
-                        }
+                        ev.AddPropertyChange(Consts.TRICK_WINNER, SubjectName(currentWinnerID), SubjectName(id));
                     }
+
                     int trickIncrease = _ai.GetTrickIncrease();
 
                     //testing purposes
@@ -551,14 +545,7 @@ namespace EmotionalPlayer
                     {
                         int currentWinnerID = _ai.GetCurrentTrickWinner();
                         string lastPlayInfo = _ai.GetLastPlayInfo();
-                        if (lastPlayInfo == Sueca.PLAY_INFO_NEWTRICK)
-                        {
-                            ev.AddPropertyChange(Consts.TRICK_WINNER, Sueca.PLAY_INFO_NEWTRICK, SubjectName(currentWinnerID));
-                        }
-                        else
-                        {
-                            ev.AddPropertyChange(Consts.TRICK_WINNER, SubjectName(currentWinnerID), SubjectName(id));
-                        }
+                        ev.AddPropertyChange(Consts.TRICK_WINNER, SubjectName(currentWinnerID), SubjectName(id));
                     }
                     int trickIncrease = _ai.GetTrickIncrease();
                     if (trickIncrease > 0)
