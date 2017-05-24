@@ -274,6 +274,7 @@ namespace EmotionalPlayer
 
         public void Shuffle(int playerId, int floorId)
         {
+            Thread.Sleep(500);
             SuecaPub.GazeAtTarget("player" + playerId);
             SuecaEvent ev = new SuecaEvent(Consts.STATE_SHUFFLE);
             _suecaRPC.AddSuecaEvent(ev);

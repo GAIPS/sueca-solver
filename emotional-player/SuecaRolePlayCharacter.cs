@@ -152,6 +152,7 @@ namespace EmotionalPlayer
                         if (ev.OtherStringInfos.Length > 0)
                         {
                             decide(ev);
+                            Thread.Sleep(1000);
                             EmotionalSuecaPlayer.SuecaPub.Play(ev.OtherIntInfos[0], ev.OtherStringInfos[0], ev.OtherStringInfos[1]);
                         }
                     }
