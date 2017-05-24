@@ -176,20 +176,56 @@ namespace EmotionalPlayer
         {
             _id = agentsIds[_nameId - 1];
             Console.WriteLine("My id is " + _id);
+            if (_id == 0 || _id == 2)
+            {
+                _teamId = 0;
+            }
+            else
+            {
+                _teamId = 1;
+            }
             _numGames = numGames;
             _currentGameId = 0;
             numRobots = agentsIds.Length;
+
+            SuecaEvent ev1 = new SuecaEvent(Consts.INIT);
+            _suecaRPC.AddSuecaEvent(ev1);
+            ev1.OtherStringInfos = new string[] { SubjectName(_id) };
+            if (_agentType.StartsWith(Consts.AGENT_TYPE_GROUP))
+            {
+                ev1.AddPropertyChange("Player(" + SubjectName(_id) + ")", Consts.PARTNER, Consts.DEFAULT_SUBJECT);
+                ev1.AddPropertyChange("Player(" + SubjectName((_id + 1) % 4) + ")", Consts.OPPONENT, Consts.DEFAULT_SUBJECT);
+            }
+            else if (_agentType.StartsWith(Consts.AGENT_TYPE_INDIVIDUAL))
+            {
+                ev1.AddPropertyChange("Player(" + SubjectName(_id) + ")", Consts.PARTNER, Consts.DEFAULT_SUBJECT);
+                ev1.AddPropertyChange("Player(" + SubjectName((_id + 1) % 4) + ")", Consts.OPPONENT, Consts.DEFAULT_SUBJECT);
+                ev1.AddPropertyChange("Player(" + SubjectName((_id + 2) % 4) + ")", Consts.PARTNER, Consts.DEFAULT_SUBJECT);
+                ev1.AddPropertyChange("Player(" + SubjectName((_id + 3) % 4) + ")", Consts.OPPONENT, Consts.DEFAULT_SUBJECT);
+            }
+
+            if (_nameId == 1)
+            {
+                ev1.AddPropertyChange("Dialogue(Style)", "A", Consts.DEFAULT_SUBJECT);
+            }
+            else
+            {
+                ev1.AddPropertyChange("Dialogue(Style)", "B", Consts.DEFAULT_SUBJECT);
+            }
+            ev1.AddPropertyChange(Consts.ID_PROPERTY, _id.ToString(), Consts.DEFAULT_SUBJECT);
+            ev1.Finished = true;
 
             int playerID1 = _randomNumberGenerator.Next(1, 2);
             int playerID2 = ((playerID1 + 1) % 2);
             SuecaPub.GazeAtTarget("player" + playerID1);
 
-            SuecaEvent ev = new SuecaEvent(Consts.STATE_SESSION_START);
-            _suecaRPC.AddSuecaEvent(ev);
-            ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_SESSION_START, Consts.DEFAULT_SUBJECT);
-            ev.AddPropertyChange(Consts.DIALOGUE_FLOOR_PROPERTY, floorId.ToString(), Consts.DEFAULT_SUBJECT);
-            ev.ChangeTagsAndMeanings(new string[] { "|playerID1|", "|playerID2|" }, new string[] { playerID1.ToString(), playerID2.ToString() });
-            ev.Finished = true;
+
+            SuecaEvent ev2 = new SuecaEvent(Consts.STATE_SESSION_START);
+            _suecaRPC.AddSuecaEvent(ev2);
+            ev2.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_SESSION_START, Consts.DEFAULT_SUBJECT);
+            ev2.AddPropertyChange(Consts.DIALOGUE_FLOOR_PROPERTY, floorId.ToString(), Consts.DEFAULT_SUBJECT);
+            ev2.ChangeTagsAndMeanings(new string[] { "|playerID1|", "|playerID2|" }, new string[] { playerID1.ToString(), playerID2.ToString() });
+            ev2.Finished = true;
         }
 
         public void GameStart(int gameId, int playerId, int teamId, string trumpCard, int trumpCardPlayer, string[] cards, int floorId)
@@ -206,38 +242,7 @@ namespace EmotionalPlayer
                 _currentTrickId = 0;
                 _currentPlayInTrickId = 0;
 
-                if (gameId == 0)
-                {
-                    SuecaEvent ev1 = new SuecaEvent(Consts.INIT);
-                    _suecaRPC.AddSuecaEvent(ev1);
-                    ev1.OtherStringInfos = new string[] { SubjectName(_id) };
-                    switch (_agentType)
-                    {
-                        case Consts.AGENT_TYPE_GROUP:
-                            ev1.AddPropertyChange("Player(" + SubjectName(_id) + ")", Consts.PARTNER, Consts.DEFAULT_SUBJECT);
-                            ev1.AddPropertyChange("Player(" + SubjectName((_id + 1) % 4) + ")", Consts.OPPONENT, Consts.DEFAULT_SUBJECT);
-                            break;
-                        case Consts.AGENT_TYPE_INDIVIDUAL:
-                            ev1.AddPropertyChange("Player(" + SubjectName(_id) + ")", Consts.PARTNER, Consts.DEFAULT_SUBJECT);
-                            ev1.AddPropertyChange("Player(" + SubjectName((_id + 1) % 4) + ")", Consts.OPPONENT, Consts.DEFAULT_SUBJECT);
-                            ev1.AddPropertyChange("Player(" + SubjectName((_id + 2) % 4) + ")", Consts.PARTNER, Consts.DEFAULT_SUBJECT);
-                            ev1.AddPropertyChange("Player(" + SubjectName((_id + 3) % 4) + ")", Consts.OPPONENT, Consts.DEFAULT_SUBJECT);
-                            break;
-                        default:
-                            break;
-                    }
-                    if (_nameId == 1)
-                    {
-                        ev1.AddPropertyChange("Dialogue(Style)", "A", Consts.DEFAULT_SUBJECT);
-                    }
-                    else
-                    {
-                        ev1.AddPropertyChange("Dialogue(Style)", "B", Consts.DEFAULT_SUBJECT);
-                    }
-                    ev1.AddPropertyChange(Consts.ID_PROPERTY, _id.ToString(), Consts.DEFAULT_SUBJECT);
-                    ev1.Finished = true;
-                }
-                else
+                if (gameId != 0)
                 {
                     Console.WriteLine("next games");
                     SuecaEvent ev = new SuecaEvent(Consts.STATE_GAME_START);
@@ -475,7 +480,7 @@ namespace EmotionalPlayer
                         string lastPlayInfo = _ai.GetLastPlayInfo();
                         if (lastPlayInfo == Sueca.PLAY_INFO_NEWTRICK)
                         {
-                            ev.AddPropertyChange(Consts.TRICK_WINNER, SubjectName(currentWinnerID), Sueca.PLAY_INFO_NEWTRICK);
+                            ev.AddPropertyChange(Consts.TRICK_WINNER, Sueca.PLAY_INFO_NEWTRICK, SubjectName(currentWinnerID));
                         }
                         else
                         {
@@ -547,7 +552,7 @@ namespace EmotionalPlayer
                         string lastPlayInfo = _ai.GetLastPlayInfo();
                         if (lastPlayInfo == Sueca.PLAY_INFO_NEWTRICK)
                         {
-                            ev.AddPropertyChange(Consts.TRICK_WINNER, SubjectName(currentWinnerID), Sueca.PLAY_INFO_NEWTRICK);
+                            ev.AddPropertyChange(Consts.TRICK_WINNER, Sueca.PLAY_INFO_NEWTRICK, SubjectName(currentWinnerID));
                         }
                         else
                         {
@@ -581,7 +586,7 @@ namespace EmotionalPlayer
                 ev.AddPropertyChange(Consts.DIALOGUE_FLOOR_PROPERTY, floorId.ToString(), Consts.DEFAULT_SUBJECT);
                 ev.AddPropertyChange(Consts.TRICK_WINNER, SubjectName(winnerId), SubjectName(winnerId));
 
-                if (_agentType == Consts.AGENT_TYPE_GROUP)
+                if (_agentType.StartsWith(Consts.AGENT_TYPE_GROUP))
                 {
                     //attribute the event always to himself
                     ev.AddPropertyChange(Consts.TRICK_END, trickPoints.ToString(), SubjectName(_id));
@@ -794,42 +799,38 @@ namespace EmotionalPlayer
         public string SubjectName(int id)
         {
             string subject = "";
-            switch (_agentType)
+            if (_agentType.StartsWith(Consts.AGENT_TYPE_GROUP))
             {
-                case Consts.AGENT_TYPE_GROUP:
-                    string[] teams = new string[] { "T0", "T1" };
-                    if (id == _id || id == ((_id + 2) % 4))
-                    {
-                        subject = teams[_teamId];
-                    }
-                    else
-                    {
-                        subject = teams[(_teamId + 1) % 2];
-                    }
-                    break;
-                case Consts.AGENT_TYPE_INDIVIDUAL:
-                    switch (id)
-                    {
-                        case 0:
-                            subject = "P0";
-                            break;
-                        case 1:
-                            subject = "P1";
-                            break;
-                        case 2:
-                            subject = "P2";
-                            break;
-                        case 3:
-                            subject = "P3";
-                            break;
-                        default:
-                            Console.WriteLine("Unknown Player ID");
-                            break;
-                    }
-                    break;
-                default:
-                    Console.WriteLine("Unknown Agent Type is playing");
-                    break;
+                string[] teams = new string[] { "T0", "T1" };
+                if (id == _id || id == ((_id + 2) % 4))
+                {
+                    subject = teams[_teamId];
+                }
+                else
+                {
+                    subject = teams[(_teamId + 1) % 2];
+                }
+            }
+            else if (_agentType.StartsWith(Consts.AGENT_TYPE_INDIVIDUAL))
+            {
+                switch (id)
+                {
+                    case 0:
+                        subject = "P0";
+                        break;
+                    case 1:
+                        subject = "P1";
+                        break;
+                    case 2:
+                        subject = "P2";
+                        break;
+                    case 3:
+                        subject = "P3";
+                        break;
+                    default:
+                        Console.WriteLine("Unknown Player ID");
+                        break;
+                }
             }
             return subject;
         }
