@@ -87,7 +87,7 @@ namespace EmotionalPlayer
             {
                 emotions += " " + emotion.Type.ToString();
             }
-            Console.WriteLine("Emotions: " + emotions);
+            Console.WriteLine(_agentName + "---" + "Emotions: " + emotions);
         }
 
 
@@ -225,7 +225,7 @@ namespace EmotionalPlayer
             }
             catch (Exception)
             {
-                Console.WriteLine("Skipped a nextPlayer event.");
+                Console.WriteLine(_agentName + "---" + "Skipped a nextPlayer event.");
             }
         }
 
@@ -240,17 +240,17 @@ namespace EmotionalPlayer
         private void perceive(SuecaEvent ev)
         {
             //DEBUG
-            Console.WriteLine("Going to perceive event " + ev.Name);
+            Console.WriteLine(_agentName + "---" + "Going to perceive event " + ev.Name);
             foreach (var el in ev.Events)
             {
-                Console.WriteLine(el.ToString());
+                Console.WriteLine(_agentName + "---" + el.ToString());
             }
             _rpc.Perceive(ev.Events);
         }
 
         private void decide(SuecaEvent ev)
         {
-            Console.WriteLine("DECING FOR EVENT: " + ev.Name);
+            Console.WriteLine(_agentName + "---" + "DECING FOR EVENT: " + ev.Name);
             string[] tags = ev.Tags.ToArray();
             string[] meanings = ev.Meanings.ToArray();
 
@@ -260,7 +260,7 @@ namespace EmotionalPlayer
 
                 if (possibleActions == null || possibleActions.IsEmpty())
                 {
-                    Console.WriteLine("No action");
+                    Console.WriteLine(_agentName + "---" + "No action");
                     saveToFile();
                     return;
                 }
@@ -282,7 +282,7 @@ namespace EmotionalPlayer
                             var possibleDialogs = _iat.GetDialogueActions(IATConsts.AGENT, currentState, nextState, meaning, style);
                             var dialog = getUtterance(possibleDialogs);
 
-                            Console.WriteLine(dialog);
+                            Console.WriteLine(_agentName + "---" + dialog);
                             EmotionalSuecaPlayer.SuecaPub.StartedUtterance(_esp._id, ev.Name, "");
                             EmotionalSuecaPlayer.SuecaPub.PerformUtteranceWithTags("", dialog, tags, meanings);
 
@@ -296,7 +296,7 @@ namespace EmotionalPlayer
                             break;
 
                         default:
-                            Console.WriteLine("Unknown Action");
+                            Console.WriteLine(_agentName + "---" + "Unknown Action");
                             break;
                     }
                 }
@@ -304,7 +304,7 @@ namespace EmotionalPlayer
             catch (Exception e)
             {
 
-                Console.WriteLine(e.ToString());
+                Console.WriteLine(_agentName + "---" + e.ToString());
             }
             
             
