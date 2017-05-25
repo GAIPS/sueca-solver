@@ -125,6 +125,7 @@ namespace EmotionalPlayer
                     {
                         if (ev.OtherIntInfos.Length > 0 && !_esp.Talking)
                         {
+                            Thread.Sleep(1000);
                             EmotionalSuecaPlayer.SuecaPub.GazeAtTarget("player" + ev.OtherIntInfos[0]);
                         }
                         

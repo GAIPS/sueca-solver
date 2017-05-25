@@ -73,10 +73,17 @@ namespace SuecaSolver
 
             if (currentTrick.IsFull())
             {
-                int myPlayPoints = Card.GetValue(currentTrick.GetPlayOf(id));
-                int partnerPlayPoints = Card.GetValue(currentTrick.GetPlayOf(partnerID));
-                    
-                return myPlayPoints >= partnerPlayPoints ? id : partnerID;
+                if (TrumpPlayerId == id || TrumpPlayerId == partnerID)
+                {
+                    return TrumpPlayerId == id ? id : partnerID;
+                }
+                else
+                {
+                    int myPlayPoints = Card.GetValue(currentTrick.GetPlayOf(id));
+                    int partnerPlayPoints = Card.GetValue(currentTrick.GetPlayOf(partnerID));
+                    if(myPlayPoints > 0 && partnerPlayPoints > 0)
+                        return myPlayPoints >= partnerPlayPoints ? id : partnerID;
+                }
             }
             return winnerId;
         }
