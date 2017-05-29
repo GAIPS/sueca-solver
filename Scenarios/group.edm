@@ -14,20 +14,20 @@
 					"Priority": 3
 				}, 
 				{
-					"Action": "Speak(TrickEnd, [ns], [m], S([e], [ds]))",
+					"Action": "Speak(PlayPartner, [ns], [m], S([e], [ds]))",
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["DialogueState(Board) = TrickEnd", "Dialogue(Floor) = My(Id)", "ValidDialogue(TrickEnd, [ns], [m], S([e], [ds])) = True", "COL = [m]", "StrongestAttributionEmotion(SELF) = [e]", "EmotionIntensity(SELF, [e]) > 4", "Dialogue(Style) = [ds]"]
+							"Set": ["DialogueState(Board) = PlayPartner", "ValidDialogue(PlayPartner, [ns], [m], S([e], [ds])) = True", "Current(PlayerID) = [cpID]", "Player([cpID]) = Partner", "COL = [m]", "StrongestAttributionEmotion(SELF) = [e]", "Dialogue(Style) = [ds]"]
 						},
-					"Priority": 4
+					"Priority": 3
 				}, 
 				{
 					"Action": "Speak(SessionEnd, [ns], [m], S([e], [ds]))",
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["DialogueState(Board) = SessionEnd", "Dialogue(Floor) = My(Id)", "ValidDialogue(SessionEnd, [ns], [m], S([e], [ds])) = True", "COL = [m]", "StrongestWellBeingEmotion(SELF) = [e]", "EmotionIntensity(SELF, [e]) > 7", "Dialogue(Style) = [ds]"]
+							"Set": ["DialogueState(Board) = SessionEnd", "Dialogue(Floor) = My(Id)", "ValidDialogue(SessionEnd, [ns], [m], [s]) = True", "COL = [m]", "StrongestWellBeingEmotion(SELF) = [e]", "EmotionIntensity(SELF, [e]) > 7", "Dialogue(Style) = [ds]", "S([e], [ds]) = [s]"]
 						},
 					"Priority": 3
 				}, 
@@ -62,18 +62,27 @@
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["Dialogue(Floor) = My(Id)", "DialogueState(Board) = PlaySelf", "ValidDialogue(PlaySelf, [ns], [m], S([e], [ds])) = True", "COL = [m]", "StrongestAttributionEmotion(SELF) = [e]", "EmotionIntensity(SELF, [e]) >= 4", "Dialogue(Style) = [ds]"]
+							"Set": ["DialogueState(Board) = PlaySelf", "ValidDialogue(PlaySelf, [ns], [m], S([e], [ds])) = True", "COL = [m]", "StrongestAttributionEmotion(SELF) = [e]", "Dialogue(Style) = [ds]"]
 						},
 					"Priority": 4
 				}, 
 				{
-					"Action": "Speak(PlayPartner, [ns], [m], S([e], [ds]))",
+					"Action": "Animation(PlaySelf, [e])",
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["DialogueState(Board) = PlayPartner", "Dialogue(Floor) = My(Id)", "ValidDialogue(PlayPartner, [ns], [m], S([e], [ds])) = True", "COL = [m]", "Current(PlayerID) = [cpId]", "Player([cpId]) = Partner", "StrongestAttributionEmotion(SELF) = [e]", "EmotionIntensity(SELF, [e]) >= 4", "Dialogue(Style) = [ds]"]
+							"Set": ["DialogueState(Board) = PlaySelf", "StrongestAttributionEmotion(SELF) = [e]", "Trick(Increase) = False"]
 						},
-					"Priority": 3
+					"Priority": 5
+				}, 
+				{
+					"Action": "Animation(PlayPartner, [e])",
+					"Target": "Board",
+					"Conditions":
+						{
+							"Set": ["DialogueState(Board) = PlayPartner", "StrongestAttributionEmotion(SELF) = [e]", "Trick(Increase) = False"]
+						},
+					"Priority": 5
 				}]
 		},
 	"types": [
