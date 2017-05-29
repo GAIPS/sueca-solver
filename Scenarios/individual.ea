@@ -97,7 +97,7 @@
 							"EventName": "Event(Property-Change, SELF, Trick(Score), [score])",
 							"Conditions":
 								{
-									"Set": ["[score] >= 10"]
+									"Set": ["[score] >= 9"]
 								},
 							"Desirability": 2,
 							"Praiseworthiness": 6
@@ -106,7 +106,7 @@
 							"EventName": "Event(Property-Change, SELF, Trick(Score), [score])",
 							"Conditions":
 								{
-									"Set": ["[score] <= -10"]
+									"Set": ["[score] <= -9"]
 								},
 							"Desirability": -2,
 							"Praiseworthiness": -6
@@ -115,7 +115,7 @@
 							"EventName": "Event(Property-Change, [pointGiver], Trick(Score), [score])",
 							"Conditions":
 								{
-									"Set": ["[score] >= 10", "Player([pointGiver]) = Partner"]
+									"Set": ["[score] >= 9", "Player([pointGiver]) = Partner"]
 								},
 							"Desirability": 2,
 							"Praiseworthiness": 6
@@ -124,7 +124,7 @@
 							"EventName": "Event(Property-Change, [pointGiver], Trick(Score), [score])",
 							"Conditions":
 								{
-									"Set": ["[score] >= 10", "Player([pointGiver]) = Opponent"]
+									"Set": ["[score] >= 9", "Player([pointGiver]) = Opponent"]
 								},
 							"Desirability": 6
 						}, 
@@ -132,7 +132,7 @@
 							"EventName": "Event(Property-Change, [pointGiver], Trick(Score), [score])",
 							"Conditions":
 								{
-									"Set": ["[score] <= -10", "Player([pointGiver]) = Opponent"]
+									"Set": ["[score] <= -9", "Player([pointGiver]) = Opponent"]
 								},
 							"Desirability": -2,
 							"Praiseworthiness": -6
@@ -141,7 +141,7 @@
 							"EventName": "Event(Property-Change, [pointGiver], Trick(Score), [score])",
 							"Conditions":
 								{
-									"Set": ["[score] <= -10", "Player([pointGiver]) = Partner"]
+									"Set": ["[score] <= -9", "Player([pointGiver]) = Partner"]
 								},
 							"Desirability": -6
 						}]
