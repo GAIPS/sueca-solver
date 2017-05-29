@@ -658,14 +658,6 @@
 					"CurrentState": "PlayPartner",
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
-					"Style": ["Pride", "B"],
-					"Utterance": "<gaze(player|playerID|)> Continuamos a jogar bem! <gaze(player|nextPlayerID|)>",
-					"UtteranceId": "TTS-5B265F65F75F14B26E8A7194AC4FF501"
-				}, 
-				{
-					"CurrentState": "PlayPartner",
-					"NextState": "Dynamic",
-					"Meaning": ["COL"],
 					"Style": ["Pride", "A"],
 					"Utterance": "<gaze(player|playerID|)> Bem jogado equipa! <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-298A4CD5FB6AE357F49C83E588C67D4A"
@@ -1445,6 +1437,14 @@
 					"Style": ["Reproach", "A"],
 					"Utterance": "<gaze(player|playerID|)> Será muito tarde para mudar de parceiro?",
 					"UtteranceId": "TTS-2C6AB6E4D7166E6E929340898F2BE15C"
+				}, 
+				{
+					"CurrentState": "PlayPartner",
+					"NextState": "Dynamic",
+					"Meaning": ["COL"],
+					"Style": ["Pride", "B"],
+					"Utterance": "<gaze(player|playerID|)> Temos de continuar assim! <gaze(player|nextPlayerID|)>",
+					"UtteranceId": "TTS-47CCFBBF5E849B6FE84E5F9A7FDD37F3"
 				}]
 		},
 	"types": [

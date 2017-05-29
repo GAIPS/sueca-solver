@@ -292,7 +292,7 @@ namespace EmotionalPlayer
                         case "Animation":
                             Name state = chosenAction.Parameters[0];
                             Name emotionName = chosenAction.Parameters[1];
-                            //Console.WriteLine("[ANIMATION] Soft reaction to " + state + " with the style " + emotionName);
+                            Console.WriteLine("[ANIMATION] Soft reaction to " + state + " with the style " + emotionName);
                             EmotionalSuecaPlayer.SuecaPub.PlayAnimation("", emotionName.ToString());
                             break;
 

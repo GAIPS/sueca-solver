@@ -83,6 +83,15 @@
 							"Set": ["DialogueState(Board) = PlayPartner", "StrongestAttributionEmotion(SELF) = [e]", "Trick(Increase) = False"]
 						},
 					"Priority": 5
+				}, 
+				{
+					"Action": "Speak(TrickEnd, [ns], [m], S([e], [ds]))",
+					"Target": "Board",
+					"Conditions":
+						{
+							"Set": ["Dialogue(Floor) = My(Id)", "DialogueState(Board) = TrickEnd", "ValidDialogue(TrickEnd, [ns], [m], S([e], [ds])) = True", "COL = [m]", "StrongestAttributionEmotion(SELF) = [e]", "Dialogue(Style) = [ds]"]
+						},
+					"Priority": 3
 				}]
 		},
 	"types": [
