@@ -28,7 +28,7 @@ namespace EmotionalPlayer
         }
 
         private IntegratedAuthoringToolAsset _iat;
-        private RolePlayCharacterAsset _rpc;
+        public RolePlayCharacterAsset _rpc;
         private Object eventsLock;
         private List<SuecaEvent> _events;
         private List<Utterance> usedUtterances;
@@ -157,7 +157,7 @@ namespace EmotionalPlayer
                             EmotionalSuecaPlayer.SuecaPub.Play(ev.OtherIntInfos[0], ev.OtherStringInfos[0], ev.OtherStringInfos[1]);
                         }
                     }
-                    else if (ev.Name == Consts.STATE_PLAY)
+                    else if (ev.Name == Consts.STATE_PLAYPARTNER)
                     {
                         decide(ev);
 
