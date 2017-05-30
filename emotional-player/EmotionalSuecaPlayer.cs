@@ -471,6 +471,7 @@ namespace EmotionalPlayer
                 bool lastPlayOfTrick = _ai.IsLastPlayOfTrick();
                 int currentWinnerID = _ai.GetCurrentTrickWinner();
                 bool isOurs = false;
+                int previousPlayPoints = Convert.ToInt32(_suecaRPC._rpc.GetBeliefValue("Trick(Score)"));
 
                 if (this._id == currentWinnerID || ((this._id + 2) % 4 == currentWinnerID))
                     isOurs = true;
@@ -478,10 +479,16 @@ namespace EmotionalPlayer
                     isOurs = false;
 
                 var trickScore = currentPlayPoints * (isOurs ? 1 : -1);
+
                 Console.WriteLine("\n\n For EMYS" + _nameId + " the current trickScore is: " + trickScore + "\n");
                 if (_ai.GetTrickIncrease() == 0)
                 {
                     ev.AddPropertyChange(Consts.TRICK_INCREASE_PROPERTY, "False", SubjectName(id));
+                    if (previousPlayPoints > 0 && trickScore < 0 || previousPlayPoints < 0 && trickScore > 0)
+                    {
+                        ev.AddPropertyChange(Consts.TRICK_INCREASE_PROPERTY, "True", SubjectName(id));
+                        ev.AddPropertyChange(Consts.TRICK_SCORE, trickScore.ToString(), SubjectName(id));
+                    }
                 }
                 else if (trickScore >= 9 || trickScore <= -9)
                 {
@@ -528,6 +535,7 @@ namespace EmotionalPlayer
                 bool hasNewTrickWinner = _ai.HasNewTrickTeamWinner();
                 bool lastPlayOfTrick = _ai.IsLastPlayOfTrick();
                 bool isOurs = false;
+                int previousPlayPoints = Convert.ToInt32(_suecaRPC._rpc.GetBeliefValue("Trick(Score)"));
 
                 if (this._id == currentWinnerID || ((this._id + 2) % 4 == currentWinnerID))
                     isOurs = true;
@@ -535,16 +543,18 @@ namespace EmotionalPlayer
                     isOurs = false;
 
                 var trickScore = currentPlayPoints * (isOurs ? 1 : -1);
+
                 Console.WriteLine("\n\n For EMYS" + _nameId + " the current trickScore is: " + trickScore + "\n");
                 if (_ai.GetTrickIncrease() == 0)
                 {
                     ev.AddPropertyChange(Consts.TRICK_INCREASE_PROPERTY, "False", SubjectName(id));
                 }
-                else if (trickScore >= 9|| trickScore <= -9)
+                else
                 {
                     ev.AddPropertyChange(Consts.TRICK_INCREASE_PROPERTY, "True", SubjectName(id));
-                    ev.AddPropertyChange(Consts.TRICK_SCORE, trickScore.ToString(), SubjectName(id));
                 }
+
+                ev.AddPropertyChange(Consts.TRICK_SCORE, trickScore.ToString(), SubjectName(id));
 
                 ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_PLAYPARTNER, Consts.DEFAULT_SUBJECT);
                 ev.AddPropertyChange(Consts.DIALOGUE_FLOOR_PROPERTY, floorId.ToString(), Consts.DEFAULT_SUBJECT);
