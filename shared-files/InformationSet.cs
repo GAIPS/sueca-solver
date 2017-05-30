@@ -71,18 +71,33 @@ namespace SuecaSolver
             int partnerID = ((id + 2) % 4);
             int winnerId = currentTrick.GetCurrentTrickWinner();
 
+            if (!currentTrick.IsFull())
+            {
+                Console.WriteLine("Current trick is not full to call GetResponsible!");
+                if (tricks.Count > 1)
+                {
+                    currentTrick = tricks[tricks.Count - 2];
+                }
+            }
+
             if (currentTrick.IsFull())
             {
-                if (TrumpPlayerId == id || TrumpPlayerId == partnerID)
+                if (winnerId == id || winnerId == partnerID)
                 {
-                    return TrumpPlayerId == id ? id : partnerID;
+                    return winnerId;
                 }
                 else
                 {
                     int myPlayPoints = Card.GetValue(currentTrick.GetPlayOf(id));
                     int partnerPlayPoints = Card.GetValue(currentTrick.GetPlayOf(partnerID));
-                    if(myPlayPoints > 0 && partnerPlayPoints > 0)
+                    if (myPlayPoints > 0 || partnerPlayPoints > 0)
+                    {
                         return myPlayPoints >= partnerPlayPoints ? id : partnerID;
+                    }
+                    else
+                    {
+                        return winnerId;
+                    }
                 }
             }
             return winnerId;
