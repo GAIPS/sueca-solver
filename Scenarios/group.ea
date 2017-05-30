@@ -95,19 +95,33 @@
 							"EventName": "Event(Property-Change, SELF, Trick(Score), [score])",
 							"Conditions":
 								{
-									"Set": ["[score] >= 9"]
+									"Set": ["[score] >= 9", "Trick(Increase) = True"]
 								},
-							"Desirability": 2,
 							"Praiseworthiness": 6
 						}, 
 						{
 							"EventName": "Event(Property-Change, SELF, Trick(Score), [score])",
 							"Conditions":
 								{
-									"Set": ["[score] <= -9"]
+									"Set": ["[score] <= -9", "Trick(Increase) = True"]
 								},
-							"Desirability": -2,
 							"Praiseworthiness": -6
+						}, 
+						{
+							"EventName": "Event(Property-Change, SELF, Trick(Score), [score])",
+							"Conditions":
+								{
+									"Set": ["[score] >= 9", "Trick(Increase) = False"]
+								},
+							"Desirability": 6
+						}, 
+						{
+							"EventName": "Event(Property-Change, SELF, Trick(Score), [score])",
+							"Conditions":
+								{
+									"Set": ["[score] <= -9", "Trick(Increase) = False"]
+								},
+							"Desirability": -6
 						}, 
 						{
 							"EventName": "Event(Property-Change, [pointGiver], Trick(Score), [score])",
