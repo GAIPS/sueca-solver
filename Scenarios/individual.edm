@@ -18,7 +18,7 @@
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["DialogueState(Board) = PlayPartner", "Dialogue(Floor) = My(Id)", "ValidDialogue(PlayPartner, [ns], [m], S([e], [ds])) = True", "IND = [m]", "Current(PlayerID) = [cpId]", "Player([cpId]) = Partner", "StrongestAttributionEmotion(SELF) = [e]", "EmotionIntensity(SELF, [e]) >= 4", "Dialogue(Style) = [ds]"]
+							"Set": ["DialogueState(Board) = PlayPartner", "ValidDialogue(PlayPartner, [ns], [m], S([e], [ds])) = True", "Current(PlayerID) = [cpID]", "Player([cpID]) = Partner", "IND = [m]", "StrongestAttributionEmotion(SELF) = [e]", "Dialogue(Style) = [ds]"]
 						},
 					"Priority": 3
 				}, 
@@ -58,22 +58,40 @@
 					"Priority": 4
 				}, 
 				{
-					"Action": "Speak(TrickEnd, [ns], [m], S([e], [ds]))",
-					"Target": "Board",
-					"Conditions":
-						{
-							"Set": ["DialogueState(Board) = TrickEnd", "Dialogue(Floor) = My(Id)", "ValidDialogue(TrickEnd, [ns], [m], S([e], [ds])) = True", "IND = [m]", "StrongestAttributionEmotion(SELF) = [e]", "EmotionIntensity(SELF, [e]) > 4", "Dialogue(Style) = [ds]"]
-						},
-					"Priority": 4
-				}, 
-				{
 					"Action": "Speak(PlaySelf, [ns], [m], S([e], [ds]))",
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["Dialogue(Floor) = My(Id)", "DialogueState(Board) = PlaySelf", "ValidDialogue(PlaySelf, [ns], [m], S([e], [ds])) = True", "IND = [m]", "StrongestAttributionEmotion(SELF) = [e]", "EmotionIntensity(SELF, [e]) >= 4", "Dialogue(Style) = [ds]"]
+							"Set": ["DialogueState(Board) = PlaySelf", "ValidDialogue(PlaySelf, [ns], [m], S([e], [ds])) = True", "IND = [m]", "StrongestAttributionEmotion(SELF) = [e]", "Dialogue(Style) = [ds]"]
 						},
 					"Priority": 4
+				}, 
+				{
+					"Action": "Animation(PlaySelf, [e])",
+					"Target": "Board",
+					"Conditions":
+						{
+							"Set": ["DialogueState(Board) = PlaySelf", "StrongestAttributionEmotion(SELF) = [e]", "Trick(Increase) = False"]
+						},
+					"Priority": 5
+				}, 
+				{
+					"Action": "Animation(PlayPartner, [e])",
+					"Target": "Board",
+					"Conditions":
+						{
+							"Set": ["DialogueState(Board) = PlayPartner", "StrongestAttributionEmotion(SELF) = [e]", "Trick(Increase) = False"]
+						},
+					"Priority": 5
+				}, 
+				{
+					"Action": "Speak(TrickEnd, [ns], [m], S([e], [ds]))",
+					"Target": "Board",
+					"Conditions":
+						{
+							"Set": ["Dialogue(Floor) = My(Id)", "DialogueState(Board) = TrickEnd", "ValidDialogue(TrickEnd, [ns], [m], S([e], [ds])) = True", "IND = [m]", "StrongestAttributionEmotion(SELF) = [e]", "Dialogue(Style) = [ds]"]
+						},
+					"Priority": 3
 				}]
 		},
 	"types": [
