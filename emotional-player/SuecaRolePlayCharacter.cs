@@ -32,7 +32,7 @@ namespace EmotionalPlayer
         private Object eventsLock;
         private List<SuecaEvent> _events;
         private List<Utterance> usedUtterances;
-        private const string LOGS_PATH = "../../../Scenarios/Logs";
+        private const string LOGS_PATH = "../../Scenarios/Logs";
         private int i;
         private Random _randomNumberGenerator;
         private bool _sleepNotify = false;
