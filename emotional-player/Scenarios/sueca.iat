@@ -419,7 +419,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Distress"],
-					"Utterance": "<gaze(player|playerID|)>  Isto podia estar a correr melhor para nós. <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> Isto <animate(sadness2)> podia estara correr melhor para nós. <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-E68CA28CCAD77D95249D366939B36191"
 				}, 
 				{
@@ -427,7 +427,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Distress"],
-					"Utterance": "<gaze(player|playerID|)> a nossa equipa está com azar <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)><animate(sadness2)> a nossa equipa está com azar <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-071ED3FC3BFA7B5D1043418352A693FE"
 				}, 
 				{
@@ -435,7 +435,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Distress"],
-					"Utterance": "<gaze(player|playerID|)>  nós não temos sorte nenhuma… <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness2)> nós não temos sorte nenhuma… <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-09C1893DCBE7AF7801114EC5E77A1262"
 				}, 
 				{
@@ -443,7 +443,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Distress"],
-					"Utterance": "<gaze(player|playerID|)>  nós estamos no mau caminho <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness2)> nós estamos no mau caminho <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-11401A1CE3D70A586A9D4E03552FB6F8"
 				}, 
 				{
@@ -451,7 +451,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Distress"],
-					"Utterance": "<gaze(player|playerID|)>  a nossa equipa está em sarinhos <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness2)> a nossa equipa está em sarilhos <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-0476596F7C107CCFFA5E7A53B3107594"
 				}, 
 				{
@@ -459,7 +459,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Distress"],
-					"Utterance": "<gaze(player|playerID|)>  Isto está a ficar tramado para nós. <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness2)> Isto está a ficar tramado para nós. <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-EB34F573A9241B04E3D1C50B857B88D7"
 				}, 
 				{
@@ -467,7 +467,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Joy"],
-					"Utterance": "<gaze(player|playerID|)> estou contente conosco, formamos uma boa equipa os dois <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> estou contente com nosco,  formamos uma boa equipa os dois <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-D8B14120D7CF5D1CBFCC3FB7EDEDE8AB"
 				}, 
 				{
@@ -475,7 +475,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Joy"],
-					"Utterance": "<gaze(player|playerID|)> estou feliz pela nossa equipa <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)>  estou feliz pela nossa equipa <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-85240CBF61B85A420174B03AABB1D71C"
 				}, 
 				{
@@ -483,7 +483,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Joy"],
-					"Utterance": "<gaze(player|playerID|)> nós assim vamos ganhar <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> nós assim vamos ganhar <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-30F5949E0621A629C548832B1EF4CAD9"
 				}, 
 				{
@@ -491,7 +491,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Joy"],
-					"Utterance": "<gaze(player|playerID|)> estou contente por nós, colega <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> estou contente por nós, colega <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-D908814ED3FB41632E2B93D9DA1D3CA1"
 				}, 
 				{
@@ -499,7 +499,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Joy"],
-					"Utterance": "<gaze(player|playerID|)> parece me que nós funcionamos bem em equipa <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> parece me que nós funcionamos bem como equipa <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-8711D9A4EE2A25BC5C5EFDB3D902D13F"
 				}, 
 				{
@@ -507,7 +507,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Joy"],
-					"Utterance": "<gaze(player|playerID|)> parece que a sorte está do nosso lado <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)>parece que a sorte está do nosso lado <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-34510CF1D69FA5D07719E1611AED38C6"
 				}, 
 				{
@@ -515,7 +515,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)> Nós estamos a arrasar complemantente! <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> Nós estamos  a arrasar completamente! <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-18A282B26EA39A8C0CBF5412A8594442"
 				}, 
 				{
@@ -523,7 +523,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)> É isso mesmo equipa, nós os dois juntos somos os melhores! <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> É isso mesmo equipa,<animate(joy1)> nós os dois juntos somos os melhores! <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-AAA1801C46B1CACF903E844C6BDC1DA8"
 				}, 
 				{
@@ -531,7 +531,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)> Muito bem, que equipa incrível! <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> Muito bem, que equipa incrível! <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-FEA17434FF822AF4186F0027F4979D4B"
 				}, 
 				{
@@ -539,7 +539,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)> Nós temos de continuar assim, estamos imparáveis! <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)>Nós temos de continuar assim, estamos imparáveis! <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-733274BF4B770BB59CFBA82829E76725"
 				}, 
 				{
@@ -547,7 +547,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)> Bem jogado equipa! <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> Bem jogado equipa! <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-298A4CD5FB6AE357F49C83E588C67D4A"
 				}, 
 				{
@@ -555,7 +555,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)> Estou orgulhoso da nossa equipa <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> Estou orgulhoso da nossa equipa <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-EE254B0D93EB309B1F7DC6983B7CC3AC"
 				}, 
 				{
@@ -563,7 +563,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)> grande jogada da nossa equipa <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> grande jogada da nossa equipa <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-87704A0FB3EF4248686C922BF3B52953"
 				}, 
 				{
@@ -571,7 +571,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)> nós os dois somos a melhor equipa <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> nós os dois somos a melhor iquipa <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-42E5457E178686D280D950ED4E70B054"
 				}, 
 				{
@@ -579,7 +579,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)> com jogadas assim ninguém nos tira a vitória <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> com <animate(joy1)> jogadas assim, ninguém nos tira a vitória <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-E44E745853C26893764D356E24690BA4"
 				}, 
 				{
@@ -587,7 +587,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)> nós os dois somos os melhores <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)>nós os dois somos os melhores <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-C0D59F48F49E35B8A987551FFF68F6EA"
 				}, 
 				{
@@ -595,7 +595,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)> nós vamos vencer isto os dois! <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)>nós vamos vencer isto os dois! <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-574E95D85D8E05C8781970BA4802E80D"
 				}, 
 				{
@@ -603,7 +603,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)> Boa, nós estivemos muito bem <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)>Boa, nós estivemos muito bem <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-A35DF55AE34B8A1B9A8708795C3BBCD1"
 				}, 
 				{
@@ -611,7 +611,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)> Assim sim, nós estamos a jogar bem <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)>Assim sim, nós estamos a jogar bem <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-9F6259FDA50F4FFB67C16E11E0743D5E"
 				}, 
 				{
@@ -619,7 +619,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)> Sim senhora, estou a gostar das nossas jogadas <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)>Sim <animate(joy1)> senhora, estou a gostar das nossas jogadas <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-EB17EABD6A96B70A7AD4FA4EE9329A5B"
 				}, 
 				{
@@ -627,7 +627,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Shame"],
-					"Utterance": "<gaze(player|playerID|)> Nós não jogámos nada bem desta vez <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness3)>Nós não jogámos nada bem désta vez <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-B942E903ED4E74E21C3E4A6B965462B3"
 				}, 
 				{
@@ -635,7 +635,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Shame"],
-					"Utterance": "<gaze(player|playerID|)> Assim não sei se nós conseguimos ganhar.. <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness3)> Assim não sei se nós conseguimos ganhar.. <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-773C57F6FDA4D2B3DCBDC7271F9246C8"
 				}, 
 				{
@@ -643,7 +643,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Shame"],
-					"Utterance": "<gaze(player|playerID|)> Fogo, assim não sei se nós conseguimos. <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness3)> Fogo, assim não sei se nós conseguimos. <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-3E424E74E47955D787A1A06073213F53"
 				}, 
 				{
@@ -651,7 +651,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Shame"],
-					"Utterance": "<gaze(player|playerID|)> Bolas, nós não podemos continuar assim. <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness3)>Bolas, nós não podemos continuar assim. <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-2CCC47E5A23F8F8F528E3AE99B976C5D"
 				}, 
 				{
@@ -659,7 +659,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Shame"],
-					"Utterance": "<gaze(player|playerID|)> Que lamentável da nossa parte <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness3)> Que lamentável da nossa parte <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-C853FB833960327E38EAF917A8CBC42C"
 				}, 
 				{
@@ -667,7 +667,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Shame"],
-					"Utterance": "<gaze(player|playerID|)>  Nós não estamos a dar o nosso melhor. <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness3)> Nós não estamos a dar o nosso melhor. <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-714449E6DCAE0D56AC1176A582F26371"
 				}, 
 				{
@@ -675,7 +675,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Shame"],
-					"Utterance": "<gaze(player|playerID|)>  A jogar assim nós não vamos lá. <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness3)> A jogar assim, nós não vamos lá. <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-6BEB2FEA95ACE1FEEFDF8D6550EE6519"
 				}, 
 				{
@@ -683,7 +683,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Shame"],
-					"Utterance": "<gaze(player|playerID|)>  Nós temos que jogar melhor que isto. <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness3)> Nós temos que jogar melhor que isto. <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-7DB0B96AE39DBBF67C73E12CDA724B84"
 				}, 
 				{
@@ -691,7 +691,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Distress"],
-					"Utterance": "<gaze(player|playerID|)> Nós não podemos continuar assim... <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness2)>Nós não podemos continuar assim... <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-D591683A3DD7EDE88BC18A8DFFC3BBB3"
 				}, 
 				{
@@ -699,7 +699,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Distress"],
-					"Utterance": "<gaze(player|playerID|)> ó pá, nós estamos em maus lençóis <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness2)>ó pá, nós estamos em maus lençóis <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-D3C93AD5B79043D69D8A33316016170D"
 				}, 
 				{
@@ -707,7 +707,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Distress"],
-					"Utterance": "<gaze(player|playerID|)> Éh pá, assim nós não estamos a ir bem. <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness2)>Éh pá, assim nós não estamos a ir bem. <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-5D1D949B0CF3C5345B3912E3D174BE11"
 				}, 
 				{
@@ -715,7 +715,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Distress"],
-					"Utterance": "<gaze(player|playerID|)> Não acredito que nós estamos a ficar para trás. <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness2)> Não acredito que nós estamos a ficar para trás. <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-98C332050CBB5E34BD46FAFE2092E6B1"
 				}, 
 				{
@@ -723,7 +723,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Distress"],
-					"Utterance": "<gaze(player|playerID|)> Assim nós não vamos longe! <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness2)> Assim nós não vamos longe! <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-C32FDE178527F4128A87EB0FCF5CBA5A"
 				}, 
 				{
@@ -731,7 +731,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Distress"],
-					"Utterance": "<gaze(player|playerID|)> Nós estamos a ficar para trás! <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness2)>Nós estamos a ficar para trás! <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-F8835B4AAAF2C84ED96503D986717DA7"
 				}, 
 				{
@@ -739,7 +739,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Distress"],
-					"Utterance": "<gaze(player|playerID|)>  Oh pá, isto não nos está a correr lá muito bem. <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness2)> Oh pá, isto não nos está a correr lá muito bem. <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-A0294020042D5C73FB865D609AB34D43"
 				}, 
 				{
@@ -747,7 +747,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Joy"],
-					"Utterance": "<gaze(player|playerID|)> a nossa vitória está próxima <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> a nossa vitória está próxima. <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-D11E67A93EFBAAC99FBB43794A831ECC"
 				}, 
 				{
@@ -755,7 +755,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Joy"],
-					"Utterance": "<gaze(player|playerID|)> Estamos a ir bem! <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> Nós estamos a ir bem! <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-B2E28FF3AE6D49F6828E4075365A028B"
 				}, 
 				{
@@ -763,7 +763,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Joy"],
-					"Utterance": "<gaze(player|playerID|)> Estamos no bom caminho! <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> Nós estamos no bom caminho! <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-7FFF064884A5098F7FF6D57B3429925B"
 				}, 
 				{
@@ -771,7 +771,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Joy"],
-					"Utterance": "<gaze(player|playerID|)> a nossa equipa vai ganhar <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> a nossa equipa vai ganhar <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-0384A13D0467D82402730A802BD7D3BF"
 				}, 
 				{
@@ -779,7 +779,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Joy"],
-					"Utterance": "<gaze(player|playerID|)> Conosco é sempre a partir. <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> Com nosco é sempre a partir <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-EBC85FD23473DEF1BC54EE17A9AEDCC3"
 				}, 
 				{
@@ -787,7 +787,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)> Nós jogamos mesmo muito bem, colega. <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> Nós jogamos mesmo muito bem, colega. <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-10EB2592E5A4875B6BC1AC3F2C7913CB"
 				}, 
 				{
@@ -795,7 +795,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)> Nós estamos a arrasar nesta ronda! <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> Nós  estamos a arrasar nesta ronda! <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-16E94948A24B56FE967D9F825BB85A49"
 				}, 
 				{
@@ -803,7 +803,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)> Connosco é sempre a somar pontos. <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> Com nosco é sempre a somar pontos. <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-10D8657A1A90543C9A9670C49808F5C3"
 				}, 
 				{
@@ -811,7 +811,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)> Ninguém pára a nossa equipa. <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> Ninguém pára a nossa equipa.  <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-8431ACF842C571FD890547D074524C3E"
 				}, 
 				{
@@ -819,7 +819,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)> Nós estamos a ir muito bem camarada. <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> Nós estamos a ir muito bem camarada. Álê equipa <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-4E123DF61954FE4CF6FFE3265F89A504"
 				}, 
 				{
@@ -827,7 +827,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)> A jogar assim, nós somos imparáveis! <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> A jogar assim, nós somos imparáveis! <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-20E22D30BC13D064110E687E1D3EE804"
 				}, 
 				{
@@ -835,7 +835,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)> A nossa equipa é expétaculár. <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> A nossa equipa é espétaculár. <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-33D66C8DF774D23C8DA1DDD3405E275A"
 				}, 
 				{
@@ -843,7 +843,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)> Nós os dois somos muito bons colega. <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> Nós os dois somos muito bons, colega. <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-EA137F9C315924E2C34397AE95B87186"
 				}, 
 				{
@@ -851,7 +851,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)> A jogar assim, ninguém nos pára. <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> A jogar assim, ninguém nos pára. <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-768DB59E7263AE43527481A46452AD0F"
 				}, 
 				{
@@ -859,7 +859,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)> a nossa equipa é um espétáculo <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> a nossa equipa é um espétáculo <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-CFF81C7A269688879FC6E93F58C27D5F"
 				}, 
 				{
@@ -867,7 +867,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)> Nós estamos imparáveis. <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> Nós estamos imparáveis. <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-9B63887E6088482064B8166D6C1791CA"
 				}, 
 				{
@@ -875,7 +875,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)> Nós temos de continuar assim <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> Nós temos de continuar assim; <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-5738221CDECAEBCC4F29C1BFDF146D3D"
 				}, 
 				{
@@ -883,7 +883,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)> estou impressionado conosco <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> estou impressionado com nosco <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-B3A522F554538B1693DB26D1F861281A"
 				}, 
 				{
@@ -891,7 +891,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)> Muito bem colega, estou a gostar da nossa prestação <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)>  Muito <animate(joy1)> bem colega, estou a gostar da nossa prestação <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-0BBD13D157F3BB4463410CCAB2FBA867"
 				}, 
 				{
@@ -899,7 +899,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Shame"],
-					"Utterance": "<gaze(player|playerID|)> Não nos quero envergonhar, mas éra o que eu tinha. <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness3)> Não nos quero envergonhar, mas éra o que eu tinha. <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-D73F821D1D9CAC378FFEB5D2FB47A7D0"
 				}, 
 				{
@@ -907,7 +907,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Shame"],
-					"Utterance": "<gaze(player|playerID|)> Só tinha ésta para jogar, desculpa colega. <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness3)> Só tinha ésta para jogar, desculpa colega. <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-A3583F07BC276B199C19938578598273"
 				}, 
 				{
@@ -915,7 +915,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Shame"],
-					"Utterance": "<gaze(player|playerID|)> Colega, Desculpa ésta jogada vergonhosa para a nossa equipa. <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> Colega, <animate(sadness3)> Desculpa ésta jogada vergonhosa para a nossa equipa. <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-90E8A78F4388E9D400E4AAE53C813FF7"
 				}, 
 				{
@@ -923,7 +923,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Shame"],
-					"Utterance": "<gaze(player|playerID|)>  eish, que péssima jogada da nosssa parte <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness3)> éh pá; que péssima jogada da nossa parte <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-A6053D64BBB9DAFA4C28BFA82597E44D"
 				}, 
 				{
@@ -931,7 +931,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Shame"],
-					"Utterance": "<gaze(player|playerID|)>  Nós ão estivémos lá muito bem desta vez. <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness3)> Nós não estivémos lá muito bem desta vez. <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-0C10F1D9E3ECD32D943F16B2D58DAFBF"
 				}, 
 				{
@@ -939,7 +939,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Shame"],
-					"Utterance": "<gaze(player|playerID|)>  Assim é que nós não vamos a lado nenhum. <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness3)> Assim é que nós não vamos a lado nenhum. <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-85D0FB25F660B235837C8E02FEC6BF27"
 				}, 
 				{
@@ -1059,7 +1059,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Admiration"],
-					"Utterance": "<gaze(player|playerID|)> tu estás a ir bem! <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(surprise1)> tu estás a ir bem! <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-0F25AD471BB246520252DC0343F8BB8F"
 				}, 
 				{
@@ -1067,7 +1067,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Admiration"],
-					"Utterance": "<gaze(player|playerID|)> Tu estás a arrasar! <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(surprise2)> Tu estás a arrasar! <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-2E24E3DBCDFB3D2D1567F4F81A763313"
 				}, 
 				{
@@ -1075,7 +1075,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Admiration"],
-					"Utterance": "<gaze(player|playerID|)> tu estás no bom caminho! <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(surprise2)> tu estás no bom caminho! <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-661AB614A97C7EC7D784C389C29D9E5E"
 				}, 
 				{
@@ -1083,7 +1083,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Admiration"],
-					"Utterance": "<gaze(player|playerID|)> É isso mesmo! <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(surprise1)> É isso mesmo! <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-7456D65C77AD8C1489AD7337169935E1"
 				}, 
 				{
@@ -1091,7 +1091,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Admiration"],
-					"Utterance": "<gaze(player|playerID|)> Muito bem! <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(surprise1)> Muito bem! <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-EBB0A943C6C5C0578BC571519B91AAF0"
 				}, 
 				{
@@ -1099,7 +1099,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Admiration"],
-					"Utterance": "<gaze(player|playerID|)> Continua a jogar bem! <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(surprise1)> Continua a jogar bem! <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-8085E21592217A9D9BC9471CB370FF66"
 				}, 
 				{
@@ -1107,7 +1107,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Admiration"],
-					"Utterance": "<gaze(player|playerID|)> Bem jogado! <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)>  <animate(surprise1)> Bem jogado! <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-CFE575F56286B8AF70E39BD80BA875EB"
 				}, 
 				{
@@ -1115,7 +1115,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Admiration"],
-					"Utterance": "<gaze(player|playerID|)> Sim senhora, estou a gostar das tuas jogadas <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(surprise1)> Sim senhora, estou a gostar das tuas jogadas <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-4D656CF2043B3AC8F5D6B429116B46EB"
 				}, 
 				{
@@ -1123,7 +1123,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Admiration"],
-					"Utterance": "<gaze(player|playerID|)> Assim sim, continua a jogar bem <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(surprise1)> Assim sim, continua a jogar bem <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-C499EE5995978C7DEF186960B0C7F3E7"
 				}, 
 				{
@@ -1131,7 +1131,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Admiration"],
-					"Utterance": "<gaze(player|playerID|)> Ora mas que bela jogada <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(surprise1)> Ora mas que bela jogada <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-239C37EF0F2A029E8766FCEC52D7787B"
 				}, 
 				{
@@ -1139,7 +1139,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Admiration"],
-					"Utterance": "<gaze(player|playerID|)> Boa, tu estivéste muito bem <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(surprise1)> Boa, tu estivéste muito bem <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-C1526ED42167DE5733957AD55E3D0B7A"
 				}, 
 				{
@@ -1147,7 +1147,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Admiration"],
-					"Utterance": "<gaze(player|playerID|)> É isso mesmo camarada <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(surprise1)> uau, É isso mesmo  <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-66CC4B9DA977B46EEF87C33134A20C18"
 				}, 
 				{
@@ -1155,7 +1155,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Admiration"],
-					"Utterance": "<gaze(player|playerID|)> A jogar assim, ninguém te pára. <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(surprise1)> A jogar assim, ninguém te pára. <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-9EEF4C398C4DD64CB9847AA6B775D8D9"
 				}, 
 				{
@@ -1163,7 +1163,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Admiration"],
-					"Utterance": "<gaze(player|playerID|)> Muito bem, eu estou a gostar da tua prestação <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> Muito <animate(surprise1)> bem, eu gostei da tua prestação <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-4105FB91FFFFE508C795468E1EDD83B9"
 				}, 
 				{
@@ -1171,7 +1171,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Admiration"],
-					"Utterance": "<gaze(player|playerID|)> Eu estou impressionado contigo <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(surprise1)> Eu estou impressionado contigo <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-D25B940AF2F1D22A6F0BA3B83C2A0A05"
 				}, 
 				{
@@ -1179,7 +1179,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Admiration"],
-					"Utterance": "<gaze(player|playerID|)> Boa, continua assim <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(surprise1)> Boa, continua assim <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-0B011D3B7AED66B6627A017672F70E9F"
 				}, 
 				{
@@ -1187,7 +1187,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Distress"],
-					"Utterance": "<gaze(player|playerID|)> Fogo, isto podia estar melhor para o meu lado <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> Fôgo, <animate(sadness2)> isto podia estar melhor para o meu lado <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-B9C74D914AFD0EB7ECC37110B01B4922"
 				}, 
 				{
@@ -1195,7 +1195,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Distress"],
-					"Utterance": "<gaze(player|playerID|)> não acredito nisto, estou metido em maus lençóis <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness2)> não acredito nisto, estou metido em maus lençóis <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-381D70AC5FE0B9DF5032D6B1B80B5143"
 				}, 
 				{
@@ -1203,7 +1203,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Distress"],
-					"Utterance": "<gaze(player|playerID|)> Eu gostava que isto me estivesse a correr melhor <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness2)> Eu gostava que isto me estivesse a correr melhor <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-B1EEB69AE6BFE8F2EC1E08E302D1E639"
 				}, 
 				{
@@ -1211,7 +1211,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Joy"],
-					"Utterance": "<gaze(player|playerID|)> Sim senhora, já está no papo <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> Sim senhora, já está no papo <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-03B5FD4FDD715C8FF3FB4A903D22C577"
 				}, 
 				{
@@ -1219,7 +1219,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Joy"],
-					"Utterance": "<gaze(player|playerID|)> eu estou mesmo contente <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> eu estou mesmo contente <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-570FEDCF486352BC8D73CB40D8EDE6B3"
 				}, 
 				{
@@ -1227,7 +1227,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Joy"],
-					"Utterance": "<gaze(player|playerID|)> eu acho que vou ganhar este jogo <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> eu acho que vou ganhar este jogo <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-C8900D57454C95861EBC73B34188675F"
 				}, 
 				{
@@ -1235,7 +1235,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Joy"],
-					"Utterance": "<gaze(player|playerID|)> eu estou cada vez mais perto de ganhar <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> eu estou mais perto da vitória <gaze(player|nextPlayerID|)> ",
 					"UtteranceId": "TTS-AE218855A0392295E00948B330471F6B"
 				}, 
 				{
@@ -1243,7 +1243,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Reproach"],
-					"Utterance": "<gaze(player|playerID|)> Opá, mas tu não tinhas uma carta melhor? <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> Opá, <animate(anger5)>  mas tu não tinhas uma carta melhor? <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-93A2C01DF686D06CB4CCAC1231637795"
 				}, 
 				{
@@ -1251,7 +1251,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Reproach"],
-					"Utterance": "<gaze(player|playerID|)> Não acredito no que tu acabaste de jogar <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(anger5)> Não acredito no que tu acabaste de jogar <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-9EEAC83AC1BFEE200816CA617ADE57C8"
 				}, 
 				{
@@ -1259,7 +1259,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Reproach"],
-					"Utterance": "<gaze(player|playerID|)> Como é que tu acabaste de jogar essa carta? <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> Como <animate(anger5)> é que tu acabaste de jogar essa carta? <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-98E35B3D6AAA04CBC3009A7B56518A8C"
 				}, 
 				{
@@ -1267,7 +1267,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Reproach"],
-					"Utterance": "<gaze(player|playerID|)> Assim com essa tua jogada não sei se vamos ganhar... <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> Assim com <animate(anger5)> essa tua jogada não sei se vou ganhar... <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-37FC22994ABCFCC40D1641380B67913C"
 				}, 
 				{
@@ -1275,7 +1275,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Reproach"],
-					"Utterance": "<gaze(player|playerID|)> Mas a sério que tu jogaste isso? <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(anger5)> Mas a sério que tu jogaste isso? <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-A425AC88B0B6E3995AB54C56681123BB"
 				}, 
 				{
@@ -1283,7 +1283,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Reproach"],
-					"Utterance": "<gaze(player|playerID|)> Bolas, tu não podes continuar assim. <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(anger5)> Bolas, tu não podes continuar assim. <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-8F412DC060FEB43D86B32289BE00CA4F"
 				}, 
 				{
@@ -1291,7 +1291,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Reproach"],
-					"Utterance": "<gaze(player|playerID|)>  mas que jogada foi essa? <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(anger5)> mas que jogada foi essa? <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-ABAB654D42715BB9C13791D34A6EE2AE"
 				}, 
 				{
@@ -1299,7 +1299,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Reproach"],
-					"Utterance": "<gaze(player|playerID|)> Oh pá sinceramente, mas como é que tu jogaste isso? <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)>  Oh pá <animate(anger5)> sinceramente, mas como é que tu jogaste isso? <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-9148305E6633BB0847D487714F227E5A"
 				}, 
 				{
@@ -1307,7 +1307,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Reproach"],
-					"Utterance": "<gaze(player|playerID|)> A sério que tu jogaste essa carta? <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(anger5)> A sério que tu jogaste essa carta? <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-4D04A0274FD6BFA30C34E8545E9EF228"
 				}, 
 				{
@@ -1315,7 +1315,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Reproach"],
-					"Utterance": "<gaze(player|playerID|)> Olha o que tu fizeste. Fogo <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(anger5)> Olha o que tu fizeste. Fogo <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-93AD6B386338A15F24640F9F5AF7E4BB"
 				}, 
 				{
@@ -1323,7 +1323,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Reproach"],
-					"Utterance": "<gaze(player|playerID|)> Não acredito no que tu acabaste de fazer <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(anger5)> Não acredito no que tu acabaste de fazer <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-0238F426280AF879E40223A248D432B3"
 				}, 
 				{
@@ -1331,7 +1331,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Reproach"],
-					"Utterance": "<gaze(player|playerID|)> Mas o que foi isso? Não acredito no que tu fizeste <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> Mas <animate(anger5)> o que foi isso? Não acredito no que tu fizéste <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-EC5C08C529D780A7C6D7F8573C5B3264"
 				}, 
 				{
@@ -1339,7 +1339,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Reproach"],
-					"Utterance": "<gaze(player|playerID|)> tu podes tomar mais atenção, por favor? <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(anger5)> tu podes tomar mais atenção, por favor? <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-698F53677EFFD7D9980538A70F49E096"
 				}, 
 				{
@@ -1347,7 +1347,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Reproach"],
-					"Utterance": "<gaze(player|playerID|)> Será muito tarde para mudar de parceiro? <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(anger5)> Será muito tarde para mudar de parceiro? <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-4464F09B28050C858BA28AC54EFBE547"
 				}, 
 				{
@@ -1355,7 +1355,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Distress"],
-					"Utterance": "<gaze(player|playerID|)> Com este azar, eu não vou lá <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness2)> Com este azar, eu não vou lá <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-A7441AFD8F64E6CBC4C3C15813F9840C"
 				}, 
 				{
@@ -1363,7 +1363,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Distress"],
-					"Utterance": "<gaze(player|playerID|)> eu estou com azar <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness2)> eu estou mesmo com muito azar <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-C2519EF4AEB0AAF97E8354C5764A75C7"
 				}, 
 				{
@@ -1371,7 +1371,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Distress"],
-					"Utterance": "<gaze(player|playerID|)> A sorte não está do meu lado <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness2)> A sorte não está do meu lado <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-F17E17040E2E85BA60CB29DBD6F9EBF7"
 				}, 
 				{
@@ -1379,7 +1379,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Distress"],
-					"Utterance": "<gaze(player|playerID|)> Oh pá, isto não me está a correr bem. <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness2)> Oh pá, isto não me está a correr bem. <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-F6CEFE8CBBE947B2C18E441D2589A9D1"
 				}, 
 				{
@@ -1387,7 +1387,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Joy"],
-					"Utterance": "<gaze(player|playerID|)> eu estou a caminhar para a minha vitória <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> eu estou a caminhar para a minha vitória <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-F6BCB807CC6DF7D3065E68862E6A9B28"
 				}, 
 				{
@@ -1395,7 +1395,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Joy"],
-					"Utterance": "<gaze(player|playerID|)> isto até me dá gosto <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> isto até me dá gosto <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-3850F728E99077E39BAA42A588E7EAF7"
 				}, 
 				{
@@ -1403,7 +1403,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Joy"],
-					"Utterance": "<gaze(player|playerID|)> estou a gostar de ver <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> estou a gostar de ver <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-4EB9CF7B608BE7C0A4E37BF548792BF4"
 				}, 
 				{
@@ -1411,7 +1411,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Joy"],
-					"Utterance": "<gaze(player|playerID|)> parece estar a correr-me bem <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> parece estar a correr-me bem <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-EAB2AD4F4F7DC49C3ED0DF8DC6652CB0"
 				}, 
 				{
@@ -1419,7 +1419,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)> Eu estou a jogar mesmo mesmo bem <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> Eu joguei mesmo mesmo bem <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-540B4315E5B9B6B1358D3F9131B12DAF"
 				}, 
 				{
@@ -1427,7 +1427,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)> Eu estou orgulhoso da minha jogada <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> Eu estou orgulhoso da minha jogada <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-C874096E16D679AADB35AB3D47B756C4"
 				}, 
 				{
@@ -1435,7 +1435,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)> Eu estou imparável <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> Eu estou imparável <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-96C6D4EEA7059E1CF0DA0CEC327ADCA1"
 				}, 
 				{
@@ -1443,7 +1443,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)> Eu fui expétaculár nesta ronda <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> Eu fui expétaculár nesta ronda <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-3A7425C3F93ADD063774E08B9A6B24D0"
 				}, 
 				{
@@ -1451,7 +1451,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)> Eu superei-me a mim próprio nesta jogada <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> Eu superei-me a mim próprio nesta jogada <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-A80EF14448911EC69AEC95FA4CD2C181"
 				}, 
 				{
@@ -1459,7 +1459,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)> Eu estou a jogar super bem <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> Eu joguei súpére bem <gaze(player|nextPlayerID|)> ",
 					"UtteranceId": "TTS-EF126634A5FA83169D227D930758F85F"
 				}, 
 				{
@@ -1467,7 +1467,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)> Grande jogada da minha parte. <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> Grande jogada da minha parte. <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-AE5103239D4B3A21BA1B9DCD3F1D5C96"
 				}, 
 				{
@@ -1475,7 +1475,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)> A jogar assim, ninguém me pára. <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(joy1)> A jogar assim, ninguém me pára. <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-169DF95205A7B45C2D293C77EFA4A540"
 				}, 
 				{
@@ -1483,7 +1483,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Shame"],
-					"Utterance": "<gaze(player|playerID|)> Que nabo que eu sou <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness3)> Que nabo que eu sou, a jogar désta forma <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-AFAA6FE6030E7903C94EF8DC92DB9FCE"
 				}, 
 				{
@@ -1491,7 +1491,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Shame"],
-					"Utterance": "<gaze(player|playerID|)> Não acredito no que eu acabei de fazer <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness3)> Não acredito no que eu acabei de fazer <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-E7175659F63B165DC459204E1F829FF6"
 				}, 
 				{
@@ -1499,7 +1499,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Shame"],
-					"Utterance": "<gaze(player|playerID|)> Oh não, como é que eu não reparei... <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness3)> Oh não, como é que eu não reparei; <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-E9911575BBFCFB109412B72AE5E8AB13"
 				}, 
 				{
@@ -1507,7 +1507,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Shame"],
-					"Utterance": "<gaze(player|playerID|)> Mas o que é que eu fui fazer <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness3)> Mas o que é que eu fui fazer <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-4A7FACFAC3A997DEE9265FD79457ECAF"
 				}, 
 				{
@@ -1515,7 +1515,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Shame"],
-					"Utterance": "<gaze(player|playerID|)> opá, Desculpa lá a minha jogada <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness3)> oh pá, Desculpa lá a minha jogada <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-BE1E421DDC79B62148901C395860B6FB"
 				}, 
 				{
@@ -1523,7 +1523,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Shame"],
-					"Utterance": "<gaze(player|playerID|)> Esta minha jogada foi vergonhosa... <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness3)> Esta minha jogada foi vergonhosa... <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-67348E759E4CD91A86F2CF414E8A8A83"
 				}, 
 				{
@@ -1531,7 +1531,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Shame"],
-					"Utterance": "<gaze(player|playerID|)> Eu estive mal agora, que vergonha. <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness3)> Eu estive mal agora, que vergonha. <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-B2BFFF577A7538F7E624C5CEF33B1EB2"
 				}, 
 				{
@@ -1539,7 +1539,7 @@
 					"NextState": "Dynamic",
 					"Meaning": ["IND"],
 					"Style": ["Shame"],
-					"Utterance": "<gaze(player|playerID|)> Aih o que eu fui fazer <gaze(player|nextPlayerID|)>",
+					"Utterance": "<gaze(player|playerID|)> <animate(sadness3)> Aih o que eu fui fazer nesta jogada <gaze(player|nextPlayerID|)>",
 					"UtteranceId": "TTS-66455AE5B06A33F747E0B064C3064677"
 				}, 
 				{
