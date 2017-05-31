@@ -118,6 +118,11 @@ namespace EmotionalPlayer
                         _rpc.CharacterName = (Name)ev.OtherStringInfos[0];
                         _rpc.m_kb.SetPerspective((Name)ev.OtherStringInfos[0]);
                     }
+                    if (ev.Name == Consts.STATE_TRICK_END)
+                    {
+                        Console.WriteLine("\nCLEANING EMOTIONAL POOL\n");
+                        _rpc.ResetEmotionalState();
+                    }
 
                     perceive(ev);
 
@@ -152,6 +157,7 @@ namespace EmotionalPlayer
                         EmotionalSuecaPlayer.SuecaPub.GazeAtTarget("cardsZone");
                         if (ev.OtherStringInfos.Length > 0)
                         {
+                            Thread.Sleep(1000);
                             decide(ev);
                             Thread.Sleep(1000);
                             EmotionalSuecaPlayer.SuecaPub.Play(ev.OtherIntInfos[0], ev.OtherStringInfos[0], ev.OtherStringInfos[1]);
@@ -274,8 +280,6 @@ namespace EmotionalPlayer
                     {
                         case "Speak":
                             
-                            while (_esp.SomeoneIsTalking) { }
-                            
                             Name currentState = chosenAction.Parameters[0];
                             Name nextState = chosenAction.Parameters[1];
                             Name meaning = chosenAction.Parameters[2];
@@ -291,9 +295,21 @@ namespace EmotionalPlayer
 
                         case "Animation":
                             Name state = chosenAction.Parameters[0];
-                            Name emotionName = chosenAction.Parameters[1];
-                            Console.WriteLine("[ANIMATION] Soft reaction to " + state + " with the style " + emotionName);
-                            EmotionalSuecaPlayer.SuecaPub.PlayAnimation("", emotionName.ToString());
+                            string emotionName = chosenAction.Parameters[1].ToString().ToLower();
+                            if (emotionName == "distress" || emotionName == "shame")
+                            {
+                                emotionName = "sadness";
+                            }
+                            else if (emotionName == "pride")
+                            {
+                                emotionName = "joy";
+                            }
+                            else if (emotionName == "reproach")
+                            {
+                                emotionName = "anger";
+                            }
+                            Console.WriteLine("[ANIMATION] reaction to " + state + " with the style " + emotionName);
+                            EmotionalSuecaPlayer.SuecaPub.PlayAnimation("", emotionName + "3");
                             break;
 
                         default:
@@ -304,7 +320,6 @@ namespace EmotionalPlayer
             }
             catch (Exception e)
             {
-
                 Console.WriteLine(_agentName + "---" + e.ToString());
             }
             

@@ -867,8 +867,8 @@
 					"NextState": "Dynamic",
 					"Meaning": ["COL"],
 					"Style": ["Pride"],
-					"Utterance": "<gaze(player|playerID|)>  |trickPoints|! Nós estamos imparáveis. <gaze(player|nextPlayerID|)>",
-					"UtteranceId": "TTS-1FBE9D30C57451A309B106A0909D32BB"
+					"Utterance": "<gaze(player|playerID|)> Nós estamos imparáveis. <gaze(player|nextPlayerID|)>",
+					"UtteranceId": "TTS-9B63887E6088482064B8166D6C1791CA"
 				}, 
 				{
 					"CurrentState": "PlaySelf",

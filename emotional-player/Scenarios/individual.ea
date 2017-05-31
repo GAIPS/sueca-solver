@@ -107,7 +107,7 @@
 								{
 									"Set": ["[score] <= -9", "Trick(Increase) = True"]
 								},
-							"Desirability": -6
+							"Praiseworthiness": -6
 						}, 
 						{
 							"EventName": "Event(Property-Change, SELF, Trick(Score), [score])",
@@ -123,7 +123,7 @@
 								{
 									"Set": ["[score] <= -9", "Trick(Increase) = False"]
 								},
-							"Praiseworthiness": -6
+							"Desirability": -6
 						}, 
 						{
 							"EventName": "Event(Property-Change, [pointGiver], Trick(Score), [score])",

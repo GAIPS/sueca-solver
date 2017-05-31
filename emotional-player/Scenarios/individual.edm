@@ -62,7 +62,7 @@
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["DialogueState(Board) = PlaySelf", "StrongestAttributionEmotion(SELF) = [e]", "Trick(Increase) = False"]
+							"Set": ["DialogueState(Board) = PlaySelf", "StrongestEmotion(SELF) = [e]", "Trick(Increase) = True"]
 						},
 					"Priority": 5
 				}, 
@@ -71,18 +71,9 @@
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["DialogueState(Board) = PlayPartner", "StrongestAttributionEmotion(SELF) = [e]", "Trick(Increase) = False"]
+							"Set": ["StrongestEmotion(SELF) = [e]", "Trick(Increase) = False", "Trick(Increase) = True"]
 						},
 					"Priority": 5
-				}, 
-				{
-					"Action": "Speak(PlaySelf, [ns], [m], [e])",
-					"Target": "Board",
-					"Conditions":
-						{
-							"Set": ["DialogueState(Board) = PlaySelf", "ValidDialogue(PlaySelf, [ns], [m], [e]) = True", "IND = [m]", "StrongestEmotion(SELF) = [e]"]
-						},
-					"Priority": 4
 				}, 
 				{
 					"Action": "Speak(PlayPartner, [ns], [m], [e])",
@@ -91,7 +82,16 @@
 						{
 							"Set": ["DialogueState(Board) = PlayPartner", "ValidDialogue(PlayPartner, [ns], [m], [e]) = True", "Current(PlayerID) = [cpID]", "Player([cpID]) = Partner", "IND = [m]", "StrongestEmotion(SELF) = [e]"]
 						},
-					"Priority": 3
+					"Priority": 9
+				}, 
+				{
+					"Action": "Speak(PlaySelf, [ns], [m], [e])",
+					"Target": "Board",
+					"Conditions":
+						{
+							"Set": ["DialogueState(Board) = PlaySelf", "ValidDialogue(PlaySelf, [ns], [m], [e]) = True", "IND = [m]", "StrongestEmotion(SELF) = [e]"]
+						},
+					"Priority": 9
 				}]
 		},
 	"types": [
