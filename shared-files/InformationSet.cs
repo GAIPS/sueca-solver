@@ -280,6 +280,18 @@ namespace SuecaSolver
             return currentTrick.GetCurrentTrickPoints();
         }
 
+        public int GetZeroSumTrickScore()
+        {
+            Trick currentTrick = tricks[tricks.Count - 1];
+            int trickPoints = currentTrick.GetCurrentTrickPoints();
+            int trickWinner = currentTrick.GetCurrentTrickWinner();
+            if (trickWinner != id && trickWinner != (id + 2) % 4)
+            {
+                trickPoints *= -1;
+            }
+            return trickPoints;
+        }
+
         public bool HasNewTrickWinner()
         {
             Trick currentTrick = tricks[tricks.Count - 1];

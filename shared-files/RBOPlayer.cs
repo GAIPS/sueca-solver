@@ -50,6 +50,11 @@ namespace SuecaSolver
             return infoSet.GetCurrentTrickPoints();
         }
 
+        public int GetZeroSumTrickScore()
+        {
+            return infoSet.GetZeroSumTrickScore();
+        }
+
         public bool HasNewTrickWinner()
         {
             return infoSet.HasNewTrickWinner();
