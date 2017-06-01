@@ -112,7 +112,11 @@ namespace EmotionalPlayer
                     //wait until event is finished
                     while (!ev.Finished) { }
                     
-
+                    if (ev.Name == Consts.STATE_SHUFFLE || ev.Name == Consts.STATE_SESSION_START)
+                    {
+                        //Console.WriteLine("Resetting Posture");
+                        EmotionalSuecaPlayer.SuecaPub.SetPosture("", "neutral");
+                    }
                     if (ev.Name == Consts.INIT)
                     {
                         _rpc.CharacterName = (Name)ev.OtherStringInfos[0];
@@ -130,7 +134,7 @@ namespace EmotionalPlayer
                     {
                         if (ev.OtherIntInfos.Length > 0 && !_esp.Talking)
                         {
-                            Thread.Sleep(1000);
+                            Thread.Sleep(_randomNumberGenerator.Next(0, 2000));
                             EmotionalSuecaPlayer.SuecaPub.GazeAtTarget("player" + ev.OtherIntInfos[0]);
                         }
                         
@@ -165,6 +169,7 @@ namespace EmotionalPlayer
                     }
                     else if (ev.Name == Consts.STATE_PLAYPARTNER)
                     {
+                        Thread.Sleep(1000);
                         decide(ev);
 
                         if (ev.OtherIntInfos[0] == ((_esp._id + 2) % 4))
