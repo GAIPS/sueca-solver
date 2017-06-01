@@ -71,7 +71,7 @@
 					"Target": "Board",
 					"Conditions":
 						{
-							"Set": ["StrongestEmotion(SELF) = [e]", "Trick(Increase) = False", "Trick(Increase) = True"]
+							"Set": ["DialogueState(Board) = PlayPartner", "StrongestEmotion(SELF) = [e]", "Trick(Increase) = True"]
 						},
 					"Priority": 5
 				}, 
