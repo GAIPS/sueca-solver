@@ -282,6 +282,8 @@ namespace EmotionalPlayer
             ev.AddPropertyChange(Consts.DIALOGUE_FLOOR_PROPERTY, floorId.ToString(), Consts.DEFAULT_SUBJECT);
             ev.ChangeTagsAndMeanings(new string[] { "|playerID|" }, new string[] { playerId.ToString() });
             ev.Finished = true;
+            //if robot has floor speaks, otherwise just gazes random
+            SuecaPub.GazeAtTarget("random");
         }
 
         public void Cut(int playerId, int floorId)
@@ -304,6 +306,8 @@ namespace EmotionalPlayer
             ev.AddPropertyChange(Consts.DIALOGUE_FLOOR_PROPERTY, floorId.ToString(), Consts.DEFAULT_SUBJECT);
             ev.ChangeTagsAndMeanings(new string[] { "|playerID|" }, new string[] { playerId.ToString() });
             ev.Finished = true;
+            //if robot has floor speaks, otherwise just gazes random
+            SuecaPub.GazeAtTarget("random");
         }
 
         public void ReceiveRobotCards(int playerId, int floorId)
@@ -452,9 +456,10 @@ namespace EmotionalPlayer
                 SuecaTypes.Suit msgSuit = (SuecaTypes.Suit)Enum.Parse(typeof(SuecaTypes.Suit), chosenCardSuit.ToString());
                 string cardSerialized = new SuecaTypes.Card(msgRank, msgSuit).SerializeToJson();
                 string playInfo = _ai.GetLastPlayInfo();
+
                 //ev.AddPropertyChange(Consts.PLAY_INFO, playInfo, Consts.DEFAULT_SUBJECT);
 
-                
+
                 ev.ChangeTagsAndMeanings(new string[] { "|rank|", "|suit|", "|playerID|", "|nextPlayerID|" }, new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()), ((id+2)%4).ToString(), _ai.GetNextPlayerId().ToString() });
                 ev.OtherIntInfos = new int[] { this._id };
                 ev.OtherStringInfos = new string[] { cardSerialized, playInfo };
@@ -507,6 +512,7 @@ namespace EmotionalPlayer
                 string[] meanings = new string[] { convertRankToPortuguese(myRank.ToString()), convertSuitToPortuguese(mySuit.ToString()), id.ToString(), _ai.GetNextPlayerId().ToString() };
                 ev.ChangeTagsAndMeanings(tags, meanings);
 
+                SuecaPub.GazeAtTarget("cardsZone");
 
                 if (_ai.GetTrickIncrease() > 0 || _ai.HasNewTrickTeamWinner())
                 {
