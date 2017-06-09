@@ -21,7 +21,7 @@ namespace ConsoleApp1
             AddAllUtterances();
 
 
-            string path = "Z:\\Sueca\\Study 7 - INDCOL";
+            string path = args[0];
             int total = 0;
 
             if (Directory.Exists(path))
@@ -50,8 +50,8 @@ namespace ConsoleApp1
                 Console.WriteLine("{0} is not a valid file or directory.", path);
             }
 
-            //printEmotionsFrequenciesPerSession();
-            printUtterancesFrequencies();
+            printEmotionsFrequenciesPerSession();
+            //printUtterancesFrequencies();
             Console.ReadLine();
 
         }
@@ -120,13 +120,13 @@ namespace ConsoleApp1
                 }
             }
 
-           // Console.WriteLine("sessionName: " + sessionName + " performWithTags: " + performWithTags + " matchUtterance: " + matchUtterance + " utteranceSent: " + utteranceSent);
+            Console.WriteLine("sessionName: " + sessionName + " performWithTags: " + performWithTags + " matchUtterance: " + matchUtterance + " utteranceSent: " + utteranceSent);
             emotionsPerSession.Add(sessionName, emotionsInSession);
         }
 
         public static void AddAllUtterances()
         {
-            var file = new System.IO.StreamReader(@"C:\Users\Filipa Correia\Devel\sueca-solver\ConsoleApp1\utterances.txt");
+            var file = new System.IO.StreamReader("../../utterances.txt");
             string line;
             int index = 0;
 
@@ -134,12 +134,8 @@ namespace ConsoleApp1
             {
                 string[] utt = line.Split('\t');
                 string[] style = utt[2].Split(',');
-                string em = "";
-                if (style.Length > 1)
-                {
-                    em = style[0];
-                }
-                else
+                string em = style[0];
+                if (em == "A" || em == "B" || em == "-")
                 {
                     em = "Neutral";
                 }
