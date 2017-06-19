@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "war", "war\war.csproj", "{91AD0253-0A38-4F5F-8824-F80A72D0A145}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "unity-emulator", "unity-emulator\unity-emulator.csproj", "{7783EA79-160B-48E1-AB03-4609BFC7A761}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "emotional-player", "emotional-player\emotional-player.csproj", "{C5ABC75D-8DA2-4F29-8279-E6B9EFE817B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "state-inference", "state-inference\state-inference.csproj", "{DEF0C09C-1744-4EEB-8FFA-96638866C4FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +101,22 @@ Global
 		{C5ABC75D-8DA2-4F29-8279-E6B9EFE817B8}.Release|ARM.ActiveCfg = Release|Any CPU
 		{C5ABC75D-8DA2-4F29-8279-E6B9EFE817B8}.Release|x64.ActiveCfg = Release|Any CPU
 		{C5ABC75D-8DA2-4F29-8279-E6B9EFE817B8}.Release|x86.ActiveCfg = Release|Any CPU
+		{DEF0C09C-1744-4EEB-8FFA-96638866C4FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEF0C09C-1744-4EEB-8FFA-96638866C4FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEF0C09C-1744-4EEB-8FFA-96638866C4FF}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{DEF0C09C-1744-4EEB-8FFA-96638866C4FF}.Debug|ARM.Build.0 = Debug|Any CPU
+		{DEF0C09C-1744-4EEB-8FFA-96638866C4FF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DEF0C09C-1744-4EEB-8FFA-96638866C4FF}.Debug|x64.Build.0 = Debug|Any CPU
+		{DEF0C09C-1744-4EEB-8FFA-96638866C4FF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DEF0C09C-1744-4EEB-8FFA-96638866C4FF}.Debug|x86.Build.0 = Debug|Any CPU
+		{DEF0C09C-1744-4EEB-8FFA-96638866C4FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEF0C09C-1744-4EEB-8FFA-96638866C4FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEF0C09C-1744-4EEB-8FFA-96638866C4FF}.Release|ARM.ActiveCfg = Release|Any CPU
+		{DEF0C09C-1744-4EEB-8FFA-96638866C4FF}.Release|ARM.Build.0 = Release|Any CPU
+		{DEF0C09C-1744-4EEB-8FFA-96638866C4FF}.Release|x64.ActiveCfg = Release|Any CPU
+		{DEF0C09C-1744-4EEB-8FFA-96638866C4FF}.Release|x64.Build.0 = Release|Any CPU
+		{DEF0C09C-1744-4EEB-8FFA-96638866C4FF}.Release|x86.ActiveCfg = Release|Any CPU
+		{DEF0C09C-1744-4EEB-8FFA-96638866C4FF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

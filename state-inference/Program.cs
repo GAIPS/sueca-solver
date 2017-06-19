@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -12,9 +12,18 @@ namespace SuecaSolver
         public static void Main()
         {
             const string searchPattern = "*.log";
-            var filesInDirectory = Directory.EnumerateFiles("sueca-logs", searchPattern);
+            const string logsPath = "sueca-logs";
 
-            IterateFiles(filesInDirectory, "sueca-logs");
+            if (Directory.Exists(logsPath))
+            {
+                var filesInDirectory = Directory.EnumerateFiles(logsPath, searchPattern);
+                IterateFiles(filesInDirectory, "sueca-logs");
+            }
+            else
+            {
+                Console.WriteLine("Log path does nto exist or has a different name.");
+            }
+            Console.ReadLine();
         }
 
         private static void IterateFiles(IEnumerable<string> files, string directory)
