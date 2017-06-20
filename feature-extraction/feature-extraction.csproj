@@ -7,7 +7,7 @@
     <ProjectGuid>{DEF0C09C-1744-4EEB-8FFA-96638866C4FF}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>SuecaSolver</RootNamespace>
-    <AssemblyName>state-inference</AssemblyName>
+    <AssemblyName>feature-extraction</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

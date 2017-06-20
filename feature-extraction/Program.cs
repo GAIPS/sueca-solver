@@ -9,7 +9,7 @@ namespace SuecaSolver
         static int numFinishedGames = 0;
         static int numFinishedAndTrumpFound = 0;
         const string searchPattern = "*.log";
-        const string logsPath = "sueca-logs";
+        const string logsPath = "..\\..\\..\\sueca-logs";
 
         public static void Main()
         {
