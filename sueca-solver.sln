@@ -19,9 +19,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "emotional-player", "emotion
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "feature-extraction", "feature-extraction\feature-extraction.csproj", "{DEF0C09C-1744-4EEB-8FFA-96638866C4FF}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "state-inference", "py-state-inference\state-inference.pyproj", "{07978F72-253A-41AF-AD1D-7A445D266E63}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "state-inference", "state-inference\state-inference.pyproj", "{07978F72-253A-41AF-AD1D-7A445D266E63}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewFolder1", "NewFolder1", "{7549879C-DD46-4891-9CE0-D246CBED2729}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "gameplay-data-analysis", "gameplay-data-analysis", "{7549879C-DD46-4891-9CE0-D246CBED2729}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -132,5 +132,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DEF0C09C-1744-4EEB-8FFA-96638866C4FF} = {7549879C-DD46-4891-9CE0-D246CBED2729}
+		{07978F72-253A-41AF-AD1D-7A445D266E63} = {7549879C-DD46-4891-9CE0-D246CBED2729}
 	EndGlobalSection
 EndGlobal
