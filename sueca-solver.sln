@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.6
+VisualStudioVersion = 15.0.26430.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "war", "war\war.csproj", "{91AD0253-0A38-4F5F-8824-F80A72D0A145}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "emotional-player", "emotional-player\emotional-player.csproj", "{C5ABC75D-8DA2-4F29-8279-E6B9EFE817B8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "state-inference", "state-inference\state-inference.csproj", "{DEF0C09C-1744-4EEB-8FFA-96638866C4FF}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "py-state-inference", "py-state-inference\py-state-inference.pyproj", "{07978F72-253A-41AF-AD1D-7A445D266E63}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -117,6 +119,14 @@ Global
 		{DEF0C09C-1744-4EEB-8FFA-96638866C4FF}.Release|x64.Build.0 = Release|Any CPU
 		{DEF0C09C-1744-4EEB-8FFA-96638866C4FF}.Release|x86.ActiveCfg = Release|Any CPU
 		{DEF0C09C-1744-4EEB-8FFA-96638866C4FF}.Release|x86.Build.0 = Release|Any CPU
+		{07978F72-253A-41AF-AD1D-7A445D266E63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07978F72-253A-41AF-AD1D-7A445D266E63}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{07978F72-253A-41AF-AD1D-7A445D266E63}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{07978F72-253A-41AF-AD1D-7A445D266E63}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{07978F72-253A-41AF-AD1D-7A445D266E63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07978F72-253A-41AF-AD1D-7A445D266E63}.Release|ARM.ActiveCfg = Release|Any CPU
+		{07978F72-253A-41AF-AD1D-7A445D266E63}.Release|x64.ActiveCfg = Release|Any CPU
+		{07978F72-253A-41AF-AD1D-7A445D266E63}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
