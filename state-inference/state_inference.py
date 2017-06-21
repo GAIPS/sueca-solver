@@ -19,21 +19,17 @@ def main():
             else:
                 abstractHands[line] = 1
 
-        file.close() 
-        print('abstractHands: ' + str(len(abstractHands.keys())))
-        print('numHands: ' + str(numHands))
-
-
+        file.close()
     else:
         print('ProcessedHands file not found.')
         return
 
-    calculateFeaturesWeights(abstractHands)
+    n_samples = len(abstractHands.keys())
+    n_features = len(line.split('\t'))
+    calculateFeaturesWeights(abstractHands, n_samples, n_features)
 
-def calculateFeaturesWeights(hands):
-    
-    n_samples = len(hands.keys())
-    n_features = 5
+def calculateFeaturesWeights(hands, n_samples, n_features):
+   
     X = np.ones((n_samples, n_features))
     y = np.ones(n_samples)
     i = 0
