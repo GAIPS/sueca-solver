@@ -42,9 +42,11 @@ def calculateFeaturesWeights(hands, n_samples, n_features):
         i += 1
 
 
-    clf = linear_model.SGDRegressor()
-    clf.fit(X, y)
-    print(clf.coef_)
+    regr = linear_model.LinearRegression()
+    regr.fit(X, y)
+    print('Coefficients: \n', regr.coef_)
+    print("Mean squared error: %.2f" % np.mean((regr.predict(X) - y) ** 2))
+    print('Variance score: %.2f' % regr.score(X, y))
 
 
 if __name__ == "__main__":
