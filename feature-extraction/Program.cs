@@ -9,7 +9,7 @@ namespace SuecaSolver
         static int numFinishedGames = 0;
         static int numFinishedAndTrumpFound = 0;
         const string searchPattern = "*.log";
-        const string logsPath = "..\\..\\..\\sueca-logs";
+        const string logsPath = "../../../sueca-logs";
 
         public static void Main()
         {
@@ -30,32 +30,32 @@ namespace SuecaSolver
         {
             int lastGameLine = 0;
             int gameLines = 0;
-            List<Move> currentGame = new List<Move>(10);
+            List<Move> currentGame = new List<Move>(40);
             int leadSuit = -1;
             bool trumpFound = false;
             int trumpSuit = -1;
-            int handCounter = 0;
-            string[] processedHands = new string[139640];
+            int playCounter = 0;
+            string[] processedPlays = new string[139640];
 
             foreach (var file in files)
             {
                 try
                 {
                     string[] lines = File.ReadAllLines(file);
-                    List<List<int>> playersHands = new List<List<int>>();
+                    List<int>[] playersHands = new List<int>[4];
 
                     for (int i = 0; i < lines.Length; i++)
                     {
-                        if (i == 0 && String.Equals(lines[i],"-- GAME --"))
+                        if (i == 0 && String.Equals(lines[i], "-- GAME --"))
                         {
                             gameLines = 0;
-                            currentGame = new List<Move>(10);
+                            currentGame = new List<Move>(40);
                             leadSuit = -1;
                             trumpFound = false;
                             trumpSuit = -1;
-                            playersHands = new List<List<int>>();
+                            playersHands = new List<int>[4];
                         }
-                        else if (String.Equals(lines[i],"-- /GAME --"))
+                        else if (String.Equals(lines[i], "-- /GAME --"))
                         {
                             if (i - lastGameLine == 15 && gameLines == 14)
                             {
@@ -64,15 +64,12 @@ namespace SuecaSolver
                                 {
                                     numFinishedAndTrumpFound++;
 
-                                    foreach (var hand in playersHands)
-                                    {
-                                        processedHands[handCounter] = getHandFeatures(hand, trumpSuit);
-                                        handCounter++;
-                                    }
+                                    getPlayFeatures(ref processedPlays, ref playCounter, currentGame, playersHands, trumpSuit);
                                 }
                             }
                             lastGameLine = i;
                             gameLines = 0;
+                            currentGame = new List<Move>(40);
                         }
                         else if (lines[i].Length > 2 && lines[i][0] == 'P' && (lines[i][1] == '0' || lines[i][1] == '1' || lines[i][1] == '2' || lines[i][1] == '3'))
                         {
@@ -80,7 +77,7 @@ namespace SuecaSolver
 
                             if (lines[i].Length > 3 && lines[i][3] == 'H')
                             {
-                                if (playersHands.Count < 4)
+                                if (playersHands.Length < 4)
                                 {
                                     string[] logHand = lines[i].Split(' ', ',', '.');
                                     if (logHand.Length == 22)
@@ -88,14 +85,19 @@ namespace SuecaSolver
                                         List<int> hand = new List<int>();
                                         for (int k = 2; k <= 20; k = k + 2)
                                         {
-                                            int card = Card.CreateFromLog(logHand[k]);
+											int card = Card.CreateFromLog(logHand[k]);
+											if (card > 39 || card < -1)
+											{
+												Console.WriteLine(logHand[k]);
+											}
                                             hand.Add(card);
                                         }
-                                        playersHands.Add(hand);
+                                        int playerID = logHand[0][1];
+                                        playersHands[playerID] = new List<int>(hand);
                                     }
                                 }
                             }
-                            else if(lines[i].Length > 3 && playersHands.Count == 4)
+                            else if(lines[i].Length > 3 && playersHands.Length == 4)
                             {
                                 string[] trick = lines[i].Split(' ');
 
@@ -139,21 +141,26 @@ namespace SuecaSolver
                 }
             }
 
-            System.IO.File.WriteAllLines(logsPath + "\\processedHands.txt", processedHands);
+            System.IO.File.WriteAllLines(logsPath + "/processedPlays.txt", processedPlays);
 
             Console.WriteLine("Finished games: " + numFinishedGames);
             Console.WriteLine("Finished games with trump: " + numFinishedAndTrumpFound);
-            Console.WriteLine("handCounter: " + handCounter);
+            Console.WriteLine("handCounter: " + playCounter);
         }
 
-        private static string getHandFeatures(List<int> hand, int trump)
+        private static void getPlayFeatures(ref string[] processedPlays, ref int playCounter, List<Move> game, List<int>[] playersHands, int trump)
         {
-            string features = "";
-            features += Sueca.CountCardsFromSuit(hand, trump);
-            features += "\t" + Sueca.CountCardsFromRank(hand, (int) Rank.Ace);
-            features += "\t" + Sueca.CountCardsFromRank(hand, (int) Rank.Seven);
-            features += "\t" + Sueca.CountCardsFromRank(hand, (int) Rank.King);
-            return features;
+            foreach (var move in game)
+            {
+				string features = "";
+                features += Card.GetValue(move.Card);
+                features += "\t" + Sueca.CountCardsFromSuit(playersHands[move.PlayerId], trump);
+				features += "\t" + Sueca.CountCardsFromRank(playersHands[move.PlayerId], (int) Rank.Ace);
+				features += "\t" + Sueca.CountCardsFromRank(playersHands[move.PlayerId], (int) Rank.Seven);
+				features += "\t" + Sueca.CountCardsFromRank(playersHands[move.PlayerId], (int) Rank.King);
+                processedPlays[playCounter] = features;
+                playCounter++;
+            }
         }
     }
 }
