@@ -5,19 +5,32 @@ import numpy as np
 from sklearn import linear_model
 
 def main():
-    processedhandsFile = Path('..\sueca-logs\processedHands.txt')
+    processedhandsFile = Path('..\sueca-logs\processedPlays.txt')
     numHands = 0
     abstractHands = {}
+    numPlayFeatures = 0;
+    numHandFeatures = 0;
+    featuresName = [];
     
     if processedhandsFile.is_file():
         file = open(processedhandsFile,'r') 
+        init = true;
 
         for line in file:
-            numHands += 1
-            if line in abstractHands:
-                abstractHands[line] += 1
+            line.split('\t')
+            if init:
+                if numHandFeatures == 0:
+                    numPlayFeatures = int(line[0])
+                    numHandFeatures = int(line[1])
+                else:
+                    for name in line:
+                        featuresName.append(name)
             else:
-                abstractHands[line] = 1
+                numHands += 1
+                if line in abstractHands:
+                    abstractHands[line] += 1
+                else:
+                    abstractHands[line] = 1
 
         file.close()
     else:
