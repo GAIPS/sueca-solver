@@ -8,7 +8,7 @@ namespace SuecaSolver
     {
         private static int[] cardValues = new int[10] { 0, 0, 0, 0, 0, 2, 3, 4, 10, 11 };
         private static string[] cardRanks = new string[10] { "2", "3", "4", "5", "6", "Q", "J", "K", "7", "A" };
-        private static string[] cardSuits = new string[4] { "Clubs", "Diamonds", "Hearts", "Spaces" };
+        private static string[] cardSuits = new string[4] { "Clubs", "Diamonds", "Hearts", "Spades" };
 
 
         public static int Create(Rank rank, Suit suit)

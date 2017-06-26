@@ -34,8 +34,10 @@ namespace SuecaSolver
             int leadSuit = -1;
             bool trumpFound = false;
             int trumpSuit = -1;
-            int playCounter = 0;
-            string[] processedPlays = new string[139640];
+            string[] processedPlays = new string[1317520 + 2];
+            processedPlays[0] = "2\t4";
+            processedPlays[1] = "CardValue" + "\t" + "IndexInTrick" + "\t" + "NumTrumps" + "\t" + "NumAces" + "\t" + "NumSevens" + "\t" + "NumKings";
+            int playCounter = 2;
 
             foreach (var file in files)
             {
@@ -57,7 +59,7 @@ namespace SuecaSolver
                         }
                         else if (String.Equals(lines[i], "-- /GAME --"))
                         {
-                            if (i - lastGameLine == 15 && gameLines == 14)
+                            if (i - lastGameLine == 15 && gameLines == 14 && playersHands[0] != null && playersHands[1] != null && playersHands[2] != null && playersHands[3] != null && playersHands[0].Count == 10 && playersHands[1].Count == 10 && playersHands[2].Count == 10 && playersHands[3].Count == 10)
                             {
                                 numFinishedGames++;
                                 if (trumpFound)
@@ -70,6 +72,7 @@ namespace SuecaSolver
                             lastGameLine = i;
                             gameLines = 0;
                             currentGame = new List<Move>(40);
+                            playersHands = new List<int>[4];
                         }
                         else if (lines[i].Length > 2 && lines[i][0] == 'P' && (lines[i][1] == '0' || lines[i][1] == '1' || lines[i][1] == '2' || lines[i][1] == '3'))
                         {
@@ -77,7 +80,7 @@ namespace SuecaSolver
 
                             if (lines[i].Length > 3 && lines[i][3] == 'H')
                             {
-                                if (playersHands.Length < 4)
+                                if (playersHands[0] == null || playersHands[1] == null || playersHands[2] == null || playersHands[3] == null)
                                 {
                                     string[] logHand = lines[i].Split(' ', ',', '.');
                                     if (logHand.Length == 22)
@@ -92,7 +95,7 @@ namespace SuecaSolver
 											}
                                             hand.Add(card);
                                         }
-                                        int playerID = logHand[0][1];
+                                        int playerID = Int16.Parse("" + logHand[0][1]);
                                         playersHands[playerID] = new List<int>(hand);
                                     }
                                 }
@@ -101,15 +104,16 @@ namespace SuecaSolver
                             {
                                 string[] trick = lines[i].Split(' ');
 
-                                if (trick.Length < 8)
+                                if (trick.Length != 9)
                                 {
                                     break;
                                 }
                                 
                                 for (int j = 0; j < 7; j = j + 2)
                                 {
-                                    int playerId = Convert.ToInt16(trick[j][1]);
-                                    int card = Card.CreateFromLog(trick[j + 1]);
+                                    int playerId = Int16.Parse("" + trick[j][1]);
+                                    string logCard = trick[j + 1];
+                                    int card = Card.CreateFromLog(logCard);
                                     int suit = Card.GetSuit(card);
 
                                     if (j == 0)
@@ -150,15 +154,18 @@ namespace SuecaSolver
 
         private static void getPlayFeatures(ref string[] processedPlays, ref int playCounter, List<Move> game, List<int>[] playersHands, int trump)
         {
-            foreach (var move in game)
+            for (int i = 0; i< game.Count; i++)
             {
+                Move move = game[i];
 				string features = "";
                 features += Card.GetValue(move.Card);
+                features += "\t" + ((i % 4) + 1);
                 features += "\t" + Sueca.CountCardsFromSuit(playersHands[move.PlayerId], trump);
 				features += "\t" + Sueca.CountCardsFromRank(playersHands[move.PlayerId], (int) Rank.Ace);
 				features += "\t" + Sueca.CountCardsFromRank(playersHands[move.PlayerId], (int) Rank.Seven);
 				features += "\t" + Sueca.CountCardsFromRank(playersHands[move.PlayerId], (int) Rank.King);
                 processedPlays[playCounter] = features;
+                playersHands[move.PlayerId].Remove(move.Card);
                 playCounter++;
             }
         }
