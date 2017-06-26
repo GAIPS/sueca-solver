@@ -8,13 +8,13 @@ def main():
     processedhandsFile = Path('..\sueca-logs\processedPlays.txt')
     numHands = 0
     abstractHands = {}
-    numPlayFeatures = 0;
-    numHandFeatures = 0;
-    featuresName = [];
+    numPlayFeatures = 0
+    numHandFeatures = 0
+    featuresName = []
     
     if processedhandsFile.is_file():
         file = open(processedhandsFile,'r') 
-        init = true;
+        init = true
 
         for line in file:
             line.split('\t')
@@ -34,7 +34,7 @@ def main():
 
         file.close()
     else:
-        print('ProcessedHands file not found.')
+        print('processedPlays file not found.')
         return
 
     n_samples = len(abstractHands.keys())
