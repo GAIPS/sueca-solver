@@ -11,55 +11,47 @@ def main():
     numPlayFeatures = 0
     numHandFeatures = 0
     featuresName = []
+    playClassification = ['0','2','3','4','10','11']
     
     if processedhandsFile.is_file():
         file = open(processedhandsFile,'r') 
-        init = true
+        firstLine = file.readline()
+        splitLine = firstLine.split('\t')
+        numPlayFeatures = int(splitLine[0])
+        numHandFeatures = int(splitLine[1])
+        numSamples = int(splitLine[2])
+        X = np.ones((numSamples, numHandFeatures )) #coef of 1 to w0
+        y = np.zeros(numSamples)
 
-        for line in file:
-            line.split('\t')
-            if init:
-                if numHandFeatures == 0:
-                    numPlayFeatures = int(line[0])
-                    numHandFeatures = int(line[1])
-                else:
-                    for name in line:
-                        featuresName.append(name)
-            else:
-                numHands += 1
-                if line in abstractHands:
-                    abstractHands[line] += 1
-                else:
-                    abstractHands[line] = 1
+        secondLine = file.readline()
+        splitLine = secondLine.split('\t')
+        for name in splitLine:
+            featuresName.append(name)
+
+        line = file.readline()
+        i = 0
+        while line:
+            numHands += 1
+            splitLine = line.split('\t')
+            classification = splitLine[0]
+            handFeatures = splitLine[1:]
+            X[i] = handFeatures
+            y[i] = classification
+            line = file.readline()
+            i += 1
+
+        
+        model = linear_model.SGDClassifier(loss='log')
+        model.fit(X, y)
+        #print('Coefficients: \n', regr.coef_)
+        #print("Mean squared error: %.2f" % np.mean((regr.predict(X) - y) ** 2))
+        #print('Variance score: %.2f' % regr.score(X, y))
+
 
         file.close()
     else:
         print('processedPlays file not found.')
         return
-
-    n_samples = len(abstractHands.keys())
-    n_features = len(line.split('\t'))
-    calculateFeaturesWeights(abstractHands, n_samples, n_features)
-
-def calculateFeaturesWeights(hands, n_samples, n_features):
-   
-    X = np.ones((n_samples, n_features))
-    y = np.ones(n_samples)
-    i = 0
-    for key in hands:
-        y[i] = math.log(hands[key])
-        parsed = key.split('\t')
-        for j in range(n_features):
-            if j < n_features - 1:
-                X[i][j] = float(parsed[j])
-        i += 1
-
-
-    regr = linear_model.LinearRegression()
-    regr.fit(X, y)
-    print('Coefficients: \n', regr.coef_)
-    print("Mean squared error: %.2f" % np.mean((regr.predict(X) - y) ** 2))
-    print('Variance score: %.2f' % regr.score(X, y))
 
 
 if __name__ == "__main__":

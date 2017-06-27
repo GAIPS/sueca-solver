@@ -35,7 +35,7 @@ namespace SuecaSolver
             bool trumpFound = false;
             int trumpSuit = -1;
             string[] processedPlays = new string[1317520 + 2];
-            processedPlays[0] = "2\t4";
+            processedPlays[0] = "1\t5\t1317520";
             processedPlays[1] = "CardValue" + "\t" + "IndexInTrick" + "\t" + "NumTrumps" + "\t" + "NumAces" + "\t" + "NumSevens" + "\t" + "NumKings";
             int playCounter = 2;
 
