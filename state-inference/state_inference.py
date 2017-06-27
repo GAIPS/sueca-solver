@@ -21,7 +21,7 @@ def main():
         firstLine = file.readline()
         splitLine = firstLine.split(',')
         numPlayFeatures = int(splitLine[0])
-        numHandFeatures = int(splitLine[1])
+        numHandFeatures = int(splitLine[1]) + 1
         numSamples = int(splitLine[2])
         X = np.ones((numSamples, numHandFeatures )) #coef of 1 to w0
         # y = np.zeros((numSamples,numClasses))
@@ -53,7 +53,7 @@ def main():
         print("Mean squared error: %.2f" % np.mean((model.predict(X) - y) ** 2))
         #print('Variance score: %.2f' % regr.score(X, y))
 
-        print(model.predict_proba(X))
+        print(model.score(X,y))
 
         file.close()
     else:
