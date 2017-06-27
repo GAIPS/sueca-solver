@@ -5,7 +5,7 @@ FILES = $(wildcard shared-files/*.cs)
 GAMEMAIN=single-game/SingleGame.cs
 TESTMAIN=test/Test.cs
 WARMAIN=war/War.cs
-STINFOMAIN=state-inference/Program.cs
+STINFOMAIN=feature-extraction/Program.cs
 
 GAMEEXE=simgle-game.exe
 TESTEXE=test.exe
@@ -47,6 +47,7 @@ run-war:
 
 run-stinfo:
 	time $(RR) $(STINFO)
+
 
 clean:
 	rm -rf *.exe

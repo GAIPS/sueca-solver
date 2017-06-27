@@ -9,7 +9,7 @@ namespace SuecaSolver
         static int numFinishedGames = 0;
         static int numFinishedAndTrumpFound = 0;
         const string searchPattern = "*.log";
-        const string logsPath = "../../../sueca-logs";
+        const string logsPath = "sueca-logs";
 
         public static void Main()
         {
@@ -35,8 +35,8 @@ namespace SuecaSolver
             bool trumpFound = false;
             int trumpSuit = -1;
             string[] processedPlays = new string[1317520 + 2];
-            processedPlays[0] = "1\t5\t1317520";
-            processedPlays[1] = "CardValue" + "\t" + "IndexInTrick" + "\t" + "NumTrumps" + "\t" + "NumAces" + "\t" + "NumSevens" + "\t" + "NumKings";
+            processedPlays[0] = "1,5,1317480";
+            processedPlays[1] = "CardValue,IndexInTrick,NumTrumps,NumAces,NumSevens,NumKings";
             int playCounter = 2;
 
             foreach (var file in files)
@@ -149,7 +149,7 @@ namespace SuecaSolver
 
             Console.WriteLine("Finished games: " + numFinishedGames);
             Console.WriteLine("Finished games with trump: " + numFinishedAndTrumpFound);
-            Console.WriteLine("handCounter: " + playCounter);
+            Console.WriteLine("handCounter: " + (playCounter - 2));
         }
 
         private static void getPlayFeatures(ref string[] processedPlays, ref int playCounter, List<Move> game, List<int>[] playersHands, int trump)
@@ -159,11 +159,11 @@ namespace SuecaSolver
                 Move move = game[i];
 				string features = "";
                 features += Card.GetValue(move.Card);
-                features += "\t" + ((i % 4) + 1);
-                features += "\t" + Sueca.CountCardsFromSuit(playersHands[move.PlayerId], trump);
-				features += "\t" + Sueca.CountCardsFromRank(playersHands[move.PlayerId], (int) Rank.Ace);
-				features += "\t" + Sueca.CountCardsFromRank(playersHands[move.PlayerId], (int) Rank.Seven);
-				features += "\t" + Sueca.CountCardsFromRank(playersHands[move.PlayerId], (int) Rank.King);
+                features += "," + ((i % 4) + 1);
+                features += "," + Sueca.CountCardsFromSuit(playersHands[move.PlayerId], trump);
+				features += "," + Sueca.CountCardsFromRank(playersHands[move.PlayerId], (int) Rank.Ace);
+				features += "," + Sueca.CountCardsFromRank(playersHands[move.PlayerId], (int) Rank.Seven);
+				features += "," + Sueca.CountCardsFromRank(playersHands[move.PlayerId], (int) Rank.King);
                 processedPlays[playCounter] = features;
                 playersHands[move.PlayerId].Remove(move.Card);
                 playCounter++;
