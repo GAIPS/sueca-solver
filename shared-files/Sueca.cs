@@ -266,8 +266,10 @@ namespace SuecaSolver
             Console.WriteLine(str);
         }
 
-        public static string GetPlayLabel(Move move, int i, int leadSuit, int trump)
+        public static string GetPlayLabel(Move move, int i, List<Move> game, int trump)
         {
+            int leadSuit = Card.GetSuit(game[i - (i % 4)].Card);
+
             if ((i % 4) == 0) // Lead Play (aka new trick)
             {
                 if (Card.GetValue(move.Card) == 11)
@@ -346,6 +348,137 @@ namespace SuecaSolver
             }
         }
 
+        public static int ChooseCardFromLabel(int label, List<int> hand, int leadSuit, int trump)
+        {
+            int randomIndex;
+            if (label == 1 || label == 13) // LeadAce or NoFollowAce
+            {
+                if (Sueca.CountCardsFromRank(hand, (int)Rank.Ace) > 0)
+                {
+                    //TODO SHUFFLE IT
+                    return hand.Find(x => Card.GetRank(x) == (int)Rank.Ace);
+                }
+                else
+                {
+                    Console.WriteLine("Classification gave 1 and there is no Ace (" + label + ")");
+                    randomIndex = new Random().Next(0, hand.Count);
+                    return hand[randomIndex];
+                }
+            }
+            else if (label == 2 || label == 14) // LeadSeven or NoFollowSeven
+            {
+                if (Sueca.CountCardsFromRank(hand, (int)Rank.Seven) > 0)
+                {
+                    return hand.Find(x => Card.GetRank(x) == (int)Rank.Seven);
+                }
+                else
+                {
+                    Console.WriteLine("Classification gave 2 and there is no Seven (" + label + ")");
+                    randomIndex = new Random().Next(0, hand.Count);
+                    return hand[randomIndex];
+                }
+            }
+            else if (label == 4 || label == 16) // LeadZero or NoFolowZero
+            {
+                int chosen = hand.Find(x => Card.GetValue(x) == 0);
+                if (!hand.Contains(chosen))
+                {
+                    chosen = hand.Find(x => Card.GetValue(x) == 2);
+                    if (!hand.Contains(chosen))
+                    {
+                        chosen = hand.Find(x => Card.GetValue(x) == 3);
+                        if (!hand.Contains(chosen))
+                        {
+                            chosen = hand.Find(x => Card.GetValue(x) == 4);
+                            if (!hand.Contains(chosen))
+                            {
+                                Console.WriteLine("Classification gave 4 and there is no Zero (" + label + ")");
+                                randomIndex = new Random().Next(0, hand.Count);
+                                return hand[randomIndex];
+                            }
+                        }
+                    }
+                }
+                return chosen;
+            }
+            else if (label > 4 && label < 13) // Follow or Cut
+            {
+                List<int> possibleMoves;
+                int suitToPlay;
+                if (label < 9)
+                {
+                    possibleMoves = Sueca.PossibleMoves(hand, leadSuit);
+                    suitToPlay = leadSuit;
+                }
+                else
+                {
+                    possibleMoves = Sueca.PossibleMoves(hand, trump);
+                    suitToPlay = trump;
+                }
+                
+                if (possibleMoves.Count == 0)
+                {
+                    Console.WriteLine("Classification gave FollowPlay and there is no lead suit in possibleMoves (" + label + ")");
+                    randomIndex = new Random().Next(0, hand.Count);
+                    return hand[randomIndex];
+                }
+
+                if (label == 5 || label == 9) // FollowAce or CutAce
+                {
+                    if (Sueca.CountCardsFromRank(possibleMoves, (int)Rank.Ace) == 1)
+                    {
+                        return Card.Create(Rank.Ace, (Suit) suitToPlay);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Classification gave 5 and there is no Ace (" + label + ")");
+                        randomIndex = new Random().Next(0, hand.Count);
+                        return hand[randomIndex];
+                    }
+                }
+                else if (label == 6 || label == 10) // FollowSeven or CutSeven
+                {
+                    if (Sueca.CountCardsFromRank(possibleMoves, (int)Rank.Seven) == 1)
+                    {
+                        return Card.Create(Rank.Seven, (Suit)suitToPlay);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Classification gave 6 and there is no Seven (" + label + ")");
+                        randomIndex = new Random().Next(0, hand.Count);
+                        return hand[randomIndex];
+                    }
+                }
+                else if (label == 8 || label == 12) // Follow Zero
+                {
+                    int chosen = possibleMoves.Find(x => Card.GetValue(x) == 0);
+                    if (!possibleMoves.Contains(chosen))
+                    {
+                        chosen = possibleMoves.Find(x => Card.GetValue(x) == 2);
+                        if (!possibleMoves.Contains(chosen))
+                        {
+                            chosen = possibleMoves.Find(x => Card.GetValue(x) == 3);
+                            if (!possibleMoves.Contains(chosen))
+                            {
+                                chosen = possibleMoves.Find(x => Card.GetValue(x) == 4);
+                                if (!possibleMoves.Contains(chosen))
+                                {
+                                    Console.WriteLine("Classification gave 8 and there is no Zero (" + label + ")");
+                                    randomIndex = new Random().Next(0, hand.Count);
+                                    return hand[randomIndex];
+                                }
+                            }
+                        }
+                    }
+                    return chosen;
+                }
+            }
+           
+            Console.WriteLine("UNKNOWN CLASSIFICATION (" + label + ")");
+            randomIndex = new Random().Next(0, hand.Count);
+            return hand[randomIndex];
+        }
+
         public static bool IsCurrentTrickWinnerTeam(List<Move> game, int i, int trump, int playerID)
         {
             Trick currentTrick = new Trick(trump);
@@ -354,6 +487,90 @@ namespace SuecaSolver
                 currentTrick.ApplyMove(game[j]);
             }
             return currentTrick.GetCurrentTrickWinner() == playerID;
+        }
+
+        public static int[] GetFeaturesFromIthPlay(int playerID, List<int> playersHand, List<Move> game, int i, int trump)
+        {
+            List<int> playedCards = new List<int>();
+            for (int j = 0; j < i; j++)
+            {
+                playedCards.Add(game[j].Card);
+            }
+            int leadCard = game[i - (i % 4)].Card;
+            int leadSuit = Card.GetSuit(leadCard);
+
+            int[] features = new int[16];
+            features[0] = ((i % 4) + 1);
+            features[1] = Sueca.CountCardsFromSuit(playersHand, trump);
+            features[2] = Sueca.CountCardsFromRank(playersHand, (int)Rank.Ace);
+            features[3] = Sueca.CountCardsFromRank(playersHand, (int)Rank.Seven);
+            int countFigs = Sueca.CountCardsFromRank(playersHand, (int)Rank.King) + Sueca.CountCardsFromRank(playersHand, (int)Rank.Jack) + Sueca.CountCardsFromRank(playersHand, (int)Rank.Queen);
+            features[4] = countFigs;
+            features[5] = playersHand.Count;
+            int leadSuitCardsHand = Sueca.CountCardsFromSuit(playersHand, leadSuit);
+            features[6] = leadSuitCardsHand;
+            int playedLeadSuitCards = Sueca.CountCardsFromSuit(playedCards, leadSuit);
+            features[7] = playedLeadSuitCards;
+            int unplayedLeadSuitCards = 10 - playedLeadSuitCards - leadSuitCardsHand;
+            features[8] = unplayedLeadSuitCards;
+            if (Sueca.HasCard(playedCards, (int)Rank.Ace, leadSuit))
+            {
+                features[9] = 1;
+            }
+            else
+            {
+                features[9] = 0;
+            }
+            if (Sueca.HasCard(playedCards, (int)Rank.Seven, leadSuit))
+            {
+                features[10] = 1;
+            }
+            else
+            {
+                features[10] = 0;
+            }
+            if (Sueca.HasCard(playedCards, (int)Rank.King, leadSuit))
+            {
+                features[11] = 1;
+            }
+            else
+            {
+                features[11] = 0;
+            }
+            if (Sueca.HasCard(playedCards, (int)Rank.Ace, trump))
+            {
+                features[12] = 1;
+            }
+            else
+            {
+                features[12] = 0;
+            }
+            if (Sueca.HasCard(playedCards, (int)Rank.Seven, trump))
+            {
+                features[13] = 1;
+            }
+            else
+            {
+                features[13] = 0;
+            }
+            if (Sueca.HasCard(playedCards, (int)Rank.King, trump))
+            {
+                features[14] = 1;
+            }
+            else
+            {
+                features[14] = 0;
+            }
+            if (i == 0 || Sueca.IsCurrentTrickWinnerTeam(game, i, trump, playerID))
+            {
+                features[15] = 1;
+            }
+            else
+            {
+                features[15] = 0;
+            }
+
+            return features;
         }
     }
     

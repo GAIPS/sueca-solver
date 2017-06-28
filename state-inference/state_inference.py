@@ -59,7 +59,7 @@ def main():
 
         with open('weights.txt', 'wb') as file:
             for line in model.coef_:
-                line.tofile(file, sep=' ', format='%.2f')
+                line.tofile(file, sep=' ', format='%.6f')
                 file.write(b'\r\n')
 
 

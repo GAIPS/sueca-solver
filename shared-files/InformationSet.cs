@@ -65,6 +65,16 @@ namespace SuecaSolver
             tricks.Add(new Trick(Trump));
         }
 
+        internal int GetLeadSuit()
+        {
+            if (tricks.Count > 0)
+            {
+                Trick currentTrick = tricks[tricks.Count - 1];
+                return currentTrick.LeadSuit;
+            }
+            return (int)Suit.None;
+        }
+
         internal int GetCurrentTrickResponsible()
         {
             Trick currentTrick = tricks[tricks.Count - 1];

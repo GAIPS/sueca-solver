@@ -160,84 +160,18 @@ namespace SuecaSolver
             for (int i = 0; i < game.Count; i++)
             {
                 Move move = game[i];
-                Move leadMove = game[i - (i % 4)];
-                int leadSuit = Card.GetSuit(leadMove.Card);
                 int playerID = move.PlayerId;
 
                 //if (playerID == 0) // collect only human plays
                 {
-                    string features = "";
-                    features += Sueca.GetPlayLabel(move, i, leadSuit, trump);
-                    features += "," + ((i % 4) + 1);
-                    features += "," + Sueca.CountCardsFromSuit(playersHands[move.PlayerId], trump);
-                    features += "," + Sueca.CountCardsFromRank(playersHands[move.PlayerId], (int)Rank.Ace);
-                    features += "," + Sueca.CountCardsFromRank(playersHands[move.PlayerId], (int)Rank.Seven);
-                    int countFigs = Sueca.CountCardsFromRank(playersHands[move.PlayerId], (int)Rank.King) + Sueca.CountCardsFromRank(playersHands[move.PlayerId], (int)Rank.Jack) + Sueca.CountCardsFromRank(playersHands[move.PlayerId], (int)Rank.Queen);
-                    features += "," + countFigs;
-                    features += "," + playersHands[move.PlayerId].Count;
-                    int leadSuitCardsHand = Sueca.CountCardsFromSuit(playersHands[move.PlayerId], leadSuit);
-                    features += "," + leadSuitCardsHand;
-                    int playedLeadSuitCards = Sueca.CountCardsFromSuit(playedCards, leadSuit);
-                    features += "," + playedLeadSuitCards;
-                    int unplayedLeadSuitCards = 10 - playedLeadSuitCards - leadSuitCardsHand;
-                    features += "," + unplayedLeadSuitCards;
-                    if (Sueca.HasCard(playedCards, (int)Rank.Ace, leadSuit))
+                    string label = Sueca.GetPlayLabel(move, i, game, trump);
+                    int[] features = Sueca.GetFeaturesFromIthPlay(playerID, playersHands[playerID], game, i, trump);
+                    string stringOfFeatures = "" + label;
+                    for (int j = 0; j < features.Length; j++)
                     {
-                        features += ",1";
+                        stringOfFeatures += "," + features[j];
                     }
-                    else
-                    {
-                        features += ",0";
-                    }
-                    if (Sueca.HasCard(playedCards, (int)Rank.Seven, leadSuit))
-                    {
-                        features += ",1";
-                    }
-                    else
-                    {
-                        features += ",0";
-                    }
-                    if (Sueca.HasCard(playedCards, (int)Rank.King, leadSuit))
-                    {
-                        features += ",1";
-                    }
-                    else
-                    {
-                        features += ",0";
-                    }
-                    if (Sueca.HasCard(playedCards, (int)Rank.Ace, trump))
-                    {
-                        features += ",1";
-                    }
-                    else
-                    {
-                        features += ",0";
-                    }
-                    if (Sueca.HasCard(playedCards, (int)Rank.Seven, trump))
-                    {
-                        features += ",1";
-                    }
-                    else
-                    {
-                        features += ",0";
-                    }
-                    if (Sueca.HasCard(playedCards, (int)Rank.King, trump))
-                    {
-                        features += ",1";
-                    }
-                    else
-                    {
-                        features += ",0";
-                    }
-                    if (i == 0 || Sueca.IsCurrentTrickWinnerTeam(game, i, trump, playerID))
-                    {
-                        features += ",1";
-                    }
-                    else
-                    {
-                        features += ",0";
-                    }
-                    processedPlays[playCounter] = features;
+                    processedPlays[playCounter] = stringOfFeatures;
                     playCounter++;
                 }
 
