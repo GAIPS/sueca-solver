@@ -49,6 +49,7 @@
     <Compile Include="HybridPlayer.cs" />
     <Compile Include="Deck.cs" />
     <Compile Include="RBOPlayer.cs" />
+    <Compile Include="HumanPlayer.cs" />
     <Compile Include="SuecaGame.cs" />
     <Compile Include="InformationSet.cs" />
     <Compile Include="MaxNode.cs" />

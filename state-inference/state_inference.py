@@ -43,6 +43,7 @@ def main():
             y[i] = int(classification)
             line = file.readline()
             i += 1
+        file.close()
 
         model = linear_model.SGDClassifier(loss='log')
         borderLine = int(0.3 * totalSamples)
@@ -56,8 +57,12 @@ def main():
         print('precision: %.2f\n', prec)
         print('recall: %.2f\n', rec)
 
+        with open('weights.txt', 'wb') as file:
+            for line in model.coef_:
+                line.tofile(file, sep=' ', format='%.2f')
+                file.write(b'\r\n')
 
-        file.close()
+
     else:
         print('processedPlays file not found.')
         return
