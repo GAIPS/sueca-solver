@@ -4,10 +4,11 @@ import math
 import numpy as np
 from sklearn import linear_model
 import re
+from sklearn.metrics import precision_recall_fscore_support
 
 def main():
     processedhandsFile = Path('..\sueca-logs\processedPlays.txt')
-    numHands = 0
+    totalSamples = 0
     abstractHands = {}
     numPlayFeatures = 0
     numHandFeatures = 0
@@ -33,7 +34,7 @@ def main():
         line = file.readline()
         i = 0
         while line:
-            numHands += 1
+            totalSamples += 1
             line = line.replace('\n','')
             splitLine = line.split(',')
             classification = splitLine[0]
@@ -44,10 +45,17 @@ def main():
             i += 1
 
         model = linear_model.SGDClassifier(loss='log')
-        model.fit(X, y)
+        borderLine = int(0.3 * totalSamples)
+        model.fit(X[:borderLine], y[:borderLine])
+        print('Borderline: %i', borderLine)
         print('Coefficients: \n', model.coef_)
         print("Mean squared error: %.2f" % np.mean((model.predict(X) - y) ** 2))
-        print('Variance score: %.2f' % model.score(X, y))
+        print('Variance score: %.2f' % model.score(X[(borderLine+1):], y[(borderLine+1):]))
+        
+        prec, rec, fbeta, supp = precision_recall_fscore_support(y[(borderLine+1):], model.predict(X[(borderLine+1):]), labels=model.classes_)
+        print('precision: %.2f\n', prec)
+        print('recall: %.2f\n', rec)
+
 
         file.close()
     else:
