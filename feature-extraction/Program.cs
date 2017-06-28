@@ -34,10 +34,10 @@ namespace SuecaSolver
             int leadSuit = -1;
             bool trumpFound = false;
             int trumpSuit = -1;
-            //string[] processedPlays = new string[1317520 + 2];
-            //processedPlays[0] = "1,16,1317520";
-            string[] processedPlays = new string[329380 + 2];
-            processedPlays[0] = "1,16,329380";
+            string[] processedPlays = new string[1317520 + 2];
+            processedPlays[0] = "1,16,1317520";
+            //string[] processedPlays = new string[329380 + 2];
+            //processedPlays[0] = "1,16,329380";
             processedPlays[1] = "Label,IndexInTrick,NumTrumps,NumAces,NumSevens,NumFigs,Handsize,NumHandCardsLeadsuit,NumPlayedCardsLeadsuit,NumUnplayedCardsLeadsuit,IsPlayedAceLeadsuit,IsPlayedSevenLeadsuit,IsPlayedKingLeadsuit,IsPlayedAceTrump,IsPlayedSevenTrump,IsPlayedKingSuit,IsCurrentWinnerTeam";
             int playCounter = 2;
 
@@ -164,7 +164,7 @@ namespace SuecaSolver
                 int leadSuit = Card.GetSuit(leadMove.Card);
                 int playerID = move.PlayerId;
 
-                if (playerID == 0) // collect only human plays
+                //if (playerID == 0) // collect only human plays
                 {
                     string features = "";
                     features += Sueca.GetPlayLabel(move, i, leadSuit, trump);
