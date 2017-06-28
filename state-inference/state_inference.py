@@ -12,7 +12,7 @@ def main():
     numPlayFeatures = 0
     numHandFeatures = 0
     featuresName = []
-    playClassification = ['0','2','3','4','10','11']
+    playClassification = ['1','2','4','5','6','8','9','10','12','13','14','16']
     numClasses = len(playClassification)
     
     if processedhandsFile.is_file():

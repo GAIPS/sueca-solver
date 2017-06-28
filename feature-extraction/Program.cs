@@ -34,9 +34,11 @@ namespace SuecaSolver
             int leadSuit = -1;
             bool trumpFound = false;
             int trumpSuit = -1;
-            string[] processedPlays = new string[1317520 + 2];
-            processedPlays[0] = "1,5,1317520";
-            processedPlays[1] = "CardValue,IndexInTrick,NumTrumps,NumAces,NumSevens,NumKings";
+            //string[] processedPlays = new string[1317520 + 2];
+            //processedPlays[0] = "1,16,1317520";
+            string[] processedPlays = new string[329380 + 2];
+            processedPlays[0] = "1,16,329380";
+            processedPlays[1] = "Label,IndexInTrick,NumTrumps,NumAces,NumSevens,NumFigs,Handsize,NumHandCardsLeadsuit,NumPlayedCardsLeadsuit,NumUnplayedCardsLeadsuit,IsPlayedAceLeadsuit,IsPlayedSevenLeadsuit,IsPlayedKingLeadsuit,IsPlayedAceTrump,IsPlayedSevenTrump,IsPlayedKingSuit,IsCurrentWinnerTeam";
             int playCounter = 2;
 
             foreach (var file in files)
@@ -154,19 +156,93 @@ namespace SuecaSolver
 
         private static void getPlayFeatures(ref string[] processedPlays, ref int playCounter, List<Move> game, List<int>[] playersHands, int trump)
         {
-            for (int i = 0; i< game.Count; i++)
+            List<int> playedCards = new List<int>();
+            for (int i = 0; i < game.Count; i++)
             {
                 Move move = game[i];
-				string features = "";
-                features += Card.GetValue(move.Card);
-                features += "," + ((i % 4) + 1);
-                features += "," + Sueca.CountCardsFromSuit(playersHands[move.PlayerId], trump);
-				features += "," + Sueca.CountCardsFromRank(playersHands[move.PlayerId], (int) Rank.Ace);
-				features += "," + Sueca.CountCardsFromRank(playersHands[move.PlayerId], (int) Rank.Seven);
-				features += "," + Sueca.CountCardsFromRank(playersHands[move.PlayerId], (int) Rank.King);
-                processedPlays[playCounter] = features;
+                Move leadMove = game[i - (i % 4)];
+                int leadSuit = Card.GetSuit(leadMove.Card);
+                int playerID = move.PlayerId;
+
+                if (playerID == 0) // collect only human plays
+                {
+                    string features = "";
+                    features += Sueca.GetPlayLabel(move, i, leadSuit, trump);
+                    features += "," + ((i % 4) + 1);
+                    features += "," + Sueca.CountCardsFromSuit(playersHands[move.PlayerId], trump);
+                    features += "," + Sueca.CountCardsFromRank(playersHands[move.PlayerId], (int)Rank.Ace);
+                    features += "," + Sueca.CountCardsFromRank(playersHands[move.PlayerId], (int)Rank.Seven);
+                    int countFigs = Sueca.CountCardsFromRank(playersHands[move.PlayerId], (int)Rank.King) + Sueca.CountCardsFromRank(playersHands[move.PlayerId], (int)Rank.Jack) + Sueca.CountCardsFromRank(playersHands[move.PlayerId], (int)Rank.Queen);
+                    features += "," + countFigs;
+                    features += "," + playersHands[move.PlayerId].Count;
+                    int leadSuitCardsHand = Sueca.CountCardsFromSuit(playersHands[move.PlayerId], leadSuit);
+                    features += "," + leadSuitCardsHand;
+                    int playedLeadSuitCards = Sueca.CountCardsFromSuit(playedCards, leadSuit);
+                    features += "," + playedLeadSuitCards;
+                    int unplayedLeadSuitCards = 10 - playedLeadSuitCards - leadSuitCardsHand;
+                    features += "," + unplayedLeadSuitCards;
+                    if (Sueca.HasCard(playedCards, (int)Rank.Ace, leadSuit))
+                    {
+                        features += ",1";
+                    }
+                    else
+                    {
+                        features += ",0";
+                    }
+                    if (Sueca.HasCard(playedCards, (int)Rank.Seven, leadSuit))
+                    {
+                        features += ",1";
+                    }
+                    else
+                    {
+                        features += ",0";
+                    }
+                    if (Sueca.HasCard(playedCards, (int)Rank.King, leadSuit))
+                    {
+                        features += ",1";
+                    }
+                    else
+                    {
+                        features += ",0";
+                    }
+                    if (Sueca.HasCard(playedCards, (int)Rank.Ace, trump))
+                    {
+                        features += ",1";
+                    }
+                    else
+                    {
+                        features += ",0";
+                    }
+                    if (Sueca.HasCard(playedCards, (int)Rank.Seven, trump))
+                    {
+                        features += ",1";
+                    }
+                    else
+                    {
+                        features += ",0";
+                    }
+                    if (Sueca.HasCard(playedCards, (int)Rank.King, trump))
+                    {
+                        features += ",1";
+                    }
+                    else
+                    {
+                        features += ",0";
+                    }
+                    if (i == 0 || Sueca.IsCurrentTrickWinnerTeam(game, i, trump, playerID))
+                    {
+                        features += ",1";
+                    }
+                    else
+                    {
+                        features += ",0";
+                    }
+                    processedPlays[playCounter] = features;
+                    playCounter++;
+                }
+
+                playedCards.Add(move.Card);
                 playersHands[move.PlayerId].Remove(move.Card);
-                playCounter++;
             }
         }
     }

@@ -39,49 +39,35 @@ namespace SuecaSolver
         public const string PLAY_INFO_NOTFOLLOWING = "NOT_FOLLOWING";
         public const string PLAY_INFO_CUT = "CUT";
 
-        public static int CountPoints(List<int> playerHand)
+        public static int CountPoints(List<int> cardsList)
         {
             int result = 0;
-            for (int j = 0; j < playerHand.Count; j++)
+            for (int j = 0; j < cardsList.Count; j++)
             {
-                result += Card.GetValue(playerHand[j]);
+                result += Card.GetValue(cardsList[j]);
             }
             return result;
         }
 
-        public static int CountPointsFromSuit(List<int> playerHand, int suit)
+        public static int CountPointsFromSuit(List<int> cardsList, int suit)
         {
             int result = 0;
-            for (int j = 0; j < playerHand.Count; j++)
+            for (int j = 0; j < cardsList.Count; j++)
             {
-                if (Card.GetSuit(playerHand[j]) == suit)
+                if (Card.GetSuit(cardsList[j]) == suit)
                 {
-                    result += Card.GetValue(playerHand[j]);
+                    result += Card.GetValue(cardsList[j]);
                 }
             }
             return result;
         }
 
-        public static int CountCardsFromSuit(List<int> playerHand, int suit)
+        public static int CountCardsFromSuit(List<int> cardsList, int suit)
         {
             int result = 0;
-            for (int j = 0; j < playerHand.Count; j++)
+            for (int j = 0; j < cardsList.Count; j++)
             {
-                if (Card.GetSuit(playerHand[j]) == suit)
-                {
-                    result++;
-                }
-            }
-            return result;
-        }
-
-
-        public static int CountCardsFromRank(List<int> playerHand, int rank)
-        {
-            int result = 0;
-            for (int j = 0; j < playerHand.Count; j++)
-            {
-                if (Card.GetRank(playerHand[j]) == rank)
+                if (Card.GetSuit(cardsList[j]) == suit)
                 {
                     result++;
                 }
@@ -89,11 +75,25 @@ namespace SuecaSolver
             return result;
         }
 
-        public static bool HasTrumpAce(List<int> playerHand, int trump)
+
+        public static int CountCardsFromRank(List<int> cardsList, int rank)
         {
-            for (int j = 0; j < playerHand.Count; j++)
+            int result = 0;
+            for (int j = 0; j < cardsList.Count; j++)
             {
-                if (Card.GetRank(playerHand[j]) == (int)Rank.Ace && Card.GetSuit(playerHand[j]) == trump)
+                if (Card.GetRank(cardsList[j]) == rank)
+                {
+                    result++;
+                }
+            }
+            return result;
+        }
+
+        public static bool HasCard(List<int> cardsList, int rank, int suit)
+        {
+            for (int j = 0; j < cardsList.Count; j++)
+            {
+                if (Card.GetRank(cardsList[j]) == rank && Card.GetSuit(cardsList[j]) == suit)
                 {
                     return true;
                 }
@@ -101,14 +101,26 @@ namespace SuecaSolver
             return false;
         }
 
-        public static int CountSuits(List<int> playerHand)
+        public static bool HasTrumpAce(List<int> cardsList, int trump)
         {
-            playerHand.Sort();
+            for (int j = 0; j < cardsList.Count; j++)
+            {
+                if (Card.GetRank(cardsList[j]) == (int)Rank.Ace && Card.GetSuit(cardsList[j]) == trump)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static int CountSuits(List<int> cardsList)
+        {
+            cardsList.Sort();
             int result = 0;
             int lastSuit = (int)Suit.None;
-            for (int j = 0; j < playerHand.Count; j++)
+            for (int j = 0; j < cardsList.Count; j++)
             {
-                int cardSuit = Card.GetSuit(playerHand[j]);
+                int cardSuit = Card.GetSuit(cardsList[j]);
                 if (cardSuit != lastSuit)
                 {
                     lastSuit = cardSuit;
@@ -252,6 +264,96 @@ namespace SuecaSolver
                 str += Card.ToString(cards[i]) + ", ";
             }
             Console.WriteLine(str);
+        }
+
+        public static string GetPlayLabel(Move move, int i, int leadSuit, int trump)
+        {
+            if ((i % 4) == 0) // Lead Play (aka new trick)
+            {
+                if (Card.GetValue(move.Card) == 11)
+                {
+                    return "1"; // LeadAce
+                }
+                else if (Card.GetValue(move.Card) == 10)
+                {
+                    return "2"; // LeadSeven
+                }
+                //else if (Card.GetValue(move.Card) >= 2)
+                //{
+                //    return "3"; // LeadFig
+                //}
+                else
+                {
+                    return "4"; // LeadZero
+                }
+            }
+            else if (Card.GetSuit(move.Card) == leadSuit) // Folow
+            {
+                if (Card.GetValue(move.Card) == 11)
+                {
+                    return "5"; // FollowAce
+                }
+                else if (Card.GetValue(move.Card) == 10)
+                {
+                    return "6"; // FollowSeven
+                }
+                //else if (Card.GetValue(move.Card) >= 2)
+                //{
+                //    return "7"; // FollowFig
+                //}
+                else
+                {
+                    return "8"; // FollowZero
+                }
+            }
+            else if (Card.GetSuit(move.Card) == trump) // Cut
+            {
+                if (Card.GetValue(move.Card) == 11)
+                {
+                    return "9"; // CutAce
+                }
+                else if (Card.GetValue(move.Card) == 10)
+                {
+                    return "10"; // CutSeven
+                }
+                //else if (Card.GetValue(move.Card) >= 2)
+                //{
+                //    return "11"; // CutFig
+                //}
+                else
+                {
+                    return "12"; // CutZero
+                }
+            }
+            else // No Follow
+            {
+                if (Card.GetValue(move.Card) == 11)
+                {
+                    return "13"; // NoFollowAce
+                }
+                else if (Card.GetValue(move.Card) == 10)
+                {
+                    return "14"; // NoFollowSeven
+                }
+                //else if (Card.GetValue(move.Card) >= 2)
+                //{
+                //    return "15"; // NoFollowFig
+                //}
+                else
+                {
+                    return "16"; // NoFollowZero
+                }
+            }
+        }
+
+        public static bool IsCurrentTrickWinnerTeam(List<Move> game, int i, int trump, int playerID)
+        {
+            Trick currentTrick = new Trick(trump);
+            for (int j = (i - (i % 4)); j < i; j++)
+            {
+                currentTrick.ApplyMove(game[j]);
+            }
+            return currentTrick.GetCurrentTrickWinner() == playerID;
         }
     }
     
