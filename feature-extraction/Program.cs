@@ -9,7 +9,7 @@ namespace SuecaSolver
         static int numFinishedGames = 0;
         static int numFinishedAndTrumpFound = 0;
         const string searchPattern = "*.log";
-        const string logsPath = "sueca-logs";
+        const string logsPath = "../../../sueca-logs";
 
         public static void Main()
         {
@@ -35,7 +35,7 @@ namespace SuecaSolver
             bool trumpFound = false;
             int trumpSuit = -1;
             string[] processedPlays = new string[1317520 + 2];
-            processedPlays[0] = "1,5,1317480";
+            processedPlays[0] = "1,5,1317520";
             processedPlays[1] = "CardValue,IndexInTrick,NumTrumps,NumAces,NumSevens,NumKings";
             int playCounter = 2;
 
@@ -145,7 +145,7 @@ namespace SuecaSolver
                 }
             }
 
-            System.IO.File.WriteAllLines(logsPath + "/processedPlays.txt", processedPlays);
+            System.IO.File.WriteAllLines(logsPath + "\\processedPlays.txt", processedPlays);
 
             Console.WriteLine("Finished games: " + numFinishedGames);
             Console.WriteLine("Finished games with trump: " + numFinishedAndTrumpFound);

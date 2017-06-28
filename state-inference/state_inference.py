@@ -6,7 +6,7 @@ from sklearn import linear_model
 import re
 
 def main():
-    # processedhandsFile = Path('sueca-logs/processedPlays.txt')
+    processedhandsFile = Path('..\sueca-logs\processedPlays.txt')
     numHands = 0
     abstractHands = {}
     numPlayFeatures = 0
@@ -15,16 +15,14 @@ def main():
     playClassification = ['0','2','3','4','10','11']
     numClasses = len(playClassification)
     
-    # if processedhandsFile.is_file():
-    if True:
-        file = open('sueca-logs/processedPlays.txt','r') 
+    if processedhandsFile.is_file():
+        file = open('..\sueca-logs\processedPlays.txt','r') 
         firstLine = file.readline()
         splitLine = firstLine.split(',')
         numPlayFeatures = int(splitLine[0])
         numHandFeatures = int(splitLine[1]) + 1
         numSamples = int(splitLine[2])
-        X = np.ones((numSamples, numHandFeatures )) #coef of 1 to w0
-        # y = np.zeros((numSamples,numClasses))
+        X = np.ones((numSamples, numHandFeatures)) #coef of 1 to w0
         y = np.zeros(numSamples)
 
         secondLine = file.readline()
@@ -34,15 +32,13 @@ def main():
 
         line = file.readline()
         i = 0
-        while line != '\n':
+        while line:
             numHands += 1
             line = line.replace('\n','')
             splitLine = line.split(',')
             classification = splitLine[0]
             handFeatures = splitLine[1:]
-            X[i] = handFeatures
-            # classIndex = playClassification.index(classification)
-            # y[i][classIndex] = 1
+            X[i][:-1] = handFeatures
             y[i] = int(classification)
             line = file.readline()
             i += 1
@@ -51,9 +47,7 @@ def main():
         model.fit(X, y)
         print('Coefficients: \n', model.coef_)
         print("Mean squared error: %.2f" % np.mean((model.predict(X) - y) ** 2))
-        #print('Variance score: %.2f' % regr.score(X, y))
-
-        print(model.score(X,y))
+        print('Variance score: %.2f' % model.score(X, y))
 
         file.close()
     else:
