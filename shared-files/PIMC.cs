@@ -43,14 +43,14 @@ namespace SuecaSolver
                 depthLimit = 1;
             }
 
-            var watch = Stopwatch.StartNew();
+            //var watch = Stopwatch.StartNew();
             for (int i = 0; i < N; i++)
             {
-                if (watch.ElapsedMilliseconds > Sueca.MAX_MILISEC_DELIBERATION)
-                {
-                    watch.Stop();
-                    return infoSet.RuleBasedDecision();
-                }
+                //if (watch.ElapsedMilliseconds > Sueca.MAX_MILISEC_DELIBERATION)
+                //{
+                //    watch.Stop();
+                //    return infoSet.RuleBasedDecision();
+                //}
 
                 List<List<int>> playersHands = infoSet.Sample();
 
@@ -76,6 +76,14 @@ namespace SuecaSolver
                         RuleBasedNode p3 = new RuleBasedNode((playerId + 3) % 4, playersHands[3], infoSet.TrumpCard, infoSet.TrumpPlayerId);
                         game = new PerfectInformationGame(p0, p1, p2, p3, infoSet.Trump, infoSet.GetPastMoves(), infoSet.MyTeamPoints, infoSet.OtherTeamPoints);
                     }
+                    else if (version == 2)
+                    {
+                        RandomNode p0 = new RandomNode(playerId, playersHands[0], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                        RandomNode p1 = new RandomNode((playerId + 1) % 4, playersHands[1], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                        RandomNode p2 = new RandomNode((playerId + 2) % 4, playersHands[2], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                        RandomNode p3 = new RandomNode((playerId + 3) % 4, playersHands[3], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                        game = new PerfectInformationGame(p0, p1, p2, p3, infoSet.Trump, infoSet.GetPastMoves(), infoSet.MyTeamPoints, infoSet.OtherTeamPoints);
+                    }
                     else
                     {
                         Console.WriteLine("PIMC::Execute >> Undefinied version of the algorithm.");
@@ -94,7 +102,7 @@ namespace SuecaSolver
                     dict[card] += cardUtility; 
                 }
             }
-            watch.Stop();
+            //watch.Stop();
 
 
             int bestCard = -1;

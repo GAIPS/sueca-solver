@@ -13,6 +13,7 @@ namespace SuecaSolver
         private float[][] weightsPerClass;
         private int numClasses = 12;
         private int numFeatures = 17;
+        private int[] classes = new int[] { 1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 16};
 
         public HumanPlayer(int id, List<int> initialHand, int trumpCard, int trumpPlayerId)
             : base(id)
@@ -80,7 +81,8 @@ namespace SuecaSolver
                 }
             }
 
-            return Sueca.ChooseCardFromLabel(classIndex, hand, infoSet.GetLeadSuit(), trumpSuit);
+            int classification = classes[classIndex];
+            return Sueca.ChooseCardFromLabel(classification, hand, infoSet.GetLeadSuit(), trumpSuit);
         }
 
         public int[] GetWinnerAndPointsAndTrickNumber()

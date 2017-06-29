@@ -178,6 +178,7 @@ namespace SuecaSolver
                 playedCards.Add(move.Card);
                 playersHands[move.PlayerId].Remove(move.Card);
             }
+
         }
     }
 }
