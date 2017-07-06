@@ -199,6 +199,30 @@ namespace SuecaSolver
             List<int> result = new List<int>();
             if (leadSuit == (int)Suit.None)
             {
+                return hand;
+            }
+
+            foreach (int card in hand)
+            {
+                if (Card.GetSuit(card) == leadSuit)
+                {
+                    result.Add(card);
+                }
+            }
+
+            if (result.Count > 0)
+            {
+                return result;
+            }
+            return hand;
+        }
+
+
+        public static List<int> PossibleMovesReduced(List<int> hand, int leadSuit)
+        {
+            List<int> result = new List<int>();
+            if (leadSuit == (int)Suit.None)
+            {
                 return removeEquivalentMoves(new List<int>(hand));
             }
 
@@ -402,12 +426,12 @@ namespace SuecaSolver
                 int suitToPlay;
                 if (label < 9)
                 {
-                    possibleMoves = Sueca.PossibleMoves(hand, leadSuit);
+                    possibleMoves = Sueca.PossibleMovesReduced(hand, leadSuit);
                     suitToPlay = leadSuit;
                 }
                 else
                 {
-                    possibleMoves = Sueca.PossibleMoves(hand, trump);
+                    possibleMoves = Sueca.PossibleMovesReduced(hand, trump);
                     suitToPlay = trump;
                 }
                 
@@ -477,15 +501,23 @@ namespace SuecaSolver
             return currentTrickWinner == playerID || currentTrickWinner == ((playerID + 2) % 4);
         }
 
-        public static int[] GetFeaturesFromIthPlay(int playerID, List<int> playersHand, List<Move> game, int i, int trump)
+        public static int[] GetFeaturesFromState(int playerID, List<int> playersHand, List<Move> game, int i, int trump)
         {
             List<int> playedCards = new List<int>();
             for (int j = 0; j < i; j++)
             {
                 playedCards.Add(game[j].Card);
             }
-            int leadCard = game[i - (i % 4)].Card;
-            int leadSuit = Card.GetSuit(leadCard);
+            int leadSuit;
+            if (i > 0)
+            {
+                int leadCard = game[i - (i % 4)].Card;
+                leadSuit = Card.GetSuit(leadCard);
+            }
+            else
+            {
+                leadSuit = (int)Suit.None;
+            }
 
             int[] features = new int[16];
             features[0] = ((i % 4) + 1);

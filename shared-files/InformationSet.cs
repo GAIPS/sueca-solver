@@ -117,7 +117,7 @@ namespace SuecaSolver
         public List<int> GetPossibleMoves()
         {
             Trick currentTrick = tricks[tricks.Count - 1];
-            return Sueca.PossibleMoves(hand, currentTrick.LeadSuit);
+            return Sueca.PossibleMovesReduced(hand, currentTrick.LeadSuit);
         }
 
         public void AddPlay(int playerID, int card)

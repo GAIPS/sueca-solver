@@ -35,7 +35,7 @@ namespace SuecaSolver
                 leadSuit = (int)Suit.None;
             }
 
-            List<int> possibleMoves = Sueca.PossibleMoves(hand, leadSuit);
+            List<int> possibleMoves = Sueca.PossibleMovesReduced(hand, leadSuit);
             int randomIndex = randomNumber.Next(0, possibleMoves.Count);
             int chosenCard = possibleMoves[randomIndex];
             hand.Remove(chosenCard);

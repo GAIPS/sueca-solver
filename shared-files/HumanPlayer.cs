@@ -13,7 +13,23 @@ namespace SuecaSolver
         private float[][] weightsPerClass;
         private int numClasses = 12;
         private int numFeatures = 17;
-        private int[] classes = new int[] { 1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 16};
+        private int[] classes = new int[] { 1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 16 };
+        private List<KeyValuePair<int,float>> classProb = new List<KeyValuePair<int, float>>
+        {
+            new KeyValuePair<int, float>(1, 0),
+            new KeyValuePair<int, float>(2, 0),
+            new KeyValuePair<int, float>(4, 0),
+            new KeyValuePair<int, float>(5, 0),
+            new KeyValuePair<int, float>(6, 0),
+            new KeyValuePair<int, float>(8, 0),
+            new KeyValuePair<int, float>(9, 0),
+            new KeyValuePair<int, float>(10, 0),
+            new KeyValuePair<int, float>(12, 0),
+            new KeyValuePair<int, float>(13, 0),
+            new KeyValuePair<int, float>(14, 0),
+            new KeyValuePair<int, float>(16, 0)
+        };
+        private List<int> followClasses = new List<int> { 5, 6, 8};
 
         public HumanPlayer(int id, List<int> initialHand, int trumpCard, int trumpPlayerId)
             : base(id)
@@ -48,41 +64,57 @@ namespace SuecaSolver
             currentPlayIndex++;
         }
 
+        public class ClassProbComparer : IComparer<KeyValuePair<int,float>>
+        {
+            public int Compare(KeyValuePair<int, float> a, KeyValuePair<int, float> b)
+            {
+                if (b.Value > a.Value)
+                    return 0;
+                if ((a.Value > b.Value) || (a.Value == b.Value))
+                    return -1;
+
+                return 1;
+            }
+        }
 
         override public int Play()
         {
-            float[] classesProba = new float[numClasses];
-            int[] features = Sueca.GetFeaturesFromIthPlay(_id, hand, game, currentPlayIndex, trumpSuit);
+            List<int> possibleMoves = Sueca.PossibleMoves(hand, infoSet.GetLeadSuit());
+
+            int[] features = Sueca.GetFeaturesFromState(_id, hand, game, currentPlayIndex - 1, trumpSuit);
 
             for (int i = 0; i < weightsPerClass.Length; i++)
             {
-                classesProba[i] = 0;
+                float total = 0;
                 for (int j = 0; j < weightsPerClass[i].Length; j++)
                 {
                     if (j == weightsPerClass[i].Length - 1)
                     {
-                        classesProba[i] += weightsPerClass[i][j];
+                        total += weightsPerClass[i][j];
                     }
                     else
                     {
-                        classesProba[i] += features[j] * weightsPerClass[i][j];
+                        total += features[j] * weightsPerClass[i][j];
                     }
                 }
+                classProb.Add(new KeyValuePair<int, float>(classes[i], total));
             }
 
-            float max = float.MinValue;
-            int classIndex = 0;
-            for (int i = 0; i < classesProba.Length; i++)
-            {
-                if (classesProba[i] > max)
-                {
-                    max = classesProba[i];
-                    classIndex = i;
-                }
-            }
+            classProb.Sort(new ClassProbComparer());
+
+            //float max = float.MinValue;
+            //int classIndex = 0;
+            //for (int i = 0; i < classesProba.Length; i++)
+            //{
+            //    if (classesProba[i] > max && (possibleMoves.Count == hand.Count || followClasses.Contains(classes[i])))
+            //    {
+            //        max = classesProba[i];
+            //        classIndex = i;
+            //    }
+            //}
 
             int classification = classes[classIndex];
-            return Sueca.ChooseCardFromLabel(classification, hand, infoSet.GetLeadSuit(), trumpSuit);
+            return Sueca.ChooseCardFromLabel(classification, possibleMoves, infoSet.GetLeadSuit(), trumpSuit);
         }
 
         public int[] GetWinnerAndPointsAndTrickNumber()

@@ -32,7 +32,7 @@ namespace SuecaSolver
 
             if (card == -1)
             {
-                cards = Sueca.PossibleMoves(Hand, pig.GetLeadSuit());
+                cards = Sueca.PossibleMovesReduced(Hand, pig.GetLeadSuit());
                 pig.orderPossibleMoves(cards, Id);
             }
             else

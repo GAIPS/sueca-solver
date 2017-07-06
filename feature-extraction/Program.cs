@@ -165,7 +165,7 @@ namespace SuecaSolver
                 //if (playerID == 0) // collect only human plays
                 {
                     string label = Sueca.GetPlayLabel(move, i, game, trump);
-                    int[] features = Sueca.GetFeaturesFromIthPlay(playerID, playersHands[playerID], game, i, trump);
+                    int[] features = Sueca.GetFeaturesFromState(playerID, playersHands[playerID], game, i, trump);
                     string stringOfFeatures = "" + label;
                     for (int j = 0; j < features.Length; j++)
                     {
