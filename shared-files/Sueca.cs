@@ -383,12 +383,14 @@ namespace SuecaSolver
                     randomIndex = new Random().Next(0, acesList.Count);
                     return acesList[randomIndex];
                 }
-                else
-                {
-                    Console.WriteLine("Classification gave 1 or 13 and there is no Ace (" + label + ")");
-                    randomIndex = new Random().Next(0, hand.Count);
-                    return hand[randomIndex];
-                }
+
+                return -1;
+                //else
+                //{
+                //    Console.WriteLine("Classification gave 1 or 13 and there is no Ace (" + label + ")");
+                //    randomIndex = new Random().Next(0, hand.Count);
+                //    return hand[randomIndex];
+                //}
             }
             else if (label == 2 || label == 14) // LeadSeven or NoFollowSeven
             {
@@ -398,12 +400,14 @@ namespace SuecaSolver
                     randomIndex = new Random().Next(0, sevensList.Count);
                     return sevensList[randomIndex];
                 }
-                else
-                {
-                    Console.WriteLine("Classification gave 2 or 14 and there is no Seven (" + label + ")");
-                    randomIndex = new Random().Next(0, hand.Count);
-                    return hand[randomIndex];
-                }
+
+                return -1;
+                //else
+                //{
+                //    Console.WriteLine("Classification gave 2 or 14 and there is no Seven (" + label + ")");
+                //    randomIndex = new Random().Next(0, hand.Count);
+                //    return hand[randomIndex];
+                //}
             }
             else if (label == 4 || label == 16) // LeadZero or NoFolowZero
             {
@@ -413,12 +417,14 @@ namespace SuecaSolver
                     randomIndex = new Random().Next(0, zeroList.Count);
                     return zeroList[randomIndex];
                 }
-                else
-                {
-                    Console.WriteLine("Classification gave 4 or 16 and there is no Zero (" + label + ")");
-                    randomIndex = new Random().Next(0, hand.Count);
-                    return hand[randomIndex];
-                }
+
+                return -1;
+                //else
+                //{
+                //    Console.WriteLine("Classification gave 4 or 16 and there is no Zero (" + label + ")");
+                //    randomIndex = new Random().Next(0, hand.Count);
+                //    return hand[randomIndex];
+                //}
             }
             else if (label > 4 && label < 13) // Follow or Cut
             {
@@ -435,12 +441,12 @@ namespace SuecaSolver
                     suitToPlay = trump;
                 }
                 
-                if (possibleMoves.Count == 0)
-                {
-                    Console.WriteLine("Classification gave Follow or Cut and there is no such suit in possibleMoves (" + label + ")");
-                    randomIndex = new Random().Next(0, hand.Count);
-                    return hand[randomIndex];
-                }
+                //if (possibleMoves.Count == 0)
+                //{
+                    //Console.WriteLine("Classification gave Follow or Cut and there is no such suit in possibleMoves (" + label + ")");
+                    //randomIndex = new Random().Next(0, hand.Count);
+                    //return hand[randomIndex];
+                //}
 
                 if (label == 5 || label == 9) // FollowAce or CutAce
                 {
@@ -448,12 +454,14 @@ namespace SuecaSolver
                     {
                         return Card.Create(Rank.Ace, (Suit) suitToPlay);
                     }
-                    else
-                    {
-                        Console.WriteLine("Classification gave 5 or 9 and there is no Ace (" + label + ")");
-                        randomIndex = new Random().Next(0, hand.Count);
-                        return hand[randomIndex];
-                    }
+
+                    return -1;
+                    //else
+                    //{
+                    //    Console.WriteLine("Classification gave 5 or 9 and there is no Ace (" + label + ")");
+                    //    randomIndex = new Random().Next(0, hand.Count);
+                    //    return hand[randomIndex];
+                    //}
                 }
                 else if (label == 6 || label == 10) // FollowSeven or CutSeven
                 {
@@ -461,12 +469,14 @@ namespace SuecaSolver
                     {
                         return Card.Create(Rank.Seven, (Suit)suitToPlay);
                     }
-                    else
-                    {
-                        Console.WriteLine("Classification gave 6 or 10and there is no Seven (" + label + ")");
-                        randomIndex = new Random().Next(0, hand.Count);
-                        return hand[randomIndex];
-                    }
+
+                    return -1;
+                    //else
+                    //{
+                    //    Console.WriteLine("Classification gave 6 or 10and there is no Seven (" + label + ")");
+                    //    randomIndex = new Random().Next(0, hand.Count);
+                    //    return hand[randomIndex];
+                    //}
                 }
                 else if (label == 8 || label == 12) // Follow Zero
                 {
@@ -476,12 +486,14 @@ namespace SuecaSolver
                         randomIndex = new Random().Next(0, zeroList.Count);
                         return zeroList[randomIndex];
                     }
-                    else
-                    {
-                        Console.WriteLine("Classification gave 8 or 12 and there is no Zero (" + label + ")");
-                        randomIndex = new Random().Next(0, hand.Count);
-                        return hand[randomIndex];
-                    }
+
+                    return -1;
+                    //else
+                    //{
+                    //    Console.WriteLine("Classification gave 8 or 12 and there is no Zero (" + label + ")");
+                    //    randomIndex = new Random().Next(0, hand.Count);
+                    //    return hand[randomIndex];
+                    //}
                 }
             }
            

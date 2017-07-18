@@ -14,21 +14,7 @@ namespace SuecaSolver
         private int numClasses = 12;
         private int numFeatures = 17;
         private int[] classes = new int[] { 1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 16 };
-        private List<KeyValuePair<int,float>> classProb = new List<KeyValuePair<int, float>>
-        {
-            new KeyValuePair<int, float>(1, 0),
-            new KeyValuePair<int, float>(2, 0),
-            new KeyValuePair<int, float>(4, 0),
-            new KeyValuePair<int, float>(5, 0),
-            new KeyValuePair<int, float>(6, 0),
-            new KeyValuePair<int, float>(8, 0),
-            new KeyValuePair<int, float>(9, 0),
-            new KeyValuePair<int, float>(10, 0),
-            new KeyValuePair<int, float>(12, 0),
-            new KeyValuePair<int, float>(13, 0),
-            new KeyValuePair<int, float>(14, 0),
-            new KeyValuePair<int, float>(16, 0)
-        };
+        private List<KeyValuePair<int,float>> classProbs = new List<KeyValuePair<int, float>>();
         private List<int> followClasses = new List<int> { 5, 6, 8};
 
         public HumanPlayer(int id, List<int> initialHand, int trumpCard, int trumpPlayerId)
@@ -69,11 +55,14 @@ namespace SuecaSolver
             public int Compare(KeyValuePair<int, float> a, KeyValuePair<int, float> b)
             {
                 if (b.Value > a.Value)
-                    return 0;
-                if ((a.Value > b.Value) || (a.Value == b.Value))
+                {
+                    return 1;
+                }
+                if (b.Value < a.Value)
+                {
                     return -1;
-
-                return 1;
+                }
+                return 0;
             }
         }
 
@@ -97,10 +86,10 @@ namespace SuecaSolver
                         total += features[j] * weightsPerClass[i][j];
                     }
                 }
-                classProb.Add(new KeyValuePair<int, float>(classes[i], total));
+                classProbs.Add(new KeyValuePair<int, float>(classes[i], total));
             }
 
-            classProb.Sort(new ClassProbComparer());
+            classProbs.Sort(new ClassProbComparer());
 
             //float max = float.MinValue;
             //int classIndex = 0;
@@ -113,8 +102,19 @@ namespace SuecaSolver
             //    }
             //}
 
-            int classification = classes[classIndex];
-            return Sueca.ChooseCardFromLabel(classification, possibleMoves, infoSet.GetLeadSuit(), trumpSuit);
+            foreach (var classificationProb in classProbs)
+            {
+                int classification = classificationProb.Key;
+                int card = Sueca.ChooseCardFromLabel(classification, possibleMoves, infoSet.GetLeadSuit(), trumpSuit);
+                if (card != -1)
+                {
+                    return card;
+                }
+            }
+
+            Console.WriteLine("No other classification is suitable for choosing a card.");
+            int randomIndex = new Random().Next(0, hand.Count);
+            return hand[randomIndex];
         }
 
         public int[] GetWinnerAndPointsAndTrickNumber()
