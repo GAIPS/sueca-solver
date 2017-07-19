@@ -68,6 +68,7 @@ namespace SuecaSolver
 
         override public int Play()
         {
+            classProbs = new List<KeyValuePair<int, float>>();
             List<int> possibleMoves = Sueca.PossibleMoves(hand, infoSet.GetLeadSuit());
 
             int[] features = Sueca.GetFeaturesFromState(_id, hand, game, currentPlayIndex - 1, trumpSuit);
@@ -90,17 +91,6 @@ namespace SuecaSolver
             }
 
             classProbs.Sort(new ClassProbComparer());
-
-            //float max = float.MinValue;
-            //int classIndex = 0;
-            //for (int i = 0; i < classesProba.Length; i++)
-            //{
-            //    if (classesProba[i] > max && (possibleMoves.Count == hand.Count || followClasses.Contains(classes[i])))
-            //    {
-            //        max = classesProba[i];
-            //        classIndex = i;
-            //    }
-            //}
 
             foreach (var classificationProb in classProbs)
             {
