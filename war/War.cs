@@ -8,8 +8,8 @@ namespace SuecaSolver
 {
     public class War
     {
-        public const int GAMEMODE = 7;
-        public const int NUMGAMES = 100;
+        public const int GAMEMODE = 6;
+        public const int NUMGAMES = 10;
         public const bool PARALLEL = true;
         public const int NUM_THREADS = 4;
         //public const int NUM_THREADS = Sueca.WAR_NUM_THREADS;
