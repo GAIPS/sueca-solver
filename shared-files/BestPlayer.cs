@@ -21,7 +21,7 @@ namespace SuecaSolver
 
         override public int Play()
         {
-            return PIMC.Execute(_id, infoSet, 2, new List<int> { 50, 50, 500, 1000, 1000, 1000, 1000, 1000, 1000, 1000 });
+            return PIMC.Execute(_id, infoSet, 2, new List<int> { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 });
         }
 
         public int[] GetWinnerAndPointsAndTrickNumber()

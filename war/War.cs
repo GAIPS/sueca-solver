@@ -8,14 +8,14 @@ namespace SuecaSolver
 {
     public class War
     {
-        public const int GAMEMODE = 8;
-        public const int NUMGAMES = 10000;
-        public const bool PARALLEL = false;
-        public const int NUM_THREADS = 2;
+        public const int GAMEMODE = 7;
+        public const int NUMGAMES = 100;
+        public const bool PARALLEL = true;
+        public const int NUM_THREADS = 4;
         //public const int NUM_THREADS = Sueca.WAR_NUM_THREADS;
         public const bool SAVE_CARDS = false; //if true log file will contain intial cards of players otherwise will contain specific features
         ////public const string SAVE_DIR = @"Z:\Devel\sueca-solver\results\";
-        public const string SAVE_DIR = @"C:\temp\";
+        public const string SAVE_DIR = @"Z:\save\";
         //public const string SAVE_DIR = "results/";
 
         public static void Main(string[] args)
@@ -142,8 +142,7 @@ namespace SuecaSolver
             if (saveCards)
             {
                 System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(SAVE_DIR);
-                int count = dir.GetFiles("log*.txt").Length;
-                using (System.IO.StreamWriter file = new System.IO.StreamWriter(SAVE_DIR + "log" + count + ".txt"))
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(SAVE_DIR + "log" + DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString() + "-" + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + ".txt"))
                 {
                     file.WriteLine("Mode: " + GAMEMODE + " #Games: " + numGames);
 
@@ -169,6 +168,19 @@ namespace SuecaSolver
                         }
                         file.WriteLine("");
                     }
+                }
+            }
+            else
+            {
+                System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(SAVE_DIR);
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(SAVE_DIR + "log" + DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString() + "-" + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + ".txt"))
+                {
+                    file.WriteLine("Mode: " + GAMEMODE + " #Games: " + numGames);
+                    file.WriteLine("----------------- Summary -----------------");
+                    file.WriteLine("FirstTeam won " + firstTeamWins + "/" + numGames);
+                    file.WriteLine("SecondTeam 1 won " + secondTeamWins + "/" + numGames);
+                    file.WriteLine("Draws " + draws + "/" + numGames);
+                    file.WriteLine("Null Games " + nullGames);
                 }
             }
 
