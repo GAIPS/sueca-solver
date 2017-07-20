@@ -8,9 +8,9 @@ namespace SuecaSolver
 {
     public class War
     {
-        public const int GAMEMODE = 5;
+        public const int GAMEMODE = 9;
         public const int NUMGAMES = 1000;
-        public const bool PARALLEL = false;
+        public const bool PARALLEL = true;
         public const int NUM_THREADS = 2;
         //public const int NUM_THREADS = Sueca.WAR_NUM_THREADS;
         public const bool SAVE_CARDS = false; //if true log file will contain intial cards of players otherwise will contain specific features

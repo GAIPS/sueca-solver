@@ -1,0 +1,6 @@
+Mode: 5 #Games: 1000
+----------------- Summary -----------------
+FirstTeam won 472/1000
+SecondTeam 1 won 511/1000
+Draws 17/1000
+Null Games 0

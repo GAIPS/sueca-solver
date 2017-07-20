@@ -1,0 +1,7 @@
+U1
+Mode: 5 (N=10,RBN) #Games: 1000
+----------------- Summary -----------------
+FirstTeam won 591/1000
+SecondTeam 1 won 395/1000
+Draws 14/1000
+Null Games 0
