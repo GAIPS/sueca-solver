@@ -15,7 +15,11 @@ namespace SuecaSolver
 
         public override int PlayGame(PerfectInformationGame pig, int alpha, int beta, int depthLimit, int card = -1)
         {
-            if (pig.IsEndGame())
+            if (Sueca.UTILITY_FUNC == 2 && pig.IsAnyTeamWinning())
+            {
+                return pig.EvalGame2();
+            }
+            if (pig.reachedDepthLimit(depthLimit) || pig.IsEndGame())
             {
                 return pig.EvalGame1();
             }

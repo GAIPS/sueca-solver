@@ -70,7 +70,7 @@ namespace SuecaSolver
                     }
                     else if(version == 1)
                     {
-                        MaxNode p0 = new MaxNode(playerId, playersHands[0], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                        RuleBasedNode p0 = new RuleBasedNode(playerId, playersHands[0], infoSet.TrumpCard, infoSet.TrumpPlayerId);
                         RuleBasedNode p1 = new RuleBasedNode((playerId + 1) % 4, playersHands[1], infoSet.TrumpCard, infoSet.TrumpPlayerId);
                         RuleBasedNode p2 = new RuleBasedNode((playerId + 2) % 4, playersHands[2], infoSet.TrumpCard, infoSet.TrumpPlayerId);
                         RuleBasedNode p3 = new RuleBasedNode((playerId + 3) % 4, playersHands[3], infoSet.TrumpCard, infoSet.TrumpPlayerId);
@@ -82,6 +82,14 @@ namespace SuecaSolver
                         RandomNode p1 = new RandomNode((playerId + 1) % 4, playersHands[1], infoSet.TrumpCard, infoSet.TrumpPlayerId);
                         RandomNode p2 = new RandomNode((playerId + 2) % 4, playersHands[2], infoSet.TrumpCard, infoSet.TrumpPlayerId);
                         RandomNode p3 = new RandomNode((playerId + 3) % 4, playersHands[3], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                        game = new PerfectInformationGame(p0, p1, p2, p3, infoSet.Trump, infoSet.GetPastMoves(), infoSet.MyTeamPoints, infoSet.OtherTeamPoints);
+                    }
+                    else if (version == 3)
+                    {
+                        HumanNode p0 = new HumanNode(playerId, playersHands[0], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                        HumanNode p1 = new HumanNode((playerId + 1) % 4, playersHands[1], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                        HumanNode p2 = new HumanNode((playerId + 2) % 4, playersHands[2], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                        HumanNode p3 = new HumanNode((playerId + 3) % 4, playersHands[3], infoSet.TrumpCard, infoSet.TrumpPlayerId);
                         game = new PerfectInformationGame(p0, p1, p2, p3, infoSet.Trump, infoSet.GetPastMoves(), infoSet.MyTeamPoints, infoSet.OtherTeamPoints);
                     }
                     else

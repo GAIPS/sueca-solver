@@ -1,0 +1,6 @@
+Mode: 7 (N=50) #Games: 1000
+----------------- Summary -----------------
+FirstTeam won 502/1000
+SecondTeam 1 won 490/1000
+Draws 8/1000
+Null Games 0

@@ -43,7 +43,7 @@ namespace SuecaSolver
             int trumpCard = playersHand[trumpCardPlayer][0];
             int cardIndex, currentPlayerID = firstPlayerID;
 
-            SmartPlayer artificialPlayer = new SmartPlayer(0, playersHand[0], trumpCard, trumpCardPlayer);
+            HumanPlayer artificialPlayer = new HumanPlayer(0, playersHand[0], trumpCard, trumpCardPlayer);
             SuecaGame game = new SuecaGame(Card.GetSuit(trumpCard), firstPlayerID);
             //Console.WriteLine("---------hands---------");
             //sueca.printhand(playershand[0]);
@@ -72,12 +72,12 @@ namespace SuecaSolver
                     input = Console.ReadLine();
                     cardIndex = Convert.ToInt16(input);
                     chosenCard = currentHand[cardIndex];
-                    artificialPlayer.AddPlay(currentPlayerID, chosenCard);
                 }
                 else
                 {
                     chosenCard = artificialPlayer.Play();
                 }
+                artificialPlayer.AddPlay(currentPlayerID, chosenCard);
 
                 game.PlayCard(currentPlayerID, chosenCard);
                 currentHand.Remove(chosenCard);

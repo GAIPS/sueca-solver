@@ -1,0 +1,6 @@
+Mode: 7 (N=500) #Games: 10
+----------------- Summary -----------------
+FirstTeam won 8/10
+SecondTeam 1 won 2/10
+Draws 0/10
+Null Games 0

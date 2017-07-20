@@ -47,6 +47,7 @@
     <Compile Include="ArtificialPlayer.cs" />
     <Compile Include="Card.cs" />
     <Compile Include="BestPlayer.cs" />
+    <Compile Include="HumanNode.cs" />
     <Compile Include="HybridPlayer.cs" />
     <Compile Include="Deck.cs" />
     <Compile Include="RBOPlayer.cs" />

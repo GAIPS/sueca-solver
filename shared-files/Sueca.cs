@@ -30,7 +30,7 @@ namespace SuecaSolver
 
     public static class Sueca
     {
-        public const int UTILITY_FUNC = 1;
+        public const int UTILITY_FUNC = 2;
         public const int HYBRID_NUM_THREADS = 4;
         public const int WAR_NUM_THREADS = 4;
         public const int MAX_MILISEC_DELIBERATION = 4000;
@@ -290,6 +290,8 @@ namespace SuecaSolver
             Console.WriteLine(str);
         }
 
+
+
         public static string GetPlayLabel(Move move, int i, List<Move> game, int trump)
         {
             int leadSuit = Card.GetSuit(game[i - (i % 4)].Card);
@@ -501,6 +503,50 @@ namespace SuecaSolver
             randomIndex = new Random().Next(0, hand.Count);
             return hand[randomIndex];
         }
+
+
+
+        public class ClassProbComparer : IComparer<KeyValuePair<int, float>>
+        {
+            public int Compare(KeyValuePair<int, float> a, KeyValuePair<int, float> b)
+            {
+                if (b.Value > a.Value)
+                {
+                    return 1;
+                }
+                if (b.Value < a.Value)
+                {
+                    return -1;
+                }
+                return 0;
+            }
+        }
+
+        public static List<KeyValuePair<int, float>> GetWeightsPerClass(List<int> possibleMoves, int[] features, int[] classes, float[][] weightsPerClass)
+        {
+            List<KeyValuePair<int, float>> classProbs = new List<KeyValuePair<int, float>>();
+
+            for (int i = 0; i < weightsPerClass.Length; i++)
+            {
+                float total = 0;
+                for (int j = 0; j < weightsPerClass[i].Length; j++)
+                {
+                    if (j == weightsPerClass[i].Length - 1)
+                    {
+                        total += weightsPerClass[i][j];
+                    }
+                    else
+                    {
+                        total += features[j] * weightsPerClass[i][j];
+                    }
+                }
+                classProbs.Add(new KeyValuePair<int, float>(classes[i], total));
+            }
+
+            classProbs.Sort(new ClassProbComparer());
+            return classProbs;
+        }
+
 
         public static bool IsCurrentTrickWinnerTeam(List<Move> game, int i, int trump, int playerID)
         {

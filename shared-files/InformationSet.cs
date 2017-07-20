@@ -146,7 +146,7 @@ namespace SuecaSolver
 
             if (playerID != id && cardSuit == leadSuit && !suitHasPlayer[leadSuit].Contains(playerID))
             {
-                Console.WriteLine("AddPlay: The player has renounced!");
+                //Console.WriteLine("AddPlay: The player has renounced!");
             }
 
             currentTrick.ApplyMove(new Move(playerID, card));
