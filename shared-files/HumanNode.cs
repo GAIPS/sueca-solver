@@ -5,8 +5,6 @@ namespace SuecaSolver
 {
     public class HumanNode : PlayerNode
     {
-        private InformationSet infoSet;
-        //private List<int> hand;
         private List<Move> game;
         private int trumpSuit;
         private int currentPlayIndex;
@@ -24,7 +22,6 @@ namespace SuecaSolver
             game = new List<Move>();
             trumpSuit = Card.GetSuit(trumpCard);
             currentPlayIndex = 0;
-            infoSet = new InformationSet(id, initialHand, trumpCard, trumpPlayerId);
             weightsPerClass = new float[numClasses][];
             string[] lines = System.IO.File.ReadAllLines("../../../state-inference/weights.txt");
             for (int i = 0; i < lines.Length; i++)
@@ -64,16 +61,29 @@ namespace SuecaSolver
             {
                 return pig.EvalGame1();
             }
-
-            List<int> possibleMoves = Sueca.PossibleMoves(Hand, infoSet.GetLeadSuit());
-            int[] features = Sueca.GetFeaturesFromState(Id, Hand, game, currentPlayIndex - 1, trumpSuit);
-            List<KeyValuePair<int, float>> classProbs = Sueca.GetWeightsPerClass(possibleMoves, features, classes, weightsPerClass);
+            
+            List<int> possibleMoves = Sueca.PossibleMoves(Hand, InfoSet.GetLeadSuit());
+            int[] features = Sueca.GetFeaturesFromState(Id, Hand, game, currentPlayIndex, trumpSuit);
+            int[] filteredClasses;
+            if ((currentPlayIndex % 4) == 0) //lead
+            {
+                filteredClasses = new int[] { 1, 2, 4 };
+            }
+            else if (possibleMoves.Count < Hand.Count)
+            {
+                filteredClasses = new int[] { 5, 6, 8 };
+            }
+            else
+            {
+                filteredClasses = new int[] { 9, 10, 12, 13, 14, 16 };
+            }
+            List<KeyValuePair<int, float>> classProbs = Sueca.GetClassesProbabilities(possibleMoves, features, classes, filteredClasses, weightsPerClass);
             int chosenCard = -1;
 
             foreach (var classificationProb in classProbs)
             {
                 int classification = classificationProb.Key;
-                chosenCard = Sueca.ChooseCardFromLabel(classification, possibleMoves, infoSet.GetLeadSuit(), trumpSuit);
+                chosenCard = Sueca.ChooseCardFromLabel(classification, possibleMoves, InfoSet.GetLeadSuit(), trumpSuit);
                 if (chosenCard != -1)
                 {
                     break;
@@ -93,6 +103,37 @@ namespace SuecaSolver
             pig.UndoMove(move);
 
             return value;
+        }
+
+        public override void ApplyMove(Move move)
+        {
+            currentPlayIndex++;
+            game.Add(move);
+            if (move.PlayerId == Id)
+            {
+                if (Hand.Remove(move.Card) == false)
+                {
+                    //Console.WriteLine("PLAYERNODE Trying to remove an nonexisting card!!!");
+                }
+            }
+            else
+            {
+            }
+            InfoSet.AddPlay(move.PlayerId, move.Card);
+        }
+
+        public override void UndoMove(Move move)
+        {
+            currentPlayIndex--;
+            game.RemoveAt(game.Count - 1);
+            if (move.PlayerId == Id)
+            {
+                Hand.Add(move.Card);
+            }
+            else
+            {
+            }
+            InfoSet.RemovePlay(move.PlayerId, move.Card);
         }
     }
 }

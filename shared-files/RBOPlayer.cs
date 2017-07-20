@@ -29,8 +29,8 @@ namespace SuecaSolver
             }
             else
             {
-                //chosenCard = PIMC.Execute(_id, infoSet, 1, new List<int> { 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 });
-                chosenCard = PIMC.Execute(_id, infoSet, 1, new List<int> { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 });
+                chosenCard = PIMC.Execute(_id, infoSet, 3, new List<int> { 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 });
+                //chosenCard = PIMC.Execute(_id, infoSet, 3, new List<int> { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 });
             }
 
             return chosenCard;

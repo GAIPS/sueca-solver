@@ -15,7 +15,6 @@ namespace SuecaSolver
         private int numClasses = 12;
         private int numFeatures = 17;
         private int[] classes = new int[] { 1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 16 };
-        private List<int> followClasses = new List<int> { 5, 6, 8 };
 
         public HumanPlayer(int id, List<int> initialHand, int trumpCard, int trumpPlayerId)
             : base(id)
@@ -53,8 +52,22 @@ namespace SuecaSolver
         override public int Play()
         {
             List<int> possibleMoves = Sueca.PossibleMoves(hand, infoSet.GetLeadSuit());
-            int[] features = Sueca.GetFeaturesFromState(_id, hand, game, currentPlayIndex - 1, trumpSuit);
-            List<KeyValuePair<int, float>> classProbs = Sueca.GetWeightsPerClass(possibleMoves, features, classes, weightsPerClass);
+            int[] features = Sueca.GetFeaturesFromState(_id, hand, game, currentPlayIndex, trumpSuit);
+            int[] filteredClasses;
+            if ((currentPlayIndex % 4) == 0) //lead
+            {
+                filteredClasses = new int[] { 1, 2, 4 };
+            }
+            else if (possibleMoves.Count < hand.Count)
+            {
+                filteredClasses = new int[] { 5, 6, 8 };
+            }
+            else
+            {
+                filteredClasses = new int[] { 9, 10, 12, 13, 14, 16 };
+            }
+
+            List<KeyValuePair<int, float>> classProbs = Sueca.GetClassesProbabilities(possibleMoves, features, classes, filteredClasses, weightsPerClass);
 
             foreach (var classificationProb in classProbs)
             {

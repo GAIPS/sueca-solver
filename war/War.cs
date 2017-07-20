@@ -9,8 +9,8 @@ namespace SuecaSolver
     public class War
     {
         public const int GAMEMODE = 5;
-        public const int NUMGAMES = 100;
-        public const bool PARALLEL = true;
+        public const int NUMGAMES = 1000;
+        public const bool PARALLEL = false;
         public const int NUM_THREADS = 2;
         //public const int NUM_THREADS = Sueca.WAR_NUM_THREADS;
         public const bool SAVE_CARDS = false; //if true log file will contain intial cards of players otherwise will contain specific features
@@ -82,7 +82,13 @@ namespace SuecaSolver
                     Console.WriteLine("Mode 7 (1 Best 3 RuleBased)");
                     break;
                 case 8:
-                    Console.WriteLine("Mode 8 (1 HumanModel 3 RuleBased)");
+                    Console.WriteLine("Mode 8 (1 HumanPlayer 3 RuleBased)");
+                    break;
+                case 9:
+                    Console.WriteLine("Mode 9 (1 RBO 3 HumanPlayer)");
+                    break;
+                case 10:
+                    Console.WriteLine("Mode 10 (2 HumanPlayer 2 RuleBased)");
                     break;
                 default:
                     break;
@@ -312,6 +318,18 @@ namespace SuecaSolver
                     players[0] = new HumanPlayer(0, playersHands[0], trumpCard, trumpPlayerId);
                     players[1] = new RuleBasedPlayer(1, playersHands[1], trumpCard, trumpPlayerId);
                     players[2] = new RuleBasedPlayer(2, playersHands[2], trumpCard, trumpPlayerId);
+                    players[3] = new RuleBasedPlayer(3, playersHands[3], trumpCard, trumpPlayerId);
+                    break;
+                case 9:
+                    players[0] = new RBOPlayer(0, playersHands[0], trumpCard, trumpPlayerId);
+                    players[1] = new HumanPlayer(1, playersHands[1], trumpCard, trumpPlayerId);
+                    players[2] = new HumanPlayer(2, playersHands[2], trumpCard, trumpPlayerId);
+                    players[3] = new HumanPlayer(3, playersHands[3], trumpCard, trumpPlayerId);
+                    break;
+                case 10:
+                    players[0] = new HumanPlayer(0, playersHands[0], trumpCard, trumpPlayerId);
+                    players[1] = new RuleBasedPlayer(1, playersHands[1], trumpCard, trumpPlayerId);
+                    players[2] = new HumanPlayer(2, playersHands[2], trumpCard, trumpPlayerId);
                     players[3] = new RuleBasedPlayer(3, playersHands[3], trumpCard, trumpPlayerId);
                     break;
                 default:

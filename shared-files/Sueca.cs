@@ -30,7 +30,7 @@ namespace SuecaSolver
 
     public static class Sueca
     {
-        public const int UTILITY_FUNC = 2;
+        public const int UTILITY_FUNC = 1;
         public const int HYBRID_NUM_THREADS = 4;
         public const int WAR_NUM_THREADS = 4;
         public const int MAX_MILISEC_DELIBERATION = 4000;
@@ -522,25 +522,29 @@ namespace SuecaSolver
             }
         }
 
-        public static List<KeyValuePair<int, float>> GetWeightsPerClass(List<int> possibleMoves, int[] features, int[] classes, float[][] weightsPerClass)
+        public static List<KeyValuePair<int, float>> GetClassesProbabilities(List<int> possibleMoves, int[] features, int[] classes, int[] filteredClasses, float[][] weightsPerClass)
         {
+            List<int> possibleClasses = new List<int>(filteredClasses);
             List<KeyValuePair<int, float>> classProbs = new List<KeyValuePair<int, float>>();
 
             for (int i = 0; i < weightsPerClass.Length; i++)
             {
-                float total = 0;
-                for (int j = 0; j < weightsPerClass[i].Length; j++)
+                if (classes.Length == filteredClasses.Length || possibleClasses.Contains(classes[i]))
                 {
-                    if (j == weightsPerClass[i].Length - 1)
+                    float total = 0;
+                    for (int j = 0; j < weightsPerClass[i].Length; j++)
                     {
-                        total += weightsPerClass[i][j];
+                        if (j == weightsPerClass[i].Length - 1)
+                        {
+                            total += weightsPerClass[i][j];
+                        }
+                        else
+                        {
+                            total += features[j] * weightsPerClass[i][j];
+                        }
                     }
-                    else
-                    {
-                        total += features[j] * weightsPerClass[i][j];
-                    }
+                    classProbs.Add(new KeyValuePair<int, float>(classes[i], total));
                 }
-                classProbs.Add(new KeyValuePair<int, float>(classes[i], total));
             }
 
             classProbs.Sort(new ClassProbComparer());
@@ -562,19 +566,19 @@ namespace SuecaSolver
         public static int[] GetFeaturesFromState(int playerID, List<int> playersHand, List<Move> game, int i, int trump)
         {
             List<int> playedCards = new List<int>();
-            for (int j = 0; j < i; j++)
+            for (int j = 0; i > 0 && j < i; j++)
             {
                 playedCards.Add(game[j].Card);
             }
             int leadSuit;
-            if (i > 0)
+            if ((i % 4) == 0)
             {
-                int leadCard = game[i - (i % 4)].Card;
-                leadSuit = Card.GetSuit(leadCard);
+                leadSuit = (int)Suit.None;
             }
             else
             {
-                leadSuit = (int)Suit.None;
+                int leadCard = game[i - (i % 4)].Card;
+                leadSuit = Card.GetSuit(leadCard);
             }
 
             int[] features = new int[16];

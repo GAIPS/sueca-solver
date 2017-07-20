@@ -27,7 +27,7 @@ namespace SuecaSolver
 
         public abstract int PlayGame(PerfectInformationGame pig, int alpha, int beta, int depthLimit, int card = -1);
 
-        public void ApplyMove(Move move)
+        public virtual void ApplyMove(Move move)
         {
             if (move.PlayerId == Id)
             {
@@ -42,7 +42,7 @@ namespace SuecaSolver
             InfoSet.AddPlay(move.PlayerId, move.Card);
         }
 
-        public void UndoMove(Move move)
+        public virtual void UndoMove(Move move)
         {
             if (move.PlayerId == Id)
             {
