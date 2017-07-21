@@ -8,13 +8,15 @@ namespace SuecaSolver
 {
     public class War
     {
-        public const int GAMEMODE = 9;
-        public const int NUMGAMES = 1000;
-        public const bool PARALLEL = true;
+        public const int GAMEMODE = 11;
+        public const int NUMGAMES = 100;
+        public const bool PARALLEL = false;
         public const int NUM_THREADS = 2;
         //public const int NUM_THREADS = Sueca.WAR_NUM_THREADS;
         public const bool SAVE_CARDS = false; //if true log file will contain intial cards of players otherwise will contain specific features
         public const string SAVE_DIR = @"..\..\..\results\state-inference";
+        public const bool SAVE_PLAY_LABELS = true;
+        public const string SAVE_LABELS_DIR = @"..\..\..\results\kl-divergence\";
         //public const string SAVE_DIR = @"Z:\save\";
         //public const string SAVE_DIR = "results/";
 
@@ -55,6 +57,9 @@ namespace SuecaSolver
             List<ulong[]> timePerTrick = new List<ulong[]>(numGames);
             Object allGamesLock = new Object();
 
+            int[] abstractMoveCounterT0 = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; ;
+            int[] abstractMoveCounterT1 = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; ;
+
             Console.WriteLine("");
             Console.WriteLine("|||||||||||||||||||| SUECA TEST WAR ||||||||||||||||||||");
             Console.WriteLine("");
@@ -90,6 +95,9 @@ namespace SuecaSolver
                 case 10:
                     Console.WriteLine("Mode 10 (2 HumanPlayer 2 RuleBased)");
                     break;
+                case 11:
+                    Console.WriteLine("Mode 11 (2 HumanPlayer 2 RBO)");
+                    break;
                 default:
                     break;
             }
@@ -112,7 +120,9 @@ namespace SuecaSolver
                             firstPlayers,
                             finalBotTeamPoints,
                             timePerTrick,
-                            allGamesLock);
+                            allGamesLock,
+                            abstractMoveCounterT0,
+                            abstractMoveCounterT1);
                     },
 
                     (int[] localCount) =>
@@ -136,7 +146,9 @@ namespace SuecaSolver
                         firstPlayers,
                         finalBotTeamPoints,
                         timePerTrick,
-                        allGamesLock);
+                        allGamesLock,
+                        abstractMoveCounterT0,
+                        abstractMoveCounterT1);
                     draws += localCount[0];
                     firstTeamWins += localCount[1];
                     secondTeamWins += localCount[2];
@@ -191,6 +203,20 @@ namespace SuecaSolver
             }
 
 
+            if (SAVE_PLAY_LABELS)
+            {
+
+                System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(SAVE_LABELS_DIR);
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(SAVE_LABELS_DIR + "log" + DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString() + "-" + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + ".txt"))
+                {
+                    for (int l = 0; l < abstractMoveCounterT0.Length; l++)
+                    {
+                        file.WriteLine(abstractMoveCounterT0[l] + ", " + abstractMoveCounterT1[l]);
+                    }
+                }
+            }
+
+
             Console.WriteLine("");
             Console.WriteLine("----------------- Summary -----------------");
             Console.WriteLine("FirstTeam won " + firstTeamWins + "/" + numGames);
@@ -237,7 +263,9 @@ namespace SuecaSolver
             List<int> firstPlayers,
             List<int> finalBotTeamPoints,
             List<ulong[]> timePerTrick,
-            Object allGamesLock)
+            Object allGamesLock,
+            int[] abstractMoveCounterT0,
+            int[] abstractMoveCounterT1)
         {
             int seed = Guid.NewGuid().GetHashCode();
             Random randomNumber = new Random(seed);
@@ -332,10 +360,21 @@ namespace SuecaSolver
                     players[2] = new HumanPlayer(2, playersHands[2], trumpCard, trumpPlayerId);
                     players[3] = new RuleBasedPlayer(3, playersHands[3], trumpCard, trumpPlayerId);
                     break;
+                case 11:
+                    players[0] = new HumanPlayer(0, playersHands[0], trumpCard, trumpPlayerId);
+                    players[1] = new RBOPlayer(1, playersHands[1], trumpCard, trumpPlayerId);
+                    players[2] = new HumanPlayer(2, playersHands[2], trumpCard, trumpPlayerId);
+                    players[3] = new RBOPlayer(3, playersHands[3], trumpCard, trumpPlayerId);
+                    break;
                 default:
                     break;
             }
 
+
+            int[] classesCountT0 = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            int[] classesCountT1 = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            List<int> classes = new List<int> { 1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 16 };
+            List<Move> labeledGame = new List<Move>();
 
             for (int j = 0; j < 40; j++)
             {
@@ -348,7 +387,7 @@ namespace SuecaSolver
                     chosenCard = players[currentPlayerID].Play();
                     sw.Stop();
                     TimeSpan ts = sw.Elapsed;
-                    ulong realTime = (ulong) ts.Minutes * 60000 + (ulong) ts.Seconds * 1000 + (ulong) ts.Milliseconds;
+                    ulong realTime = (ulong)ts.Minutes * 60000 + (ulong)ts.Seconds * 1000 + (ulong)ts.Milliseconds;
                     int trick = j / 4;
                     timeTemp[trick] = timeTemp[trick] + (ulong)realTime;
                 }
@@ -357,6 +396,20 @@ namespace SuecaSolver
                     chosenCard = players[currentPlayerID].Play();
                 }
                 game.PlayCard(currentPlayerID, chosenCard);
+
+                Move m = new Move(currentPlayerID, chosenCard);
+                labeledGame.Add(m);
+                int abstractMove = int.Parse(Sueca.GetPlayLabel(m, j, labeledGame, trumpSuit));
+                int index = classes.FindIndex(a => a == abstractMove);
+                if (currentPlayerID == 0 || currentPlayerID == 2)
+                {
+                    classesCountT0[index]++;
+                }
+                else
+                {
+                    classesCountT1[index]++;
+                }
+
                 //Console.WriteLine("Player " + currentPlayerID + " has played " + Card.ToString(chosenCard));
                 for (int k = 0; k < 4; k++)
                 {
@@ -391,7 +444,16 @@ namespace SuecaSolver
                 }
             }
 
-            return localCount;
+            lock (allGamesLock)
+            {
+                for (int m = 0; m < abstractMoveCounterT0.Length; m++)
+                {
+                    abstractMoveCounterT0[m] += classesCountT0[m];
+                    abstractMoveCounterT1[m] += classesCountT1[m];
+                }
+            }
+
+                return localCount;
         }
 
         static long TimeMethod(Action methodToTime)
