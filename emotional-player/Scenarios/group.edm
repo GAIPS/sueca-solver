@@ -7,6 +7,7 @@
 				{
 					"Action": "Speak(GameEnd, [ns], [m], S([e], [ds]))",
 					"Target": "Board",
+					"Type": "Board",
 					"Conditions":
 						{
 							"Set": ["DialogueState(Board) = GameEnd", "Dialogue(Floor) = My(Id)", "ValidDialogue(GameEnd, [ns], [m], S([e], [ds])) = True", "COL = [m]", "StrongestWellBeingEmotion(SELF) = [e]", "EmotionIntensity(SELF, [e]) > 4", "Dialogue(Style) = [ds]"]
@@ -16,6 +17,7 @@
 				{
 					"Action": "Speak(SessionEnd, [ns], [m], S([e], [ds]))",
 					"Target": "Board",
+					"Type": "Board",
 					"Conditions":
 						{
 							"Set": ["DialogueState(Board) = SessionEnd", "Dialogue(Floor) = My(Id)", "ValidDialogue(SessionEnd, [ns], [m], S([e], [ds])) = True", "COL = [m]", "StrongestWellBeingEmotion(SELF) = [e]", "EmotionIntensity(SELF, [e]) > 7", "Dialogue(Style) = [ds]"]
@@ -25,6 +27,7 @@
 				{
 					"Action": "Speak(SessionEnd, [ns], [m], Neutral)",
 					"Target": "Board",
+					"Type": "Board",
 					"Conditions":
 						{
 							"Set": ["DialogueState(Board) = SessionEnd", "Dialogue(Floor) = My(Id)", "ValidDialogue(SessionEnd, [ns], [m], Neutral) = True", "COL = [m]"]
@@ -33,6 +36,7 @@
 				{
 					"Action": "Speak([cs], [ns], [m], [s])",
 					"Target": "Board",
+					"Type": "Board",
 					"Conditions":
 						{
 							"Set": ["ValidDialogue([cs], [ns], [m], [s]) = True", "DialogueState(Board) = [cs]", "Dialogue(Floor) = My(Id)", "DialogueState(Board) != PlayPartner", "DialogueState(Board) != PlaySelf", "DialogueState(Board) != TrickEnd", "DialogueState(Board) != GameEnd", "DialogueState(Board) != SessionEnd", "Dialogue(Style) = [s]"]
@@ -42,6 +46,7 @@
 				{
 					"Action": "Speak(GameEnd, [ns], Renounce, [s])",
 					"Target": "Board",
+					"Type": "Board",
 					"Conditions":
 						{
 							"Set": ["DialogueState(Board) = GameEnd", "Dialogue(Floor) = My(Id)", "ValidDialogue(GameEnd, [ns], [m], [s]) = True", "Renounce = [m]", "Game(End) = Renounce"]
@@ -51,6 +56,7 @@
 				{
 					"Action": "Speak(TrickEnd, [ns], [m], [e])",
 					"Target": "Board",
+					"Type": "Board",
 					"Conditions":
 						{
 							"Set": ["Dialogue(Floor) = My(Id)", "DialogueState(Board) = TrickEnd", "ValidDialogue(TrickEnd, [ns], [m], [e]) = True", "COL = [m]", "StrongestEmotion(SELF) = [e]"]
@@ -60,6 +66,7 @@
 				{
 					"Action": "Animation(PlaySelf, [e])",
 					"Target": "Board",
+					"Type": "Board",
 					"Conditions":
 						{
 							"Set": ["DialogueState(Board) = PlaySelf", "StrongestEmotion(SELF) = [e]", "Trick(Increase) = True"]
@@ -69,6 +76,7 @@
 				{
 					"Action": "Animation(PlayPartner, [e])",
 					"Target": "Board",
+					"Type": "Board",
 					"Conditions":
 						{
 							"Set": ["DialogueState(Board) = PlayPartner", "StrongestEmotion(SELF) = [e]", "Trick(Increase) = True"]
@@ -78,6 +86,7 @@
 				{
 					"Action": "Speak(PlaySelf, [ns], [m], [e])",
 					"Target": "Board",
+					"Type": "Board",
 					"Conditions":
 						{
 							"Set": ["DialogueState(Board) = PlaySelf", "ValidDialogue(PlaySelf, [ns], [m], [e]) = True", "COL = [m]", "StrongestEmotion(SELF) = [e]"]
@@ -87,6 +96,7 @@
 				{
 					"Action": "Speak(PlayPartner, [ns], [m], [e])",
 					"Target": "Board",
+					"Type": "Board",
 					"Conditions":
 						{
 							"Set": ["DialogueState(Board) = PlayPartner", "ValidDialogue(PlayPartner, [ns], [m], [e]) = True", "Current(PlayerID) = [cpID]", "Player([cpID]) = Partner", "COL = [m]", "StrongestEmotion(SELF) = [e]"]

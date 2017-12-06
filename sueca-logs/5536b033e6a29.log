@@ -1,0 +1,8 @@
+-- GAME --
+P0 HAND: KDiamonds, QDiamonds, 6Diamonds, 4Diamonds, 2Diamonds, AClubs, 2Clubs, AHearts, KHearts, 5Hearts.
+P1 HAND: 7Diamonds, JDiamonds, KClubs, 7Hearts, 3Hearts, 2Hearts, 7Spades, JSpades, 6Spades, 4Spades.
+P2 HAND: QClubs, 5Clubs, 3Clubs, JHearts, 4Hearts, ASpades, KSpades, QSpades, 3Spades, 2Spades.
+P3 HAND: ADiamonds, 5Diamonds, 3Diamonds, 7Clubs, JClubs, 6Clubs, 4Clubs, QHearts, 6Hearts, 5Spades.
+P3 ADiamonds P0 2Diamonds P1 7Diamonds P2 4Hearts 
+P2 2Spades P3 5Spades P0 AClubs P1 7Spades 
+P1 4Spades 

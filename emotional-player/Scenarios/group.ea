@@ -3,18 +3,6 @@
 		{
 			"classId": 0,
 			"Description": null,
-			"KnowledgeBase":
-				{
-					"Perspective": "T1",
-					"Knowledge":
-						{
-							"SELF":
-								{
-									"Dialogue(Style)": "A",
-									"Player(T0)": "Opponent"
-								}
-						}
-				},
 			"AppraisalRules":
 				{
 					"AppraisalWeight": 1,
@@ -97,6 +85,7 @@
 								{
 									"Set": ["[score] >= 9", "Trick(Increase) = True"]
 								},
+							"Desirability": 0,
 							"Praiseworthiness": 6
 						}, 
 						{
@@ -105,6 +94,7 @@
 								{
 									"Set": ["[score] <= -9", "Trick(Increase) = True"]
 								},
+							"Desirability": 0,
 							"Praiseworthiness": -6
 						}, 
 						{
@@ -113,7 +103,8 @@
 								{
 									"Set": ["[score] >= 9", "Trick(Increase) = False"]
 								},
-							"Desirability": 6
+							"Desirability": 6,
+							"Praiseworthiness": 0
 						}, 
 						{
 							"EventName": "Event(Property-Change, SELF, Trick(Score), [score])",
@@ -121,7 +112,8 @@
 								{
 									"Set": ["[score] <= -9", "Trick(Increase) = False"]
 								},
-							"Desirability": -6
+							"Desirability": -6,
+							"Praiseworthiness": 0
 						}, 
 						{
 							"EventName": "Event(Property-Change, [pointGiver], Trick(Score), [score])",
@@ -129,7 +121,8 @@
 								{
 									"Set": ["[score] <= -9", "Player([pointGiver]) = Opponent"]
 								},
-							"Desirability": -6
+							"Desirability": -6,
+							"Praiseworthiness": 0
 						}, 
 						{
 							"EventName": "Event(Property-Change, [pointGiver], Trick(Score), [score])",
@@ -137,7 +130,8 @@
 								{
 									"Set": ["[score] >= 9", "Player([pointGiver]) = Opponent"]
 								},
-							"Desirability": 6
+							"Desirability": 6,
+							"Praiseworthiness": 0
 						}]
 				},
 			"EmotionDispositions": [

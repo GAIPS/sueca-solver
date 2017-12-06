@@ -1,0 +1,5 @@
+-- GAME --
+P2 4Spades P3 QSpades P0 2Spades P1 ASpades 
+P1 2Hearts P2 5Hearts P3 AHearts P0 QHearts 
+P3 ADiamonds P0 2Diamonds P1 QDiamonds P2 6Diamonds 
+

@@ -1,0 +1,17 @@
+-- GAME --
+P0 3Hearts P1 5Hearts P2 4Hearts 
+P1 AClubs P2 KClubs P3 7Clubs P0 4Clubs 
+P1 2Clubs P2 2Diamonds P3 JClubs P0 5Clubs 
+P3 6Clubs P0 JDiamonds P1 3Clubs P2 5Diamonds 
+P3 6Hearts P0 QHearts P1 3Diamonds P2 ADiamonds 
+P0 4Spades P1 2Spades P2 3Spades P3 QClubs 
+P0 5Spades P1 KSpades P2 QSpades P3 AHearts 
+P1 4Diamonds P2 QDiamonds P3 JHearts P0 6Spades 
+P0 JSpades P1 7Spades P2 KDiamonds P3 7Hearts 
+P1 6Diamonds P2 7Diamonds P3 KHearts P0 ASpades 
+-- /GAME --
+P0 HAND: ADiamonds, KDiamonds, JDiamonds, QDiamonds, 5Diamonds, 3Diamonds, AHearts, 3Hearts, JSpades, 4Spades.
+P1 HAND: 7Diamonds, 6Diamonds, 7Clubs, KClubs, 5Clubs, QHearts, 6Hearts, 7Spades, KSpades, 6Spades.
+P2 HAND: AClubs, JClubs, 6Clubs, 3Clubs, 7Hearts, 5Hearts, 4Hearts, ASpades, QSpades, 3Spades.
+P3 HAND: 4Diamonds, 2Diamonds, QClubs, 4Clubs, 2Clubs, KHearts, JHearts, 2Hearts, 5Spades, 2Spades.
+

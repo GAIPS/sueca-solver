@@ -9,7 +9,7 @@
 						{
 							"SELF":
 								{
-									"DialogueState(Player)": "Start"
+									"DialogueState(Player)": "Start, 1"
 								}
 						}
 				},

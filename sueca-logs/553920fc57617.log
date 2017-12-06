@@ -1,0 +1,11 @@
+-- GAME --
+P2 AClubs P3 3Clubs P0 JClubs P1 KClubs 
+P2 3Spades P3 6Spades P0 ASpades P1 2Spades 
+P0 5Hearts P1 AHearts P2 4Hearts P3 7Hearts 
+P1 2Hearts P2 6Hearts P3 KHearts P0 QDiamonds 
+P0 2Clubs P1 3Hearts P2 4Spades P3 7Clubs 
+P3 4Clubs P0 QClubs P1 QHearts P2 KSpades 
+P0 5Clubs P1 QSpades P2 2Diamonds P3 6Clubs 
+P2 3Diamonds P3 ADiamonds P0 5Diamonds P1 4Diamonds 
+P3 JHearts P0 5Spades P1 JDiamonds P2 7Diamonds 
+P2 6Diamonds P3 7Spades 

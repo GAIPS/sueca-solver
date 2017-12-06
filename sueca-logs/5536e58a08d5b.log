@@ -1,0 +1,5 @@
+-- GAME --
+P2 ADiamonds P3 7Diamonds P0 5Diamonds P1 4Diamonds 
+P2 2Diamonds P3 2Clubs P0 6Diamonds P1 KDiamonds 
+P1 AClubs P2 KClubs P3 JClubs P0 QClubs 
+P1 ASpades P2 2Spades P3 7Spades 
