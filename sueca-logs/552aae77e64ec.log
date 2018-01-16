@@ -1,8 +1,0 @@
--- GAME --
-P0 AHearts P1 5Hearts 
-P0 ADiamonds P1 2Diamonds P2 KDiamonds P3 4Diamonds 
-P0 5Diamonds P1 4Spades P2 6Diamonds P3 7Diamonds 
-P3 2Spades P0 3Diamonds P1 5Spades P2 4Clubs 
-P2 JDiamonds P3 3Spades P0 QDiamonds P1 3Clubs 
-P1 6Hearts P2 KHearts P3 QHearts P0 JHearts 
-P2 6Clubs 
