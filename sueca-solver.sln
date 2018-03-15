@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.13
+VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "war", "war\war.csproj", "{91AD0253-0A38-4F5F-8824-F80A72D0A145}"
 EndProject
@@ -10,8 +10,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", "{1776F904-CBA8-4225-B3EB-F9CFF000BF9E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "shared-files", "shared-files\shared-files.csproj", "{240850D4-363B-4F58-8FCE-E51554B698C5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sueca-player", "sueca-player\sueca-player.csproj", "{B4E4EFEB-0C34-41ED-A517-CF306F75C2BA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "unity-emulator", "unity-emulator\unity-emulator.csproj", "{7783EA79-160B-48E1-AB03-4609BFC7A761}"
 EndProject
@@ -75,16 +73,6 @@ Global
 		{240850D4-363B-4F58-8FCE-E51554B698C5}.Release|ARM.ActiveCfg = Release|Any CPU
 		{240850D4-363B-4F58-8FCE-E51554B698C5}.Release|x64.ActiveCfg = Release|Any CPU
 		{240850D4-363B-4F58-8FCE-E51554B698C5}.Release|x86.ActiveCfg = Release|Any CPU
-		{B4E4EFEB-0C34-41ED-A517-CF306F75C2BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B4E4EFEB-0C34-41ED-A517-CF306F75C2BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B4E4EFEB-0C34-41ED-A517-CF306F75C2BA}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{B4E4EFEB-0C34-41ED-A517-CF306F75C2BA}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{B4E4EFEB-0C34-41ED-A517-CF306F75C2BA}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{B4E4EFEB-0C34-41ED-A517-CF306F75C2BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B4E4EFEB-0C34-41ED-A517-CF306F75C2BA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B4E4EFEB-0C34-41ED-A517-CF306F75C2BA}.Release|ARM.ActiveCfg = Release|Any CPU
-		{B4E4EFEB-0C34-41ED-A517-CF306F75C2BA}.Release|x64.ActiveCfg = Release|Any CPU
-		{B4E4EFEB-0C34-41ED-A517-CF306F75C2BA}.Release|x86.ActiveCfg = Release|Any CPU
 		{7783EA79-160B-48E1-AB03-4609BFC7A761}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7783EA79-160B-48E1-AB03-4609BFC7A761}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7783EA79-160B-48E1-AB03-4609BFC7A761}.Debug|ARM.ActiveCfg = Debug|Any CPU
@@ -136,5 +124,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{DEF0C09C-1744-4EEB-8FFA-96638866C4FF} = {7549879C-DD46-4891-9CE0-D246CBED2729}
 		{07978F72-253A-41AF-AD1D-7A445D266E63} = {7549879C-DD46-4891-9CE0-D246CBED2729}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {860062AB-2F36-405C-9067-9A56576FEC22}
 	EndGlobalSection
 EndGlobal
