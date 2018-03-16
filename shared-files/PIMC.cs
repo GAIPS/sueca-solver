@@ -288,5 +288,120 @@ namespace SuecaSolver
 
             return bestCard;
         }
+        
+        
+        // version = 0 - The search is the MinMax algorithm
+        // version = 1 - The search strats at the last 5 tricks with the MinMax algorithm, until there choices are rulebased
+        public static int ExecuteWithWorstSelection(int playerId, InformationSet infoSet, int version, List<int> numIterations = null, List<int> depthLimits = null)
+        {
+            List<int> possibleMoves = infoSet.GetPossibleMoves();
+            if (possibleMoves.Count == 1)
+            {
+                return possibleMoves[0];
+            }
+
+            Dictionary<int, int> dict = new Dictionary<int, int>();
+            foreach (int card in possibleMoves)
+            {
+                dict.Add(card, 0);
+            }
+
+
+            int N, depthLimit, handSize = infoSet.GetHandSize();
+            if (numIterations != null)
+            {
+                N = numIterations[handSize - 1];
+                if (depthLimits != null)
+                {
+                    depthLimit = depthLimits[handSize - 1];
+                }
+                else
+                {
+                    depthLimit = 10;
+                }
+            }
+            else
+            {
+                N = 50;
+                depthLimit = 1;
+            }
+
+            var watch = Stopwatch.StartNew();
+            for (int i = 0; i < N; i++)
+            {
+
+                List<List<int>> playersHands = infoSet.Sample();
+
+                PerfectInformationGame game;
+                int cardUtility;
+
+                for (int j = 0; j < possibleMoves.Count; j++)
+                {
+                    int card = possibleMoves[j];
+                    if (version == 0)
+                    {
+                        MaxNode p0 = new MaxNode(playerId, playersHands[0], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                        MinNode p1 = new MinNode((playerId + 1) % 4, playersHands[1], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                        MaxNode p2 = new MaxNode((playerId + 2) % 4, playersHands[2], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                        MinNode p3 = new MinNode((playerId + 3) % 4, playersHands[3], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                        game = new PerfectInformationGame(p0, p1, p2, p3, infoSet.Trump, infoSet.GetPastMoves(), infoSet.MyTeamPoints, infoSet.OtherTeamPoints);
+                    }
+                    else if (version == 1)
+                    {
+                        MaxNode p0 = new MaxNode(playerId, playersHands[0], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                        RuleBasedNode p1 = new RuleBasedNode((playerId + 1) % 4, playersHands[1], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                        RuleBasedNode p2 = new RuleBasedNode((playerId + 2) % 4, playersHands[2], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                        RuleBasedNode p3 = new RuleBasedNode((playerId + 3) % 4, playersHands[3], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                        game = new PerfectInformationGame(p0, p1, p2, p3, infoSet.Trump, infoSet.GetPastMoves(), infoSet.MyTeamPoints, infoSet.OtherTeamPoints);
+                    }
+                    else
+                    {
+                        Console.WriteLine("PIMC::Execute >> Undefinied version of the algorithm.");
+                        MaxNode p0 = new MaxNode(playerId, playersHands[0], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                        MinNode p1 = new MinNode((playerId + 1) % 4, playersHands[1], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                        MaxNode p2 = new MaxNode((playerId + 2) % 4, playersHands[2], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                        MinNode p3 = new MinNode((playerId + 3) % 4, playersHands[3], infoSet.TrumpCard, infoSet.TrumpPlayerId);
+                        game = new PerfectInformationGame(p0, p1, p2, p3, infoSet.Trump, infoSet.GetPastMoves(), infoSet.MyTeamPoints, infoSet.OtherTeamPoints);
+                    }
+
+                    cardUtility = game.SampleGame(depthLimit, card);
+                    if (cardUtility > 120 || cardUtility < -120)
+                    {
+                        Console.WriteLine("lol");
+                    }
+                    dict[card] += cardUtility;
+                }
+
+                // why not doing it in the end and select the best so far instead of rule based
+                if (watch.ElapsedMilliseconds > Sueca.MAX_MILISEC_DELIBERATION)
+                {
+                    break;
+                }
+            }
+            watch.Stop();
+
+
+            int worstCard = -1;
+            int worstValue = Int32.MaxValue;
+
+            //Console.WriteLine("Printing dictionary:");
+            foreach (KeyValuePair<int, int> cardValue in dict)
+            {
+                //Console.Write(Card.ToString(cardValue.Key) + ":" + cardValue.Value + ", ");
+                if (cardValue.Value <= worstValue)
+                {
+                    worstValue = (int)cardValue.Value;
+                    worstCard = cardValue.Key;
+                }
+            }
+            //Console.WriteLine("");
+
+            if (worstCard == -1)
+            {
+                Console.WriteLine("Trouble at InformationSet.GetBestCardAndValue()");
+            }
+
+            return worstCard;
+        }
     }
 }

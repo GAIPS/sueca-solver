@@ -8,11 +8,10 @@ namespace SuecaSolver
 {
     public class War
     {
-        public const int GAMEMODE = 5;
-        public const int NUMGAMES = 1;
-        public const bool PARALLEL = false;
+        public const int GAMEMODE = 9;
+        public const int NUMSESSIONS = 50;
+        public const bool PARALLEL = true;
         public const int NUM_THREADS = Sueca.WAR_NUM_THREADS;
-        public const bool SAVE_CARDS = false; //if true log file will contain intial cards of players otherwise will contain specific features
         ////public const string SAVE_DIR = @"Z:\Devel\sueca-solver\results\";
         public const string SAVE_DIR = @"C:\temp\";
         //public const string SAVE_DIR = "results/";
@@ -21,7 +20,7 @@ namespace SuecaSolver
         {
             Stopwatch sw = new Stopwatch();
             sw.Start();
-            int gameMode, numGames, numThreads;
+            int gameMode, numSessions, numThreads;
             bool parallel, saveCards;
             
 
@@ -29,7 +28,7 @@ namespace SuecaSolver
             {
                 //Assuming the input is correct
                 gameMode = Int16.Parse(args[0]);
-                numGames = Int16.Parse(args[1]);
+                numSessions = Int16.Parse(args[1]);
                 parallel = Boolean.Parse(args[2]);
                 numThreads = Int16.Parse(args[3]);
                 saveCards = Boolean.Parse(args[5]);
@@ -38,20 +37,19 @@ namespace SuecaSolver
             {
                 Console.WriteLine("Unspecified parameters. The program will use default parameters.");
                 gameMode = GAMEMODE;
-                numGames = NUMGAMES;
+                numSessions = NUMSESSIONS;
                 parallel = PARALLEL;
                 numThreads = NUM_THREADS;
-                saveCards = SAVE_CARDS;
             }
 
             int firstTeamWins = 0, secondTeamWins = 0, draws = 0, nullGames = 0;
 
             //Shared data between threads!
-            List<List<int>[]> cardsPerPlayer = new List<List<int>[]>(numGames);
-            List<int> trumps = new List<int>(numGames);
-            List<int> firstPlayers = new List<int>(numGames);
-            List<int> finalBotTeamPoints = new List<int>(numGames);
-            List<ulong[]> timePerTrick = new List<ulong[]>(numGames);
+            List<List<int>[]> cardsPerPlayer = new List<List<int>[]>(numSessions);
+            List<int> trumps = new List<int>(numSessions);
+            List<int> firstPlayers = new List<int>(numSessions);
+            List<int> finalBotTeamPoints = new List<int>(numSessions);
+            List<ulong[]> timePerTrick = new List<ulong[]>(numSessions);
             Object allGamesLock = new Object();
 
             Console.WriteLine("");
@@ -77,15 +75,27 @@ namespace SuecaSolver
                 case 6:
                     Console.WriteLine("Mode 6 (1 Hybrid 3 RuleBased)");
                     break;
+                case 7:
+                    Console.WriteLine("Mode 7 (1 Worst 3 Smart)");
+                    break;
+                case 8:
+                    Console.WriteLine("Mode 8 (1 Worst 3 RuleBased)");
+                    break;
+                case 9:
+                    Console.WriteLine("Mode 9 (1 Worst 1 RuleBased VS 1 RBO 1 UleBased)");
+                    break;
+                case 10:
+                    Console.WriteLine("Mode 10 (2 Worst 2 RuleBased)");
+                    break;
                 default:
                     break;
             }
-            Console.WriteLine("#Games: " + numGames);
+            Console.WriteLine("#Games: " + numSessions);
 
 
             if (parallel)
             {
-                Parallel.For(0, numGames,
+                Parallel.For(0, numSessions,
                     new ParallelOptions { MaxDegreeOfParallelism = numThreads },
                     () => new int[4],
 
@@ -112,7 +122,7 @@ namespace SuecaSolver
             }
             else
             {
-                for (int i = 0; i < numGames; i++)
+                for (int i = 0; i < numSessions; i++)
                 {
                     int[] localCount = new int[14];
                     processGames(i,
@@ -132,45 +142,11 @@ namespace SuecaSolver
             }
 
 
-            if (saveCards)
-            {
-                System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(SAVE_DIR);
-                int count = dir.GetFiles("log*.txt").Length;
-                using (System.IO.StreamWriter file = new System.IO.StreamWriter(SAVE_DIR + "log" + count + ".txt"))
-                {
-                    file.WriteLine("Mode: " + GAMEMODE + " #Games: " + numGames);
-
-                    file.WriteLine("p0_0\tp0_1\tp0_2\tp0_3\tp0_4\tp0_5\tp0_6\tp0_7\tp0_8\tp0_9\t"
-                    + "p2_0\tp2_1\tp2_2\tp2_3\tp2_4\tp2_5\tp2_6\tp2_7\tp2_8\tp2_9\t"
-                    + "trump\tfirst\tfp\t"
-                    + "t_t0\tt_t1\tt_t2\tt_t3\tt_t4\tt_t5\tt_t6\tt_t7\tt_t8\tt_t9");
-                    for (int i = 0; i < numGames; i++)
-                    {
-                        for (int k = 0; k < 4; k = k + 2)
-                        {
-                            for (int j = 0; j < 10; j++)
-                            {
-                                file.Write(cardsPerPlayer[i][k][j] + "\t");
-                            }
-                        }
-                        file.Write(trumps[i] + "\t");
-                        file.Write(firstPlayers[i] + "\t");
-                        file.Write(finalBotTeamPoints[i] + "\t");
-                        for (int l = 0; l < timePerTrick[i].Length; l++)
-                        {
-                            file.Write(timePerTrick[i][l] + "\t");
-                        }
-                        file.WriteLine("");
-                    }
-                }
-            }
-
-
             Console.WriteLine("");
             Console.WriteLine("----------------- Summary -----------------");
-            Console.WriteLine("FirstTeam won " + firstTeamWins + "/" + numGames);
-            Console.WriteLine("SecondTeam 1 won " + secondTeamWins + "/" + numGames);
-            Console.WriteLine("Draws " + draws + "/" + numGames);
+            Console.WriteLine("FirstTeam won " + firstTeamWins + "/" + numSessions);
+            Console.WriteLine("SecondTeam 1 won " + secondTeamWins + "/" + numSessions);
+            Console.WriteLine("Draws " + draws + "/" + numSessions);
             Console.WriteLine("Null Games " + nullGames);
 
             sw.Stop();
@@ -214,132 +190,176 @@ namespace SuecaSolver
             List<ulong[]> timePerTrick,
             Object allGamesLock)
         {
-            int seed = Guid.NewGuid().GetHashCode();
-            Random randomNumber = new Random(seed);
-            ArtificialPlayer[] players = new ArtificialPlayer[4];
-            List<List<int>> playersHands = new List<List<int>>(
-                new List<int>[] {
+
+            int team0sessionResult = 0;
+            int team1sessionResult = 0;
+
+            for (int z = 0; z < 3; z++)
+            {
+
+                int seed = Guid.NewGuid().GetHashCode();
+                Random randomNumber = new Random(seed);
+                ArtificialPlayer[] players = new ArtificialPlayer[4];
+                List<List<int>> playersHands = new List<List<int>>(
+                    new List<int>[] {
                     new List<int>(10),
                     new List<int>(10),
                     new List<int>(10),
                     new List<int>(10) });
-            Deck deck = new Deck();
-            deck.SampleHands(ref playersHands);
-            int currentPlayerID = i % 4;
-            int first = currentPlayerID;
-            int trumpPlayerId = (first - 1 + 4) % 4;
-            int trumpCard = playersHands[trumpPlayerId][0];//the trump card is the first card of player that is seated before the one that will start the game
-            int trumpSuit = Card.GetSuit(trumpCard);
-            SuecaGame game = new SuecaGame(trumpSuit, first);
-            int[] firstPlayer = new int[4] { 0, 0, 0, 0 };
-            firstPlayer[first] = 1;
-            ulong[] timeTemp = new ulong[10];
+                Deck deck = new Deck();
+                deck.SampleHands(ref playersHands);
+                int currentPlayerID = i % 4;
+                int first = currentPlayerID;
+                int trumpPlayerId = (first - 1 + 4) % 4;
+                int trumpCard = playersHands[trumpPlayerId][0];//the trump card is the first card of player that is seated before the one that will start the game
+                int trumpSuit = Card.GetSuit(trumpCard);
+                SuecaGame game = new SuecaGame(trumpSuit, first);
+                int[] firstPlayer = new int[4] { 0, 0, 0, 0 };
+                firstPlayer[first] = 1;
+                ulong[] timeTemp = new ulong[10];
 
-            List<int>[] handsPerPlayer = new List<int>[4];
-            for (int k = 0; k < 4; k++)
-            {
-                handsPerPlayer[k] = new List<int>(10);
-                for (int j = 0; j < 10; j++)
-                {
-                    handsPerPlayer[k].Add(playersHands[k][j]);
-                }
-            }
-
-            switch (gameMode)
-            {
-                case 1:
-                    players[0] = new RuleBasedPlayer(0, playersHands[0], trumpCard, trumpPlayerId);
-                    players[1] = new RandomPlayer(1, playersHands[1]);
-                    players[2] = new RandomPlayer(2, playersHands[2]);
-                    players[3] = new RandomPlayer(3, playersHands[3]);
-                    break;
-                case 2:
-                    players[0] = new TrickPlayer(0, playersHands[0], trumpCard, trumpPlayerId);
-                    players[1] = new RuleBasedPlayer(1, playersHands[1], trumpCard, trumpPlayerId);
-                    players[2] = new RuleBasedPlayer(2, playersHands[2], trumpCard, trumpPlayerId);
-                    players[3] = new RuleBasedPlayer(3, playersHands[3], trumpCard, trumpPlayerId);
-                    break;
-                case 3:
-                    players[0] = new SmartPlayer(0, playersHands[0], trumpCard, trumpPlayerId);
-                    players[1] = new RuleBasedPlayer(1, playersHands[1], trumpCard, trumpPlayerId);
-                    players[2] = new RuleBasedPlayer(2, playersHands[2], trumpCard, trumpPlayerId);
-                    players[3] = new RuleBasedPlayer(3, playersHands[3], trumpCard, trumpPlayerId);
-                    break;
-                case 4:
-                    players[0] = new TimeLimitedPlayer(0, playersHands[0], trumpCard, trumpPlayerId);
-                    players[1] = new RuleBasedPlayer(1, playersHands[1], trumpCard, trumpPlayerId);
-                    players[2] = new RuleBasedPlayer(2, playersHands[2], trumpCard, trumpPlayerId);
-                    players[3] = new RuleBasedPlayer(3, playersHands[3], trumpCard, trumpPlayerId);
-                    break;
-                case 5:
-                    players[0] = new RBOPlayer(0, playersHands[0], trumpCard, trumpPlayerId);
-                    players[1] = new RuleBasedPlayer(1, playersHands[1], trumpCard, trumpPlayerId);
-                    players[2] = new RuleBasedPlayer(2, playersHands[2], trumpCard, trumpPlayerId);
-                    players[3] = new RuleBasedPlayer(3, playersHands[3], trumpCard, trumpPlayerId);
-                    break;
-                case 6:
-                    players[0] = new HybridPlayer(0, playersHands[0], trumpCard, trumpPlayerId);
-                    players[1] = new RuleBasedPlayer(1, playersHands[1], trumpCard, trumpPlayerId);
-                    players[2] = new RuleBasedPlayer(2, playersHands[2], trumpCard, trumpPlayerId);
-                    players[3] = new RuleBasedPlayer(3, playersHands[3], trumpCard, trumpPlayerId);
-                    break;
-                default:
-                    break;
-            }
-
-
-            for (int j = 0; j < 40; j++)
-            {
-                int chosenCard;
-
-                if (currentPlayerID == 0)
-                {
-                    Stopwatch sw = new Stopwatch();
-                    sw.Start();
-                    chosenCard = players[currentPlayerID].Play();
-                    sw.Stop();
-                    TimeSpan ts = sw.Elapsed;
-                    ulong realTime = (ulong) ts.Minutes * 60000 + (ulong) ts.Seconds * 1000 + (ulong) ts.Milliseconds;
-                    int trick = j / 4;
-                    timeTemp[trick] = timeTemp[trick] + (ulong)realTime;
-                }
-                else
-                {
-                    chosenCard = players[currentPlayerID].Play();
-                }
-                game.PlayCard(currentPlayerID, chosenCard);
-                //Console.WriteLine("Player " + currentPlayerID + " has played " + Card.ToString(chosenCard));
+                List<int>[] handsPerPlayer = new List<int>[4];
                 for (int k = 0; k < 4; k++)
                 {
-                    players[k].AddPlay(currentPlayerID, chosenCard);
+                    handsPerPlayer[k] = new List<int>(10);
+                    for (int j = 0; j < 10; j++)
+                    {
+                        handsPerPlayer[k].Add(playersHands[k][j]);
+                    }
                 }
-                currentPlayerID = game.GetNextPlayerId();
-            }
 
-            int[] points = game.GetGamePoints();
-            if (points[0] == 60)
+                switch (gameMode)
+                {
+                    case 1:
+                        players[0] = new RuleBasedPlayer(0, playersHands[0], trumpCard, trumpPlayerId);
+                        players[1] = new RandomPlayer(1, playersHands[1]);
+                        players[2] = new RandomPlayer(2, playersHands[2]);
+                        players[3] = new RandomPlayer(3, playersHands[3]);
+                        break;
+                    case 2:
+                        players[0] = new TrickPlayer(0, playersHands[0], trumpCard, trumpPlayerId);
+                        players[1] = new RuleBasedPlayer(1, playersHands[1], trumpCard, trumpPlayerId);
+                        players[2] = new RuleBasedPlayer(2, playersHands[2], trumpCard, trumpPlayerId);
+                        players[3] = new RuleBasedPlayer(3, playersHands[3], trumpCard, trumpPlayerId);
+                        break;
+                    case 3:
+                        players[0] = new SmartPlayer(0, playersHands[0], trumpCard, trumpPlayerId);
+                        players[1] = new RuleBasedPlayer(1, playersHands[1], trumpCard, trumpPlayerId);
+                        players[2] = new RuleBasedPlayer(2, playersHands[2], trumpCard, trumpPlayerId);
+                        players[3] = new RuleBasedPlayer(3, playersHands[3], trumpCard, trumpPlayerId);
+                        break;
+                    case 4:
+                        players[0] = new TimeLimitedPlayer(0, playersHands[0], trumpCard, trumpPlayerId);
+                        players[1] = new RuleBasedPlayer(1, playersHands[1], trumpCard, trumpPlayerId);
+                        players[2] = new RuleBasedPlayer(2, playersHands[2], trumpCard, trumpPlayerId);
+                        players[3] = new RuleBasedPlayer(3, playersHands[3], trumpCard, trumpPlayerId);
+                        break;
+                    case 5:
+                        players[0] = new RBOPlayer(0, playersHands[0], trumpCard, trumpPlayerId);
+                        players[1] = new RuleBasedPlayer(1, playersHands[1], trumpCard, trumpPlayerId);
+                        players[2] = new RuleBasedPlayer(2, playersHands[2], trumpCard, trumpPlayerId);
+                        players[3] = new RuleBasedPlayer(3, playersHands[3], trumpCard, trumpPlayerId);
+                        break;
+                    case 6:
+                        players[0] = new HybridPlayer(0, playersHands[0], trumpCard, trumpPlayerId);
+                        players[1] = new RuleBasedPlayer(1, playersHands[1], trumpCard, trumpPlayerId);
+                        players[2] = new RuleBasedPlayer(2, playersHands[2], trumpCard, trumpPlayerId);
+                        players[3] = new RuleBasedPlayer(3, playersHands[3], trumpCard, trumpPlayerId);
+                        break;
+                    case 7:
+                        players[0] = new WorstPlayer(0, playersHands[0], trumpCard, trumpPlayerId);
+                        players[1] = new SmartPlayer(1, playersHands[1], trumpCard, trumpPlayerId);
+                        players[2] = new SmartPlayer(2, playersHands[2], trumpCard, trumpPlayerId);
+                        players[3] = new SmartPlayer(3, playersHands[3], trumpCard, trumpPlayerId);
+                        break;
+                    case 8:
+                        players[0] = new WorstPlayer(0, playersHands[0], trumpCard, trumpPlayerId);
+                        players[1] = new RuleBasedPlayer(1, playersHands[1], trumpCard, trumpPlayerId);
+                        players[2] = new RuleBasedPlayer(2, playersHands[2], trumpCard, trumpPlayerId);
+                        players[3] = new RuleBasedPlayer(3, playersHands[3], trumpCard, trumpPlayerId);
+                        break;
+                    case 9:
+                        players[0] = new WorstPlayer(0, playersHands[0], trumpCard, trumpPlayerId);
+                        players[1] = new RBOPlayer(1, playersHands[1], trumpCard, trumpPlayerId);
+                        players[2] = new WorstPlayer(2, playersHands[2], trumpCard, trumpPlayerId);
+                        players[3] = new SmartPlayer(3, playersHands[3], trumpCard, trumpPlayerId);
+                        break;
+                    case 10:
+                        players[0] = new WorstPlayer(0, playersHands[0], trumpCard, trumpPlayerId);
+                        players[1] = new RuleBasedPlayer(1, playersHands[1], trumpCard, trumpPlayerId);
+                        players[2] = new WorstPlayer(2, playersHands[2], trumpCard, trumpPlayerId);
+                        players[3] = new RuleBasedPlayer(3, playersHands[3], trumpCard, trumpPlayerId);
+                        break;
+                    default:
+                        break;
+                }
+
+                for (int j = 0; j < 40; j++)
+                {
+                    int chosenCard;
+
+                    if (currentPlayerID == 0)
+                    {
+                        Stopwatch sw = new Stopwatch();
+                        sw.Start();
+                        chosenCard = players[currentPlayerID].Play();
+                        sw.Stop();
+                        TimeSpan ts = sw.Elapsed;
+                        ulong realTime = (ulong)ts.Minutes * 60000 + (ulong)ts.Seconds * 1000 + (ulong)ts.Milliseconds;
+                        int trick = j / 4;
+                        timeTemp[trick] = timeTemp[trick] + (ulong)realTime;
+                    }
+                    else
+                    {
+                        chosenCard = players[currentPlayerID].Play();
+                    }
+                    game.PlayCard(currentPlayerID, chosenCard);
+                    //Console.WriteLine("Player " + currentPlayerID + " has played " + Card.ToString(chosenCard));
+                    for (int k = 0; k < 4; k++)
+                    {
+                        players[k].AddPlay(currentPlayerID, chosenCard);
+                    }
+                    currentPlayerID = game.GetNextPlayerId();
+                }
+
+                int[] points = game.GetGamePoints();
+                if (points[0] == 120)
+                {
+                    team0sessionResult += 4;
+                }
+                else if (points[0] > 90)
+                {
+                    team0sessionResult += 2;
+                }
+                else if (points[0] > 60)
+                {
+                    team0sessionResult += 1;
+                }
+                else if (points[1] == 120)
+                {
+                    team1sessionResult += 4;
+                }
+                else if (points[1] > 90)
+                {
+                    team1sessionResult += 2;
+                }
+                else if (points[1] > 60)
+                {
+                    team1sessionResult += 1;
+                }
+
+            }
+            if (team0sessionResult == team1sessionResult)
             {
                 localCount[0]++;
             }
-            else if (points[0] > 60)
+            else if (team0sessionResult > team1sessionResult)
             {
                 localCount[1]++;
             }
             else
             {
                 localCount[2]++;
-            }
-
-            if (SAVE_CARDS)
-            {
-                lock (allGamesLock)
-                {
-                    cardsPerPlayer.Add(handsPerPlayer);
-                    trumps.Add(trumpSuit);
-                    firstPlayers.Add(first);
-                    finalBotTeamPoints.Add(points[0]);
-                    timePerTrick.Add(timeTemp);
-                }
             }
 
             return localCount;
