@@ -20,6 +20,7 @@ namespace EmotionalPlayer
         public int _id;
         private int _teamId;
         private int _nameId;
+        private string _partnerName;
         private bool _initialyzing;
         private SuecaRolePlayCharacter _suecaRPC;
         private string _socialAgentType;
@@ -227,11 +228,11 @@ namespace EmotionalPlayer
             _suecaRPC.AddSuecaEvent(ev2);
             ev2.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_SESSION_START, Consts.DEFAULT_SUBJECT);
             ev2.AddPropertyChange(Consts.DIALOGUE_FLOOR_PROPERTY, floorId.ToString(), Consts.DEFAULT_SUBJECT);
-            ev2.ChangeTagsAndMeanings(new string[] { "|playerID1|", "|playerID2|", "|partnerName|" }, new string[] { playerID1.ToString(), playerID2.ToString(), "Filipa" });
+            ev2.ChangeTagsAndMeanings(new string[] { "|playerID1|", "|playerID2|", "|partnerName|" }, new string[] { playerID1.ToString(), playerID2.ToString(), _partnerName });
             ev2.Finished = true;
         }
 
-        public void GameStart(int gameId, int playerId, int teamId, string trumpCard, int trumpCardPlayer, string[] cards, int floorId)
+        public void GameStart(int gameId, int playerId, int teamId, string trumpCard, int trumpCardPlayer, string[] cards, string partnerName, int floorId)
         {
             int playerID1 = _randomNumberGenerator.Next(1, 2);
             int playerID2 = ((playerID1 + 1) % 2);
@@ -244,6 +245,7 @@ namespace EmotionalPlayer
                 _currentGameId = gameId;
                 _currentTrickId = 0;
                 _currentPlayInTrickId = 0;
+                _partnerName = partnerName;
 
                 if (gameId != 0)
                 {
@@ -252,7 +254,7 @@ namespace EmotionalPlayer
                     _suecaRPC.AddSuecaEvent(ev);
                     ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_GAME_START, Consts.DEFAULT_SUBJECT);
                     ev.AddPropertyChange(Consts.DIALOGUE_FLOOR_PROPERTY, floorId.ToString(), Consts.DEFAULT_SUBJECT);
-                    ev.ChangeTagsAndMeanings(new string[] { "|playerID1|", "|playerID2|", "|partnerName|" }, new string[] { playerID1.ToString(), playerID2.ToString(), "Filipa" });
+                    ev.ChangeTagsAndMeanings(new string[] { "|playerID1|", "|playerID2|", "|partnerName|" }, new string[] { playerID1.ToString(), playerID2.ToString(), _partnerName });
                     ev.Finished = true;
                 }
 
@@ -291,7 +293,7 @@ namespace EmotionalPlayer
             _suecaRPC.AddSuecaEvent(ev);
             ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_SHUFFLE, Consts.DEFAULT_SUBJECT);
             ev.AddPropertyChange(Consts.DIALOGUE_FLOOR_PROPERTY, floorId.ToString(), Consts.DEFAULT_SUBJECT);
-            ev.ChangeTagsAndMeanings(new string[] { "|playerID|", "|partnerName|" }, new string[] { playerId.ToString(), "Filipa" });
+            ev.ChangeTagsAndMeanings(new string[] { "|playerID|", "|partnerName|" }, new string[] { playerId.ToString(), _partnerName });
             ev.Finished = true;
             //if robot has floor speaks, otherwise just gazes random
             SuecaPub.GazeAtTarget("random");
@@ -304,7 +306,7 @@ namespace EmotionalPlayer
             _suecaRPC.AddSuecaEvent(ev);
             ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_CUT, Consts.DEFAULT_SUBJECT);
             ev.AddPropertyChange(Consts.DIALOGUE_FLOOR_PROPERTY, floorId.ToString(), Consts.DEFAULT_SUBJECT);
-            ev.ChangeTagsAndMeanings(new string[] { "|playerID|", "|partnerName|" }, new string[] { playerId.ToString(), "Filipa" });
+            ev.ChangeTagsAndMeanings(new string[] { "|playerID|", "|partnerName|" }, new string[] { playerId.ToString(), _partnerName });
             ev.Finished = true;
         }
 
@@ -315,7 +317,7 @@ namespace EmotionalPlayer
             _suecaRPC.AddSuecaEvent(ev);
             ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_DEAL, Consts.DEFAULT_SUBJECT);
             ev.AddPropertyChange(Consts.DIALOGUE_FLOOR_PROPERTY, floorId.ToString(), Consts.DEFAULT_SUBJECT);
-            ev.ChangeTagsAndMeanings(new string[] { "|playerID|", "|partnerName|" }, new string[] { playerId.ToString(), "Filipa" });
+            ev.ChangeTagsAndMeanings(new string[] { "|playerID|", "|partnerName|" }, new string[] { playerId.ToString(), _partnerName });
             ev.Finished = true;
             //if robot has floor speaks, otherwise just gazes random
             SuecaPub.GazeAtTarget("random");
@@ -396,7 +398,7 @@ namespace EmotionalPlayer
                 {
                     ev.AddPropertyChange(Consts.END_GAME, "Draw", SubjectName(_id));
                 }
-                ev.ChangeTagsAndMeanings(new string[] { "|playerID|", "|partnerName|" }, new string[] { playerId.ToString(), "Filipa" });
+                ev.ChangeTagsAndMeanings(new string[] { "|playerID|", "|partnerName|" }, new string[] { playerId.ToString(), _partnerName });
                 ev.Finished = true;
             }
         }
@@ -434,7 +436,7 @@ namespace EmotionalPlayer
             {
                 ev.AddPropertyChange(Consts.END_SESSION, "Draw", SubjectName(_id));
             }
-            ev.ChangeTagsAndMeanings(new string[] { "|playerID|", "|partnerName|" }, new string[] { playerId.ToString(), "Filipa" });
+            ev.ChangeTagsAndMeanings(new string[] { "|playerID|", "|partnerName|" }, new string[] { playerId.ToString(), _partnerName });
             ev.Finished = true;
         }
 
@@ -471,7 +473,7 @@ namespace EmotionalPlayer
                 //ev.AddPropertyChange(Consts.PLAY_INFO, playInfo, Consts.DEFAULT_SUBJECT);
 
 
-                ev.ChangeTagsAndMeanings(new string[] { "|rank|", "|suit|", "|playerID|", "|nextPlayerID|", "|partnerName|" }, new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()), ((id+2)%4).ToString(), _ai.GetNextPlayerId().ToString(), "Filipa" });
+                ev.ChangeTagsAndMeanings(new string[] { "|rank|", "|suit|", "|playerID|", "|nextPlayerID|", "|partnerName|" }, new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()), ((id+2)%4).ToString(), _ai.GetNextPlayerId().ToString(), _partnerName });
                 ev.OtherIntInfos = new int[] { this._id };
                 ev.OtherStringInfos = new string[] { cardSerialized, playInfo };
 
@@ -498,7 +500,7 @@ namespace EmotionalPlayer
                 ev.AddPropertyChange(Consts.NEXT_PLAYER, SubjectName(id), Consts.DEFAULT_SUBJECT);
                 ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_NEXT_PLAYER, Consts.DEFAULT_SUBJECT);
                 ev.AddPropertyChange(Consts.DIALOGUE_FLOOR_PROPERTY, floorId.ToString(), Consts.DEFAULT_SUBJECT);
-                ev.ChangeTagsAndMeanings(new string[] { "|nextPlayerID|", "|partnerName|" }, new string[] { id.ToString(), "Filipa" });
+                ev.ChangeTagsAndMeanings(new string[] { "|nextPlayerID|", "|partnerName|" }, new string[] { id.ToString(), _partnerName });
                 ev.OtherIntInfos = new int[] { id };
             }
             ev.Finished = true;
@@ -521,7 +523,7 @@ namespace EmotionalPlayer
                 ev.AddPropertyChange(Consts.CURRENT_PLAYER, SubjectName(id), Consts.DEFAULT_SUBJECT);
                 _ai.AddPlay(id, myCard);
                 string[] tags = new string[] { "|rank|", "|suit|", "|playerID|", "|nextPlayerID|", "|partnerName|" };
-                string[] meanings = new string[] { convertRankToPortuguese(myRank.ToString()), convertSuitToPortuguese(mySuit.ToString()), id.ToString(), _ai.GetNextPlayerId().ToString(), "Filipa" };
+                string[] meanings = new string[] { convertRankToPortuguese(myRank.ToString()), convertSuitToPortuguese(mySuit.ToString()), id.ToString(), _ai.GetNextPlayerId().ToString(), _partnerName };
                 ev.ChangeTagsAndMeanings(tags, meanings);
 
                 SuecaPub.GazeAtTarget("cardsZone");
