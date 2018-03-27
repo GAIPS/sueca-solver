@@ -14,19 +14,21 @@ namespace EmotionalPlayer
             string client = "";
             string character = "";
             string path = "";
-            string type = "";
+            string socialAgent = "";
+            string playAgent = "";
 
-            if (args.Length == 4)
+            if (args.Length == 5)
             {
-                client = args[0];
-                path = args[1];
-                type = args[2];
-                character = args[3];
-                sp = new EmotionalSuecaPlayer(client, path, type, character);
+                character = args[0];
+                client = args[1];
+                path = args[2];
+                socialAgent = args[3];
+                playAgent = args[4];
+                sp = new EmotionalSuecaPlayer(character, client, path, socialAgent, playAgent);
             }
             else
             {
-                Console.WriteLine("Unspecified number of arguments: [thisClientName], [scenarioPath], [agentType:\"Group\"|\"Individual\"], [ThalamusCharacter(s)]");
+                Console.WriteLine("Unspecified number of arguments: [thisClientName], [scenarioPath], [socialAgent:\"Group\"|\"Individual\"|\"LW\"|\"HW\"], [ThalamusCharacter(s)], [playingAgent:\"Worst\"|\"Best\"]");
             }
 
             Console.ReadLine();

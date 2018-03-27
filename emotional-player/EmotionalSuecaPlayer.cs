@@ -16,13 +16,14 @@ namespace EmotionalPlayer
     class EmotionalSuecaPlayer : ThalamusClient, ISuecaPerceptions, IRobotPerceptions, IFMLSpeechEvents
     {
         public static ISuecaPublisher SuecaPub;
-        private RBOPlayer _ai;
+        private TIPlayer _ai;
         public int _id;
         private int _teamId;
         private int _nameId;
         private bool _initialyzing;
         private SuecaRolePlayCharacter _suecaRPC;
-        private string _agentType;
+        private string _socialAgentType;
+        private string _playAgentType;
         private int _numGames;
         private int _currentGameId;
         private int _currentTrickId;
@@ -38,7 +39,7 @@ namespace EmotionalPlayer
         private bool Retrying;
         private int numRobots;
 
-        public EmotionalSuecaPlayer(string clientName, string scenarioPath, string agentType, string charactersNames = "") : base(clientName, charactersNames)
+        public EmotionalSuecaPlayer(string charactersNames, string clientName, string scenarioPath, string socialAgent, string playAgent) : base(clientName, charactersNames)
         {
             try
             {
@@ -54,9 +55,10 @@ namespace EmotionalPlayer
             SetPublisher<ISuecaPublisher>();
             SuecaPub = new SuecaPublisher(Publisher);
             _ai = null;
-            _suecaRPC = new SuecaRolePlayCharacter(_nameId, agentType, scenarioPath, this);
+            _suecaRPC = new SuecaRolePlayCharacter(_nameId, socialAgent, scenarioPath, this);
             _initialyzing = false;
-            _agentType = agentType;
+            _socialAgentType = socialAgent;
+            _playAgentType = playAgent;
             numRobots = 1; //default
         }
 
@@ -191,18 +193,19 @@ namespace EmotionalPlayer
             SuecaEvent ev1 = new SuecaEvent(Consts.INIT);
             _suecaRPC.AddSuecaEvent(ev1);
             ev1.OtherStringInfos = new string[] { SubjectName(_id) };
-            if (_agentType.StartsWith(Consts.AGENT_TYPE_GROUP))
+            
+            //if (_socialAgentType.StartsWith(Consts.AGENT_TYPE_GROUP))
             {
                 ev1.AddPropertyChange("Player(" + SubjectName(_id) + ")", Consts.PARTNER, Consts.DEFAULT_SUBJECT);
                 ev1.AddPropertyChange("Player(" + SubjectName((_id + 1) % 4) + ")", Consts.OPPONENT, Consts.DEFAULT_SUBJECT);
             }
-            else if (_agentType.StartsWith(Consts.AGENT_TYPE_INDIVIDUAL))
+            /*else if (_socialAgentType.StartsWith(Consts.AGENT_TYPE_INDIVIDUAL))
             {
                 ev1.AddPropertyChange("Player(" + SubjectName(_id) + ")", Consts.PARTNER, Consts.DEFAULT_SUBJECT);
                 ev1.AddPropertyChange("Player(" + SubjectName((_id + 1) % 4) + ")", Consts.OPPONENT, Consts.DEFAULT_SUBJECT);
                 ev1.AddPropertyChange("Player(" + SubjectName((_id + 2) % 4) + ")", Consts.PARTNER, Consts.DEFAULT_SUBJECT);
                 ev1.AddPropertyChange("Player(" + SubjectName((_id + 3) % 4) + ")", Consts.OPPONENT, Consts.DEFAULT_SUBJECT);
-            }
+            }*/
 
             if (_nameId == 1)
             {
@@ -224,7 +227,7 @@ namespace EmotionalPlayer
             _suecaRPC.AddSuecaEvent(ev2);
             ev2.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_SESSION_START, Consts.DEFAULT_SUBJECT);
             ev2.AddPropertyChange(Consts.DIALOGUE_FLOOR_PROPERTY, floorId.ToString(), Consts.DEFAULT_SUBJECT);
-            ev2.ChangeTagsAndMeanings(new string[] { "|playerID1|", "|playerID2|" }, new string[] { playerID1.ToString(), playerID2.ToString() });
+            ev2.ChangeTagsAndMeanings(new string[] { "|playerID1|", "|playerID2|", "|partnerName|" }, new string[] { playerID1.ToString(), playerID2.ToString(), "Filipa" });
             ev2.Finished = true;
         }
 
@@ -249,7 +252,7 @@ namespace EmotionalPlayer
                     _suecaRPC.AddSuecaEvent(ev);
                     ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_GAME_START, Consts.DEFAULT_SUBJECT);
                     ev.AddPropertyChange(Consts.DIALOGUE_FLOOR_PROPERTY, floorId.ToString(), Consts.DEFAULT_SUBJECT);
-                    ev.ChangeTagsAndMeanings(new string[] { "|playerID1|", "|playerID2|" }, new string[] { playerID1.ToString(), playerID2.ToString() });
+                    ev.ChangeTagsAndMeanings(new string[] { "|playerID1|", "|playerID2|", "|partnerName|" }, new string[] { playerID1.ToString(), playerID2.ToString(), "Filipa" });
                     ev.Finished = true;
                 }
 
@@ -267,7 +270,15 @@ namespace EmotionalPlayer
                 SuecaSolver.Suit trumpSuit = (SuecaSolver.Suit)Enum.Parse(typeof(SuecaSolver.Suit), sharedTrumpCard.Suit.ToString());
                 int myTrumpCard = SuecaSolver.Card.Create(trumpRank, trumpSuit);
 
-                _ai = new RBOPlayer(playerId, initialCards, myTrumpCard, trumpCardPlayer);
+
+                if (_playAgentType == "Worst")
+                {
+                    _ai = new WorstPlayer(playerId, initialCards, myTrumpCard, trumpCardPlayer);
+                }
+                else if (_playAgentType == "Best")
+                {
+                    _ai = new RBOPlayer(playerId, initialCards, myTrumpCard, trumpCardPlayer);
+                }
                 _initialyzing = false;
             }
         }
@@ -280,7 +291,7 @@ namespace EmotionalPlayer
             _suecaRPC.AddSuecaEvent(ev);
             ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_SHUFFLE, Consts.DEFAULT_SUBJECT);
             ev.AddPropertyChange(Consts.DIALOGUE_FLOOR_PROPERTY, floorId.ToString(), Consts.DEFAULT_SUBJECT);
-            ev.ChangeTagsAndMeanings(new string[] { "|playerID|" }, new string[] { playerId.ToString() });
+            ev.ChangeTagsAndMeanings(new string[] { "|playerID|", "|partnerName|" }, new string[] { playerId.ToString(), "Filipa" });
             ev.Finished = true;
             //if robot has floor speaks, otherwise just gazes random
             SuecaPub.GazeAtTarget("random");
@@ -293,7 +304,7 @@ namespace EmotionalPlayer
             _suecaRPC.AddSuecaEvent(ev);
             ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_CUT, Consts.DEFAULT_SUBJECT);
             ev.AddPropertyChange(Consts.DIALOGUE_FLOOR_PROPERTY, floorId.ToString(), Consts.DEFAULT_SUBJECT);
-            ev.ChangeTagsAndMeanings(new string[] { "|playerID|" }, new string[] { playerId.ToString() });
+            ev.ChangeTagsAndMeanings(new string[] { "|playerID|", "|partnerName|" }, new string[] { playerId.ToString(), "Filipa" });
             ev.Finished = true;
         }
 
@@ -304,7 +315,7 @@ namespace EmotionalPlayer
             _suecaRPC.AddSuecaEvent(ev);
             ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_DEAL, Consts.DEFAULT_SUBJECT);
             ev.AddPropertyChange(Consts.DIALOGUE_FLOOR_PROPERTY, floorId.ToString(), Consts.DEFAULT_SUBJECT);
-            ev.ChangeTagsAndMeanings(new string[] { "|playerID|" }, new string[] { playerId.ToString() });
+            ev.ChangeTagsAndMeanings(new string[] { "|playerID|", "|partnerName|" }, new string[] { playerId.ToString(), "Filipa" });
             ev.Finished = true;
             //if robot has floor speaks, otherwise just gazes random
             SuecaPub.GazeAtTarget("random");
@@ -385,7 +396,7 @@ namespace EmotionalPlayer
                 {
                     ev.AddPropertyChange(Consts.END_GAME, "Draw", SubjectName(_id));
                 }
-                ev.ChangeTagsAndMeanings(new string[] { "|playerID|" }, new string[] { playerId.ToString() });
+                ev.ChangeTagsAndMeanings(new string[] { "|playerID|", "|partnerName|" }, new string[] { playerId.ToString(), "Filipa" });
                 ev.Finished = true;
             }
         }
@@ -423,7 +434,7 @@ namespace EmotionalPlayer
             {
                 ev.AddPropertyChange(Consts.END_SESSION, "Draw", SubjectName(_id));
             }
-            ev.ChangeTagsAndMeanings(new string[] { "|playerID|" }, new string[] { playerId.ToString() });
+            ev.ChangeTagsAndMeanings(new string[] { "|playerID|", "|partnerName|" }, new string[] { playerId.ToString(), "Filipa" });
             ev.Finished = true;
         }
 
@@ -460,7 +471,7 @@ namespace EmotionalPlayer
                 //ev.AddPropertyChange(Consts.PLAY_INFO, playInfo, Consts.DEFAULT_SUBJECT);
 
 
-                ev.ChangeTagsAndMeanings(new string[] { "|rank|", "|suit|", "|playerID|", "|nextPlayerID|" }, new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()), ((id+2)%4).ToString(), _ai.GetNextPlayerId().ToString() });
+                ev.ChangeTagsAndMeanings(new string[] { "|rank|", "|suit|", "|playerID|", "|nextPlayerID|", "|partnerName|" }, new string[] { convertRankToPortuguese(msgRank.ToString()), convertSuitToPortuguese(msgSuit.ToString()), ((id+2)%4).ToString(), _ai.GetNextPlayerId().ToString(), "Filipa" });
                 ev.OtherIntInfos = new int[] { this._id };
                 ev.OtherStringInfos = new string[] { cardSerialized, playInfo };
 
@@ -487,10 +498,11 @@ namespace EmotionalPlayer
                 ev.AddPropertyChange(Consts.NEXT_PLAYER, SubjectName(id), Consts.DEFAULT_SUBJECT);
                 ev.AddPropertyChange(Consts.DIALOGUE_STATE_PROPERTY, Consts.STATE_NEXT_PLAYER, Consts.DEFAULT_SUBJECT);
                 ev.AddPropertyChange(Consts.DIALOGUE_FLOOR_PROPERTY, floorId.ToString(), Consts.DEFAULT_SUBJECT);
-                ev.ChangeTagsAndMeanings(new string[] { "|nextPlayerID|" }, new string[] { id.ToString() });
+                ev.ChangeTagsAndMeanings(new string[] { "|nextPlayerID|", "|partnerName|" }, new string[] { id.ToString(), "Filipa" });
                 ev.OtherIntInfos = new int[] { id };
             }
             ev.Finished = true;
+            Console.WriteLine("FINISHED");
         }
 
         public void Play(int id, string card, string playInfo, int floorId)
@@ -508,8 +520,8 @@ namespace EmotionalPlayer
                 _suecaRPC.AddSuecaEvent(ev);
                 ev.AddPropertyChange(Consts.CURRENT_PLAYER, SubjectName(id), Consts.DEFAULT_SUBJECT);
                 _ai.AddPlay(id, myCard);
-                string[] tags = new string[] { "|rank|", "|suit|", "|playerID|", "|nextPlayerID|" };
-                string[] meanings = new string[] { convertRankToPortuguese(myRank.ToString()), convertSuitToPortuguese(mySuit.ToString()), id.ToString(), _ai.GetNextPlayerId().ToString() };
+                string[] tags = new string[] { "|rank|", "|suit|", "|playerID|", "|nextPlayerID|", "|partnerName|" };
+                string[] meanings = new string[] { convertRankToPortuguese(myRank.ToString()), convertSuitToPortuguese(mySuit.ToString()), id.ToString(), _ai.GetNextPlayerId().ToString(), "Filipa" };
                 ev.ChangeTagsAndMeanings(tags, meanings);
 
                 SuecaPub.GazeAtTarget("cardsZone");
@@ -765,19 +777,8 @@ namespace EmotionalPlayer
         public string SubjectName(int id)
         {
             string subject = "";
-            if (_agentType.StartsWith(Consts.AGENT_TYPE_GROUP))
-            {
-                string[] teams = new string[] { "T0", "T1" };
-                if (id == _id || id == ((_id + 2) % 4))
-                {
-                    subject = teams[_teamId];
-                }
-                else
-                {
-                    subject = teams[(_teamId + 1) % 2];
-                }
-            }
-            else if (_agentType.StartsWith(Consts.AGENT_TYPE_INDIVIDUAL))
+
+            if (_socialAgentType.StartsWith(Consts.AGENT_TYPE_INDIVIDUAL))
             {
                 switch (id)
                 {
@@ -796,6 +797,18 @@ namespace EmotionalPlayer
                     default:
                         Console.WriteLine("Unknown Player ID");
                         break;
+                }
+            }
+            else
+            {
+                string[] teams = new string[] { "T0", "T1" };
+                if (id == _id || id == ((_id + 2) % 4))
+                {
+                    subject = teams[_teamId];
+                }
+                else
+                {
+                    subject = teams[(_teamId + 1) % 2];
                 }
             }
             return subject;

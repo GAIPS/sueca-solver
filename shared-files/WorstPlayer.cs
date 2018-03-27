@@ -3,10 +3,8 @@ using System.Collections.Generic;
 
 namespace SuecaSolver
 {
-    public class WorstPlayer : ArtificialPlayer
+    public class WorstPlayer : TIPlayer
     {
-        private InformationSet infoSet;
-
 
         public WorstPlayer(int id, List<int> initialHand, int trumpCard, int trumpPlayerId)
             : base(id)

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Utilities;
 using WellFormedNames;
 using EmotionalAppraisal.DTOs;
+using System.Diagnostics;
 
 namespace EmotionalPlayer
 {
@@ -291,6 +292,17 @@ namespace EmotionalPlayer
                             Name style = chosenAction.Parameters[3];
                             var possibleDialogs = _iat.GetDialogueActions(currentState, nextState, meaning, style);
                             var dialog = getUtterance(possibleDialogs);
+
+                            Stopwatch s = new Stopwatch();
+                            s.Start();
+                            while (_esp.SomeoneIsTalking)
+                            {
+                                if (s.ElapsedMilliseconds > 3000)
+                                {
+                                    break;
+                                }
+                            }
+                            s.Stop();
 
                             Console.WriteLine(_agentName + "---" + dialog);
                             EmotionalSuecaPlayer.SuecaPub.StartedUtterance(_esp._id, ev.Name, "");

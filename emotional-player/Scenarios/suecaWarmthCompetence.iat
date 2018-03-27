@@ -1,0 +1,303 @@
+{
+	"root":
+		{
+			"classId": 0,
+			"ScenarioName": "Warmth Competence",
+			"Description": "Sueca scenario that manipulates warmth (low/high) and competence (low/high) of the characters.",
+			"CharacterSources": ["highWarmth.rpc", "lowWarmth.rpc"],
+			"Dialogues": [
+				{
+					"CurrentState": "Cut",
+					"NextState": "Dynamic",
+					"Meaning": "-",
+					"Style": "LW",
+					"Utterance": "cortar pouco caloroso",
+					"UtteranceId": "TTS-6354FB1E84EE3B9AA991375D1D71626A"
+				}, 
+				{
+					"CurrentState": "GameEnd",
+					"NextState": "Dynamic",
+					"Meaning": "Distress",
+					"Style": "HW",
+					"Utterance": "jogo terminou triste muito caloroso",
+					"UtteranceId": "TTS-BE219D0DCE5561D33303A5FB01393B10"
+				}, 
+				{
+					"CurrentState": "GameEnd",
+					"NextState": "Dynamic",
+					"Meaning": "Distress",
+					"Style": "LW",
+					"Utterance": "jogo terminou triste pouco caloroso",
+					"UtteranceId": "TTS-010B08CE8478CCE33A2D66CEDFE337CE"
+				}, 
+				{
+					"CurrentState": "GameEnd",
+					"NextState": "Dynamic",
+					"Meaning": "Joy",
+					"Style": "HW",
+					"Utterance": "jogo terminou feliz muito caloroso",
+					"UtteranceId": "TTS-76046CABA4C2D4C84B02AE9EAF6F3203"
+				}, 
+				{
+					"CurrentState": "Cut",
+					"NextState": "Dynamic",
+					"Meaning": "-",
+					"Style": "HW",
+					"Utterance": "cortar muito caloroso",
+					"UtteranceId": "TTS-B3D9C1CB8CC29929822CF920D7D17614"
+				}, 
+				{
+					"CurrentState": "GameEnd",
+					"NextState": "Dynamic",
+					"Meaning": "Joy",
+					"Style": "LW",
+					"Utterance": "jogo terminou feliz pouco caloroso",
+					"UtteranceId": "TTS-53A11EA6BA432B25D7E9B3A2A680FF21"
+				}, 
+				{
+					"CurrentState": "GameEnd",
+					"NextState": "Dynamic",
+					"Meaning": "Renounce",
+					"Style": "HW",
+					"Utterance": "renuncia muito caloroso",
+					"UtteranceId": "TTS-7169259D9EFBD2A3BC2EEBF422E528E8"
+				}, 
+				{
+					"CurrentState": "GameEnd",
+					"NextState": "Dynamic",
+					"Meaning": "Renounce",
+					"Style": "LW",
+					"Utterance": "renuncia pouco caloroso",
+					"UtteranceId": "TTS-D9F6EC34A7D0D382C2D6B5BC9BDEA62D"
+				}, 
+				{
+					"CurrentState": "GameStart",
+					"NextState": "Dynamic",
+					"Meaning": "-",
+					"Style": "HW",
+					"Utterance": "jogo começa muito caloroso",
+					"UtteranceId": "TTS-043D6882B5E2E41C2306A222832DB308"
+				}, 
+				{
+					"CurrentState": "GameStart",
+					"NextState": "Dynamic",
+					"Meaning": "-",
+					"Style": "LW",
+					"Utterance": "jogo começa pouco caloroso",
+					"UtteranceId": "TTS-27945FA57CCE5F947FD6497C4F2EDC5C"
+				}, 
+				{
+					"CurrentState": "NextPlayer",
+					"NextState": "Dynamic",
+					"Meaning": "-",
+					"Style": "HW",
+					"Utterance": "<gaze(player|nextPlayerID|)> É a tua vez |partnerName|",
+					"UtteranceId": "TTS-A9E715648AB463625BCA0EAA1445B9EC"
+				}, 
+				{
+					"CurrentState": "NextPlayer",
+					"NextState": "Dynamic",
+					"Meaning": "-",
+					"Style": "LW",
+					"Utterance": "é a tua vez pouco caloroso",
+					"UtteranceId": "TTS-1B39DDA542778EC8BF52C004387EB1D2"
+				}, 
+				{
+					"CurrentState": "PlayPartner",
+					"NextState": "Dynamic",
+					"Meaning": "Distress",
+					"Style": "HW",
+					"Utterance": "|partnerName| jogou muito caloroso está triste",
+					"UtteranceId": "TTS-BABCF5CAD65C614B31D4597AA0C1A8D4"
+				}, 
+				{
+					"CurrentState": "PlayPartner",
+					"NextState": "Dynamic",
+					"Meaning": "Distress",
+					"Style": "LW",
+					"Utterance": "parceiro jogou pouco caloroso está triste",
+					"UtteranceId": "TTS-FC07B7AFE0278A79D21C9BEB955B6D82"
+				}, 
+				{
+					"CurrentState": "PlayPartner",
+					"NextState": "Dynamic",
+					"Meaning": "Joy",
+					"Style": "HW",
+					"Utterance": "|partnerName| jogou muito caloroso está feliz",
+					"UtteranceId": "TTS-739C0455BED185D11AB9577ACB3FD175"
+				}, 
+				{
+					"CurrentState": "PlayPartner",
+					"NextState": "Dynamic",
+					"Meaning": "Joy",
+					"Style": "LW",
+					"Utterance": "parceiro jogou pouco caloroso está feliz",
+					"UtteranceId": "TTS-022F048906BF3ADEE0562C20C0CB9182"
+				}, 
+				{
+					"CurrentState": "PlaySelf",
+					"NextState": "Dynamic",
+					"Meaning": "Distress",
+					"Style": "HW",
+					"Utterance": "acabei de jogar mal muito caloroso",
+					"UtteranceId": "TTS-95A3C4F470B01045536BF216C39099E5"
+				}, 
+				{
+					"CurrentState": "PlaySelf",
+					"NextState": "Dynamic",
+					"Meaning": "Distress",
+					"Style": "LW",
+					"Utterance": "acabei de jogar mal pouco caloroso",
+					"UtteranceId": "TTS-19F31D8483A25FB88E02517F3F508B80"
+				}, 
+				{
+					"CurrentState": "PlaySelf",
+					"NextState": "Dynamic",
+					"Meaning": "Joy",
+					"Style": "HW",
+					"Utterance": "acabei de jogar bem muito caloroso",
+					"UtteranceId": "TTS-8B81A524013CA2066C03E6CCC94B81B9"
+				}, 
+				{
+					"CurrentState": "PlaySelf",
+					"NextState": "Dynamic",
+					"Meaning": "Joy",
+					"Style": "LW",
+					"Utterance": "acabei de jogar bem pouco caloroso",
+					"UtteranceId": "TTS-9194186E21B3B17BE1A32A69A5B9C150"
+				}, 
+				{
+					"CurrentState": "SessionEnd",
+					"NextState": "Dynamic",
+					"Meaning": "Distress",
+					"Style": "HW",
+					"Utterance": "perdi a sessão muito caloroso",
+					"UtteranceId": "TTS-6C657B70172295537DAF436FCD83509A"
+				}, 
+				{
+					"CurrentState": "SessionEnd",
+					"NextState": "Dynamic",
+					"Meaning": "Distress",
+					"Style": "LW",
+					"Utterance": "perdi a sessão pouco caloroso",
+					"UtteranceId": "TTS-F0B6286DB2271D072981999670782A32"
+				}, 
+				{
+					"CurrentState": "SessionEnd",
+					"NextState": "Dynamic",
+					"Meaning": "Joy",
+					"Style": "HW",
+					"Utterance": "ganhei a sessão muito caloroso",
+					"UtteranceId": "TTS-C657EE9385DEF78056CDEF9F600432F8"
+				}, 
+				{
+					"CurrentState": "SessionEnd",
+					"NextState": "Dynamic",
+					"Meaning": "Joy",
+					"Style": "LW",
+					"Utterance": "ganhei a sessão pouco caloroso",
+					"UtteranceId": "TTS-791D770769BAF4FB12C19ED549B3B932"
+				}, 
+				{
+					"CurrentState": "SessionStart",
+					"NextState": "Dynamic",
+					"Meaning": "-",
+					"Style": "HW",
+					"Utterance": "vamos começar a sessão muito caloroso",
+					"UtteranceId": "TTS-61E1169201E7D1CCDD75037EFB186EBE"
+				}, 
+				{
+					"CurrentState": "SessionStart",
+					"NextState": "Dynamic",
+					"Meaning": "-",
+					"Style": "LW",
+					"Utterance": "vamos começar a sessão pouco caloroso",
+					"UtteranceId": "TTS-E61246BFA7204893C2B07B0088D9A748"
+				}, 
+				{
+					"CurrentState": "Shuffle",
+					"NextState": "Dynamic",
+					"Meaning": "-",
+					"Style": "HW",
+					"Utterance": "baralhar muito caloroso",
+					"UtteranceId": "TTS-B39CE8C4515D453979F5D9254071C021"
+				}, 
+				{
+					"CurrentState": "Shuffle",
+					"NextState": "Dynamic",
+					"Meaning": "-",
+					"Style": "LW",
+					"Utterance": "baralhar pouco caloroso",
+					"UtteranceId": "TTS-56C1925C1A1C900A365E2C7EAEF19AAD"
+				}, 
+				{
+					"CurrentState": "PlayOpponent",
+					"NextState": "Dynamic",
+					"Meaning": "Distress",
+					"Style": "HW",
+					"Utterance": "oponente jogou mal e eu estou feliz muito caloroso",
+					"UtteranceId": "TTS-179474A0F62534F44A4F87F2429D80D2"
+				}, 
+				{
+					"CurrentState": "PlayOpponent",
+					"NextState": "Dynamic",
+					"Meaning": "Distress",
+					"Style": "LW",
+					"Utterance": "oponente jogou mal e eu estou feliz pouco caloroso",
+					"UtteranceId": "TTS-604CA52F599BB574494902D1771E4010"
+				}, 
+				{
+					"CurrentState": "PlayOpponent",
+					"NextState": "Dynamic",
+					"Meaning": "Joy",
+					"Style": "HW",
+					"Utterance": "oponente jogou bem e eu estou triste muito caloroso",
+					"UtteranceId": "TTS-F8BD03675E6EAA7C84C720767273E9FC"
+				}, 
+				{
+					"CurrentState": "PlayOpponent",
+					"NextState": "Dynamic",
+					"Meaning": "Joy",
+					"Style": "LW",
+					"Utterance": "oponente jogou bem e eu estou triste pouco caloroso",
+					"UtteranceId": "TTS-B15A85D810238107EC813C72CE0A110C"
+				}, 
+				{
+					"CurrentState": "Cut",
+					"NextState": "Dynamic",
+					"Meaning": "-",
+					"Style": "HW",
+					"Utterance": "cortar muito caloroso",
+					"UtteranceId": "TTS-B3D9C1CB8CC29929822CF920D7D17614"
+				}, 
+				{
+					"CurrentState": "Cut",
+					"NextState": "Dynamic",
+					"Meaning": "-",
+					"Style": "LW",
+					"Utterance": "cortar pouco caloroso",
+					"UtteranceId": "TTS-6354FB1E84EE3B9AA991375D1D71626A"
+				}, 
+				{
+					"CurrentState": "Deal",
+					"NextState": "Dynamic",
+					"Meaning": "-",
+					"Style": "HW",
+					"Utterance": "distribuir muito caloroso",
+					"UtteranceId": "TTS-91705E8ADD82F32FF32361EBC5F8AEB3"
+				}, 
+				{
+					"CurrentState": "Deal",
+					"NextState": "Dynamic",
+					"Meaning": "-",
+					"Style": "LW",
+					"Utterance": "distribuir pouco caloroso",
+					"UtteranceId": "TTS-5B98EA28D66BDCFCFB31BBDD919D47C3"
+				}]
+		},
+	"types": [
+		{
+			"TypeId": 0,
+			"ClassName": "IntegratedAuthoringTool.IntegratedAuthoringToolAsset, IntegratedAuthoringTool, Version=1.7.0.0, Culture=neutral, PublicKeyToken=null"
+		}]
+}

@@ -2,7 +2,7 @@
 	"root":
 		{
 			"classId": 0,
-			"ScenarioName": "Group Emotions",
+			"ScenarioName": "Group-based Emotions",
 			"Description": "Sueca scenario with group emotions",
 			"CharacterSources": ["group.rpc", "individual.rpc"],
 			"Dialogues": [

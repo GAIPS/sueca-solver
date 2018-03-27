@@ -48,6 +48,7 @@
     <Compile Include="Card.cs" />
     <Compile Include="HybridPlayer.cs" />
     <Compile Include="Deck.cs" />
+    <Compile Include="TIPlayer.cs" />
     <Compile Include="RBOPlayer.cs" />
     <Compile Include="SuecaGame.cs" />
     <Compile Include="InformationSet.cs" />
