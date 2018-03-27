@@ -235,32 +235,32 @@
 					"NextState": "Dynamic",
 					"Meaning": "Distress",
 					"Style": "HW",
-					"Utterance": "oponente jogou mal e eu estou feliz muito caloroso",
-					"UtteranceId": "TTS-179474A0F62534F44A4F87F2429D80D2"
-				}, 
-				{
-					"CurrentState": "PlayOpponent",
-					"NextState": "Dynamic",
-					"Meaning": "Distress",
-					"Style": "LW",
-					"Utterance": "oponente jogou mal e eu estou feliz pouco caloroso",
-					"UtteranceId": "TTS-604CA52F599BB574494902D1771E4010"
-				}, 
-				{
-					"CurrentState": "PlayOpponent",
-					"NextState": "Dynamic",
-					"Meaning": "Joy",
-					"Style": "HW",
 					"Utterance": "oponente jogou bem e eu estou triste muito caloroso",
 					"UtteranceId": "TTS-F8BD03675E6EAA7C84C720767273E9FC"
 				}, 
 				{
 					"CurrentState": "PlayOpponent",
 					"NextState": "Dynamic",
-					"Meaning": "Joy",
+					"Meaning": "Distress",
 					"Style": "LW",
 					"Utterance": "oponente jogou bem e eu estou triste pouco caloroso",
 					"UtteranceId": "TTS-B15A85D810238107EC813C72CE0A110C"
+				}, 
+				{
+					"CurrentState": "PlayOpponent",
+					"NextState": "Dynamic",
+					"Meaning": "Joy",
+					"Style": "HW",
+					"Utterance": "oponente jogou mal e eu estou feliz muito caloroso",
+					"UtteranceId": "TTS-179474A0F62534F44A4F87F2429D80D2"
+				}, 
+				{
+					"CurrentState": "PlayOpponent",
+					"NextState": "Dynamic",
+					"Meaning": "Joy",
+					"Style": "LW",
+					"Utterance": "oponente jogou mal e eu estou feliz pouco caloroso",
+					"UtteranceId": "TTS-604CA52F599BB574494902D1771E4010"
 				}, 
 				{
 					"CurrentState": "Cut",
