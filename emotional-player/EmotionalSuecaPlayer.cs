@@ -396,7 +396,7 @@ namespace EmotionalPlayer
 
                 if (myTeamScore == otherTeamScore)
                 {
-                    ev.AddPropertyChange(Consts.END_GAME, "Draw", SubjectName(_id));
+                    ev.AddPropertyChange(Consts.END_GAME, "Tie", SubjectName(_id));
                 }
                 ev.ChangeTagsAndMeanings(new string[] { "|playerID|", "|partnerName|" }, new string[] { playerId.ToString(), _partnerName });
                 ev.Finished = true;
@@ -434,7 +434,7 @@ namespace EmotionalPlayer
             }
             if (otherTeamScore == myTeamScore)
             {
-                ev.AddPropertyChange(Consts.END_SESSION, "Draw", SubjectName(_id));
+                ev.AddPropertyChange(Consts.END_SESSION, "Tie", SubjectName(_id));
             }
             ev.ChangeTagsAndMeanings(new string[] { "|playerID|", "|partnerName|" }, new string[] { playerId.ToString(), _partnerName });
             ev.Finished = true;
