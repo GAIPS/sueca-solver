@@ -172,17 +172,6 @@ namespace EmotionalPlayer
                     {
                         Thread.Sleep(1000);
                         decide(ev);
-
-                        if (ev.OtherIntInfos[0] == ((_esp._id + 2) % 4))
-                        {
-                            string attributionEmotion = getStrongestAttributionEmotion(_rpc.GetAllActiveEmotions());
-                            EmotionalSuecaPlayer.SuecaPub.SetPosture("", attributionEmotion);
-                        }
-                        else
-                        {
-                            string wellbeingEmotion = getStrongestWellbeingEmotion(_rpc.GetAllActiveEmotions());
-                            EmotionalSuecaPlayer.SuecaPub.SetPosture("", wellbeingEmotion);
-                        }
                     }
                     else if (ev.Name != Consts.INIT)
                     {
