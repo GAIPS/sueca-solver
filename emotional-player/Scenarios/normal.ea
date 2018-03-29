@@ -83,7 +83,7 @@
 							"EventName": "Event(Property-Change, SELF, Trick(Score), [score])",
 							"Conditions":
 								{
-									"Set": ["[score] >= 9", "Trick(Increase) = True"]
+									"Set": ["[score] >= 7", "Trick(Increase) = True"]
 								},
 							"Desirability": 10,
 							"Praiseworthiness": 0
@@ -92,7 +92,7 @@
 							"EventName": "Event(Property-Change, SELF, Trick(Score), [score])",
 							"Conditions":
 								{
-									"Set": ["[score] <= -9", "Trick(Increase) = True"]
+									"Set": ["[score] <= -7", "Trick(Increase) = True"]
 								},
 							"Desirability": -10,
 							"Praiseworthiness": 0
@@ -101,7 +101,7 @@
 							"EventName": "Event(Property-Change, [pointGiver], Trick(Score), [score])",
 							"Conditions":
 								{
-									"Set": ["[score] <= -9", "Player([pointGiver]) = Opponent", "Trick(Increase) = True"]
+									"Set": ["[score] <= -7", "Player([pointGiver]) = Opponent", "Trick(Increase) = True"]
 								},
 							"Desirability": -10,
 							"Praiseworthiness": 0
@@ -110,7 +110,7 @@
 							"EventName": "Event(Property-Change, [pointGiver], Trick(Score), [score])",
 							"Conditions":
 								{
-									"Set": ["[score] >= 9", "Player([pointGiver]) = Opponent", "Trick(Increase) = True"]
+									"Set": ["[score] >= 7", "Player([pointGiver]) = Opponent", "Trick(Increase) = True"]
 								},
 							"Desirability": 10,
 							"Praiseworthiness": 0
