@@ -586,51 +586,51 @@ namespace EmotionalPlayer
 
         public void RequestUtterance(int playerId, string category, string subcategory)
         {
-            //if (playerId != _id)
-            //{
-            //    if (PendingRequest || Talking)
-            //    {
-            //        SuecaPub.NOUtterance(_id);
-            //    }
-            //    else
-            //    {
-            //        SuecaPub.OKUtterance(_id);
-            //        SomeoneIsTalking = true;
-            //    }
-            //}
+            if (playerId != _id)
+            {
+                if (PendingRequest || Talking)
+                {
+                    SuecaPub.NOUtterance(_id);
+                }
+                else
+                {
+                    SuecaPub.OKUtterance(_id);
+                    SomeoneIsTalking = true;
+                }
+            }
         }
 
 
         public void OKUtterance(int playerId)
         {
-            //if (playerId != _id)
-            //{
-            //    Talking = true;
-            //    PendingRequest = false;
-            //    Retrying = false;
-            //    requestCounter = 0;
-            //}
+            if (playerId != _id)
+            {
+                Talking = true;
+                PendingRequest = false;
+                Retrying = false;
+                requestCounter = 0;
+            }
         }
 
 
         public void NOUtterance(int playerId)
         {
-            //if (playerId != _id)
-            //{
-            //    if (PendingRequest && requestCounter < 3)
-            //    {
-            //        Retrying = true;
-            //        PendingRequest = false;
-            //        Thread.Sleep(_randomNumberGenerator.Next(2000));
-            //        retryRequest();
-            //    }
-            //    else
-            //    {
-            //        requestCounter = 0;
-            //        Retrying = false;
-            //        PendingRequest = false;
-            //    }
-            //}
+            if (playerId != _id)
+            {
+                if (PendingRequest && requestCounter < 3)
+                {
+                    Retrying = true;
+                    PendingRequest = false;
+                    Thread.Sleep(_randomNumberGenerator.Next(2000));
+                    retryRequest();
+                }
+                else
+                {
+                    requestCounter = 0;
+                    Retrying = false;
+                    PendingRequest = false;
+                }
+            }
         }
 
 
@@ -657,43 +657,43 @@ namespace EmotionalPlayer
 
         public void RequestUtterance(string category, string subcategory)
         {
-            //if (numRobots > 1)
-            //{
-            //    PendingRequest = true;
-            //    pendingCategory = category;
-            //    pendingSubcategory = subcategory;
-            //    requestCounter++;
-            //    SuecaPub.RequestUtterance(_id, category, subcategory);
-            //}
-            //else
-            //{
-            //    Talking = true;
-            //}
+            if (numRobots > 1)
+            {
+                PendingRequest = true;
+                pendingCategory = category;
+                pendingSubcategory = subcategory;
+                requestCounter++;
+                SuecaPub.RequestUtterance(_id, category, subcategory);
+            }
+            else
+            {
+                Talking = true;
+            }
 
         }
 
         private void retryRequest()
         {
-            //requestCounter++;
-            //RequestUtterance(pendingCategory, pendingSubcategory);
+            requestCounter++;
+            RequestUtterance(pendingCategory, pendingSubcategory);
         }
 
         public void WaitForResponse()
         {
-            //Stopwatch s = new Stopwatch();
-            //s.Start();
-            //while (PendingRequest || Retrying || SomeoneIsTalking)
-            //{
-            //    if (s.ElapsedMilliseconds > 3000)
-            //    {
-            //        PendingRequest = false;
-            //        Retrying = false;
-            //        pendingCategory = "";
-            //        pendingSubcategory = "";
-            //        requestCounter = 0;
-            //        s.Stop();
-            //    }
-            //}
+            Stopwatch s = new Stopwatch();
+            s.Start();
+            while (PendingRequest || Retrying || SomeoneIsTalking)
+            {
+                if (s.ElapsedMilliseconds > 3000)
+                {
+                    PendingRequest = false;
+                    Retrying = false;
+                    pendingCategory = "";
+                    pendingSubcategory = "";
+                    requestCounter = 0;
+                    s.Stop();
+                }
+            }
         }
 
 

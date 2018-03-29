@@ -293,20 +293,15 @@ namespace EmotionalPlayer
                             var possibleDialogs = _iat.GetDialogueActions(currentState, nextState, meaning, style);
                             var dialog = getUtterance(possibleDialogs);
 
-                            Stopwatch s = new Stopwatch();
-                            s.Start();
-                            while (_esp.SomeoneIsTalking)
-                            {
-                                if (s.ElapsedMilliseconds > 3000)
-                                {
-                                    break;
-                                }
-                            }
-                            s.Stop();
 
-                            Console.WriteLine(_agentName + "---" + dialog);
-                            EmotionalSuecaPlayer.SuecaPub.StartedUtterance(_esp._id, ev.Name, "");
-                            EmotionalSuecaPlayer.SuecaPub.PerformUtteranceWithTags("", dialog, tags, meanings);
+                            _esp.RequestUtterance(meaning.ToString(), style.ToString());
+                            _esp.WaitForResponse();
+                            if (_esp.Talking)
+                            {
+                                Console.WriteLine(_agentName + "---" + dialog);
+                                EmotionalSuecaPlayer.SuecaPub.StartedUtterance(_esp._id, ev.Name, "");
+                                EmotionalSuecaPlayer.SuecaPub.PerformUtteranceWithTags("", dialog, tags, meanings);
+                            }
 
                             break;
 
