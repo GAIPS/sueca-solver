@@ -5,6 +5,7 @@ namespace SuecaSolver
     {
 
         protected int _id;
+        public InformationSet InfoSet;
 
         public ArtificialPlayer(int id)
         {

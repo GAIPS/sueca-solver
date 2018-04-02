@@ -5,17 +5,17 @@ namespace SuecaSolver
 {
     public class RBOPlayer : ArtificialPlayer
     {
-        private InformationSet infoSet;
+        //private InformationSet InfoSet;
 
         public RBOPlayer(int id, List<int> initialHand, int trumpCard, int trumpPlayerId)
             : base(id)
         {
-            infoSet = new InformationSet(id, initialHand, trumpCard, trumpPlayerId);
+            InfoSet = new InformationSet(id, initialHand, trumpCard, trumpPlayerId);
         }
 
         override public void AddPlay(int playerID, int card)
         {
-            infoSet.AddPlay(playerID, card);
+            InfoSet.AddPlay(playerID, card);
         }
 
 
@@ -23,16 +23,16 @@ namespace SuecaSolver
         {
             int chosenCard;
 
-            if (infoSet.GetHandSize() > 10)
+            if (InfoSet.GetHandSize() > 10)
             {
-                chosenCard = infoSet.RuleBasedDecision();
+                chosenCard = InfoSet.RuleBasedDecision();
             }
             else
             {
-                //chosenCard = PIMC.Execute(_id, infoSet, 3, new List<int> { 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 });
-                chosenCard = PIMC.Execute(_id, infoSet, 3, new List<int> { 100, 100, 100, 100, 100, 100, 100, 100, 100, 100 });
-                //chosenCard = PIMC.Execute(_id, infoSet, 3, new List<int> { 200, 200, 200, 200, 200, 200, 200, 200, 200, 200 });
-                //chosenCard = PIMC.Execute(_id, infoSet, 3, new List<int> { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 });
+                chosenCard = PIMC.Execute(_id, InfoSet, 1, new List<int> { 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 });
+                //chosenCard = PIMC.Execute(_id, infoSet, 1, new List<int> { 100, 100, 100, 100, 100, 100, 100, 100, 100, 100 });
+                //chosenCard = PIMC.Execute(_id, infoSet, 1, new List<int> { 200, 200, 200, 200, 200, 200, 200, 200, 200, 200 });
+                //chosenCard = PIMC.Execute(_id, infoSet, 1, new List<int> { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 });
             }
 
             return chosenCard;
@@ -40,57 +40,57 @@ namespace SuecaSolver
 
         public int[] GetWinnerAndPointsAndTrickNumber()
         {
-            return infoSet.GetWinnerAndPointsAndTrickNumber();
+            return InfoSet.GetWinnerAndPointsAndTrickNumber();
         }
 
         public int GetCurrentTrickWinner()
         {
-            return infoSet.GetCurrentTrickWinner();
+            return InfoSet.GetCurrentTrickWinner();
         }
 
         public int GetCurrentTrickPoints()
         {
-            return infoSet.GetCurrentTrickPoints();
+            return InfoSet.GetCurrentTrickPoints();
         }
 
         public bool HasNewTrickWinner()
         {
-            return infoSet.HasNewTrickWinner();
+            return InfoSet.HasNewTrickWinner();
         }
 
         public bool HasNewTrickTeamWinner()
         {
-            return infoSet.HasNewTrickTeamWinner();
+            return InfoSet.HasNewTrickTeamWinner();
         }
 
         public int GetTrickIncrease()
         {
-            return infoSet.GetTrickIncrease();
+            return InfoSet.GetTrickIncrease();
         }
         
         public float PointsPercentage()
         {
-            float alreadyMadePoints = infoSet.MyTeamPoints + infoSet.OtherTeamPoints;
+            float alreadyMadePoints = InfoSet.MyTeamPoints + InfoSet.OtherTeamPoints;
             if (alreadyMadePoints == 0.0f)
             {
                 return 0.5f;
             }
-            return infoSet.MyTeamPoints / alreadyMadePoints;
+            return InfoSet.MyTeamPoints / alreadyMadePoints;
         }
 
         public int GetHandSize()
         {
-            return infoSet.GetHandSize();
+            return InfoSet.GetHandSize();
         }
 
         public string GetLastPlayInfo()
         {
-            return infoSet.GetLastPlayInfo();
+            return InfoSet.GetLastPlayInfo();
         }
 
         public bool IsLastPlayOfTrick()
         {
-            return infoSet.IsLastPlayOfTrick();
+            return InfoSet.IsLastPlayOfTrick();
         }
     }
 }

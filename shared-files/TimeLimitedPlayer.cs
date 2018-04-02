@@ -7,7 +7,7 @@ namespace SuecaSolver
         //private int _idDiff;
         private int _handSize;
         //private PIMC pimc;
-        private InformationSet infoSet;
+        //private InformationSet InfoSet;
 
 
         public TimeLimitedPlayer(int id, List<int> initialHand, int trumpCard, int trumpPlayerId)
@@ -16,7 +16,7 @@ namespace SuecaSolver
             //_idDiff = 0 - id;
             _handSize = initialHand.Count;
             //pimc = new PIMC();
-            infoSet = new InformationSet(id, initialHand, trumpCard, trumpPlayerId);
+            InfoSet = new InformationSet(id, initialHand, trumpCard, trumpPlayerId);
         }
 
         override public void AddPlay(int playerID, int card)
@@ -26,7 +26,7 @@ namespace SuecaSolver
             //{
             //    playerIdForMe += 4;
             //}
-            infoSet.AddPlay(playerID, card);
+            InfoSet.AddPlay(playerID, card);
         }
 
 
@@ -36,11 +36,11 @@ namespace SuecaSolver
 
             if (_handSize > 10)
             {
-                chosenCard = infoSet.RuleBasedDecision();
+                chosenCard = InfoSet.RuleBasedDecision();
             }
             else
             {
-                chosenCard = PIMC.ExecuteWithTimeLimit(_id, infoSet, new List<int> { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 });
+                chosenCard = PIMC.ExecuteWithTimeLimit(_id, InfoSet, new List<int> { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 });
             }
 
             //infoSet.AddMyPlay(chosenCard);

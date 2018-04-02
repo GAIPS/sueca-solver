@@ -8,9 +8,9 @@ namespace SuecaSolver
 {
     public class War
     {
-        public const int GAMEMODE = 11;
-        public const int NUMGAMES = 100;
-        public const bool PARALLEL = false;
+        public const int GAMEMODE = 13;
+        public const int NUMGAMES = 10;
+        public const bool PARALLEL = true;
         public const int NUM_THREADS = 2;
         //public const int NUM_THREADS = Sueca.WAR_NUM_THREADS;
         public const bool SAVE_CARDS = false; //if true log file will contain intial cards of players otherwise will contain specific features
@@ -97,6 +97,12 @@ namespace SuecaSolver
                     break;
                 case 11:
                     Console.WriteLine("Mode 11 (2 HumanPlayer 2 RBO)");
+                    break;
+                case 12:
+                    Console.WriteLine("Mode 12 (1 HBO 3 HumanPlayer)");
+                    break;
+                case 13:
+                    Console.WriteLine("Mode 12 (1 HBO 3 RuleBased)");
                     break;
                 default:
                     break;
@@ -270,6 +276,7 @@ namespace SuecaSolver
             int seed = Guid.NewGuid().GetHashCode();
             Random randomNumber = new Random(seed);
             ArtificialPlayer[] players = new ArtificialPlayer[4];
+            HumanPlayer humanPlayer;
             List<List<int>> playersHands = new List<List<int>>(
                 new List<int>[] {
                     new List<int>(10),
@@ -366,11 +373,24 @@ namespace SuecaSolver
                     players[2] = new HumanPlayer(2, playersHands[2], trumpCard, trumpPlayerId);
                     players[3] = new RBOPlayer(3, playersHands[3], trumpCard, trumpPlayerId);
                     break;
+                case 12:
+                    players[0] = new HBOPlayer(0, playersHands[0], trumpCard, trumpPlayerId);
+                    players[1] = new HumanPlayer(1, playersHands[1], trumpCard, trumpPlayerId);
+                    players[2] = new HumanPlayer(2, playersHands[2], trumpCard, trumpPlayerId);
+                    players[3] = new HumanPlayer(3, playersHands[3], trumpCard, trumpPlayerId);
+                    break;
+                case 13:
+                    players[0] = new HBOPlayer(0, playersHands[0], trumpCard, trumpPlayerId);
+                    players[1] = new RuleBasedPlayer(1, playersHands[1], trumpCard, trumpPlayerId);
+                    players[2] = new RuleBasedPlayer(2, playersHands[2], trumpCard, trumpPlayerId);
+                    players[3] = new RuleBasedPlayer(3, playersHands[3], trumpCard, trumpPlayerId);
+                    break;
                 default:
                     break;
             }
 
 
+            humanPlayer = new HumanPlayer(0, playersHands[0], trumpCard, trumpPlayerId);
             int[] classesCountT0 = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
             int[] classesCountT1 = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
             List<int> classes = new List<int> { 1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 16 };
@@ -390,6 +410,21 @@ namespace SuecaSolver
                     ulong realTime = (ulong)ts.Minutes * 60000 + (ulong)ts.Seconds * 1000 + (ulong)ts.Milliseconds;
                     int trick = j / 4;
                     timeTemp[trick] = timeTemp[trick] + (ulong)realTime;
+
+                    int humanChoice = humanPlayer.Play();
+                    Move m = new Move(currentPlayerID, humanChoice);
+                    labeledGame.Add(m);
+                    int humanAbstractMove = int.Parse(Sueca.GetPlayLabel(m, j, labeledGame, trumpSuit));
+                    int index = classes.FindIndex(a => a == humanAbstractMove);
+                    classesCountT1[index]++;
+                    labeledGame.RemoveAt(labeledGame.Count - 1);
+
+                    m = new Move(currentPlayerID, chosenCard);
+                    labeledGame.Add(m);
+                    int abstractMove = int.Parse(Sueca.GetPlayLabel(m, j, labeledGame, trumpSuit));
+                    index = classes.FindIndex(a => a == abstractMove);
+                    classesCountT0[index]++;
+
                 }
                 else
                 {
@@ -397,24 +432,12 @@ namespace SuecaSolver
                 }
                 game.PlayCard(currentPlayerID, chosenCard);
 
-                Move m = new Move(currentPlayerID, chosenCard);
-                labeledGame.Add(m);
-                int abstractMove = int.Parse(Sueca.GetPlayLabel(m, j, labeledGame, trumpSuit));
-                int index = classes.FindIndex(a => a == abstractMove);
-                if (currentPlayerID == 0 || currentPlayerID == 2)
-                {
-                    classesCountT0[index]++;
-                }
-                else
-                {
-                    classesCountT1[index]++;
-                }
-
                 //Console.WriteLine("Player " + currentPlayerID + " has played " + Card.ToString(chosenCard));
                 for (int k = 0; k < 4; k++)
                 {
                     players[k].AddPlay(currentPlayerID, chosenCard);
                 }
+                humanPlayer.AddPlay(currentPlayerID, chosenCard);
                 currentPlayerID = game.GetNextPlayerId();
             }
 

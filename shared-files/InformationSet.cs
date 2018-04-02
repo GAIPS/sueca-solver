@@ -6,7 +6,7 @@ namespace SuecaSolver
     public class InformationSet
     {
         private int id;
-        private List<int> hand;
+        public List<int> Hand;
         public int Trump;
         private Deck unknownOwnerCards;
         public int TrumpCard;
@@ -27,7 +27,7 @@ namespace SuecaSolver
             this.TrumpCard = trumpCard;
             this.TrumpPlayerId = trumpPlayerId;
             trumpCardWasPlayed = false;
-            hand = new List<int>(currentHand);
+            Hand = new List<int>(currentHand);
             suitHasPlayer = new Dictionary<int,List<int>>
             {
                 { (int)Suit.Clubs, new List<int>(4){ 0, 1, 2, 3 } },
@@ -44,9 +44,9 @@ namespace SuecaSolver
             };
 
             //remove my point cards from the dictionary othersPointCards
-            for (int i = 0; i < hand.Count; i++)
+            for (int i = 0; i < Hand.Count; i++)
             {
-                int card = hand[i];
+                int card = Hand[i];
                 int suit = Card.GetSuit(card);
                 int rank = Card.GetRank(card);
                 othersPointCards[suit].Remove(rank);
@@ -100,7 +100,7 @@ namespace SuecaSolver
 
         public int GetHandSize()
         {
-            return hand.Count;
+            return Hand.Count;
         }
 
         public List<Move> GetCurrentTrickMoves()
@@ -117,7 +117,7 @@ namespace SuecaSolver
         public List<int> GetPossibleMoves()
         {
             Trick currentTrick = tricks[tricks.Count - 1];
-            return Sueca.PossibleMovesReduced(hand, currentTrick.LeadSuit);
+            return Sueca.PossibleMovesReduced(Hand, currentTrick.LeadSuit);
         }
 
         public void AddPlay(int playerID, int card)
@@ -165,7 +165,7 @@ namespace SuecaSolver
             }
             if (playerID == id)
             {
-                if (hand.Remove(card) == false)
+                if (Hand.Remove(card) == false)
                 {
                     //Console.WriteLine("INFOSET Trying to remove an nonexisting card!!!");
                 }
@@ -216,7 +216,7 @@ namespace SuecaSolver
 
             if (playerId == id)
             {
-                hand.Add(card);
+                Hand.Add(card);
             }
             else
             {
@@ -303,7 +303,7 @@ namespace SuecaSolver
         public List<List<int>> Sample()
         {
             List<List<int>> hands = new List<List<int>>();
-            int myHandSize = hand.Count;
+            int myHandSize = Hand.Count;
             int[] playerIDs = new int[] { (id + 1) % 4, (id + 2) % 4, (id + 3) % 4 };
             int[] handSizes = new int[] { myHandSize, myHandSize, myHandSize };
             
@@ -324,7 +324,7 @@ namespace SuecaSolver
                 handSizes[pIndex]--;
             }
 
-            hands.Add(new List<int>(hand));
+            hands.Add(new List<int>(Hand));
             List<List<int>> sampledHands = new List<List<int>>(
                 new List<int>[] {
                     new List<int>(handSizes[0]),
@@ -461,7 +461,7 @@ namespace SuecaSolver
                 return possibleMoves[0];
             }
 
-            List<int> highestPerSuit = getHighestPerSuit(hand);
+            List<int> highestPerSuit = getHighestPerSuit(Hand);
 
             if (highestPerSuit.Count == 1)
             {
@@ -482,7 +482,7 @@ namespace SuecaSolver
                 int trickSize = tricks[tricks.Count - 1].GetCurrentTrickSize();
                 if (trickSize == 4 || trickSize == 0)
                 {
-                    List<int> counterList = counterPerSuit(hand);
+                    List<int> counterList = counterPerSuit(Hand);
                     Random r = new Random();
 
                     //debug

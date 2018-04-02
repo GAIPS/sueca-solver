@@ -5,17 +5,17 @@ namespace SuecaSolver
 {
     public class HybridPlayer : ArtificialPlayer
     {
-        private InformationSet infoSet;
+        //private InformationSet InfoSet;
 
         public HybridPlayer(int id, List<int> initialHand, int trumpCard, int trumpPlayerId)
             : base(id)
         {
-            infoSet = new InformationSet(id, initialHand, trumpCard, trumpPlayerId);
+            InfoSet = new InformationSet(id, initialHand, trumpCard, trumpPlayerId);
         }
 
         override public void AddPlay(int playerID, int card)
         {
-            infoSet.AddPlay(playerID, card);
+            InfoSet.AddPlay(playerID, card);
         }
 
 
@@ -23,13 +23,13 @@ namespace SuecaSolver
         {
             int chosenCard;
 
-            if (infoSet.GetHandSize() > 10)
+            if (InfoSet.GetHandSize() > 10)
             {
-                chosenCard = infoSet.RuleBasedDecision();
+                chosenCard = InfoSet.RuleBasedDecision();
             }
             else
             {
-                chosenCard = PIMC.ExecuteWithHybridSearch(_id, infoSet, new List<int> { 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 }, new List<int> { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 });
+                chosenCard = PIMC.ExecuteWithHybridSearch(_id, InfoSet, new List<int> { 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 }, new List<int> { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 });
             }
 
             return chosenCard;
@@ -37,7 +37,7 @@ namespace SuecaSolver
 
         public int[] GetWinnerAndPointsAndTrickNumber()
         {
-            return infoSet.GetWinnerAndPointsAndTrickNumber();
+            return InfoSet.GetWinnerAndPointsAndTrickNumber();
         }
     }
 }

@@ -5,7 +5,7 @@ namespace SuecaSolver
 {
     public class HumanPlayer : ArtificialPlayer
     {
-        private InformationSet infoSet;
+        //private InformationSet InfoSet;
         private List<int> hand;
         private List<Move> game;
         private int trumpSuit;
@@ -23,7 +23,7 @@ namespace SuecaSolver
             game = new List<Move>();
             trumpSuit = Card.GetSuit(trumpCard);
             currentPlayIndex = 0;
-            infoSet = new InformationSet(id, initialHand, trumpCard, trumpPlayerId);
+            InfoSet = new InformationSet(id, initialHand, trumpCard, trumpPlayerId);
             weightsPerClass = new float[numClasses][];
             string[] lines = System.IO.File.ReadAllLines("../../../state-inference/weights.txt");
             for (int i = 0; i < lines.Length; i++)
@@ -39,7 +39,7 @@ namespace SuecaSolver
 
         override public void AddPlay(int playerID, int card)
         {
-            infoSet.AddPlay(playerID, card);
+            InfoSet.AddPlay(playerID, card);
             if (playerID == _id)
             {
                 hand.Remove(card);
@@ -51,7 +51,7 @@ namespace SuecaSolver
 
         override public int Play()
         {
-            List<int> possibleMoves = Sueca.PossibleMoves(hand, infoSet.GetLeadSuit());
+            List<int> possibleMoves = Sueca.PossibleMoves(hand, InfoSet.GetLeadSuit());
             int[] features = Sueca.GetFeaturesFromState(_id, hand, game, currentPlayIndex, trumpSuit);
             int[] filteredClasses;
             if ((currentPlayIndex % 4) == 0) //lead
@@ -72,7 +72,7 @@ namespace SuecaSolver
             foreach (var classificationProb in classProbs)
             {
                 int classification = classificationProb.Key;
-                int card = Sueca.ChooseCardFromLabel(classification, possibleMoves, infoSet.GetLeadSuit(), trumpSuit);
+                int card = Sueca.ChooseCardFromLabel(classification, possibleMoves, InfoSet.GetLeadSuit(), trumpSuit);
                 if (card != -1)
                 {
                     return card;
@@ -86,64 +86,64 @@ namespace SuecaSolver
 
         public int[] GetWinnerAndPointsAndTrickNumber()
         {
-            return infoSet.GetWinnerAndPointsAndTrickNumber();
+            return InfoSet.GetWinnerAndPointsAndTrickNumber();
         }
 
         public int GetCurrentTrickWinner()
         {
-            return infoSet.GetCurrentTrickWinner();
+            return InfoSet.GetCurrentTrickWinner();
         }
 
         public int GetCurrentTrickPoints()
         {
-            return infoSet.GetCurrentTrickPoints();
+            return InfoSet.GetCurrentTrickPoints();
         }
 
         public bool HasNewTrickWinner()
         {
-            return infoSet.HasNewTrickWinner();
+            return InfoSet.HasNewTrickWinner();
         }
 
         public bool HasNewTrickTeamWinner()
         {
-            return infoSet.HasNewTrickTeamWinner();
+            return InfoSet.HasNewTrickTeamWinner();
         }
 
         public int GetTrickIncrease()
         {
-            return infoSet.GetTrickIncrease();
+            return InfoSet.GetTrickIncrease();
         }
 
         public float PointsPercentage()
         {
-            float alreadyMadePoints = infoSet.MyTeamPoints + infoSet.OtherTeamPoints;
+            float alreadyMadePoints = InfoSet.MyTeamPoints + InfoSet.OtherTeamPoints;
             if (alreadyMadePoints == 0.0f)
             {
                 return 0.5f;
             }
-            return infoSet.MyTeamPoints / alreadyMadePoints;
+            return InfoSet.MyTeamPoints / alreadyMadePoints;
         }
 
         public int GetHandSize()
         {
-            return infoSet.GetHandSize();
+            return InfoSet.GetHandSize();
         }
 
         public string GetLastPlayInfo()
         {
-            return infoSet.GetLastPlayInfo();
+            return InfoSet.GetLastPlayInfo();
         }
 
         public bool IsLastPlayOfTrick()
         {
-            return infoSet.IsLastPlayOfTrick();
+            return InfoSet.IsLastPlayOfTrick();
         }
 
 
         //attribute the event to the winner when he is from my team and blame himself or the partner when winner is an opponent
         public int GetResposibleForLastTrick()
         {
-            return infoSet.GetCurrentTrickResponsible();
+            return InfoSet.GetCurrentTrickResponsible();
         }
     }
 }
