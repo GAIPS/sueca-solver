@@ -1,6 +1,0 @@
-Mode: 9 (N=10,HN) #Games: 1000
------------------ Summary -----------------
-FirstTeam won 444/1000
-SecondTeam 1 won 531/1000
-Draws 25/1000
-Null Games 0

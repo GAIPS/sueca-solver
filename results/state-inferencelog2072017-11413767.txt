@@ -1,6 +1,0 @@
-Mode: 7 (N=10) #Games: 100
------------------ Summary -----------------
-FirstTeam won 45/100
-SecondTeam 1 won 55/100
-Draws 0/100
-Null Games 0

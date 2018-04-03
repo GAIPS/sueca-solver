@@ -1,9 +1,0 @@
-public const int UTILITY_FUNC = 2;
-chosenCard = PIMC.ExecuteWithHybridSearch(_id, infoSet, new List<int> { 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 }, new List<int> { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 });
-
-Mode: 6 #Games: 10
------------------ Summary -----------------
-FirstTeam won 4/10
-SecondTeam 1 won 6/10
-Draws 0/10
-Null Games 0

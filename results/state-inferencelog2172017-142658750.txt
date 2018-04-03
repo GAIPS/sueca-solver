@@ -1,6 +1,0 @@
-Mode: 9 (N=200,HP) #Games: 100
------------------ Summary -----------------
-FirstTeam won 42/100
-SecondTeam 1 won 57/100
-Draws 1/100
-Null Games 0

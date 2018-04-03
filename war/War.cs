@@ -9,7 +9,7 @@ namespace SuecaSolver
     public class War
     {
         public const int GAMEMODE = 13;
-        public const int NUMGAMES = 10;
+        public const int NUMGAMES = 100;
         public const bool PARALLEL = true;
         public const int NUM_THREADS = 2;
         //public const int NUM_THREADS = Sueca.WAR_NUM_THREADS;
@@ -429,6 +429,8 @@ namespace SuecaSolver
                 else
                 {
                     chosenCard = players[currentPlayerID].Play();
+                    Move m = new Move(currentPlayerID, chosenCard);
+                    labeledGame.Add(m);
                 }
                 game.PlayCard(currentPlayerID, chosenCard);
 
@@ -476,7 +478,7 @@ namespace SuecaSolver
                 }
             }
 
-                return localCount;
+        return localCount;
         }
 
         static long TimeMethod(Action methodToTime)

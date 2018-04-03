@@ -1,6 +1,0 @@
-Mode: 5 #Games: 10
------------------ Summary -----------------
-FirstTeam won 6/10
-SecondTeam 1 won 4/10
-Draws 0/10
-Null Games 0
