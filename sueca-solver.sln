@@ -21,6 +21,8 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "state-inference", "state-in
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "gameplay-data-analysis", "gameplay-data-analysis", "{7549879C-DD46-4891-9CE0-D246CBED2729}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "kl-divergence", "kl-divergence\kl-divergence.pyproj", "{0F1B2422-05A8-4DBA-96EB-723F9563BCEF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +119,14 @@ Global
 		{07978F72-253A-41AF-AD1D-7A445D266E63}.Release|ARM.ActiveCfg = Release|Any CPU
 		{07978F72-253A-41AF-AD1D-7A445D266E63}.Release|x64.ActiveCfg = Release|Any CPU
 		{07978F72-253A-41AF-AD1D-7A445D266E63}.Release|x86.ActiveCfg = Release|Any CPU
+		{0F1B2422-05A8-4DBA-96EB-723F9563BCEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F1B2422-05A8-4DBA-96EB-723F9563BCEF}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{0F1B2422-05A8-4DBA-96EB-723F9563BCEF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0F1B2422-05A8-4DBA-96EB-723F9563BCEF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0F1B2422-05A8-4DBA-96EB-723F9563BCEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F1B2422-05A8-4DBA-96EB-723F9563BCEF}.Release|ARM.ActiveCfg = Release|Any CPU
+		{0F1B2422-05A8-4DBA-96EB-723F9563BCEF}.Release|x64.ActiveCfg = Release|Any CPU
+		{0F1B2422-05A8-4DBA-96EB-723F9563BCEF}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -124,6 +134,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{DEF0C09C-1744-4EEB-8FFA-96638866C4FF} = {7549879C-DD46-4891-9CE0-D246CBED2729}
 		{07978F72-253A-41AF-AD1D-7A445D266E63} = {7549879C-DD46-4891-9CE0-D246CBED2729}
+		{0F1B2422-05A8-4DBA-96EB-723F9563BCEF} = {7549879C-DD46-4891-9CE0-D246CBED2729}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {860062AB-2F36-405C-9067-9A56576FEC22}
