@@ -27,7 +27,7 @@ namespace SuecaSolver
             }
             else
             {
-                chosenCard = PIMC.ExecuteWithWorstSelection(_id, infoSet, 1, new List<int> { 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 }, new List<int> { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 });
+                chosenCard = PIMC.ExecuteWithWorstSelection(_id, infoSet, 1, new List<int> { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 }, new List<int> { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 });
             }
 
             return chosenCard;
