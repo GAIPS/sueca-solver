@@ -298,21 +298,53 @@ namespace SuecaSolver
 
             if ((i % 4) == 0) // Lead Play (aka new trick)
             {
-                if (Card.GetValue(move.Card) == 11)
+                if (Card.GetValue(move.Card) == 11 && Card.GetSuit(move.Card) == trump)
                 {
-                    return "1"; // LeadAce
+                    return "1"; // LeadAceTrump
+                }
+                else if (Card.GetValue(move.Card) == 10 && Card.GetSuit(move.Card) == trump)
+                {
+                    return "2"; // LeadSevenTrump
+                }
+                else if (Card.GetValue(move.Card) == 4 && Card.GetSuit(move.Card) == trump)
+                {
+                    return "3"; // LeadKingTrump
+                }
+                else if (Card.GetValue(move.Card) == 3 && Card.GetSuit(move.Card) == trump)
+                {
+                    return "4"; // LeadJackTrump
+                }
+                else if (Card.GetValue(move.Card) == 2 && Card.GetSuit(move.Card) == trump)
+                {
+                    return "5"; // LeadQueenTrump
+                }
+                else if(Card.GetSuit(move.Card) == trump)
+                {
+                    return "6"; // LeadOtherTrump
+                }
+                else if (Card.GetValue(move.Card) == 11)
+                {
+                    return "7"; // LeadAce
                 }
                 else if (Card.GetValue(move.Card) == 10)
                 {
-                    return "2"; // LeadSeven
+                    return "8"; // LeadSeven
                 }
-                //else if (Card.GetValue(move.Card) >= 2)
-                //{
-                //    return "3"; // LeadFig
-                //}
-                else
+                else if (Card.GetValue(move.Card) == 4)
                 {
-                    return "4"; // LeadZero
+                    return "9"; // LeadKing
+                }
+                else if (Card.GetValue(move.Card) == 3)
+                {
+                    return "10"; // LeadJack
+                }
+                else if (Card.GetValue(move.Card) == 2)
+                {
+                    return "11"; // LeadQueen
+                }
+                else 
+                {
+                    return "12"; // LeadOther
                 }
             }
             else if (Card.GetSuit(move.Card) == leadSuit) // Folow
