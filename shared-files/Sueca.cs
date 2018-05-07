@@ -296,241 +296,176 @@ namespace SuecaSolver
         {
             int leadSuit = Card.GetSuit(game[i - (i % 4)].Card);
 
-            if ((i % 4) == 0) // Lead Play (aka new trick)
+            if (Card.GetValue(move.Card) == 11 && Card.GetSuit(move.Card) == trump)
             {
-                if (Card.GetValue(move.Card) == 11 && Card.GetSuit(move.Card) == trump)
-                {
-                    return "1"; // LeadAceTrump
-                }
-                else if (Card.GetValue(move.Card) == 10 && Card.GetSuit(move.Card) == trump)
-                {
-                    return "2"; // LeadSevenTrump
-                }
-                else if (Card.GetValue(move.Card) == 4 && Card.GetSuit(move.Card) == trump)
-                {
-                    return "3"; // LeadKingTrump
-                }
-                else if (Card.GetValue(move.Card) == 3 && Card.GetSuit(move.Card) == trump)
-                {
-                    return "4"; // LeadJackTrump
-                }
-                else if (Card.GetValue(move.Card) == 2 && Card.GetSuit(move.Card) == trump)
-                {
-                    return "5"; // LeadQueenTrump
-                }
-                else if(Card.GetSuit(move.Card) == trump)
-                {
-                    return "6"; // LeadOtherTrump
-                }
-                else if (Card.GetValue(move.Card) == 11)
-                {
-                    return "7"; // LeadAce
-                }
-                else if (Card.GetValue(move.Card) == 10)
-                {
-                    return "8"; // LeadSeven
-                }
-                else if (Card.GetValue(move.Card) == 4)
-                {
-                    return "9"; // LeadKing
-                }
-                else if (Card.GetValue(move.Card) == 3)
-                {
-                    return "10"; // LeadJack
-                }
-                else if (Card.GetValue(move.Card) == 2)
-                {
-                    return "11"; // LeadQueen
-                }
-                else 
-                {
-                    return "12"; // LeadOther
-                }
+                return "1"; // LeadAceTrump
             }
-            else if (Card.GetSuit(move.Card) == leadSuit) // Folow
+            else if (Card.GetValue(move.Card) == 10 && Card.GetSuit(move.Card) == trump)
             {
-                if (Card.GetValue(move.Card) == 11)
-                {
-                    return "5"; // FollowAce
-                }
-                else if (Card.GetValue(move.Card) == 10)
-                {
-                    return "6"; // FollowSeven
-                }
-                //else if (Card.GetValue(move.Card) >= 2)
-                //{
-                //    return "7"; // FollowFig
-                //}
-                else
-                {
-                    return "8"; // FollowZero
-                }
+                return "2"; // LeadSevenTrump
             }
-            else if (Card.GetSuit(move.Card) == trump) // Cut
+            else if (Card.GetValue(move.Card) == 4 && Card.GetSuit(move.Card) == trump)
             {
-                if (Card.GetValue(move.Card) == 11)
-                {
-                    return "9"; // CutAce
-                }
-                else if (Card.GetValue(move.Card) == 10)
-                {
-                    return "10"; // CutSeven
-                }
-                //else if (Card.GetValue(move.Card) >= 2)
-                //{
-                //    return "11"; // CutFig
-                //}
-                else
-                {
-                    return "12"; // CutZero
-                }
+                return "3"; // LeadKingTrump
             }
-            else // No Follow
+            else if (Card.GetValue(move.Card) == 3 && Card.GetSuit(move.Card) == trump)
             {
-                if (Card.GetValue(move.Card) == 11)
-                {
-                    return "13"; // NoFollowAce
-                }
-                else if (Card.GetValue(move.Card) == 10)
-                {
-                    return "14"; // NoFollowSeven
-                }
-                //else if (Card.GetValue(move.Card) >= 2)
-                //{
-                //    return "15"; // NoFollowFig
-                //}
-                else
-                {
-                    return "16"; // NoFollowZero
-                }
+                return "4"; // LeadJackTrump
+            }
+            else if (Card.GetValue(move.Card) == 2 && Card.GetSuit(move.Card) == trump)
+            {
+                return "5"; // LeadQueenTrump
+            }
+            else if(Card.GetSuit(move.Card) == trump)
+            {
+                return "6"; // LeadOtherTrump
+            }
+            else if (Card.GetValue(move.Card) == 11)
+            {
+                return "7"; // LeadAce
+            }
+            else if (Card.GetValue(move.Card) == 10)
+            {
+                return "8"; // LeadSeven
+            }
+            else if (Card.GetValue(move.Card) == 4)
+            {
+                return "9"; // LeadKing
+            }
+            else if (Card.GetValue(move.Card) == 3)
+            {
+                return "10"; // LeadJack
+            }
+            else if (Card.GetValue(move.Card) == 2)
+            {
+                return "11"; // LeadQueen
+            }
+            else 
+            {
+                return "12"; // LeadOther
             }
         }
 
         public static int ChooseCardFromLabel(int label, List<int> hand, int leadSuit, int trump)
         {
             int randomIndex;
-            if (label == 1 || label == 13) // LeadAce or NoFollowAce
-            {
-                List<int> acesList = hand.FindAll(x => Card.GetRank(x) == (int)Rank.Ace);
-                if (acesList.Count > 0)
-                {
-                    randomIndex = new Random().Next(0, acesList.Count);
-                    return acesList[randomIndex];
-                }
 
+            if (label == 1)
+            {
+                List<int> aceTrump = hand.FindAll(x => Card.GetRank(x) == (int)Rank.Ace && Card.GetSuit(x) == trump);
+                if (aceTrump.Count == 1)
+                {
+                    return aceTrump[0];
+                }
                 return -1;
-                //else
-                //{
-                //    Console.WriteLine("Classification gave 1 or 13 and there is no Ace (" + label + ")");
-                //    randomIndex = new Random().Next(0, hand.Count);
-                //    return hand[randomIndex];
-                //}
             }
-            else if (label == 2 || label == 14) // LeadSeven or NoFollowSeven
+            else if (label == 2)
             {
-                List<int> sevensList = hand.FindAll(x => Card.GetRank(x) == (int)Rank.Seven);
-                if (sevensList.Count > 0)
+                List<int> sevenTrump = hand.FindAll(x => Card.GetRank(x) == (int)Rank.Seven && Card.GetSuit(x) == trump);
+                if (sevenTrump.Count == 1)
                 {
-                    randomIndex = new Random().Next(0, sevensList.Count);
-                    return sevensList[randomIndex];
+                    return sevenTrump[0];
                 }
-
                 return -1;
-                //else
-                //{
-                //    Console.WriteLine("Classification gave 2 or 14 and there is no Seven (" + label + ")");
-                //    randomIndex = new Random().Next(0, hand.Count);
-                //    return hand[randomIndex];
-                //}
             }
-            else if (label == 4 || label == 16) // LeadZero or NoFolowZero
+            else if (label == 3)
             {
-                List<int> zeroList = hand.FindAll(x => Card.GetValue(x) == 0 || Card.GetValue(x) == 2 || Card.GetValue(x) == 3 || Card.GetValue(x) == 4);
-                if (zeroList.Count > 0)
+                List<int> kingTrump = hand.FindAll(x => Card.GetRank(x) == (int)Rank.King && Card.GetSuit(x) == trump);
+                if (kingTrump.Count == 1)
                 {
-                    randomIndex = new Random().Next(0, zeroList.Count);
-                    return zeroList[randomIndex];
+                    return kingTrump[0];
                 }
-
                 return -1;
-                //else
-                //{
-                //    Console.WriteLine("Classification gave 4 or 16 and there is no Zero (" + label + ")");
-                //    randomIndex = new Random().Next(0, hand.Count);
-                //    return hand[randomIndex];
-                //}
             }
-            else if (label > 4 && label < 13) // Follow or Cut
+            else if (label == 4)
             {
-                List<int> possibleMoves;
-                int suitToPlay;
-                if (label < 9)
+                List<int> jackTrump = hand.FindAll(x => Card.GetRank(x) == (int)Rank.Jack && Card.GetSuit(x) == trump);
+                if (jackTrump.Count == 1)
                 {
-                    possibleMoves = Sueca.PossibleMovesReduced(hand, leadSuit);
-                    suitToPlay = leadSuit;
+                    return jackTrump[0];
                 }
-                else
-                {
-                    possibleMoves = Sueca.PossibleMovesReduced(hand, trump);
-                    suitToPlay = trump;
-                }
-                
-                //if (possibleMoves.Count == 0)
-                //{
-                    //Console.WriteLine("Classification gave Follow or Cut and there is no such suit in possibleMoves (" + label + ")");
-                    //randomIndex = new Random().Next(0, hand.Count);
-                    //return hand[randomIndex];
-                //}
-
-                if (label == 5 || label == 9) // FollowAce or CutAce
-                {
-                    if (Sueca.CountCardsFromRank(possibleMoves, (int)Rank.Ace) == 1)
-                    {
-                        return Card.Create(Rank.Ace, (Suit) suitToPlay);
-                    }
-
-                    return -1;
-                    //else
-                    //{
-                    //    Console.WriteLine("Classification gave 5 or 9 and there is no Ace (" + label + ")");
-                    //    randomIndex = new Random().Next(0, hand.Count);
-                    //    return hand[randomIndex];
-                    //}
-                }
-                else if (label == 6 || label == 10) // FollowSeven or CutSeven
-                {
-                    if (Sueca.CountCardsFromRank(possibleMoves, (int)Rank.Seven) == 1)
-                    {
-                        return Card.Create(Rank.Seven, (Suit)suitToPlay);
-                    }
-
-                    return -1;
-                    //else
-                    //{
-                    //    Console.WriteLine("Classification gave 6 or 10and there is no Seven (" + label + ")");
-                    //    randomIndex = new Random().Next(0, hand.Count);
-                    //    return hand[randomIndex];
-                    //}
-                }
-                else if (label == 8 || label == 12) // Follow Zero
-                {
-                    List<int> zeroList = possibleMoves.FindAll(x => Card.GetValue(x) == 0 || Card.GetValue(x) == 2 || Card.GetValue(x) == 3 || Card.GetValue(x) == 4);
-                    if (zeroList.Count > 0)
-                    {
-                        randomIndex = new Random().Next(0, zeroList.Count);
-                        return zeroList[randomIndex];
-                    }
-
-                    return -1;
-                    //else
-                    //{
-                    //    Console.WriteLine("Classification gave 8 or 12 and there is no Zero (" + label + ")");
-                    //    randomIndex = new Random().Next(0, hand.Count);
-                    //    return hand[randomIndex];
-                    //}
-                }
+                return -1;
             }
-           
+            else if (label == 5)
+            {
+                List<int> queenTrump = hand.FindAll(x => Card.GetRank(x) == (int)Rank.Queen && Card.GetSuit(x) == trump);
+                if (queenTrump.Count == 1)
+                {
+                    return queenTrump[0];
+                }
+                return -1;
+            }
+            else if (label == 6)
+            {
+                List<int> otherTrump = hand.FindAll(x => Card.GetSuit(x) == trump);
+                if (otherTrump.Count > 0)
+                {
+                    randomIndex = new Random().Next(0, otherTrump.Count);
+                    return otherTrump[randomIndex];
+                }
+                return -1;
+            }
+            else if (label == 7)
+            {
+                List<int> aces = hand.FindAll(x => Card.GetSuit(x) != trump && Card.GetRank(x) == (int)Rank.Ace);
+                if (aces.Count > 0)
+                {
+                    randomIndex = new Random().Next(0, aces.Count);
+                    return aces[randomIndex];
+                }
+                return -1;
+            }
+            else if (label == 8)
+            {
+                List<int> sevens = hand.FindAll(x => Card.GetSuit(x) != trump && Card.GetRank(x) == (int)Rank.Seven);
+                if (sevens.Count > 0)
+                {
+                    randomIndex = new Random().Next(0, sevens.Count);
+                    return sevens[randomIndex];
+                }
+                return -1;
+            }
+            else if (label == 9)
+            {
+                List<int> kings = hand.FindAll(x => Card.GetSuit(x) != trump && Card.GetRank(x) == (int)Rank.King);
+                if (kings.Count > 0)
+                {
+                    randomIndex = new Random().Next(0, kings.Count);
+                    return kings[randomIndex];
+                }
+                return -1;
+            }
+            else if (label == 10)
+            {
+                List<int> jacks = hand.FindAll(x => Card.GetSuit(x) != trump && Card.GetRank(x) == (int)Rank.Jack);
+                if (jacks.Count > 0)
+                {
+                    randomIndex = new Random().Next(0, jacks.Count);
+                    return jacks[randomIndex];
+                }
+                return -1;
+            }
+            else if (label == 11)
+            {
+                List<int> queens = hand.FindAll(x => Card.GetSuit(x) != trump && Card.GetRank(x) == (int)Rank.Queen);
+                if (queens.Count > 0)
+                {
+                    randomIndex = new Random().Next(0, queens.Count);
+                    return queens[randomIndex];
+                }
+                return -1;
+            }
+            else if (label == 12)
+            {
+                List<int> others = hand.FindAll(x => Card.GetSuit(x) != trump && Card.GetValue(x) == 0);
+                if (others.Count > 0)
+                {
+                    randomIndex = new Random().Next(0, others.Count);
+                    return others[randomIndex];
+                }
+                return -1;
+            }
+
             Console.WriteLine("UNKNOWN CLASSIFICATION (" + label + ")");
             randomIndex = new Random().Next(0, hand.Count);
             return hand[randomIndex];
