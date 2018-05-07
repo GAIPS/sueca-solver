@@ -12,7 +12,7 @@ namespace SuecaSolver
         public int TrumpCard;
         public int TrumpPlayerId;
         private bool trumpCardWasPlayed;
-        private Dictionary<int, List<int>> suitHasPlayer;
+        public Dictionary<int, List<int>> suitHasPlayer;
         private Dictionary<int, List<int>> othersPointCards;
         public int MyTeamPoints;
         public int OtherTeamPoints;

@@ -52,7 +52,7 @@ namespace SuecaSolver
         override public int Play()
         {
             List<int> possibleMoves = Sueca.PossibleMoves(hand, InfoSet.GetLeadSuit());
-            int[] features = Sueca.GetFeaturesFromState(_id, hand, game, currentPlayIndex, trumpSuit);
+            int[] features = Sueca.GetFeaturesFromState(_id, hand, game, currentPlayIndex, trumpSuit, ref InfoSet.suitHasPlayer);
             int[] filteredClasses;
             if ((currentPlayIndex % 4) == 0) //lead
             {

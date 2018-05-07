@@ -94,7 +94,7 @@ namespace EmotionalPlayer
 
         #region Game Actions - Before or after the game
 
-        public void SessionStart(int sessionId, int numGames, int[] agentsIds, int shouldGreet)
+        public void SessionStart(int sessionId, int numGames, int[] agentsIds, int floorId)
         {
             _id = agentsIds[_nameId - 1];
             Console.WriteLine("My id is " + _id);
@@ -105,7 +105,7 @@ namespace EmotionalPlayer
             ev.Finished = true;
         }
 
-        public void GameStart(int gameId, int playerId, int teamId, string trumpCard, int trumpCardPlayer, string[] cards)
+        public void GameStart(int gameId, int playerId, int teamId, string trumpCard, int trumpCardPlayer, string[] cards, string partnerName, int floorId)
         {
             if (playerId == _id)
             {
@@ -134,7 +134,7 @@ namespace EmotionalPlayer
             }
         }
 
-        public void Shuffle(int playerId)
+        public void Shuffle(int playerId, int floorId)
         {
             SuecaEvent ev = new SuecaEvent(Consts.STATE_SHUFFLE);
             _suecaRPC.AddSuecaEvent(ev);
@@ -143,7 +143,7 @@ namespace EmotionalPlayer
             ev.Finished = true;
         }
 
-        public void Cut(int playerId)
+        public void Cut(int playerId, int floorId)
         {
             SuecaEvent ev = new SuecaEvent(Consts.STATE_CUT);
             _suecaRPC.AddSuecaEvent(ev);
@@ -152,7 +152,7 @@ namespace EmotionalPlayer
             ev.Finished = true;
         }
 
-        public void Deal(int playerId)
+        public void Deal(int playerId, int floorId)
         {
             SuecaEvent ev = new SuecaEvent(Consts.STATE_DEAL);
             _suecaRPC.AddSuecaEvent(ev);
@@ -161,17 +161,17 @@ namespace EmotionalPlayer
             ev.Finished = true;
         }
 
-        public void ReceiveRobotCards(int playerId)
+        public void ReceiveRobotCards(int playerId, int floorId)
         {
             //MAYBE JUST GAZE
         }
 
-        public void TrumpCard(string trumpCard, int trumpCardPlayer)
+        public void TrumpCard(string trumpCard, int trumpCardPlayer, int floorId)
         {
             //MAYBE JUST GAZE RANDOM
         }
 
-        public void Renounce(int playerId)
+        public void Renounce(int playerId, int floorId)
         {
             SuecaEvent ev = new SuecaEvent(Consts.STATE_GAME_END);
             _suecaRPC.AddSuecaEvent(ev);
@@ -180,7 +180,7 @@ namespace EmotionalPlayer
             ev.Finished = true;
         }
 
-        public void GameEnd(int team0Score, int team1Score)
+        public void GameEnd(int team0Score, int team1Score, int floorId)
         {
             SuecaEvent ev = new SuecaEvent(Consts.STATE_GAME_END);
             _suecaRPC.AddSuecaEvent(ev);
@@ -219,7 +219,7 @@ namespace EmotionalPlayer
             ev.Finished = true;
         }
 
-        public void SessionEnd(int sessionId, int team0Score, int team1Score)
+        public void SessionEnd(int sessionId, int team0Score, int team1Score, int floorId)
         {
             SuecaEvent ev = new SuecaEvent(Consts.STATE_SESSION_END);
             _suecaRPC.AddSuecaEvent(ev);
@@ -243,7 +243,7 @@ namespace EmotionalPlayer
 
         #region Game Actions - During the game
 
-        public void NextPlayer(int id)
+        public void NextPlayer(int id, int floorId)
         {
             //NextPlayer events arrive to Thalamus Client around 10miliseconds later than Play events, however this method is called first than Play
             //This sleep allows Play event to be fully processed
@@ -314,7 +314,7 @@ namespace EmotionalPlayer
             _suecaRPC.AddSuecaEvent(ev);
         }
 
-        public void Play(int id, string card, string playInfo)
+        public void Play(int id, string card, string playInfo, int floorId)
         {
 
             SuecaTypes.Card c = JsonSerializable.DeserializeFromJson<SuecaTypes.Card>(card);
@@ -364,7 +364,7 @@ namespace EmotionalPlayer
             }
         }
 
-        public void TrickEnd(int winnerId, int trickPoints)
+        public void TrickEnd(int winnerId, int trickPoints, int floorId)
         {
             _robotHasPlayed = false;
 

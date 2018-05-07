@@ -13,7 +13,7 @@ def main():
     numPlayFeatures = 0
     numHandFeatures = 0
     featuresName = []
-    playClassification = ['1','2','4','5','6','8','9','10','12','13','14','16']
+    playClassification = ['1','2','3','4','5','6','7','8','9','10','11','12']
     numClasses = len(playClassification)
     
     if processedhandsFile.is_file():
@@ -46,7 +46,7 @@ def main():
         file.close()
 
         model = linear_model.SGDClassifier(loss='log')
-        borderLine = int(0.3 * totalSamples)
+        borderLine = int(0.7 * totalSamples)
         model.fit(X[:borderLine], y[:borderLine])
         print('Borderline: %i', borderLine)
         print('Coefficients: \n', model.coef_)

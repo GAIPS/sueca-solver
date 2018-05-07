@@ -34,17 +34,21 @@ namespace SuecaSolver
             int leadSuit = -1;
             bool trumpFound = false;
             int trumpSuit = -1;
-            string[] processedPlays = new string[1317520 + 2];
-            processedPlays[0] = "1,16,1317520";
-            //string[] processedPlays = new string[329380 + 2];
-            //processedPlays[0] = "1,16,329380";
-            processedPlays[1] = "Label,IndexInTrick,NumTrumps,NumAces,NumSevens,NumFigs,Handsize,NumHandCardsLeadsuit,NumPlayedCardsLeadsuit,NumUnplayedCardsLeadsuit,IsPlayedAceLeadsuit,IsPlayedSevenLeadsuit,IsPlayedKingLeadsuit,IsPlayedAceTrump,IsPlayedSevenTrump,IsPlayedKingSuit,IsCurrentWinnerTeam";
+            // logs dont cotain the trump information it is analysed afterwards
+            // logs contain unfinished games
+            // there are only 329380 finished games with trump info 
+            // we will exclude the last play of each player per game
+            // which results in 4 * 9 * 329380 moves
+            string[] processedPlays = new string[296442 + 2];
+            processedPlays[0] = "1,35,296442";
+            processedPlays[1] = "Label,hasCardsToFollow?,hasAceToFollow?,hasSevenToFollow?,hasKingToFollow?,hasJackToFollow?,hasQueenToFollow?,hasOtherToFollow?,numHandTrumps,numHandAces,numHandSevens,numHandKings,numHandJacks,numHandQueens,numhandOthers,handSize,trickIndex,currentWinnerIsPartner?,opponentHaveToFollow?,partnerHasToFollow?,numPointInTrick,isTrumpLeadSuit?,numPlayedCardsLeadSuit,numUnplayedCardsLeadSuit,AceLeadSuitWasPlayed?,SevenLeadSuitWasPlayed?,KingLeadSuitWasPlayed?,JackLeadSuitWasPlayed?,QueenLeadSuitWasPlayed?,numPlayedTrumps,numUnplayedTrumps";
             int playCounter = 2;
 
             foreach (var file in files)
             {
                 try
                 {
+                    //Console.WriteLine("filename: " + file);
                     string[] lines = File.ReadAllLines(file);
                     List<int>[] playersHands = new List<int>[4];
 
@@ -157,15 +161,34 @@ namespace SuecaSolver
         private static void getPlayFeatures(ref string[] processedPlays, ref int playCounter, List<Move> game, List<int>[] playersHands, int trump)
         {
             List<int> playedCards = new List<int>();
-            for (int i = 0; i < game.Count; i++)
+            Dictionary<int, List<int>> suitHasPlayer = new Dictionary<int, List<int>>
+            {
+                { (int)Suit.Clubs, new List<int>(4){ 0, 1, 2, 3 } },
+                { (int)Suit.Diamonds, new List<int>(4){ 0, 1, 2, 3 } },
+                { (int)Suit.Hearts, new List<int>(4){ 0, 1, 2, 3 } },
+                { (int)Suit.Spades, new List<int>(4){ 0, 1, 2, 3 } },
+                { (int)Suit.None, new List<int>(){ } }
+            };
+            int leadSuit = (int)Suit.None;
+
+            for (int i = 0; i < game.Count - 4; i++)
             {
                 Move move = game[i];
                 int playerID = move.PlayerId;
 
-                //if (playerID == 0) // collect only human plays
+                if ((i % 4) == 0)
+                {
+                    leadSuit = Card.GetSuit(move.Card);
+                }
+                else if (Card.GetSuit(move.Card) != leadSuit)
+                {
+                    suitHasPlayer[leadSuit].Remove(playerID);
+                }
+
+                if (playerID == 0) // collect only human plays
                 {
                     string label = Sueca.GetPlayLabel(move, i, game, trump);
-                    int[] features = Sueca.GetFeaturesFromState(playerID, playersHands[playerID], game, i, trump);
+                    int[] features = Sueca.GetFeaturesFromState(playerID, playersHands[playerID], game, i, trump, ref suitHasPlayer);
                     string stringOfFeatures = "" + label;
                     for (int j = 0; j < features.Length; j++)
                     {

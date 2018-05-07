@@ -530,9 +530,23 @@ namespace SuecaSolver
             return currentTrickWinner == playerID || currentTrickWinner == ((playerID + 2) % 4);
         }
 
-        public static int[] GetFeaturesFromState(int playerID, List<int> playersHand, List<Move> game, int i, int trump)
+        public static int CountPointsInTrick(List<Move> game, int i)
+        {
+            int points = 0;
+            if ((i % 4) > 0)
+            {
+                for (int j = i - (i % 4); j < i; j++)
+                {
+                    points += Card.GetValue(game[j].Card);
+                }
+            }
+            return points;
+        }
+
+        public static int[] GetFeaturesFromState(int playerID, List<int> playersHand, List<Move> game, int i, int trump, ref Dictionary<int, List<int>> suitHasPlayer)
         {
             List<int> playedCards = new List<int>();
+
             for (int j = 0; i > 0 && j < i; j++)
             {
                 playedCards.Add(game[j].Card);
@@ -548,28 +562,52 @@ namespace SuecaSolver
                 leadSuit = Card.GetSuit(leadCard);
             }
 
-            int[] features = new int[16];
-            features[0] = ((i % 4) + 1);
-            features[1] = Sueca.CountCardsFromSuit(playersHand, trump);
-            features[2] = Sueca.CountCardsFromRank(playersHand, (int)Rank.Ace);
-            features[3] = Sueca.CountCardsFromRank(playersHand, (int)Rank.Seven);
-            int countFigs = Sueca.CountCardsFromRank(playersHand, (int)Rank.King) + Sueca.CountCardsFromRank(playersHand, (int)Rank.Jack) + Sueca.CountCardsFromRank(playersHand, (int)Rank.Queen);
-            features[4] = countFigs;
-            features[5] = playersHand.Count;
+            int[] features = new int[35];
+
+            // hand-related features
             int leadSuitCardsHand = Sueca.CountCardsFromSuit(playersHand, leadSuit);
-            features[6] = leadSuitCardsHand;
+            features[0] = leadSuitCardsHand > 0 ? 1 : 0;
+            features[1] = Sueca.HasCard(playersHand, (int)Rank.Ace, leadSuit) ? 1 : 0;
+            features[2] = Sueca.HasCard(playersHand, (int)Rank.Seven, leadSuit) ? 1 : 0;
+            features[3] = Sueca.HasCard(playersHand, (int)Rank.King, leadSuit) ? 1 : 0;
+            features[4] = Sueca.HasCard(playersHand, (int)Rank.Jack, leadSuit) ? 1 : 0;
+            features[5] = Sueca.HasCard(playersHand, (int)Rank.Queen, leadSuit) ? 1 : 0;
+            int remainingCardsLeasSuit = Sueca.CountCardsFromSuit(playersHand, leadSuit) - features[1] - features[2] - features[3] - features[4] - features[5];
+            features[6] = remainingCardsLeasSuit > 0 ? 1 : 0;
+            features[7] = Sueca.CountCardsFromSuit(playersHand, trump);
+            features[8] = Sueca.CountCardsFromRank(playersHand, (int)Rank.Ace);
+            features[9] = Sueca.CountCardsFromRank(playersHand, (int)Rank.Seven);
+            features[10] = Sueca.CountCardsFromRank(playersHand, (int)Rank.King);
+            features[11] = Sueca.CountCardsFromRank(playersHand, (int)Rank.Jack);
+            features[12] = Sueca.CountCardsFromRank(playersHand, (int)Rank.Queen);
+            features[13] = playersHand.Count - features[8] - features[9] - features[10] - features[11] - features[12];
+            features[14] = playersHand.Count;
+            
+            //trick-related features
+            features[15] = ((i % 4) + 1);
+            features[16] = (i > 0 && Sueca.IsCurrentTrickWinnerTeam(game, i, trump, playerID)) ? 1 : 0;
+            features[17] = (suitHasPlayer[leadSuit].Contains((playerID + 1) % 4) && suitHasPlayer[leadSuit].Contains((playerID + 3) % 4)) ? 1 : 0;
+            features[18] = suitHasPlayer[leadSuit].Contains((playerID + 2) % 4) ? 1 : 0;
+            features[19] = CountPointsInTrick(game, i);
+            features[20] = leadSuit == trump ? 1 : 0;
+            
+            //game-related features
             int playedLeadSuitCards = Sueca.CountCardsFromSuit(playedCards, leadSuit);
-            features[7] = playedLeadSuitCards;
+            features[21] = playedLeadSuitCards;
             int unplayedLeadSuitCards = 10 - playedLeadSuitCards - leadSuitCardsHand;
-            features[8] = unplayedLeadSuitCards;
-            features[9] = Sueca.HasCard(playedCards, (int)Rank.Ace, leadSuit) ? 1 : 0;
-            features[10] = Sueca.HasCard(playedCards, (int)Rank.Seven, leadSuit) ? 1 : 0;
-            features[11] = Sueca.HasCard(playedCards, (int)Rank.King, leadSuit) ? 1 : 0;
-            features[12] = Sueca.HasCard(playedCards, (int)Rank.Ace, trump) ? 1 : 0;
-            features[13] = Sueca.HasCard(playedCards, (int)Rank.Seven, trump) ? 1 : 0;
-            features[14] = Sueca.HasCard(playedCards, (int)Rank.King, trump) ? 1 : 0;
-            features[15] = (i > 0 && Sueca.IsCurrentTrickWinnerTeam(game, i, trump, playerID)) ? 1 : 0;
-            //features[16] = Sueca.IsPartnerCuttingLeadsuit(game, i, playerID) ? 1 : 0;
+            features[22] = unplayedLeadSuitCards;
+            features[23] = Sueca.HasCard(playedCards, (int)Rank.Ace, leadSuit) ? 1 : 0;
+            features[24] = Sueca.HasCard(playedCards, (int)Rank.Seven, leadSuit) ? 1 : 0;
+            features[25] = Sueca.HasCard(playedCards, (int)Rank.King, leadSuit) ? 1 : 0;
+            features[26] = Sueca.HasCard(playedCards, (int)Rank.Jack, leadSuit) ? 1 : 0;
+            features[27] = Sueca.HasCard(playedCards, (int)Rank.Queen, leadSuit) ? 1 : 0;
+            features[28] = Sueca.HasCard(playedCards, (int)Rank.Ace, trump) ? 1 : 0;
+            features[29] = Sueca.HasCard(playedCards, (int)Rank.Seven, trump) ? 1 : 0;
+            features[30] = Sueca.HasCard(playedCards, (int)Rank.King, trump) ? 1 : 0;
+            features[31] = Sueca.HasCard(playedCards, (int)Rank.Jack, trump) ? 1 : 0;
+            features[32] = Sueca.HasCard(playedCards, (int)Rank.Queen, trump) ? 1 : 0;
+            features[33] = CountCardsFromSuit(playedCards, trump);
+            features[34] = 10 - features[33] - features[7];
 
             return features;
         }
