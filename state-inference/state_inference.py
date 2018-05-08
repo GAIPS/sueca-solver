@@ -3,6 +3,7 @@ import os.path
 import math
 import numpy as np
 from sklearn import linear_model
+from sklearn import tree
 import re
 from sklearn.metrics import precision_recall_fscore_support
 
@@ -44,6 +45,12 @@ def main():
             line = file.readline()
             i += 1
         file.close()
+
+
+        #model = tree.DecisionTreeClassifier()
+        #borderLine = int(0.9 * totalSamples)
+        #model.fit(X[:borderLine], y[:borderLine])
+        #print('Variance score: %.2f' % model.score(X[(borderLine+1):], y[(borderLine+1):]))
 
         model = linear_model.SGDClassifier(loss='log')
         borderLine = int(0.7 * totalSamples)
