@@ -295,55 +295,139 @@ namespace SuecaSolver
         public static string GetPlayLabel(Move move, int i, List<Move> game, int trump)
         {
             int leadSuit = Card.GetSuit(game[i - (i % 4)].Card);
-
-            if (Card.GetValue(move.Card) == 11 && Card.GetSuit(move.Card) == trump)
+            if (i % 4 == 0)
             {
-                return "1"; // LeadAceTrump
+                if (Card.GetValue(move.Card) == 11 && Card.GetSuit(move.Card) == trump)
+                {
+                    return "1"; // LeadAceTrump
+                }
+                else if (Card.GetValue(move.Card) == 10 && Card.GetSuit(move.Card) == trump)
+                {
+                    return "2"; // LeadSevenTrump
+                }
+                else if (Card.GetValue(move.Card) == 4 && Card.GetSuit(move.Card) == trump)
+                {
+                    return "3"; // LeadKingTrump
+                }
+                else if (Card.GetValue(move.Card) == 3 && Card.GetSuit(move.Card) == trump)
+                {
+                    return "4"; // LeadJackTrump
+                }
+                else if (Card.GetValue(move.Card) == 2 && Card.GetSuit(move.Card) == trump)
+                {
+                    return "5"; // LeadQueenTrump
+                }
+                else if (Card.GetSuit(move.Card) == trump)
+                {
+                    return "6"; // LeadOtherTrump
+                }
+                else if (Card.GetValue(move.Card) == 11)
+                {
+                    return "7"; // LeadAce
+                }
+                else if (Card.GetValue(move.Card) == 10)
+                {
+                    return "8"; // LeadSeven
+                }
+                else if (Card.GetValue(move.Card) == 4)
+                {
+                    return "9"; // LeadKing
+                }
+                else if (Card.GetValue(move.Card) == 3)
+                {
+                    return "10"; // LeadJack
+                }
+                else if (Card.GetValue(move.Card) == 2)
+                {
+                    return "11"; // LeadQueen
+                }
+                else
+                {
+                    return "12"; // LeadOther
+                }
             }
-            else if (Card.GetValue(move.Card) == 10 && Card.GetSuit(move.Card) == trump)
+            else if (Card.GetSuit(move.Card) == leadSuit)
             {
-                return "2"; // LeadSevenTrump
+                if (Card.GetValue(move.Card) == 11)
+                {
+                    return "13"; // FollowAce
+                }
+                else if (Card.GetValue(move.Card) == 10)
+                {
+                    return "14"; // FollowSeven
+                }
+                else if (Card.GetValue(move.Card) == 4)
+                {
+                    return "15"; // FollowKing
+                }
+                else if (Card.GetValue(move.Card) == 3)
+                {
+                    return "16"; // FollowJack
+                }
+                else if (Card.GetValue(move.Card) == 2)
+                {
+                    return "17"; // FollowQueen
+                }
+                else
+                {
+                    return "18"; // FollowOther
+                }
             }
-            else if (Card.GetValue(move.Card) == 4 && Card.GetSuit(move.Card) == trump)
+            else if (Card.GetSuit(move.Card) == trump)
             {
-                return "3"; // LeadKingTrump
+                if (Card.GetValue(move.Card) == 11)
+                {
+                    return "19"; // CutAce
+                }
+                else if (Card.GetValue(move.Card) == 10)
+                {
+                    return "20"; // CutSeven
+                }
+                else if (Card.GetValue(move.Card) == 4)
+                {
+                    return "21"; // CutKing
+                }
+                else if (Card.GetValue(move.Card) == 3)
+                {
+                    return "22"; // CutJack
+                }
+                else if (Card.GetValue(move.Card) == 2)
+                {
+                    return "23"; // CutQueen
+                }
+                else
+                {
+                    return "24"; // CutOther
+                }
             }
-            else if (Card.GetValue(move.Card) == 3 && Card.GetSuit(move.Card) == trump)
+            else
             {
-                return "4"; // LeadJackTrump
+                if (Card.GetValue(move.Card) == 11)
+                {
+                    return "25"; // NoFollowAce
+                }
+                else if (Card.GetValue(move.Card) == 10)
+                {
+                    return "26"; // NoFollowSeven
+                }
+                else if (Card.GetValue(move.Card) == 4)
+                {
+                    return "27"; // NoFollowKing
+                }
+                else if (Card.GetValue(move.Card) == 3)
+                {
+                    return "28"; // NoFollowJack
+                }
+                else if (Card.GetValue(move.Card) == 2)
+                {
+                    return "29"; // NoFollowQueen
+                }
+                else
+                {
+                    return "30"; // NoFollowOther
+                }
             }
-            else if (Card.GetValue(move.Card) == 2 && Card.GetSuit(move.Card) == trump)
-            {
-                return "5"; // LeadQueenTrump
-            }
-            else if(Card.GetSuit(move.Card) == trump)
-            {
-                return "6"; // LeadOtherTrump
-            }
-            else if (Card.GetValue(move.Card) == 11)
-            {
-                return "7"; // LeadAce
-            }
-            else if (Card.GetValue(move.Card) == 10)
-            {
-                return "8"; // LeadSeven
-            }
-            else if (Card.GetValue(move.Card) == 4)
-            {
-                return "9"; // LeadKing
-            }
-            else if (Card.GetValue(move.Card) == 3)
-            {
-                return "10"; // LeadJack
-            }
-            else if (Card.GetValue(move.Card) == 2)
-            {
-                return "11"; // LeadQueen
-            }
-            else 
-            {
-                return "12"; // LeadOther
-            }
+            
         }
 
         public static int ChooseCardFromLabel(int label, List<int> hand, int leadSuit, int trump)
@@ -562,7 +646,7 @@ namespace SuecaSolver
                 leadSuit = Card.GetSuit(leadCard);
             }
 
-            int[] features = new int[35];
+            int[] features = new int[40];
 
             // hand-related features
             int leadSuitCardsHand = Sueca.CountCardsFromSuit(playersHand, leadSuit);
@@ -575,39 +659,44 @@ namespace SuecaSolver
             int remainingCardsLeasSuit = Sueca.CountCardsFromSuit(playersHand, leadSuit) - features[1] - features[2] - features[3] - features[4] - features[5];
             features[6] = remainingCardsLeasSuit > 0 ? 1 : 0;
             features[7] = Sueca.CountCardsFromSuit(playersHand, trump);
-            features[8] = Sueca.CountCardsFromRank(playersHand, (int)Rank.Ace);
-            features[9] = Sueca.CountCardsFromRank(playersHand, (int)Rank.Seven);
-            features[10] = Sueca.CountCardsFromRank(playersHand, (int)Rank.King);
-            features[11] = Sueca.CountCardsFromRank(playersHand, (int)Rank.Jack);
-            features[12] = Sueca.CountCardsFromRank(playersHand, (int)Rank.Queen);
-            features[13] = playersHand.Count - features[8] - features[9] - features[10] - features[11] - features[12];
-            features[14] = playersHand.Count;
+            features[8] = Sueca.HasCard(playersHand, (int)Rank.Ace, trump) ? 1 : 0;
+            features[9] = Sueca.HasCard(playersHand, (int)Rank.Seven, trump) ? 1 : 0;
+            features[10] = Sueca.HasCard(playersHand, (int)Rank.King, trump) ? 1 : 0;
+            features[11] = Sueca.HasCard(playersHand, (int)Rank.Jack, trump) ? 1 : 0;
+            features[12] = Sueca.HasCard(playersHand, (int)Rank.Queen, trump) ? 1 : 0;
+            features[13] = Sueca.CountCardsFromRank(playersHand, (int)Rank.Ace);
+            features[14] = Sueca.CountCardsFromRank(playersHand, (int)Rank.Seven);
+            features[15] = Sueca.CountCardsFromRank(playersHand, (int)Rank.King);
+            features[16] = Sueca.CountCardsFromRank(playersHand, (int)Rank.Jack);
+            features[17] = Sueca.CountCardsFromRank(playersHand, (int)Rank.Queen);
+            features[18] = playersHand.Count - features[8] - features[9] - features[10] - features[11] - features[12];
+            features[19] = playersHand.Count;
             
             //trick-related features
-            features[15] = ((i % 4) + 1);
-            features[16] = (i > 0 && Sueca.IsCurrentTrickWinnerTeam(game, i, trump, playerID)) ? 1 : 0;
-            features[17] = (suitHasPlayer[leadSuit].Contains((playerID + 1) % 4) && suitHasPlayer[leadSuit].Contains((playerID + 3) % 4)) ? 1 : 0;
-            features[18] = suitHasPlayer[leadSuit].Contains((playerID + 2) % 4) ? 1 : 0;
-            features[19] = CountPointsInTrick(game, i);
-            features[20] = leadSuit == trump ? 1 : 0;
+            features[20] = ((i % 4) + 1);
+            features[21] = (i > 0 && Sueca.IsCurrentTrickWinnerTeam(game, i, trump, playerID)) ? 1 : 0;
+            features[22] = (suitHasPlayer[leadSuit].Contains((playerID + 1) % 4) && suitHasPlayer[leadSuit].Contains((playerID + 3) % 4)) ? 1 : 0;
+            features[23] = suitHasPlayer[leadSuit].Contains((playerID + 2) % 4) ? 1 : 0;
+            features[24] = CountPointsInTrick(game, i);
+            features[25] = leadSuit == trump ? 1 : 0;
             
             //game-related features
             int playedLeadSuitCards = Sueca.CountCardsFromSuit(playedCards, leadSuit);
-            features[21] = playedLeadSuitCards;
+            features[26] = playedLeadSuitCards;
             int unplayedLeadSuitCards = 10 - playedLeadSuitCards - leadSuitCardsHand;
-            features[22] = unplayedLeadSuitCards;
-            features[23] = Sueca.HasCard(playedCards, (int)Rank.Ace, leadSuit) ? 1 : 0;
-            features[24] = Sueca.HasCard(playedCards, (int)Rank.Seven, leadSuit) ? 1 : 0;
-            features[25] = Sueca.HasCard(playedCards, (int)Rank.King, leadSuit) ? 1 : 0;
-            features[26] = Sueca.HasCard(playedCards, (int)Rank.Jack, leadSuit) ? 1 : 0;
-            features[27] = Sueca.HasCard(playedCards, (int)Rank.Queen, leadSuit) ? 1 : 0;
-            features[28] = Sueca.HasCard(playedCards, (int)Rank.Ace, trump) ? 1 : 0;
-            features[29] = Sueca.HasCard(playedCards, (int)Rank.Seven, trump) ? 1 : 0;
-            features[30] = Sueca.HasCard(playedCards, (int)Rank.King, trump) ? 1 : 0;
-            features[31] = Sueca.HasCard(playedCards, (int)Rank.Jack, trump) ? 1 : 0;
-            features[32] = Sueca.HasCard(playedCards, (int)Rank.Queen, trump) ? 1 : 0;
-            features[33] = CountCardsFromSuit(playedCards, trump);
-            features[34] = 10 - features[33] - features[7];
+            features[27] = unplayedLeadSuitCards;
+            features[28] = Sueca.HasCard(playedCards, (int)Rank.Ace, leadSuit) ? 1 : 0;
+            features[29] = Sueca.HasCard(playedCards, (int)Rank.Seven, leadSuit) ? 1 : 0;
+            features[30] = Sueca.HasCard(playedCards, (int)Rank.King, leadSuit) ? 1 : 0;
+            features[31] = Sueca.HasCard(playedCards, (int)Rank.Jack, leadSuit) ? 1 : 0;
+            features[32] = Sueca.HasCard(playedCards, (int)Rank.Queen, leadSuit) ? 1 : 0;
+            features[33] = Sueca.HasCard(playedCards, (int)Rank.Ace, trump) ? 1 : 0;
+            features[34] = Sueca.HasCard(playedCards, (int)Rank.Seven, trump) ? 1 : 0;
+            features[35] = Sueca.HasCard(playedCards, (int)Rank.King, trump) ? 1 : 0;
+            features[36] = Sueca.HasCard(playedCards, (int)Rank.Jack, trump) ? 1 : 0;
+            features[37] = Sueca.HasCard(playedCards, (int)Rank.Queen, trump) ? 1 : 0;
+            features[38] = CountCardsFromSuit(playedCards, trump);
+            features[39] = 10 - features[33] - features[7];
 
             return features;
         }

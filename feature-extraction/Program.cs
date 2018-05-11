@@ -39,10 +39,12 @@ namespace SuecaSolver
             // there are only 329380 finished games with trump info 
             // we will exclude the last play of each player per game
             // which results in 4 * 9 * 329380 moves
-            string[] processedPlays = new string[296442 + 2];
-            processedPlays[0] = "1,35,296442";
+            //string[] processedPlays = new string[296442 + 2];
+            //processedPlays[0] = "1,40,296442";
+            string[] processedPlays = new string[6900975 + 2];
+            processedPlays[0] = "1,40,6900975";
             processedPlays[1] = "Label,hasCardsToFollow?,hasAceToFollow?,hasSevenToFollow?,hasKingToFollow?,hasJackToFollow?,hasQueenToFollow?,hasOtherToFollow?,numHandTrumps,numHandAces,numHandSevens,numHandKings,numHandJacks,numHandQueens,numhandOthers,handSize,trickIndex,currentWinnerIsPartner?,opponentHaveToFollow?,partnerHasToFollow?,numPointInTrick,isTrumpLeadSuit?,numPlayedCardsLeadSuit,numUnplayedCardsLeadSuit,AceLeadSuitWasPlayed?,SevenLeadSuitWasPlayed?,KingLeadSuitWasPlayed?,JackLeadSuitWasPlayed?,QueenLeadSuitWasPlayed?,numPlayedTrumps,numUnplayedTrumps";
-            int playCounter = 2;
+            long playCounter = 2;
 
             foreach (var file in files)
             {
@@ -158,7 +160,7 @@ namespace SuecaSolver
             Console.WriteLine("handCounter: " + (playCounter - 2));
         }
 
-        private static void getPlayFeatures(ref string[] processedPlays, ref int playCounter, List<Move> game, List<int>[] playersHands, int trump)
+        private static void getPlayFeatures(ref string[] processedPlays, ref long playCounter, List<Move> game, List<int>[] playersHands, int trump)
         {
             List<int> playedCards = new List<int>();
             Dictionary<int, List<int>> suitHasPlayer = new Dictionary<int, List<int>>
