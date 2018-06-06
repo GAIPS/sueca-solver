@@ -60,7 +60,7 @@ def main():
 
 
         ### NEURAL NETWORK
-        model = neural_network.MLPClassifier()
+        model = neural_network.MLPClassifier(hidden_layer_sizes=1000, learning_rate='adaptive')
         trainPercentage = 0.3
         borderLine = int(trainPercentage * numSamples)
         model.fit(X[:borderLine], y[:borderLine])
@@ -68,7 +68,7 @@ def main():
 
         ### STOCHASTIC GRADIENT DESCENT
         #model = linear_model.SGDClassifier(loss='log')
-        #trainPercentage = 0.6
+        #trainPercentage = 0.5
         #borderLine = int(trainPercentage * totalSamples)
         #model.fit(X[:borderLine], y[:borderLine])
         
