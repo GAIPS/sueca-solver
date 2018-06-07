@@ -25,7 +25,6 @@ def main():
         numPlayFeatures = int(splitLine[0])
         numHandFeatures = int(splitLine[1]) + 1
         numSamples = int(splitLine[2])
-        numSamples = 10000
         X = np.ones((numSamples, numHandFeatures)) #coef of 1 to w0
         y = np.zeros(numSamples)
 
@@ -60,17 +59,17 @@ def main():
 
 
         ### NEURAL NETWORK
-        model = neural_network.MLPClassifier(hidden_layer_sizes=1000, learning_rate='adaptive')
-        trainPercentage = 0.3
-        borderLine = int(trainPercentage * numSamples)
-        model.fit(X[:borderLine], y[:borderLine])
+        #model = neural_network.MLPClassifier(hidden_layer_sizes=1000, learning_rate='adaptive')
+        #trainPercentage = 0.3
+        #borderLine = int(trainPercentage * numSamples)
+        #model.fit(X[:borderLine], y[:borderLine])
 
 
         ### STOCHASTIC GRADIENT DESCENT
-        #model = linear_model.SGDClassifier(loss='log')
-        #trainPercentage = 0.5
-        #borderLine = int(trainPercentage * totalSamples)
-        #model.fit(X[:borderLine], y[:borderLine])
+        model = linear_model.SGDClassifier(loss='log')
+        trainPercentage = 0.3
+        borderLine = int(trainPercentage * totalSamples)
+        model.fit(X[:borderLine], y[:borderLine])
         
     
         print 'train time (s): ', time.time() - start_time

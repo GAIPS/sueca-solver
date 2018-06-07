@@ -573,7 +573,7 @@ namespace SuecaSolver
             }
         }
 
-        public static List<KeyValuePair<int, float>> GetClassesProbabilities(List<int> possibleMoves, int[] features, int[] classes, int[] filteredClasses, float[][] weightsPerClass)
+        public static List<KeyValuePair<int, float>> GetClassesProbabilities(List<int> possibleMoves, float[] features, int[] classes, int[] filteredClasses, float[][] weightsPerClass)
         {
             List<int> possibleClasses = new List<int>(filteredClasses);
             List<KeyValuePair<int, float>> classProbs = new List<KeyValuePair<int, float>>();
@@ -627,7 +627,7 @@ namespace SuecaSolver
             return points;
         }
 
-        public static int[] GetFeaturesFromState(int playerID, List<int> playersHand, List<Move> game, int i, int trump, ref Dictionary<int, List<int>> suitHasPlayer)
+        public static float[] GetFeaturesFromState(int playerID, List<int> playersHand, List<Move> game, int i, int trump, ref Dictionary<int, List<int>> suitHasPlayer)
         {
             List<int> playedCards = new List<int>();
 
@@ -646,45 +646,45 @@ namespace SuecaSolver
                 leadSuit = Card.GetSuit(leadCard);
             }
 
-            int[] features = new int[40];
+            float[] features = new float[40];
 
             // hand-related features
-            int leadSuitCardsHand = Sueca.CountCardsFromSuit(playersHand, leadSuit);
+            float leadSuitCardsHand = Sueca.CountCardsFromSuit(playersHand, leadSuit) / 10;
             features[0] = leadSuitCardsHand > 0 ? 1 : 0;
             features[1] = Sueca.HasCard(playersHand, (int)Rank.Ace, leadSuit) ? 1 : 0;
             features[2] = Sueca.HasCard(playersHand, (int)Rank.Seven, leadSuit) ? 1 : 0;
             features[3] = Sueca.HasCard(playersHand, (int)Rank.King, leadSuit) ? 1 : 0;
             features[4] = Sueca.HasCard(playersHand, (int)Rank.Jack, leadSuit) ? 1 : 0;
             features[5] = Sueca.HasCard(playersHand, (int)Rank.Queen, leadSuit) ? 1 : 0;
-            int remainingCardsLeasSuit = Sueca.CountCardsFromSuit(playersHand, leadSuit) - features[1] - features[2] - features[3] - features[4] - features[5];
-            features[6] = remainingCardsLeasSuit > 0 ? 1 : 0;
-            features[7] = Sueca.CountCardsFromSuit(playersHand, trump);
+            float remainingCardsLeadSuit = Sueca.CountCardsFromSuit(playersHand, leadSuit) - features[1] - features[2] - features[3] - features[4] - features[5];
+            features[6] = remainingCardsLeadSuit > 0 ? 1 : 0;
+            features[7] = Sueca.CountCardsFromSuit(playersHand, trump) / 10;
             features[8] = Sueca.HasCard(playersHand, (int)Rank.Ace, trump) ? 1 : 0;
             features[9] = Sueca.HasCard(playersHand, (int)Rank.Seven, trump) ? 1 : 0;
             features[10] = Sueca.HasCard(playersHand, (int)Rank.King, trump) ? 1 : 0;
             features[11] = Sueca.HasCard(playersHand, (int)Rank.Jack, trump) ? 1 : 0;
             features[12] = Sueca.HasCard(playersHand, (int)Rank.Queen, trump) ? 1 : 0;
-            features[13] = Sueca.CountCardsFromRank(playersHand, (int)Rank.Ace);
-            features[14] = Sueca.CountCardsFromRank(playersHand, (int)Rank.Seven);
-            features[15] = Sueca.CountCardsFromRank(playersHand, (int)Rank.King);
-            features[16] = Sueca.CountCardsFromRank(playersHand, (int)Rank.Jack);
-            features[17] = Sueca.CountCardsFromRank(playersHand, (int)Rank.Queen);
-            features[18] = playersHand.Count - features[8] - features[9] - features[10] - features[11] - features[12];
-            features[19] = playersHand.Count;
+            features[13] = Sueca.CountCardsFromRank(playersHand, (int)Rank.Ace) / 4;
+            features[14] = Sueca.CountCardsFromRank(playersHand, (int)Rank.Seven) / 4;
+            features[15] = Sueca.CountCardsFromRank(playersHand, (int)Rank.King) / 4;
+            features[16] = Sueca.CountCardsFromRank(playersHand, (int)Rank.Jack) / 4;
+            features[17] = Sueca.CountCardsFromRank(playersHand, (int)Rank.Queen) / 4;
+            features[18] = (Sueca.CountCardsFromSuit(playersHand, trump) - features[8] - features[9] - features[10] - features[11] - features[12]) / 5;
+            features[19] = playersHand.Count / 10;
             
             //trick-related features
-            features[20] = ((i % 4) + 1);
+            features[20] = ((i % 4) + 1) / 4;
             features[21] = (i > 0 && Sueca.IsCurrentTrickWinnerTeam(game, i, trump, playerID)) ? 1 : 0;
             features[22] = (suitHasPlayer[leadSuit].Contains((playerID + 1) % 4) && suitHasPlayer[leadSuit].Contains((playerID + 3) % 4)) ? 1 : 0;
             features[23] = suitHasPlayer[leadSuit].Contains((playerID + 2) % 4) ? 1 : 0;
-            features[24] = CountPointsInTrick(game, i);
+            features[24] = CountPointsInTrick(game, i) / 40;
             features[25] = leadSuit == trump ? 1 : 0;
             
             //game-related features
-            int playedLeadSuitCards = Sueca.CountCardsFromSuit(playedCards, leadSuit);
-            features[26] = playedLeadSuitCards;
-            int unplayedLeadSuitCards = 10 - playedLeadSuitCards - leadSuitCardsHand;
-            features[27] = unplayedLeadSuitCards;
+            float playedLeadSuitCards = Sueca.CountCardsFromSuit(playedCards, leadSuit) / 10;
+            features[26] = playedLeadSuitCards / 10;
+            float unplayedLeadSuitCards = 10 - playedLeadSuitCards - leadSuitCardsHand;
+            features[27] = unplayedLeadSuitCards / 10;
             features[28] = Sueca.HasCard(playedCards, (int)Rank.Ace, leadSuit) ? 1 : 0;
             features[29] = Sueca.HasCard(playedCards, (int)Rank.Seven, leadSuit) ? 1 : 0;
             features[30] = Sueca.HasCard(playedCards, (int)Rank.King, leadSuit) ? 1 : 0;
@@ -695,8 +695,8 @@ namespace SuecaSolver
             features[35] = Sueca.HasCard(playedCards, (int)Rank.King, trump) ? 1 : 0;
             features[36] = Sueca.HasCard(playedCards, (int)Rank.Jack, trump) ? 1 : 0;
             features[37] = Sueca.HasCard(playedCards, (int)Rank.Queen, trump) ? 1 : 0;
-            features[38] = CountCardsFromSuit(playedCards, trump);
-            features[39] = 10 - features[33] - features[7];
+            features[38] = CountCardsFromSuit(playedCards, trump) / 10;
+            features[39] = (10 - features[38] - features[7]) / 10;
 
             return features;
         }

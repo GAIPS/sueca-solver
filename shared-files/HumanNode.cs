@@ -63,7 +63,7 @@ namespace SuecaSolver
             }
             
             List<int> possibleMoves = Sueca.PossibleMoves(Hand, InfoSet.GetLeadSuit());
-            int[] features = Sueca.GetFeaturesFromState(Id, Hand, game, currentPlayIndex, trumpSuit, ref InfoSet.suitHasPlayer);
+            float[] features = Sueca.GetFeaturesFromState(Id, Hand, game, currentPlayIndex, trumpSuit, ref InfoSet.suitHasPlayer);
             int[] filteredClasses;
             if ((currentPlayIndex % 4) == 0) //lead
             {

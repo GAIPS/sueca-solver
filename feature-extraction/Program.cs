@@ -9,7 +9,8 @@ namespace SuecaSolver
         static int numFinishedGames = 0;
         static int numFinishedAndTrumpFound = 0;
         const string searchPattern = "*.log";
-        const string logsPath = "../../../sueca-logs";
+        //const string logsPath = "../../../sueca-logs";
+        const string logsPath = "sueca-logs";
 
         public static void Main()
         {
@@ -36,13 +37,14 @@ namespace SuecaSolver
             int trumpSuit = -1;
             // logs dont cotain the trump information it is analysed afterwards
             // logs contain unfinished games
-            // there are only 329380 finished games with trump info 
+            // there are only 32938 finished games with trump info 
             // we will exclude the last play of each player per game
-            // which results in 4 * 9 * 329380 moves
-            //string[] processedPlays = new string[296442 + 2];
-            //processedPlays[0] = "1,40,296442";
-            string[] processedPlays = new string[6900975 + 2];
-            processedPlays[0] = "1,40,6900975";
+            // we will consider only the human player moves
+            // which results in 9 * 32938 moves
+            string[] processedPlays = new string[296442 + 2];
+            processedPlays[0] = "1,40,296442";
+            //string[] processedPlays = new string[6900975 + 2];
+            //processedPlays[0] = "1,40,6900975";
             processedPlays[1] = "Label,hasCardsToFollow?,hasAceToFollow?,hasSevenToFollow?,hasKingToFollow?,hasJackToFollow?,hasQueenToFollow?,hasOtherToFollow?,numHandTrumps,numHandAces,numHandSevens,numHandKings,numHandJacks,numHandQueens,numhandOthers,handSize,trickIndex,currentWinnerIsPartner?,opponentHaveToFollow?,partnerHasToFollow?,numPointInTrick,isTrumpLeadSuit?,numPlayedCardsLeadSuit,numUnplayedCardsLeadSuit,AceLeadSuitWasPlayed?,SevenLeadSuitWasPlayed?,KingLeadSuitWasPlayed?,JackLeadSuitWasPlayed?,QueenLeadSuitWasPlayed?,numPlayedTrumps,numUnplayedTrumps";
             long playCounter = 2;
 
@@ -153,7 +155,7 @@ namespace SuecaSolver
                 }
             }
 
-            System.IO.File.WriteAllLines(logsPath + "\\processedPlays.txt", processedPlays);
+            System.IO.File.WriteAllLines(logsPath + "/processedPlays.txt", processedPlays);
 
             Console.WriteLine("Finished games: " + numFinishedGames);
             Console.WriteLine("Finished games with trump: " + numFinishedAndTrumpFound);
@@ -173,6 +175,7 @@ namespace SuecaSolver
             };
             int leadSuit = (int)Suit.None;
 
+            //do not use last 4 plays because there is no option
             for (int i = 0; i < game.Count - 4; i++)
             {
                 Move move = game[i];
@@ -190,7 +193,7 @@ namespace SuecaSolver
                 if (playerID == 0) // collect only human plays
                 {
                     string label = Sueca.GetPlayLabel(move, i, game, trump);
-                    int[] features = Sueca.GetFeaturesFromState(playerID, playersHands[playerID], game, i, trump, ref suitHasPlayer);
+                    float[] features = Sueca.GetFeaturesFromState(playerID, playersHands[playerID], game, i, trump, ref suitHasPlayer);
                     string stringOfFeatures = "" + label;
                     for (int j = 0; j < features.Length; j++)
                     {
