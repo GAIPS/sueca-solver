@@ -66,11 +66,16 @@ def main():
 
 
         ### STOCHASTIC GRADIENT DESCENT
-        model = linear_model.SGDClassifier(loss='log')
-        trainPercentage = 0.3
+        model = linear_model.SGDClassifier(loss='log', n_jobs=2, class_weight='balanced')
+        trainPercentage = 0.7
         borderLine = int(trainPercentage * totalSamples)
         model.fit(X[:borderLine], y[:borderLine])
         
+        with open('weights.txt', 'wb') as file:
+            for line in model.coef_:
+                line.tofile(file, sep=' ', format='%.6f')
+                file.write(b'\r\n')
+
     
         print 'train time (s): ', time.time() - start_time
         print 'Train partition: ', trainPercentage
@@ -86,6 +91,7 @@ def main():
         print 'mean f1 of all labels: ', np.mean(fbeta)
 
         print 'train + test time (s): ', time.time() - start_time
+
 
 
     else:

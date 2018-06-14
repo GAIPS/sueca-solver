@@ -299,17 +299,24 @@ namespace SuecaSolver
                     new List<int>(10) });
             deck.SampleHands(ref playersHands);
 
-            HumanPlayer ep = new HumanPlayer(playerId, playersHands[playerId], playersHands[dealerId][0], dealerId);
+            List<int> copy = new List<int>(playersHands[playerId]);
+
+            HumanPlayer humanPlayer = new HumanPlayer(playerId, copy, playersHands[dealerId][0], dealerId);
             //RBOPlayer ep = new RBOPlayer(playerId, playersHands[playerId], playersHands[dealerId][0], dealerId);
+            HBOPlayer ep = new HBOPlayer(playerId, playersHands[playerId], playersHands[dealerId][0], dealerId);
             //HybridPlayer ep = new HybridPlayer(playerId, playersHands[playerId], playersHands[dealerId][0], dealerId);
             //RuleBasedPlayer ep = new RuleBasedPlayer(playerId, playersHands[playerId], playersHands[dealerId][0], dealerId);
             //SmartPlayer ep = new SmartPlayer(playerId, playersHands[playerId], playersHands[dealerId][0], dealerId);
             //TrickPlayer ep = new TrickPlayer(playerId, playersHands[playerId], playersHands[dealerId][0], dealerId);
 
-            ep.AddPlay(1, playersHands[1][0]);
             Sueca.PrintCards("Initial hand", playersHands[playerId]);
+            Console.WriteLine("Trump card: " + Card.ToString(playersHands[dealerId][0]));
+            Console.WriteLine("P1 played " + Card.ToString(playersHands[1][1]));
+            ep.AddPlay(1, playersHands[1][1]);
+            humanPlayer.AddPlay(1, playersHands[1][1]);
             int chosenCard = ep.Play();
             Console.WriteLine("Chosen card: " + Card.ToString(chosenCard));
+            Console.WriteLine("Chosen card by HUMAN: " + Card.ToString(humanPlayer.Play()));
 
             sw.Stop();
             Console.WriteLine("Total Time taken by functions is {0} seconds", sw.ElapsedMilliseconds / 1000); //seconds

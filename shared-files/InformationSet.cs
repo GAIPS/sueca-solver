@@ -33,7 +33,8 @@ namespace SuecaSolver
                 { (int)Suit.Clubs, new List<int>(4){ 0, 1, 2, 3 } },
                 { (int)Suit.Diamonds, new List<int>(4){ 0, 1, 2, 3 } },
                 { (int)Suit.Hearts, new List<int>(4){ 0, 1, 2, 3 } },
-                { (int)Suit.Spades, new List<int>(4){ 0, 1, 2, 3 } }
+                { (int)Suit.Spades, new List<int>(4){ 0, 1, 2, 3 } },
+                { (int)Suit.None, new List<int>(){ } }
             };
             othersPointCards = new Dictionary<int, List<int>>
             {
@@ -351,7 +352,8 @@ namespace SuecaSolver
                         { (int)Suit.Clubs, new List<int>(3){ 1, 2, 3 } },
                         { (int)Suit.Diamonds, new List<int>(3){ 1, 2, 3 } },
                         { (int)Suit.Hearts, new List<int>(3){ 1, 2, 3 } },
-                        { (int)Suit.Spades, new List<int>(3){ 1, 2, 3 } }
+                        { (int)Suit.Spades, new List<int>(3){ 1, 2, 3 } },
+                        { (int)Suit.None, new List<int>(){ } }
                     };
                     Console.WriteLine("resetting sampled hands to h0 " + handSizes[0] + " h1 " + handSizes[1] + " h2 " + handSizes[2]);
                     sampledHands = new List<List<int>>(

@@ -41,8 +41,8 @@ namespace SuecaSolver
             // we will exclude the last play of each player per game
             // we will consider only the human player moves
             // which results in 9 * 32938 moves
-            string[] processedPlays = new string[296442 + 2];
-            processedPlays[0] = "1,40,296442";
+            string[] processedPlays = new string[421407 + 2];
+            processedPlays[0] = "1,40,421407";
             //string[] processedPlays = new string[6900975 + 2];
             //processedPlays[0] = "1,40,6900975";
             processedPlays[1] = "Label,hasCardsToFollow?,hasAceToFollow?,hasSevenToFollow?,hasKingToFollow?,hasJackToFollow?,hasQueenToFollow?,hasOtherToFollow?,numHandTrumps,numHandAces,numHandSevens,numHandKings,numHandJacks,numHandQueens,numhandOthers,handSize,trickIndex,currentWinnerIsPartner?,opponentHaveToFollow?,partnerHasToFollow?,numPointInTrick,isTrumpLeadSuit?,numPlayedCardsLeadSuit,numUnplayedCardsLeadSuit,AceLeadSuitWasPlayed?,SevenLeadSuitWasPlayed?,KingLeadSuitWasPlayed?,JackLeadSuitWasPlayed?,QueenLeadSuitWasPlayed?,numPlayedTrumps,numUnplayedTrumps";

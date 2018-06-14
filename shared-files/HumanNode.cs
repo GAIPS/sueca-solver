@@ -10,9 +10,9 @@ namespace SuecaSolver
         private int currentPlayIndex;
 
         private float[][] weightsPerClass;
-        private int numClasses = 12;
-        private int numFeatures = 17;
-        private int[] classes = new int[] { 1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 16 };
+        private int numClasses = 30;
+        private int numFeatures = 41;
+        private int[] classes = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 };
         private List<int> followClasses = new List<int> { 5, 6, 8};
 
         public HumanNode(int id, List<int> initialHand, int trumpCard, int trumpPlayerId)
@@ -23,7 +23,8 @@ namespace SuecaSolver
             trumpSuit = Card.GetSuit(trumpCard);
             currentPlayIndex = 0;
             weightsPerClass = new float[numClasses][];
-            string[] lines = System.IO.File.ReadAllLines("../../../state-inference/weights.txt");
+            //string[] lines = System.IO.File.ReadAllLines("../../../state-inference/weights.txt");
+            string[] lines = System.IO.File.ReadAllLines("state-inference/weights.txt");
             for (int i = 0; i < lines.Length; i++)
             {
                 weightsPerClass[i] = new float[numFeatures];
@@ -63,39 +64,44 @@ namespace SuecaSolver
             }
             
             List<int> possibleMoves = Sueca.PossibleMoves(Hand, InfoSet.GetLeadSuit());
-            float[] features = Sueca.GetFeaturesFromState(Id, Hand, game, currentPlayIndex, trumpSuit, ref InfoSet.suitHasPlayer);
-            int[] filteredClasses;
-            if ((currentPlayIndex % 4) == 0) //lead
+            int chosenCard = -1;
+
+            if (possibleMoves.Count == 1)
             {
-                filteredClasses = new int[] { 1, 2, 4 };
-            }
-            else if (possibleMoves.Count < Hand.Count)
-            {
-                filteredClasses = new int[] { 5, 6, 8 };
+                chosenCard = possibleMoves[0];
             }
             else
             {
-                filteredClasses = new int[] { 9, 10, 12, 13, 14, 16 };
-            }
-            List<KeyValuePair<int, float>> classProbs = Sueca.GetClassesProbabilities(possibleMoves, features, classes, filteredClasses, weightsPerClass);
-            int chosenCard = -1;
+                float[] features = Sueca.GetFeaturesFromState(Id, Hand, game, currentPlayIndex, trumpSuit, ref InfoSet.suitHasPlayer);
+                List<int> filteredClasses = Sueca.GetPossibleLabels(possibleMoves, InfoSet.GetLeadSuit(), trumpSuit);
+                
+                List<KeyValuePair<int, float>> classProbs = Sueca.GetClassesProbabilities(possibleMoves, features, classes, weightsPerClass);
+                
 
-            foreach (var classificationProb in classProbs)
-            {
-                int classification = classificationProb.Key;
-                chosenCard = Sueca.ChooseCardFromLabel(classification, possibleMoves, InfoSet.GetLeadSuit(), trumpSuit);
-                if (chosenCard != -1)
+                foreach (var classificationProb in classProbs)
                 {
-                    break;
+                    int classification = classificationProb.Key;
+                    if (filteredClasses.Contains(classification))
+                    {
+                        chosenCard = Sueca.ChooseCardFromLabel(classification, possibleMoves, InfoSet.GetLeadSuit(), trumpSuit);
+                        if (chosenCard != -1)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Class " + classification + " with prob " + classificationProb.Value + " not present");
+                        }
+                    }
+                }
+                if (chosenCard == -1)
+                {
+                    Console.WriteLine("No other classification is suitable for choosing a card.");
+                    int randomIndex = new Random().Next(0, Hand.Count);
+                    chosenCard = Hand[randomIndex];
                 }
             }
-            if (chosenCard == -1)
-            {
-                Console.WriteLine("No other classification is suitable for choosing a card.");
-                int randomIndex = new Random().Next(0, Hand.Count);
-                chosenCard = Hand[randomIndex];
-            }
-
+            
             Move move = new Move(Id, chosenCard);
             pig.ApplyMove(move);
 

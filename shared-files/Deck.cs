@@ -15,7 +15,14 @@ namespace SuecaSolver
         public Deck()
         {
             solver = SolverContext.GetContext();
-            random = new Random();
+            if (Sueca.HASH_CODE == 0)
+            {
+                random = new Random();   
+            }
+            else
+            {
+                random = new Random(Sueca.HASH_CODE);
+            }
             deck = new List<int>(40);
 
             for (int i = 0; i < 40; i++)
