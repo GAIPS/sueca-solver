@@ -8,17 +8,18 @@ namespace SuecaSolver
 {
     public class War
     {
-        public const int GAMEMODE = 5;
-        public const int NUMGAMES = 100;
+        public const int GAMEMODE = 13;
+        public const int NUMGAMES = 1000;
         public const bool PARALLEL = true;
         public const int NUM_THREADS = 2;
         //public const int NUM_THREADS = Sueca.WAR_NUM_THREADS;
         public const bool SAVE_CARDS = false; //if true log file will contain intial cards of players otherwise will contain specific features
-        public const string SAVE_DIR = @"..\..\..\results\state-inference";
+        //public const string SAVE_DIR = @"..\..\..\results\state-inference";
+        public const string SAVE_DIR = "results/state-inference/";
         public const bool SAVE_PLAY_LABELS = true;
-        public const string SAVE_LABELS_DIR = @"..\..\..\results\kl-divergence\";
+        //public const string SAVE_LABELS_DIR = @"..\..\..\results\kl-divergence\";
         //public const string SAVE_DIR = @"Z:\save\";
-        //public const string SAVE_DIR = "results/";
+        public const string SAVE_LABELS_DIR = "results/kl-divergence/";
 
         public static void Main(string[] args)
         {
@@ -102,7 +103,7 @@ namespace SuecaSolver
                     Console.WriteLine("Mode 12 (1 HBO 3 HumanPlayer)");
                     break;
                 case 13:
-                    Console.WriteLine("Mode 12 (1 HBO 3 RuleBased)");
+                    Console.WriteLine("Mode 13 (1 RBO 3 RuleBased)");
                     break;
                 default:
                     break;
@@ -380,7 +381,7 @@ namespace SuecaSolver
                     players[3] = new HumanPlayer(3, playersHands[3], trumpCard, trumpPlayerId);
                     break;
                 case 13:
-                    players[0] = new HBOPlayer(0, playersHands[0], trumpCard, trumpPlayerId);
+                    players[0] = new RBOPlayer(0, playersHands[0], trumpCard, trumpPlayerId);
                     players[1] = new RuleBasedPlayer(1, playersHands[1], trumpCard, trumpPlayerId);
                     players[2] = new RuleBasedPlayer(2, playersHands[2], trumpCard, trumpPlayerId);
                     players[3] = new RuleBasedPlayer(3, playersHands[3], trumpCard, trumpPlayerId);
@@ -391,9 +392,9 @@ namespace SuecaSolver
 
 
             humanPlayer = new HumanPlayer(0, playersHands[0], trumpCard, trumpPlayerId);
-            int[] classesCountT0 = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-            int[] classesCountT1 = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-            List<int> classes = new List<int> { 1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 16 };
+            int[] classesCountT0 = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            int[] classesCountT1 = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            List<int> classes = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 };
             List<Move> labeledGame = new List<Move>();
 
             for (int j = 0; j < 40; j++)
