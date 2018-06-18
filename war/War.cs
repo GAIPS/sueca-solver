@@ -8,7 +8,7 @@ namespace SuecaSolver
 {
     public class War
     {
-        public const int GAMEMODE = 13;
+        public const int GAMEMODE = 11;
         public const int NUMGAMES = 1000;
         public const bool PARALLEL = true;
         public const int NUM_THREADS = 2;
@@ -58,8 +58,8 @@ namespace SuecaSolver
             List<ulong[]> timePerTrick = new List<ulong[]>(numGames);
             Object allGamesLock = new Object();
 
-            int[] abstractMoveCounterT0 = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; ;
-            int[] abstractMoveCounterT1 = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; ;
+            int[] abstractMoveCounterT0 = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; ;
+            int[] abstractMoveCounterT1 = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; ;
 
             Console.WriteLine("");
             Console.WriteLine("|||||||||||||||||||| SUECA TEST WAR ||||||||||||||||||||");
@@ -104,6 +104,9 @@ namespace SuecaSolver
                     break;
                 case 13:
                     Console.WriteLine("Mode 13 (1 RBO 3 RuleBased)");
+                    break;
+                case 14:
+                    Console.WriteLine("Mode 14 (2 HBO 2 RBO)");
                     break;
                 default:
                     break;
@@ -385,6 +388,12 @@ namespace SuecaSolver
                     players[1] = new RuleBasedPlayer(1, playersHands[1], trumpCard, trumpPlayerId);
                     players[2] = new RuleBasedPlayer(2, playersHands[2], trumpCard, trumpPlayerId);
                     players[3] = new RuleBasedPlayer(3, playersHands[3], trumpCard, trumpPlayerId);
+                    break;
+                case 14:
+                    players[0] = new HBOPlayer(0, playersHands[0], trumpCard, trumpPlayerId);
+                    players[1] = new RBOPlayer(1, playersHands[1], trumpCard, trumpPlayerId);
+                    players[2] = new HBOPlayer(2, playersHands[2], trumpCard, trumpPlayerId);
+                    players[3] = new RBOPlayer(3, playersHands[3], trumpCard, trumpPlayerId);
                     break;
                 default:
                     break;
