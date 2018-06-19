@@ -307,86 +307,66 @@ namespace SuecaSolver
                 {
                     return "2"; // LeadSevenTrump
                 }
-                else if (Card.GetValue(move.Card) == 4 && Card.GetSuit(move.Card) == trump)
-                {
-                    return "3"; // LeadKingTrump
-                }
                 else if (Card.GetSuit(move.Card) == trump)
                 {
-                    return "4"; // LeadOtherTrump
+                    return "3"; // LeadOtherTrump
                 }
                 else if (Card.GetValue(move.Card) == 11)
                 {
-                    return "5"; // LeadAce
+                    return "4"; // LeadAce
                 }
                 else if (Card.GetValue(move.Card) == 10)
                 {
-                    return "6"; // LeadSeven
-                }
-                else if (Card.GetValue(move.Card) == 4)
-                {
-                    return "7"; // LeadKing
+                    return "5"; // LeadSeven
                 }
                 else
                 {
-                    return "8"; // LeadOther
+                    return "6"; // LeadOther
                 }
             }
             else if (Card.GetSuit(move.Card) == leadSuit)
             {
                 if (Card.GetValue(move.Card) == 11)
                 {
-                    return "9"; // FollowAce
+                    return "7"; // FollowAce
                 }
                 else if (Card.GetValue(move.Card) == 10)
                 {
-                    return "10"; // FollowSeven
-                }
-                else if (Card.GetValue(move.Card) == 4)
-                {
-                    return "11"; // FollowKing
+                    return "8"; // FollowSeven
                 }
                 else
                 {
-                    return "12"; // FollowOther
+                    return "9"; // FollowOther
                 }
             }
             else if (Card.GetSuit(move.Card) == trump)
             {
                 if (Card.GetValue(move.Card) == 11)
                 {
-                    return "13"; // CutAce
+                    return "10"; // CutAce
                 }
                 else if (Card.GetValue(move.Card) == 10)
                 {
-                    return "14"; // CutSeven
-                }
-                else if (Card.GetValue(move.Card) == 4)
-                {
-                    return "15"; // CutKing
+                    return "11"; // CutSeven
                 }
                 else
                 {
-                    return "16"; // CutOther
+                    return "12"; // CutOther
                 }
             }
             else
             {
                 if (Card.GetValue(move.Card) == 11)
                 {
-                    return "17"; // NoFollowAce
+                    return "13"; // NoFollowAce
                 }
                 else if (Card.GetValue(move.Card) == 10)
                 {
-                    return "18"; // NoFollowSeven
-                }
-                else if (Card.GetValue(move.Card) == 4)
-                {
-                    return "19"; // NoFollowKing
+                    return "14"; // NoFollowSeven
                 }
                 else 
                 {
-                    return "20"; // NoFollowOther
+                    return "15"; // NoFollowOther
                 }
             }
             
@@ -408,29 +388,21 @@ namespace SuecaSolver
                     {
                         filteredClasses.Add(2);
                     }
-                    else if (Card.GetSuit(card) == trump && Card.GetRank(card) == (int) Rank.King)
+                    else if (Card.GetSuit(card) == trump && !filteredClasses.Contains(3))
                     {
                         filteredClasses.Add(3);
                     }
-                    else if (Card.GetSuit(card) == trump && !filteredClasses.Contains(4))
+                    else if (Card.GetRank(card) == (int) Rank.Ace && !filteredClasses.Contains(4))
                     {
                         filteredClasses.Add(4);
                     }
-                    else if (Card.GetRank(card) == (int) Rank.Ace && !filteredClasses.Contains(5))
+                    else if (Card.GetRank(card) == (int) Rank.Seven && !filteredClasses.Contains(5))
                     {
                         filteredClasses.Add(5);
                     }
-                    else if (Card.GetRank(card) == (int) Rank.Seven && !filteredClasses.Contains(6))
+                    else if (!filteredClasses.Contains(6))
                     {
                         filteredClasses.Add(6);
-                    }
-                    else if (Card.GetRank(card) == (int) Rank.King && !filteredClasses.Contains(7))
-                    {
-                        filteredClasses.Add(7);
-                    }
-                    else if (!filteredClasses.Contains(8))
-                    {
-                        filteredClasses.Add(8);
                     }
                 }
             }
@@ -440,19 +412,15 @@ namespace SuecaSolver
                 {
                     if (Card.GetRank(card) == (int) Rank.Ace)
                     {
-                        filteredClasses.Add(9);
+                        filteredClasses.Add(7);
                     }
                     else if (Card.GetRank(card) == (int) Rank.Seven)
                     {
-                        filteredClasses.Add(10);
+                        filteredClasses.Add(8);
                     }
-                    else if (Card.GetRank(card) == (int) Rank.King)
+                    else if (!filteredClasses.Contains(9))
                     {
-                        filteredClasses.Add(11);
-                    }
-                    else if (!filteredClasses.Contains(12))
-                    {
-                        filteredClasses.Add(12);
+                        filteredClasses.Add(9);
                     }
                 }
             }
@@ -462,35 +430,27 @@ namespace SuecaSolver
                 {
                     if (Card.GetSuit(card) == trump && Card.GetRank(card) == (int) Rank.Ace)
                     {
-                        filteredClasses.Add(13);
+                        filteredClasses.Add(10);
                     }
                     else if (Card.GetSuit(card) == trump && Card.GetRank(card) == (int) Rank.Seven)
                     {
+                        filteredClasses.Add(11);
+                    }
+                    else if (Card.GetSuit(card) == trump && !filteredClasses.Contains(12))
+                    {
+                        filteredClasses.Add(12);
+                    }
+                    else if (Card.GetRank(card) == (int) Rank.Ace && !filteredClasses.Contains(13))
+                    {
+                        filteredClasses.Add(13);
+                    }
+                    else if (Card.GetRank(card) == (int) Rank.Seven && !filteredClasses.Contains(14))
+                    {
                         filteredClasses.Add(14);
                     }
-                    else if (Card.GetSuit(card) == trump && Card.GetRank(card) == (int) Rank.King)
+                    else if (!filteredClasses.Contains(15))
                     {
                         filteredClasses.Add(15);
-                    }
-                    else if (Card.GetSuit(card) == trump && !filteredClasses.Contains(16))
-                    {
-                        filteredClasses.Add(16);
-                    }
-                    else if (Card.GetRank(card) == (int) Rank.Ace && !filteredClasses.Contains(17))
-                    {
-                        filteredClasses.Add(17);
-                    }
-                    else if (Card.GetRank(card) == (int) Rank.Seven && !filteredClasses.Contains(18))
-                    {
-                        filteredClasses.Add(18);
-                    }
-                    else if (Card.GetRank(card) == (int) Rank.King && !filteredClasses.Contains(19))
-                    {
-                        filteredClasses.Add(19);
-                    }
-                    else if (!filteredClasses.Contains(20))
-                    {
-                        filteredClasses.Add(20);
                     }
                 }
             }
@@ -501,18 +461,18 @@ namespace SuecaSolver
         {
             int randomIndex;
             int suit = (int) Suit.None;
-            if (label <= 6 || (label >= 13 && label <= 16))
+            if (label <= 3 || (label >= 10 && label <= 12))
             {
                 suit = trump;
             }
-            else if (label >= 9 && label <= 12)
+            else if (label >= 7 && label <= 9)
             {
                 suit = leadSuit;
             }
 
 
 
-            if (label == 1 || label == 9 || label == 13)
+            if (label == 1 || label == 7 || label == 10)
             {
                 List<int> aceOfSuit = hand.FindAll(x => Card.GetRank(x) == (int)Rank.Ace && Card.GetSuit(x) == suit);
                 if (aceOfSuit.Count == 1)
@@ -521,7 +481,7 @@ namespace SuecaSolver
                 }
                 return -1;
             }
-            else if (label == 2 || label == 10 || label == 14)
+            else if (label == 2 || label == 8 || label == 11)
             {
                 List<int> sevenOfSuit = hand.FindAll(x => Card.GetRank(x) == (int)Rank.Seven && Card.GetSuit(x) == suit);
                 if (sevenOfSuit.Count == 1)
@@ -530,18 +490,9 @@ namespace SuecaSolver
                 }
                 return -1;
             }
-            else if (label == 3 || label == 11 || label == 15)
+            else if (label == 3 || label == 9 || label == 12)
             {
-                List<int> kingOfSuit = hand.FindAll(x => Card.GetRank(x) == (int)Rank.King && Card.GetSuit(x) == suit);
-                if (kingOfSuit.Count == 1)
-                {
-                    return kingOfSuit[0];
-                }
-                return -1;
-            }
-            else if (label == 4 || label == 12 || label == 16)
-            {
-                List<int> otherOfSuit = hand.FindAll(x => (Card.GetValue(x) == 0 || Card.GetValue(x) == 2 || Card.GetValue(x) == 3) && Card.GetSuit(x) == suit);
+                List<int> otherOfSuit = hand.FindAll(x => (Card.GetValue(x) == 0 || Card.GetValue(x) == 2 || Card.GetValue(x) == 3 || Card.GetValue(x) == 4) && Card.GetSuit(x) == suit);
                 if (otherOfSuit.Count > 0)
                 {
                     randomIndex = new Random().Next(0, otherOfSuit.Count);
@@ -549,7 +500,7 @@ namespace SuecaSolver
                 }
                 return -1;
             }
-            else if (label == 5 || label == 17)
+            else if (label == 4 || label == 13)
             {
                 List<int> aces = hand.FindAll(x => Card.GetSuit(x) != trump && Card.GetRank(x) == (int)Rank.Ace);
                 if (aces.Count > 0)
@@ -559,7 +510,7 @@ namespace SuecaSolver
                 }
                 return -1;
             }
-            else if (label == 6 || label == 18)
+            else if (label == 5 || label == 14)
             {
                 List<int> sevens = hand.FindAll(x => Card.GetSuit(x) != trump && Card.GetRank(x) == (int)Rank.Seven);
                 if (sevens.Count > 0)
@@ -569,19 +520,9 @@ namespace SuecaSolver
                 }
                 return -1;
             }
-            else if (label == 7 || label == 19)
+            else if (label == 6 || label == 15)
             {
-                List<int> kings = hand.FindAll(x => Card.GetSuit(x) != trump && Card.GetRank(x) == (int)Rank.King);
-                if (kings.Count > 0)
-                {
-                    randomIndex = new Random().Next(0, kings.Count);
-                    return kings[randomIndex];
-                }
-                return -1;
-            }
-            else if (label == 8 || label == 20)
-            {
-                List<int> others = hand.FindAll(x => Card.GetSuit(x) != trump && (Card.GetValue(x) == 0 || Card.GetValue(x) == 2 || Card.GetValue(x) == 3));
+                List<int> others = hand.FindAll(x => Card.GetSuit(x) != trump && (Card.GetValue(x) == 0 || Card.GetValue(x) == 2 || Card.GetValue(x) == 3 || Card.GetValue(x) == 4));
                 if (others.Count > 0)
                 {
                     randomIndex = new Random().Next(0, others.Count);
