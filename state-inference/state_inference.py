@@ -15,7 +15,7 @@ def main():
     numPlayFeatures = 0
     numHandFeatures = 0
     featuresName = []
-    playClassification = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30']
+    playClassification = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20']
     numClasses = len(playClassification)
     
     if os.path.isfile(fileName):
@@ -95,7 +95,7 @@ def main():
             if model.predict(X[i:i+1]) == y[i]:
                 success += 1
             else:
-                if y[i] == 6 or y[i] == 12 or y[i] == 18 or y[i] == 24 or y[i] == 30:
+                if y[i] == 4 or y[i] == 8 or y[i] == 12 or y[i] == 16 or y[i] == 20:
                     impossible_label += 1
                     countWrongLabels[int(model.predict(X[i:i+1]))] += 1
                 #if (y[i] <= 12 and model.predict(X[i:i+1]) <= 12) or (y[i] <= 18 and y[i] >= 13 and model.predict(X[i:i+1]) <= 18 and model.predict(X[i:i+1]) >= 13) or (y[i] <= 24 and y[i] >= 19 and model.predict(X[i:i+1]) <= 24 and model.predict(X[i:i+1]) >= 19) or (y[i] >= 25 and model.predict(X[i:i+1]) >= 25):
@@ -111,11 +111,11 @@ def main():
         np.set_printoptions(threshold=np.nan)
         print countWrongLabels
 
-        #prec, rec, fbeta, supp = precision_recall_fscore_support(y[(borderLine+1):], model.predict(X[(borderLine+1):]), labels=model.classes_)
+        prec, rec, fbeta, supp = precision_recall_fscore_support(y[(borderLine+1):], model.predict(X[(borderLine+1):]), labels=model.classes_)
         #print 'precision: ', prec
         #rint 'recall: ', rec
-        #print 'f1: ', fbeta
-        #print 'support: ', supp
+        print 'f1: ', fbeta
+        print 'support: ', supp
 
         #print 'mean f1 of all labels: ', np.mean(fbeta)
         #print 'train + test time (s): ', time.time() - start_time
