@@ -740,6 +740,7 @@ namespace SuecaSolver
                 float total = 0;
                 for (int j = 0; j < weightsPerClass[i].Length; j++)
                 {
+                    // coeficient of w0 is 1 and it is not in the features vec
                     if (j == weightsPerClass[i].Length - 1)
                     {
                         total += weightsPerClass[i][j];
