@@ -8,7 +8,7 @@ namespace SuecaSolver
 {
     public class War
     {
-        public const int GAMEMODE = 11;
+        public const int GAMEMODE = 10;
         public const int NUMGAMES = 1000;
         public const bool PARALLEL = true;
         public const int NUM_THREADS = 2;
@@ -58,8 +58,8 @@ namespace SuecaSolver
             List<ulong[]> timePerTrick = new List<ulong[]>(numGames);
             Object allGamesLock = new Object();
 
-            int[] abstractMoveCounterT0 = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; ;
-            int[] abstractMoveCounterT1 = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; ;
+            int[] abstractMoveCounterT0 = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            int[] abstractMoveCounterT1 = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
             Console.WriteLine("");
             Console.WriteLine("|||||||||||||||||||| SUECA TEST WAR ||||||||||||||||||||");
@@ -401,9 +401,9 @@ namespace SuecaSolver
 
 
             humanPlayer = new HumanPlayer(0, playersHands[0], trumpCard, trumpPlayerId);
-            int[] classesCountT0 = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-            int[] classesCountT1 = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-            List<int> classes = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 };
+            int[] classesCountT0 = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            int[] classesCountT1 = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            List<int> classes = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
             List<Move> labeledGame = new List<Move>();
 
             for (int j = 0; j < 40; j++)
