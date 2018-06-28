@@ -10,7 +10,7 @@ namespace SuecaSolver
         static int numFinishedAndTrumpFound = 0;
         const string searchPattern = "*.log";
         //const string logsPath = "../../../sueca-logs";
-        const string logsPath = "sueca-logs";
+        const string logsPath = "sueca-logs/pre-test";
 
         public static void Main()
         {
@@ -18,7 +18,7 @@ namespace SuecaSolver
             if (Directory.Exists(logsPath))
             {
                 var filesInDirectory = Directory.EnumerateFiles(logsPath, searchPattern);
-                IterateFiles(filesInDirectory, "sueca-logs");
+                IterateFiles(filesInDirectory, logsPath);
             }
             else
             {
@@ -41,10 +41,8 @@ namespace SuecaSolver
             // we will exclude the last play of each player per game
             // we will consider only the human player moves
             // which results in 9 * 32938 moves
-            string[] processedPlays = new string[421407 + 2];
-            processedPlays[0] = "1,40,421407";
-            //string[] processedPlays = new string[6900975 + 2];
-            //processedPlays[0] = "1,40,6900975";
+            string[] processedPlays = new string[26865 + 2];
+            processedPlays[0] = "1,40,26865";
             processedPlays[1] = "Label,hasCardsToFollow?,hasAceToFollow?,hasSevenToFollow?,hasKingToFollow?,hasJackToFollow?,hasQueenToFollow?,hasOtherToFollow?,numHandTrumps,numHandAces,numHandSevens,numHandKings,numHandJacks,numHandQueens,numhandOthers,handSize,trickIndex,currentWinnerIsPartner?,opponentHaveToFollow?,partnerHasToFollow?,numPointInTrick,isTrumpLeadSuit?,numPlayedCardsLeadSuit,numUnplayedCardsLeadSuit,AceLeadSuitWasPlayed?,SevenLeadSuitWasPlayed?,KingLeadSuitWasPlayed?,JackLeadSuitWasPlayed?,QueenLeadSuitWasPlayed?,numPlayedTrumps,numUnplayedTrumps";
             long playCounter = 2;
 
@@ -155,7 +153,7 @@ namespace SuecaSolver
                 }
             }
 
-            System.IO.File.WriteAllLines(logsPath + "/processedPlays.txt", processedPlays);
+            System.IO.File.WriteAllLines("sueca-logs/processedPlays.txt", processedPlays);
 
             Console.WriteLine("Finished games: " + numFinishedGames);
             Console.WriteLine("Finished games with trump: " + numFinishedAndTrumpFound);

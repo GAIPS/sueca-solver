@@ -1,15 +1,20 @@
 import os.path
 import math
-import numpy as np
 import time
-from sklearn import linear_model
-from sklearn import tree
-from sklearn import neural_network
-from sklearn import metrics
 import re
+import numpy as np
+from sklearn.linear_model import SGDClassifier
+from sklearn.svm import SVC
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.neural_network import MLPClassifier
+from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import confusion_matrix
 from sklearn.metrics import precision_recall_fscore_support
 
 def main():
+    init_time = time.time()
+    
     fileName = '../sueca-logs/processedPlays.txt'
     totalSamples = 0
     abstractHands = {}
@@ -48,58 +53,76 @@ def main():
             i += 1
         file.close()
 
-        start_time = time.time()
-        print('time has started\n')
 
-
-        #### DECISION TREE
-        #model = tree.DecisionTreeClassifier()
-        #trainPercentage = 0.6
-        #borderLine = int(trainPercentage * totalSamples)
-        #model.fit(X[:borderLine], y[:borderLine])
-
-
-        ### NEURAL NETWORK
-        #model = neural_network.MLPClassifier(hidden_layer_sizes=1000, learning_rate='adaptive')
-        #trainPercentage = 0.3
-        #borderLine = int(trainPercentage * numSamples)
-        #model.fit(X[:borderLine], y[:borderLine])
 
 
         ### STOCHASTIC GRADIENT DESCENT
-        model = linear_model.SGDClassifier(loss='log', n_jobs=2, class_weight='balanced')
-        trainPercentage = 0.3
-        borderLine = int(trainPercentage * totalSamples)
-        model.fit(X[:borderLine], y[:borderLine])
+        start_time = time.time()
+        print '----------------------------------------'
+        print 'Linear (SGD)'
+        alphas = [0.01, 0.1]
+        lm_param_grid = {'alpha': alphas}
+        lm_grid_search = GridSearchCV(SGDClassifier(loss='log', n_jobs=2), lm_param_grid)
+        lm_grid_search.fit(X, y)
+        print lm_grid_search.cv_results_['mean_test_score']
+        print lm_grid_search.best_params_
+        print 'time (s): ', time.time() - start_time
+
+
+        ### SVM
+        start_time = time.time()
+        print '----------------------------------------'
+        print 'SVM'
+        penalties = [3.0]
+        svm_param_grid = {'C': penalties}
+        svm_grid_search = GridSearchCV(SVC(), svm_param_grid)
+        svm_grid_search.fit(X, y)
+        print svm_grid_search.cv_results_['mean_test_score']
+        print svm_grid_search.best_params_
+        print 'time (s): ', time.time() - start_time
+
+
+        ### KNN
+        start_time = time.time()
+        print '----------------------------------------'
+        print 'KNN'
+        neighbors = [5, 10, 20]
+        knn_param_grid = {'n_neighbors': neighbors}
+        knn_grid_search = GridSearchCV(KNeighborsClassifier(), knn_param_grid)
+        knn_grid_search.fit(X, y)
+        print knn_grid_search.cv_results_['mean_test_score']
+        print knn_grid_search.best_params_
+        print 'time (s): ', time.time() - start_time
         
-        
-        with open('weights.txt', 'wb') as file:
-            for line in model.coef_:
-                line.tofile(file, sep=' ', format='%.6f')
-                file.write(b'\r\n')
 
-    
-        print 'train time (s): ', time.time() - start_time
-        print 'Train partition: ', trainPercentage
-        #print 'Coefficients: ', model.coef_
-        #print "Mean squared error: ", np.mean((model.predict(X) - y) ** 2)
-        #print 'Variance score: ', model.score(X[(borderLine+1):], y[(borderLine+1):])
-    
-        mat = metrics.confusion_matrix(y[(borderLine+1):], model.predict(X[(borderLine+1):]))
-        np.set_printoptions(linewidth=300)
-        print mat
+        ### DECISION TREE
+        start_time = time.time()
+        print '----------------------------------------'
+        print 'Decision Tree'
+        depths = [3, 5, 10, 15]
+        dt_param_grid = {'max_depth': depths}
+        dt_grid_search = GridSearchCV(DecisionTreeClassifier(), dt_param_grid)
+        dt_grid_search.fit(X, y)
+        print dt_grid_search.cv_results_['mean_test_score']
+        print dt_grid_search.best_params_
+        print 'time (s): ', time.time() - start_time
 
-        
 
-        #prec, rec, fbeta, supp = precision_recall_fscore_support(y[(borderLine+1):], model.predict(X[(borderLine+1):]), labels=model.classes_)
-        #print 'precision: ', prec
-        #rint 'recall: ', rec
-        #print 'f1: ', fbeta
-        #print 'support: ', supp
+        ### NEURAL NETWORK
+        start_time = time.time()
+        print '----------------------------------------'
+        print 'Neural Network'
+        layers = [(100,50), (10)]
+        nn_param_grid = {'hidden_layer_sizes': layers}
+        nn_grid_search = GridSearchCV(MLPClassifier(activation='relu'), nn_param_grid)
+        nn_grid_search.fit(X, y)
+        print nn_grid_search.cv_results_['mean_test_score']
+        print nn_grid_search.best_params_
+        print 'time (s): ', time.time() - start_time
 
-        #print 'mean f1 of all labels: ', np.mean(fbeta)
-        #print 'train + test time (s): ', time.time() - start_time
 
+        print '________________________________________'
+        print 'total time (s): ', time.time() - init_time
 
 
     else:
