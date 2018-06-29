@@ -10,7 +10,7 @@ namespace SuecaSolver
         static int numFinishedAndTrumpFound = 0;
         const string searchPattern = "*.log";
         //const string logsPath = "../../../sueca-logs";
-        const string logsPath = "sueca-logs/pre-test";
+        const string logsPath = "sueca-logs/train";
 
         public static void Main()
         {
@@ -41,8 +41,8 @@ namespace SuecaSolver
             // we will exclude the last play of each player per game
             // we will consider only the human player moves
             // which results in 9 * 32938 moves
-            string[] processedPlays = new string[26865 + 2];
-            processedPlays[0] = "1,40,26865";
+            string[] processedPlays = new string[5794731 + 2];
+            processedPlays[0] = "1,40,5794731";
             processedPlays[1] = "Label,hasCardsToFollow?,hasAceToFollow?,hasSevenToFollow?,hasKingToFollow?,hasJackToFollow?,hasQueenToFollow?,hasOtherToFollow?,numHandTrumps,numHandAces,numHandSevens,numHandKings,numHandJacks,numHandQueens,numhandOthers,handSize,trickIndex,currentWinnerIsPartner?,opponentHaveToFollow?,partnerHasToFollow?,numPointInTrick,isTrumpLeadSuit?,numPlayedCardsLeadSuit,numUnplayedCardsLeadSuit,AceLeadSuitWasPlayed?,SevenLeadSuitWasPlayed?,KingLeadSuitWasPlayed?,JackLeadSuitWasPlayed?,QueenLeadSuitWasPlayed?,numPlayedTrumps,numUnplayedTrumps";
             long playCounter = 2;
 
